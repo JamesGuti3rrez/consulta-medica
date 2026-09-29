@@ -52,7 +52,8 @@ consulta-medica/
 │   └── optimize-images.mjs         # Genera las imágenes WebP, la vista previa y el ícono
 ├── tailwind.portada.config.cjs     # Configuración de Tailwind de la portada
 ├── tailwind.simulacion.config.cjs  # Configuración de Tailwind de la simulación
-├── requirements.txt                # Dependencias del backend
+├── pyproject.toml                  # Dependencias del backend y configuración de Vercel
+├── uv.lock                         # Versiones exactas de las dependencias (lo usa Vercel)
 ├── package.json                    # Comandos y dependencias de estilos e imágenes
 ├── .env.example                    # Plantilla de claves (copiar como .env, nunca se publica)
 └── .vscode/                        # Extensiones y ajustes recomendados

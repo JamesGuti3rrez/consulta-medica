@@ -1,5 +1,5 @@
 // Ejecuta el backend de Python desde npm, en Windows, macOS o Linux.
-//   node scripts/python.mjs setup   crea .venv e instala requirements.txt
+//   node scripts/python.mjs setup   crea .venv e instala las dependencias de pyproject.toml
 //   node scripts/python.mjs start   levanta el servidor en http://localhost:3000 (o el puerto de PORT)
 import { spawnSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
@@ -23,8 +23,15 @@ const task = process.argv[2];
 if (task === 'setup') {
   const systemPython = process.platform === 'win32' ? 'python' : 'python3';
   if (!existsSync(venvPython)) run(systemPython, ['-m', 'venv', '.venv']);
+  run(venvPython, ['-m', 'ensurepip', '--upgrade']);
   run(venvPython, ['-m', 'pip', 'install', '--upgrade', 'pip']);
-  run(venvPython, ['-m', 'pip', 'install', '-r', 'requirements.txt']);
+  // Las dependencias se declaran una sola vez, en pyproject.toml (Vercel también las lee de ahí).
+  const installFromPyproject = [
+    'import subprocess, sys, tomllib',
+    'deps = tomllib.load(open("pyproject.toml", "rb"))["project"]["dependencies"]',
+    'subprocess.run([sys.executable, "-m", "pip", "install", *deps], check=True)',
+  ].join('; ');
+  run(venvPython, ['-c', installFromPyproject]);
 } else if (task === 'start') {
   if (!existsSync(venvPython)) {
     console.error('Falta el entorno de Python. Ejecuta primero: npm run setup');
