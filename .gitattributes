@@ -1,0 +1,7 @@
+# Saltos de línea iguales en Windows, macOS, Linux y Vercel
+* text=auto eol=lf
+
+# Imágenes: binarias, sin conversión
+*.png binary
+*.jpg binary
+*.webp binary
