@@ -1,0 +1,156 @@
+{
+    "id": "caso_104_cefalea",
+    "especialidad": "medicina_interna",
+    "dificultad": "intermedio",
+    "uso": "Simulacion educativa. No usar para diagnostico o tratamiento real.",
+    "paciente": {
+        "nombre": "Carlos Eduardo Ramos",
+        "edad": 28,
+        "sexo": "masculino",
+        "grupo_sanguineo": "O+",
+        "motivo_consulta": "Dolor de cabeza de 3 días de evolución",
+        "sintomas": [
+            "Dolor pulsátil de predominio derecho",
+            "Fotofobia",
+            "Nauseas leves",
+            "Duracion de 3 dias"
+        ],
+        "antecedentes": "Niega enfermedades cronicas conocidas",
+        "antecedentes_familiares": "Madre con antecedentes de migraña",
+        "alergias": "Niega alergias medicamentosas conocidas",
+        "medicacion_previa": "Paracetamol 1 g con mejoria parcial y transitoria"
+    },
+    "signos_vitales": {
+        "presion_arterial": "120/80 mmHg",
+        "frecuencia_cardiaca": "74 lpm",
+        "temperatura": "36.8 C",
+        "saturacion_oxigeno": "98%"
+    },
+    "examen_fisico": {
+        "estado_general": "Estable y orientado",
+        "neurologico": "Sin deficit neurologico focal aparente",
+        "rigidez_nuca": "Ausente"
+    },
+    "examenes_disponibles": {},
+    "examenes_recomendados": [
+        "No requiere examen de imagen inmediato si no aparecen signos de alarma",
+        "Considerar evaluacion neurologica si el cuadro cambia o persiste"
+    ],
+    "diagnostico_correcto": "Cefalea migrañosa sin signos de alarma",
+    "tratamiento_referencia": "Manejo sintomatico y seguimiento clinico segun evaluacion profesional",
+    "diagnosticos_diferenciales": [
+        {
+            "id": "migrana",
+            "nombre": "Migraña",
+            "sinonimos": ["migraña", "migrañosa", "jaqueca", "hemicránea"],
+            "correcta": true,
+            "peligrosa": false
+        },
+        {
+            "id": "cefalea_tensional",
+            "nombre": "Cefalea tensional",
+            "sinonimos": ["tensional", "cefalea por tensión", "cefalea por estrés"],
+            "correcta": false,
+            "peligrosa": false,
+            "turnos_necesarios": 0,
+            "dato_que_descarta": "El dolor es pulsátil y se acompaña de fotofobia y náuseas, datos dados en la presentación del caso."
+        },
+        {
+            "id": "cefalea_racimos",
+            "nombre": "Cefalea en racimos",
+            "sinonimos": ["racimo", "cluster", "cefalea de horton", "trigémino autonómica"],
+            "correcta": false,
+            "peligrosa": false,
+            "turnos_necesarios": 0,
+            "dato_que_descarta": "Es un dolor continuo de 3 días; las crisis en racimos duran de minutos a pocas horas."
+        },
+        {
+            "id": "meningitis",
+            "nombre": "Meningitis",
+            "sinonimos": ["meningitis", "meningoencefalitis", "encefalitis", "infección meníngea"],
+            "correcta": false,
+            "peligrosa": true,
+            "por_que_considerar": "Es una causa grave de cefalea que siempre debe descartarse.",
+            "turnos_necesarios": 6,
+            "dato_que_descarta": "Está afebril (36.8 °C) y niega rigidez de nuca, dato que se obtiene al preguntar por signos de alarma."
+        },
+        {
+            "id": "hemorragia_subaracnoidea",
+            "nombre": "Hemorragia subaracnoidea",
+            "sinonimos": ["hemorragia subaracnoidea", "subaracnoidea", "hsa", "aneurisma", "hemorragia cerebral", "hemorragia intracraneal", "derrame cerebral"],
+            "correcta": false,
+            "peligrosa": true,
+            "por_que_considerar": "Una cefalea puede ser el único síntoma de un sangrado cerebral.",
+            "turnos_necesarios": 6,
+            "dato_que_descarta": "El dolor no fue súbito y niega desmayo, déficit neurológico y rigidez de nuca, datos que se obtienen al preguntar por signos de alarma."
+        },
+        {
+            "id": "masa_intracraneal",
+            "nombre": "Masa o hipertensión intracraneal",
+            "sinonimos": ["tumor", "masa intracraneal", "masa cerebral", "neoplasia", "hipertensión intracraneal", "hipertensión endocraneana", "htic", "lesión ocupante", "proceso expansivo"],
+            "correcta": false,
+            "peligrosa": true,
+            "por_que_considerar": "Una lesión ocupante debe considerarse ante toda cefalea persistente.",
+            "turnos_necesarios": 6,
+            "dato_que_descarta": "No hay déficit neurológico focal ni otros signos de alarma, datos que se obtienen al preguntar por ellos."
+        }
+    ],
+    "preguntas_clave": [
+        "Inicio y duracion del dolor",
+        "Localizacion, intensidad y caracter",
+        "Fotofobia, fonofobia y nauseas",
+        "Antecedentes personales y familiares de migraña",
+        "Alergias y medicamentos utilizados",
+        "Signos de alarma neurologica"
+    ],
+    "errores_comunes": [
+        "No preguntar por signos de alarma",
+        "No preguntar por alergias",
+        "Solicitar imagenes sin completar la anamnesis",
+        "Dar un tratamiento sin justificarlo"
+    ],
+    "reglas_del_paciente": {
+        "solo_revela_si_se_pregunta": [
+            "Antecedentes_familiares",
+            "Medicacion_previa",
+            "Alergias"
+        ],
+        "no_conoce": [
+            "Diagnostico_correcto",
+            "Resultados_de_examenes_no_realizados"
+        ],
+        "estilo_respuesta": "Responde en primera persona, con frases breves y datos consistentes con el caso."
+    },
+    "guion_conversacion": [
+        {
+            "sugerencia_alumno": "Pregúntale desde cuándo comenzó el dolor y cómo lo describe.",
+            "pregunta_doctor": "¿Desde cuándo comenzó el dolor y cómo lo describiría?",
+            "respuesta_paciente": "Comenzó hace tres días. Es un dolor pulsátil, principalmente detrás de mi ojo derecho."
+        },
+        {
+            "sugerencia_alumno": "Pregúntale si la luz le molesta y si tiene náuseas.",
+            "pregunta_doctor": "¿La luz le molesta? ¿Ha tenido náuseas o vómitos?",
+            "respuesta_paciente": "Sí, la luz me molesta bastante y tengo náuseas leves, pero no he vomitado."
+        },
+        {
+            "sugerencia_alumno": "Pregúntale si algún familiar ha tenido migraña u otra enfermedad crónica.",
+            "pregunta_doctor": "¿Tiene antecedentes familiares de migraña u otra enfermedad crónica importante?",
+            "respuesta_paciente": "Mi madre tiene antecedentes de migraña. No recuerdo otros antecedentes familiares importantes."
+        },
+        {
+            "sugerencia_alumno": "Pregúntale si ha tomado algún medicamento previamente.",
+            "pregunta_doctor": "¿Ha tomado algún medicamento previamente para este dolor?",
+            "respuesta_paciente": "Sí, tomé paracetamol de un gramo. Tuve una mejoría parcial, pero fue transitoria."
+        },
+        {
+            "sugerencia_alumno": "Pregúntale si tiene alergias a medicamentos.",
+            "pregunta_doctor": "¿Tiene alergias conocidas a algún medicamento?",
+            "respuesta_paciente": "No tengo alergias medicamentosas conocidas."
+        },
+        {
+            "sugerencia_alumno": "Pregúntale si ha tenido debilidad, dificultad para hablar o rigidez en el cuello.",
+            "pregunta_doctor": "¿Ha tenido debilidad, dificultad para hablar, desmayo o rigidez en el cuello?",
+            "respuesta_paciente": "No, no he tenido debilidad, dificultad para hablar, desmayos ni rigidez en el cuello."
+        }
+    ]
+}

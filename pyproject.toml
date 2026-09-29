@@ -1,0 +1,4 @@
+# Configuración para Vercel. Las dependencias de Python están en requirements.txt.
+[tool.vercel]
+# La aplicación FastAPI vive en server/main.py (variable "app").
+entrypoint = "server.main:app"

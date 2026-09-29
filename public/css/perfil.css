@@ -1,0 +1,118 @@
+/* Encabezado con la sesión y menú de perfil, compartido por la portada y la simulación.
+   Usa los colores de styles.css, así que sigue el tema claro u oscuro. */
+
+/* Estas piezas se muestran u ocultan con el atributo hidden aunque tengan clases de display */
+[data-role="auth-guest"][hidden],
+[data-role="auth-user"][hidden],
+[data-role="profile-menu"][hidden] {
+  display: none !important;
+}
+
+/* Menú de perfil */
+.profile-menu {
+  transform-origin: top right;
+  animation: menu-in 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+}
+
+.profile-chevron {
+  transition: transform 0.2s ease;
+}
+
+[aria-expanded="true"] .profile-chevron {
+  transform: rotate(180deg);
+}
+
+.menu-item {
+  display: flex;
+  width: 100%;
+  min-height: 44px;
+  align-items: center;
+  gap: 12px;
+  padding: 0 12px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  color: rgb(var(--c-slate-900));
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.menu-item .material-symbols-outlined {
+  font-size: 20px;
+  color: rgb(var(--c-slate-600));
+}
+
+.menu-item:hover:not(:disabled) {
+  background: rgb(var(--c-slate-100));
+}
+
+.menu-item:disabled {
+  color: rgb(var(--c-slate-500));
+  cursor: default;
+}
+
+.menu-badge {
+  margin-left: auto;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  background: rgb(var(--c-brand-50));
+  color: rgb(var(--c-brand-700));
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Selector de tema: tres opciones en una sola pieza */
+.theme-switch {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  padding: 4px;
+  border-radius: 12px;
+  background: rgb(var(--c-slate-100));
+}
+
+.theme-switch button {
+  display: flex;
+  min-height: 52px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgb(var(--c-slate-600));
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.theme-switch button .material-symbols-outlined {
+  font-size: 20px;
+}
+
+.theme-switch button:hover {
+  color: rgb(var(--c-slate-900));
+}
+
+.theme-switch button[aria-checked="true"] {
+  background: rgb(var(--c-surface));
+  color: rgb(var(--c-brand-700));
+  box-shadow: 0 1px 3px 0 rgb(16 38 43 / 0.14);
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .profile-menu,
+  .profile-chevron {
+    animation: none;
+    transition: none;
+  }
+}

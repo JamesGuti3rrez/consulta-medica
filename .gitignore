@@ -1,0 +1,13 @@
+# Secretos locales
+.env
+
+# Entornos y dependencias locales
+.venv/
+node_modules/
+
+# Archivos temporales
+pdf-context.txt
+*.log
+
+# Python
+__pycache__/

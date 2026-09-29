@@ -1,0 +1,100 @@
+/* Colores del sistema como variables RGB: Tailwind los lee desde tailwind.portada.config.cjs.
+   El modo oscuro invierte los neutros; se elige en el menú de perfil o sigue al sistema. */
+:root {
+  color-scheme: light;
+  --c-surface: 255 255 255;
+
+  --c-slate-50: 243 247 248;
+  --c-slate-100: 232 239 241;
+  --c-slate-200: 221 230 232;
+  --c-slate-300: 195 208 211;
+  --c-slate-400: 111 131 136;
+  --c-slate-500: 90 110 115;
+  --c-slate-600: 74 94 99;
+  --c-slate-700: 54 73 78;
+  --c-slate-800: 34 54 59;
+  --c-slate-900: 16 38 43;
+  --c-slate-950: 10 26 30;
+
+  --c-brand-50: 236 248 250;
+  --c-brand-100: 207 238 243;
+  --c-brand-500: 8 145 178;
+  --c-brand-600: 14 116 144;
+  --c-brand-700: 21 94 117;
+  --c-brand-900: 16 38 43;
+}
+
+/* Tema oscuro: elegido en el menú de perfil (data-theme="dark") o, si no se eligió, el del sistema */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --c-surface: 14 26 30;
+
+  --c-slate-50: 19 34 38;
+  --c-slate-100: 27 45 50;
+  --c-slate-200: 38 59 65;
+  --c-slate-300: 58 82 88;
+  --c-slate-400: 125 146 151;
+  --c-slate-500: 150 170 175;
+  --c-slate-600: 170 188 192;
+  --c-slate-700: 196 210 213;
+  --c-slate-800: 220 230 232;
+  --c-slate-900: 236 243 244;
+  --c-slate-950: 5 12 14;
+
+  --c-brand-50: 12 44 52;
+  --c-brand-100: 18 64 76;
+  --c-brand-500: 34 211 238;
+  --c-brand-600: 14 116 144;
+  --c-brand-700: 8 145 178;
+  --c-brand-900: 236 243 244;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --c-surface: 14 26 30;
+
+    --c-slate-50: 19 34 38;
+    --c-slate-100: 27 45 50;
+    --c-slate-200: 38 59 65;
+    --c-slate-300: 58 82 88;
+    --c-slate-400: 125 146 151;
+    --c-slate-500: 150 170 175;
+    --c-slate-600: 170 188 192;
+    --c-slate-700: 196 210 213;
+    --c-slate-800: 220 230 232;
+    --c-slate-900: 236 243 244;
+    --c-slate-950: 5 12 14;
+
+    --c-brand-50: 12 44 52;
+    --c-brand-100: 18 64 76;
+    --c-brand-500: 34 211 238;
+    --c-brand-600: 14 116 144;
+    --c-brand-700: 8 145 178;
+    --c-brand-900: 236 243 244;
+  }
+}
+
+body {
+  font-family: 'Figtree', system-ui, sans-serif;
+  background-color: rgb(var(--c-surface));
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(var(--c-slate-50));
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--c-slate-300));
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--c-slate-400));
+}

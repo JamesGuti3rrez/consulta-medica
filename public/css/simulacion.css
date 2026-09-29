@@ -1,0 +1,849 @@
+/* Estilos de la pantalla de simulación (simulacion.html).
+   Mismo lenguaje visual que la portada: verde azulado, Figtree y fondo con manchas suaves. */
+
+body {
+  font-family: 'Figtree', system-ui, sans-serif;
+  background: rgb(var(--c-slate-50));
+}
+
+/* Colores propios de la simulación que cambian con el tema */
+:root {
+  --chat-patient-bg: #fff7ed;
+  --chat-patient-border: #fed7aa;
+  --chat-patient-name: #b45309;
+  --chat-preview: #4f46e5;
+}
+
+:root[data-theme="dark"] {
+  --chat-patient-bg: rgb(217 119 6 / 0.14);
+  --chat-patient-border: rgb(217 119 6 / 0.35);
+  --chat-patient-name: #fbbf24;
+  --chat-preview: #a5b4fc;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --chat-patient-bg: rgb(217 119 6 / 0.14);
+    --chat-patient-border: rgb(217 119 6 / 0.35);
+    --chat-patient-name: #fbbf24;
+    --chat-preview: #a5b4fc;
+  }
+}
+
+/* Un botón con el atributo hidden se oculta aunque tenga clases de display */
+button[hidden] {
+  display: none !important;
+}
+
+:focus-visible {
+  outline: 3px solid rgb(var(--c-brand-600));
+  outline-offset: 2px;
+}
+
+/* Fondo: manchas de luz muy tenues y trama de puntos, detrás de todo */
+.sim-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.sim-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgb(14 116 144 / 0.12) 1px, transparent 1px);
+  background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 40% 30%, #000 10%, transparent 75%);
+  mask-image: radial-gradient(ellipse 80% 70% at 40% 30%, #000 10%, transparent 75%);
+}
+
+.sim-blob {
+  position: absolute;
+  border-radius: 9999px;
+  will-change: transform;
+}
+
+.sim-blob-a {
+  top: -20%;
+  left: -5%;
+  width: clamp(360px, 46vw, 680px);
+  height: clamp(360px, 46vw, 680px);
+  background: radial-gradient(circle, rgb(34 211 238 / 0.18), transparent 65%);
+  animation: sim-drift-a 22s ease-in-out infinite alternate;
+}
+
+.sim-blob-b {
+  top: 10%;
+  right: -8%;
+  width: clamp(320px, 40vw, 600px);
+  height: clamp(320px, 40vw, 600px);
+  background: radial-gradient(circle, rgb(14 116 144 / 0.12), transparent 65%);
+  animation: sim-drift-b 26s ease-in-out infinite alternate;
+}
+
+.sim-blob-c {
+  bottom: -25%;
+  left: 30%;
+  width: clamp(300px, 36vw, 560px);
+  height: clamp(300px, 36vw, 560px);
+  background: radial-gradient(circle, rgb(94 234 212 / 0.16), transparent 65%);
+  animation: sim-drift-c 20s ease-in-out infinite alternate;
+}
+
+@keyframes sim-drift-a {
+  to {
+    transform: translate3d(10vw, 8vh, 0) scale(1.1);
+  }
+}
+
+@keyframes sim-drift-b {
+  to {
+    transform: translate3d(-10vw, 8vh, 0) scale(0.9);
+  }
+}
+
+@keyframes sim-drift-c {
+  to {
+    transform: translate3d(6vw, -10vh, 0) scale(1.15);
+  }
+}
+
+/* Paneles: blancos casi opacos sobre el fondo, con borde fino y sombra suave */
+.sim-panel {
+  background: rgb(var(--c-surface) / 0.88);
+  border: 1px solid rgb(var(--c-slate-200));
+  box-shadow: 0 1px 2px 0 rgb(16 38 43 / 0.04), 0 12px 32px -18px rgb(16 38 43 / 0.18);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+/* Barra de desplazamiento discreta */
+.sim-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(var(--c-slate-300)) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--c-slate-300));
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--c-slate-400));
+}
+
+/* En pantallas grandes la escena se ajusta al alto disponible sin deformarse */
+@media (min-width: 1024px) {
+  .scene-stage {
+    container-type: size;
+  }
+
+  .scene-frame {
+    width: min(100cqw, 100cqh * 1577 / 997);
+  }
+}
+
+/* Pestañas de la tablilla */
+.sim-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 14px;
+  background: rgb(var(--c-slate-100));
+}
+
+.sim-tab {
+  position: relative;
+  display: inline-flex;
+  flex: 1;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(var(--c-slate-600));
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sim-tab .material-symbols-outlined {
+  font-size: 18px;
+}
+
+.sim-tab:hover {
+  color: rgb(var(--c-slate-900));
+}
+
+.sim-tab.is-active {
+  background: rgb(var(--c-surface));
+  color: rgb(var(--c-brand-700));
+  box-shadow: 0 1px 3px 0 rgb(16 38 43 / 0.12);
+}
+
+/* Punto que avisa de mensajes nuevos cuando la pestaña Consulta no está abierta */
+.tab-dot {
+  display: none;
+  position: absolute;
+  top: 7px;
+  right: 10px;
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  background: rgb(var(--c-brand-600));
+}
+
+.sim-tab.has-news .tab-dot {
+  display: block;
+}
+
+.tab-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: fade-up 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tab-panel[hidden] {
+  display: none;
+}
+
+[data-role="hypotheses-panel"]:not([hidden]) ~ .hyp-placeholder {
+  display: none;
+}
+
+/* Títulos de cada bloque de la tablilla */
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: rgb(var(--c-slate-900));
+}
+
+.section-icon {
+  display: inline-flex;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: rgb(var(--c-brand-50));
+  color: rgb(var(--c-brand-700));
+  font-size: 18px;
+}
+
+.record-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgb(var(--c-slate-500));
+}
+
+.record-card > * {
+  animation: fade-up 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Signos vitales como tarjetas pequeñas con ícono */
+.vital-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 10px 6px;
+  border: 1px solid rgb(var(--c-slate-100));
+  border-radius: 12px;
+  background: rgb(var(--c-slate-50));
+  text-align: center;
+}
+
+.vital-icon {
+  font-size: 20px;
+  color: rgb(var(--c-brand-600));
+}
+
+.vital-name {
+  font-size: 12px;
+  color: rgb(var(--c-slate-500));
+}
+
+.vital-value {
+  font-size: 15px;
+  font-weight: 600;
+  color: rgb(var(--c-slate-900));
+}
+
+/* Burbujas sobre la escena: aparecen con un leve ascenso al hablar */
+.speech-bubble {
+  animation: bubble-in 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes bubble-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+/* Puntos de "pensando" dentro de la burbuja del paciente */
+.typing-dots {
+  display: inline-flex;
+  gap: 5px;
+  padding: 6px 0;
+}
+
+.typing-dots i {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: rgb(var(--c-brand-600));
+  opacity: 0.35;
+  animation: typing 1s ease-in-out infinite;
+}
+
+.typing-dots i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.typing-dots i:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes typing {
+
+  0%,
+  60%,
+  100% {
+    opacity: 0.35;
+    transform: translateY(0);
+  }
+
+  30% {
+    opacity: 1;
+    transform: translateY(-4px);
+  }
+}
+
+/* Historial de la consulta como chat: cada personaje con avatar y color propio.
+   Doctor: verde azulado. Paciente: ámbar. Tú: índigo, alineado a la derecha. */
+.chat-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  max-width: 94%;
+  animation: fade-up 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.chat-avatar {
+  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  font-size: 18px;
+  color: #ffffff;
+}
+
+.chat-msg {
+  min-width: 0;
+  padding: 9px 13px 10px;
+  border: 1px solid transparent;
+  border-radius: 16px;
+  border-top-left-radius: 4px;
+}
+
+.chat-name {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 2px;
+  font-size: 13px;
+  line-height: 1.3;
+}
+
+.chat-name strong {
+  font-weight: 700;
+}
+
+.chat-name span {
+  font-size: 12px;
+  opacity: 0.75;
+}
+
+.chat-text {
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgb(var(--c-slate-900));
+}
+
+/* Doctor */
+.chat-doctor .chat-avatar {
+  background: rgb(var(--c-brand-600));
+}
+
+.chat-doctor .chat-msg {
+  background: rgb(var(--c-brand-50));
+  border-color: rgb(var(--c-brand-100));
+}
+
+.chat-doctor .chat-name {
+  color: rgb(var(--c-brand-700));
+}
+
+/* Paciente */
+.chat-patient .chat-avatar {
+  background: #d97706;
+}
+
+.chat-patient .chat-msg {
+  background: var(--chat-patient-bg);
+  border-color: var(--chat-patient-border);
+}
+
+.chat-patient .chat-name {
+  color: var(--chat-patient-name);
+}
+
+/* Tú */
+.chat-student {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.chat-student .chat-avatar {
+  background: #4f46e5;
+}
+
+.chat-student .chat-msg {
+  background: #4f46e5;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 4px;
+}
+
+.chat-student .chat-name,
+.chat-student .chat-text {
+  color: #ffffff;
+}
+
+.chat-preview {
+  align-self: flex-end;
+  padding: 4px 8px;
+  font-size: 13px;
+  font-style: italic;
+  color: var(--chat-preview);
+}
+
+/* Botón de iniciar: halo suave cada pocos segundos */
+.cta-pulse {
+  position: relative;
+}
+
+.cta-pulse::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  animation: cta-pulse 3.2s ease-out 1.2s infinite;
+}
+
+.cta-pulse:disabled::after {
+  animation: none;
+}
+
+@keyframes cta-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgb(14 116 144 / 0.45);
+  }
+
+  45%,
+  100% {
+    box-shadow: 0 0 0 14px rgb(14 116 144 / 0);
+  }
+}
+
+/* Micrófono: anillo rojo que late mientras escucha */
+.mic-button {
+  position: relative;
+}
+
+.mic-button.is-listening::before {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: 9999px;
+  border: 3px solid rgb(220 38 38 / 0.55);
+  pointer-events: none;
+  animation: mic-ring 1.3s ease-out infinite;
+}
+
+@keyframes mic-ring {
+  from {
+    transform: scale(0.97);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(1.06, 1.25);
+    opacity: 0;
+  }
+}
+
+/* Reporte final: una tablilla médica con pinza metálica y una hoja de evaluación */
+.report-card {
+  animation: report-in 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes report-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px) rotate(-1deg);
+  }
+}
+
+.clipboard {
+  position: relative;
+  display: flex;
+  width: 100%;
+  max-width: 44rem;
+  max-height: 94vh;
+  padding: 46px 12px 12px;
+  border-radius: 22px;
+  background: linear-gradient(160deg, #1f5561, #10262b);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.12), 0 30px 60px -20px rgb(0 0 0 / 0.5);
+}
+
+/* Pinza metálica */
+.clipboard-clip {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  z-index: 2;
+  width: 168px;
+  height: 58px;
+  margin-left: -84px;
+  border-radius: 14px 14px 10px 10px;
+  background: linear-gradient(180deg, #f3f6f7 0%, #c9d4d7 45%, #93a5aa 100%);
+  box-shadow: 0 6px 12px -4px rgb(0 0 0 / 0.45), inset 0 1px 0 #ffffff;
+}
+
+.clipboard-clip::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  width: 46px;
+  height: 14px;
+  margin-left: -23px;
+  border-radius: 9999px;
+  background: #1f3a40;
+  box-shadow: inset 0 2px 3px rgb(0 0 0 / 0.5);
+}
+
+.clipboard-clip::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 18px;
+  right: 18px;
+  height: 14px;
+  border-radius: 0 0 8px 8px;
+  background: linear-gradient(180deg, #b7c5c9, #7d9197);
+}
+
+/* Hoja: es papel, así que conserva los colores claros aunque la página esté en tema oscuro */
+.clipboard-paper {
+  color-scheme: light;
+  --c-surface: 255 255 255;
+
+  --c-slate-50: 243 247 248;
+  --c-slate-100: 232 239 241;
+  --c-slate-200: 221 230 232;
+  --c-slate-300: 195 208 211;
+  --c-slate-400: 111 131 136;
+  --c-slate-500: 90 110 115;
+  --c-slate-600: 74 94 99;
+  --c-slate-700: 54 73 78;
+  --c-slate-800: 34 54 59;
+  --c-slate-900: 16 38 43;
+  --c-slate-950: 10 26 30;
+
+  --c-brand-50: 236 248 250;
+  --c-brand-100: 207 238 243;
+  --c-brand-500: 8 145 178;
+  --c-brand-600: 14 116 144;
+  --c-brand-700: 21 94 117;
+  --c-brand-900: 16 38 43;
+
+  position: relative;
+  width: 100%;
+  overflow-y: auto;
+  padding: 30px 22px 24px;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.2);
+}
+
+@media (min-width: 640px) {
+  .clipboard-paper {
+    padding: 34px 34px 28px;
+  }
+}
+
+/* Datos de la consulta como campos de formulario */
+.sheet-fields {
+  display: grid;
+  gap: 14px 24px;
+  margin-top: 18px;
+}
+
+@media (min-width: 640px) {
+  .sheet-fields {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.sheet-field dt {
+  font-size: 12px;
+  font-weight: 600;
+  color: #5a6e73;
+}
+
+.sheet-field dd {
+  margin-top: 2px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #c3d0d3;
+  font-size: 15px;
+  font-weight: 500;
+  color: #10262b;
+}
+
+/* Resultado con sello */
+.sheet-result {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 22px;
+  padding: 16px 18px;
+  border-radius: 12px;
+  background: #f3f7f8;
+}
+
+.stamp {
+  display: flex;
+  width: 116px;
+  height: 116px;
+  flex-shrink: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #0e7490;
+  border-radius: 9999px;
+  box-shadow: inset 0 0 0 4px #f3f7f8, inset 0 0 0 6px rgb(14 116 144 / 0.6);
+  color: #0e7490;
+  transform: rotate(-8deg);
+  animation: stamp-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.35s both;
+}
+
+.stamp strong {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.stamp-label {
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+@keyframes stamp-in {
+  from {
+    opacity: 0;
+    transform: rotate(-8deg) scale(1.6);
+  }
+}
+
+/* Secciones de la hoja con renglones */
+.sheet-section {
+  margin-top: 22px;
+}
+
+.sheet-section h4 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #10262b;
+}
+
+.sheet-icon {
+  display: inline-flex;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-size: 18px;
+}
+
+.sheet-list {
+  margin-top: 6px;
+  padding-left: 40px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #36494e;
+}
+
+.sheet-list li {
+  position: relative;
+  padding: 7px 0 7px 26px;
+  border-bottom: 1px dashed #dde6e8;
+}
+
+/* Casillas: marcada para lo logrado, vacía para lo que faltó */
+.sheet-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 15px;
+  height: 15px;
+  border: 2px solid #0e7490;
+  border-radius: 4px;
+}
+
+.sheet-list-ok li::before {
+  content: '\2713';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-color: #047857;
+  background: #047857;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.sheet-list-miss li::before {
+  border-color: #b45309;
+}
+
+/* Sin logros: casilla vacía y gris; sección sin puntos: no se muestra */
+.sheet-list-ok li.is-empty::before {
+  content: '';
+  border-color: #c3d0d3;
+  background: transparent;
+}
+
+.sheet-section:has(ul:empty) {
+  display: none;
+}
+
+/* Razonamiento: la casilla cambia según el resultado de cada punto */
+.sheet-list li.text-slate-700::before,
+.sheet-list li.text-amber-700::before,
+.sheet-list li.text-red-700::before {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.sheet-list li.text-slate-700::before {
+  content: '\2713';
+  border-color: #047857;
+  background: #047857;
+}
+
+.sheet-list li.text-amber-700::before {
+  content: '!';
+  border-color: #b45309;
+  background: #b45309;
+}
+
+.sheet-list li.text-red-700::before {
+  content: '\2715';
+  border-color: #b91c1c;
+  background: #b91c1c;
+}
+
+.sheet-list-rec li::before {
+  border: 0;
+  top: 15px;
+  width: 12px;
+  height: 2px;
+  border-radius: 2px;
+  background: #6f8388;
+}
+
+/* Firma */
+.sheet-sign {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-top: 30px;
+}
+
+.sheet-sign-name {
+  padding-bottom: 4px;
+  border-bottom: 1px solid #10262b;
+  font-size: 15px;
+  font-style: italic;
+  font-weight: 600;
+  color: #155e75;
+}
+
+.sheet-sign-label {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #5a6e73;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .sim-blob,
+  .speech-bubble,
+  .record-card > *,
+  .chat-row,
+  .typing-dots i,
+  .cta-pulse::after,
+  .mic-button.is-listening::before,
+  .report-card,
+  .tab-panel {
+    animation: none;
+  }
+
+  .stamp {
+    animation: none;
+  }
+}

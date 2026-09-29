@@ -1,0 +1,768 @@
+/* Estilos propios de la portada (index.html) */
+:root {
+  --ink: rgb(var(--c-slate-900));
+  --action: rgb(var(--c-brand-600));
+  --action-soft: rgb(var(--c-brand-100));
+  --hairline: rgb(var(--c-slate-200));
+  --field-border: rgb(var(--c-slate-300));
+}
+
+/* El atributo hidden siempre oculta, aunque el elemento tenga clases de display */
+[hidden] {
+  display: none !important;
+}
+
+/* Burbujas del diálogo de muestra */
+.bubble {
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.bubble.is-hidden {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+/* Muestra de la interfaz al pie de cada paso */
+.step {
+  display: flex;
+  flex-direction: column;
+}
+
+.step > p {
+  margin-bottom: 20px;
+}
+
+.step-demo {
+  margin-top: auto;
+  min-height: 128px;
+  padding: 16px;
+  border: 1px solid var(--hairline);
+  border-radius: 14px;
+  background: rgb(var(--c-surface));
+}
+
+.demo-pill {
+  padding: 4px 10px;
+  border: 1px solid var(--hairline);
+  border-radius: 9999px;
+  font-size: 13px;
+  color: rgb(var(--c-slate-700));
+}
+
+.demo-pill.is-on {
+  border-color: var(--action);
+  background: rgb(var(--c-brand-50));
+  color: rgb(var(--c-brand-700));
+  font-weight: 600;
+}
+
+.demo-mic {
+  display: inline-flex;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: var(--action);
+  color: #ffffff;
+  font-size: 20px;
+}
+
+.demo-wave {
+  display: flex;
+  height: 28px;
+  align-items: center;
+  gap: 4px;
+}
+
+.demo-wave i {
+  display: block;
+  width: 4px;
+  height: 100%;
+  border-radius: 9999px;
+  background: var(--action);
+  opacity: 0.55;
+  transform: scaleY(0.4);
+}
+
+.steps.is-lit .demo-wave i {
+  animation: wave 1.1s ease-in-out infinite alternate;
+}
+
+.demo-wave i:nth-child(2) { animation-delay: -0.2s; }
+.demo-wave i:nth-child(3) { animation-delay: -0.5s; }
+.demo-wave i:nth-child(4) { animation-delay: -0.1s; }
+.demo-wave i:nth-child(5) { animation-delay: -0.7s; }
+.demo-wave i:nth-child(6) { animation-delay: -0.35s; }
+.demo-wave i:nth-child(7) { animation-delay: -0.6s; }
+
+@keyframes wave {
+  from {
+    transform: scaleY(0.25);
+  }
+
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.demo-hyp {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.demo-dot {
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  background: var(--action);
+}
+
+.demo-hyp.is-out {
+  font-weight: 500;
+  color: rgb(var(--c-slate-500));
+  text-decoration: line-through;
+}
+
+.demo-hyp.is-out .demo-dot {
+  background: rgb(var(--c-slate-300));
+}
+
+.demo-ring {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+}
+
+.demo-ring b {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.demo-ring svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.demo-ring circle {
+  fill: none;
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.demo-ring .ring-track {
+  stroke: rgb(var(--c-slate-200));
+}
+
+/* Sin JavaScript el anillo se ve lleno; con JavaScript se llena al encenderse el paso 4 */
+.demo-ring .ring-value {
+  stroke: var(--action);
+  stroke-dasharray: 100;
+  stroke-dashoffset: 18;
+}
+
+.js .demo-ring .ring-value {
+  stroke-dashoffset: 100;
+}
+
+.js .steps.is-lit .demo-ring .ring-value {
+  stroke-dashoffset: 18;
+  transition: stroke-dashoffset 1.2s cubic-bezier(0.16, 1, 0.3, 1) 2.6s;
+}
+
+/* Criterios del reporte: filas con divisores e ícono en recuadro */
+.criteria > li {
+  display: flex;
+  gap: 20px;
+  padding: 28px 0;
+  border-top: 1px solid var(--hairline);
+}
+
+.criteria > li:last-child {
+  border-bottom: 1px solid var(--hairline);
+}
+
+.criteria-icon {
+  display: inline-flex;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: rgb(var(--c-brand-50));
+  color: rgb(var(--c-brand-700));
+  font-size: 24px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.criteria > li:hover .criteria-icon {
+  background: var(--action);
+  color: #ffffff;
+}
+
+/* Pasos de "Cómo funciona": círculos unidos por una línea fina */
+.step {
+  position: relative;
+}
+
+.step-mark {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  width: 48px;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: rgb(var(--c-surface));
+  border: 1px solid var(--hairline);
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+
+@media (min-width: 1024px) {
+  .step:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    top: 24px;
+    left: 60px;
+    right: -20px;
+    border-top: 1px solid var(--hairline);
+  }
+}
+
+/* Campos del formulario: borde visible y anillo de foco de 3px.
+   "form .field" gana a los estilos del plugin de formularios de Tailwind. */
+form .field {
+  height: 48px;
+  border: 1px solid var(--field-border);
+  background-color: rgb(var(--c-surface));
+  border-radius: 8px;
+  padding: 0 12px;
+  font-size: 17px;
+  color: var(--ink);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+form .field::placeholder {
+  color: rgb(var(--c-slate-500));
+}
+
+form .field:focus {
+  border-color: var(--action);
+  box-shadow: 0 0 0 3px var(--action-soft);
+  outline: none;
+}
+
+/* Mensajes de los formularios de cuenta: informativo o de error */
+.auth-feedback {
+  padding: 12px;
+  border: 1px solid rgb(var(--c-brand-100));
+  border-radius: 8px;
+  background: rgb(var(--c-brand-50));
+  color: rgb(var(--c-slate-800));
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.auth-feedback.is-error {
+  border-color: rgb(220 38 38 / 0.35);
+  background: rgb(220 38 38 / 0.08);
+  color: rgb(var(--c-slate-900));
+}
+
+/* Cuenta creada: sobre de correo que aparece con un leve rebote */
+.mail-badge {
+  display: inline-flex;
+  width: 72px;
+  height: 72px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: rgb(var(--c-brand-50));
+  color: rgb(var(--c-brand-700));
+  font-size: 38px;
+  animation: mail-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes mail-in {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+}
+
+/* El título recibe el foco solo para que los lectores de pantalla lo anuncien: sin recuadro */
+[data-role="signup-done-title"]:focus-visible {
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mail-badge {
+    animation: none;
+  }
+}
+
+/* Especialidades como opciones seleccionables */
+.specialty {
+  display: flex;
+  min-height: 52px;
+  align-items: center;
+  gap: 12px;
+  padding: 0 14px;
+  border: 1px solid var(--field-border);
+  border-radius: 12px;
+  font-size: 16px;
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.specialty:hover {
+  border-color: var(--action);
+}
+
+.specialty .material-symbols-outlined {
+  font-size: 22px;
+  color: var(--action);
+}
+
+.specialty:has(input:checked) {
+  border: 2px solid var(--action);
+  padding: 0 13px;
+  background: rgb(var(--c-brand-50));
+  font-weight: 600;
+}
+
+.specialty:has(input:focus-visible) {
+  box-shadow: 0 0 0 3px var(--action-soft);
+}
+
+/* Ventana de elección de caso */
+.picker-card {
+  animation: picker-in 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes picker-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+/* Foco visible de 3px en todo lo interactivo */
+:focus-visible {
+  outline: 3px solid var(--action);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .picker-card {
+    animation: none;
+  }
+
+  .bubble {
+    transition: none;
+  }
+}
+
+/* ===== Vida de la página: fondo animado, entradas y apariciones al hacer scroll ===== */
+
+/* Fondo de la portada: manchas de luz que se desplazan lento y una trama de puntos */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgb(14 116 144 / 0.16) 1px, transparent 1px);
+  background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 55% at 50% 30%, #000 20%, transparent 75%);
+  mask-image: radial-gradient(ellipse 70% 55% at 50% 30%, #000 20%, transparent 75%);
+}
+
+.blob {
+  position: absolute;
+  border-radius: 9999px;
+  will-change: transform;
+}
+
+.blob-a {
+  top: -18%;
+  left: 8%;
+  width: clamp(360px, 46vw, 640px);
+  height: clamp(360px, 46vw, 640px);
+  background: radial-gradient(circle, rgb(34 211 238 / 0.3), transparent 65%);
+  animation: drift-a 16s ease-in-out infinite alternate;
+}
+
+.blob-b {
+  top: 4%;
+  right: 2%;
+  width: clamp(320px, 40vw, 560px);
+  height: clamp(320px, 40vw, 560px);
+  background: radial-gradient(circle, rgb(14 116 144 / 0.22), transparent 65%);
+  animation: drift-b 20s ease-in-out infinite alternate;
+}
+
+.blob-c {
+  top: 38%;
+  left: 30%;
+  width: clamp(300px, 36vw, 520px);
+  height: clamp(300px, 36vw, 520px);
+  background: radial-gradient(circle, rgb(94 234 212 / 0.28), transparent 65%);
+  animation: drift-c 14s ease-in-out infinite alternate;
+}
+
+@keyframes drift-a {
+  to {
+    transform: translate3d(12vw, 8vh, 0) scale(1.15);
+  }
+}
+
+@keyframes drift-b {
+  to {
+    transform: translate3d(-14vw, 10vh, 0) scale(0.9);
+  }
+}
+
+@keyframes drift-c {
+  to {
+    transform: translate3d(8vw, -12vh, 0) scale(1.2);
+  }
+}
+
+#inicio > .hero-content,
+#inicio > .hero-stage {
+  position: relative;
+  z-index: 1;
+}
+
+/* Entrada de la portada al cargar, en secuencia */
+.hero-in {
+  animation: rise-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+
+.hero-image-in {
+  animation: image-in 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+
+@keyframes image-in {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.97);
+  }
+}
+
+/* Apariciones al entrar en pantalla (solo si hay JavaScript) */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--d, 0ms);
+}
+
+.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Pasos conectados: al llegar a la lista, cada paso se enciende y la línea
+   avanza hasta el siguiente, en orden */
+.step-mark::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 9999px;
+  border: 2px solid var(--action);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.steps.is-lit .step-mark::after {
+  animation: mark-on 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--i, 0) * 700ms + 400ms);
+}
+
+@keyframes mark-on {
+  from {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (min-width: 1024px) {
+  .step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 23px;
+    left: 60px;
+    right: -20px;
+    border-top: 2px solid var(--action);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  .steps.is-lit .step:not(:last-child)::after {
+    transform: scaleX(1);
+    transition: transform 0.5s ease-in-out;
+    transition-delay: calc(var(--i, 0) * 700ms + 650ms);
+  }
+}
+
+/* Pasos: reaccionan al pasar el mouse */
+.step-mark {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.step:hover .step-mark {
+  background: var(--action);
+  border-color: var(--action);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* Botones principales: leve elevación al pasar el mouse */
+.lift {
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lift:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px -8px rgb(14 116 144 / 0.55);
+}
+
+.lift:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Encabezado con sombra al hacer scroll */
+.site-header {
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.site-header.is-scrolled {
+  box-shadow: 0 6px 24px -12px rgb(16 38 43 / 0.25);
+  background-color: rgb(var(--c-surface) / 0.92);
+}
+
+/* Botón principal: un halo suave cada pocos segundos, sin parpadeo */
+.cta-pulse {
+  position: relative;
+}
+
+.cta-pulse::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  animation: cta-pulse 3.2s ease-out 1.6s infinite;
+}
+
+@keyframes cta-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgb(var(--c-brand-600) / 0.45);
+  }
+
+  45%,
+  100% {
+    box-shadow: 0 0 0 14px rgb(var(--c-brand-600) / 0);
+  }
+}
+
+/* Fichas que flotan alrededor de la ilustración (solo en pantallas grandes) */
+.float-chip {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .float-chip {
+    display: block;
+    position: absolute;
+    z-index: 2;
+  }
+
+  .chip-vitals {
+    top: -26px;
+    left: -28px;
+  }
+
+  .chip-hypothesis {
+    top: 50%;
+    right: -36px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .chip-vitals {
+    left: -64px;
+  }
+
+  .chip-hypothesis {
+    right: -72px;
+  }
+}
+
+.float-chip-body {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px 10px 10px;
+  border-radius: 14px;
+  border: 1px solid var(--hairline);
+  background: rgb(var(--c-surface));
+  box-shadow: 3px 5px 30px 0 rgb(16 38 43 / 0.16);
+  text-align: left;
+  animation: chip-float 7s ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s);
+  will-change: transform;
+}
+
+.chip-icon {
+  display: inline-flex;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: rgb(var(--c-brand-50));
+  color: var(--action);
+  font-size: 20px;
+}
+
+.chip-label {
+  display: block;
+  font-size: 13px;
+  line-height: 1.2;
+  color: rgb(var(--c-slate-600));
+}
+
+.chip-value {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+@keyframes chip-float {
+
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+
+/* Brillo suave detrás del cierre */
+.cta-glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 720px;
+  height: 720px;
+  margin: -360px 0 0 -360px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgb(34 211 238 / 0.18), rgb(14 116 144 / 0.06) 45%, transparent 70%);
+  animation: glow 9s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes glow {
+  from {
+    transform: scale(0.85);
+    opacity: 0.7;
+  }
+
+  to {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .blob,
+  .cta-glow,
+  .hero-in,
+  .hero-image-in {
+    animation: none;
+  }
+
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .cta-pulse::after,
+  .float-chip-body {
+    animation: none;
+  }
+
+  .steps.is-lit .step-mark::after {
+    animation: none;
+    opacity: 1;
+  }
+
+  .steps.is-lit .step:not(:last-child)::after {
+    transition: none;
+  }
+
+  .steps.is-lit .demo-wave i {
+    animation: none;
+    transform: scaleY(0.6);
+  }
+
+  .js .steps.is-lit .demo-ring .ring-value {
+    transition: none;
+  }
+
+  .lift:hover,
+  .step:hover .step-mark {
+    transform: none;
+  }
+}
