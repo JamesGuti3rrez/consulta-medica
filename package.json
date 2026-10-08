@@ -1,31 +1,35 @@
 {
-    "name": "consulta-medica-demo",
+    "name": "consulta-medica",
     "version": "1.0.0",
     "private": true,
-    "description": "Simulador de consulta médica con paciente virtual para estudiantes de medicina",
+    "description": "Interfaz de consulta médica virtual preparada para integrar datos propios",
     "engines": {
         "node": ">=18"
     },
     "scripts": {
-        "setup": "node scripts/python.mjs setup",
-        "start": "node scripts/python.mjs start",
+        "setup": "node backend/scripts/python.mjs setup",
+        "prestart": "npm run build",
+        "start": "node backend/scripts/python.mjs start",
         "build": "npm run build:images && npm run build:css",
         "build:css": "npm run build:css:portada && npm run build:css:simulacion",
-        "build:css:portada": "tailwindcss -c tailwind.portada.config.cjs -i src/styles/tailwind.css -o public/css/tailwind-portada.css --minify",
-        "build:css:simulacion": "tailwindcss -c tailwind.simulacion.config.cjs -i src/styles/tailwind.css -o public/css/tailwind-simulacion.css --minify",
-        "watch:css:portada": "tailwindcss -c tailwind.portada.config.cjs -i src/styles/tailwind.css -o public/css/tailwind-portada.css --watch",
-        "watch:css:simulacion": "tailwindcss -c tailwind.simulacion.config.cjs -i src/styles/tailwind.css -o public/css/tailwind-simulacion.css --watch",
-        "build:images": "node scripts/optimize-images.mjs",
-        "build:vendor": "node scripts/copy-vendor.mjs",
+        "build:css:portada": "tailwindcss -i frontend/src/styles/tailwind.portada.css -o frontend/public/css/tailwind-portada.css --minify",
+        "build:css:simulacion": "tailwindcss -i frontend/src/styles/tailwind.simulacion.css -o frontend/public/css/tailwind-simulacion.css --minify",
+        "watch:css:portada": "tailwindcss -i frontend/src/styles/tailwind.portada.css -o frontend/public/css/tailwind-portada.css --watch",
+        "watch:css:simulacion": "tailwindcss -i frontend/src/styles/tailwind.simulacion.css -o frontend/public/css/tailwind-simulacion.css --watch",
+        "build:images": "node frontend/scripts/optimize-images.mjs",
+        "build:vendor": "node frontend/scripts/copy-vendor.mjs",
         "postinstall": "npm run build:vendor"
     },
     "devDependencies": {
-        "@tailwindcss/container-queries": "^0.1.1",
+        "@tailwindcss/cli": "^4.3.3",
         "@tailwindcss/forms": "^0.5.11",
         "sharp": "^0.35.5",
-        "tailwindcss": "^3.4.19"
+        "tailwindcss": "^4.3.3"
     },
     "dependencies": {
         "@supabase/supabase-js": "^2.117.2"
+    },
+    "overrides": {
+        "@parcel/watcher": "2.6.0"
     }
 }

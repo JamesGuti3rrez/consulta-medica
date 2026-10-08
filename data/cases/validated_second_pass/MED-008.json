@@ -1,0 +1,121 @@
+{
+  "schema_version": "1.0.0",
+  "case_id": "MED-008",
+  "title": "Paciente de 48 años con cuadro de medicina interna",
+  "specialty": "medicina_interna",
+  "language": "es",
+  "status": "validado",
+  "source": {
+    "dataset": "MedQA",
+    "item_id": "medqa-bd8bb86bdc2e57fe",
+    "license": "MIT",
+    "method": "ia_validador"
+  },
+  "public": {
+    "patient": {
+      "alias": "Paciente 1",
+      "age_years": 48,
+      "sex": "femenino"
+    },
+    "chief_complaint": {
+      "evidence_id": "MED-008.motivo.queja_principal",
+      "category": "motivo",
+      "label": "Queja principal",
+      "text": "Mujer de 48 años con cefalea, fiebre de hasta 40,1 °C, escalofríos, artralgias, sed intensa y erupción progresiva en la espalda."
+    },
+    "items": [
+      {
+        "evidence_id": "MED-008.historia.fuente_medqa",
+        "category": "anamnesis",
+        "label": "Resumen clínico (adaptado de MedQA)",
+        "text": "Mujer de 48 años con cefalea, fiebre de hasta 40,1 °C, escalofríos, artralgias, sed intensa y erupción progresiva en la espalda. Una lesión pequeña evolucionó en tres días a una placa circular eritematosa en diana de 17 × 19 cm; había caminado por el bosque tres semanas antes y no identificó garrapata. Refiere anafilaxia previa a tetraciclinas. La pregunta fuente pide elegir un antimicrobiano."
+      }
+    ],
+    "allergies_recorded": true,
+    "allergies": [
+      "Tetraciclinas (antecedente de anafilaxia)"
+    ]
+  },
+  "on_request": [
+    {
+      "evidence_id": "MED-008.solicitud.exploracion_fisica",
+      "category": "examen_fisico",
+      "label": "Exploración física",
+      "text": "Los hallazgos de exploración física descritos por la fuente ya están incluidos en la historia pública; no se documentan otros hallazgos para revelar.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_preguntar",
+        "requires": [
+          "exploracion_fisica"
+        ]
+      }
+    }
+  ],
+  "protected": {
+    "diagnosis": {
+      "name": "Enfermedad de Lyme con eritema migrans",
+      "synonyms": [
+        "Enfermedad de Lyme con eritema migrans"
+      ]
+    },
+    "differentials": [
+      {
+        "name": "Celulitis bacteriana",
+        "must_not_miss": false,
+        "discard_evidence_ids": []
+      },
+      {
+        "name": "Reacción local a picadura",
+        "must_not_miss": false,
+        "discard_evidence_ids": []
+      },
+      {
+        "name": "Otras infecciones transmitidas por garrapatas",
+        "must_not_miss": true,
+        "discard_evidence_ids": []
+      }
+    ],
+    "treatment_reference": {
+      "summary": "CDC incluye amoxicilina como opción general para eritema migrans; la fuente MedQA marca amoxicilina (B). No es una prescripción individual: valorar fiebre muy alta, alergias a beta-lactámicos, embarazo, diseminación y diagnósticos alternativos.",
+      "key_actions": [
+        "No retrasar valoración urgente de fiebre de 40,1 °C.",
+        "Confirmar antecedentes alérgicos antes de cualquier antibiótico.",
+        "Usar guías locales actualizadas para pauta y duración."
+      ]
+    },
+    "contraindications": [],
+    "evaluation": {
+      "key_questions": [
+        {
+          "id": "kq1",
+          "topic": "Adaptación clínica en español (no literal): Mujer de 48 años consulta por cefalea, fiebre intermitente y escalofríos, artralgias, sed intensa y una erupción progresiva en la espalda. La lesión comenzó como una pequeña elevación y se convirtió en una erupción circular. Dos días antes tuvo fiebre de 39,4 °C; al acudir presenta 40,1 °C y una placa eritematosa en diana de 17 × 19 cm. Caminó por el bosque tres semanas antes, aunque no vio ninguna garrapata. Tiene antecedente de anafilaxia a tetraciclinas. Según la fuente, ¿qué antimicrobiano se eligió? Opciones traducidas: Cefalexina; Amoxicilina; Azitromicina; Eritromicina; Doxiciclina. Respuesta fuente: B — Amoxicillin. Texto fuente conservado (inglés): A 48-year-old woman presented to the hospital with a headache, intermittent fevers and chills, generalized arthralgias, excessive thirst, increased fluid intake, and a progressive rash that developed on her back. Three days before seeking evaluation at the hospital, she noticed a small, slightly raised lesion appearing like a spider or insect bite on her back, which she considered to be a scab covering the affected region. The patient's fever reached 39.4°C (102.9°F) 2 days before coming to the hospital, with an intensifying burning sensation on the affected site. When a family member examined the bite, it was noticed that the bump had transformed into a circular rash. The patient took over-the-counter ibuprofen for intense pain so she could sleep through the night. The day before her hospital visit, the patient felt exhausted but managed to complete a normal workday. On the day of the hospital visit, she awoke feeling very ill, with shooting joint pains, high fevers, and excessive thirst, which led to her to seek medical attention. On physical examination, her temperature was 40.1°C (104.2°F), and there was a large circular red rash with a bulls-eye appearance (17 × 19 cm in diameter) on her back. The rest of the physical examination was unremarkable. Her past medical and surgical histories were not significant apart from a history of anaphylaxis when taking a tetracycline. She recalled a walk in the woods 3 weeks before this exam but denied finding a tick or any other ectoparasite on her body. She denied any nutritional or inhalational allergies, although she emphasized that she is allergic to tetracyclines. Based on her symptoms, medical history, and physical examination findings, the attending physician decides to institute antimicrobial therapy immediately. Which antimicrobial drug did the physician prescribe? Opciones fuente: Cephalexin; Amoxicillin; Azithromycin; Erythromycin; Doxycycline",
+          "evidence_ids": [
+            "MED-008.historia.fuente_medqa"
+          ],
+          "weight": 3,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        }
+      ],
+      "tests": {
+        "recommended": [
+          "valoracion_clinica_urgente_por_fiebre_alta"
+        ],
+        "optional": [
+          "ninguna_serologia_si_eritema_migrans_tipico",
+          "serologia_si_presentacion_atipica"
+        ],
+        "unnecessary": []
+      }
+    }
+  },
+  "provenance": {
+    "created_by": "case_preparation.transform.medqa_selection",
+    "created_at": "2026-10-08",
+    "validator_version": "1.0.0",
+    "validated_at": "2026-10-08",
+    "curated_by": null,
+    "curated_at": null,
+    "rejection_reason": null
+  }
+}

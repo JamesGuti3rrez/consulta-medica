@@ -1,0 +1,10 @@
+{
+  "case_id": "PED-004",
+  "reviewed_at": "2026-10-08T08:37:46.449696+00:00",
+  "accepted": false,
+  "reason": "No es un caso de paciente; corresponde a un diseño de estudio o ensayo clínico agrupado.",
+  "reviewer": "auditoria_automatica_de_datos",
+  "patient_age_years": null,
+  "patient_sex": null,
+  "decision": "rechazado_por_reglas_automatizadas"
+}

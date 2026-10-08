@@ -1,0 +1,297 @@
+{
+  "review_type": "AI-assisted curation and content/source-fidelity review",
+  "review_status": "ai_assisted_curation_completed",
+  "audit_round": 2,
+  "reviewed_at": "2026-10-08",
+  "method": "Second-pass audit: compare each generated case with the repaired MedQA source, answer, and options; verify clinical-summary fidelity, Spanish adaptation, differential risk links, diagnostic fit, missing evidence, red flags, tests, and general treatment recommendations against the linked references. Original English source text is retained.",
+  "educational_use": "curated_for_educational_simulation",
+  "case_status_counts": {
+    "coherente_urgencia_critica": 1,
+    "compatible_urgencia_critica_requiere_confirmacion": 1,
+    "compatible_requiere_confirmacion": 3,
+    "coherente_con_alerta_de_pid": 1,
+    "compatible_urgente_requiere_confirmacion": 1,
+    "coherente_con_precauciones": 3
+  },
+  "clinical_sources": {
+    "cdc_lyme": {
+      "title": "CDC: Clinical treatment of erythema migrans",
+      "url": "https://www.cdc.gov/lyme/hcp/clinical-care/erythema-migrans-rash.html"
+    },
+    "aad_bcc": {
+      "title": "American Academy of Dermatology: Basal cell carcinoma",
+      "url": "https://www.aad.org/public/diseases/skin-cancer/basal-cell-carcinoma"
+    },
+    "aaos_perthes": {
+      "title": "AAOS OrthoInfo: Legg-Calve-Perthes disease",
+      "url": "https://orthoinfo.aaos.org/en/diseases--conditions/legg-calve-perthes-disease/"
+    },
+    "medlineplus_mccune_albright": {
+      "title": "MedlinePlus Genetics: McCune-Albright syndrome",
+      "url": "https://medlineplus.gov/genetics/condition/mccune-albright-syndrome/"
+    },
+    "sheehan_statpearls": {
+      "title": "NCBI Bookshelf: Sheehan syndrome",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK459166/"
+    },
+    "cdc_trich": {
+      "title": "CDC STI Treatment Guidelines: Trichomoniasis",
+      "url": "https://www.cdc.gov/std/treatment-guidelines/trichomoniasis.htm"
+    },
+    "cdc_pid": {
+      "title": "CDC STI Treatment Guidelines: Pelvic inflammatory disease",
+      "url": "https://www.cdc.gov/std/treatment-guidelines/pid.htm"
+    },
+    "cdc_hemophilia": {
+      "title": "CDC: Hemophilia treatment overview",
+      "url": "https://www.cdc.gov/hemophilia/treatment/index.html"
+    },
+    "cdc_sepsis": {
+      "title": "CDC: About sepsis",
+      "url": "https://www.cdc.gov/sepsis/about/index.html"
+    },
+    "heatstroke_position": {
+      "title": "National Athletic Trainers' Association position statement: exertional heat illnesses",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC164365/"
+    },
+    "nice_sah": {
+      "title": "NICE NG228: Subarachnoid haemorrhage caused by a ruptured aneurysm",
+      "url": "https://www.nice.org.uk/guidance/ng228/chapter/Recommendations"
+    }
+  },
+  "cases": [
+    {
+      "case_id": "EME-001",
+      "candidate_id": "medqa-a83444b6eabc9a5b",
+      "specialty": "emergencias",
+      "source_answer": "A",
+      "source_answer_text": "Exertional heat stroke",
+      "clinical_diagnosis": "Golpe de calor por esfuerzo",
+      "rationale": "Emergencias: hipertermia grave y alteración aguda de conciencia en el lugar de trabajo.",
+      "clinical_review": {
+        "disposition": "coherente_urgencia_critica",
+        "confidence": "moderada_alta",
+        "assessment": "Temperatura central de 41,1 °C y alteración neurológica después de trabajo físico al aire libre son altamente compatibles con golpe de calor por esfuerzo. La diaforesis no lo descarta. Haloperidol hace importante considerar síndrome neuroléptico maligno; anestesia meses antes no apoya hipertermia maligna perioperatoria actual.",
+        "actions": [
+          "Tratarlo como emergencia vital: iniciar enfriamiento activo inmediato y traslado/atención de emergencia; no retrasar el enfriamiento por estudios.",
+          "Evaluar daño renal, muscular, hepático, electrolítico y de coagulación; explorar síndrome neuroléptico maligno por la medicación.",
+          "No usar antipiréticos como sustituto del enfriamiento en hipertermia por golpe de calor."
+        ],
+        "source_ids": [
+          "heatstroke_position"
+        ]
+      },
+      "schema_valid": true
+    },
+    {
+      "case_id": "EME-002",
+      "candidate_id": "medqa-83b0322c93dff066",
+      "specialty": "emergencias",
+      "source_answer": "B",
+      "source_answer_text": "Subarachnoid hemorrhage (subarachnoid hemorrhage)",
+      "clinical_diagnosis": "Hemorragia subaracnoidea",
+      "rationale": "Emergencias: cefalea súbita intensa, vómitos, alteración de conciencia y rigidez de nuca; la respuesta fuente es hemorragia subaracnoidea.",
+      "clinical_review": {
+        "disposition": "compatible_urgencia_critica_requiere_confirmacion",
+        "confidence": "moderada_alta",
+        "assessment": "Cefalea explosiva, vómitos, deterioro de conciencia y rigidez de nuca son altamente preocupantes por hemorragia subaracnoidea, pero la fuente no aporta neuroimagen ni LCR: la respuesta de MedQA no equivale a confirmación.",
+        "actions": [
+          "Tratar como emergencia neurológica: evaluación hospitalaria inmediata y TC craneal sin contraste urgente.",
+          "Si la TC no confirma hemorragia y persiste la sospecha, completar investigación (por ejemplo, punción lumbar o angio-TC) según tiempo de inicio, hallazgos y protocolo/localidad; consultar neurología/neurocirugía.",
+          "Mantener meningitis/meningoencefalitis y otras causas de cefalea en trueno en el diagnóstico diferencial."
+        ],
+        "source_ids": [
+          "nice_sah"
+        ]
+      },
+      "schema_valid": true
+    },
+    {
+      "case_id": "GOB-003",
+      "candidate_id": "medqa-b437ab65d13f9352",
+      "specialty": "ginecologia_obstetricia",
+      "source_answer": "D",
+      "source_answer_text": "Pituitary infarction",
+      "clinical_diagnosis": "Infarto hipofisario posparto (síndrome de Sheehan)",
+      "rationale": "Gineco-obstetricia: complicación inmediatamente posparto con hemorragia/hipotensión y falla de lactancia.",
+      "clinical_review": {
+        "disposition": "compatible_requiere_confirmacion",
+        "confidence": "moderada",
+        "assessment": "El shock hemorrágico posparto y la incapacidad de lactar hacen plausible el infarto hipofisario posparto (síndrome de Sheehan), que coincide con la respuesta fuente. La imposibilidad de lactar a la mañana siguiente por sí sola no confirma hipopituitarismo; el evento de atonía/hemorragia requiere manejo obstétrico urgente independientemente de esa hipótesis.",
+        "actions": [
+          "Mantener Sheehan como explicación probable de examen, no como diagnóstico endocrinológico confirmado.",
+          "Priorizar documentación y manejo de hemorragia posparto; si persisten síntomas o se sospecha déficit hipofisario, solicitar evaluación endocrina urgente.",
+          "Valorar ejes hipofisarios, incluido cortisol, con interpretación especializada; no iniciar sustitución hormonal a partir de esta ficha aislada."
+        ],
+        "source_ids": [
+          "sheehan_statpearls"
+        ]
+      },
+      "schema_valid": true
+    },
+    {
+      "case_id": "GOB-004",
+      "candidate_id": "medqa-a04db516708da5ae",
+      "specialty": "ginecologia_obstetricia",
+      "source_answer": "E",
+      "source_answer_text": "Trichomoniasis",
+      "clinical_diagnosis": "Tricomoniasis vulvovaginal",
+      "rationale": "Gineco-obstetricia: síntomas genitales y hallazgos de examen pélvico explícitos.",
+      "clinical_review": {
+        "disposition": "coherente_con_alerta_de_pid",
+        "confidence": "moderada_alta",
+        "assessment": "Flujo espumoso amarillo-verdoso, pH elevado y cérvix en fresa apoyan tricomoniasis. Sin embargo, dolor pélvico y dolor a la movilización cervical obligan a evaluar enfermedad pélvica inflamatoria (EPI); no debe cerrarse como vaginitis aislada.",
+        "actions": [
+          "Mantener tricomoniasis como diagnóstico fuente y confirmar con NAAT cuando esté disponible.",
+          "Evaluar EPI con umbral bajo por dolor pélvico y dolor a la movilización cervical; valorar embarazo y diagnósticos alternativos.",
+          "La guía CDC para mujeres recomienda metronidazol oral 500 mg dos veces al día durante 7 días; además, manejo de parejas sexuales, abstinencia hasta completar tratamiento y resolución de síntomas, pruebas de otras ITS y repetición de prueba aproximadamente a los 3 meses. Es información educativa, no receta individual."
+        ],
+        "source_ids": [
+          "cdc_trich",
+          "cdc_pid"
+        ]
+      },
+      "schema_valid": true
+    },
+    {
+      "case_id": "CIR-005",
+      "candidate_id": "medqa-4135d59786b5b7ac",
+      "specialty": "cirugia_general",
+      "source_answer": "A",
+      "source_answer_text": "Hemophilia A",
+      "clinical_diagnosis": "Hemofilia A",
+      "rationale": "Cirugía general: episodio hemorrágico intraoperatorio durante apendicectomía, con estudio de coagulación posoperatorio.",
+      "clinical_review": {
+        "disposition": "compatible_requiere_confirmacion",
+        "confidence": "moderada",
+        "assessment": "Sangrado con plaquetas, tiempo de protrombina e INR normales y TTPa prolongado es compatible con deficiencia de factor de la vía intrínseca; la historia familiar favorece hemofilia hereditaria. El TTPa prolongado aislado no distingue hemofilia A de hemofilia B, enfermedad de von Willebrand u otras causas.",
+        "actions": [
+          "Mantener hemofilia A como respuesta fuente probable, no confirmada sin actividad de factor VIII.",
+          "Añadir valoración hematológica urgente, repetición/confirmación de coagulación, estudio de mezcla y actividad de factores VIII y IX; considerar estudio de von Willebrand.",
+          "La hemorragia quirúrgica activa requiere control hemostático especializado; no inferir dosis de factor ni transfusiones adicionales en este JSON."
+        ],
+        "source_ids": [
+          "cdc_hemophilia"
+        ]
+      },
+      "schema_valid": true
+    },
+    {
+      "case_id": "CIR-006",
+      "candidate_id": "medqa-e9b7102d702a0a7f",
+      "specialty": "cirugia_general",
+      "source_answer": "C",
+      "source_answer_text": "Sepsis",
+      "clinical_diagnosis": "Sepsis posoperatoria",
+      "rationale": "Cirugía general: deterioro infeccioso probable en el posoperatorio, con fiebre, taquipnea, hipoxemia y confusión.",
+      "clinical_review": {
+        "disposition": "compatible_urgente_requiere_confirmacion",
+        "confidence": "moderada",
+        "assessment": "Fiebre, taquicardia, taquipnea, hipoxemia, confusión y crepitantes basales en el quinto día posoperatorio son preocupantes por infección respiratoria con posible sepsis y disfunción orgánica. El foco pulmonar es probable, pero no está confirmado por imagen o microbiología; también hay que valorar embolia pulmonar y otras causas de hipoxemia/delirio.",
+        "actions": [
+          "Mantener sospecha de sepsis posoperatoria como diagnóstico de trabajo y dejar explícito que no está confirmada microbiológicamente.",
+          "Indicar evaluación y tratamiento hospitalarios inmediatos; investigar foco con imagen torácica, cultivos y lactato según protocolo local sin retrasar antimicrobianos si la sospecha de sepsis es alta.",
+          "Añadir embolia pulmonar como diferencial grave posoperatorio; elegir pruebas según probabilidad clínica."
+        ],
+        "source_ids": [
+          "cdc_sepsis"
+        ]
+      },
+      "schema_valid": true
+    },
+    {
+      "case_id": "PED-007",
+      "candidate_id": "medqa-dadd721b55c88d20",
+      "specialty": "pediatria",
+      "source_answer": "D",
+      "source_answer_text": "Legg-Calvé-Perthes disease (LCPD)",
+      "clinical_diagnosis": "Enfermedad de Legg-Calvé-Perthes",
+      "rationale": "Pediatría: paciente de 7 años y hallazgos osteoarticulares pediátricos explícitos.",
+      "clinical_review": {
+        "disposition": "coherente_con_precauciones",
+        "confidence": "moderada_alta",
+        "assessment": "La edad, cojera, dolor de cadera referido a rodilla y aplanamiento radiográfico de la cabeza femoral son compatibles con enfermedad de Legg-Calve-Perthes. La ficha ya contiene radiografía; la caracterización y el manejo dependen de extensión, edad y evolución.",
+        "actions": [
+          "Mantener Legg-Calve-Perthes como diagnóstico más probable y añadir valoración por ortopedia pediátrica.",
+          "Conservar artritis séptica como diagnóstico que no se debe pasar por alto: estar afebril no la excluye si aparecen dolor intenso, incapacidad para apoyar o mal estado general.",
+          "No inventar estadificación radiológica ni tratamiento sin descripción de proyecciones/etapa."
+        ],
+        "source_ids": [
+          "aaos_perthes"
+        ]
+      },
+      "schema_valid": true
+    },
+    {
+      "case_id": "MED-008",
+      "candidate_id": "medqa-bd8bb86bdc2e57fe",
+      "specialty": "medicina_interna",
+      "source_answer": "B",
+      "source_answer_text": "Amoxicillin",
+      "clinical_diagnosis": "Enfermedad de Lyme con eritema migrans",
+      "rationale": "Medicina interna: cuadro de eritema migrans y síntomas sistémicos; alergia a tetraciclinas y respuesta fuente recuperada como opción B (amoxicilina).",
+      "clinical_review": {
+        "disposition": "coherente_con_precauciones",
+        "confidence": "moderada_alta",
+        "assessment": "La placa anular expansiva mayor de 5 cm tras exposición posible a garrapata es compatible con eritema migrans; la ausencia de garrapata observada no lo excluye. Amoxicilina es una opción recomendada por CDC para enfermedad de Lyme temprana localizada. La fiebre de 40,1 °C es marcadamente alta y exige valoración urgente de gravedad y diagnósticos alternativos; no asumir que todo el cuadro queda explicado por Lyme.",
+        "actions": [
+          "Mantener el diagnóstico fuente como probable, no como confirmación etiológica absoluta.",
+          "Conservar la anafilaxia a tetraciclinas; verificar alergias a beta-lactámicos antes de cualquier uso de amoxicilina.",
+          "En eritema migrans típico el diagnóstico es clínico y la serología inicial puede ser negativa; reconsiderar pruebas si la presentación es atípica.",
+          "No añadir dosis al caso como prescripción individual; la referencia CDC describe pautas generales."
+        ],
+        "source_ids": [
+          "cdc_lyme"
+        ]
+      },
+      "schema_valid": true
+    },
+    {
+      "case_id": "MED-009",
+      "candidate_id": "medqa-7fe0528c54197057",
+      "specialty": "medicina_interna",
+      "source_answer": "D",
+      "source_answer_text": "Basal cell carcinoma",
+      "clinical_diagnosis": "Carcinoma basocelular",
+      "rationale": "Medicina interna: adulto con lesión cutánea descrita clínicamente; este registro no depende de una imagen ausente.",
+      "clinical_review": {
+        "disposition": "compatible_requiere_confirmacion",
+        "confidence": "moderada",
+        "assessment": "La pápula perlada rosada con borde sobreelevado y telangiectasias es muy sugestiva de carcinoma basocelular. La ficha no incluye histopatología; por tanto, no es diagnóstico confirmado. El párpado es una localización funcionalmente crítica y requiere valoración dermatológica y oftalmológica/oculoplástica, con confirmación histológica y planificación terapéutica.",
+        "actions": [
+          "Mantener carcinoma basocelular como diagnóstico presuntivo, pendiente de biopsia.",
+          "Añadir carcinoma sebáceo palpebral y chalazión persistente como alternativas clínicas pertinentes, sin presentarlas como más probables.",
+          "No recomendar observación rutinaria ni destruir/tratar la lesión sin diagnóstico histológico y valoración especializada."
+        ],
+        "source_ids": [
+          "aad_bcc"
+        ]
+      },
+      "schema_valid": true
+    },
+    {
+      "case_id": "PED-010",
+      "candidate_id": "medqa-5fc375051c4a68f2",
+      "specialty": "pediatria",
+      "source_answer": "B",
+      "source_answer_text": "McCune-Albright syndrome",
+      "clinical_diagnosis": "Síndrome de McCune-Albright",
+      "rationale": "Pediatría: fractura, manchas café con leche, displasia fibrosa y desarrollo mamario precoz apoyan síndrome de McCune-Albright.",
+      "clinical_review": {
+        "disposition": "coherente_con_precauciones",
+        "confidence": "moderada_alta",
+        "assessment": "La combinación de displasia fibrosa, manchas café con leche y desarrollo mamario precoz es altamente compatible con síndrome de McCune-Albright. El enunciado fuente contiene una descripción contradictoria de la función tiroidea; no permite definir un fenotipo tiroideo concreto ni justificar un tratamiento.",
+        "actions": [
+          "Mantener síndrome de McCune-Albright como diagnóstico probable según los hallazgos descritos.",
+          "Solicitar evaluación por endocrinología pediátrica y revisar el informe radiológico de la displasia fibrosa.",
+          "Aclarar la alteración tiroidea con historia, examen y pruebas de función tiroidea; no asumir hipo ni hipertiroidismo.",
+          "Documentar pubertad precoz y planificar seguimiento endocrino y esquelético; el caso no aporta resultados suficientes para indicar tratamiento individual."
+        ],
+        "source_ids": [
+          "medlineplus_mccune_albright"
+        ]
+      },
+      "schema_valid": true
+    }
+  ]
+}

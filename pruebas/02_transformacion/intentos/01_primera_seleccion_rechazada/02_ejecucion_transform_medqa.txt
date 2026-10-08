@@ -1,0 +1,32 @@
+﻿COMANDO: cd C:\Users\Usuario\Documents\consulta-medica\backend; python -m case_preparation transform --dataset medqa --count 10
+FECHA: 2026-10-08 08:30:00 UTC
+CODIGO_SALIDA: 0
+
+STDOUT:
+{
+  "dataset": "MedQA",
+  "status": "validado",
+  "source_path": "C:\Users\Usuario\Documents\consulta-medica\data\interim\medqa_candidatos.jsonl",
+  "selected_case_ids": [
+    "MED-001",
+    "MED-002",
+    "PED-003",
+    "PED-004",
+    "GOB-005",
+    "GOB-006",
+    "CIR-007",
+    "CIR-008",
+    "EME-009",
+    "EME-010"
+  ],
+  "specialty_counts": {
+    "medicina_interna": 2,
+    "pediatria": 2,
+    "ginecologia_obstetricia": 2,
+    "cirugia_general": 2,
+    "emergencias": 2
+  },
+  "selected_count": 10
+}
+
+STDERR:

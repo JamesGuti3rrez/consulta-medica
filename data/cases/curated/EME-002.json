@@ -1,0 +1,121 @@
+{
+  "schema_version": "1.0.0",
+  "case_id": "EME-002",
+  "title": "Paciente de 57 años con cuadro de emergencias",
+  "specialty": "emergencias",
+  "language": "es",
+  "status": "curado",
+  "source": {
+    "dataset": "MedQA",
+    "item_id": "medqa-83b0322c93dff066",
+    "license": "MIT",
+    "method": "ia_validador"
+  },
+  "public": {
+    "patient": {
+      "alias": "Paciente 10",
+      "age_years": 57,
+      "sex": "masculino"
+    },
+    "chief_complaint": {
+      "evidence_id": "EME-002.motivo.queja_principal",
+      "category": "motivo",
+      "label": "Queja principal",
+      "text": "Hombre de 57 años con hipertensión presenta cefalea intensa de inicio súbito mientras se baña, seguida de vómitos y deterioro del estado de conciencia."
+    },
+    "items": [
+      {
+        "evidence_id": "EME-002.historia.fuente_medqa",
+        "category": "anamnesis",
+        "label": "Resumen clínico (adaptado de MedQA)",
+        "text": "Hombre de 57 años con hipertensión presenta cefalea intensa de inicio súbito mientras se baña, seguida de vómitos y deterioro del estado de conciencia. En urgencias responde de forma limitada a estímulos dolorosos y tiene rigidez de nuca; presión arterial 180/110 mmHg, temperatura 37,9 °C, pulso regular de 80/min y frecuencia respiratoria de 20/min."
+      }
+    ],
+    "allergies_recorded": false
+  },
+  "on_request": [
+    {
+      "evidence_id": "EME-002.solicitud.exploracion_fisica",
+      "category": "examen_fisico",
+      "label": "Exploración física",
+      "text": "Los hallazgos de exploración física descritos por la fuente ya están incluidos en la historia pública; no se documentan otros hallazgos para revelar.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_preguntar",
+        "requires": [
+          "exploracion_fisica"
+        ]
+      }
+    }
+  ],
+  "protected": {
+    "diagnosis": {
+      "name": "Hemorragia subaracnoidea",
+      "synonyms": [
+        "Hemorragia subaracnoidea"
+      ]
+    },
+    "differentials": [
+      {
+        "name": "Meningitis o meningoencefalitis",
+        "must_not_miss": true,
+        "discard_evidence_ids": []
+      },
+      {
+        "name": "Hemorragia intracerebral",
+        "must_not_miss": true,
+        "discard_evidence_ids": []
+      },
+      {
+        "name": "Trombosis venosa cerebral",
+        "must_not_miss": true,
+        "discard_evidence_ids": []
+      },
+      {
+        "name": "Crisis epiléptica",
+        "must_not_miss": false,
+        "discard_evidence_ids": []
+      }
+    ],
+    "treatment_reference": {
+      "summary": "Sospecha de hemorragia subaracnoidea: evaluación hospitalaria inmediata y neuroimagen urgente. Si TC inicial no confirma y persiste sospecha, completar estudio según tiempo de inicio y protocolo especializado; la fuente no contiene imagen confirmatoria.",
+      "key_actions": [
+        "No demorar TC craneal y valoración neurológica/neuroquirúrgica urgente.",
+        "No declarar hemorragia confirmada solo por la clave de respuesta MedQA."
+      ]
+    },
+    "contraindications": [],
+    "evaluation": {
+      "key_questions": [
+        {
+          "id": "kq1",
+          "topic": "Adaptación clínica en español (no literal): Hombre de 57 años con hipertensión presenta cefalea intensa de inicio súbito mientras se baña, seguida de vómitos. Unos 30 minutos después, en urgencias, tiene respuesta disminuida: abre los ojos y gime ante estímulos dolorosos, y presenta rigidez de nuca. Presión arterial de 180/110 mmHg, temperatura de 37,9 °C, pulso regular de 80/min y frecuencia respiratoria de 20/min. El enunciado fuente está redactado de forma deficiente; esta adaptación interpreta que la cefalea comenzó repentinamente mientras se bañaba. ¿Cuál es el diagnóstico más probable? Opciones traducidas: Intoxicación por monóxido de carbono; Hemorragia subaracnoidea; Meningoencefalitis aguda; Crisis epiléptica. Respuesta fuente: B — Subarachnoid hemorrhage (subarachnoid hemorrhage). Texto fuente conservado (inglés): 57-year-old male with hypertension, unexpected bath severe headache, vomiting, to emergency medical treatment. After 30 minutes, the emergency room physicians found that patients with consciousness, but to pain stimulation Zhang eyes and groan, also pointed to poke stinging pain points and was stiff neck. Blood pressure 180/110 mmHg; ear temperature 37.9 ° C; regular pulse 80 beats / min; respiratory rate 20 breaths / min. According to history, the most likely diagnosis is: Opciones fuente: Carbon monoxide poisoning (CO intoxication); Subarachnoid hemorrhage (subarachnoid hemorrhage); Acute meningoencephalitis (acute meningoencephalitis); Seizures (epilepsy)",
+          "evidence_ids": [
+            "EME-002.historia.fuente_medqa"
+          ],
+          "weight": 3,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        }
+      ],
+      "tests": {
+        "recommended": [
+          "tc_craneal_sin_contraste_urgente"
+        ],
+        "optional": [
+          "puncion_lumbar_o_angio_tc_si_persiste_sospecha_tras_tc"
+        ],
+        "unnecessary": []
+      }
+    }
+  },
+  "provenance": {
+    "created_by": "case_preparation.transform.medqa_selection",
+    "created_at": "2026-10-08",
+    "validator_version": "1.0.0",
+    "validated_at": "2026-10-08",
+    "curated_by": "curacion_asistida_por_ia",
+    "curated_at": "2026-10-08",
+    "rejection_reason": null
+  }
+}

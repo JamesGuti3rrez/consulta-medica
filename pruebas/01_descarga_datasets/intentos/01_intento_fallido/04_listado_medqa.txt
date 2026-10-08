@@ -1,0 +1,11 @@
+COMANDO: Get-ChildItem data/raw/medqa -Force | Select-Object Name,Length,LastWriteTime | Format-Table -AutoSize
+FECHA: 2026-10-08 07:14:47 UTC
+CODIGO_SALIDA: 255
+
+STDOUT:
+
+
+STDERR:
+"Get-ChildItem" no se reconoce como un comando interno o externo,
+programa o archivo por lotes ejecutable.
+

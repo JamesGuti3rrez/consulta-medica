@@ -1,0 +1,126 @@
+{
+  "schema_version": "1.0.0",
+  "case_id": "CIR-008",
+  "title": "Paciente adulto con cuadro de cirugía general",
+  "specialty": "cirugia_general",
+  "language": "es",
+  "status": "rechazado",
+  "source": {
+    "dataset": "MedQA",
+    "item_id": "medqa-25974",
+    "license": "MIT",
+    "method": "manual"
+  },
+  "public": {
+    "patient": {
+      "alias": "Paciente 8",
+      "age_years": 45,
+      "sex": "femenino"
+    },
+    "chief_complaint": {
+      "evidence_id": "CIR-008.motivo.queja_principal",
+      "category": "motivo",
+      "label": "Queja principal",
+      "text": "Please refer to the summary above to answer this question Administration of which of the following is most likely to improve this patient's current symptoms?\" \"Patient information Age: 82 years Gender: M, self-identified Ethnicity: Caucasia"
+    },
+    "items": [
+      {
+        "evidence_id": "CIR-008.historia.queja",
+        "category": "anamnesis",
+        "label": "Historia clínica",
+        "text": "Please refer to the summary above to answer this question Administration of which of the following is most likely to improve this patient's current symptoms?\" \"Patient information Age: 82 years Gender: M, self-identified Ethnicity: Caucasian Site of care: office History Reason for Visit/Chief Concern: “I have been getting these large bruises on my "
+      }
+    ],
+    "allergies_recorded": false
+  },
+  "on_request": [
+    {
+      "evidence_id": "CIR-008.solicitud.exploracion_fisica",
+      "category": "examen_fisico",
+      "label": "Exploración física",
+      "text": "Se solicita explorar signos locales, estado general, presión arterial, frecuencia cardiaca, temperatura y hallazgos focales.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_preguntar",
+        "requires": [
+          "anamnesis"
+        ]
+      }
+    }
+  ],
+  "protected": {
+    "diagnosis": {
+      "name": "Diagnóstico principal de cirugía general",
+      "synonyms": [
+        "cirugía general principal"
+      ]
+    },
+    "differentials": [
+      {
+        "name": "Diagnóstico alternativo 1",
+        "must_not_miss": true,
+        "discard_evidence_ids": [
+          "CIR-008.motivo.queja_principal"
+        ]
+      },
+      {
+        "name": "Diagnóstico alternativo 2",
+        "must_not_miss": false,
+        "discard_evidence_ids": [
+          "CIR-008.solicitud.exploracion_fisica"
+        ]
+      }
+    ],
+    "treatment_reference": {
+      "summary": "El manejo debe basarse en el diagnóstico principal, la estabilidad del paciente y el protocolo clínico del servicio correspondiente.",
+      "key_actions": [
+        "Confirmar diagnóstico",
+        "Estabilizar al paciente",
+        "Iniciar tratamiento específico"
+      ]
+    },
+    "contraindications": [
+      {
+        "id": "ci1",
+        "drug_or_class": "Medicamento no indicado en este caso",
+        "reason": "La historia y la presentación clínica sugieren otra alternativa terapéutica más apropiada.",
+        "evidence_id": "CIR-008.motivo.queja_principal"
+      }
+    ],
+    "evaluation": {
+      "key_questions": [
+        {
+          "id": "kq1",
+          "topic": "Historia clínica",
+          "evidence_ids": [
+            "CIR-008.motivo.queja_principal"
+          ],
+          "weight": 3,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        }
+      ],
+      "tests": {
+        "recommended": [
+          "anamnesis",
+          "examen_fisico"
+        ],
+        "optional": [
+          "laboratorio"
+        ],
+        "unnecessary": [
+          "radiologia"
+        ]
+      }
+    }
+  },
+  "provenance": {
+    "created_by": "case_preparation.transform.medqa_selection",
+    "created_at": "2026-10-08",
+    "validator_version": "1.0.0",
+    "validated_at": "2026-10-08",
+    "curated_by": null,
+    "curated_at": null,
+    "rejection_reason": "Fuente incompleta para un caso clínico: el resumen original no está disponible, la ficha contiene diagnóstico genérico y el sexo de la copia curada contradice el dato fuente."
+  }
+}

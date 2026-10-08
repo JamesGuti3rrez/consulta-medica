@@ -1,0 +1,8 @@
+{
+  "case_id": "CIR-008",
+  "reviewed_at": "2026-10-08",
+  "accepted": false,
+  "decision": "curacion_anterior_invalidada",
+  "reason": "Fuente incompleta para un caso clínico: el resumen original no está disponible, la ficha contiene diagnóstico genérico y el sexo de la copia curada contradice el dato fuente.",
+  "reviewer": "auditoria_automatica_de_datos"
+}

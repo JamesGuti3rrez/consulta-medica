@@ -1,0 +1,41 @@
+DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica\backend
+COMANDO: .\.venv\Scripts\python.exe -m case_preparation sources fetch --dataset medqa
+FECHA: 2026-10-08 18:35:35 UTC
+CODIGO_SALIDA: 0
+
+STDOUT:
+{
+  "name": "MedQA",
+  "url": "https://github.com/jind11/MedQA",
+  "version": "master",
+  "license": "MIT",
+  "files": [
+    {
+      "name": "MedQA-master.zip",
+      "url": "https://github.com/jind11/MedQA/archive/refs/heads/master.zip",
+      "description": "Repositorio oficial: código, README y LICENSE (MIT). No contiene las preguntas.",
+      "path": "data\\raw\\medqa\\MedQA-master.zip",
+      "sha256": "1b7af07b4de67376d0e5fb4a376a7bcc605678aa32a26f0409fcc7d0d8c4b60c",
+      "sha256_verified": true,
+      "status": "existing",
+      "obtained_at": "2026-10-08T07:13:43.755307+00:00"
+    },
+    {
+      "name": "data_clean.zip",
+      "url": "https://drive.usercontent.google.com/download?id=1ImYUSLk9JbgHXOemfvyiDiirluZHPeQw&export=download&confirm=t",
+      "description": "Preguntas y libros de texto enlazados desde la sección Data del README oficial (Google Drive).",
+      "path": "data\\raw\\medqa\\data_clean.zip",
+      "sha256": "1c2ca8130b3d86d9a99a432ab9bef14f3bb9807bef20facd9ac86ba36960f629",
+      "sha256_verified": true,
+      "status": "existing",
+      "obtained_at": "2026-10-08T08:13:15.561429+00:00"
+    }
+  ],
+  "obtained_at": "2026-10-08T07:13:43.755307+00:00",
+  "obtained_by": "James Gutiérrez",
+  "verified_at": "2026-10-08T18:35:35.569830+00:00"
+}
+
+
+STDERR:
+

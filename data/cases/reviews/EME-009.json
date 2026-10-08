@@ -1,0 +1,8 @@
+{
+  "case_id": "EME-009",
+  "reviewed_at": "2026-10-08",
+  "accepted": false,
+  "decision": "curacion_anterior_invalidada",
+  "reason": "El texto fuente es el resumen de un ensayo comparativo sobre imágenes para nefrolitiasis, no un caso clínico individual; la ficha tampoco tiene diagnóstico específico.",
+  "reviewer": "auditoria_automatica_de_datos"
+}

@@ -1,0 +1,123 @@
+{
+  "schema_version": "1.0.0",
+  "case_id": "CIR-006",
+  "title": "Paciente de 68 años con cuadro de cirugía general",
+  "specialty": "cirugia_general",
+  "language": "es",
+  "status": "curado",
+  "source": {
+    "dataset": "MedQA",
+    "item_id": "medqa-e9b7102d702a0a7f",
+    "license": "MIT",
+    "method": "ia_validador"
+  },
+  "public": {
+    "patient": {
+      "alias": "Paciente 8",
+      "age_years": 68,
+      "sex": "femenino"
+    },
+    "chief_complaint": {
+      "evidence_id": "CIR-006.motivo.queja_principal",
+      "category": "motivo",
+      "label": "Queja principal",
+      "text": "Mujer de 68 años, quinto día después de hemicolectomía derecha electiva sin complicaciones intraoperatorias."
+    },
+    "items": [
+      {
+        "evidence_id": "CIR-006.historia.fuente_medqa",
+        "category": "anamnesis",
+        "label": "Resumen clínico (adaptado de MedQA)",
+        "text": "Mujer de 68 años, quinto día después de hemicolectomía derecha electiva sin complicaciones intraoperatorias. Tiene diabetes tipo 2 de 20 años, hipertensión de 15 años, angina de esfuerzo de 6 años y antecedente de tabaquismo de 30 paquetes-año; antes era independiente. Presenta confusión, temperatura 38,5 °C, frecuencia respiratoria 28/min, saturación 92 % con oxígeno a 2 L/min y pulso 118/min. Tiene crepitantes en la base pulmonar derecha; la herida quirúrgica evoluciona bien y el abdomen está blando e indoloro."
+      }
+    ],
+    "allergies_recorded": false
+  },
+  "on_request": [
+    {
+      "evidence_id": "CIR-006.solicitud.exploracion_fisica",
+      "category": "examen_fisico",
+      "label": "Exploración física",
+      "text": "Los hallazgos de exploración física descritos por la fuente ya están incluidos en la historia pública; no se documentan otros hallazgos para revelar.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_preguntar",
+        "requires": [
+          "exploracion_fisica"
+        ]
+      }
+    }
+  ],
+  "protected": {
+    "diagnosis": {
+      "name": "Sepsis posoperatoria",
+      "synonyms": [
+        "Sepsis posoperatoria"
+      ]
+    },
+    "differentials": [
+      {
+        "name": "Neumonía posoperatoria",
+        "must_not_miss": true,
+        "discard_evidence_ids": []
+      },
+      {
+        "name": "Embolia pulmonar posoperatoria",
+        "must_not_miss": true,
+        "discard_evidence_ids": []
+      },
+      {
+        "name": "Atelectasia u otra causa de hipoxemia",
+        "must_not_miss": false,
+        "discard_evidence_ids": []
+      },
+      {
+        "name": "Delirio posoperatorio por causa metabólica o farmacológica",
+        "must_not_miss": false,
+        "discard_evidence_ids": []
+      }
+    ],
+    "treatment_reference": {
+      "summary": "Posible sepsis posoperatoria: requiere evaluación y tratamiento hospitalarios inmediatos, búsqueda del foco y soporte de órganos. La fuente no demuestra germen ni prescribe un antibiótico específico.",
+      "key_actions": [
+        "No retrasar tratamiento de sepsis probable para completar pruebas no esenciales.",
+        "Investigar foco pulmonar y valorar diagnósticos alternativos graves, especialmente embolia pulmonar."
+      ]
+    },
+    "contraindications": [],
+    "evaluation": {
+      "key_questions": [
+        {
+          "id": "kq1",
+          "topic": "Adaptación clínica en español (no literal): Mujer de 68 años, en el quinto día tras una hemicolectomía derecha electiva sin complicaciones, presenta confusión. Antecedentes: diabetes tipo 2 de 20 años, hipertensión de 15 años, angina de esfuerzo de 6 años y tabaquismo de 30 paquetes-año; era independiente. Tiene fiebre de 38,5 °C, presión arterial de 110/65 mmHg, respiración de 28/min, saturación de oxígeno de 92 % pese a 2 L/min y pulso de 118/min. Presenta crepitantes en la base pulmonar derecha; la herida evoluciona bien y el abdomen está blando e indoloro. ¿Cuál es el diagnóstico más probable? Opciones traducidas: Síndrome de respuesta inflamatoria sistémica no infeccioso; Síndrome de disfunción multiorgánica; Sepsis; Hipertermia maligna; Fiebre inducida por fármacos. Respuesta fuente: C — Sepsis. Texto fuente conservado (inglés): A 68-year-old woman presents to the hospital for an elective right hemicolectomy. She is independently mobile and does her own shopping. She has had type 2 diabetes mellitus for 20 years, essential hypertension for 15 years, and angina on exertion for 6 years. She has a 30-pack-year history of smoking. The operation was uncomplicated. On post-op day 5, she becomes confused. She has a temperature of 38.5°C (101.3°F), respiratory rate of 28/min, and oxygen saturation of 92% on 2 L of oxygen. She is tachycardic at 118/min and her blood pressure is 110/65 mm Hg. On chest auscultation, she has coarse crackles in the right lung base. Her surgical wound appears to be healing well, and her abdomen is soft and nontender. Which of the following is the most likely diagnosis? Opciones fuente: Non-infectious systemic inflammatory response syndrome (SIRS); Multiple organ dysfunction syndrome; Sepsis; Malignant hyperthermia; Drug-induced fever",
+          "evidence_ids": [
+            "CIR-006.historia.fuente_medqa"
+          ],
+          "weight": 3,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        }
+      ],
+      "tests": {
+        "recommended": [
+          "evaluacion_hospitalaria_inmediata",
+          "radiografia_o_imagen_de_torax",
+          "cultivos_y_lactato_segun_protocolo_sin_retrasar_tratamiento"
+        ],
+        "optional": [
+          "evaluacion_de_embolia_pulmonar_segun_probabilidad"
+        ],
+        "unnecessary": []
+      }
+    }
+  },
+  "provenance": {
+    "created_by": "case_preparation.transform.medqa_selection",
+    "created_at": "2026-10-08",
+    "validator_version": "1.0.0",
+    "validated_at": "2026-10-08",
+    "curated_by": "curacion_asistida_por_ia",
+    "curated_at": "2026-10-08",
+    "rejection_reason": null
+  }
+}

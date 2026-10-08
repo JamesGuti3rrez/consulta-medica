@@ -1,0 +1,4 @@
+@import "./tailwind.css";
+@source "../../public/simulacion.html";
+@source "../../public/js/simulacion.js";
+@config "../../tailwind.simulacion.config.cjs";

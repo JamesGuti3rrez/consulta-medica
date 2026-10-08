@@ -1,0 +1,4 @@
+@import "./tailwind.css";
+@source "../../public/index.html";
+@source "../../public/js/landing.js";
+@config "../../tailwind.portada.config.cjs";
