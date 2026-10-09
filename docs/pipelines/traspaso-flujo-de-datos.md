@@ -1,6 +1,6 @@
 # Traspaso: flujo de datos de casos → siguiente etapa
 
-**Responsable de esta etapa:** James Gutiérrez · **Fecha:** 2026-10-08
+**Responsable de esta etapa:** James Gutiérrez · **Fecha:** 2026-10-08 · **Actualizada:** 2026-10-09
 
 Esta nota resume qué entrega la etapa de datos y qué debe saber quien implemente el diálogo clínico o
 la base de datos. Aquí no se implementa nada de esas etapas.
@@ -11,9 +11,16 @@ la base de datos. Aquí no se implementa nada de esas etapas.
   `backend/case_preparation/sources/registry.py`. `sources fetch` los descarga y verifica.
 - **10 casos curados** en `data/cases/curated/` (EME-001 … PED-010, 2 por especialidad), regenerables
   con `adapters extract` + `curation` de forma determinista.
-- **Validación:** todos los JSON cumplen `schemas/caso.schema.json`; la API sirve solo los casos curados.
+- **Validación:** todos los JSON cumplen `schemas/caso.schema.json` y las reglas cruzadas R01–R13
+  (`backend/server/cases/rules.py`, tabla en `docs/data_model/README.md`). Las aplican las Quality
+  Gates del pipeline, la curación y el catálogo de la API, que rechaza un caso que no las cumpla.
 - **Frontend conectado:** `/simulacion.html` carga un caso con `GET /api/caso` y muestra solo la vista
   pública (`to_student_case`), sin `protected`, `on_request`, `source` ni `provenance`.
+- **Caso por especialidad:** `GET /api/caso?especialidad=pediatria` devuelve solo casos de esa
+  especialidad (422 si no existe), `GET /api/status` informa cuántos hay por especialidad y el simulador
+  pasa a la API el parámetro `?especialidad=` de su URL. Falta un selector en la portada para elegirla.
+- **Trazabilidad:** cada caso indica de qué archivo y línea de MedQA salió
+  (`data/cases/reviews/second_pass_selection.json`).
 - **Evidencias** de cada fase en `pruebas/`; todo se repite con
   `backend\.venv\Scripts\python.exe pruebas\_herramientas\recorrido_completo.py`.
 
@@ -26,13 +33,19 @@ otros hallazgos para revelar».
 
 Consecuencia: hoy no hay información que el paciente o el médico asistente puedan revelar al
 preguntar o examinar. Un diálogo sobre estos casos solo repetiría la ficha o, si usa un LLM, tendría
-que inventar respuestas.
+que inventar respuestas. El aviso W01 de las Quality Gates lo señala: 4 casos tienen laboratorio o
+examen físico en `public`, que según la arquitectura (§6.1) y el SP-002 van en `on_request`.
+
+Además, el texto público es un resumen adaptado del enunciado, no su traducción completa, y cada caso
+tiene una sola `key_question` cuyo campo `topic` guarda el enunciado original. La redistribución debe
+hacer las tres cosas a la vez: traducción completa, reparto entre zonas y preguntas clave que citen la
+evidencia de `on_request`.
 
 Antes del diálogo habrá que redistribuir cada caso, como nueva versión del lote curado:
 
 | Dónde | Qué | Quién lo revela (`reveal_policy`) |
 | --- | --- | --- |
-| `public` | Motivo de consulta, edad y sexo | — (visible desde el inicio) |
+| `public` | Alias, edad y sexo, motivo de consulta, datos de llegada y signos vitales (arquitectura §6.1) | — (visible desde el inicio) |
 | `on_request` | Anamnesis (tiempo de evolución, antecedentes, hábitos…) | `paciente`, `al_preguntar` |
 | `on_request` | Exploración física | `medico_asistente`, `al_examinar` |
 | `on_request` | Laboratorio e imágenes | `laboratorio` / `radiologia`, `al_solicitar_examen` |

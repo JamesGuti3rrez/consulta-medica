@@ -22,11 +22,12 @@ El sprint 1 requiere preparar un pipeline de datos para generar 10 casos clínic
 Se usará la fuente oficial del repositorio `jind11/MedQA`.
 
 - URL oficial: `https://github.com/jind11/MedQA`
-- Versión: registro del repositorio y del paquete de datos al momento del sprint; la descarga se fija por `sha256` local.
-- Licencia: `MIT`, verificada en el archivo `LICENSE` del repositorio oficial.
+- Versión: commit `27b02f66aac217933c9648a06f82e9f720377925` del repositorio (no la rama `master`, que puede cambiar). Cada archivo se fija por su huella SHA-256 en `backend/case_preparation/sources/registry.py`.
+- Licencia: `MIT`, verificada en el archivo `LICENSE` del repositorio oficial. El experimento SP-002 usó otra copia de MedQA publicada con `CC BY 4.0`; el proyecto usa la fuente oficial y registra su licencia. El archivo de Google Drive con las preguntas no declara una licencia propia.
 - Archivos: `data_clean.zip`, enlazado desde el README oficial, con los bancos de preguntas en `.jsonl`.
-- Bancos admitidos: **US** (inglés original) y **Taiwan en su versión en inglés** (`tw_translated_jsonl/en/` y `metamap/`, que publica el mismo repositorio). El banco Mainland (chino) no se usa.
-- Motivo de admitir Taiwan: amplía las preguntas disponibles en emergencias y pediatría. EME-002 y PED-010 provienen de ese banco. Como es una traducción del chino, cuando el enunciado es ambiguo el caso lo señala en vez de completar el dato (por ejemplo, PED-010 con la función tiroidea).
+- Bancos admitidos, un archivo por banco para no repetir preguntas: **US** (`questions/US/US_qbank.jsonl`, que reúne train, dev y test) y **Taiwan en su versión en inglés** (`questions/Taiwan/tw_translated_jsonl/en/`). No se usan el banco Mainland (chino), las variantes de 4 opciones ni las de `metamap`, que repiten las mismas preguntas.
+- Filtro de preguntas (SP-002): enunciado de al menos 250 caracteres, con un paciente, que pida un diagnóstico o un tratamiento (no ambos), que no dependa de una imagen («is shown», «exhibit», «photograph»…) y que no sea de investigación. Cada candidato registra su archivo y línea de origen.
+- Motivo de admitir Taiwan: amplía las preguntas disponibles en emergencias y pediatría. EME-002 y PED-010 provienen de ese banco. Como es una traducción del chino, puede traer frases ambiguas: el caso traduce lo que dice la fuente sin completarlo, y la ambigüedad se anota en la revisión del caso (por ejemplo, PED-010 menciona a la vez hipotiroidismo e hipertiroidismo).
 - Los archivos no se transforman ni se combinan entre sí: cada caso sale de una sola pregunta de un solo banco.
 
 ### 2. Uso de Synthea
@@ -61,7 +62,7 @@ La clasificación se asociará a cada candidato junto con la regla que la motiv�
 
 Se usa `ia_validador` (`source.method`), en línea con la arquitectura del proyecto («Conversión de MedQA con IA, validador y revisión, una sola vez»).
 
-- La IA propone la conversión; el validador decide. Ningún caso se acepta sin pasar el esquema `schemas/caso.schema.json` y las reglas cruzadas R01–R10 de `backend/server/cases/rules.py`.
+- La IA propone la conversión; el validador decide. Ningún caso se acepta sin pasar las Quality Gates (`backend/case_preparation/quality_gates/`): el esquema `schemas/caso.schema.json` y las reglas cruzadas R01–R13 de `backend/server/cases/rules.py`, que incluyen las verificaciones del validador del SP-002.
 - La conversión se ejecuta una sola vez por caso, antes del uso con estudiantes; el resultado queda versionado y se regenera de forma determinista con `python -m case_preparation curation`.
 - El diagnóstico y la respuesta de la fuente quedan siempre en `protected`; la vista del estudiante no los incluye.
 
@@ -94,3 +95,4 @@ Estas decisiones priorizan:
 ## Historial de cambios
 
 - 2026-10-08: §1 admite el banco Taiwan en inglés además del US; §5 pasa de `manual` a `ia_validador`, como indica la arquitectura; §6 precisa que la traducción conserva la misma información que el original en inglés. Se ajusta el documento a lo que se hizo.
+- 2026-10-09: §1 fija la versión al commit `27b02f6`, define un archivo por banco y el filtro de preguntas del SP-002, y anota la diferencia de licencia con la copia usada en el SP-002; §5 menciona las Quality Gates y las reglas R11–R13.

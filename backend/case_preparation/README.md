@@ -1,27 +1,24 @@
 # backend/case_preparation/
 
-Pipeline de preparación de casos: **Obtener → Extraer → Transformar → Validar (Quality Gates) → Curar → Cargar → Indexar**.
+Pipeline de preparación de casos: **Obtener → Extraer → Transformar → Validar (Quality Gates) → Curar → Indexar**.
 
 Está fuera de `server/` porque se ejecuta una sola vez por caso, antes del uso con estudiantes, y no debe desplegarse con el servidor.
 
 | Etapa | Dónde | Entrada → salida |
 | --- | --- | --- |
-| Obtener | `sources/` | fuente oficial → `data/raw/` (sin modificar) |
-| Extraer | `adapters/` | `data/raw/` → registro bruto |
-| Transformar | `transform/` | registro bruto → caso candidato (`data/interim/`) |
-| Validar | `quality_gates/` | candidato → `data/cases/validated/` o `data/cases/rejected/` |
-| Curar | revisión asistida por IA documentada | `validated_second_pass/` → `curated/`, registro en `data/cases/reviews/` |
-| Indexar | `indexing/` | `curated/` → `data/indexes/` |
+| Obtener | `sources/` | fuente oficial → `data/raw/`, con huella SHA-256 verificada y manifiesto |
+| Extraer | `adapters/` | `data/raw/` (sin modificarlo) → candidatos en `data/interim/` |
+| Transformar | `transform/medqa_case_builder.py` | candidato → caso con el formato de `schemas/caso.schema.json` |
+| Validar | `quality_gates/` | caso → aceptado (`data/cases/validated/`) o rechazado |
+| Curar | `transform/medqa_final_review.py` | `validated/` → `curated/`, con registro en `data/cases/reviews/` |
+| Indexar | `indexing/` | `curated/` → `data/indexes/` (pendiente; corresponde al RAG) |
 
 Reglas:
 
-- La validación del esquema y las reglas cruzadas viven en `server/cases/`; aquí se **reutilizan**, no se copian.
-- La curación del lote MedQA usa las evaluaciones caso por caso de `transform/medqa_final_review.py`; registra `curacion_asistida_por_ia` en la procedencia y no modifica el contenido clínico.
-- La curación automática heurística anterior está deshabilitada; no infiere edad, sexo ni aprobación de revisión a partir del texto.
+- La validación (esquema y reglas cruzadas R01–R13) vive en `server/cases/`; `quality_gates/` la **reutiliza**, no la copia.
+- Los datos de curación del lote (selección, traducción, revisión y ajustes de cada caso) están en `data/cases/reviews/medqa_lote_curacion.json`, no en el código.
 - La IA (si se usa en un adaptador) solo propone; las reglas fijas aceptan o rechazan.
 - Qué NO va aquí: casos, datasets, resultados de corridas (todo eso va en `data/`).
-
-Ejemplos de ejecución:
 
 Flujo que produce los casos de la demo:
 
@@ -32,10 +29,10 @@ cd backend
 .\.venv\Scripts\python.exe -m case_preparation curation
 ```
 
-`sources fetch` descarga `MedQA-master.zip` y `data_clean.zip`, verifica su SHA-256 contra `sources/registry.py` y escribe `data/raw/medqa/source_manifest.json`.
-`adapters extract` deja los candidatos filtrados en `data/interim/medqa_candidatos.jsonl` y un resumen de conteos por especialidad en `data/interim/medqa_candidatos_summary.json`.
-`curation` toma de esos candidatos las 10 preguntas seleccionadas, las valida contra `schemas/caso.schema.json`, las copia a `data/cases/curated/` y registra las decisiones en `data/cases/reviews/medqa_second_pass_curation_summary.json`. Es determinista: volver a ejecutarla reproduce los JSON versionados.
+- `sources fetch` descarga `MedQA-27b02f66.zip` (repositorio oficial en el commit `27b02f6`) y `data_clean.zip` (preguntas), rechaza cualquier archivo cuya huella no coincida con `sources/registry.py` y escribe `data/raw/medqa/source_manifest.json`.
+- `adapters extract` lee las preguntas dentro de `data_clean.zip` sin descomprimirlo, solo de los bancos admitidos por la decisión 0001 (`US/US_qbank.jsonl` y `Taiwan/tw_translated_jsonl/en/`), aplica el filtro del SP-002 (enunciado de 250 caracteres o más, que pida diagnóstico o tratamiento y no dependa de una imagen), descarta duplicados y guarda cada candidato con su archivo y línea de origen.
+- `curation` construye los 10 casos seleccionados, los pasa por los Quality Gates, los escribe en `data/cases/validated/` y `data/cases/curated/`, y registra el índice del lote en `data/cases/reviews/`. Es determinista: volver a ejecutarla reproduce los JSON versionados.
 
-`transform --dataset medqa --count 10` es la primera selección automática; sus casos se rechazaron en la revisión clínica (`data/cases/rejected/`) y no se usan en la demo.
+La primera selección automática (comando `transform`) se retiró: sus 10 casos se rechazaron en la revisión y se conservan en `data/cases/rejected/`.
 
 La comprobación completa, con evidencias, está en `pruebas/` (`pruebas/_herramientas/recorrido_completo.py`).

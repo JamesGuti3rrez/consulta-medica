@@ -1,16 +1,17 @@
 # data/
 
-Datos del sistema, separados por etapa. El lote MedQA de segunda pasada ya fue revisado y copiado a `cases/curated/`. Se retiraron seis curaciones heurísticas defectuosas y cuatro resúmenes de estudios que no son casos de pacientes; se conservan en `cases/rejected/` para auditoría.
+Datos del sistema, separados por etapa. El lote MedQA tiene 10 casos curados en `cases/curated/`. La
+primera selección automática (10 casos) se rechazó y se conserva en `cases/rejected/` para auditoría.
 
 | Carpeta | Contenido | ¿Se versiona? |
 | --- | --- | --- |
-| `raw/` | Datasets fuente tal como se obtienen (MedQA, Synthea), uno por subcarpeta. Los deja aquí `backend/case_preparation/sources/`. | No |
-| `interim/` | Resultados temporales de la transformación. | No |
-| `cases/validated/` | Casos que superaron los Quality Gates. | Sí |
-| `cases/validated_second_pass/` | Lote de diez casos con fidelidad a fuente y revisión asistida registradas. | Sí |
-| `cases/curated/` | Diez casos con estado `curado` mediante revisión asistida por IA. Mantienen intacto el contenido clínico; solo cambia estado y procedencia de curación. | Sí |
+| `raw/` | Datasets fuente tal como se obtienen, uno por subcarpeta. Los deja aquí `backend/case_preparation/sources/` y nada los modifica después. | No, salvo `raw/<fuente>/source_manifest.json`: URL, huella SHA-256 y fechas de cada archivo |
+| `interim/` | Candidatos extraídos (`medqa_candidatos.jsonl`) y su resumen de conteos. | No |
+| `cases/validated/` | Casos que pasaron los Quality Gates y esperan curación (`status: validado`). | Sí |
+| `cases/curated/` | Casos `curado`: los únicos que ve el estudiante. Quedan congelados. | Sí |
 | `cases/rejected/` | Casos rechazados, con su motivo, para auditoría. | Sí |
-| `cases/reviews/` | Registros de la revisión clínica de cada caso. | Sí |
+| `cases/reviews/` | Registros de la curación: datos de entrada del lote (`medqa_lote_curacion.json`), revisión de cada caso, índice con el archivo y la línea de origen de cada pregunta, y avisos de los Quality Gates. | Sí |
+| `cases/final_selection/` | Criterios y conteos de la selección final del lote. | Sí |
 | `indexes/` | Índice vectorial local generado desde `cases/curated/`. Se puede regenerar. | No |
 | `knowledge/` | Fuentes de conocimiento clínico general para el RAG (pendiente de decisión). | Por definir |
 
@@ -18,7 +19,6 @@ Reglas:
 
 - El esquema oficial está en `schemas/`, no aquí.
 - El campo `status` del JSON es la fuente de verdad; la carpeta solo refleja la etapa.
-- Los datos definitivos se construyen desde cero con el pipeline del proyecto.
-- El resumen y los criterios de curación del lote MedQA están en `cases/reviews/medqa_second_pass_curation_summary.json`; el detalle de coherencia y fuentes está en `cases/reviews/clinical_coherence_review.json`.
-- Los sufijos de los IDs de esta selección identifican su posición 001–010 dentro del lote; el prefijo identifica la especialidad. Los IDs completos son únicos.
+- Los datos definitivos se construyen desde cero con el pipeline del proyecto; regenerarlos produce exactamente los mismos JSON.
+- El sufijo del ID (001–010) es la posición del caso en el lote, y coincide con el número del alias («Paciente 1» es EME-001); el prefijo identifica la especialidad.
 - Solo datos públicos o sintéticos; nunca datos de pacientes reales.
