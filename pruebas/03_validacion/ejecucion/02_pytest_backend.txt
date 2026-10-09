@@ -1,6 +1,6 @@
 DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica\backend
 COMANDO: .\.venv\Scripts\python.exe -m pytest -v -p no:cacheprovider
-FECHA: 2026-10-09 05:30:10 UTC
+FECHA: 2026-10-09 07:12:04 UTC
 CODIGO_SALIDA: 0
 
 STDOUT:
@@ -9,38 +9,52 @@ platform win32 -- Python 3.14.4, pytest-8.3.4, pluggy-1.6.0 -- C:\Users\Usuario\
 rootdir: C:\Users\Usuario\Documents\consulta-medica\backend
 configfile: pyproject.toml
 plugins: anyio-4.15.1
-collecting ... collected 31 items
+collecting ... collected 45 items
 
-tests/test_case_catalog_api.py::test_status_reports_curated_catalog_without_claiming_full_simulation_ready PASSED [  3%]
-tests/test_case_catalog_api.py::test_case_endpoint_returns_only_student_facing_fields PASSED [  6%]
-tests/test_case_catalog_api.py::test_case_endpoint_reports_unavailable_when_catalog_is_empty PASSED [  9%]
-tests/test_case_rules.py::test_all_curated_cases_pass_rules PASSED       [ 12%]
-tests/test_case_rules.py::test_rules_catch_the_defect_that_rejected_ped_003 PASSED [ 16%]
-tests/test_case_rules.py::test_r01_prefix_must_match_specialty PASSED    [ 19%]
+tests/test_case_catalog_api.py::test_status_reports_curated_catalog_without_claiming_full_simulation_ready PASSED [  2%]
+tests/test_case_catalog_api.py::test_case_endpoint_returns_only_student_facing_fields PASSED [  4%]
+tests/test_case_catalog_api.py::test_case_endpoint_reports_unavailable_when_catalog_is_empty PASSED [  6%]
+tests/test_case_catalog_api.py::test_case_endpoint_filters_by_specialty PASSED [  8%]
+tests/test_case_catalog_api.py::test_case_endpoint_rejects_unknown_specialty PASSED [ 11%]
+tests/test_case_catalog_api.py::test_status_reports_cases_by_specialty PASSED [ 13%]
+tests/test_case_rules.py::test_all_curated_cases_pass_rules PASSED       [ 15%]
+tests/test_case_rules.py::test_rules_catch_the_defect_that_rejected_ped_003 PASSED [ 17%]
+tests/test_case_rules.py::test_r01_prefix_must_match_specialty PASSED    [ 20%]
 tests/test_case_rules.py::test_r02_evidence_ids_unique_and_own PASSED    [ 22%]
-tests/test_case_rules.py::test_r03_key_questions_cite_existing_evidence PASSED [ 25%]
-tests/test_case_rules.py::test_r04_diagnosis_not_visible PASSED          [ 29%]
-tests/test_case_rules.py::test_r05_allergies_consistent PASSED           [ 32%]
-tests/test_case_rules.py::test_r06_age_and_sex_match_specialty PASSED    [ 35%]
-tests/test_case_rules.py::test_r07_provenance_matches_status PASSED      [ 38%]
-tests/test_case_rules.py::test_r08_license_matches_source PASSED         [ 41%]
-tests/test_case_rules.py::test_r09_r10_batch_rules PASSED                [ 45%]
-tests/test_case_rules.py::test_catalog_refuses_case_that_breaks_rules PASSED [ 48%]
-tests/test_case_transform.py::test_build_case_validates_against_schema PASSED [ 51%]
-tests/test_case_transform.py::test_build_case_requires_source_demographics PASSED [ 54%]
-tests/test_case_transform.py::test_select_candidates_returns_balanced_subset PASSED [ 58%]
-tests/test_case_transform.py::test_final_review_batch_uses_supported_postoperative_and_emergency_cases PASSED [ 61%]
-tests/test_case_transform.py::test_build_case_preserves_differential_risk_and_reviewed_test_recommendations PASSED [ 64%]
-tests/test_case_transform.py::test_ai_curation_changes_only_status_and_curation_provenance PASSED [ 67%]
-tests/test_medqa_adapter.py::test_extract_medqa_candidates_filters_patient_cases PASSED [ 70%]
-tests/test_medqa_adapter.py::test_parse_record_uses_answer_index_and_answer_text PASSED [ 74%]
-tests/test_medqa_adapter.py::test_generated_candidate_ids_are_content_stable PASSED [ 77%]
-tests/test_medqa_adapter.py::test_specialty_classifier_does_not_match_laboratory_as_obstetrics PASSED [ 80%]
-tests/test_medqa_adapter.py::test_extract_medqa_candidates_rejects_study_abstract_questions PASSED [ 83%]
-tests/test_medqa_adapter.py::test_extract_medqa_candidates_handles_empty_source_dir PASSED [ 87%]
-tests/test_medqa_adapter.py::test_extract_medqa_candidates_reads_jsonl_from_zip PASSED [ 90%]
-tests/test_sources_fetch.py::test_fetch_downloads_verifies_hash_and_records_each_file PASSED [ 93%]
-tests/test_sources_fetch.py::test_fetch_rejects_download_with_unexpected_hash PASSED [ 96%]
+tests/test_case_rules.py::test_r03_key_questions_cite_existing_evidence PASSED [ 24%]
+tests/test_case_rules.py::test_r04_diagnosis_not_visible PASSED          [ 26%]
+tests/test_case_rules.py::test_r05_allergies_consistent PASSED           [ 28%]
+tests/test_case_rules.py::test_r06_age_and_sex_match_specialty PASSED    [ 31%]
+tests/test_case_rules.py::test_r07_provenance_matches_status PASSED      [ 33%]
+tests/test_case_rules.py::test_r08_license_matches_source PASSED         [ 35%]
+tests/test_case_rules.py::test_r09_r10_batch_rules PASSED                [ 37%]
+tests/test_case_rules.py::test_catalog_refuses_case_that_breaks_rules PASSED [ 40%]
+tests/test_case_rules.py::test_r11_differentials_must_stay_in_protected PASSED [ 42%]
+tests/test_case_rules.py::test_r12_rejects_multiple_choice_leftovers PASSED [ 44%]
+tests/test_case_rules.py::test_r13_rejects_figures_not_in_source PASSED  [ 46%]
+tests/test_case_rules.py::test_r13_accepts_source_figures_written_in_words_or_without_leading_zero PASSED [ 48%]
+tests/test_case_rules.py::test_w01_warns_about_exam_in_public_without_blocking PASSED [ 51%]
+tests/test_case_transform.py::test_build_case_validates_against_schema PASSED [ 53%]
+tests/test_case_transform.py::test_build_case_requires_source_demographics PASSED [ 55%]
+tests/test_case_transform.py::test_final_review_batch_uses_supported_postoperative_and_emergency_cases PASSED [ 57%]
+tests/test_case_transform.py::test_build_case_preserves_differential_risk_and_reviewed_test_recommendations PASSED [ 60%]
+tests/test_case_transform.py::test_curation_changes_only_status_and_curation_provenance PASSED [ 62%]
+tests/test_medqa_adapter.py::test_extract_medqa_candidates_filters_patient_cases PASSED [ 64%]
+tests/test_medqa_adapter.py::test_parse_record_uses_answer_index_and_answer_text PASSED [ 66%]
+tests/test_medqa_adapter.py::test_generated_candidate_ids_are_content_stable PASSED [ 68%]
+tests/test_medqa_adapter.py::test_specialty_classifier_does_not_match_laboratory_as_obstetrics PASSED [ 71%]
+tests/test_medqa_adapter.py::test_question_type_requires_exactly_one_request PASSED [ 73%]
+tests/test_medqa_adapter.py::test_extract_medqa_candidates_rejects_study_image_and_non_clinical_questions PASSED [ 75%]
+tests/test_medqa_adapter.py::test_extract_medqa_candidates_skips_duplicates PASSED [ 77%]
+tests/test_medqa_adapter.py::test_extract_medqa_candidates_handles_empty_source_dir PASSED [ 80%]
+tests/test_medqa_adapter.py::test_extract_reads_only_admitted_banks_inside_zip_without_writing_raw PASSED [ 82%]
+tests/test_medqa_adapter.py::test_extract_rejects_registered_zip_with_unexpected_hash PASSED [ 84%]
+tests/test_quality_gates.py::test_accepts_curated_case_and_reports_warnings PASSED [ 86%]
+tests/test_quality_gates.py::test_rejects_case_that_breaks_the_schema PASSED [ 88%]
+tests/test_quality_gates.py::test_rejects_case_that_breaks_cross_rules PASSED [ 91%]
+tests/test_quality_gates.py::test_batch_rejects_repeated_source_question PASSED [ 93%]
+tests/test_sources_fetch.py::test_fetch_downloads_verifies_hash_and_records_each_file PASSED [ 95%]
+tests/test_sources_fetch.py::test_fetch_rejects_download_with_unexpected_hash PASSED [ 97%]
 tests/test_sources_fetch.py::test_fetch_reverification_keeps_original_obtained_at PASSED [100%]
 
 ============================== warnings summary ===============================
@@ -49,7 +63,7 @@ tests/test_sources_fetch.py::test_fetch_reverification_keeps_original_obtained_a
     from starlette.testclient import TestClient as TestClient  # noqa
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-======================== 31 passed, 1 warning in 0.89s ========================
+======================== 45 passed, 1 warning in 0.99s ========================
 
 
 STDERR:

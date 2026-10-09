@@ -15,10 +15,13 @@ cd ..
 git diff --ignore-cr-at-eol --exit-code --stat -- data/cases
 ```
 
-1. **Extraer** recorre los 30 `.jsonl` de `data_clean.zip`: 225 908 registros leídos y 53 151
-   candidatos con contexto de paciente, que quedan en `data/interim/medqa_candidatos.jsonl`.
+1. **Extraer** lee, dentro de `data_clean.zip` y sin descomprimirlo, los 4 archivos de los bancos
+   admitidos (`US/US_qbank.jsonl` y `Taiwan/tw_translated_jsonl/en/`): 28 492 preguntas leídas y 4 790
+   candidatos (2 529 de diagnóstico y 2 261 de tratamiento), sin duplicados, que quedan en
+   `data/interim/medqa_candidatos.jsonl` con su archivo y línea de origen. Se excluyen, entre otras,
+   2 642 preguntas que dependen de una imagen.
 2. **Curar** toma de esos candidatos las 10 preguntas seleccionadas, las convierte al formato de
-   `schemas/caso.schema.json`, las valida y escribe `data/cases/validated_second_pass/` y
+   `schemas/caso.schema.json`, las pasa por las Quality Gates y escribe `data/cases/validated/` y
    `data/cases/curated/`. La adaptación al español y la revisión clínica están registradas en
    `data/cases/reviews/` (curación asistida por IA). El enunciado, las opciones y la respuesta
    originales se conservan en la sección protegida del caso.
@@ -65,4 +68,6 @@ Segunda revisión (frente a las especificaciones):
 - `provenance.created_by` decía `medqa_selection`, el módulo de la primera selección; ahora indica `medqa_final_review`, que es el que genera los casos.
 - Las fechas del lote dependían del día de ejecución; ahora son fijas (`BATCH_DATE = 2026-10-08`), así que la regeneración es idéntica cualquier día.
 - La etiqueta «Adaptación clínica en español (no literal)» contradecía la decisión 0001 §6; ahora dice «Traducción al español».
-- La curación aplica el esquema y las reglas cruzadas R01–R10 antes de escribir cada caso.
+- La curación aplica el esquema y las reglas cruzadas antes de escribir cada caso (hoy R01–R13, mediante las Quality Gates).
+
+La auditoría del 2026-10-09 cambió el extractor, la ubicación de los datos de curación y algunos textos de los casos; el detalle y sus evidencias están en [../06_correcciones/](../06_correcciones/README.md).

@@ -14,7 +14,7 @@ cd backend
 
 ## Qué se comprueba
 
-1. **Esquema**: cada archivo de `curated/`, `validated_second_pass/` y `rejected/` se valida con
+1. **Esquema**: cada archivo de `curated/`, `validated/` y `rejected/` se valida con
    `schemas/caso.schema.json` (JSON Schema 2020-12), usando el mismo validador que el servidor.
 2. **Lote curado**: 10 casos con `status = curado`; el nombre de archivo coincide con `case_id`;
    los sufijos van del 001 al 010 sin huecos ni repetidos; hay 2 por especialidad; todos vienen de
@@ -39,16 +39,20 @@ cd backend
    | R08 | La licencia es la registrada para la fuente | `registry.py` |
    | R09 | Ninguna pregunta fuente se usa en dos casos | 0001 §2 |
    | R10 | IDs de caso únicos | `data/README.md` |
+   | R11 | Los diferenciales no salen de `protected` | SP-002, riesgo R1 |
+   | R12 | No queda texto de la pregunta de opción múltiple | SP-002, regla 4 |
+   | R13 | No hay cifras que no estén en la fuente | SP-002, regla 3 |
+   | W01 | Aviso: laboratorio o examen en `public` | SP-002 regla 2, arquitectura §6.1 |
 
 6. **Banco de origen**: cada pregunta curada se busca en los archivos originales y debe pertenecer a
    un banco admitido por 0001 §1 (US o Taiwan en inglés).
 
 ## Resultado
 
-- Esquema: `curated/` 10/10 (`curado`), `validated_second_pass/` 10/10 (`validado`), `rejected/` 10/10 (`rechazado`).
-- Reglas R01–R10: las cumplen los 10 curados. En `rejected/`, PED-003 y PED-004 incumplen R06 («pediatría» con 45 años), que es el defecto por el que se rechazaron.
+- Esquema: `curated/` 10/10 (`curado`), `validated/` 10/10 (`validado`), `rejected/` 10/10 (`rechazado`).
+- Reglas R01–R13: las cumplen los 10 curados; 4 tienen el aviso W01 (laboratorio o examen en `public`), que no bloquea hasta redistribuir los casos. En `rejected/`, PED-003 y PED-004 incumplen R06 («pediatría» con 45 años) y cuatro conservan el texto de la pregunta de opción múltiple (R12): los defectos por los que se rechazaron.
 - Banco de origen: 8 casos del banco US y 2 del banco Taiwan en inglés (EME-002 y PED-010).
-- Todas las comprobaciones pasan; `pytest`: 31 pruebas superadas.
+- Todas las comprobaciones pasan; `pytest`: 45 pruebas superadas.
 
 ## Evidencias
 
@@ -63,3 +67,4 @@ cd backend
 | --- | --- | --- |
 | 1 | Fallido: EME-002 y PED-010 venían del banco Taiwan y la decisión 0001 solo admitía el banco US | [intentos/01_casos_fuera_del_banco_us/](intentos/01_casos_fuera_del_banco_us/README.md) |
 | 2 | Correcto: se actualizó la decisión 0001 (§1 admite Taiwan en inglés, §5 `ia_validador`, §6 traducción con la misma información) y todo pasa | esta carpeta |
+| 3 | Correcto: reglas R11–R13 y aviso W01 del validador del SP-002, aplicados por las Quality Gates | [../06_correcciones/10_quality_gates_sp002/](../06_correcciones/10_quality_gates_sp002/) |

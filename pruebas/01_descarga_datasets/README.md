@@ -19,7 +19,7 @@ Se usan **dos archivos originales**, registrados en
 
 | Archivo | Origen | SHA-256 | Contenido |
 | --- | --- | --- | --- |
-| `MedQA-master.zip` (37 558 B) | `https://github.com/jind11/MedQA/archive/refs/heads/master.zip` | `1b7af07b…d8c4b60c` | Código, README y LICENSE. No trae preguntas. |
+| `MedQA-27b02f66.zip` (40 414 B) | `https://github.com/jind11/MedQA/archive/27b02f66aac217933c9648a06f82e9f720377925.zip` (commit fijo) | `8cba6bdd…7418fa15` | Código, README y LICENSE. No trae preguntas. |
 | `data_clean.zip` (131 741 885 B) | Enlace de Google Drive de la sección *Data* del README oficial (id `1ImYUSLk9JbgHXOemfvyiDiirluZHPeQw`) | `1c2ca813…6960f629` | Preguntas (`questions/US`, `Mainland`, `Taiwan`, 30 `.jsonl`) y libros de texto. |
 
 El 2026-10-08 se descargó de nuevo `data_clean.zip` desde esa URL, en una carpeta aparte, y la huella
@@ -49,7 +49,7 @@ verificación de cada archivo. Al volver a ejecutarlo conserva la fecha original
 ## Observaciones
 
 - `data/raw/` no se versiona; cualquiera puede reconstruirlo con el comando anterior.
-- `data_clean_retry.zip` es una copia idéntica de `data_clean.zip` (misma huella); `extracted_test/` y `__MACOSX/` son restos locales. El pipeline no los usa.
+- Los restos locales (`data_clean_retry.zip`, `extracted_test/`, `__MACOSX/`, la carpeta descomprimida y el zip de `master`) se eliminaron; `data/raw/medqa/` conserva solo los dos archivos registrados y su manifiesto (ver `06_correcciones/03_limpieza/`).
 - La licencia MIT figura en el repositorio; el archivo de Google Drive no declara una licencia propia.
 ## Intentos
 
@@ -57,3 +57,4 @@ verificación de cada archivo. Al volver a ejecutarlo conserva la fecha original
 | --- | --- | --- |
 | 1 | Fallido: ejecuciones con código 1 y 255; `data_clean.zip` sin registrar | [intentos/01_intento_fallido/](intentos/01_intento_fallido/README.md) |
 | 2 | Correcto: código 0, dos archivos con huella verificada | esta carpeta (`codigo/`, `ejecucion/`, `resultados/`) |
+| 3 | Correcto: zip del repositorio fijado al commit `27b02f6` en lugar de la rama `master`, descarga con límite de tiempo y manifiesto versionado | [../06_correcciones/01_fuente_fijada/](../06_correcciones/01_fuente_fijada/) |

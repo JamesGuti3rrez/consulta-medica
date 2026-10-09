@@ -1,5 +1,5 @@
 Recorrido completo del flujo de datos MedQA → casos curados → frontend
-Fecha: 2026-10-09 05:30:24 UTC
+Fecha: 2026-10-09 07:12:18 UTC
 
 [OK] Fase 1: descarga y verificación SHA-256 de MedQA (código 0)
 [OK] Fase 1: listado de data/raw/medqa y huellas esperadas (código 0)

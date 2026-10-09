@@ -32,7 +32,8 @@ El script abre `/simulacion.html` en Chromium con una ventana de **1440 × 1100 
 
 - `capturas/01_simulador_catalogo_disponible.png`: estado inicial, «10 casos curados disponibles».
 - `capturas/02_ficha_EME-001.png` a `06_ficha_MED-008.png`: ficha de cada caso cargado.
-- `capturas/07_respuesta_api_caso.png`: respuesta JSON de `GET /api/caso` tal como llega al navegador.
+- `capturas/07_ficha_por_especialidad.png`: `simulacion.html?especialidad=pediatria`; las 5 cargas devolvieron casos de pediatría.
+- `capturas/08_respuesta_api_caso.png`: respuesta JSON de `GET /api/caso` tal como llega al navegador.
 - [ejecucion/01_capturar_frontend_terminal.png](ejecucion/01_capturar_frontend_terminal.png): foto de la terminal donde se ejecutó la prueba.
 - [ejecucion/01_capturar_frontend.png](ejecucion/01_capturar_frontend.png): salida de la prueba generada desde el texto.
 - [../../docs/evidence/simulador-caso-curado.png](../../docs/evidence/simulador-caso-curado.png): captura previa del caso PED-010.

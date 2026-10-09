@@ -7,9 +7,10 @@ Todas las capturas están en **vista de escritorio/PC (1440 px de ancho)**; ning
 | --- | --- | --- | --- |
 | 1. Descarga | [01_descarga_datasets/](01_descarga_datasets/README.md) | Fuente y archivos originales identificados, URL de obtención y huella SHA-256 verificada | OK |
 | 2. Conversión a JSON | [02_transformacion/](02_transformacion/README.md) | Se vuelven a generar los 10 casos con IDs 001–010 y el resultado es idéntico al versionado | OK |
-| 3. Validación | [03_validacion/](03_validacion/README.md) | Los JSON cumplen el esquema, las reglas cruzadas R01–R10 y la decisión 0001; la demo usa solo los casos curados | OK (intento 2) |
+| 3. Validación | [03_validacion/](03_validacion/README.md) | Los JSON cumplen el esquema, las reglas cruzadas R01–R13 y la decisión 0001; la demo usa solo los casos curados | OK (intento 2) |
 | 4. Frontend | [04_frontend/](04_frontend/README.md) | Un caso por especialidad cargado en pantalla, solo con datos públicos | OK (intento 3) |
 | 5. Recorrido completo | [05_recorrido_completo/](05_recorrido_completo/README.md) | Todas las fases seguidas, con foto de la terminal | OK (intento 2) |
+| 6. Auditoría y correcciones | [06_correcciones/](06_correcciones/README.md) | Hallazgos de la revisión, contraste con los documentos del proyecto y una corrección por commit | OK |
 
 ## Convención de cada fase
 

@@ -1,6 +1,6 @@
 DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica\backend
 COMANDO: .\.venv\Scripts\python.exe -m case_preparation curation
-FECHA: 2026-10-09 05:30:06 UTC
+FECHA: 2026-10-09 07:12:00 UTC
 CODIGO_SALIDA: 0
 
 STDOUT:
@@ -27,7 +27,7 @@ STDOUT:
     "medicina_interna": 2
   },
   "schema_valid": true,
-  "curation_method": "curacion_asistida_por_ia"
+  "curation_method": "curacion_con_revision_documentada"
 }
 
 

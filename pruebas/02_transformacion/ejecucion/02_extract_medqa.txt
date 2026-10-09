@@ -1,6 +1,6 @@
 DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica\backend
 COMANDO: .\.venv\Scripts\python.exe -m case_preparation adapters extract --dataset medqa
-FECHA: 2026-10-09 05:30:04 UTC
+FECHA: 2026-10-09 07:11:59 UTC
 CODIGO_SALIDA: 0
 
 STDOUT:
@@ -9,47 +9,34 @@ STDOUT:
   "status": "ok",
   "raw_root": "C:\\Users\\Usuario\\Documents\\consulta-medica\\data\\raw\\medqa",
   "files_scanned": [
-    "data\\raw\\medqa\\data_clean\\questions\\Mainland\\4_options\\dev.jsonl",
-    "data\\raw\\medqa\\data_clean\\questions\\Mainland\\4_options\\test.jsonl",
-    "data\\raw\\medqa\\data_clean\\questions\\Mainland\\4_options\\train.jsonl",
-    "data\\raw\\medqa\\data_clean\\questions\\Mainland\\chinese_qbank.jsonl",
-    "data\\raw\\medqa\\data_clean\\questions\\Mainland\\dev.jsonl",
-    "data\\raw\\medqa\\data_clean\\questions\\Mainland\\test.jsonl",
-    "data\\raw\\medqa\\data_clean\\questions\\Mainland\\train.jsonl",
-    "data\\raw\\medqa\\data_clean\\questions\\Taiwan\\dev.jsonl",
-    "data\\raw\\medqa\\data_clean\\questions\\Taiwan\\metamap\\dev\\tw_dev.jsonl",
-    "data\\raw\\medqa\\data_clean\\questions\\Taiwan\\metamap\\test\\tw_test.jsonl",
-    "data\\raw\\medqa\\data_clean\\questions\\Taiwan\\metamap\\train\\tw_train.jsonl",
-    "data\\raw\\medqa\\data_clean\\questions\\Taiwan\\taiwanese_qbank.jsonl",
-    "data\\raw\\medqa\\data_clean\\questions\\Taiwan\\test.jsonl",
-    "data\\raw\\medqa\\data_clean\\questions\\Taiwan\\train.jsonl",
-    "data\\raw\\medqa\\data_clean\\questions\\Taiwan\\tw_translated_jsonl\\en\\dev-2en.jsonl",
-    "data\\raw\\medqa\\data_clean\\questions\\Taiwan\\tw_translated_jsonl\\en\\test-2en.jsonl",
-    "data\\raw\\medqa\\data_clean\\questions\\Taiwan\\tw_translated_jsonl\\en\\train-2en.jsonl",
-    "data\\raw\\medqa\\data_clean\\questions\\Taiwan\\tw_translated_jsonl\\zh\\dev-2zh.jsonl",
-    "data\\raw\\medqa\\data_clean\\questions\\Taiwan\\tw_translated_jsonl\\zh\\test-2zh.jsonl",
-    "data\\raw\\medqa\\data_clean\\questions\\Taiwan\\tw_translated_jsonl\\zh\\train-2zh.jsonl",
-    "data\\raw\\medqa\\data_clean\\questions\\US\\4_options\\phrases_no_exclude_dev.jsonl",
-    "data\\raw\\medqa\\data_clean\\questions\\US\\4_options\\phrases_no_exclude_test.jsonl",
-    "data\\raw\\medqa\\data_clean\\questions\\US\\4_options\\phrases_no_exclude_train.jsonl",
-    "data\\raw\\medqa\\data_clean\\questions\\US\\dev.jsonl",
-    "data\\raw\\medqa\\data_clean\\questions\\US\\metamap_extracted_phrases\\dev\\phrases_dev.jsonl",
-    "data\\raw\\medqa\\data_clean\\questions\\US\\metamap_extracted_phrases\\test\\phrases_test.jsonl",
-    "data\\raw\\medqa\\data_clean\\questions\\US\\metamap_extracted_phrases\\train\\phrases_train.jsonl",
-    "data\\raw\\medqa\\data_clean\\questions\\US\\test.jsonl",
-    "data\\raw\\medqa\\data_clean\\questions\\US\\train.jsonl",
-    "data\\raw\\medqa\\data_clean\\questions\\US\\US_qbank.jsonl"
+    "data_clean.zip:data_clean/questions/Taiwan/tw_translated_jsonl/en/dev-2en.jsonl",
+    "data_clean.zip:data_clean/questions/Taiwan/tw_translated_jsonl/en/test-2en.jsonl",
+    "data_clean.zip:data_clean/questions/Taiwan/tw_translated_jsonl/en/train-2en.jsonl",
+    "data_clean.zip:data_clean/questions/US/US_qbank.jsonl"
   ],
-  "records_scanned": 225908,
-  "candidates_kept": 53151,
-  "specialty_counts": {
-    "cirugia_general": 2062,
-    "emergencias": 10731,
-    "ginecologia_obstetricia": 6381,
-    "medicina_interna": 24500,
-    "pediatria": 9477
+  "records_scanned": 28492,
+  "rejected_by_reason": {
+    "depende_de_imagen": 2642,
+    "enunciado_corto": 11353,
+    "investigacion": 426,
+    "no_pide_diagnostico_ni_tratamiento": 7279,
+    "sin_contexto_clinico": 764,
+    "sin_paciente": 1238
   },
-  "generated_at": "2026-10-09T05:30:04.605980+00:00"
+  "duplicates_skipped": 0,
+  "candidates_kept": 4790,
+  "question_type_counts": {
+    "diagnostico": 2529,
+    "tratamiento": 2261
+  },
+  "specialty_counts": {
+    "cirugia_general": 243,
+    "emergencias": 1010,
+    "ginecologia_obstetricia": 667,
+    "medicina_interna": 2022,
+    "pediatria": 848
+  },
+  "generated_at": "2026-10-09T07:11:59.761112+00:00"
 }
 
 
