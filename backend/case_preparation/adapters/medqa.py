@@ -6,12 +6,40 @@ import re
 import zipfile
 from collections import Counter
 from datetime import datetime, timezone
-from pathlib import Path
-from typing import Any, Iterable
+from functools import partial
+from pathlib import Path, PurePosixPath
+from typing import Any, Callable, Iterable
+
+from ..sources.fetch import _sha256
+from ..sources.registry import SOURCE_DEFINITIONS
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 DATA_RAW_ROOT = REPO_ROOT / "data" / "raw" / "medqa"
 DATA_INTERIM_ROOT = REPO_ROOT / "data" / "interim"
+
+# Archivo registrado en sources/registry.py que contiene las preguntas. Se lee sin descomprimirlo:
+# data/raw/ nunca se modifica.
+REGISTERED_ZIP = "data_clean.zip"
+# docs/decisions/0001 §1: banco US completo (US_qbank contiene train, dev y test) y versión en inglés
+# del banco Taiwan. Mainland (chino), las variantes de 4 opciones y metamap son repeticiones o se excluyen.
+ALLOWED_QUESTION_FILES = re.compile(
+    r"(^|/)questions/(US/US_qbank\.jsonl|Taiwan/tw_translated_jsonl/en/[^/]+\.jsonl)$"
+)
+# SP-002 §6 y C.2: un caso necesita un enunciado largo, sin imagen, que pida diagnóstico o tratamiento.
+MIN_QUESTION_LENGTH = 250
+IMAGE_MARKERS = re.compile(
+    r"\b(is shown|are shown|shown below|see (the )?image|exhibit|photograph|figure)\b", re.IGNORECASE
+)
+DIAGNOSIS_ASK = re.compile(
+    r"most likely (underlying )?(diagnosis|cause|etiology|explanation)|most likely to be diagnosed|diagnosis is\b",
+    re.IGNORECASE,
+)
+TREATMENT_ASK = re.compile(
+    r"next (best )?step|most appropriate (next step|management|treatment|pharmacotherapy|therapy|intervention)"
+    r"|best (initial )?(next step|step|treatment|management|therapy)|drug of choice|prescribe"
+    r"|which (of the following )?(drugs?|medications?|antibiotics?|antimicrobials?)",
+    re.IGNORECASE,
+)
 
 PATIENT_MARKERS = (
     "patient",
@@ -64,53 +92,61 @@ STUDY_REJECTION_MARKERS = (
 )
 
 
-def _is_metadata_path(path: Path) -> bool:
-    if "__MACOSX" in path.parts:
+def _is_metadata_name(name: str) -> bool:
+    parts = PurePosixPath(name.replace("\\", "/")).parts
+    return "__MACOSX" in parts or parts[-1].startswith(".")
+
+
+def _is_allowed_source(name: str) -> bool:
+    posix = "/" + name.replace("\\", "/")
+    if "/questions/" not in posix:
+        # Fuentes sin la estructura de bancos de MedQA (por ejemplo, las de las pruebas).
         return True
-    name = path.name
-    return name.startswith(".") and name != ".jsonl"
+    return bool(ALLOWED_QUESTION_FILES.search(posix))
 
 
-def _iter_jsonl_files(root: Path) -> list[Path]:
+def _verify_registered_zip(path: Path) -> None:
+    expected = next(f.sha256 for f in SOURCE_DEFINITIONS["medqa"].files if f.name == REGISTERED_ZIP)
+    actual = _sha256(path)
+    if actual != expected:
+        raise ValueError(f"{path.name} no coincide con la huella registrada ({expected}); ejecute «sources fetch».")
+
+
+def _read_zip_lines(archive: zipfile.ZipFile, name: str) -> Iterable[str]:
+    with archive.open(name) as handle:
+        for raw_line in handle:
+            text = raw_line.decode("utf-8-sig", errors="replace").strip()
+            if text:
+                yield text
+
+
+def _iter_sources(root: Path, verify_registered: bool) -> list[tuple[str, Callable[[], Iterable[str]]]]:
+    """Devuelve (etiqueta, lector de líneas) de cada .jsonl admitido, sin escribir nada en root."""
     if not root.exists():
         return []
-
     if root.is_file():
         root = root.parent
 
-    candidates = []
-    zip_files = sorted({p for p in root.rglob("*.zip") if p.is_file() and not _is_metadata_path(p)})
-    for zip_path in zip_files:
-        if zip_path.name in {"MedQA-master.zip", "source_manifest.json"}:
-            continue
-        try:
-            with zipfile.ZipFile(zip_path) as archive:
-                extracted_root = zip_path.with_suffix("")
-                if not extracted_root.exists():
-                    archive.extractall(path=root)
-                candidates.extend(
-                    sorted(
-                        {
-                            p for p in extracted_root.rglob("*.jsonl") if p.is_file() and not _is_metadata_path(p)
-                        }
-                    )
-                )
-        except (zipfile.BadZipFile, OSError, RuntimeError):
-            continue
+    registered = root / REGISTERED_ZIP
+    if registered.exists():
+        if verify_registered:
+            _verify_registered_zip(registered)
+        archive = zipfile.ZipFile(registered)
+        names = sorted(
+            name
+            for name in archive.namelist()
+            if name.endswith(".jsonl") and not _is_metadata_name(name) and _is_allowed_source(name)
+        )
+        return [(f"{REGISTERED_ZIP}:{name}", partial(_read_zip_lines, archive, name)) for name in names]
 
-    jsonl_files = sorted({p for p in root.rglob("*.jsonl") if p.is_file() and not _is_metadata_path(p)})
-    if jsonl_files:
-        return jsonl_files
-
-    excluded_names = {"source_manifest.json", "manifest.json", "medqa_candidatos_summary.json"}
-    json_files = sorted(
-        {
-            p
-            for p in root.rglob("*.json")
-            if p.is_file() and p.name not in excluded_names and not _is_metadata_path(p)
-        }
+    files = sorted(
+        path
+        for path in root.rglob("*.jsonl")
+        if path.is_file()
+        and not _is_metadata_name(path.relative_to(root).as_posix())
+        and _is_allowed_source(path.relative_to(root).as_posix())
     )
-    return list(json_files)
+    return [(path.relative_to(root).as_posix(), partial(_read_lines, path)) for path in files]
 
 
 def _read_lines(path: Path) -> Iterable[str]:
@@ -304,26 +340,39 @@ def _classify_specialty(question_text: str) -> tuple[str, str]:
     return "medicina_interna", "cuadro clínico adulto general"
 
 
-def _is_candidate_question(record: dict[str, Any], question: str, option_text: str) -> bool:
-    if not question:
-        return False
-    if len(question) < 40:
-        return False
+def _question_type(question: str) -> str | None:
+    """«diagnostico» o «tratamiento» según lo que pide la pregunta final; None si pide ambas o ninguna."""
+    ask = question.strip()[-300:]
+    asks_diagnosis = bool(DIAGNOSIS_ASK.search(ask))
+    asks_treatment = bool(TREATMENT_ASK.search(ask))
+    if asks_diagnosis == asks_treatment:
+        return None
+    return "diagnostico" if asks_diagnosis else "tratamiento"
+
+
+def _rejection_reason(question: str, option_text: str) -> str | None:
+    """Motivo por el que la pregunta no sirve como caso (SP-002), o None si sirve."""
+    if len(question) < MIN_QUESTION_LENGTH:
+        return "enunciado_corto"
     lowered = question.lower()
     if any(marker in lowered for marker in STUDY_REJECTION_MARKERS):
-        return False
+        return "investigacion"
+    if IMAGE_MARKERS.search(question):
+        return "depende_de_imagen"
     if not _contains_patient_context(question):
-        return False
+        return "sin_paciente"
     if not _contains_clinical_context(question + " " + option_text):
-        return False
-    return True
+        return "sin_contexto_clinico"
+    if _question_type(question) is None:
+        return "no_pide_diagnostico_ni_tratamiento"
+    return None
 
 
 def _parse_record(record: dict[str, Any], index: int) -> dict[str, Any] | None:
     question = _question_text(record)
     options = _extract_options(record)
     option_text = " ".join(options)
-    if not _is_candidate_question(record, question, option_text):
+    if not question or _rejection_reason(question, option_text):
         return None
 
     answer = ""
@@ -341,6 +390,7 @@ def _parse_record(record: dict[str, Any], index: int) -> dict[str, Any] | None:
         "options": options,
         "answer": answer,
         "answer_text": answer_text,
+        "question_type": _question_type(question),
         "specialty": specialty,
         "classification_rule": rule,
     }
@@ -356,27 +406,14 @@ def extract_medqa_candidates(
     destination = Path(output_path) if output_path is not None else DATA_INTERIM_ROOT / "medqa_candidatos.jsonl"
     destination.parent.mkdir(parents=True, exist_ok=True)
 
-    files = _iter_jsonl_files(raw_path)
-    if not files:
-        destination.write_text("", encoding="utf-8")
-        summary = {
-            "dataset": "MedQA",
-            "status": "no_candidate_files_found",
-            "raw_root": str(raw_path),
-            "files_scanned": [],
-            "records_scanned": 0,
-            "candidates_kept": 0,
-            "specialty_counts": {},
-            "generated_at": datetime.now(timezone.utc).isoformat(),
-        }
-        summary_path = destination.with_name("medqa_candidatos_summary.json")
-        summary_path.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
-        return summary
-
+    sources = _iter_sources(raw_path, verify_registered=raw_root is None)
     candidates: list[dict[str, Any]] = []
+    seen_ids: set[str] = set()
     records_scanned = 0
-    for file_path in files:
-        for line_number, line in enumerate(_read_lines(file_path), start=1):
+    duplicates_skipped = 0
+    rejections: Counter[str] = Counter()
+    for label, read_lines in sources:
+        for line_number, line in enumerate(read_lines(), start=1):
             try:
                 record = json.loads(line)
             except json.JSONDecodeError:
@@ -384,29 +421,40 @@ def extract_medqa_candidates(
             if not isinstance(record, dict):
                 continue
             records_scanned += 1
+            question = _question_text(record)
+            reason = _rejection_reason(question, " ".join(_extract_options(record))) if question else "sin_enunciado"
+            if reason:
+                rejections[reason] += 1
+                continue
             candidate = _parse_record(record, len(candidates) + 1)
-            if candidate is not None:
-                candidates.append(candidate)
-                if limit is not None and len(candidates) >= limit:
-                    break
+            if candidate is None:
+                continue
+            if candidate["candidate_id"] in seen_ids:
+                duplicates_skipped += 1
+                continue
+            seen_ids.add(candidate["candidate_id"])
+            candidate["source_file"] = label
+            candidate["source_line"] = line_number
+            candidates.append(candidate)
+            if limit is not None and len(candidates) >= limit:
+                break
         if limit is not None and len(candidates) >= limit:
             break
 
-    specialities = Counter(candidate["specialty"] for candidate in candidates)
     output_lines = [json.dumps(item, ensure_ascii=False) for item in candidates]
     destination.write_text("\n".join(output_lines) + ("\n" if output_lines else ""), encoding="utf-8")
 
     summary = {
         "dataset": "MedQA",
-        "status": "ok",
+        "status": "ok" if sources else "no_candidate_files_found",
         "raw_root": str(raw_path),
-        "files_scanned": [
-            str(path.relative_to(REPO_ROOT)) if path.is_relative_to(REPO_ROOT) else str(path)
-            for path in files
-        ],
+        "files_scanned": [label for label, _ in sources],
         "records_scanned": records_scanned,
+        "rejected_by_reason": dict(sorted(rejections.items())),
+        "duplicates_skipped": duplicates_skipped,
         "candidates_kept": len(candidates),
-        "specialty_counts": dict(sorted(specialities.items())),
+        "question_type_counts": dict(sorted(Counter(c["question_type"] for c in candidates).items())),
+        "specialty_counts": dict(sorted(Counter(c["specialty"] for c in candidates).items())),
         "generated_at": datetime.now(timezone.utc).isoformat(),
     }
     summary_path = destination.with_name("medqa_candidatos_summary.json")
