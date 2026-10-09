@@ -1,0 +1,36 @@
+{
+  "case_id": "case_001",
+  "specialty": "cardiologia",
+  "difficulty": "intermedio",
+  "initial_presentation": {
+    "age": {"name": "edad", "value": "58", "unit": "años", "evidence_id": "CARD-001.initial.age"},
+    "sex": {"name": "sexo", "value": "masculino", "evidence_id": "CARD-001.initial.sex"},
+    "chief_complaint": {"name": "motivo de consulta", "value": "dolor torácico de inicio súbito", "evidence_id": "CARD-001.initial.chief_complaint"},
+    "heart_rate": {"name": "frecuencia cardiaca", "value": "96", "unit": "lpm", "evidence_id": "CARD-001.initial.hr"}
+  },
+  "patient_knowledge": {
+    "pain_location": {"name": "localización del dolor", "value": "centro del pecho", "evidence_id": "CARD-001.patient.pain_location", "aliases": ["dónde le duele", "ubicación del dolor"]},
+    "pain_character": {"name": "carácter del dolor", "value": "opresivo", "evidence_id": "CARD-001.patient.pain_character", "aliases": ["cómo es el dolor"]},
+    "pain_duration": {"name": "duración del dolor", "value": "40", "unit": "minutos", "evidence_id": "CARD-001.patient.pain_duration", "aliases": ["cuánto tiempo", "duración"]},
+    "radiation": {"name": "irradiación del dolor", "value": "brazo izquierdo", "evidence_id": "CARD-001.patient.radiation", "aliases": ["se irradia", "hacia dónde"]},
+    "nausea": {"name": "náuseas", "value": "sí", "evidence_id": "CARD-001.patient.nausea"},
+    "smoking": {"name": "tabaquismo", "value": "20 paquetes-año", "evidence_id": "CARD-001.patient.smoking", "aliases": ["fuma", "tabaco"]}
+  },
+  "laboratory_data": {
+    "troponin_t": {"name": "troponina T", "value": "1.8", "unit": "ng/mL", "evidence_id": "CARD-001.lab.troponin_t", "aliases": ["troponina", "troponinas"]},
+    "hemoglobin": {"name": "hemoglobina", "value": "14.2", "unit": "g/dL", "evidence_id": "CARD-001.lab.hemoglobin", "aliases": ["hemoglobina"]},
+    "glucose": {"name": "glucosa", "value": "118", "unit": "mg/dL", "evidence_id": "CARD-001.lab.glucose", "aliases": ["glucosa"]}
+  },
+  "radiology_data": {
+    "ecg": {"name": "ECG", "value": "elevación del ST en II, III y aVF", "evidence_id": "CARD-001.radiology.ecg", "aliases": ["ecg", "electrocardiograma"]}
+  },
+  "specialist_data": {
+    "cardiology_note": {"name": "nota de cardiología", "value": "recomienda integrar clínica, ECG y biomarcadores antes de concluir", "evidence_id": "CARD-001.specialist.cardiology", "aliases": ["cardiólogo", "cardiología", "especialista"]}
+  },
+  "protected_evaluation": {
+    "diagnosis": "infarto agudo de miocardio con elevación del ST inferior",
+    "diagnosis_synonyms": ["IAMCEST inferior", "STEMI inferior", "infarto inferior"],
+    "protected_terms": ["I21.1"],
+    "reference_treatment": "reservado para evaluación final"
+  }
+}

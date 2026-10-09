@@ -1,0 +1,5 @@
+﻿strategy,provider,model,temperature,protected_context_exposure_pct,diagnostic_leaks_raw,diagnostic_leaks_final,diagnostic_leak_rate_pct,cross_role_leaks_final,cross_role_leak_rate_pct,authorized_accuracy_pct,correct_refusal_pct,traceability_pct,guardrail_blocks,avg_context_chars,latency_mean_ms,latency_p95_ms,avg_llm_calls_per_turn,input_tokens,output_tokens
+hybrid_guardrails,mock,mock-deterministic,0.0,0.0,0,0,0.0,0,0.0,100.0,50.0,100.0,0,195.78571428571428,0.18802792858098524,0.2318510000804963,1.0,0,0
+minimal_context,mock,mock-deterministic,0.0,0.0,0,0,0.0,0,0.0,66.66666666666667,50.0,100.0,0,344.64285714285717,0.11248535715172434,0.14857899986964185,1.0,0,0
+selective_retrieval,mock,mock-deterministic,0.0,0.0,0,0,0.0,0,0.0,100.0,50.0,100.0,0,195.78571428571428,0.10858750007563296,0.13866400013284874,1.0,0,0
+shared_context,mock,mock-deterministic,0.0,100.0,4,4,100.0,2,50.0,16.666666666666668,0.0,100.0,0,1191.0,0.14261400003436261,0.1903699999274977,1.0,0,0

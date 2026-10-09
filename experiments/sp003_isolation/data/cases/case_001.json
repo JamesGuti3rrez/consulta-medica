@@ -1,0 +1,64 @@
+{
+  "case_id": "CARD-001",
+  "initial_presentation": {
+    "age": 58,
+    "sex": "masculino",
+    "chief_complaint": "dolor torácico opresivo de inicio súbito",
+    "evidence_id": "CARD-001.initial"
+  },
+  "patient": {
+    "symptoms": [
+      {
+        "text": "dolor torácico 8/10",
+        "evidence_id": "CARD-001.patient.symptom1"
+      },
+      {
+        "text": "náuseas y sudoración",
+        "evidence_id": "CARD-001.patient.symptom2"
+      }
+    ],
+    "history": [
+      {
+        "text": "hipertensión arterial",
+        "evidence_id": "CARD-001.patient.history1"
+      },
+      {
+        "text": "fumador de 20 paquetes-año",
+        "evidence_id": "CARD-001.patient.history2"
+      }
+    ]
+  },
+  "laboratory": {
+    "troponin_t": {
+      "value": "1.8",
+      "unit": "ng/mL",
+      "evidence_id": "CARD-001.lab.troponin_t"
+    },
+    "glucose": {
+      "value": "118",
+      "unit": "mg/dL",
+      "evidence_id": "CARD-001.lab.glucose"
+    }
+  },
+  "radiology": {
+    "ecg": {
+      "finding": "elevación del ST en II, III y aVF",
+      "evidence_id": "CARD-001.rad.ecg"
+    }
+  },
+  "specialist": {
+    "cardiology_note": {
+      "text": "recomienda manejo urgente y correlación con biomarcadores",
+      "evidence_id": "CARD-001.spec.cardio"
+    }
+  },
+  "protected_evaluation": {
+    "diagnosis": "infarto agudo de miocardio inferior",
+    "synonyms": [
+      "infarto inferior",
+      "IAM inferior",
+      "STEMI inferior"
+    ],
+    "reference_treatment": "reperfusión urgente según elegibilidad"
+  }
+}

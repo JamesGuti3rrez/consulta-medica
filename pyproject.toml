@@ -8,9 +8,18 @@ dependencies = [
     "uvicorn==0.54.0",
     "python-dotenv==1.2.3",
     "httpx==0.28.1",
+    "langgraph>=1.0,<2.0",
+    "langsmith>=0.4,<1.0",
+    "jsonschema>=4.23,<5.0",
 ]
 
 # Configuración para Vercel.
 [tool.vercel]
 # La aplicación FastAPI vive en server/main.py (variable "app").
 entrypoint = "server.main:app"
+
+[project.optional-dependencies]
+dev = ["pytest>=8.3,<9.0"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

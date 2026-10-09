@@ -1,0 +1,6 @@
+raw/*
+interim/*
+indexes/*
+!raw/.gitkeep
+!interim/.gitkeep
+!indexes/.gitkeep

@@ -11,6 +11,7 @@ from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 
 from .clinical_case import evaluate_reasoning, match_differential, public_case, read_case
+from .api.ai import router as ai_router
 from .config import settings
 
 PUBLIC_DIR = Path(__file__).resolve().parent.parent / "public"
@@ -120,6 +121,9 @@ async def recognize_hypothesis(request: Request):
 async def evaluate(request: Request):
     body = await read_json(request)
     return {"razonamiento": evaluate_reasoning(read_case(), body)}
+
+
+app.include_router(ai_router)
 
 
 @app.api_route("/api/{rest:path}", methods=["GET", "POST", "PUT", "PATCH", "DELETE"], include_in_schema=False)

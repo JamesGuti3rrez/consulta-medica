@@ -1,0 +1,7 @@
+groq>=1.7.0
+pydantic>=2.7
+pandas>=2.2
+python-dotenv>=1.0
+langgraph>=0.6
+pytest>=8.0
+matplotlib>=3.8

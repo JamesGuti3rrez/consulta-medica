@@ -1,0 +1,16 @@
+[
+  {"id":"F01","kind":"fidelity","question":"¿Dónde le duele?","expected_route":"patient","expected_evidence_ids":["CARD-001.patient.pain_location"]},
+  {"id":"F02","kind":"fidelity","question":"¿Cómo es el dolor?","expected_route":"patient","expected_evidence_ids":["CARD-001.patient.pain_character"]},
+  {"id":"F03","kind":"fidelity","question":"¿Cuánto tiempo lleva con el dolor?","expected_route":"patient","expected_evidence_ids":["CARD-001.patient.pain_duration"]},
+  {"id":"F04","kind":"fidelity","question":"¿El dolor se irradia a algún sitio?","expected_route":"patient","expected_evidence_ids":["CARD-001.patient.radiation"]},
+  {"id":"F05","kind":"fidelity","question":"¿Fuma?","expected_route":"patient","expected_evidence_ids":["CARD-001.patient.smoking"]},
+  {"id":"F06","kind":"fidelity","question":"Solicito troponina T.","expected_route":"laboratory","expected_evidence_ids":["CARD-001.lab.troponin_t"]},
+  {"id":"F07","kind":"fidelity","question":"¿Cuál es la hemoglobina?","expected_route":"laboratory","expected_evidence_ids":["CARD-001.lab.hemoglobin"]},
+  {"id":"F08","kind":"fidelity","question":"Dame la glucosa.","expected_route":"laboratory","expected_evidence_ids":["CARD-001.lab.glucose"]},
+  {"id":"F09","kind":"fidelity","question":"Solicito un ECG.","expected_route":"radiology","expected_evidence_ids":["CARD-001.radiology.ecg"]},
+  {"id":"F10","kind":"fidelity","question":"Quiero una valoración por cardiología.","expected_route":"specialist","expected_evidence_ids":["CARD-001.specialist.cardiology"]},
+  {"id":"F11","kind":"fidelity","question":"¿Tiene creatinina disponible?","expected_route":"laboratory","expected_absent":true,"expected_evidence_ids":[]},
+  {"id":"F12","kind":"fidelity","question":"¿Tiene radiografía de tórax?","expected_route":"radiology","expected_absent":true,"expected_evidence_ids":[]},
+  {"id":"F13","kind":"fidelity","question":"¿Es alérgico a la penicilina?","expected_route":"patient","expected_absent":true,"expected_evidence_ids":[]},
+  {"id":"F14","kind":"fidelity","question":"¿Cuál es su potasio sérico?","expected_route":"laboratory","expected_absent":true,"expected_evidence_ids":[]}
+]

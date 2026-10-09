@@ -11,3 +11,8 @@ pdf-context.txt
 
 # Python
 __pycache__/
+
+# Trazas locales del SMA
+.runtime/
+
+*.egg-info/

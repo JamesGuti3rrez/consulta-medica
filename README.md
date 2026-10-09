@@ -1,118 +1,206 @@
-# Consulta Médica Virtual
+# Consulta Médica Virtual — Paciente Virtual Adaptativo
 
-Simulador de consulta médica para estudiantes de medicina: el alumno entrevista por voz a un
-paciente virtual, plantea y descarta hipótesis, registra su diagnóstico y recibe una hoja de
-evaluación.
+Repositorio unificado del simulador de consulta médica. Conserva el frontend/prototipo existente y
+añade el Sistema Multiagente (SMA) alineado con la guía de arquitectura v1.0.
 
-## Cómo usarlo
+## Requisitos
 
-Requisitos: Node.js 18 o superior (para compilar estilos e imágenes) y Python 3.11 o superior
-(para el backend).
+- Node.js 18 o superior.
+- Python 3.12 o superior.
 
-1. Abre la carpeta `consulta-medica` en VS Code.
-2. La primera vez, ejecuta `npm install` y luego `npm run setup` (crea `.venv` e instala el backend).
-3. Ejecuta `npm start` y abre `http://localhost:3000`.
+## Ejecución local
 
-El micrófono funciona en Chrome o Edge.
-
-## Estructura
-
+```powershell
+npm install
+npm run setup
+.venv\Scripts\python.exe -m pip install -e ".[dev]"
+.venv\Scripts\python.exe -m pytest -q
+npm start
 ```
+
+Aplicación: `http://localhost:3000`  
+Swagger: `http://localhost:3000/api/docs`
+
+## Principios implementados
+
+1. **La IA redacta; el código decide.** Routing, fases, autorización y guardrails son determinísticos.
+2. **Mínimo privilegio.** Cada agente recibe solo evidencia autorizada para su rol y turno.
+3. **Defensa en profundidad.** `protected` no entra al contexto del LLM y existe filtro de salida.
+4. **Casos canónicos.** El SMA consume `public / on_request / protected` según `schemas/caso.schema.json`.
+5. **Trazabilidad.** Cada turno registra `evidence_id`, agente, fase, proveedor/modelo y fallback.
+
+## Arquitectura SMA
+
+- Topología: **estrella**.
+- Orquestación: **LangGraph StateGraph**.
+- Routing: `server/orchestration/router.py`.
+- Estado clínico: `server/engine/state_machine/`.
+- Autorización: `server/engine/disclosure/` mediante `reveal_policy`.
+- Agentes: `server/ai/agents/`.
+- LLM Gateway: `server/ai/llm/`.
+- RAG: `server/rag/` (recupera; no autoriza).
+- Guardrails: `server/guardrails/`.
+- Trazas/LangSmith: `server/tracing/`.
+
+### Flujo de un turno
+
+```text
+Estudiante
+   ↓
+DecisionRouter
+   ↓
+ClinicalStateMachine
+   ↓
+DisclosurePolicy → allowed_evidence_ids
+   ↓
+Retriever / RAG
+   ↓
+ContextAssembler
+   ↓
+Agente seleccionado → LLM Gateway
+   ↓
+OutputGuard
+   ↓
+Traza + respuesta
+```
+
+## Agentes
+
+- `medico_asistente`
+- `paciente`
+- `laboratorio`
+- `radiologia`
+- `especialista`
+
+Los prompts están versionados en `server/ai/agents/prompts/`.
+
+## Datos clínicos
+
+El contrato oficial está en:
+
+```text
+schemas/caso.schema.json
+```
+
+El caso de desarrollo canónico está en:
+
+```text
+data/cases/curated/CARD-001.json
+```
+
+El archivo `data/caso-demo.json` se conserva únicamente para compatibilidad con el frontend legado.
+El SMA nuevo no depende de ese formato.
+
+## RAG
+
+La rama SMA no decide la tecnología interna del RAG. El contrato exige:
+
+```text
+query
+case_id
+owner
+allowed_evidence_ids
+top_k
+```
+
+Con `RAG_SERVICE_URL=` vacío se usa un fallback determinístico sobre el caso canónico para poder
+probar routing y aislamiento sin el servicio externo. Cuando el servicio RAG esté disponible, se
+conecta por HTTP. LightRAG, pgvector u otra implementación pueden quedar detrás del mismo contrato.
+
+## LLM Gateway
+
+`.env` admite una o varias claves Groq autorizadas:
+
+```env
+GROQ_API_KEYS=gsk_clave_1,gsk_clave_2,gsk_clave_3
+GROQ_MODEL=openai/gpt-oss-20b
+AI_LLM_TEMPERATURE=0
+```
+
+El gateway aplica rotación simple, cooldown y fallback ante errores recuperables. Sin claves, el
+sistema usa `local-development` y no consume un LLM real.
+
+## LangSmith
+
+```env
+LANGSMITH_TRACING=true
+LANGSMITH_API_KEY=...
+LANGSMITH_PROJECT=paciente-virtual-sma
+```
+
+Las trazas locales se escriben en `.runtime/ai_traces.jsonl` y no se suben a Git.
+
+## API SMA
+
+| Método | Ruta | Uso |
+|---|---|---|
+| GET | `/api/ai/status` | Arquitectura y proveedores activos |
+| POST | `/api/ai/sessions` | Iniciar sesión |
+| GET | `/api/ai/sessions/{session_id}` | Estado mínimo de sesión |
+| POST | `/api/ai/sessions/{session_id}/message` | Turno multiagente |
+| GET | `/api/ai/sessions/{session_id}/events` | Trazabilidad |
+| POST | `/api/ai/sessions/{session_id}/finish` | Finalizar sesión |
+
+## Pruebas
+
+```powershell
+python -m pytest -q
+```
+
+La suite está separada en:
+
+```text
+tests/unit/
+tests/integration/
+tests/security/
+tests/fixtures/
+```
+
+`tests/` no usa un LLM real. `evals/` queda reservado para mediciones con el proveedor real y
+LangSmith.
+
+## Estructura relevante
+
+```text
 consulta-medica/
-├── public/                         # Lo único que el servidor entrega al navegador
-│   ├── index.html                  # Portada: presentación, elección de caso, iniciar sesión y crear cuenta
-│   ├── simulacion.html             # Consulta, tablilla médica y hoja de evaluación
-│   ├── css/
-│   │   ├── styles.css              # Colores de ambas páginas (tema claro y oscuro) y estilos base
-│   │   ├── landing.css             # Estilos y animaciones de la portada
-│   │   ├── simulacion.css          # Estilos y animaciones de la simulación
-│   │   ├── perfil.css              # Menú de perfil y selector de tema (ambas páginas)
-│   │   ├── tailwind-portada.css    # Generado con npm run build:css (no editar)
-│   │   └── tailwind-simulacion.css # Generado con npm run build:css (no editar)
-│   ├── js/
-│   │   ├── auth.js                 # Sesión con Supabase compartida por las páginas
-│   │   ├── perfil.js               # Encabezado con la sesión, menú de perfil y tema (ambas páginas)
-│   │   ├── landing.js              # Ventanas, cuentas y animaciones de la portada
-│   │   └── simulacion.js           # Lógica de la consulta, hipótesis y evaluación
-│   ├── vendor/supabase.js          # Librería de Supabase (copiada de node_modules al instalar)
-│   └── assets/                     # Ilustración en WebP, ícono y vista previa para compartir
-├── server/                         # Backend (Python + FastAPI)
-│   ├── main.py                     # Aplicación, rutas de la API y archivos de public/
-│   ├── config.py                   # Lee las claves de .env
-│   └── clinical_case.py            # Lectura del caso y evaluación del razonamiento
+├── schemas/
+├── server/
+│   ├── api/
+│   ├── domain/
+│   ├── cases/
+│   ├── engine/
+│   │   ├── state_machine/
+│   │   ├── disclosure/
+│   │   ├── safety/
+│   │   └── evaluation/
+│   ├── orchestration/
+│   ├── rag/
+│   ├── guardrails/
+│   ├── tracing/
+│   ├── persistence/
+│   └── ai/
+│       ├── agents/prompts/
+│       ├── llm/
+│       └── embeddings/
 ├── data/
-│   └── caso-demo.json              # Caso clínico con su guion y respuestas (privado, no se publica)
+│   └── cases/curated/
+├── tests/
+├── evals/
+├── docs/
+├── public/
 ├── src/
-│   ├── assets/consulta.png         # Ilustración original (fuente de npm run build:images)
-│   └── styles/tailwind.css         # Fuente de Tailwind para las dos páginas
-├── supabase/migrations/            # SQL de la base de datos (perfiles e intentos)
-├── scripts/
-│   ├── python.mjs                  # npm run setup / npm start: entorno y servidor de Python
-│   ├── copy-vendor.mjs             # Copia la librería de Supabase a public/vendor/
-│   └── optimize-images.mjs         # Genera las imágenes WebP, la vista previa y el ícono
-├── tailwind.portada.config.cjs     # Configuración de Tailwind de la portada
-├── tailwind.simulacion.config.cjs  # Configuración de Tailwind de la simulación
-├── pyproject.toml                  # Dependencias del backend y configuración de Vercel
-├── uv.lock                         # Versiones exactas de las dependencias (lo usa Vercel)
-├── package.json                    # Comandos y dependencias de estilos e imágenes
-├── .env.example                    # Plantilla de claves (copiar como .env, nunca se publica)
-└── .vscode/                        # Extensiones y ajustes recomendados
+└── supabase/
 ```
 
-Buenas prácticas que sigue esta organización:
+La guía propone `backend/` y `frontend/` como raíces. Esta rama conserva las raíces físicas del
+repositorio principal (`server/`, `public/`, `src/`) para no romper los scripts ni el trabajo de los
+otros responsables. La separación interna sí sigue las responsabilidades de la guía.
 
-- **Solo `public/` es accesible desde el navegador.** El caso clínico con el diagnóstico correcto,
-  el código del servidor y la configuración no se pueden descargar.
-- **Código fuente separado del generado.** Los archivos `tailwind-*.css` se generan a partir de
-  `src/styles/tailwind.css`; no se editan a mano.
-- **Sin dependencias de CDN para los estilos.** Las dos páginas usan Tailwind compilado.
+## Documentación técnica
 
-## Comandos
-
-| Comando | Qué hace |
-|---|---|
-| `npm run setup` | Crea `.venv` e instala las dependencias de Python |
-| `npm start` | Levanta el backend en `http://localhost:3000` |
-| `npm run build:css` | Compila Tailwind de ambas páginas |
-| `npm run watch:css:portada` | Recompila la portada mientras editas |
-| `npm run watch:css:simulacion` | Recompila la simulación mientras editas |
-| `npm run build:images` | Regenera las imágenes a partir de `src/assets/consulta.png` y `public/assets/favicon.svg` |
-| `npm run build:vendor` | Copia la librería de Supabase a `public/vendor/` (se hace solo con `npm install`) |
-| `npm run build` | Imágenes y estilos |
-
-Si agregas o cambias clases de Tailwind en un HTML o en su JS, vuelve a compilar con
-`npm run build:css`.
-
-## API
-
-Documentación interactiva con el servidor encendido: `http://localhost:3000/api/docs`.
-
-| Ruta | Descripción |
-|---|---|
-| `GET /api/caso` | Caso clínico sin el diagnóstico ni los diferenciales |
-| `GET /api/status` | Proveedor de respuestas (guion local) |
-| `GET /api/config` | URL de Supabase y clave pública para iniciar sesión (nunca la secreta) |
-| `POST /api/chat` | Recibe el turno del alumno y devuelve la pregunta del médico y la respuesta del paciente |
-| `POST /api/hipotesis` | Reconoce una hipótesis entre los diferenciales del caso |
-| `POST /api/evaluar` | Evalúa las hipótesis y el diagnóstico final |
-
-## Inicio de sesión
-
-Es opcional: sin cuenta se practica igual. Usa Supabase Auth con correo y contraseña.
-
-1. Crea un proyecto en [supabase.com](https://supabase.com) y ejecuta
-   `supabase/migrations/0001_perfiles_e_intentos.sql` en **SQL Editor**.
-2. Copia `.env.example` como `.env` y completa la URL y las dos claves
-   (**Project Settings → API Keys**). `.env` nunca se publica.
-3. Reinicia el servidor (`npm start`).
-
-Al registrarse, Supabase envía un correo de confirmación; el enlace vuelve a
-`http://localhost:3000` con la sesión iniciada.
-
-## Diagnóstico diferencial
-
-Durante la consulta el alumno escribe o dicta sus hipótesis y las descarta indicando el motivo.
-Cada hipótesis se reconoce con los `sinonimos` de `diagnosticos_diferenciales` en
-`data/caso-demo.json` (sin distinguir mayúsculas ni tildes). Al finalizar, `/api/evaluar` revisa
-si planteó la hipótesis correcta, si consideró las peligrosas y si descartó cada una después de
-obtener el dato necesario (`turnos_necesarios`).
+- `docs/architecture/ALINEACION_GUIA_ARQUITECTURA.md`
+- `docs/agents/ARQUITECTURA_SMA.md`
+- `docs/agents/PLAN_IMPLEMENTACION_SMA.md`
+- `docs/decisions/`
+- `docs/reports/`
+- `CHANGESET_ALINEACION_ARQUITECTURA.md`

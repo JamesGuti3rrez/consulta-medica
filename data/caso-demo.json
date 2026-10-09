@@ -1,7 +1,6 @@
 {
     "id": "caso_104_cefalea",
     "especialidad": "medicina_interna",
-    "dificultad": "intermedio",
     "uso": "Simulacion educativa. No usar para diagnostico o tratamiento real.",
     "paciente": {
         "nombre": "Carlos Eduardo Ramos",
@@ -42,14 +41,23 @@
         {
             "id": "migrana",
             "nombre": "Migraña",
-            "sinonimos": ["migraña", "migrañosa", "jaqueca", "hemicránea"],
+            "sinonimos": [
+                "migraña",
+                "migrañosa",
+                "jaqueca",
+                "hemicránea"
+            ],
             "correcta": true,
             "peligrosa": false
         },
         {
             "id": "cefalea_tensional",
             "nombre": "Cefalea tensional",
-            "sinonimos": ["tensional", "cefalea por tensión", "cefalea por estrés"],
+            "sinonimos": [
+                "tensional",
+                "cefalea por tensión",
+                "cefalea por estrés"
+            ],
             "correcta": false,
             "peligrosa": false,
             "turnos_necesarios": 0,
@@ -58,7 +66,12 @@
         {
             "id": "cefalea_racimos",
             "nombre": "Cefalea en racimos",
-            "sinonimos": ["racimo", "cluster", "cefalea de horton", "trigémino autonómica"],
+            "sinonimos": [
+                "racimo",
+                "cluster",
+                "cefalea de horton",
+                "trigémino autonómica"
+            ],
             "correcta": false,
             "peligrosa": false,
             "turnos_necesarios": 0,
@@ -67,7 +80,12 @@
         {
             "id": "meningitis",
             "nombre": "Meningitis",
-            "sinonimos": ["meningitis", "meningoencefalitis", "encefalitis", "infección meníngea"],
+            "sinonimos": [
+                "meningitis",
+                "meningoencefalitis",
+                "encefalitis",
+                "infección meníngea"
+            ],
             "correcta": false,
             "peligrosa": true,
             "por_que_considerar": "Es una causa grave de cefalea que siempre debe descartarse.",
@@ -77,7 +95,15 @@
         {
             "id": "hemorragia_subaracnoidea",
             "nombre": "Hemorragia subaracnoidea",
-            "sinonimos": ["hemorragia subaracnoidea", "subaracnoidea", "hsa", "aneurisma", "hemorragia cerebral", "hemorragia intracraneal", "derrame cerebral"],
+            "sinonimos": [
+                "hemorragia subaracnoidea",
+                "subaracnoidea",
+                "hsa",
+                "aneurisma",
+                "hemorragia cerebral",
+                "hemorragia intracraneal",
+                "derrame cerebral"
+            ],
             "correcta": false,
             "peligrosa": true,
             "por_que_considerar": "Una cefalea puede ser el único síntoma de un sangrado cerebral.",
@@ -87,7 +113,17 @@
         {
             "id": "masa_intracraneal",
             "nombre": "Masa o hipertensión intracraneal",
-            "sinonimos": ["tumor", "masa intracraneal", "masa cerebral", "neoplasia", "hipertensión intracraneal", "hipertensión endocraneana", "htic", "lesión ocupante", "proceso expansivo"],
+            "sinonimos": [
+                "tumor",
+                "masa intracraneal",
+                "masa cerebral",
+                "neoplasia",
+                "hipertensión intracraneal",
+                "hipertensión endocraneana",
+                "htic",
+                "lesión ocupante",
+                "proceso expansivo"
+            ],
             "correcta": false,
             "peligrosa": true,
             "por_que_considerar": "Una lesión ocupante debe considerarse ante toda cefalea persistente.",
