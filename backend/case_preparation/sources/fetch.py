@@ -13,6 +13,8 @@ from .registry import SOURCE_DEFINITIONS, SourceFile
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 DATA_RAW_ROOT = REPO_ROOT / "data" / "raw"
+# Segundos sin recibir datos antes de abandonar una descarga (evita quedarse colgado).
+DOWNLOAD_TIMEOUT_SECONDS = 60
 
 
 def _display_path(path: Path) -> str:
@@ -33,7 +35,7 @@ def _sha256(path: Path) -> str:
 def _download_file(url: str, destination: Path) -> None:
     destination.parent.mkdir(parents=True, exist_ok=True)
     request = Request(url, headers={"User-Agent": "consulta-medica/case-preparation"})
-    with urlopen(request) as response, destination.open("wb") as handle:
+    with urlopen(request, timeout=DOWNLOAD_TIMEOUT_SECONDS) as response, destination.open("wb") as handle:
         shutil.copyfileobj(response, handle)
 
 
