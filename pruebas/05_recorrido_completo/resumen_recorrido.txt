@@ -1,0 +1,13 @@
+Recorrido completo del flujo de datos MedQA → casos curados → frontend
+Fecha: 2026-10-09 05:30:24 UTC
+
+[OK] Fase 1: descarga y verificación SHA-256 de MedQA (código 0)
+[OK] Fase 1: listado de data/raw/medqa y huellas esperadas (código 0)
+[OK] Fase 2: extracción de candidatos MedQA (código 0)
+[OK] Fase 2: conversión a JSON y curación de los 10 casos (código 0)
+[OK] Fase 2: reproducibilidad: data/cases/ idéntico a lo versionado (código 0)
+[OK] Fase 3: esquema, lote curado y vista pública (código 0)
+[OK] Fase 3: pruebas automatizadas del backend (código 0)
+[OK] Fase 4: carga de un caso por especialidad en /simulacion.html (1440 px) (código 0)
+
+RESULTADO: recorrido completo sin errores.
