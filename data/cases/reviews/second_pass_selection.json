@@ -67,6 +67,9 @@
     {
       "case_id": "EME-001",
       "candidate_id": "medqa-a83444b6eabc9a5b",
+      "source_file": "data_clean.zip:data_clean/questions/US/US_qbank.jsonl",
+      "source_line": 6168,
+      "question_type": "diagnostico",
       "specialty": "emergencias",
       "source_answer": "A",
       "source_answer_text": "Exertional heat stroke",
@@ -90,6 +93,9 @@
     {
       "case_id": "EME-002",
       "candidate_id": "medqa-83b0322c93dff066",
+      "source_file": "data_clean.zip:data_clean/questions/Taiwan/tw_translated_jsonl/en/train-2en.jsonl",
+      "source_line": 1258,
+      "question_type": "diagnostico",
       "specialty": "emergencias",
       "source_answer": "B",
       "source_answer_text": "Subarachnoid hemorrhage (subarachnoid hemorrhage)",
@@ -113,6 +119,9 @@
     {
       "case_id": "GOB-003",
       "candidate_id": "medqa-b437ab65d13f9352",
+      "source_file": "data_clean.zip:data_clean/questions/US/US_qbank.jsonl",
+      "source_line": 8844,
+      "question_type": "diagnostico",
       "specialty": "ginecologia_obstetricia",
       "source_answer": "D",
       "source_answer_text": "Pituitary infarction",
@@ -136,6 +145,9 @@
     {
       "case_id": "GOB-004",
       "candidate_id": "medqa-a04db516708da5ae",
+      "source_file": "data_clean.zip:data_clean/questions/US/US_qbank.jsonl",
+      "source_line": 8431,
+      "question_type": "diagnostico",
       "specialty": "ginecologia_obstetricia",
       "source_answer": "E",
       "source_answer_text": "Trichomoniasis",
@@ -160,6 +172,9 @@
     {
       "case_id": "CIR-005",
       "candidate_id": "medqa-4135d59786b5b7ac",
+      "source_file": "data_clean.zip:data_clean/questions/US/US_qbank.jsonl",
+      "source_line": 9978,
+      "question_type": "diagnostico",
       "specialty": "cirugia_general",
       "source_answer": "A",
       "source_answer_text": "Hemophilia A",
@@ -183,6 +198,9 @@
     {
       "case_id": "CIR-006",
       "candidate_id": "medqa-e9b7102d702a0a7f",
+      "source_file": "data_clean.zip:data_clean/questions/US/US_qbank.jsonl",
+      "source_line": 10428,
+      "question_type": "diagnostico",
       "specialty": "cirugia_general",
       "source_answer": "C",
       "source_answer_text": "Sepsis",
@@ -206,6 +224,9 @@
     {
       "case_id": "PED-007",
       "candidate_id": "medqa-dadd721b55c88d20",
+      "source_file": "data_clean.zip:data_clean/questions/US/US_qbank.jsonl",
+      "source_line": 7214,
+      "question_type": "diagnostico",
       "specialty": "pediatria",
       "source_answer": "D",
       "source_answer_text": "Legg-Calvé-Perthes disease (LCPD)",
@@ -229,6 +250,9 @@
     {
       "case_id": "MED-008",
       "candidate_id": "medqa-bd8bb86bdc2e57fe",
+      "source_file": "data_clean.zip:data_clean/questions/US/US_qbank.jsonl",
+      "source_line": 7973,
+      "question_type": "tratamiento",
       "specialty": "medicina_interna",
       "source_answer": "B",
       "source_answer_text": "Amoxicillin",
@@ -253,6 +277,9 @@
     {
       "case_id": "MED-009",
       "candidate_id": "medqa-7fe0528c54197057",
+      "source_file": "data_clean.zip:data_clean/questions/US/US_qbank.jsonl",
+      "source_line": 5006,
+      "question_type": "diagnostico",
       "specialty": "medicina_interna",
       "source_answer": "D",
       "source_answer_text": "Basal cell carcinoma",
@@ -276,6 +303,9 @@
     {
       "case_id": "PED-010",
       "candidate_id": "medqa-5fc375051c4a68f2",
+      "source_file": "data_clean.zip:data_clean/questions/Taiwan/tw_translated_jsonl/en/dev-2en.jsonl",
+      "source_line": 70,
+      "question_type": "diagnostico",
       "specialty": "pediatria",
       "source_answer": "B",
       "source_answer_text": "McCune-Albright syndrome",

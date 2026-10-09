@@ -282,6 +282,9 @@ def build_reviewed_cases() -> dict[str, Any]:
             {
                 "case_id": case["case_id"],
                 "candidate_id": selection["candidate_id"],
+                "source_file": candidate.get("source_file"),
+                "source_line": candidate.get("source_line"),
+                "question_type": candidate.get("question_type"),
                 "specialty": case["specialty"],
                 "source_answer": candidate["answer"],
                 "source_answer_text": candidate["answer_text"],
