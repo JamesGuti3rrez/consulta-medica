@@ -1,0 +1,32 @@
+DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica
+COMANDO: backend\.venv\Scripts\python.exe pruebas\01_descarga_datasets\listar_raw.py
+FECHA: 2026-10-09 06:53:27 UTC
+CODIGO_SALIDA: 0
+
+STDOUT:
+Contenido de data\raw\medqa (no se versiona en Git):
+  file  data_clean.zip                131,741,885 B
+  file  MedQA-27b02f66.zip                 40,414 B
+  file  source_manifest.json                1,400 B
+
+Archivos registrados para MedQA (https://github.com/jind11/MedQA, licencia MIT):
+  [OK] MedQA-27b02f66.zip
+        origen:   https://github.com/jind11/MedQA/archive/27b02f66aac217933c9648a06f82e9f720377925.zip
+        esperado: 8cba6bdd54810ff8773a2f29129117c7142d135a5d0a0698ed929c267418fa15
+        obtenido: 8cba6bdd54810ff8773a2f29129117c7142d135a5d0a0698ed929c267418fa15
+        Repositorio oficial en el commit 27b02f6: código, README y LICENSE (MIT). No contiene las preguntas.
+  [OK] data_clean.zip
+        origen:   https://drive.usercontent.google.com/download?id=1ImYUSLk9JbgHXOemfvyiDiirluZHPeQw&export=download&confirm=t
+        esperado: 1c2ca8130b3d86d9a99a432ab9bef14f3bb9807bef20facd9ac86ba36960f629
+        obtenido: 1c2ca8130b3d86d9a99a432ab9bef14f3bb9807bef20facd9ac86ba36960f629
+        Preguntas y libros de texto enlazados desde la sección Data del README oficial (Google Drive).
+
+data_clean.zip (se lee sin descomprimir): 30 archivos .jsonl; 4 admitidos por la decisión 0001 §1:
+  data_clean/questions/US/US_qbank.jsonl
+  data_clean/questions/Taiwan/tw_translated_jsonl/en/train-2en.jsonl
+  data_clean/questions/Taiwan/tw_translated_jsonl/en/dev-2en.jsonl
+  data_clean/questions/Taiwan/tw_translated_jsonl/en/test-2en.jsonl
+
+
+STDERR:
+
