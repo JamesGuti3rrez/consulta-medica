@@ -6,7 +6,7 @@
       "candidate_id": "medqa-bd8bb86bdc2e57fe",
       "specialty": "medicina_interna",
       "clinical_diagnosis": "Enfermedad de Lyme con eritema migrans",
-      "clinical_summary_es": "Mujer de 48 años con cefalea, fiebre de hasta 40,1 °C, escalofríos, artralgias, sed intensa y erupción progresiva en la espalda. Una lesión pequeña evolucionó en tres días a una placa circular eritematosa en diana de 17 × 19 cm; había caminado por el bosque tres semanas antes y no identificó garrapata. Refiere anafilaxia previa a tetraciclinas. La pregunta fuente pide elegir un antimicrobiano.",
+      "clinical_summary_es": "Mujer de 48 años con cefalea, fiebre de hasta 40,1 °C, escalofríos, artralgias, sed intensa y erupción progresiva en la espalda. Una lesión pequeña evolucionó en tres días a una placa circular eritematosa en diana de 17 × 19 cm; había caminado por el bosque tres semanas antes y no identificó garrapata. Refiere anafilaxia previa a tetraciclinas. Con estos datos, el médico decide iniciar tratamiento antimicrobiano de inmediato.",
       "clinical_differentials": [
         "Celulitis bacteriana",
         "Eritema multiforme",
@@ -59,7 +59,7 @@
       "candidate_id": "medqa-5fc375051c4a68f2",
       "specialty": "pediatria",
       "clinical_diagnosis": "Síndrome de McCune-Albright",
-      "clinical_summary_es": "Niña de 6 años evaluada después de una fractura del brazo. Se describen desarrollo mamario precoz, manchas café con leche, displasia fibrosa ósea y edad ósea de 9 años. El enunciado fuente menciona alteraciones tiroideas con términos contradictorios, por lo que no se especifica si tiene hipo o hipertiroidismo.",
+      "clinical_summary_es": "Niña de 6 años hospitalizada por una fractura del brazo. En la revisión se describen desarrollo mamario, manchas café con leche, hipotiroidismo e hipertiroidismo, displasia fibrosa en el estudio de imagen ósea y edad ósea de 9 años.",
       "clinical_differentials": [
         "Neurofibromatosis tipo 1",
         "Síndrome de Peutz-Jeghers",
@@ -152,7 +152,7 @@
   ],
   "spanish_source_text": {
     "medqa-bd8bb86bdc2e57fe": {
-      "question": "Mujer de 48 años consulta por cefalea, fiebre intermitente y escalofríos, artralgias, sed intensa y una erupción progresiva en la espalda. La lesión comenzó como una pequeña elevación y se convirtió en una erupción circular. Dos días antes tuvo fiebre de 39,4 °C; al acudir presenta 40,1 °C y una placa eritematosa en diana de 17 × 19 cm. Caminó por el bosque tres semanas antes, aunque no vio ninguna garrapata. Tiene antecedente de anafilaxia a tetraciclinas. Según la fuente, ¿qué antimicrobiano se eligió?",
+      "question": "Mujer de 48 años consulta por cefalea, fiebre intermitente y escalofríos, artralgias, sed intensa y una erupción progresiva en la espalda. La lesión comenzó como una pequeña elevación y se convirtió en una erupción circular. Dos días antes tuvo fiebre de 39,4 °C; al acudir presenta 40,1 °C y una placa eritematosa en diana de 17 × 19 cm. Caminó por el bosque tres semanas antes, aunque no vio ninguna garrapata. Tiene antecedente de anafilaxia a tetraciclinas. El médico decide iniciar tratamiento antimicrobiano de inmediato. ¿Qué antimicrobiano prescribió?",
       "options": [
         "Cefalexina",
         "Amoxicilina",
@@ -184,7 +184,7 @@
       ]
     },
     "medqa-5fc375051c4a68f2": {
-      "question": "Niña de 6 años hospitalizada por fractura del brazo presenta desarrollo mamario, manchas café con leche y displasia fibrosa en estudios óseos; su edad ósea se estima en 9 años. El texto fuente menciona alteraciones tiroideas de forma contradictoria, sin aclarar cuál presenta. ¿Cuál es el diagnóstico más probable?",
+      "question": "Niña de 6 años hospitalizada por una fractura del brazo; en la revisión se describen desarrollo mamario, manchas café con leche, hipotiroidismo e hipertiroidismo, y el estudio de imagen ósea muestra crecimiento fibroso (displasia fibrosa); la edad ósea se interpreta como de 9 años. ¿Cuál es el diagnóstico más probable?",
       "options": [
         "Síndrome de Fanconi",
         "Síndrome de McCune-Albright",
