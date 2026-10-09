@@ -1,0 +1,11 @@
+DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica
+COMANDO: git -c core.safecrlf=false diff --ignore-cr-at-eol --exit-code --stat -- data/cases && echo Sin diferencias: la regeneracion reproduce exactamente los casos versionados.
+FECHA: 2026-10-09 05:30:06 UTC
+CODIGO_SALIDA: 0
+
+STDOUT:
+Sin diferencias: la regeneracion reproduce exactamente los casos versionados.
+
+
+STDERR:
+

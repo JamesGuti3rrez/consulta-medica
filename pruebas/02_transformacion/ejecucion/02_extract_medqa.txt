@@ -1,0 +1,57 @@
+DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica\backend
+COMANDO: .\.venv\Scripts\python.exe -m case_preparation adapters extract --dataset medqa
+FECHA: 2026-10-09 05:30:04 UTC
+CODIGO_SALIDA: 0
+
+STDOUT:
+{
+  "dataset": "MedQA",
+  "status": "ok",
+  "raw_root": "C:\\Users\\Usuario\\Documents\\consulta-medica\\data\\raw\\medqa",
+  "files_scanned": [
+    "data\\raw\\medqa\\data_clean\\questions\\Mainland\\4_options\\dev.jsonl",
+    "data\\raw\\medqa\\data_clean\\questions\\Mainland\\4_options\\test.jsonl",
+    "data\\raw\\medqa\\data_clean\\questions\\Mainland\\4_options\\train.jsonl",
+    "data\\raw\\medqa\\data_clean\\questions\\Mainland\\chinese_qbank.jsonl",
+    "data\\raw\\medqa\\data_clean\\questions\\Mainland\\dev.jsonl",
+    "data\\raw\\medqa\\data_clean\\questions\\Mainland\\test.jsonl",
+    "data\\raw\\medqa\\data_clean\\questions\\Mainland\\train.jsonl",
+    "data\\raw\\medqa\\data_clean\\questions\\Taiwan\\dev.jsonl",
+    "data\\raw\\medqa\\data_clean\\questions\\Taiwan\\metamap\\dev\\tw_dev.jsonl",
+    "data\\raw\\medqa\\data_clean\\questions\\Taiwan\\metamap\\test\\tw_test.jsonl",
+    "data\\raw\\medqa\\data_clean\\questions\\Taiwan\\metamap\\train\\tw_train.jsonl",
+    "data\\raw\\medqa\\data_clean\\questions\\Taiwan\\taiwanese_qbank.jsonl",
+    "data\\raw\\medqa\\data_clean\\questions\\Taiwan\\test.jsonl",
+    "data\\raw\\medqa\\data_clean\\questions\\Taiwan\\train.jsonl",
+    "data\\raw\\medqa\\data_clean\\questions\\Taiwan\\tw_translated_jsonl\\en\\dev-2en.jsonl",
+    "data\\raw\\medqa\\data_clean\\questions\\Taiwan\\tw_translated_jsonl\\en\\test-2en.jsonl",
+    "data\\raw\\medqa\\data_clean\\questions\\Taiwan\\tw_translated_jsonl\\en\\train-2en.jsonl",
+    "data\\raw\\medqa\\data_clean\\questions\\Taiwan\\tw_translated_jsonl\\zh\\dev-2zh.jsonl",
+    "data\\raw\\medqa\\data_clean\\questions\\Taiwan\\tw_translated_jsonl\\zh\\test-2zh.jsonl",
+    "data\\raw\\medqa\\data_clean\\questions\\Taiwan\\tw_translated_jsonl\\zh\\train-2zh.jsonl",
+    "data\\raw\\medqa\\data_clean\\questions\\US\\4_options\\phrases_no_exclude_dev.jsonl",
+    "data\\raw\\medqa\\data_clean\\questions\\US\\4_options\\phrases_no_exclude_test.jsonl",
+    "data\\raw\\medqa\\data_clean\\questions\\US\\4_options\\phrases_no_exclude_train.jsonl",
+    "data\\raw\\medqa\\data_clean\\questions\\US\\dev.jsonl",
+    "data\\raw\\medqa\\data_clean\\questions\\US\\metamap_extracted_phrases\\dev\\phrases_dev.jsonl",
+    "data\\raw\\medqa\\data_clean\\questions\\US\\metamap_extracted_phrases\\test\\phrases_test.jsonl",
+    "data\\raw\\medqa\\data_clean\\questions\\US\\metamap_extracted_phrases\\train\\phrases_train.jsonl",
+    "data\\raw\\medqa\\data_clean\\questions\\US\\test.jsonl",
+    "data\\raw\\medqa\\data_clean\\questions\\US\\train.jsonl",
+    "data\\raw\\medqa\\data_clean\\questions\\US\\US_qbank.jsonl"
+  ],
+  "records_scanned": 225908,
+  "candidates_kept": 53151,
+  "specialty_counts": {
+    "cirugia_general": 2062,
+    "emergencias": 10731,
+    "ginecologia_obstetricia": 6381,
+    "medicina_interna": 24500,
+    "pediatria": 9477
+  },
+  "generated_at": "2026-10-09T05:30:04.605980+00:00"
+}
+
+
+STDERR:
+
