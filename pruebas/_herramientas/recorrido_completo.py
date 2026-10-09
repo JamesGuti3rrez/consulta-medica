@@ -8,8 +8,8 @@ primera fase que falle.
 Uso (desde la raíz del repositorio):
   backend/.venv/Scripts/python.exe pruebas/_herramientas/recorrido_completo.py
 
-La fase 4 necesita Node y el paquete `playwright` (no es dependencia del proyecto). Si no está en
-NODE_PATH, se busca en la caché de npx; se instala con `npx playwright@1.63.0 install chromium`.
+La fase 4 necesita Node y `playwright`, dependencia de desarrollo del proyecto: `npm install` y, una
+sola vez, `npx playwright install chromium` para descargar el navegador.
 """
 
 from __future__ import annotations
@@ -59,13 +59,8 @@ def captura(tipo: str, archivo: str, salida: str, lineas: str | None = None) -> 
         finish()
 
 
-def playwright_node_path() -> str | None:
-    if os.environ.get("NODE_PATH"):
-        return os.environ["NODE_PATH"]
-    cache = Path.home() / "AppData" / "Local" / "npm-cache" / "_npx"
-    for candidate in sorted(cache.glob("*/node_modules/playwright")):
-        return str(candidate.parent)
-    return None
+def playwright_available() -> bool:
+    return (REPO_ROOT / "node_modules" / "playwright").exists()
 
 
 def wait_for_server(url: str, timeout: float = 30) -> bool:
@@ -135,9 +130,8 @@ def main() -> None:
              "03_validacion/ejecucion/02_pytest_backend.png", BACKEND)
 
     # Fase 4: conexión con el frontend.
-    node_path = playwright_node_path()
-    if not node_path:
-        print("No se encontró el paquete playwright. Ejecute: npx playwright@1.63.0 install chromium")
+    if not playwright_available():
+        print("Falta playwright. Ejecute: npm install && npx playwright install chromium")
         results.append(("Fase 4", "playwright no disponible", 1))
         finish()
     server = subprocess.Popen(
@@ -150,7 +144,6 @@ def main() -> None:
         if not wait_for_server(f"http://localhost:{PORT}/api/status"):
             results.append(("Fase 4", "el servidor no respondió", 1))
             finish()
-        os.environ["NODE_PATH"] = node_path
         os.environ["BASE_URL"] = f"http://localhost:{PORT}"
         ejecutar("Fase 4", "carga de un caso por especialidad en /simulacion.html (1440 px)",
                  "node pruebas/_herramientas/capturar_frontend.cjs pruebas/04_frontend/capturas",
