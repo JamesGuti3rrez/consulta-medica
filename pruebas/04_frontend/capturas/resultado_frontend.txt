@@ -1,0 +1,10 @@
+URL: http://localhost:3100/simulacion.html · ventana 1440x1100 (escritorio)
+GET /api/status → {"caseConfigured":true,"simulationReady":false,"availableCases":10}
+Casos a mostrar (primero de cada especialidad): EME-001, GOB-003, CIR-005, PED-007, MED-008
+[OK] intento 5: CIR-005 (cirugia_general) · ficha "Paciente 7", 28 años · claves API ["allergies_recorded","case_id","chief_complaint","items","patient","specialty"] · textos protegidos visibles: 0 · captura 04_ficha_CIR-005.png
+[OK] intento 8: PED-007 (pediatria) · ficha "Paciente 3", 7 años · claves API ["allergies_recorded","case_id","chief_complaint","items","patient","specialty"] · textos protegidos visibles: 0 · captura 05_ficha_PED-007.png
+[OK] intento 9: GOB-003 (ginecologia_obstetricia) · ficha "Paciente 5", 24 años · claves API ["allergies_recorded","case_id","chief_complaint","items","patient","specialty"] · textos protegidos visibles: 0 · captura 03_ficha_GOB-003.png
+[OK] intento 12: MED-008 (medicina_interna) · ficha "Paciente 1", 48 años · claves API ["allergies","allergies_recorded","case_id","chief_complaint","items","patient","specialty"] · textos protegidos visibles: 0 · captura 06_ficha_MED-008.png
+[OK] intento 17: EME-001 (emergencias) · ficha "Paciente 9", 33 años · claves API ["allergies_recorded","case_id","chief_complaint","items","patient","specialty"] · textos protegidos visibles: 0 · captura 02_ficha_EME-001.png
+Respuesta cruda de GET /api/caso guardada en 07_respuesta_api_caso.png
+RESULTADO: 5 casos, uno por especialidad, cargados sin información protegida.
