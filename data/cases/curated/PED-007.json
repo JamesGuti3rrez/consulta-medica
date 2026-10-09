@@ -1,0 +1,122 @@
+{
+  "schema_version": "1.0.0",
+  "case_id": "PED-007",
+  "title": "Paciente de 7 años con cuadro de pediatría",
+  "specialty": "pediatria",
+  "language": "es",
+  "status": "curado",
+  "source": {
+    "dataset": "MedQA",
+    "item_id": "medqa-dadd721b55c88d20",
+    "license": "MIT",
+    "method": "ia_validador"
+  },
+  "public": {
+    "patient": {
+      "alias": "Paciente 3",
+      "age_years": 7,
+      "sex": "masculino"
+    },
+    "chief_complaint": {
+      "evidence_id": "PED-007.motivo.queja_principal",
+      "category": "motivo",
+      "label": "Queja principal",
+      "text": "Niño de 7 años presenta cojera y dolor referido en la rodilla izquierda."
+    },
+    "items": [
+      {
+        "evidence_id": "PED-007.historia.fuente_medqa",
+        "category": "anamnesis",
+        "label": "Resumen clínico (adaptado de MedQA)",
+        "text": "Niño de 7 años presenta cojera y dolor referido en la rodilla izquierda. Está afebril, con signos vitales estables y desarrollo adecuado. La rodilla conserva todo su rango de movimiento, pero la movilización pasiva de la cadera provoca dolor; la radiografía muestra aplanamiento de la cabeza femoral izquierda."
+      }
+    ],
+    "allergies_recorded": false
+  },
+  "on_request": [
+    {
+      "evidence_id": "PED-007.solicitud.exploracion_fisica",
+      "category": "examen_fisico",
+      "label": "Exploración física",
+      "text": "Los hallazgos de exploración física descritos por la fuente ya están incluidos en la historia pública; no se documentan otros hallazgos para revelar.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_preguntar",
+        "requires": [
+          "exploracion_fisica"
+        ]
+      }
+    }
+  ],
+  "protected": {
+    "diagnosis": {
+      "name": "Enfermedad de Legg-Calvé-Perthes",
+      "synonyms": [
+        "Enfermedad de Legg-Calvé-Perthes"
+      ]
+    },
+    "differentials": [
+      {
+        "name": "Artritis séptica",
+        "must_not_miss": true,
+        "discard_evidence_ids": []
+      },
+      {
+        "name": "Epifisiólisis de la cabeza femoral",
+        "must_not_miss": true,
+        "discard_evidence_ids": []
+      },
+      {
+        "name": "Osteomielitis",
+        "must_not_miss": true,
+        "discard_evidence_ids": []
+      },
+      {
+        "name": "Artritis idiopática juvenil",
+        "must_not_miss": false,
+        "discard_evidence_ids": []
+      }
+    ],
+    "treatment_reference": {
+      "summary": "La radiografía y la edad apoyan Legg-Calve-Perthes. El manejo depende de extensión y evolución, por lo que debe decidirlo ortopedia pediátrica; la ficha no prescribe tratamiento.",
+      "key_actions": [
+        "Valorar por ortopedia pediátrica.",
+        "Reevaluar con urgencia si aparece fiebre, dolor intenso o incapacidad para apoyar."
+      ]
+    },
+    "contraindications": [],
+    "evaluation": {
+      "key_questions": [
+        {
+          "id": "kq1",
+          "topic": "Traducción al español: Niño de 7 años presenta cojera y favorece la pierna izquierda; refiere dolor en la rodilla. Está afebril y con signos vitales estables. La rodilla tiene rango de movimiento completo, pero la movilización pasiva provoca dolor en la cadera izquierda. La radiografía muestra aplanamiento de la cabeza femoral izquierda. ¿Cuál es el diagnóstico más probable? Opciones traducidas: Artritis séptica; Raquitismo; Osteopetrosis; Enfermedad de Legg-Calvé-Perthes; Enfermedad de Osgood-Schlatter; Epifisiólisis de la cabeza femoral; Artritis idiopática juvenil. Respuesta fuente: D — Legg-Calvé-Perthes disease (LCPD). Texto fuente conservado (inglés): A 7-year-old boy presents to the clinic with his mother, who notes that the way in which he plays has changed and that he has been limping, favoring his left leg. When asked, the patient states that his left knee hurts. He is afebrile and vital signs are stable. The patient is well nourished and meeting all developmental milestones. On physical examination, the knee has a full range of motion; however, passive motion elicits pain in the left hip. An X-ray is performed and reveals a flattened left femoral head. Which of the following is the most likely diagnosis? Opciones fuente: Septic arthritis; Rickets; Osteopetrosis; Legg-Calvé-Perthes disease (LCPD); Osgood-Schlatter disease (OSD); Slipped capital femoral epiphysis; Juvenile idiopathic arthritis (JIA)",
+          "evidence_ids": [
+            "PED-007.historia.fuente_medqa"
+          ],
+          "weight": 3,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        }
+      ],
+      "tests": {
+        "recommended": [
+          "valoracion_ortopedia_pediatrica",
+          "revisar_radiografias_de_cadera"
+        ],
+        "optional": [
+          "resonancia_si_diagnostico_temprano_incierto"
+        ],
+        "unnecessary": []
+      }
+    }
+  },
+  "provenance": {
+    "created_by": "case_preparation.transform.medqa_final_review",
+    "created_at": "2026-10-08",
+    "validator_version": "1.0.0",
+    "validated_at": "2026-10-08",
+    "curated_by": "curacion_asistida_por_ia",
+    "curated_at": "2026-10-08",
+    "rejection_reason": null
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "schema_version": "1.0.0",
+  "case_id": "GOB-004",
+  "title": "Paciente de 24 años con cuadro de ginecología y obstetricia",
+  "specialty": "ginecologia_obstetricia",
+  "language": "es",
+  "status": "validado",
+  "source": {
+    "dataset": "MedQA",
+    "item_id": "medqa-a04db516708da5ae",
+    "license": "MIT",
+    "method": "ia_validador"
+  },
+  "public": {
+    "patient": {
+      "alias": "Paciente 6",
+      "age_years": 24,
+      "sex": "femenino"
+    },
+    "chief_complaint": {
+      "evidence_id": "GOB-004.motivo.queja_principal",
+      "category": "motivo",
+      "label": "Queja principal",
+      "text": "Mujer de 24 años consulta por dos semanas de molestia pélvica leve, flujo vaginal espumoso amarillento, dispareunia y disuria ocasional."
+    },
+    "items": [
+      {
+        "evidence_id": "GOB-004.historia.fuente_medqa",
+        "category": "anamnesis",
+        "label": "Resumen clínico (adaptado de MedQA)",
+        "text": "Mujer de 24 años consulta por dos semanas de molestia pélvica leve, flujo vaginal espumoso amarillento, dispareunia y disuria ocasional. Refiere dos parejas sexuales y uso inconsistente de preservativo. En la exploración hay eritema vulvovaginal, cérvix en fresa doloroso a la movilización y flujo maloliente verde-amarillo; pH vaginal 5,8."
+      }
+    ],
+    "allergies_recorded": false
+  },
+  "on_request": [
+    {
+      "evidence_id": "GOB-004.solicitud.exploracion_fisica",
+      "category": "examen_fisico",
+      "label": "Exploración física",
+      "text": "Los hallazgos de exploración física descritos por la fuente ya están incluidos en la historia pública; no se documentan otros hallazgos para revelar.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_preguntar",
+        "requires": [
+          "exploracion_fisica"
+        ]
+      }
+    }
+  ],
+  "protected": {
+    "diagnosis": {
+      "name": "Tricomoniasis vulvovaginal",
+      "synonyms": [
+        "Tricomoniasis vulvovaginal"
+      ]
+    },
+    "differentials": [
+      {
+        "name": "Enfermedad pélvica inflamatoria",
+        "must_not_miss": true,
+        "discard_evidence_ids": []
+      },
+      {
+        "name": "Cervicitis por gonorrea o clamidia",
+        "must_not_miss": true,
+        "discard_evidence_ids": []
+      },
+      {
+        "name": "Vaginosis bacteriana",
+        "must_not_miss": false,
+        "discard_evidence_ids": []
+      },
+      {
+        "name": "Candidiasis vulvovaginal",
+        "must_not_miss": false,
+        "discard_evidence_ids": []
+      }
+    ],
+    "treatment_reference": {
+      "summary": "CDC recomienda para tricomoniasis en mujeres metronidazol oral 500 mg dos veces al día durante 7 días y manejo de parejas; si se sospecha EPI, necesita evaluación y tratamiento presuntivo por un profesional, ya que el esquema para vaginitis no cubre por sí solo toda EPI.",
+      "key_actions": [
+        "No omitir evaluación de EPI ante dolor pélvico y dolor a la movilización cervical.",
+        "Tratar simultáneamente a las parejas sexuales y evitar relaciones hasta completar tratamiento y resolver síntomas.",
+        "Ofrecer pruebas para otras ITS y repetir prueba de tricomoniasis aproximadamente a los 3 meses."
+      ]
+    },
+    "contraindications": [],
+    "evaluation": {
+      "key_questions": [
+        {
+          "id": "kq1",
+          "topic": "Traducción al español: Mujer de 24 años consulta por dos semanas de molestia pélvica leve y flujo vaginal espumoso amarillento; también presenta dispareunia y disuria ocasional. Tiene dos parejas sexuales previas y uso inconsistente de preservativo. En la exploración se observa eritema vulvovaginal, cérvix en fresa doloroso a la movilización y flujo maloliente verdoso-amarillo. El pH vaginal es 5,8. ¿Cuál es el diagnóstico más probable? Opciones traducidas: Candidiasis vulvovaginal; Vaginitis atrófica; Vaginosis bacteriana; Infección por clamidia; Tricomoniasis. Respuesta fuente: E — Trichomoniasis. Texto fuente conservado (inglés): A 24-year-old woman presents to her gynecologist complaining of mild pelvic discomfort and a frothy, yellowish discharge from her vagina for the past 2 weeks. She also complains of pain during sexual intercourse and sometimes after urination. Her past medical history is noncontributory. She takes oral contraceptives and a multivitamin daily. She has had two male sexual partners in her lifetime and uses condoms inconsistently. Today, her vitals are normal. On pelvic exam, she has vulvovaginal erythema and a 'strawberry cervix' that is tender to motion, with minimal green-yellow malodorous discharge. A swab of the vaginal wall is analyzed for pH at bedside. Vaginal pH is 5.8. Which of the following is the most likely diagnosis for this patient? Opciones fuente: Vulvovaginal candidiasis; Atrophic vaginitis; Bacterial vaginosis; Chlamydia; Trichomoniasis",
+          "evidence_ids": [
+            "GOB-004.historia.fuente_medqa"
+          ],
+          "weight": 3,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        }
+      ],
+      "tests": {
+        "recommended": [
+          "naat_trichomonas",
+          "naat_gonorrea_y_clamidia",
+          "evaluar_criterios_de_enfermedad_pelvica_inflamatoria"
+        ],
+        "optional": [
+          "prueba_de_embarazo",
+          "pruebas_de_otras_its"
+        ],
+        "unnecessary": []
+      }
+    }
+  },
+  "provenance": {
+    "created_by": "case_preparation.transform.medqa_final_review",
+    "created_at": "2026-10-08",
+    "validator_version": "1.0.0",
+    "validated_at": "2026-10-08",
+    "curated_by": null,
+    "curated_at": null,
+    "rejection_reason": null
+  }
+}

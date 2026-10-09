@@ -1,0 +1,31 @@
+{
+  "dataset": "MedQA",
+  "status": "lote_anterior_rechazado_o_curacion_invalidada",
+  "reviewed_count": 10,
+  "accepted_count": 0,
+  "rejected_count": 10,
+  "invalidated_count": 6,
+  "accepted_case_ids": [],
+  "rejected_case_ids": [
+    "CIR-007",
+    "CIR-008",
+    "EME-009",
+    "EME-010",
+    "GOB-005",
+    "GOB-006",
+    "MED-001",
+    "MED-002",
+    "PED-003",
+    "PED-004"
+  ],
+  "invalidated_case_ids": [
+    "CIR-007",
+    "CIR-008",
+    "EME-009",
+    "EME-010",
+    "GOB-005",
+    "GOB-006"
+  ],
+  "reason": "Se retiraron seis curaciones heurísticas por datos demográficos o especialidades sin respaldo. Cuatro entradas adicionales son resúmenes de estudios, no casos de pacientes. Las diez se conservan en rechazados y no se mezclan con el lote curado actual.",
+  "generated_at": "2026-10-08"
+}

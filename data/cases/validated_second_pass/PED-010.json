@@ -1,0 +1,124 @@
+{
+  "schema_version": "1.0.0",
+  "case_id": "PED-010",
+  "title": "Paciente de 6 años con cuadro de pediatría",
+  "specialty": "pediatria",
+  "language": "es",
+  "status": "validado",
+  "source": {
+    "dataset": "MedQA",
+    "item_id": "medqa-5fc375051c4a68f2",
+    "license": "MIT",
+    "method": "ia_validador"
+  },
+  "public": {
+    "patient": {
+      "alias": "Paciente 4",
+      "age_years": 6,
+      "sex": "femenino"
+    },
+    "chief_complaint": {
+      "evidence_id": "PED-010.motivo.queja_principal",
+      "category": "motivo",
+      "label": "Queja principal",
+      "text": "Niña de 6 años evaluada después de una fractura del brazo."
+    },
+    "items": [
+      {
+        "evidence_id": "PED-010.historia.fuente_medqa",
+        "category": "anamnesis",
+        "label": "Resumen clínico (adaptado de MedQA)",
+        "text": "Niña de 6 años evaluada después de una fractura del brazo. Se describen desarrollo mamario precoz, manchas café con leche, displasia fibrosa ósea y edad ósea de 9 años. El enunciado fuente menciona alteraciones tiroideas con términos contradictorios, por lo que no se especifica si tiene hipo o hipertiroidismo."
+      }
+    ],
+    "allergies_recorded": false
+  },
+  "on_request": [
+    {
+      "evidence_id": "PED-010.solicitud.exploracion_fisica",
+      "category": "examen_fisico",
+      "label": "Exploración física",
+      "text": "Los hallazgos de exploración física descritos por la fuente ya están incluidos en la historia pública; no se documentan otros hallazgos para revelar.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_preguntar",
+        "requires": [
+          "exploracion_fisica"
+        ]
+      }
+    }
+  ],
+  "protected": {
+    "diagnosis": {
+      "name": "Síndrome de McCune-Albright",
+      "synonyms": [
+        "Síndrome de McCune-Albright"
+      ]
+    },
+    "differentials": [
+      {
+        "name": "Neurofibromatosis tipo 1",
+        "must_not_miss": false,
+        "discard_evidence_ids": []
+      },
+      {
+        "name": "Síndrome de Peutz-Jeghers",
+        "must_not_miss": false,
+        "discard_evidence_ids": []
+      },
+      {
+        "name": "Displasia fibrosa ósea no sindrómica",
+        "must_not_miss": false,
+        "discard_evidence_ids": []
+      },
+      {
+        "name": "Otras causas de pubertad precoz periférica",
+        "must_not_miss": true,
+        "discard_evidence_ids": []
+      }
+    ],
+    "treatment_reference": {
+      "summary": "Los hallazgos descritos apoyan síndrome de McCune-Albright, pero el texto fuente es ambiguo sobre la función tiroidea y no aporta resultados hormonales completos. No se establece tratamiento individual; requiere evaluación endocrina y esquelética pediátrica.",
+      "key_actions": [
+        "Aclarar y confirmar la función tiroidea; no asumir que la paciente tiene simultáneamente hipotiroidismo e hipertiroidismo.",
+        "Coordinar seguimiento por endocrinología pediátrica y ortopedia según extensión ósea y manifestaciones."
+      ]
+    },
+    "contraindications": [],
+    "evaluation": {
+      "key_questions": [
+        {
+          "id": "kq1",
+          "topic": "Traducción al español: Niña de 6 años hospitalizada por fractura del brazo presenta desarrollo mamario, manchas café con leche y displasia fibrosa en estudios óseos; su edad ósea se estima en 9 años. El texto fuente menciona alteraciones tiroideas de forma contradictoria, sin aclarar cuál presenta. ¿Cuál es el diagnóstico más probable? Opciones traducidas: Síndrome de Fanconi; Síndrome de McCune-Albright; Neurofibromatosis; Síndrome de Peutz-Jeghers. Respuesta fuente: B — McCune-Albright syndrome. Texto fuente conservado (inglés): A 6-year-old girl was hospitalized with a broken arm, body checkups have been found in breast development, skin showing cafe au lait spots (café-au-lait spots), hypothyroidism, hyperthyroidism also the phenomenon of poor bone imaging examination showed fibrous growth ( fibrous dysplasia), the interpretation of bone age was 9 years old, the most likely diagnosis is: Opciones fuente: Fanconi syndrome; McCune-Albright syndrome; neurofibromatosis; Peutz-Jeghers syndrome",
+          "evidence_ids": [
+            "PED-010.historia.fuente_medqa"
+          ],
+          "weight": 3,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        }
+      ],
+      "tests": {
+        "recommended": [
+          "valoracion_endocrinologia_pediatrica",
+          "funcion_tiroidea_para_aclarar_enunciado_fuente",
+          "revisar_imagenes_y_extension_de_displasia_fibrosa"
+        ],
+        "optional": [
+          "evaluacion_endocrina_de_pubertad_precoz",
+          "seguimiento_esqueletico_segun_especialista"
+        ],
+        "unnecessary": []
+      }
+    }
+  },
+  "provenance": {
+    "created_by": "case_preparation.transform.medqa_final_review",
+    "created_at": "2026-10-08",
+    "validator_version": "1.0.0",
+    "validated_at": "2026-10-08",
+    "curated_by": null,
+    "curated_at": null,
+    "rejection_reason": null
+  }
+}

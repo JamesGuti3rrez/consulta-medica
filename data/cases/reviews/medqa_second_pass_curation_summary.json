@@ -1,0 +1,101 @@
+{
+  "dataset": "MedQA",
+  "status": "curado_con_revision_asistida_por_ia",
+  "method": "curacion_asistida_por_ia",
+  "curated_count": 10,
+  "curated_at": "2026-10-08",
+  "source_dir": "data/cases/validated_second_pass",
+  "curated_dir": "data/cases/curated",
+  "cases": [
+    {
+      "case_id": "EME-001",
+      "status": "curado",
+      "curated_by": "curacion_asistida_por_ia",
+      "disposition": "coherente_urgencia_critica",
+      "confidence": "moderada_alta",
+      "review": "Temperatura central de 41,1 °C y alteración neurológica después de trabajo físico al aire libre son altamente compatibles con golpe de calor por esfuerzo. La diaforesis no lo descarta. Haloperidol hace importante considerar síndrome neuroléptico maligno; anestesia meses antes no apoya hipertermia maligna perioperatoria actual.",
+      "source_review": "clinical_coherence_review.json"
+    },
+    {
+      "case_id": "EME-002",
+      "status": "curado",
+      "curated_by": "curacion_asistida_por_ia",
+      "disposition": "compatible_urgencia_critica_requiere_confirmacion",
+      "confidence": "moderada_alta",
+      "review": "Cefalea explosiva, vómitos, deterioro de conciencia y rigidez de nuca son altamente preocupantes por hemorragia subaracnoidea, pero la fuente no aporta neuroimagen ni LCR: la respuesta de MedQA no equivale a confirmación.",
+      "source_review": "clinical_coherence_review.json"
+    },
+    {
+      "case_id": "GOB-003",
+      "status": "curado",
+      "curated_by": "curacion_asistida_por_ia",
+      "disposition": "compatible_requiere_confirmacion",
+      "confidence": "moderada",
+      "review": "El shock hemorrágico posparto y la incapacidad de lactar hacen plausible el infarto hipofisario posparto (síndrome de Sheehan), que coincide con la respuesta fuente. La imposibilidad de lactar a la mañana siguiente por sí sola no confirma hipopituitarismo; el evento de atonía/hemorragia requiere manejo obstétrico urgente independientemente de esa hipótesis.",
+      "source_review": "clinical_coherence_review.json"
+    },
+    {
+      "case_id": "GOB-004",
+      "status": "curado",
+      "curated_by": "curacion_asistida_por_ia",
+      "disposition": "coherente_con_alerta_de_pid",
+      "confidence": "moderada_alta",
+      "review": "Flujo espumoso amarillo-verdoso, pH elevado y cérvix en fresa apoyan tricomoniasis. Sin embargo, dolor pélvico y dolor a la movilización cervical obligan a evaluar enfermedad pélvica inflamatoria (EPI); no debe cerrarse como vaginitis aislada.",
+      "source_review": "clinical_coherence_review.json"
+    },
+    {
+      "case_id": "CIR-005",
+      "status": "curado",
+      "curated_by": "curacion_asistida_por_ia",
+      "disposition": "compatible_requiere_confirmacion",
+      "confidence": "moderada",
+      "review": "Sangrado con plaquetas, tiempo de protrombina e INR normales y TTPa prolongado es compatible con deficiencia de factor de la vía intrínseca; la historia familiar favorece hemofilia hereditaria. El TTPa prolongado aislado no distingue hemofilia A de hemofilia B, enfermedad de von Willebrand u otras causas.",
+      "source_review": "clinical_coherence_review.json"
+    },
+    {
+      "case_id": "CIR-006",
+      "status": "curado",
+      "curated_by": "curacion_asistida_por_ia",
+      "disposition": "compatible_urgente_requiere_confirmacion",
+      "confidence": "moderada",
+      "review": "Fiebre, taquicardia, taquipnea, hipoxemia, confusión y crepitantes basales en el quinto día posoperatorio son preocupantes por infección respiratoria con posible sepsis y disfunción orgánica. El foco pulmonar es probable, pero no está confirmado por imagen o microbiología; también hay que valorar embolia pulmonar y otras causas de hipoxemia/delirio.",
+      "source_review": "clinical_coherence_review.json"
+    },
+    {
+      "case_id": "PED-007",
+      "status": "curado",
+      "curated_by": "curacion_asistida_por_ia",
+      "disposition": "coherente_con_precauciones",
+      "confidence": "moderada_alta",
+      "review": "La edad, cojera, dolor de cadera referido a rodilla y aplanamiento radiográfico de la cabeza femoral son compatibles con enfermedad de Legg-Calve-Perthes. La ficha ya contiene radiografía; la caracterización y el manejo dependen de extensión, edad y evolución.",
+      "source_review": "clinical_coherence_review.json"
+    },
+    {
+      "case_id": "MED-008",
+      "status": "curado",
+      "curated_by": "curacion_asistida_por_ia",
+      "disposition": "coherente_con_precauciones",
+      "confidence": "moderada_alta",
+      "review": "La placa anular expansiva mayor de 5 cm tras exposición posible a garrapata es compatible con eritema migrans; la ausencia de garrapata observada no lo excluye. Amoxicilina es una opción recomendada por CDC para enfermedad de Lyme temprana localizada. La fiebre de 40,1 °C es marcadamente alta y exige valoración urgente de gravedad y diagnósticos alternativos; no asumir que todo el cuadro queda explicado por Lyme.",
+      "source_review": "clinical_coherence_review.json"
+    },
+    {
+      "case_id": "MED-009",
+      "status": "curado",
+      "curated_by": "curacion_asistida_por_ia",
+      "disposition": "compatible_requiere_confirmacion",
+      "confidence": "moderada",
+      "review": "La pápula perlada rosada con borde sobreelevado y telangiectasias es muy sugestiva de carcinoma basocelular. La ficha no incluye histopatología; por tanto, no es diagnóstico confirmado. El párpado es una localización funcionalmente crítica y requiere valoración dermatológica y oftalmológica/oculoplástica, con confirmación histológica y planificación terapéutica.",
+      "source_review": "clinical_coherence_review.json"
+    },
+    {
+      "case_id": "PED-010",
+      "status": "curado",
+      "curated_by": "curacion_asistida_por_ia",
+      "disposition": "coherente_con_precauciones",
+      "confidence": "moderada_alta",
+      "review": "La combinación de displasia fibrosa, manchas café con leche y desarrollo mamario precoz es altamente compatible con síndrome de McCune-Albright. El enunciado fuente contiene una descripción contradictoria de la función tiroidea; no permite definir un fenotipo tiroideo concreto ni justificar un tratamiento.",
+      "source_review": "clinical_coherence_review.json"
+    }
+  ]
+}

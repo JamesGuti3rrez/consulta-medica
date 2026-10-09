@@ -1,0 +1,126 @@
+{
+  "schema_version": "1.0.0",
+  "case_id": "MED-002",
+  "title": "Paciente adulto con cuadro de medicina interna",
+  "specialty": "medicina_interna",
+  "language": "es",
+  "status": "rechazado",
+  "source": {
+    "dataset": "MedQA",
+    "item_id": "medqa-40516",
+    "license": "MIT",
+    "method": "manual"
+  },
+  "public": {
+    "patient": {
+      "alias": "Paciente 2",
+      "age_years": 45,
+      "sex": "masculino"
+    },
+    "chief_complaint": {
+      "evidence_id": "MED-002.motivo.queja_principal",
+      "category": "motivo",
+      "label": "Queja principal",
+      "text": "Please refer to the summary above to answer this question In the study, all participants who were enrolled and randomly assigned to treatment with pulmharkimab were analyzed in the pulmharkimab group regardless of medication nonadherence or"
+    },
+    "items": [
+      {
+        "evidence_id": "MED-002.historia.queja",
+        "category": "anamnesis",
+        "label": "Historia clínica",
+        "text": "Please refer to the summary above to answer this question In the study, all participants who were enrolled and randomly assigned to treatment with pulmharkimab were analyzed in the pulmharkimab group regardless of medication nonadherence or refusal of allocated treatment. A medical student reading the abstract is confused about why some participant"
+      }
+    ],
+    "allergies_recorded": false
+  },
+  "on_request": [
+    {
+      "evidence_id": "MED-002.solicitud.exploracion_fisica",
+      "category": "examen_fisico",
+      "label": "Exploración física",
+      "text": "Se solicita explorar signos locales, estado general, presión arterial, frecuencia cardiaca, temperatura y hallazgos focales.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_preguntar",
+        "requires": [
+          "anamnesis"
+        ]
+      }
+    }
+  ],
+  "protected": {
+    "diagnosis": {
+      "name": "Diagnóstico principal de medicina interna",
+      "synonyms": [
+        "medicina interna principal"
+      ]
+    },
+    "differentials": [
+      {
+        "name": "Diagnóstico alternativo 1",
+        "must_not_miss": true,
+        "discard_evidence_ids": [
+          "MED-002.motivo.queja_principal"
+        ]
+      },
+      {
+        "name": "Diagnóstico alternativo 2",
+        "must_not_miss": false,
+        "discard_evidence_ids": [
+          "MED-002.solicitud.exploracion_fisica"
+        ]
+      }
+    ],
+    "treatment_reference": {
+      "summary": "El manejo debe basarse en el diagnóstico principal, la estabilidad del paciente y el protocolo clínico del servicio correspondiente.",
+      "key_actions": [
+        "Confirmar diagnóstico",
+        "Estabilizar al paciente",
+        "Iniciar tratamiento específico"
+      ]
+    },
+    "contraindications": [
+      {
+        "id": "ci1",
+        "drug_or_class": "Medicamento no indicado en este caso",
+        "reason": "La historia y la presentación clínica sugieren otra alternativa terapéutica más apropiada.",
+        "evidence_id": "MED-002.motivo.queja_principal"
+      }
+    ],
+    "evaluation": {
+      "key_questions": [
+        {
+          "id": "kq1",
+          "topic": "Historia clínica",
+          "evidence_ids": [
+            "MED-002.motivo.queja_principal"
+          ],
+          "weight": 3,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        }
+      ],
+      "tests": {
+        "recommended": [
+          "anamnesis",
+          "examen_fisico"
+        ],
+        "optional": [
+          "laboratorio"
+        ],
+        "unnecessary": [
+          "radiologia"
+        ]
+      }
+    }
+  },
+  "provenance": {
+    "created_by": "case_preparation.transform.medqa_selection",
+    "created_at": "2026-10-08",
+    "validator_version": "1.0.0",
+    "validated_at": "2026-10-08",
+    "curated_by": null,
+    "curated_at": null,
+    "rejection_reason": "No es un caso de paciente; corresponde a un diseño de estudio o ensayo clínico agrupado."
+  }
+}

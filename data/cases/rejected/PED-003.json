@@ -1,0 +1,126 @@
+{
+  "schema_version": "1.0.0",
+  "case_id": "PED-003",
+  "title": "Paciente adulto con cuadro de pediatría",
+  "specialty": "pediatria",
+  "language": "es",
+  "status": "rechazado",
+  "source": {
+    "dataset": "MedQA",
+    "item_id": "medqa-41690",
+    "license": "MIT",
+    "method": "manual"
+  },
+  "public": {
+    "patient": {
+      "alias": "Paciente 3",
+      "age_years": 45,
+      "sex": "masculino"
+    },
+    "chief_complaint": {
+      "evidence_id": "PED-003.motivo.queja_principal",
+      "category": "motivo",
+      "label": "Queja principal",
+      "text": "Please refer to the summary above to answer this question An 8-year-old boy is brought to the physician by his mother for a well-child examination at a clinic for low-income residents. Although her son's elementary school offers free afters"
+    },
+    "items": [
+      {
+        "evidence_id": "PED-003.historia.queja",
+        "category": "anamnesis",
+        "label": "Historia clínica",
+        "text": "Please refer to the summary above to answer this question An 8-year-old boy is brought to the physician by his mother for a well-child examination at a clinic for low-income residents. Although her son's elementary school offers free afterschool programming, her son has not been interested in attending. Both the son's maternal and paternal grandmot"
+      }
+    ],
+    "allergies_recorded": false
+  },
+  "on_request": [
+    {
+      "evidence_id": "PED-003.solicitud.exploracion_fisica",
+      "category": "examen_fisico",
+      "label": "Exploración física",
+      "text": "Se solicita explorar signos locales, estado general, presión arterial, frecuencia cardiaca, temperatura y hallazgos focales.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_preguntar",
+        "requires": [
+          "anamnesis"
+        ]
+      }
+    }
+  ],
+  "protected": {
+    "diagnosis": {
+      "name": "Diagnóstico principal de pediatría",
+      "synonyms": [
+        "pediatría principal"
+      ]
+    },
+    "differentials": [
+      {
+        "name": "Diagnóstico alternativo 1",
+        "must_not_miss": true,
+        "discard_evidence_ids": [
+          "PED-003.motivo.queja_principal"
+        ]
+      },
+      {
+        "name": "Diagnóstico alternativo 2",
+        "must_not_miss": false,
+        "discard_evidence_ids": [
+          "PED-003.solicitud.exploracion_fisica"
+        ]
+      }
+    ],
+    "treatment_reference": {
+      "summary": "El manejo debe basarse en el diagnóstico principal, la estabilidad del paciente y el protocolo clínico del servicio correspondiente.",
+      "key_actions": [
+        "Confirmar diagnóstico",
+        "Estabilizar al paciente",
+        "Iniciar tratamiento específico"
+      ]
+    },
+    "contraindications": [
+      {
+        "id": "ci1",
+        "drug_or_class": "Medicamento no indicado en este caso",
+        "reason": "La historia y la presentación clínica sugieren otra alternativa terapéutica más apropiada.",
+        "evidence_id": "PED-003.motivo.queja_principal"
+      }
+    ],
+    "evaluation": {
+      "key_questions": [
+        {
+          "id": "kq1",
+          "topic": "Historia clínica",
+          "evidence_ids": [
+            "PED-003.motivo.queja_principal"
+          ],
+          "weight": 3,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        }
+      ],
+      "tests": {
+        "recommended": [
+          "anamnesis",
+          "examen_fisico"
+        ],
+        "optional": [
+          "laboratorio"
+        ],
+        "unnecessary": [
+          "radiologia"
+        ]
+      }
+    }
+  },
+  "provenance": {
+    "created_by": "case_preparation.transform.medqa_selection",
+    "created_at": "2026-10-08",
+    "validator_version": "1.0.0",
+    "validated_at": "2026-10-08",
+    "curated_by": null,
+    "curated_at": null,
+    "rejection_reason": "No es un caso de paciente; corresponde a un diseño de estudio o ensayo clínico agrupado."
+  }
+}

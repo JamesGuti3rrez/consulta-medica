@@ -1,0 +1,126 @@
+{
+  "schema_version": "1.0.0",
+  "case_id": "GOB-006",
+  "title": "Paciente adulto con cuadro de ginecología y obstetricia",
+  "specialty": "ginecologia_obstetricia",
+  "language": "es",
+  "status": "rechazado",
+  "source": {
+    "dataset": "MedQA",
+    "item_id": "medqa-19526",
+    "license": "MIT",
+    "method": "manual"
+  },
+  "public": {
+    "patient": {
+      "alias": "Paciente 6",
+      "age_years": 45,
+      "sex": "femenino"
+    },
+    "chief_complaint": {
+      "evidence_id": "GOB-006.motivo.queja_principal",
+      "category": "motivo",
+      "label": "Queja principal",
+      "text": "Please refer to the summary above to answer this question Which of the following is the most likely underlying cause of this patient's upper extremity symptoms?\" \"Patient Information Age: 1 day Sex: F Ethnicity: Hispanic Site of Care: offic"
+    },
+    "items": [
+      {
+        "evidence_id": "GOB-006.historia.queja",
+        "category": "anamnesis",
+        "label": "Historia clínica",
+        "text": "Please refer to the summary above to answer this question Which of the following is the most likely underlying cause of this patient's upper extremity symptoms?\" \"Patient Information Age: 1 day Sex: F Ethnicity: Hispanic Site of Care: office History Reason for Visit/Chief Concern: brought in by her parents because “her arm looks funny” History of P"
+      }
+    ],
+    "allergies_recorded": false
+  },
+  "on_request": [
+    {
+      "evidence_id": "GOB-006.solicitud.exploracion_fisica",
+      "category": "examen_fisico",
+      "label": "Exploración física",
+      "text": "Se solicita explorar signos locales, estado general, presión arterial, frecuencia cardiaca, temperatura y hallazgos focales.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_preguntar",
+        "requires": [
+          "anamnesis"
+        ]
+      }
+    }
+  ],
+  "protected": {
+    "diagnosis": {
+      "name": "Diagnóstico principal de ginecología y obstetricia",
+      "synonyms": [
+        "ginecología y obstetricia principal"
+      ]
+    },
+    "differentials": [
+      {
+        "name": "Diagnóstico alternativo 1",
+        "must_not_miss": true,
+        "discard_evidence_ids": [
+          "GOB-006.motivo.queja_principal"
+        ]
+      },
+      {
+        "name": "Diagnóstico alternativo 2",
+        "must_not_miss": false,
+        "discard_evidence_ids": [
+          "GOB-006.solicitud.exploracion_fisica"
+        ]
+      }
+    ],
+    "treatment_reference": {
+      "summary": "El manejo debe basarse en el diagnóstico principal, la estabilidad del paciente y el protocolo clínico del servicio correspondiente.",
+      "key_actions": [
+        "Confirmar diagnóstico",
+        "Estabilizar al paciente",
+        "Iniciar tratamiento específico"
+      ]
+    },
+    "contraindications": [
+      {
+        "id": "ci1",
+        "drug_or_class": "Medicamento no indicado en este caso",
+        "reason": "La historia y la presentación clínica sugieren otra alternativa terapéutica más apropiada.",
+        "evidence_id": "GOB-006.motivo.queja_principal"
+      }
+    ],
+    "evaluation": {
+      "key_questions": [
+        {
+          "id": "kq1",
+          "topic": "Historia clínica",
+          "evidence_ids": [
+            "GOB-006.motivo.queja_principal"
+          ],
+          "weight": 3,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        }
+      ],
+      "tests": {
+        "recommended": [
+          "anamnesis",
+          "examen_fisico"
+        ],
+        "optional": [
+          "laboratorio"
+        ],
+        "unnecessary": [
+          "radiologia"
+        ]
+      }
+    }
+  },
+  "provenance": {
+    "created_by": "case_preparation.transform.medqa_selection",
+    "created_at": "2026-10-08",
+    "validator_version": "1.0.0",
+    "validated_at": "2026-10-08",
+    "curated_by": null,
+    "curated_at": null,
+    "rejection_reason": "La fuente describe a una recién nacida de un día con un problema de extremidad superior, no un caso de ginecología-obstetricia; la copia curada contiene sexo y edad incompatibles con la fuente."
+  }
+}

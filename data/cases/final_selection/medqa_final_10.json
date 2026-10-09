@@ -1,0 +1,47 @@
+{
+  "dataset": "MedQA",
+  "status": "curado_con_revision_asistida_por_ia",
+  "selection_criteria": [
+    "10 preguntas fuente únicas; selección entre variantes con opciones y clave completas",
+    "edad y sexo derivados del texto original, sin valores por defecto",
+    "especialidad asignada según el escenario clínico, no palabras incidentales",
+    "pregunta, opciones y respuesta originales preservadas en evaluación protegida",
+    "hallazgos y respuestas cotejados con la fuente reparada; pruebas y tratamiento contrastados con guías identificadas",
+    "tratamiento educativo sujeto a evaluación clínica individual; sin convertirlo en prescripción",
+    "figuras y datos no disponibles señalados como limitación, no reconstruidos"
+  ],
+  "selected_case_ids": [
+    "EME-001",
+    "EME-002",
+    "GOB-003",
+    "GOB-004",
+    "CIR-005",
+    "CIR-006",
+    "PED-007",
+    "MED-008",
+    "MED-009",
+    "PED-010"
+  ],
+  "specialty_counts": {
+    "emergencias": 2,
+    "ginecologia_obstetricia": 2,
+    "cirugia_general": 2,
+    "pediatria": 2,
+    "medicina_interna": 2
+  },
+  "validation": {
+    "schema_ok": true,
+    "unique_source_items": 10,
+    "total_validated": 10,
+    "source_dir": "data/cases/validated_second_pass"
+  },
+  "clinical_review": "Lote curado mediante revisión asistida por IA y fuentes identificadas. Cada caso conserva sus incertidumbres, alertas y necesidades de confirmación. PED-010 se sustituyó por una fuente pediátrica completa sin imagen faltante.",
+  "clinical_review_counts": {
+    "coherente_urgencia_critica": 1,
+    "compatible_urgencia_critica_requiere_confirmacion": 1,
+    "compatible_requiere_confirmacion": 3,
+    "coherente_con_alerta_de_pid": 1,
+    "compatible_urgente_requiere_confirmacion": 1,
+    "coherente_con_precauciones": 3
+  }
+}
