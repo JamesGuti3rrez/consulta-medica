@@ -144,7 +144,8 @@ def _build_case(candidate: dict[str, Any], index: int) -> dict[str, Any]:
         },
         "public": {
             "patient": {
-                "alias": f"Paciente {index}",
+                # El número del alias coincide con el del caso (EME-001 → Paciente 1).
+                "alias": f"Paciente {int(case_id[-3:])}",
                 "age_years": age,
                 "sex": sex,
             },

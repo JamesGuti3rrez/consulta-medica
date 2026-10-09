@@ -13,7 +13,7 @@
   },
   "public": {
     "patient": {
-      "alias": "Paciente 9",
+      "alias": "Paciente 1",
       "age_years": 33,
       "sex": "masculino"
     },
