@@ -1,0 +1,14 @@
+﻿[
+    {
+        "name":  "MedQA-master.zip",
+        "size_bytes":  37558,
+        "sha256":  "1B7AF07B4DE67376D0E5FB4A376A7BCC605678AA32A26F0409FCC7D0D8C4B60C",
+        "path":  "data\\raw\\medqa\\MedQA-master.zip"
+    },
+    {
+        "name":  "source_manifest.json",
+        "size_bytes":  461,
+        "sha256":  "C1E650518C1C541BC6844AA18DA3D31D79A3B786F3845285DD1B2F901E98BAA0",
+        "path":  "data\\raw\\medqa\\source_manifest.json"
+    }
+]

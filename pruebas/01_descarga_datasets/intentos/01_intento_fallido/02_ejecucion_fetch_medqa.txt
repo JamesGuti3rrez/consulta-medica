@@ -1,0 +1,10 @@
+COMANDO: cd backend; .\\.venv\\Scripts\\python.exe -m case_preparation sources fetch --dataset medqa
+FECHA: 2026-10-08 07:14:42 UTC
+CODIGO_SALIDA: 1
+
+STDOUT:
+
+
+STDERR:
+El sistema no puede encontrar la ruta especificada.
+
