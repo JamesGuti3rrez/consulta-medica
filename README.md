@@ -1,118 +1,86 @@
 # Consulta Médica Virtual
 
-Simulador de consulta médica para estudiantes de medicina: el alumno entrevista por voz a un
-paciente virtual, plantea y descarta hipótesis, registra su diagnóstico y recibe una hoja de
-evaluación.
-
-## Cómo usarlo
-
-Requisitos: Node.js 18 o superior (para compilar estilos e imágenes) y Python 3.11 o superior
-(para el backend).
-
-1. Abre la carpeta `consulta-medica` en VS Code.
-2. La primera vez, ejecuta `npm install` y luego `npm run setup` (crea `.venv` e instala el backend).
-3. Ejecuta `npm start` y abre `http://localhost:3000`.
-
-El micrófono funciona en Chrome o Edge.
+Prototipo de consulta médica virtual con un catálogo versionado de diez casos curados para
+demostración. El simulador muestra una ficha pública de un caso; la conversación clínica interactiva
+y el guardado de intentos aún no están implementados.
 
 ## Estructura
 
-```
+```text
 consulta-medica/
-├── public/                         # Lo único que el servidor entrega al navegador
-│   ├── index.html                  # Portada: presentación, elección de caso, iniciar sesión y crear cuenta
-│   ├── simulacion.html             # Consulta, tablilla médica y hoja de evaluación
-│   ├── css/
-│   │   ├── styles.css              # Colores de ambas páginas (tema claro y oscuro) y estilos base
-│   │   ├── landing.css             # Estilos y animaciones de la portada
-│   │   ├── simulacion.css          # Estilos y animaciones de la simulación
-│   │   ├── perfil.css              # Menú de perfil y selector de tema (ambas páginas)
-│   │   ├── tailwind-portada.css    # Generado con npm run build:css (no editar)
-│   │   └── tailwind-simulacion.css # Generado con npm run build:css (no editar)
-│   ├── js/
-│   │   ├── auth.js                 # Sesión con Supabase compartida por las páginas
-│   │   ├── perfil.js               # Encabezado con la sesión, menú de perfil y tema (ambas páginas)
-│   │   ├── landing.js              # Ventanas, cuentas y animaciones de la portada
-│   │   └── simulacion.js           # Lógica de la consulta, hipótesis y evaluación
-│   ├── vendor/supabase.js          # Librería de Supabase (copiada de node_modules al instalar)
-│   └── assets/                     # Ilustración en WebP, ícono y vista previa para compartir
-├── server/                         # Backend (Python + FastAPI)
-│   ├── main.py                     # Aplicación, rutas de la API y archivos de public/
-│   ├── config.py                   # Lee las claves de .env
-│   └── clinical_case.py            # Lectura del caso y evaluación del razonamiento
-├── data/
-│   └── caso-demo.json              # Caso clínico con su guion y respuestas (privado, no se publica)
-├── src/
-│   ├── assets/consulta.png         # Ilustración original (fuente de npm run build:images)
-│   └── styles/tailwind.css         # Fuente de Tailwind para las dos páginas
-├── supabase/migrations/            # SQL de la base de datos (perfiles e intentos)
-├── scripts/
-│   ├── python.mjs                  # npm run setup / npm start: entorno y servidor de Python
-│   ├── copy-vendor.mjs             # Copia la librería de Supabase a public/vendor/
-│   └── optimize-images.mjs         # Genera las imágenes WebP, la vista previa y el ícono
-├── tailwind.portada.config.cjs     # Configuración de Tailwind de la portada
-├── tailwind.simulacion.config.cjs  # Configuración de Tailwind de la simulación
-├── pyproject.toml                  # Dependencias del backend y configuración de Vercel
-├── uv.lock                         # Versiones exactas de las dependencias (lo usa Vercel)
-├── package.json                    # Comandos y dependencias de estilos e imágenes
-├── .env.example                    # Plantilla de claves (copiar como .env, nunca se publica)
-└── .vscode/                        # Extensiones y ajustes recomendados
+├── frontend/
+│   ├── public/                 # HTML, CSS, JavaScript y recursos servidos al navegador
+│   ├── src/                    # Fuentes de Tailwind, imagen original y módulos futuros
+│   ├── scripts/                # Generación de imágenes y copia de librerías de navegador
+│   └── tailwind.*.config.cjs   # Configuración de estilos de cada página
+├── backend/
+│   ├── server/                 # API FastAPI: lógica sin IA (engine/, rag/, ...) y capa de IA (ai/)
+│   ├── case_preparation/       # Pipeline fuera de línea: descarga, conversión y validación de casos
+│   ├── tests/                  # Pruebas automatizadas
+│   ├── evals/                  # Medición de la capa de IA
+│   ├── supabase/migrations/    # SQL para las tablas de acceso
+│   ├── scripts/                # Instalación del entorno Python e inicio del servidor
+│   ├── pyproject.toml          # Dependencias del backend
+│   └── uv.lock                 # Versiones bloqueadas de dependencias Python
+├── schemas/                    # Esquema oficial del caso clínico (caso.schema.json)
+├── data/                       # Datasets y casos por etapa (raw, validated, curated, ...)
+├── docs/                       # Documentación técnica y decisiones de arquitectura
+├── package.json                # Comandos de desarrollo y construcción del frontend
+├── package-lock.json           # Versiones bloqueadas de dependencias Node
+├── .env.example                # Plantilla de variables de entorno
+└── .env                        # Configuración local; no compartir ni subir al repositorio
 ```
 
-Buenas prácticas que sigue esta organización:
+Cada carpeta nueva tiene un `README.md` que explica qué va en ella. La arquitectura completa está en
+`docs/architecture/README.md`.
 
-- **Solo `public/` es accesible desde el navegador.** El caso clínico con el diagnóstico correcto,
-  el código del servidor y la configuración no se pueden descargar.
-- **Código fuente separado del generado.** Los archivos `tailwind-*.css` se generan a partir de
-  `src/styles/tailwind.css`; no se editan a mano.
-- **Sin dependencias de CDN para los estilos.** Las dos páginas usan Tailwind compilado.
+## Requisitos
 
-## Comandos
+- Node.js 18 o superior
+- Python 3.12 o superior
+
+## Inicio local
+
+Desde la raíz del repositorio:
+
+1. Copia `.env.example` como `.env` y completa los valores de Supabase (es opcional para ver la interfaz).
+2. Instala las dependencias de frontend con `npm install`. Al terminar, copia el cliente de Supabase a
+   `frontend/public/vendor/`.
+3. Prepara el entorno Python y sus dependencias con `npm run setup`.
+4. Inicia la aplicación con `npm start` y abre `http://localhost:3000`. El comando genera
+   automáticamente las imágenes optimizadas y los estilos antes de levantar el servidor.
+
+Estos comandos crean archivos que no se guardan en el repositorio (están en `.gitignore`): los CSS de
+Tailwind, las imágenes optimizadas y `frontend/public/vendor/`. Si cambias las clases de Tailwind o la
+imagen original mientras el servidor está en marcha, vuelve a ejecutar `npm run build`.
+
+La aplicación entrega las páginas desde `frontend/public/`; el backend de `backend/server/` atiende
+las rutas `/api`.
+
+## Comandos del frontend
 
 | Comando | Qué hace |
 |---|---|
-| `npm run setup` | Crea `.venv` e instala las dependencias de Python |
-| `npm start` | Levanta el backend en `http://localhost:3000` |
-| `npm run build:css` | Compila Tailwind de ambas páginas |
-| `npm run watch:css:portada` | Recompila la portada mientras editas |
-| `npm run watch:css:simulacion` | Recompila la simulación mientras editas |
-| `npm run build:images` | Regenera las imágenes a partir de `src/assets/consulta.png` y `public/assets/favicon.svg` |
-| `npm run build:vendor` | Copia la librería de Supabase a `public/vendor/` (se hace solo con `npm install`) |
-| `npm run build` | Imágenes y estilos |
+| `npm run build:css` | Compila Tailwind para la portada y el simulador |
+| `npm run watch:css:portada` | Observa y recompila estilos de la portada |
+| `npm run watch:css:simulacion` | Observa y recompila estilos del simulador |
+| `npm run build:images` | Genera imágenes optimizadas desde `frontend/src/assets/consulta.png` |
+| `npm run build:vendor` | Copia el cliente de Supabase a `frontend/public/vendor/` |
+| `npm run build` | Genera imágenes y estilos |
 
-Si agregas o cambias clases de Tailwind en un HTML o en su JS, vuelve a compilar con
-`npm run build:css`.
+Los CSS `frontend/public/css/tailwind-*.css` son generados con Tailwind CSS 4. Las fuentes comunes
+están en `frontend/src/styles/tailwind.css`; los archivos `tailwind.portada.css` y
+`tailwind.simulacion.css` determinan qué HTML y JavaScript se escanean para cada página. Vuelve a
+ejecutar `npm run build:css` cuando cambien las clases Tailwind.
 
-## API
+## Backend y datos
 
-Documentación interactiva con el servidor encendido: `http://localhost:3000/api/docs`.
-
-| Ruta | Descripción |
-|---|---|
-| `GET /api/caso` | Caso clínico sin el diagnóstico ni los diferenciales |
-| `GET /api/status` | Proveedor de respuestas (guion local) |
-| `GET /api/config` | URL de Supabase y clave pública para iniciar sesión (nunca la secreta) |
-| `POST /api/chat` | Recibe el turno del alumno y devuelve la pregunta del médico y la respuesta del paciente |
-| `POST /api/hipotesis` | Reconoce una hipótesis entre los diferenciales del caso |
-| `POST /api/evaluar` | Evalúa las hipótesis y el diagnóstico final |
-
-## Inicio de sesión
-
-Es opcional: sin cuenta se practica igual. Usa Supabase Auth con correo y contraseña.
-
-1. Crea un proyecto en [supabase.com](https://supabase.com) y ejecuta
-   `supabase/migrations/0001_perfiles_e_intentos.sql` en **SQL Editor**.
-2. Copia `.env.example` como `.env` y completa la URL y las dos claves
-   (**Project Settings → API Keys**). `.env` nunca se publica.
-3. Reinicia el servidor (`npm start`).
-
-Al registrarse, Supabase envía un correo de confirmación; el enlace vuelve a
-`http://localhost:3000` con la sesión iniciada.
-
-## Diagnóstico diferencial
-
-Durante la consulta el alumno escribe o dicta sus hipótesis y las descarta indicando el motivo.
-Cada hipótesis se reconoce con los `sinonimos` de `diagnosticos_diferenciales` en
-`data/caso-demo.json` (sin distinguir mayúsculas ni tildes). Al finalizar, `/api/evaluar` revisa
-si planteó la hipótesis correcta, si consideró las peligrosas y si descartó cada una después de
-obtener el dato necesario (`turnos_necesarios`).
+- `GET /api/status` informa si hay casos curados y cuántos están disponibles.
+- `GET /api/caso` selecciona un caso curado y devuelve solo datos públicos aptos para el estudiante;
+  diagnóstico, diferenciales y datos revelables quedan en el servidor.
+- La ficha de demostración no constituye una simulación clínica interactiva ni ofrece consejo médico.
+- `GET /api/config` entrega al navegador únicamente la URL y la clave pública de Supabase.
+- La configuración local se carga desde `.env` en la raíz. El acceso a Supabase es opcional.
+- Para preparar las tablas de acceso, ejecuta `backend/supabase/migrations/0001_perfiles_e_intentos.sql`
+  en el SQL Editor de tu proyecto Supabase.
+- La documentación interactiva de la API está disponible en `http://localhost:3000/api/docs`.

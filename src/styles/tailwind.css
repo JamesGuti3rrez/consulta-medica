@@ -1,5 +1,0 @@
-/* Fuente de Tailwind. No se carga en el navegador: "npm run build:css" la compila dos veces,
-   una por página, a public/css/tailwind-portada.css y public/css/tailwind-simulacion.css. */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;

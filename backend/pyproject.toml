@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "consulta-medica"
+version = "1.0.0"
+description = "Backend de Consulta Médica Virtual (FastAPI)"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi==0.141.1",
+    "uvicorn==0.54.0",
+    "python-dotenv==1.2.3",
+    "httpx==0.28.1",
+    "jsonschema==4.23.0",
+]
+
+[project.optional-dependencies]
+pipeline = [
+    "jsonschema==4.23.0",
+]
+dev = [
+    "pytest==8.3.4",
+    "pygments==2.19.0",
+    "pillow==11.3.0",
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["case_preparation*", "server*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

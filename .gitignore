@@ -3,6 +3,7 @@
 
 # Entornos y dependencias locales
 .venv/
+backend/.venv/
 node_modules/
 
 # Archivos temporales
@@ -11,3 +12,13 @@ pdf-context.txt
 
 # Python
 __pycache__/
+*.egg-info/
+
+# Archivos generados al ejecutar el proyecto (se crean con npm install y npm run build)
+frontend/public/css/tailwind-portada.css
+frontend/public/css/tailwind-simulacion.css
+frontend/public/vendor/
+frontend/public/assets/consulta-1600.webp
+frontend/public/assets/consulta-800.webp
+frontend/public/assets/og-image.jpg
+frontend/public/assets/apple-touch-icon.png

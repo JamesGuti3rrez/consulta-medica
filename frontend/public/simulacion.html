@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html class="h-full" lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Consulta Médica Virtual | Simulador Clínico</title>
+  <meta name="description" content="Espacio de consulta clínica preparado para tus propios datos. Aún no hay casos conectados.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+  <link href="css/simulacion.css" rel="stylesheet">
+  <link href="css/tailwind-simulacion.css" rel="stylesheet">
+  <link href="css/perfil.css" rel="stylesheet">
+  <script>
+    // Antes de pintar: marca que hay JavaScript y aplica el tema elegido, para que no parpadee.
+    document.documentElement.classList.add('js');
+    try {
+      const tema = localStorage.getItem('tema');
+      if (tema === 'light' || tema === 'dark') document.documentElement.dataset.theme = tema;
+    } catch (error) {
+      // Sin almacenamiento se usa el tema del sistema.
+    }
+  </script>
+</head>
+
+<body class="min-h-screen lg:h-[100dvh] lg:overflow-hidden w-full text-slate-900 antialiased overflow-x-hidden flex flex-col">
+  <div class="sim-bg" aria-hidden="true">
+    <span class="sim-blob sim-blob-a"></span>
+    <span class="sim-blob sim-blob-b"></span>
+    <span class="sim-blob sim-blob-c"></span>
+  </div>
+
+  <header class="sticky top-0 z-30 border-b border-slate-200/80 bg-surface/80 backdrop-blur-md">
+    <div class="flex h-14 items-center justify-between gap-4 px-3 sm:px-4 lg:px-6">
+      <a href="index.html" class="flex items-center gap-2.5 rounded-lg">
+        <span class="flex h-9 w-9 items-center justify-center rounded-full bg-brand-600 text-white">
+          <span class="material-symbols-outlined text-[20px]">stethoscope</span>
+        </span>
+        <span class="text-[17px] font-semibold tracking-tight text-slate-900">Consulta Médica Virtual</span>
+      </a>
+      <div class="flex items-center gap-1 sm:gap-2">
+        <a href="index.html"
+          class="inline-flex h-10 items-center gap-1.5 rounded-full px-3 text-[15px] font-semibold text-slate-700 transition-colors duration-200 hover:bg-slate-100 hover:text-slate-900">
+          <span class="material-symbols-outlined text-lg">arrow_back</span><span class="hidden sm:inline">Volver al
+            inicio</span></a>
+        <a data-role="auth-guest" href="index.html?cuenta=login"
+          class="inline-flex h-10 items-center gap-1.5 rounded-full bg-slate-900 px-4 text-[15px] font-semibold text-surface transition-colors duration-200 hover:bg-slate-800">
+          <span class="material-symbols-outlined text-lg" aria-hidden="true">login</span>Iniciar sesión</a>
+        <div data-role="auth-user" hidden class="relative">
+          <button data-role="profile-toggle" type="button" aria-haspopup="true" aria-expanded="false"
+            aria-controls="profile-menu"
+            class="flex h-11 cursor-pointer items-center gap-2 rounded-full py-1 pl-1 pr-2 transition-colors duration-200 hover:bg-slate-100 sm:pr-3">
+            <span data-role="user-initial" aria-hidden="true"
+              class="flex h-9 w-9 items-center justify-center rounded-full bg-brand-600 text-[15px] font-semibold text-white"></span>
+            <span data-role="user-name" class="hidden max-w-[12rem] truncate text-[15px] font-semibold text-slate-900 sm:inline"></span>
+            <span class="profile-chevron material-symbols-outlined text-xl text-slate-600" aria-hidden="true">expand_more</span>
+            <span class="sr-only">Abrir menú de perfil</span>
+          </button>
+
+          <div id="profile-menu" data-role="profile-menu" hidden
+            class="profile-menu absolute right-0 top-full z-50 mt-2 w-[18rem] rounded-card border border-slate-200 bg-surface p-2 shadow-float">
+            <div class="flex items-center gap-3 border-b border-slate-200 px-3 pb-3 pt-2">
+              <span data-role="menu-initial" aria-hidden="true"
+                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-600 text-base font-semibold text-white"></span>
+              <div class="min-w-0">
+                <p data-role="menu-name" class="truncate text-[15px] font-semibold text-slate-900"></p>
+                <p data-role="menu-email" class="truncate text-[13px] text-slate-600"></p>
+              </div>
+            </div>
+
+            <div class="border-b border-slate-200 py-2">
+              <button type="button" class="menu-item" disabled aria-disabled="true">
+                <span class="material-symbols-outlined" aria-hidden="true">history</span>Mis simulaciones
+                <span class="menu-badge">Pronto</span>
+              </button>
+            </div>
+
+            <div class="border-b border-slate-200 px-3 py-3">
+              <p id="theme-label" class="mb-2 text-[13px] font-semibold text-slate-600">Tema</p>
+              <div class="theme-switch" role="radiogroup" aria-labelledby="theme-label">
+                <button type="button" role="radio" aria-checked="false" data-theme-option="light"><span
+                    class="material-symbols-outlined" aria-hidden="true">light_mode</span>Claro</button>
+                <button type="button" role="radio" aria-checked="false" data-theme-option="dark"><span
+                    class="material-symbols-outlined" aria-hidden="true">dark_mode</span>Oscuro</button>
+                <button type="button" role="radio" aria-checked="false" data-theme-option="system"><span
+                    class="material-symbols-outlined" aria-hidden="true">contrast</span>Sistema</button>
+              </div>
+            </div>
+
+            <div class="pt-2">
+              <button data-role="logout" type="button" class="menu-item">
+                <span class="material-symbols-outlined" aria-hidden="true">logout</span>Cerrar sesión
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 lg:min-h-0 w-full flex flex-col lg:flex-row p-3 sm:p-4 lg:p-6 gap-4 lg:gap-6">
+    <section
+      class="sim-panel w-full lg:flex-1 min-h-[420px] sm:min-h-[560px] lg:min-h-0 lg:h-full relative flex flex-col rounded-card overflow-hidden"
+      data-purpose="consultation-canvas-container">
+      <div class="h-14 px-5 border-b border-slate-200 flex items-center bg-surface/90 z-10">
+        <div class="flex min-w-0 items-center gap-3">
+          <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-50 text-brand-700"><span
+              class="material-symbols-outlined text-lg">videocam</span></span>
+          <span class="text-[15px] font-semibold text-slate-900">Simulador clínico</span>
+          <span data-role="simulator-status" class="hidden truncate rounded-full bg-slate-100 px-2.5 py-0.5 text-[13px] text-slate-600 sm:inline-block">Comprobando catálogo</span>
+        </div>
+      </div>
+
+      <div class="scene-stage relative flex-1 w-full min-h-[360px] sm:min-h-[500px] lg:min-h-0 bg-slate-50/60 flex items-center justify-center overflow-visible p-2 sm:p-3 lg:pt-14">
+        <div class="scene-frame relative w-full max-w-full aspect-[1577/997]">
+          <img alt="Consulta médica entre doctor y paciente en consultorio"
+            class="absolute inset-0 w-full h-full object-contain rounded-xl" data-purpose="medical-scene-view"
+            src="assets/consulta-1600.webp"
+            srcset="assets/consulta-800.webp 800w, assets/consulta-1600.webp 1600w" sizes="(min-width: 1024px) 66vw, 100vw">
+
+          <div data-role="doctor-bubble"
+            class="speech-bubble hidden absolute -top-10 right-3 sm:-top-12 sm:right-6 z-20 max-w-[calc(100%-1rem)] sm:max-w-md bg-brand-600 text-white shadow-float rounded-card rounded-tr-md p-3 sm:p-4 flex flex-col gap-2">
+            <div class="flex items-center justify-between gap-2">
+              <div class="flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-base text-white/85">record_voice_over</span>
+                <span class="text-[13px] sm:text-sm font-semibold text-white/85">Consulta</span>
+              </div>
+              <span data-role="doctor-status"
+                class="status-pill flex items-center gap-1.5 text-[13px] bg-white/15 px-2.5 py-0.5 rounded-full font-medium"><span
+                  class="w-1.5 h-1.5 rounded-full bg-white/80"></span> En espera</span>
+            </div>
+            <p data-role="doctor-text" class="text-[15px] sm:text-[17px] leading-snug font-semibold text-white">La consulta estará disponible al conectar tus datos.</p>
+          </div>
+
+          <div data-role="patient-bubble"
+            class="speech-bubble hidden absolute -top-2 left-3 sm:-top-4 sm:left-6 z-10 max-w-[calc(100%-1rem)] sm:max-w-md bg-surface text-slate-900 shadow-float rounded-card rounded-tl-md p-3 sm:p-4 flex flex-col gap-2">
+            <div class="flex items-center justify-between gap-2">
+              <div class="flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-base text-brand-600">person</span>
+                <span class="text-[13px] sm:text-sm font-semibold text-slate-600">Paciente</span>
+              </div>
+              <span data-role="patient-status"
+                class="status-pill flex items-center gap-1.5 text-[13px] bg-slate-100 text-slate-600 px-2.5 py-0.5 rounded-full font-medium"><span
+                  class="w-1.5 h-1.5 rounded-full bg-brand-500"></span> En espera</span>
+            </div>
+            <p data-role="patient-text" class="text-[15px] sm:text-[17px] leading-snug text-slate-900">
+              La información del paciente aparecerá aquí cuando conectes un caso.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <aside
+      class="sim-panel w-full lg:w-96 xl:w-[420px] lg:h-full lg:min-h-0 rounded-card p-4 sm:p-5 flex flex-col gap-4"
+      data-purpose="clinical-record-panel">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-brand-600 text-white flex items-center justify-center">
+            <span class="material-symbols-outlined text-[22px]">assignment</span></div>
+          <div>
+            <h3 class="text-[17px] font-semibold text-slate-900 leading-tight">Tablilla Médica</h3>
+            <p class="text-[13px] text-slate-500">Catálogo curado de demostración</p>
+          </div>
+        </div>
+        <span data-role="record-status"
+          class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[12px] font-semibold bg-slate-100 text-slate-600"><span
+            class="h-1.5 w-1.5 rounded-full bg-slate-400"></span>Sin caso</span>
+      </div>
+
+      <div class="sim-tabs" role="tablist" aria-label="Secciones de la tablilla">
+        <button type="button" role="tab" data-tab="ficha" aria-selected="true" class="sim-tab is-active"><span
+            class="material-symbols-outlined">badge</span>Ficha</button>
+        <button type="button" role="tab" data-tab="consulta" aria-selected="false" tabindex="-1" class="sim-tab"><span
+            class="material-symbols-outlined">forum</span>Consulta<span class="tab-dot" aria-hidden="true"></span></button>
+        <button type="button" role="tab" data-tab="hipotesis" aria-selected="false" tabindex="-1" class="sim-tab"><span
+            class="material-symbols-outlined">psychology</span>Hipótesis</button>
+      </div>
+
+      <div class="tab-panels sim-scroll flex-1 min-h-0 lg:overflow-y-auto">
+        <div class="tab-panel" data-tab-panel="ficha" role="tabpanel">
+            <p data-role="record-empty"
+              class="text-sm text-slate-500 bg-surface border border-dashed border-slate-300 rounded-card p-5 text-center leading-relaxed">
+              Aún no hay datos clínicos conectados.</p>
+            <div data-role="patient-record" hidden
+              class="record-card hidden bg-surface border border-slate-200 rounded-card p-4 flex flex-col gap-3.5">
+              <div class="flex items-center justify-between gap-2 border-b border-slate-100 pb-3">
+                <div class="flex min-w-0 items-center gap-2.5"><span
+                    class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-50 text-brand-700"><span
+                      class="material-symbols-outlined text-lg">badge</span></span><span data-role="record-name"
+                    class="text-[15px] font-semibold text-slate-900"></span></div><span
+                  data-role="record-demographics"
+                  class="shrink-0 whitespace-nowrap text-[13px] font-medium text-slate-600 bg-slate-100 px-2.5 py-0.5 rounded-full"></span>
+              </div>
+              <div class="flex flex-col gap-1.5"><span class="record-label">Motivo de consulta</span>
+                <div data-role="record-chief"
+                  class="text-sm text-slate-900 bg-slate-50 border border-slate-200/80 rounded-lg px-3 py-2 font-medium"></div>
+              </div>
+              <div data-role="record-history" class="flex flex-col gap-2"></div>
+              <div class="flex flex-col gap-1.5"><span class="record-label">Alergias</span>
+                <div data-role="record-allergies"
+                  class="text-sm text-slate-700 bg-slate-50 border border-slate-200/80 rounded-lg px-3 py-2 leading-relaxed"></div>
+              </div>
+            </div>
+        </div>
+
+        <div class="tab-panel lg:h-full" data-tab-panel="consulta" role="tabpanel" hidden>
+          <div class="flex items-center justify-between"><span class="section-title"><span
+                class="section-icon material-symbols-outlined">forum</span>Consulta en vivo</span><span
+              data-role="conversation-status" class="text-[13px] font-medium text-slate-500">Esperando inicio</span></div>
+          <p data-role="next-prompt"
+            class="text-[13px] text-brand-700 leading-relaxed bg-brand-50 rounded-lg px-3 py-2">La consulta clínica interactiva aún no está conectada.</p>
+          <div data-role="conversation-history"
+            class="sim-scroll max-h-72 lg:max-h-none lg:flex-1 lg:min-h-0 overflow-y-auto pr-1 flex flex-col gap-2.5 text-sm leading-relaxed">
+            <p class="text-slate-400 italic text-[13px]">Aquí aparecerá la conversación de tu caso.</p>
+          </div>
+        </div>
+
+        <div class="tab-panel" data-tab-panel="hipotesis" role="tabpanel" hidden>
+            <div data-role="hypotheses-panel" hidden class="hidden flex flex-col gap-3">
+              <div class="flex items-center justify-between"><span class="section-title"><span
+                    class="section-icon material-symbols-outlined">psychology</span>Mis hipótesis</span><span
+                  data-role="hypotheses-count" class="text-[13px] font-medium text-slate-500">0 activas</span></div>
+              <p data-role="hypotheses-hint" class="text-[13px] text-brand-700 leading-relaxed">Plantea tus primeras
+                hipótesis diagnósticas.</p>
+              <div class="flex items-center gap-2">
+                <input data-role="hypothesis-input" type="text"
+                  class="h-11 flex-1 min-w-0 rounded-lg border border-slate-300 bg-surface px-3 text-sm text-slate-900 outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-100"
+                  placeholder="Escribe o dicta una hipótesis...">
+                <button data-role="hypothesis-mic" type="button" title="Dictar hipótesis" aria-label="Dictar hipótesis"
+                  class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors"><span
+                    class="material-symbols-outlined text-xl">mic</span></button>
+                <button data-role="add-hypothesis" type="button" title="Agregar hipótesis" aria-label="Agregar hipótesis"
+                  class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-brand-600 text-white hover:bg-brand-700 transition-colors"><span
+                    class="material-symbols-outlined text-xl">add</span></button>
+              </div>
+              <ul data-role="hypotheses-list" class="flex flex-col gap-2"></ul>
+              <p data-role="hypotheses-feedback" class="text-[13px] text-slate-500" aria-live="polite"></p>
+            </div>
+          <p class="hyp-placeholder text-sm text-slate-500 bg-surface border border-dashed border-slate-300 rounded-card p-5 text-center leading-relaxed">
+            La sección de hipótesis estará disponible al conectar tus datos.</p>
+            <div data-role="diagnosis-panel" hidden class="hidden border-t border-slate-200 pt-5 flex flex-col gap-3">
+              <div class="flex items-center justify-between">
+                <span class="section-title"><span class="section-icon material-symbols-outlined">stethoscope</span>Diagnóstico
+                  del alumno</span>
+                <button data-role="close-diagnosis" type="button"
+                  class="rounded-lg px-2 py-1 text-[13px] font-semibold text-slate-600 hover:bg-slate-100 hover:text-slate-900">Cerrar</button>
+              </div>
+              <textarea data-role="diagnosis-input"
+                class="w-full min-h-24 resize-y rounded-lg border border-slate-300 bg-surface p-3 text-sm text-slate-900 outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-100"
+                placeholder="Escribe tu diagnóstico y la justificación..."></textarea>
+              <div class="flex items-center gap-2">
+                <button data-role="diagnosis-mic" type="button" title="Dictar diagnóstico"
+                  class="h-11 flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg bg-slate-100 px-3 text-sm font-semibold text-slate-700 hover:bg-slate-200 transition-colors"><span
+                    class="material-symbols-outlined text-lg">mic</span> Dictar</button>
+                <button data-role="save-diagnosis" type="button"
+                  class="h-11 flex-[2] rounded-lg bg-accent-600 px-3 text-sm font-semibold text-white hover:bg-accent-700 transition-colors">Guardar
+                  y finalizar consulta</button>
+              </div>
+              <p data-role="diagnosis-feedback" class="text-[13px] text-slate-500" aria-live="polite"></p>
+            </div>
+        </div>
+      </div>
+
+      <div class="pt-4 border-t border-slate-200 flex flex-col gap-2.5">
+        <p data-role="case-status" class="rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm leading-relaxed text-amber-900" role="status" aria-live="polite">
+          Aún no hay datos clínicos conectados. La simulación se habilitará cuando integres tus propios casos.</p>
+        <button data-role="start-simulation" disabled
+          class="w-full h-12 px-4 rounded-full bg-accent-600 text-white text-[17px] font-semibold transition-colors duration-200 flex items-center justify-center gap-2 disabled:cursor-not-allowed disabled:opacity-50"
+          type="button"><span class="material-symbols-outlined text-lg">database</span> Cargando disponibilidad</button>
+        <button
+          class="mic-button hidden w-full h-14 px-4 rounded-full bg-brand-600 hover:bg-brand-700 active:scale-[0.98] text-white text-[17px] font-semibold cursor-pointer transition-colors duration-200 flex items-center justify-center gap-2"
+          type="button" title="Hablar / Siguiente Intervención" aria-label="Micrófono" disabled><span
+            class="material-symbols-outlined text-2xl leading-none">mic</span><span>Pulsa para hablar</span></button>
+        <button
+          class="hidden w-full h-11 px-4 rounded-full border border-brand-600 bg-surface text-brand-700 hover:bg-brand-50 text-[15px] font-semibold cursor-pointer transition-colors duration-200 flex items-center justify-center gap-1.5"
+          type="button" data-role="diagnosis-button" disabled><span
+            class="material-symbols-outlined text-lg">check_circle</span> Realizar Diagnóstico</button>
+      </div>
+    </aside>
+  </main>
+
+  <div data-role="evaluation-panel" hidden
+    class="hidden fixed inset-0 z-50 items-center justify-center bg-slate-950/55 backdrop-blur-sm p-3 sm:p-6" role="dialog"
+    aria-modal="true" aria-labelledby="evaluation-title">
+    <div class="clipboard report-card">
+      <span class="clipboard-clip" aria-hidden="true"></span>
+      <div class="clipboard-paper sim-scroll">
+        <div class="flex items-start justify-between gap-4 border-b-2 border-slate-900 pb-4">
+          <div class="flex items-center gap-3">
+            <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-600 text-white"><span
+                class="material-symbols-outlined text-[22px]">stethoscope</span></span>
+            <div>
+              <p class="text-[13px] font-medium text-slate-500">Consulta Médica Virtual</p>
+              <h2 id="evaluation-title" class="text-xl sm:text-2xl font-semibold leading-tight text-slate-900">Hoja de
+                evaluación clínica</h2>
+            </div>
+          </div>
+          <button data-role="close-evaluation" type="button" aria-label="Cerrar reporte"
+            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-slate-500 hover:bg-slate-100 hover:text-slate-900"><span
+              class="material-symbols-outlined">close</span></button>
+        </div>
+
+        <dl class="sheet-fields">
+          <div class="sheet-field">
+            <dt>Paciente</dt>
+            <dd data-role="evaluation-patient">—</dd>
+          </div>
+          <div class="sheet-field">
+            <dt>Fecha</dt>
+            <dd data-role="evaluation-date">Hoy</dd>
+          </div>
+          <div class="sheet-field">
+            <dt>Motivo de consulta</dt>
+            <dd data-role="evaluation-chief">—</dd>
+          </div>
+          <div class="sheet-field">
+            <dt>Diagnóstico registrado</dt>
+            <dd data-role="evaluation-diagnosis">—</dd>
+          </div>
+        </dl>
+
+        <div class="sheet-result">
+          <div class="min-w-0">
+            <p class="text-[15px] font-semibold text-slate-900">Resultado de la anamnesis</p>
+            <p class="mt-1 text-[13px] leading-relaxed text-slate-600">Resumen de la consulta según los criterios que conectes.</p>
+          </div>
+          <div class="stamp" aria-label="Puntaje obtenido">
+            <span class="stamp-label">Puntaje</span>
+            <strong data-role="evaluation-score">—</strong>
+            <span class="stamp-label">Evaluado</span>
+          </div>
+        </div>
+
+        <div class="sheet-section">
+          <h4><span class="sheet-icon bg-emerald-50 text-emerald-700 material-symbols-outlined">check_circle</span>Lo que
+            hiciste bien</h4>
+          <ul data-role="evaluation-strengths" class="sheet-list sheet-list-ok"></ul>
+        </div>
+        <div class="sheet-section">
+          <h4><span class="sheet-icon bg-amber-50 text-amber-700 material-symbols-outlined">help</span>Lo que faltó
+            preguntar</h4>
+          <ul data-role="evaluation-missing" class="sheet-list sheet-list-miss"></ul>
+        </div>
+        <div class="sheet-section">
+          <h4><span class="sheet-icon bg-brand-50 text-brand-700 material-symbols-outlined">psychology</span>Razonamiento
+            diagnóstico</h4>
+          <ul data-role="evaluation-reasoning" class="sheet-list"></ul>
+        </div>
+        <div class="sheet-section">
+          <h4><span class="sheet-icon bg-slate-100 text-slate-700 material-symbols-outlined">lightbulb</span>Recomendaciones</h4>
+          <ul data-role="evaluation-recommendations" class="sheet-list sheet-list-rec"></ul>
+        </div>
+
+        <div class="sheet-sign">
+          <div>
+            <p class="sheet-sign-name">Consulta Médica Virtual</p>
+            <p class="sheet-sign-label">Evaluado por</p>
+          </div>
+          <div>
+            <p class="sheet-sign-name">&nbsp;</p>
+            <p class="sheet-sign-label">Firma del alumno</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="vendor/supabase.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/perfil.js"></script>
+  <script src="js/simulacion.js"></script>
+</body>
+
+</html>
