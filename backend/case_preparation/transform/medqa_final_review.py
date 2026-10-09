@@ -6,7 +6,7 @@ from copy import deepcopy
 from pathlib import Path
 from typing import Any
 
-from server.cases.rules import check_batch_rules, check_case_rules
+from ..quality_gates import GateResult, evaluate_batch, evaluate_case
 from server.cases.validator import validate_case_document
 from .medqa_case_builder import _build_case
 
@@ -72,11 +72,12 @@ def _load_selected_sources(path: Path) -> dict[str, dict[str, Any]]:
     return selected
 
 
-def _validate_case(case: dict[str, Any]) -> None:
-    validate_case_document(case)
-    errors = check_case_rules(case)
-    if errors:
-        raise ValueError(f"{case['case_id']} incumple reglas cruzadas: {errors}")
+def _validate_case(case: dict[str, Any]) -> GateResult:
+    """Quality Gates: un caso que no las pasa detiene la curación (nada se escribe a medias)."""
+    result = evaluate_case(case)
+    if not result.accepted:
+        raise ValueError(f"{case['case_id']} no pasa los Quality Gates: {result.errors}")
+    return result
 
 
 def curate_reviewed_case(case: dict[str, Any], clinical_review: dict[str, Any]) -> dict[str, Any]:
@@ -274,7 +275,7 @@ def build_reviewed_cases() -> dict[str, Any]:
         candidate["options_translation_es"] = translation["options"]
         case = _build_case(candidate, position)
         case["provenance"].update({"created_by": CREATED_BY, "created_at": BATCH_DATE, "validated_at": BATCH_DATE})
-        _validate_case(case)
+        gate = _validate_case(case)
         built_cases.append(case)
         output_path = OUTPUT_DIR / f"{case['case_id']}.json"
         output_path.write_text(json.dumps(case, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -285,6 +286,7 @@ def build_reviewed_cases() -> dict[str, Any]:
                 "source_file": candidate.get("source_file"),
                 "source_line": candidate.get("source_line"),
                 "question_type": candidate.get("question_type"),
+                "quality_gate_warnings": gate.warnings,
                 "specialty": case["specialty"],
                 "source_answer": candidate["answer"],
                 "source_answer_text": candidate["answer_text"],
@@ -301,7 +303,7 @@ def build_reviewed_cases() -> dict[str, Any]:
         raise ValueError("Los IDs del lote deben ser únicos y numerados consecutivamente del 001 al total.")
 
     case_index.sort(key=lambda case: int(case["case_id"].rsplit("-", 1)[1]))
-    batch_errors = check_batch_rules(built_cases)
+    batch_errors = evaluate_batch(built_cases)
     if batch_errors:
         raise ValueError(f"El lote incumple reglas cruzadas: {batch_errors}")
     _write_curated_cases(case_index)

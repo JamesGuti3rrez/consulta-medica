@@ -5,6 +5,8 @@ Cada regla cita la especificación de la que sale. Se aplican después de valida
 
 from __future__ import annotations
 
+import re
+import unicodedata
 from typing import Any
 
 # docs/decisions/0001 §3: prefijo de case_id por especialidad.
@@ -19,6 +21,30 @@ SPECIALTY_PREFIX = {
 SOURCE_LICENSE = {"MedQA": "MIT"}
 PEDIATRIC_AGE_LIMIT = 18
 
+# SP-002 C.4: el validador revisa que no quede texto de la pregunta de opción múltiple, que las
+# opciones incorrectas no salgan de protected, que no haya cifras que no estén en la fuente y que
+# la presentación inicial no traiga laboratorio ni examen físico.
+SOURCE_MARKER = "Texto fuente conservado (inglés): "
+MCQ_LEFTOVER = re.compile(
+    r"cu[aá]l de (?:los|las) siguientes|which of the following|pregunta fuente|opciones? (?:correcta|fuente)"
+    r"|respuesta correcta",
+    re.IGNORECASE,
+)
+EXAM_OR_LAB = re.compile(
+    r"\b(?:laboratorio|hemograma|leucocitos|hemoglobina|plaquetas|creatinina|glucosa|sodio|potasio|troponina"
+    r"|orina|cultivo|biopsia|radiograf\w+|tomograf\w+|ecograf\w+|resonancia|electrocardiograma|ecg"
+    r"|exploraci[oó]n|examen f[ií]sico|auscultaci[oó]n|palpaci[oó]n|crepitantes|soplo"
+    r"|tiempo de (?:tromboplastina|protrombina)|ph vaginal)\b",
+    re.IGNORECASE,
+)
+NUMBER = re.compile(r"\d*[.,]?\d+")
+# La fuente a veces escribe las cifras con letras («Thirty minutes»): cuentan como la cifra.
+NUMBER_WORDS = {
+    "one": "1", "two": "2", "three": "3", "four": "4", "five": "5", "six": "6", "seven": "7", "eight": "8",
+    "nine": "9", "ten": "10", "eleven": "11", "twelve": "12", "fifteen": "15", "twenty": "20", "thirty": "30",
+    "forty": "40", "fifty": "50", "sixty": "60", "half": "0.5",
+}
+
 
 def _evidence_items(case: dict[str, Any]) -> list[dict[str, Any]]:
     public = case["public"]
@@ -28,6 +54,35 @@ def _evidence_items(case: dict[str, Any]) -> list[dict[str, Any]]:
 def _diagnosis_terms(case: dict[str, Any]) -> list[str]:
     diagnosis = case["protected"]["diagnosis"]
     return [term for term in [diagnosis["name"], *diagnosis.get("synonyms", [])] if len(term) >= 4]
+
+
+def _normalize(text: str) -> str:
+    decomposed = unicodedata.normalize("NFD", text.casefold())
+    return "".join(char for char in decomposed if unicodedata.category(char) != "Mn")
+
+
+def _numbers(text: str) -> set[str]:
+    values = set()
+    for raw in NUMBER.findall(text):
+        value = raw.replace(",", ".")
+        if value.startswith("."):
+            value = "0" + value
+        values.add(value)
+    return values
+
+
+def _source_text(case: dict[str, Any]) -> str | None:
+    """Enunciado original en inglés que el caso conserva en protected, si lo tiene."""
+    for question in case["protected"]["evaluation"]["key_questions"]:
+        if SOURCE_MARKER in question["topic"]:
+            return question["topic"].split(SOURCE_MARKER, 1)[1]
+    return None
+
+
+def _visible_text(case: dict[str, Any]) -> str:
+    """Texto de las zonas 1 y 2: lo que puede llegar al estudiante o a los agentes."""
+    items = _evidence_items(case)
+    return " ".join([case["title"], *(item.get("text", "") for item in items), *(item["label"] for item in items)])
 
 
 def check_case_rules(case: dict[str, Any]) -> list[str]:
@@ -94,7 +149,41 @@ def check_case_rules(case: dict[str, Any]) -> list[str]:
     if expected_license and source["license"] != expected_license:
         errors.append(f"R08 licencia {source['license']} distinta de la registrada ({expected_license})")
 
+    # R11 · SP-002 (riesgo R1): las opciones incorrectas y los diferenciales nunca salen de protected.
+    visible = _normalize(_visible_text(case))
+    exposed = [d["name"] for d in case["protected"]["differentials"] if len(d["name"]) >= 4 and _normalize(d["name"]) in visible]
+    if exposed:
+        errors.append(f"R11 diferenciales visibles fuera de protected: {exposed}")
+
+    # R12 · SP-002 (regla 4 del prompt): no queda texto de la pregunta de opción múltiple.
+    leftovers = sorted({match.group(0) for match in MCQ_LEFTOVER.finditer(_visible_text(case))})
+    if leftovers:
+        errors.append(f"R12 texto de la pregunta de opción múltiple: {leftovers}")
+
+    # R13 · SP-002 (regla 3): no hay cifras que no estén en el enunciado original.
+    source = _source_text(case)
+    if source is not None:
+        source_numbers = _numbers(source) | {
+            value for word, value in NUMBER_WORDS.items() if re.search(rf"\b{word}\b", source, re.IGNORECASE)
+        }
+        invented = sorted(_numbers(_visible_text(case)) - source_numbers - _numbers(case["case_id"]))
+        if invented:
+            errors.append(f"R13 cifras que no están en la fuente: {invented}")
+
     return errors
+
+
+def check_case_warnings(case: dict[str, Any]) -> list[str]:
+    """Avisos que no bloquean el caso; se informan hasta que se corrijan."""
+    warnings: list[str] = []
+    # W01 · SP-002 (regla 2) y arquitectura §6.1: laboratorio, imágenes y examen físico van en
+    # on_request. No bloquea mientras los casos no se redistribuyan entre public y on_request.
+    public = case["public"]
+    public_text = " ".join([public["chief_complaint"]["text"], *(item["text"] for item in public["items"])])
+    found = sorted({match.group(0).lower() for match in EXAM_OR_LAB.finditer(public_text)})
+    if found:
+        warnings.append(f"W01 laboratorio o examen físico en public: {found}")
+    return warnings
 
 
 def check_batch_rules(cases: list[dict[str, Any]]) -> list[str]:

@@ -70,6 +70,7 @@
       "source_file": "data_clean.zip:data_clean/questions/US/US_qbank.jsonl",
       "source_line": 6168,
       "question_type": "diagnostico",
+      "quality_gate_warnings": [],
       "specialty": "emergencias",
       "source_answer": "A",
       "source_answer_text": "Exertional heat stroke",
@@ -96,6 +97,7 @@
       "source_file": "data_clean.zip:data_clean/questions/Taiwan/tw_translated_jsonl/en/train-2en.jsonl",
       "source_line": 1258,
       "question_type": "diagnostico",
+      "quality_gate_warnings": [],
       "specialty": "emergencias",
       "source_answer": "B",
       "source_answer_text": "Subarachnoid hemorrhage (subarachnoid hemorrhage)",
@@ -122,6 +124,7 @@
       "source_file": "data_clean.zip:data_clean/questions/US/US_qbank.jsonl",
       "source_line": 8844,
       "question_type": "diagnostico",
+      "quality_gate_warnings": [],
       "specialty": "ginecologia_obstetricia",
       "source_answer": "D",
       "source_answer_text": "Pituitary infarction",
@@ -148,6 +151,9 @@
       "source_file": "data_clean.zip:data_clean/questions/US/US_qbank.jsonl",
       "source_line": 8431,
       "question_type": "diagnostico",
+      "quality_gate_warnings": [
+        "W01 laboratorio o examen físico en public: ['exploración', 'ph vaginal']"
+      ],
       "specialty": "ginecologia_obstetricia",
       "source_answer": "E",
       "source_answer_text": "Trichomoniasis",
@@ -175,6 +181,9 @@
       "source_file": "data_clean.zip:data_clean/questions/US/US_qbank.jsonl",
       "source_line": 9978,
       "question_type": "diagnostico",
+      "quality_gate_warnings": [
+        "W01 laboratorio o examen físico en public: ['tiempo de protrombina']"
+      ],
       "specialty": "cirugia_general",
       "source_answer": "A",
       "source_answer_text": "Hemophilia A",
@@ -201,6 +210,9 @@
       "source_file": "data_clean.zip:data_clean/questions/US/US_qbank.jsonl",
       "source_line": 10428,
       "question_type": "diagnostico",
+      "quality_gate_warnings": [
+        "W01 laboratorio o examen físico en public: ['crepitantes']"
+      ],
       "specialty": "cirugia_general",
       "source_answer": "C",
       "source_answer_text": "Sepsis",
@@ -227,6 +239,9 @@
       "source_file": "data_clean.zip:data_clean/questions/US/US_qbank.jsonl",
       "source_line": 7214,
       "question_type": "diagnostico",
+      "quality_gate_warnings": [
+        "W01 laboratorio o examen físico en public: ['radiografía']"
+      ],
       "specialty": "pediatria",
       "source_answer": "D",
       "source_answer_text": "Legg-Calvé-Perthes disease (LCPD)",
@@ -253,6 +268,7 @@
       "source_file": "data_clean.zip:data_clean/questions/US/US_qbank.jsonl",
       "source_line": 7973,
       "question_type": "tratamiento",
+      "quality_gate_warnings": [],
       "specialty": "medicina_interna",
       "source_answer": "B",
       "source_answer_text": "Amoxicillin",
@@ -280,6 +296,7 @@
       "source_file": "data_clean.zip:data_clean/questions/US/US_qbank.jsonl",
       "source_line": 5006,
       "question_type": "diagnostico",
+      "quality_gate_warnings": [],
       "specialty": "medicina_interna",
       "source_answer": "D",
       "source_answer_text": "Basal cell carcinoma",
@@ -306,6 +323,7 @@
       "source_file": "data_clean.zip:data_clean/questions/Taiwan/tw_translated_jsonl/en/dev-2en.jsonl",
       "source_line": 70,
       "question_type": "diagnostico",
+      "quality_gate_warnings": [],
       "specialty": "pediatria",
       "source_answer": "B",
       "source_answer_text": "McCune-Albright syndrome",

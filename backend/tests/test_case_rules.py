@@ -7,7 +7,7 @@ from pathlib import Path
 import pytest
 
 from server.cases.catalog import load_curated_cases
-from server.cases.rules import check_batch_rules, check_case_rules
+from server.cases.rules import check_batch_rules, check_case_rules, check_case_warnings
 
 CASES_DIR = Path(__file__).resolve().parents[2] / "data" / "cases"
 
@@ -93,3 +93,32 @@ def test_catalog_refuses_case_that_breaks_rules(tmp_path, case):
     (tmp_path / "MED-008.json").write_text(json.dumps(case, ensure_ascii=False), encoding="utf-8")
     with pytest.raises(ValueError, match="R01"):
         load_curated_cases(tmp_path)
+
+
+def test_r11_differentials_must_stay_in_protected(case):
+    differential = case["protected"]["differentials"][0]["name"]
+    case["public"]["items"][0]["text"] += f" Se sospecha {differential}."
+    assert "R11" in _codes(case)
+
+
+def test_r12_rejects_multiple_choice_leftovers(case):
+    case["public"]["items"][0]["text"] += " ¿Cuál de los siguientes es el tratamiento?"
+    assert "R12" in _codes(case)
+
+
+def test_r13_rejects_figures_not_in_source(case):
+    case["public"]["items"][0]["text"] += " Glucosa de 999 mg/dL."
+    assert "R13" in _codes(case)
+
+
+def test_r13_accepts_source_figures_written_in_words_or_without_leading_zero():
+    gyn = _load("curated", "GOB-003")  # la fuente dice «Thirty minutes»; el caso, «30 minutos»
+    eyelid = _load("curated", "MED-009")  # la fuente dice «.5cm»; el caso, «0,5 cm»
+    assert "R13" not in _codes(gyn)
+    assert "R13" not in _codes(eyelid)
+
+
+def test_w01_warns_about_exam_in_public_without_blocking():
+    surgical = _load("curated", "CIR-006")
+    assert check_case_rules(surgical) == []
+    assert [warning.split(" ", 1)[0] for warning in check_case_warnings(surgical)] == ["W01"]

@@ -20,7 +20,7 @@ sys.path.insert(0, str(REPO_ROOT / "backend"))
 
 from jsonschema import Draft202012Validator  # noqa: E402
 
-from server.cases.rules import check_batch_rules, check_case_rules  # noqa: E402
+from server.cases.rules import check_batch_rules, check_case_rules, check_case_warnings  # noqa: E402
 from server.cases.catalog import CURATED_CASES_DIR, load_curated_cases, to_student_case  # noqa: E402
 from server.cases.validator import load_schema  # noqa: E402
 
@@ -120,11 +120,16 @@ for folder in FOLDERS:
         for case_id, errors in broken.items():
             print(f"      {case_id}: {errors}")
         continue
-    check(not broken and not batch, f"{folder}/: {len(cases)} casos cumplen R01–R10")
+    check(not broken and not batch, f"{folder}/: {len(cases)} casos cumplen R01–R13")
     for case_id, errors in broken.items():
         print(f"      {case_id}: {errors}")
     for error in batch:
         print(f"      lote: {error}")
+    warned = {case["case_id"]: check_case_warnings(case) for case in cases}
+    warned = {case_id: warnings for case_id, warnings in warned.items() if warnings}
+    print(f"  [INFO] {folder}/: {len(warned)} casos con avisos (no bloquean)")
+    for case_id, warnings in warned.items():
+        print(f"      {case_id}: {warnings}")
 
 print("\n6. Banco de origen de cada pregunta (docs/decisions/0001 §1: US o Taiwan en inglés)")
 if not QUESTIONS_ROOT.exists():
