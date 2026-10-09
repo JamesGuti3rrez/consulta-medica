@@ -51,3 +51,15 @@ class CaseValidator:
         ids.extend(item["evidence_id"] for item in public["items"])
         ids.extend(item["evidence_id"] for item in case["on_request"])
         return ids
+
+
+def load_schema(schema_path: Path | str | None = None) -> dict[str, Any]:
+    if schema_path is None:
+        schema_path = Path(__file__).resolve().parents[2] / "schemas" / "caso.schema.json"
+    return json.loads(Path(schema_path).read_text(encoding="utf-8"))
+
+
+def validate_case_document(case: dict[str, Any], schema_path: Path | str | None = None) -> None:
+    """Compatibilidad con el pipeline RAG usando el mismo validador canónico."""
+    path = Path(schema_path) if schema_path is not None else Path(__file__).resolve().parents[2] / "schemas" / "caso.schema.json"
+    CaseValidator(path).validate(case)

@@ -97,6 +97,8 @@ class MultiAgentSessionService:
             "input_tokens": result.get("input_tokens", 0),
             "output_tokens": result.get("output_tokens", 0),
             "fallback_used": result.get("fallback_used", False),
+            "grounding_retry_used": result.get("grounding_retry_used", False),
+            "grounding_fallback_used": result.get("grounding_fallback_used", False),
             "evidence_ids": result.get("retrieved_evidence_ids", []),
             "blocked": result.get("blocked", False),
             "block_reason": result.get("block_reason"),

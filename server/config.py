@@ -31,6 +31,9 @@ class Settings:
     llm_timeout_seconds: float
     provider_cooldown_seconds: float
     rag_service_url: str
+    rag_embedded_enabled: bool
+    rag_index_dir: Path
+    rag_log_path: Path
     langsmith_tracing: bool
     langsmith_api_key: str
     langsmith_project: str
@@ -56,6 +59,9 @@ settings = Settings(
     llm_timeout_seconds=float(os.getenv("AI_LLM_TIMEOUT_SECONDS", "30")),
     provider_cooldown_seconds=float(os.getenv("AI_PROVIDER_COOLDOWN_SECONDS", "60")),
     rag_service_url=os.getenv("RAG_SERVICE_URL", "").strip().rstrip("/"),
+    rag_embedded_enabled=os.getenv("RAG_EMBEDDED", "true").lower() in {"1", "true", "yes", "on"},
+    rag_index_dir=(ROOT_DIR / os.getenv("RAG_INDEX_DIR", "data/indexes/lightrag")).resolve(),
+    rag_log_path=(ROOT_DIR / os.getenv("RAG_LOG_PATH", "logs/rag_retrieval.jsonl")).resolve(),
     langsmith_tracing=os.getenv("LANGSMITH_TRACING", "false").lower() in {"1", "true", "yes", "on"},
     langsmith_api_key=os.getenv("LANGSMITH_API_KEY", "").strip(),
     langsmith_project=os.getenv("LANGSMITH_PROJECT", "paciente-virtual-sma").strip(),

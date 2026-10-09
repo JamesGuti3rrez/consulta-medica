@@ -1,3 +1,29 @@
+# Paciente Virtual Adaptativo — Repositorio unificado SMA + RAG
+
+Este repositorio integra el frontend existente, el Sistema Multiagente (topología estrella con LangGraph StateGraph), la política determinística de disclosure, el gateway LLM con Groq, LangSmith, guardrails, el runtime RAG seguro con LightRAG y el pipeline de preparación/indexación de casos.
+
+## Ejecución local recomendada
+
+```powershell
+py -3.12 -m venv .venv
+.venv\Scripts\Activate.ps1
+python -m pip install -e ".[pipeline,indexing,dev]"
+npm install
+python -m pytest -q
+python -m case_preparation index
+npm start
+```
+
+Con `RAG_EMBEDDED=true` no se necesita un segundo servidor RAG: el mismo FastAPI expone `/api/ai/*` y `/api/v1/rag/*`, y el SMA consulta el índice in-process. `RAG_SERVICE_URL` se conserva únicamente para un despliegue desacoplado.
+
+## Flujo
+
+`Frontend → StateGraph → Decision Router → DisclosurePolicy → allowed_evidence_ids → RAG → agente → LLM Gateway → Guardrail → trazas`
+
+La sección `protected` nunca se entrega al RAG conversacional ni a los agentes.
+
+---
+
 # Consulta Médica Virtual — Paciente Virtual Adaptativo
 
 Repositorio unificado del simulador de consulta médica. Conserva el frontend/prototipo existente y

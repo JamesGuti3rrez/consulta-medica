@@ -1,7 +1,11 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "consulta-medica"
-version = "1.0.0"
-description = "Backend del simulador de consulta médica (FastAPI)"
+version = "1.1.0"
+description = "Paciente Virtual Adaptativo: frontend, SMA, RAG seguro y pipeline de casos"
 requires-python = ">=3.12"
 dependencies = [
     "fastapi==0.141.1",
@@ -11,15 +15,35 @@ dependencies = [
     "langgraph>=1.0,<2.0",
     "langsmith>=0.4,<1.0",
     "jsonschema>=4.23,<5.0",
+    "numpy>=1.26,<3",
 ]
 
-# Configuración para Vercel.
 [tool.vercel]
-# La aplicación FastAPI vive en server/main.py (variable "app").
 entrypoint = "server.main:app"
 
 [project.optional-dependencies]
-dev = ["pytest>=8.3,<9.0"]
+pipeline = [
+    "jsonschema==4.23.0",
+    "numpy>=1.26,<3",
+]
+indexing = [
+    "lightrag-hku==1.5.7",
+]
+semantic = [
+    "sentence-transformers>=3.3,<4",
+]
+dev = [
+    "pytest>=8.3,<9.0",
+    "pygments>=2.19,<3",
+    "pillow>=11,<12",
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["case_preparation*", "server*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["."]

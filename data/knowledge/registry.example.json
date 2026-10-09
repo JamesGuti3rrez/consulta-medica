@@ -1,0 +1,12 @@
+{
+  "sources": [
+    {
+      "id": "guia-ejemplo",
+      "path": "approved/guia-ejemplo.md",
+      "license": "DEFINIR_LICENCIA",
+      "reviewed_by": "DEFINIR_REVISOR_CLINICO",
+      "scope": "conversation",
+      "approved": false
+    }
+  ]
+}

@@ -55,6 +55,8 @@ class AgentReply:
     input_tokens: int = 0
     output_tokens: int = 0
     fallback_used: bool = False
+    grounding_retry_used: bool = False
+    grounding_fallback_used: bool = False
     blocked: bool = False
     block_reason: str | None = None
 
@@ -76,6 +78,8 @@ class TurnGraphState(TypedDict, total=False):
     input_tokens: int
     output_tokens: int
     fallback_used: bool
+    grounding_retry_used: bool
+    grounding_fallback_used: bool
     retrieved_evidence_ids: list[str]
     blocked: bool
     block_reason: str | None

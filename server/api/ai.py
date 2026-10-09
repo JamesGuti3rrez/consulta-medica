@@ -22,6 +22,7 @@ from server.orchestration import (
     SessionNotFound,
     StarGraphOrchestrator,
 )
+from server.rag.embedded import EmbeddedRAGRetriever
 from server.rag.retriever import CaseEvidenceRetriever, HttpRetriever
 from server.tracing import LangSmithObserver, LocalTraceLogger
 
@@ -44,11 +45,13 @@ def get_service() -> MultiAgentSessionService:
         root / "data" / "cases" / "curated",
         root / "schemas" / "caso.schema.json",
     )
-    retriever = (
-        HttpRetriever(settings.rag_service_url)
-        if settings.rag_service_url
-        else CaseEvidenceRetriever(repository)
-    )
+    if settings.rag_service_url:
+        retriever = HttpRetriever(settings.rag_service_url)
+    elif settings.rag_embedded_enabled:
+        embedded = EmbeddedRAGRetriever(settings.rag_index_dir, settings.rag_log_path)
+        retriever = embedded if embedded.ready else CaseEvidenceRetriever(repository)
+    else:
+        retriever = CaseEvidenceRetriever(repository)
     gateway = build_gateway()
     disclosure = DisclosurePolicy()
     graph = StarGraphOrchestrator(
@@ -86,8 +89,12 @@ def status():
         "decision_router": "deterministic",
         "disclosure_policy": "reveal-policy-minimum-privilege",
         "llm_mode": settings.llm_mode,
-        "rag_connected": bool(settings.rag_service_url),
-        "retrieval_mode": "http-rag" if settings.rag_service_url else "deterministic-case-fallback",
+        "rag_connected": isinstance(service.graph.retriever, (HttpRetriever, EmbeddedRAGRetriever)),
+        "retrieval_mode": (
+            "http-rag" if isinstance(service.graph.retriever, HttpRetriever)
+            else "embedded-lightrag" if isinstance(service.graph.retriever, EmbeddedRAGRetriever)
+            else "deterministic-case-fallback"
+        ),
         "langsmith_enabled": settings.langsmith_tracing and bool(settings.langsmith_api_key),
         "agents": ["medico_asistente", "paciente", "laboratorio", "radiologia", "especialista"],
         "gateway": service.graph.agents[next(iter(service.graph.agents))].gateway.status(),

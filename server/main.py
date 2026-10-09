@@ -12,6 +12,7 @@ from fastapi.staticfiles import StaticFiles
 
 from .clinical_case import evaluate_reasoning, match_differential, public_case, read_case
 from .api.ai import router as ai_router
+from .rag.router import router as rag_router
 from .config import settings
 
 PUBLIC_DIR = Path(__file__).resolve().parent.parent / "public"
@@ -124,6 +125,7 @@ async def evaluate(request: Request):
 
 
 app.include_router(ai_router)
+app.include_router(rag_router)
 
 
 @app.api_route("/api/{rest:path}", methods=["GET", "POST", "PUT", "PATCH", "DELETE"], include_in_schema=False)

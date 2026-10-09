@@ -79,6 +79,7 @@ class StarGraphOrchestrator:
                 case_id=state["case_id"],
                 agent_role=role,
                 allowed_evidence_ids=disclosure.allowed_evidence_ids,
+                session_id=state.get("session_id"),
             )
             context = self.context_assembler.build(
                 case=case,
@@ -101,6 +102,8 @@ class StarGraphOrchestrator:
                 "input_tokens": reply.input_tokens,
                 "output_tokens": reply.output_tokens,
                 "fallback_used": reply.fallback_used,
+                "grounding_retry_used": reply.grounding_retry_used,
+                "grounding_fallback_used": reply.grounding_fallback_used,
                 "retrieved_evidence_ids": reply.evidence_ids,
                 "blocked": not ok,
                 "block_reason": reason,

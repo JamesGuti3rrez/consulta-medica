@@ -14,3 +14,7 @@ __pycache__/
 
 # Trazas locales del SMA
 .runtime/
+.pytest_cache/
+*.egg-info/
+logs/*.jsonl
+data/indexes/

@@ -22,4 +22,5 @@ class RetrieverPort(Protocol):
         agent_role: AgentRole,
         allowed_evidence_ids: list[str],
         top_k: int = 3,
+        session_id: str | None = None,
     ) -> list[RetrievedEvidence]: ...

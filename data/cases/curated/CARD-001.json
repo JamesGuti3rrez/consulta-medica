@@ -56,7 +56,9 @@
       "reveal_policy": {
         "owner": "paciente",
         "mode": "al_preguntar",
-        "requires": ["inicio_dolor"]
+        "requires": [
+          "inicio_dolor"
+        ]
       }
     },
     {
@@ -67,7 +69,9 @@
       "reveal_policy": {
         "owner": "paciente",
         "mode": "al_preguntar",
-        "requires": ["fotofobia"]
+        "requires": [
+          "fotofobia"
+        ]
       }
     },
     {
@@ -78,18 +82,22 @@
       "reveal_policy": {
         "owner": "paciente",
         "mode": "al_preguntar",
-        "requires": ["nauseas"]
+        "requires": [
+          "nauseas"
+        ]
       }
     },
     {
       "evidence_id": "CARD-001.antecedente.familiar_migrana",
       "category": "antecedente",
-      "label": "Antecedente familiar",
-      "text": "Su madre tiene antecedente de migraña.",
+      "label": "Antecedente familiar de cefalea",
+      "text": "Su madre presenta antecedentes de cefaleas recurrentes.",
       "reveal_policy": {
         "owner": "paciente",
         "mode": "al_preguntar",
-        "requires": ["antecedente_familiar"]
+        "requires": [
+          "antecedente_familiar"
+        ]
       }
     },
     {
@@ -100,7 +108,9 @@
       "reveal_policy": {
         "owner": "paciente",
         "mode": "al_preguntar",
-        "requires": ["medicacion"]
+        "requires": [
+          "medicacion"
+        ]
       }
     },
     {
@@ -111,7 +121,9 @@
       "reveal_policy": {
         "owner": "paciente",
         "mode": "al_preguntar",
-        "requires": ["alergias"]
+        "requires": [
+          "alergias"
+        ]
       }
     },
     {
@@ -122,7 +134,9 @@
       "reveal_policy": {
         "owner": "paciente",
         "mode": "al_preguntar",
-        "requires": ["signos_alarma"]
+        "requires": [
+          "signos_alarma"
+        ]
       }
     },
     {
@@ -133,7 +147,9 @@
       "reveal_policy": {
         "owner": "medico_asistente",
         "mode": "al_examinar",
-        "requires": ["examen_neurologico"]
+        "requires": [
+          "examen_neurologico"
+        ]
       }
     },
     {
@@ -145,7 +161,9 @@
       "reveal_policy": {
         "owner": "laboratorio",
         "mode": "al_solicitar_examen",
-        "requires": ["hemograma"]
+        "requires": [
+          "hemograma"
+        ]
       }
     },
     {
@@ -157,7 +175,9 @@
       "reveal_policy": {
         "owner": "radiologia",
         "mode": "al_solicitar_examen",
-        "requires": ["tomografia"]
+        "requires": [
+          "tomografia"
+        ]
       }
     },
     {
@@ -168,35 +188,53 @@
       "reveal_policy": {
         "owner": "especialista",
         "mode": "al_preguntar",
-        "requires": ["neurologia"]
+        "requires": [
+          "neurologia"
+        ]
       }
     }
   ],
   "protected": {
     "diagnosis": {
       "name": "Migraña sin signos de alarma",
-      "synonyms": ["migraña", "cefalea migrañosa"]
+      "synonyms": [
+        "migraña",
+        "cefalea migrañosa"
+      ]
     },
     "differentials": [
       {
         "name": "Meningitis",
         "must_not_miss": true,
-        "discard_evidence_ids": ["CARD-001.anamnesis.signos_alarma", "CARD-001.vital.temperatura"]
+        "discard_evidence_ids": [
+          "CARD-001.anamnesis.signos_alarma",
+          "CARD-001.vital.temperatura"
+        ]
       },
       {
         "name": "Hemorragia subaracnoidea",
         "must_not_miss": true,
-        "discard_evidence_ids": ["CARD-001.anamnesis.inicio_dolor", "CARD-001.anamnesis.signos_alarma"]
+        "discard_evidence_ids": [
+          "CARD-001.anamnesis.inicio_dolor",
+          "CARD-001.anamnesis.signos_alarma"
+        ]
       },
       {
         "name": "Cefalea tensional",
         "must_not_miss": false,
-        "discard_evidence_ids": ["CARD-001.anamnesis.inicio_dolor", "CARD-001.sintoma.fotofobia"]
+        "discard_evidence_ids": [
+          "CARD-001.anamnesis.inicio_dolor",
+          "CARD-001.sintoma.fotofobia"
+        ]
       }
     ],
     "treatment_reference": {
       "summary": "Manejo sintomático y seguimiento clínico según la evaluación profesional.",
-      "key_actions": ["Control sintomático", "Reevaluar signos de alarma", "Seguimiento clínico"]
+      "key_actions": [
+        "Control sintomático",
+        "Reevaluar signos de alarma",
+        "Seguimiento clínico"
+      ]
     },
     "contraindications": [],
     "evaluation": {
@@ -204,7 +242,9 @@
         {
           "id": "kq1",
           "topic": "inicio y características del dolor",
-          "evidence_ids": ["CARD-001.anamnesis.inicio_dolor"],
+          "evidence_ids": [
+            "CARD-001.anamnesis.inicio_dolor"
+          ],
           "weight": 5,
           "critical": true,
           "error_if_missing": "anamnesis_incompleta"
@@ -212,7 +252,9 @@
         {
           "id": "kq2",
           "topic": "signos de alarma neurológica",
-          "evidence_ids": ["CARD-001.anamnesis.signos_alarma"],
+          "evidence_ids": [
+            "CARD-001.anamnesis.signos_alarma"
+          ],
           "weight": 5,
           "critical": true,
           "error_if_missing": "negligencia"
@@ -220,15 +262,22 @@
         {
           "id": "kq3",
           "topic": "alergias",
-          "evidence_ids": ["CARD-001.anamnesis.alergias"],
+          "evidence_ids": [
+            "CARD-001.anamnesis.alergias"
+          ],
           "weight": 4,
           "critical": true,
           "error_if_missing": "negligencia"
         }
       ],
       "tests": {
-        "recommended": ["evaluacion_clinica"],
-        "optional": ["hemograma", "tomografia"],
+        "recommended": [
+          "evaluacion_clinica"
+        ],
+        "optional": [
+          "hemograma",
+          "tomografia"
+        ],
         "unnecessary": []
       }
     }
