@@ -5,10 +5,18 @@ import json
 from pathlib import Path
 
 from .adapters.medqa import extract_medqa_candidates
+from .indexing.documents import (
+    IndexingError,
+    build_case_documents,
+    documents_fingerprint,
+    load_approved_knowledge_documents,
+)
+from .indexing.lightrag_backend import run_index
 from .sources.fetch import fetch_dataset
 from .sources.registry import SOURCE_DEFINITIONS
 from .transform.medqa_final_review import build_reviewed_cases
 from .transform.medqa_selection import build_selected_cases
+from server.cases.validator import validate_case_document
 
 
 def main() -> int:
@@ -36,6 +44,13 @@ def main() -> int:
     transform_parser.add_argument("--count", type=int, default=10)
 
     subparsers.add_parser("curation", help="Genera y cura el lote MedQA con la revisión clínica asistida registrada")
+    index_parser = subparsers.add_parser(
+        "index",
+        help="Indexa offline evidencia autorizada de casos curados y fuentes aprobadas",
+    )
+    index_parser.add_argument("--cases-dir", type=Path, default=None)
+    index_parser.add_argument("--knowledge-dir", type=Path, default=None)
+    index_parser.add_argument("--output-dir", type=Path, default=None)
 
     args = parser.parse_args()
     if args.command == "sources" and args.source_command == "fetch":
@@ -58,6 +73,34 @@ def main() -> int:
     if args.command == "curation":
         result = build_reviewed_cases()
         print(json.dumps(result, ensure_ascii=False, indent=2))
+        return 0
+
+    if args.command == "index":
+        repo_root = Path(__file__).resolve().parents[2]
+        cases_dir = args.cases_dir or repo_root / "data" / "cases" / "curated"
+        knowledge_dir = args.knowledge_dir or repo_root / "data" / "knowledge"
+        output_dir = args.output_dir or repo_root / "data" / "indexes" / "lightrag"
+        cases = []
+        for case_path in sorted(cases_dir.glob("*.json")):
+            case = json.loads(case_path.read_text(encoding="utf-8"))
+            validate_case_document(case)
+            cases.append(case)
+        if not cases:
+            raise IndexingError(f"No hay casos curados en {cases_dir}.")
+        documents = build_case_documents(cases)
+        documents += load_approved_knowledge_documents(knowledge_dir, cases)
+        destination = run_index(documents, output_dir)
+        print(
+            json.dumps(
+                {
+                    "documents": len(documents),
+                    "fingerprint": documents_fingerprint(documents),
+                    "index_dir": str(destination),
+                },
+                ensure_ascii=False,
+                indent=2,
+            )
+        )
         return 0
 
     parser.error("Comando no soportado")
