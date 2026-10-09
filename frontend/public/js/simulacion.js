@@ -6,6 +6,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   const tabButtons = [...document.querySelectorAll('[data-tab]')];
   const tabPanels = [...document.querySelectorAll('[data-tab-panel]')];
   let caseAvailable = false;
+  // La especialidad elegida viaja en la URL (simulacion.html?especialidad=pediatria).
+  const especialidad = new URLSearchParams(window.location.search).get('especialidad');
+  const caseUrl = especialidad ? `/api/caso?especialidad=${encodeURIComponent(especialidad)}` : '/api/caso';
 
   const showTab = name => {
     tabButtons.forEach(button => {
@@ -97,7 +100,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     startButton.disabled = true;
     startButton.lastChild.textContent = ' Cargando caso...';
     try {
-      const response = await fetch('/api/caso');
+      const response = await fetch(caseUrl);
       if (!response.ok) {
         const body = await response.json();
         throw new Error(body.detail || `API respondió con HTTP ${response.status}`);

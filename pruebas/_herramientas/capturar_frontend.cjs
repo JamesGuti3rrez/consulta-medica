@@ -6,8 +6,8 @@
 //   node pruebas/_herramientas/capturar_frontend.cjs <carpeta_salida>
 // Carga casos hasta haber mostrado el primero de cada especialidad (EME-001, GOB-003, CIR-005,
 // PED-007, MED-008). Así cada ejecución captura los mismos casos y con los mismos nombres de archivo.
-// Variables: BASE_URL (por defecto http://localhost:3000). Requiere el paquete `playwright`
-// resoluble desde NODE_PATH; no es dependencia del proyecto.
+// Variables: BASE_URL (por defecto http://localhost:3000). Usa `playwright`, dependencia de desarrollo
+// del proyecto (`npm install`); el navegador se instala una vez con `npx playwright install chromium`.
 const fs = require('node:fs');
 const path = require('node:path');
 const { chromium } = require('playwright');
@@ -87,11 +87,29 @@ function protectedTexts(caseId) {
     leaks.forEach(t => say(`      visible: ${t}`));
   }
 
+  // Caso por especialidad: la especialidad viaja en la URL del simulador.
+  const specialtyPage = await browser.newPage({ viewport: VIEWPORT, deviceScaleFactor: 1 });
+  await specialtyPage.goto(`${BASE_URL}/simulacion.html?especialidad=pediatria`, { waitUntil: 'networkidle' });
+  const specialtyStart = specialtyPage.locator('[data-role="start-simulation"]');
+  await specialtyPage.waitForFunction(() => !document.querySelector('[data-role="start-simulation"]').disabled);
+  for (let attempt = 1; attempt <= 5; attempt += 1) {
+    const [response] = await Promise.all([
+      specialtyPage.waitForResponse(r => r.url().includes('/api/caso')),
+      specialtyStart.click(),
+    ]);
+    const body = await response.json();
+    await specialtyPage.waitForFunction(id => document.body.innerText.includes(`Caso ${id} cargado`), body.case_id);
+    const ok = body.specialty === 'pediatria' && response.url().endsWith('?especialidad=pediatria');
+    if (!ok) failures += 1;
+    say(`[${ok ? 'OK' : 'FALLA'}] ?especialidad=pediatria, carga ${attempt}: ${body.case_id} (${body.specialty})`);
+  }
+  await specialtyPage.screenshot({ path: path.join(outDir, `${String(targets.length + 2).padStart(2, '0')}_ficha_por_especialidad.png`) });
+
   const apiPage = await browser.newPage({ viewport: VIEWPORT, deviceScaleFactor: 1 });
   await apiPage.goto(`${BASE_URL}/api/caso`);
   // Visor JSON de Chromium: activa "Pretty-print" si está disponible.
   await apiPage.locator('input[type="checkbox"]').first().check({ timeout: 2000 }).catch(() => {});
-  const apiFile = `${String(targets.length + 2).padStart(2, '0')}_respuesta_api_caso.png`;
+  const apiFile = `${String(targets.length + 3).padStart(2, '0')}_respuesta_api_caso.png`;
   await apiPage.screenshot({ path: path.join(outDir, apiFile), fullPage: true });
   say(`Respuesta cruda de GET /api/caso guardada en ${apiFile}`);
 
