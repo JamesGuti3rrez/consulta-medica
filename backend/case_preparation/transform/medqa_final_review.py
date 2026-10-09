@@ -8,17 +8,17 @@ from typing import Any
 
 from server.cases.rules import check_batch_rules, check_case_rules
 from server.cases.validator import validate_case_document
-from .medqa_selection import _build_case
+from .medqa_case_builder import _build_case
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 # Fecha fija del lote: regenerar otro día debe producir exactamente los mismos JSON.
 BATCH_DATE = "2026-10-08"
 CREATED_BY = "case_preparation.transform.medqa_final_review"
 CANDIDATES_PATH = REPO_ROOT / "data" / "interim" / "medqa_candidatos.jsonl"
-OUTPUT_DIR = REPO_ROOT / "data" / "cases" / "validated_second_pass"
 CURATED_OUTPUT_DIR = REPO_ROOT / "data" / "cases" / "curated"
 REJECTED_OUTPUT_DIR = REPO_ROOT / "data" / "cases" / "rejected"
 VALIDATED_OUTPUT_DIR = REPO_ROOT / "data" / "cases" / "validated"
+OUTPUT_DIR = VALIDATED_OUTPUT_DIR
 FINAL_SELECTION_PATH = REPO_ROOT / "data" / "cases" / "final_selection" / "medqa_final_10.json"
 SELECTION_REVIEW_PATH = REPO_ROOT / "data" / "cases" / "reviews" / "second_pass_selection.json"
 CLINICAL_REVIEW_PATH = REPO_ROOT / "data" / "cases" / "reviews" / "clinical_coherence_review.json"
@@ -127,7 +127,7 @@ def _write_ai_curated_cases(case_index: list[dict[str, Any]]) -> None:
         "method": "curacion_asistida_por_ia",
         "curated_count": len(curated_records),
         "curated_at": BATCH_DATE,
-        "source_dir": "data/cases/validated_second_pass",
+        "source_dir": "data/cases/validated",
         "curated_dir": "data/cases/curated",
         "cases": curated_records,
     }
@@ -322,7 +322,7 @@ def build_reviewed_cases() -> dict[str, Any]:
             "schema_ok": True,
             "unique_source_items": len({case["candidate_id"] for case in case_index}),
             "total_validated": len(case_index),
-            "source_dir": "data/cases/validated_second_pass",
+            "source_dir": "data/cases/validated",
         },
         "clinical_review": (
             "Lote curado mediante revisión asistida por IA y fuentes identificadas. Cada caso conserva "

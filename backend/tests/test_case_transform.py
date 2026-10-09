@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from case_preparation.transform.medqa_selection import _build_case, _select_candidates
+from case_preparation.transform.medqa_case_builder import _build_case
 from case_preparation.transform.medqa_final_review import (
     CLINICAL_REVIEW,
     SPANISH_SOURCE_TEXT,
@@ -51,34 +51,6 @@ def test_build_case_requires_source_demographics():
         assert "edad y sexo inequívocos" in str(error)
     else:
         raise AssertionError("Se esperaba rechazar un caso sin edad y sexo de origen.")
-
-
-def test_select_candidates_returns_balanced_subset():
-    candidates = []
-    for specialty in ["medicina_interna", "pediatria", "ginecologia_obstetricia", "cirugia_general", "emergencias"] * 2:
-        idx = len(candidates)
-        patient = {
-            "medicina_interna": f"A {50 + idx}-year-old man",
-            "pediatria": f"A {8 + idx}-year-old boy",
-            "ginecologia_obstetricia": f"A {28 + idx}-year-old pregnant woman",
-            "cirugia_general": f"A {30 + idx}-year-old man with appendicitis",
-            "emergencias": f"A {40 + idx}-year-old woman in the emergency department",
-        }[specialty]
-        candidates.append(
-            {
-                "candidate_id": f"medqa-{idx:05d}",
-                "question": f"{patient} presents with a clinical concern. Which is the most likely diagnosis?",
-                "options": ["A. Diagnosis one", "B. Diagnosis two", "C. Diagnosis three", "D. Diagnosis four"],
-                "answer": "A",
-                "answer_text": "Diagnosis one",
-                "specialty": specialty,
-            }
-        )
-
-    selected = _select_candidates(candidates, count=10)
-    assert len(selected) == 10
-    assert {item["specialty"] for item in selected} == {"medicina_interna", "pediatria", "ginecologia_obstetricia", "cirugia_general", "emergencias"}
-    assert len({item["question"].casefold() for item in selected}) == 10
 
 
 def test_final_review_batch_uses_supported_postoperative_and_emergency_cases():

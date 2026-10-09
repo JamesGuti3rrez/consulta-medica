@@ -4,7 +4,7 @@
   "method": "curacion_asistida_por_ia",
   "curated_count": 10,
   "curated_at": "2026-10-08",
-  "source_dir": "data/cases/validated_second_pass",
+  "source_dir": "data/cases/validated",
   "curated_dir": "data/cases/curated",
   "cases": [
     {

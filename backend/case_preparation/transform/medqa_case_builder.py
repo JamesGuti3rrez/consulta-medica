@@ -1,8 +1,12 @@
+"""Construye un caso canónico (caso.schema.json) a partir de un candidato MedQA ya revisado.
+
+La selección automática de la primera pasada (comando «transform») se retiró: sus 10 casos se
+rechazaron en la revisión clínica y se conservan en data/cases/rejected/.
+"""
+
 from __future__ import annotations
 
-import json
 import re
-from collections import Counter
 from datetime import date
 from pathlib import Path
 from typing import Any
@@ -10,15 +14,6 @@ from typing import Any
 from server.cases.validator import validate_case_document
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
-DEFAULT_INPUT = REPO_ROOT / "data" / "interim" / "medqa_candidatos.jsonl"
-DEFAULT_OUTPUT_DIR = REPO_ROOT / "data" / "cases" / "validated"
-SPECIALTY_ORDER = [
-    "medicina_interna",
-    "pediatria",
-    "ginecologia_obstetricia",
-    "cirugia_general",
-    "emergencias",
-]
 SPECIALTY_PREFIX = {
     "medicina_interna": "MED",
     "pediatria": "PED",
@@ -86,71 +81,6 @@ def _question_as_title(question: str, specialty: str) -> str:
     return f"Paciente {age_suffix} con cuadro de {SPECIALTY_LABEL[specialty]}"
 
 
-def _score_candidate(record: dict[str, Any]) -> tuple[int, str]:
-    question = _clean_question_text(record.get("question", ""))
-    options = record.get("options") or []
-    option_count = len(options) if isinstance(options, list) else 0
-    answer = _as_text(record.get("answer"))
-    has_valid_answer = bool(answer) and answer not in {"", "N/A", "nan"}
-    age_bonus = 20 if _extract_age(question) is not None else 0
-    length_bonus = len(question)
-    option_bonus = option_count * 15
-    return (length_bonus + option_bonus + age_bonus + (20 if has_valid_answer else 0), question.lower()),
-
-
-def _load_candidates(input_path: Path | str) -> list[dict[str, Any]]:
-    path = Path(input_path)
-    if not path.exists():
-        raise FileNotFoundError(f"No existe el archivo de candidatos: {path}")
-    records: list[dict[str, Any]] = []
-    with path.open("r", encoding="utf-8") as handle:
-        for line in handle:
-            text = line.strip()
-            if not text:
-                continue
-            record = json.loads(text)
-            if isinstance(record, dict):
-                records.append(record)
-    return records
-
-
-def _select_candidates(candidates: list[dict[str, Any]], count: int = 10) -> list[dict[str, Any]]:
-    grouped: dict[str, list[dict[str, Any]]] = {specialty: [] for specialty in SPECIALTY_ORDER}
-    seen_questions: set[str] = set()
-    for candidate in candidates:
-        specialty = candidate.get("specialty")
-        if specialty not in grouped:
-            continue
-        question = _clean_question_text(candidate.get("question", ""))
-        normalized_question = question.casefold()
-        if not question or normalized_question in seen_questions:
-            continue
-        if not candidate.get("options") or not candidate.get("answer"):
-            continue
-        if _extract_age(question) is None or _extract_sex(question) is None:
-            continue
-        seen_questions.add(normalized_question)
-        grouped[specialty].append(candidate)
-
-    selected: list[dict[str, Any]] = []
-    for specialty in SPECIALTY_ORDER:
-        items = sorted(grouped.get(specialty, []), key=lambda item: _score_candidate(item), reverse=True)
-        selected.extend(items[:2])
-
-    if len(selected) > count:
-        selected = selected[:count]
-    elif len(selected) < count:
-        remaining = []
-        for candidate in candidates:
-            if any(candidate.get("candidate_id") == item.get("candidate_id") for item in selected):
-                continue
-            remaining.append(candidate)
-        remaining = sorted(remaining, key=lambda item: _score_candidate(item), reverse=True)
-        selected.extend(remaining[: count - len(selected)])
-
-    return selected[:count]
-
-
 def _build_case(candidate: dict[str, Any], index: int) -> dict[str, Any]:
     specialty = candidate.get("specialty", "medicina_interna")
     question = _clean_question_text(candidate.get("question", ""))
@@ -215,7 +145,7 @@ def _build_case(candidate: dict[str, Any], index: int) -> dict[str, Any]:
         "public": {
             "patient": {
                 "alias": f"Paciente {index}",
-                "age_years": age if age is not None else 45,
+                "age_years": age,
                 "sex": sex,
             },
             "chief_complaint": {
@@ -301,7 +231,7 @@ def _build_case(candidate: dict[str, Any], index: int) -> dict[str, Any]:
             },
         },
         "provenance": {
-            "created_by": "case_preparation.transform.medqa_selection",
+            "created_by": "case_preparation.transform.medqa_case_builder",
             "created_at": date.today().isoformat(),
             "validator_version": "1.0.0",
             "validated_at": date.today().isoformat(),
@@ -313,47 +243,3 @@ def _build_case(candidate: dict[str, Any], index: int) -> dict[str, Any]:
     case = kwargs
     validate_case_document(case)
     return case
-
-
-def build_selected_cases(input_path: Path | str = DEFAULT_INPUT, output_dir: Path | str = DEFAULT_OUTPUT_DIR, count: int = 10) -> dict[str, Any]:
-    candidates = _load_candidates(input_path)
-    selected = _select_candidates(candidates, count=count)
-    output_root = Path(output_dir)
-    output_root.mkdir(parents=True, exist_ok=True)
-
-    validated_cases: list[dict[str, Any]] = []
-    for position, candidate in enumerate(selected, start=1):
-        case = _build_case(candidate, position)
-        filepath = output_root / f"{case['case_id']}.json"
-        filepath.write_text(json.dumps(case, ensure_ascii=False, indent=2), encoding="utf-8")
-        validated_cases.append(case)
-
-    index_payload = {
-        "dataset": "MedQA",
-        "status": "validado",
-        "source_path": str(Path(input_path)),
-        "selected_case_ids": [case["case_id"] for case in validated_cases],
-        "specialty_counts": dict(Counter(case["specialty"] for case in validated_cases)),
-        "selected_count": len(validated_cases),
-    }
-    index_path = output_root / "medqa_selected_cases_index.json"
-    index_path.write_text(json.dumps(index_payload, ensure_ascii=False, indent=2), encoding="utf-8")
-    return index_payload
-
-
-def main() -> int:
-    import argparse
-
-    parser = argparse.ArgumentParser(description="Selecciona 10 casos clínicos canónicos a partir de candidatos MedQA.")
-    parser.add_argument("--input", type=Path, default=DEFAULT_INPUT)
-    parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
-    parser.add_argument("--count", type=int, default=10)
-    args = parser.parse_args()
-
-    summary = build_selected_cases(input_path=args.input, output_dir=args.output_dir, count=args.count)
-    print(json.dumps(summary, ensure_ascii=False, indent=2))
-    return 0
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())

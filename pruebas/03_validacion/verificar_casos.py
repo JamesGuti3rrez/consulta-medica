@@ -28,7 +28,7 @@ CASES_ROOT = REPO_ROOT / "data" / "cases"
 QUESTIONS_ROOT = REPO_ROOT / "data" / "raw" / "medqa" / "data_clean" / "questions"
 SOURCE_MARKER = "Texto fuente conservado (inglés): "
 ALLOWED_BANKS = {"US", "Taiwan"}  # docs/decisions/0001 §1; Mainland (chino) no se admite.
-FOLDERS = ("curated", "validated_second_pass", "rejected")
+FOLDERS = ("curated", "validated", "rejected")
 STUDENT_KEYS = {"case_id", "specialty", "patient", "chief_complaint", "items", "allergies_recorded", "allergies"}
 
 failures: list[str] = []

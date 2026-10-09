@@ -33,7 +33,7 @@
     "schema_ok": true,
     "unique_source_items": 10,
     "total_validated": 10,
-    "source_dir": "data/cases/validated_second_pass"
+    "source_dir": "data/cases/validated"
   },
   "clinical_review": "Lote curado mediante revisión asistida por IA y fuentes identificadas. Cada caso conserva sus incertidumbres, alertas y necesidades de confirmación. PED-010 se sustituyó por una fuente pediátrica completa sin imagen faltante.",
   "clinical_review_counts": {
