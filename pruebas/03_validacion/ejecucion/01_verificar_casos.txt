@@ -1,0 +1,62 @@
+DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica
+COMANDO: backend\.venv\Scripts\python.exe pruebas/03_validacion/verificar_casos.py
+FECHA: 2026-10-09 05:30:08 UTC
+CODIGO_SALIDA: 0
+
+STDOUT:
+1. Validación contra schemas/caso.schema.json
+  [OK] curated/: 10 archivos válidos, estados {'curado': 10}
+  [OK] validated_second_pass/: 10 archivos válidos, estados {'validado': 10}
+  [OK] rejected/: 10 archivos válidos, estados {'rechazado': 10}
+
+2. Lote curado (data/cases/curated/)
+  [OK] hay 10 casos curados (se esperan 10)
+  [OK] todos tienen status = curado
+  [OK] el nombre de archivo coincide con case_id
+  [OK] sufijos de ID 001–010 sin huecos ni repetidos: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      orden por posición: EME-001, EME-002, GOB-003, GOB-004, CIR-005, CIR-006, PED-007, MED-008, MED-009, PED-010
+  [OK] 2 casos por especialidad: {'cirugia_general': 2, 'emergencias': 2, 'ginecologia_obstetricia': 2, 'medicina_interna': 2, 'pediatria': 2}
+  [OK] fuente MedQA en todos
+  [OK] procedencia de curación registrada (provenance.curated_by)
+  [OK] ningún ID rechazado está en curated/ (10 rechazados)
+
+3. Catálogo que sirve la API (server/cases/catalog.py)
+  [OK] la API expone exactamente los 10 casos curados
+  [OK] la API lee solo data\cases\curated
+
+4. Vista del estudiante (to_student_case) sin información protegida
+  [OK] CIR-005: campos ['allergies_recorded', 'case_id', 'chief_complaint', 'items', 'patient', 'specialty']; diagnóstico protegido «Hemofilia A» no aparece
+  [OK] CIR-006: campos ['allergies_recorded', 'case_id', 'chief_complaint', 'items', 'patient', 'specialty']; diagnóstico protegido «Sepsis posoperatoria» no aparece
+  [OK] EME-001: campos ['allergies_recorded', 'case_id', 'chief_complaint', 'items', 'patient', 'specialty']; diagnóstico protegido «Golpe de calor por esfuerzo» no aparece
+  [OK] EME-002: campos ['allergies_recorded', 'case_id', 'chief_complaint', 'items', 'patient', 'specialty']; diagnóstico protegido «Hemorragia subaracnoidea» no aparece
+  [OK] GOB-003: campos ['allergies_recorded', 'case_id', 'chief_complaint', 'items', 'patient', 'specialty']; diagnóstico protegido «Infarto hipofisario posparto (síndrome de Sheehan)» no aparece
+  [OK] GOB-004: campos ['allergies_recorded', 'case_id', 'chief_complaint', 'items', 'patient', 'specialty']; diagnóstico protegido «Tricomoniasis vulvovaginal» no aparece
+  [OK] MED-008: campos ['allergies', 'allergies_recorded', 'case_id', 'chief_complaint', 'items', 'patient', 'specialty']; diagnóstico protegido «Enfermedad de Lyme con eritema migrans» no aparece
+  [OK] MED-009: campos ['allergies_recorded', 'case_id', 'chief_complaint', 'items', 'patient', 'specialty']; diagnóstico protegido «Carcinoma basocelular» no aparece
+  [OK] PED-007: campos ['allergies_recorded', 'case_id', 'chief_complaint', 'items', 'patient', 'specialty']; diagnóstico protegido «Enfermedad de Legg-Calvé-Perthes» no aparece
+  [OK] PED-010: campos ['allergies_recorded', 'case_id', 'chief_complaint', 'items', 'patient', 'specialty']; diagnóstico protegido «Síndrome de McCune-Albright» no aparece
+
+5. Reglas cruzadas (backend/server/cases/rules.py)
+  [OK] curated/: 10 casos cumplen R01–R10
+  [OK] validated_second_pass/: 10 casos cumplen R01–R10
+  [INFO] rejected/: 2 de 10 incumplen reglas
+      PED-003: ['R06 edad 45 incompatible con la especialidad pediatria']
+      PED-004: ['R06 edad 45 incompatible con la especialidad pediatria']
+
+6. Banco de origen de cada pregunta (docs/decisions/0001 §1: US o Taiwan en inglés)
+  [OK] CIR-005: pregunta encontrada en el banco ['US']
+  [OK] CIR-006: pregunta encontrada en el banco ['US']
+  [OK] EME-001: pregunta encontrada en el banco ['US']
+  [OK] EME-002: pregunta encontrada en el banco ['Taiwan']
+  [OK] GOB-003: pregunta encontrada en el banco ['US']
+  [OK] GOB-004: pregunta encontrada en el banco ['US']
+  [OK] MED-008: pregunta encontrada en el banco ['US']
+  [OK] MED-009: pregunta encontrada en el banco ['US']
+  [OK] PED-007: pregunta encontrada en el banco ['US']
+  [OK] PED-010: pregunta encontrada en el banco ['Taiwan']
+
+RESULTADO: todas las comprobaciones pasaron.
+
+
+STDERR:
+
