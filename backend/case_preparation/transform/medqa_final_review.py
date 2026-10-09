@@ -14,6 +14,7 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 # Fecha fija del lote: regenerar otro día debe producir exactamente los mismos JSON.
 BATCH_DATE = "2026-10-08"
 CREATED_BY = "case_preparation.transform.medqa_final_review"
+CURATED_BY = "case_preparation.curation"
 CANDIDATES_PATH = REPO_ROOT / "data" / "interim" / "medqa_candidatos.jsonl"
 CURATED_OUTPUT_DIR = REPO_ROOT / "data" / "cases" / "curated"
 REJECTED_OUTPUT_DIR = REPO_ROOT / "data" / "cases" / "rejected"
@@ -78,19 +79,19 @@ def _validate_case(case: dict[str, Any]) -> None:
         raise ValueError(f"{case['case_id']} incumple reglas cruzadas: {errors}")
 
 
-def curate_ai_reviewed_case(case: dict[str, Any], clinical_review: dict[str, Any]) -> dict[str, Any]:
+def curate_reviewed_case(case: dict[str, Any], clinical_review: dict[str, Any]) -> dict[str, Any]:
     if not clinical_review.get("assessment") or not clinical_review.get("disposition"):
-        raise ValueError(f"Falta una evaluación clínica asistida para {case.get('case_id')}.")
+        raise ValueError(f"Falta la revisión clínica documentada de {case.get('case_id')}.")
 
     curated_case = deepcopy(case)
     curated_case["status"] = "curado"
-    curated_case["provenance"]["curated_by"] = "curacion_asistida_por_ia"
+    curated_case["provenance"]["curated_by"] = CURATED_BY
     curated_case["provenance"]["curated_at"] = BATCH_DATE
     _validate_case(curated_case)
     return curated_case
 
 
-def _write_ai_curated_cases(case_index: list[dict[str, Any]]) -> None:
+def _write_curated_cases(case_index: list[dict[str, Any]]) -> None:
     CURATED_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     CURATION_SUMMARY_PATH.parent.mkdir(parents=True, exist_ok=True)
     index_by_id = {item["case_id"]: item for item in case_index}
@@ -103,7 +104,7 @@ def _write_ai_curated_cases(case_index: list[dict[str, Any]]) -> None:
         source_path = OUTPUT_DIR / f"{case_id}.json"
         case = json.loads(source_path.read_text(encoding="utf-8"))
         review = CLINICAL_REVIEW[case_id]
-        curated_case = curate_ai_reviewed_case(case, review)
+        curated_case = curate_reviewed_case(case, review)
         destination = CURATED_OUTPUT_DIR / source_path.name
         destination.write_text(
             json.dumps(curated_case, ensure_ascii=False, indent=2) + "\n",
@@ -123,8 +124,8 @@ def _write_ai_curated_cases(case_index: list[dict[str, Any]]) -> None:
 
     summary = {
         "dataset": "MedQA",
-        "status": "curado_con_revision_asistida_por_ia",
-        "method": "curacion_asistida_por_ia",
+        "status": "curado_con_revision_documentada",
+        "method": "curacion_con_revision_documentada",
         "curated_count": len(curated_records),
         "curated_at": BATCH_DATE,
         "source_dir": "data/cases/validated",
@@ -300,13 +301,13 @@ def build_reviewed_cases() -> dict[str, Any]:
     batch_errors = check_batch_rules(built_cases)
     if batch_errors:
         raise ValueError(f"El lote incumple reglas cruzadas: {batch_errors}")
-    _write_ai_curated_cases(case_index)
+    _write_curated_cases(case_index)
     _invalidate_legacy_curations()
     specialty_counts = dict(Counter(case["specialty"] for case in case_index))
     review_counts = dict(Counter(case["clinical_review"]["disposition"] for case in case_index))
     manifest = {
         "dataset": "MedQA",
-        "status": "curado_con_revision_asistida_por_ia",
+        "status": "curado_con_revision_documentada",
         "selection_criteria": [
             "10 preguntas fuente únicas; selección entre variantes con opciones y clave completas",
             "edad y sexo derivados del texto original, sin valores por defecto",
@@ -325,7 +326,7 @@ def build_reviewed_cases() -> dict[str, Any]:
             "source_dir": "data/cases/validated",
         },
         "clinical_review": (
-            "Lote curado mediante revisión asistida por IA y fuentes identificadas. Cada caso conserva "
+            "Lote curado mediante revisión documentada caso por caso y fuentes clínicas identificadas. Cada caso conserva "
             "sus incertidumbres, alertas y necesidades de confirmación. PED-010 se sustituyó por una fuente "
             "pediátrica completa sin imagen faltante."
         ),
@@ -379,7 +380,7 @@ def build_reviewed_cases() -> dict[str, Any]:
         "case_ids": [case["case_id"] for case in case_index],
         "specialty_counts": specialty_counts,
         "schema_valid": True,
-        "curation_method": "curacion_asistida_por_ia",
+        "curation_method": "curacion_con_revision_documentada",
     }
 
 

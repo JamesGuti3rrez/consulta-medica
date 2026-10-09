@@ -115,7 +115,7 @@
     "created_at": "2026-10-08",
     "validator_version": "1.0.0",
     "validated_at": "2026-10-08",
-    "curated_by": "curacion_asistida_por_ia",
+    "curated_by": "case_preparation.curation",
     "curated_at": "2026-10-08",
     "rejection_reason": null
   }

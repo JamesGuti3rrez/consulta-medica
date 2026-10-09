@@ -5,7 +5,7 @@ from case_preparation.transform.medqa_final_review import (
     CLINICAL_REVIEW,
     SPANISH_SOURCE_TEXT,
     SELECTED_CASES,
-    curate_ai_reviewed_case,
+    curate_reviewed_case,
 )
 from server.cases.validator import validate_case_document
 
@@ -129,7 +129,7 @@ def test_build_case_preserves_differential_risk_and_reviewed_test_recommendation
     assert case["protected"]["differentials"][0]["discard_evidence_ids"] == []
 
 
-def test_ai_curation_changes_only_status_and_curation_provenance():
+def test_curation_changes_only_status_and_curation_provenance():
     candidate = {
         "candidate_id": "medqa-00003",
         "question": "A 57-year-old man presents with a sudden severe headache. Which is the most likely diagnosis?",
@@ -145,7 +145,7 @@ def test_ai_curation_changes_only_status_and_curation_provenance():
     original_source = case["source"].copy()
     original_provenance = case["provenance"].copy()
 
-    curated = curate_ai_reviewed_case(
+    curated = curate_reviewed_case(
         case,
         {
             "assessment": "Compatible con el cuadro descrito; requiere confirmación por imagen.",
@@ -154,7 +154,7 @@ def test_ai_curation_changes_only_status_and_curation_provenance():
     )
 
     assert curated["status"] == "curado"
-    assert curated["provenance"]["curated_by"] == "curacion_asistida_por_ia"
+    assert curated["provenance"]["curated_by"] == "case_preparation.curation"
     assert curated["provenance"]["curated_at"]
     assert curated["public"] == original_public
     assert curated["protected"] == original_protected
