@@ -7,6 +7,7 @@ from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Any
 
+from server.ai.agents.invencion import invented_symptoms
 from server.ai.llm.gateway import LLMGateway
 from server.domain import AgentReply, AgentRole
 
@@ -165,6 +166,35 @@ class BaseAgent(ABC):
                 result_text = retry.text
         else:
             result_text = first.text
+
+        # Síntomas que el caso no tiene: se pide una corrección; si el modelo insiste, el paciente
+        # responde que no y los demás agentes responden solo con la evidencia autorizada.
+        invented = invented_symptoms(result_text, context)
+        if invented and not grounding_fallback_used:
+            grounding_retry_used = True
+            correction = {
+                "role": "user",
+                "content": (
+                    f"CORRECCIÓN: tu respuesta menciona {', '.join(invented)}, que no está en el CONTEXTO "
+                    "AUTORIZADO. Responde de nuevo sin mencionarlo y sin añadir otros síntomas."
+                ),
+            }
+            retry = self.gateway.generate([*messages, {"role": "assistant", "content": result_text}, correction], temperature=temperature)
+            total_input_tokens += retry.input_tokens
+            total_output_tokens += retry.output_tokens
+            provider_fallback_used = provider_fallback_used or retry.fallback_used
+            result = retry
+            if invented_symptoms(retry.text, context):
+                grounding_fallback_used = True
+                # Se quitan solo las frases con el síntoma inventado; si no queda nada, la respuesta base.
+                kept = [sentence for sentence in re.split(r"(?<=[.!?])\s+", retry.text.strip())
+                        if sentence and not invented_symptoms(sentence, context)]
+                if kept:
+                    result_text = " ".join(kept)
+                else:
+                    result_text = "No." if self.role == AgentRole.PACIENTE else self._deterministic_evidence_fallback(context)
+            else:
+                result_text = retry.text
 
         evidence_ids = [
             str(item.get("evidence_id"))

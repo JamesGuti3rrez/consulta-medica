@@ -89,3 +89,41 @@ def test_replies_are_plain_text_without_internal_codes():
         "Exploración física: Tono muscular mínimo."
     )
     assert clean_reply("La presión es 109/62 mmHg y el pH vaginal 5,8.") == "La presión es 109/62 mmHg y el pH vaginal 5,8."
+
+
+def test_invented_symptom_is_corrected_once():
+    from server.ai.agents.paciente import PacienteAgent
+
+    gateway = SequenceGateway(["Sí, y además tengo mucha tos.", "Sí."])
+    context = {**_context(), "role": "paciente"}
+    reply = PacienteAgent(gateway).respond(student_message="¿Le duele?", context=context)
+    assert len(gateway.calls) == 2
+    assert "tos" in gateway.calls[1][-1]["content"]
+    assert reply.text == "Sí."
+    assert reply.grounding_retry_used is True
+
+
+def test_patient_says_no_when_model_keeps_inventing():
+    from server.ai.agents.paciente import PacienteAgent
+
+    gateway = SequenceGateway(["Me siento mareado.", "Sigo muy mareado."])
+    reply = PacienteAgent(gateway).respond(student_message="¿Cómo se siente?", context={**_context(), "role": "paciente"})
+    assert reply.text == "No."
+    assert reply.grounding_fallback_used is True
+
+
+def test_negated_symptoms_are_allowed():
+    from server.ai.agents.invencion import invented_symptoms
+
+    context = {"public_evidence": [{"text": "Temperatura 41,1 °C."}]}
+    assert invented_symptoms("No, no tengo tos ni dolor de pecho.", context) == []
+    assert invented_symptoms("Tengo fiebre muy alta.", context) == []
+    assert invented_symptoms("Me duele el pecho.", context) == ["dolor de pecho"]
+
+
+def test_only_sentences_with_invented_symptoms_are_removed():
+    from server.ai.agents.paciente import PacienteAgent
+
+    gateway = SequenceGateway(["Me siento mal. Estoy mareado.", "Me siento mal. Sigo mareado."])
+    reply = PacienteAgent(gateway).respond(student_message="¿Cómo se siente?", context={**_context(), "role": "paciente"})
+    assert reply.text == "Me siento mal."
