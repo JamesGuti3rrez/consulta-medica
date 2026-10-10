@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from .rules import check_case_rules
+from .rules import check_case_rules, evidence_text
 from .validator import validate_case_document
 
 CURATED_CASES_DIR = Path(__file__).resolve().parents[3] / "data" / "cases" / "curated"
@@ -38,12 +38,12 @@ def to_student_case(case: dict[str, Any]) -> dict[str, Any]:
         },
         "chief_complaint": {
             "label": public["chief_complaint"]["label"],
-            "text": public["chief_complaint"]["text"],
+            "text": evidence_text(public["chief_complaint"]),
         },
         "items": [
             {
                 "label": item["label"],
-                "text": item["text"],
+                "text": evidence_text(item),
             }
             for item in public["items"]
         ],
