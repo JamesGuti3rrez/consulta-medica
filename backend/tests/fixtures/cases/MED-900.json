@@ -57,7 +57,7 @@
         "owner": "paciente",
         "mode": "al_preguntar",
         "requires": [
-          "inicio_dolor"
+          "inicio_y_evolucion"
         ]
       }
     },
@@ -70,7 +70,7 @@
         "owner": "paciente",
         "mode": "al_preguntar",
         "requires": [
-          "fotofobia"
+          "sintomas_asociados"
         ]
       }
     },
@@ -83,7 +83,7 @@
         "owner": "paciente",
         "mode": "al_preguntar",
         "requires": [
-          "nauseas"
+          "sintomas_asociados"
         ]
       }
     },
@@ -96,7 +96,7 @@
         "owner": "paciente",
         "mode": "al_preguntar",
         "requires": [
-          "antecedente_familiar"
+          "antecedentes_familiares"
         ]
       }
     },
@@ -135,7 +135,7 @@
         "owner": "paciente",
         "mode": "al_preguntar",
         "requires": [
-          "signos_alarma"
+          "sintomas_asociados"
         ]
       }
     },
@@ -148,7 +148,7 @@
         "owner": "medico_asistente",
         "mode": "al_examinar",
         "requires": [
-          "examen_neurologico"
+          "exploracion_fisica"
         ]
       }
     },

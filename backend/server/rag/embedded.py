@@ -38,7 +38,9 @@ class EmbeddedRAGRetriever:
             allowed_evidence_ids=allowed_evidence_ids,
             owner=agent_role.value,
             top_k=top_k,
-            min_score=0.0,
+            # engine/disclosure ya decidió qué datos se pueden revelar: el RAG solo los ordena. Con un
+            # umbral, un dato autorizado con poca similitud (p. ej. con embeddings local_hash) se perdía.
+            min_score=-1.0,
             session_id=session_id,
             agent=agent_role.value,
         )

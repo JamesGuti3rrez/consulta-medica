@@ -15,11 +15,15 @@ def _normalize(text: str) -> str:
 class DecisionRouter:
     """Router determinístico del nodo central de la topología estrella."""
 
-    LAB = {"laboratorio", "analisis", "hemograma", "troponina", "glucosa", "sangre", "orina"}
-    RADIOLOGY = {"radiografia", "ecografia", "tomografia", "resonancia", "imagen", "rayos x", "tac"}
+    LAB = {
+        "laboratorio", "analisis", "hemograma", "troponina", "glucosa", "sangre", "orina",
+        "coagulacion", "coagulograma", "ttpa", "tiempo de protrombina", "ph vaginal", "tiroides", "tiroidea", "tsh",
+    }
+    RADIOLOGY = {"radiografia", "ecografia", "tomografia", "resonancia", "imagen", "rayos x", "tac", "edad osea"}
     SPECIALIST = {"especialista", "interconsulta", "neurologia", "cardiologia", "cirugia", "ginecologia"}
     ASSISTANT = {"resumen", "que sabemos", "presentacion", "historia clinica", "estado del caso"}
-    EXAMINE = {"examen fisico", "examinar", "exploracion", "neurologico"}
+    EXAMINE = {"examen fisico", "examinar", "examino", "exploracion", "exploro", "explorar", "neurologico",
+               "ausculto", "auscultar", "palpo", "palpar", "examen ginecologico"}
     HYPOTHESIS = {"mi hipotesis", "hipotesis es", "considero que", "sospecho"}
     DIAGNOSIS = {"mi diagnostico", "diagnostico final", "diagnostico es"}
     TREATMENT = {"tratamiento", "prescribo", "indicaria", "receta"}

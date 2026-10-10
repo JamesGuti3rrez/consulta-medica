@@ -182,3 +182,20 @@ def test_http_contract_matches_multiagent_http_retriever(tmp_path, monkeypatch):
     assert log_record["session_id"] == "session-1"
     assert log_record["agent"] == "paciente"
     assert log_record["results"][0]["evidence_id"] == "MED-001.anamnesis.inicio"
+
+
+def test_embedded_retriever_keeps_authorized_evidence_with_low_similarity(tmp_path):
+    from server.domain import AgentRole
+    from server.rag.embedded import EmbeddedRAGRetriever
+
+    _write_index(tmp_path)
+    retriever = EmbeddedRAGRetriever(tmp_path, tmp_path / "retrieval.jsonl")
+    assert retriever.ready
+    # Pregunta sin palabras en común con el dato: el acceso por rol ya lo autorizó, así que se entrega.
+    results = retriever.retrieve(
+        query="zzz qqq",
+        case_id="MED-001",
+        agent_role=AgentRole.PACIENTE,
+        allowed_evidence_ids=["MED-001.anamnesis.inicio"],
+    )
+    assert [item.evidence_id for item in results] == ["MED-001.anamnesis.inicio"]

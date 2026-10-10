@@ -29,6 +29,7 @@ el pipeline y los casos se quedan en su versión corregida.
 | 6 | `95b72f8` | Orquestador en estrella, trazas y API `/api/ai` | [06_orquestador/](06_orquestador/) |
 | 7 | (este paso) | Seguridad: `/api/v1/rag/*/search` y `reload` aceptaban `allowed_evidence_ids` del cliente, así que cualquiera podía leer todo el `on_request` de un caso saltándose el acceso por rol (`protected` no estaba expuesto). Ahora exigen el token entre servicios `RAG_HTTP_TOKEN` (cabecera `X-RAG-Token`); sin token configurado no se atienden. El SMA usa el RAG dentro del mismo proceso y no las necesita; `health` sigue pública | [07_rag_http_con_token/](07_rag_http_con_token/) |
 | 8 | (este paso) | Seguridad: `POST /api/ai/sessions` usaba el `case_id` del cliente como nombre de archivo, así que un valor con `../` cargaba un caso fuera del catálogo. Ahora solo se aceptan IDs con el patrón del esquema (`^[A-Z]{3,5}-\d{3}$`); cualquier otro responde 404 | [08_case_id_sin_rutas/](08_case_id_sin_rutas/) |
+| 9 | (este paso) | Casos repartidos de la rama del pipeline (fase 8). Para que el SMA funcione con ellos: el caso de prueba MED-900 usa los temas del contrato de Julio (la regla R14 lo exige); `DisclosurePolicy` reconoce esos temas con sinónimos (había dos claves duplicadas, `medicacion` y `alergias`, y la segunda anulaba a la primera); el router reconoce los exámenes de los casos (coagulación, pH vaginal, función tiroidea, edad ósea); y el RAG embebido ya no descarta por puntaje un dato que el acceso por rol autorizó (`min_score` de 0,0 a -1,0) | [09_casos_repartidos/](09_casos_repartidos/) |
 
 Adaptaciones hechas al código de Rodrigo:
 
@@ -54,17 +55,19 @@ del RAG, 3 del token del RAG y 7 del formato de `case_id`); `verificar_casos.py`
 
 - **MED-900:** responden los cinco roles y cada uno revela solo su dato; preguntar por el
   diagnóstico no lo revela.
-- **EME-001 (catálogo curado):** ninguna pregunta revela nada. Es lo esperado con los datos
-  actuales: la historia está en `public` y `on_request` solo tiene un marcador, cuyo `mode` es
-  `al_preguntar` cuando examinar exige `al_examinar`.
+- **Casos curados (paso 9), con el índice LightRAG:** en EME-001, MED-008 y CIR-005 cada pregunta
+  revela su dato: medicación, antecedentes, exploración al examinar, alergia, exposición, antecedentes
+  familiares y pruebas de coagulación. Pedir un examen que el caso no tiene («Solicito un hemograma» en
+  EME-001) o preguntar por el diagnóstico no revela nada.
+- **Antes del paso 9,** EME-001 no revelaba nada: la historia estaba en `public` y `on_request` solo
+  tenía un marcador con `al_preguntar`.
 
 ## Lo que queda pendiente
 
 | Qué | Por qué | Quién |
 | --- | --- | --- |
-| Redistribuir los 10 casos entre `public` y `on_request`, con la traducción completa y varias preguntas clave | Sin eso, el SMA no tiene nada que revelar en los casos reales | James |
-| Exploración física con `mode: al_examinar` en los casos y una regla que compruebe `owner`, `mode` y `requires` | Hoy examinar no revela el dato de exploración de ningún caso | James |
-| Unificar los nombres de `requires` | Julio usa una lista cerrada (`inicio_y_evolucion`, `alergias`...); `DisclosurePolicy` reconoce las preguntas con sinónimos escritos solo para el caso CARD-001 | Rodrigo y Julio |
+| Revisar los sinónimos de `DisclosurePolicy` y del router | Se añadieron sinónimos para los temas del contrato, pero la comparación busca el texto en cualquier parte de la frase (por ejemplo, «tac» coincide dentro de «contacto»); con un LLM, la intención se podría clasificar mejor | Rodrigo |
+| Prompt del paciente para casos sin paciente que conteste | En EME-001, EME-002 y CIR-006 el paciente no puede hablar y en PED-007 y PED-010 es un menor: el rol `paciente` representa al acompañante o a la historia clínica | Rodrigo |
 | Reforzar el filtro de salida | Solo bloquea el término exacto, no variantes ni el término en inglés | Julio |
 | Evaluación del diagnóstico y del tratamiento propuestos | El médico asistente solo repite lo revelado | Julio |
 | Conectar el chat del frontend a `/api/ai` | El simulador todavía no usa el SMA | Quien lleve el frontend |
