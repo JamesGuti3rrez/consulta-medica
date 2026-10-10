@@ -8,12 +8,17 @@ from __future__ import annotations
 
 import copy
 import json
+import re
 from pathlib import Path
 from typing import Any
 
 from .catalog import CURATED_CASES_DIR
 from .rules import check_case_rules
 from .validator import validate_case_document
+
+# Mismo patrón que case_id en schemas/caso.schema.json. El ID llega del cliente y se usa como
+# nombre de archivo: cualquier otra forma (por ejemplo, con «../») se trata como inexistente.
+CASE_ID_PATTERN = re.compile(r"^[A-Z]{3,5}-\d{3}$")
 
 
 class CaseNotFound(KeyError):
@@ -47,6 +52,8 @@ class CanonicalCaseRepository:
         return result
 
     def get_case(self, case_id: str) -> dict[str, Any]:
+        if not isinstance(case_id, str) or not CASE_ID_PATTERN.fullmatch(case_id):
+            raise CaseNotFound(case_id)
         path = self.cases_dir / f"{case_id}.json"
         if not path.exists():
             raise CaseNotFound(case_id)

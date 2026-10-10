@@ -28,6 +28,7 @@ el pipeline y los casos se quedan en su versión corregida.
 | 5 | `edecd78` | RAG: comando `index` (solo indexa casos que pasan las Quality Gates) y rutas `/api/v1/rag` | [05_rag/](05_rag/) |
 | 6 | `95b72f8` | Orquestador en estrella, trazas y API `/api/ai` | [06_orquestador/](06_orquestador/) |
 | 7 | (este paso) | Seguridad: `/api/v1/rag/*/search` y `reload` aceptaban `allowed_evidence_ids` del cliente, así que cualquiera podía leer todo el `on_request` de un caso saltándose el acceso por rol (`protected` no estaba expuesto). Ahora exigen el token entre servicios `RAG_HTTP_TOKEN` (cabecera `X-RAG-Token`); sin token configurado no se atienden. El SMA usa el RAG dentro del mismo proceso y no las necesita; `health` sigue pública | [07_rag_http_con_token/](07_rag_http_con_token/) |
+| 8 | (este paso) | Seguridad: `POST /api/ai/sessions` usaba el `case_id` del cliente como nombre de archivo, así que un valor con `../` cargaba un caso fuera del catálogo. Ahora solo se aceptan IDs con el patrón del esquema (`^[A-Z]{3,5}-\d{3}$`); cualquier otro responde 404 | [08_case_id_sin_rutas/](08_case_id_sin_rutas/) |
 
 Adaptaciones hechas al código de Rodrigo:
 
@@ -43,8 +44,8 @@ Adaptaciones hechas al código de Rodrigo:
 - No se tomaron: la copia vieja del pipeline y de los casos, `clinical_case.py` y el caso demo,
   los `CHANGESET_*.md`, los informes `.docx` ni los experimentos SP-001 y SP-003.
 
-Resultado: `pytest` pasa 88 pruebas (las 45 anteriores, la nueva de valor y unidad, 39 del SMA y
-del RAG y 3 del token del RAG); `verificar_casos.py` pasa todas sus comprobaciones.
+Resultado: `pytest` pasa 95 pruebas (las 45 anteriores, la nueva de valor y unidad, 39 del SMA y
+del RAG, 3 del token del RAG y 7 del formato de `case_id`); `verificar_casos.py` pasa todas sus comprobaciones.
 
 ## Consulta simulada
 
