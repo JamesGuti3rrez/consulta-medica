@@ -1,0 +1,21 @@
+# Solo para el despliegue en Vercel. El backend se instala y se desarrolla desde backend/pyproject.toml;
+# aquí van sus dependencias de ejecución (sin los extras de preparación de casos ni de indexado, que el
+# servidor publicado no usa).
+[project]
+name = "consulta-medica-vercel"
+version = "1.0.0"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi==0.141.1",
+    "uvicorn==0.54.0",
+    "python-dotenv==1.2.3",
+    "httpx==0.28.1",
+    "jsonschema==4.23.0",
+    "langgraph==1.2.14",
+    "langsmith==0.14.7",
+    "numpy==2.5.3",
+]
+
+[tool.vercel]
+# vercel_app.py añade backend/ a la ruta de importación y expone la aplicación FastAPI.
+entrypoint = "vercel_app:app"

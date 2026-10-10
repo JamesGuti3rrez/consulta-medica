@@ -1,0 +1,15 @@
+# Lo que no se sube a Vercel. Los secretos van en las variables del proyecto, nunca en archivos.
+.env
+.env.*
+!.env.example
+.venv/
+backend/.venv/
+backend/logs/
+backend/tests/
+node_modules/
+DOCUMENTOS DEL PROYECTO/
+docs/
+pruebas/
+data/raw/
+data/interim/
+data/indexes/

@@ -31,3 +31,21 @@ node scripts/python.mjs setup
 cd backend
 node scripts/python.mjs start
 ```
+
+## Despliegue en Vercel
+
+Vercel publica `main` automáticamente (proyecto `consulta-medica`, preset FastAPI). Archivos de la raíz:
+
+| Archivo | Para qué sirve |
+| --- | --- |
+| `vercel_app.py` | Punto de entrada: añade `backend/` a la ruta de importación y expone `server.main:app`. |
+| `pyproject.toml` | Dependencias de ejecución del servidor publicado y `[tool.vercel] entrypoint`. Si cambian las de `backend/pyproject.toml`, hay que copiarlas aquí. |
+| `vercel.json` | Compila el frontend (`npm ci && npm run build`: estilos e imágenes) e incluye `frontend/public` en la función, que sirve las páginas igual que en local. |
+| `.vercelignore` | Excluye del despliegue el `.env`, los entornos, las pruebas, los documentos y los datos sin procesar. |
+
+Variables del proyecto en Vercel (Production y Preview): `GROQ_API_KEYS`, `AI_TRACE_PATH=/tmp/ai_traces.jsonl`
+y `RAG_LOG_PATH=/tmp/rag_retrieval.jsonl` (en Vercel solo se puede escribir en `/tmp`) y `RAG_EMBEDDED=false`
+(el índice LightRAG no se publica; los agentes leen la evidencia del caso). Las claves nunca van en el repositorio.
+
+Limitación: las sesiones de la consulta viven en memoria. Vercel suele reutilizar la misma instancia, pero si una
+petición cae en otra, la sesión se pierde y hay que iniciar otra consulta.

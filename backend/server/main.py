@@ -48,5 +48,7 @@ app.include_router(ai_router)
 app.include_router(rag_router)
 app.include_router(api_router)
 
-# Todo lo demás son los archivos del frontend.
-app.mount("/", StaticFiles(directory=PUBLIC_DIR, html=True), name="public")
+# Todo lo demás son los archivos del frontend. En Vercel los sirve su CDN desde public/ (lo copia el
+# paso de compilación de vercel.json) y la carpeta no viaja con la función: solo se montan si existen.
+if PUBLIC_DIR.is_dir():
+    app.mount("/", StaticFiles(directory=PUBLIC_DIR, html=True), name="public")
