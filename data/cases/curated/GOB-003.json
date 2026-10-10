@@ -20,28 +20,28 @@
     "chief_complaint": {
       "evidence_id": "GOB-003.motivo.queja_principal",
       "category": "motivo",
-      "label": "Queja principal",
-      "text": "Mujer de 24 años tuvo un parto a término con Apgar 9 y 10."
+      "label": "Motivo de consulta",
+      "text": "A la mañana siguiente del parto no puede lactar cuando intenta amamantar a su bebé."
     },
     "items": [
       {
-        "evidence_id": "GOB-003.historia.fuente_medqa",
+        "evidence_id": "GOB-003.anamnesis.evolucion_parto",
         "category": "anamnesis",
-        "label": "Resumen clínico (adaptado de MedQA)",
-        "text": "Mujer de 24 años tuvo un parto a término con Apgar 9 y 10. A los 30 minutos presentó hipotensión (80/60 mmHg), taquicardia (124/min), extremidades frías y útero atónico; recibió reanimación con cuatro unidades de líquidos intravenosos y cuatro unidades de sangre total, con estabilización posterior. A la mañana siguiente informó que no podía lactar."
+        "label": "Evolución del parto",
+        "text": "Parto a término. Apgar del recién nacido: 9 al minuto y 10 a los 5 minutos. Treinta minutos después del parto, la presión arterial de la madre bajó a 80/60 mmHg y su pulso fue de 124/min. Se inició reanimación intensiva con líquidos: tras administrar 4 unidades de líquidos intravenosos y 4 unidades de sangre total, sus signos vitales se estabilizaron."
       }
     ],
     "allergies_recorded": false
   },
   "on_request": [
     {
-      "evidence_id": "GOB-003.solicitud.exploracion_fisica",
+      "evidence_id": "GOB-003.examen.exploracion_fisica",
       "category": "examen_fisico",
       "label": "Exploración física",
-      "text": "Los hallazgos de exploración física descritos por la fuente ya están incluidos en la historia pública; no se documentan otros hallazgos para revelar.",
+      "text": "Exploración registrada a los 30 minutos del parto: extremidades distales frías y húmedas; útero blando (atónico).",
       "reveal_policy": {
         "owner": "medico_asistente",
-        "mode": "al_preguntar",
+        "mode": "al_examinar",
         "requires": [
           "exploracion_fisica"
         ]
@@ -89,11 +89,21 @@
       "key_questions": [
         {
           "id": "kq1",
-          "topic": "Traducción al español: Mujer de 24 años tiene un parto a término; el recién nacido obtiene Apgar de 9 y 10 al minuto y a los 5 minutos, respectivamente. Treinta minutos después, la madre presenta presión arterial de 80/60 mmHg y pulso de 124/min; tiene extremidades frías y húmedas y útero atónico. Se administran cuatro unidades de líquidos intravenosos y cuatro unidades de sangre total, tras lo cual se estabiliza. A la mañana siguiente refiere que no puede lactar. Según la fuente, ¿cuál es la causa más probable de la falla de lactancia? Opciones traducidas: Tumor hipofisario; Tristeza puerperal; Restos placentarios retenidos; Infarto hipofisario; Hemorragia hipofisaria. Respuesta fuente: D — Pituitary infarction. Texto fuente conservado (inglés): A 24-year-old woman delivers a baby at term. The Apgar counts are 9 and 10 at 1 and 5 minutes, respectively. Thirty minutes after delivery, the mother’s blood pressure drops to 80/60 mm Hg and her pulse is 124/min. On physical examination, her distal extremities are clammy and cold, and the uterus is boggy. Aggressive fluid resuscitation is initiated. After administering 4 units of IV fluids and 4 units of whole blood, her vitals stabilize. The next morning, she says she is unable to lactate when she tries to breastfeed her child. Which of the following is the most likely cause of the failure of lactation in this patient? Opciones fuente: Pituitary tumor; Postpartum blues; Remains of placenta in uterus; Pituitary infarction; Pituitary hemorrhage",
+          "topic": "Traducción al español: Mujer de 24 años tiene un parto a término. El Apgar del recién nacido es de 9 y 10 al minuto y a los 5 minutos, respectivamente. Treinta minutos después del parto, la presión arterial de la madre baja a 80/60 mmHg y su pulso es de 124/min. En la exploración física, sus extremidades distales están frías y húmedas y el útero está blando (atónico). Se inicia reanimación intensiva con líquidos. Tras administrar 4 unidades de líquidos intravenosos y 4 unidades de sangre total, sus signos vitales se estabilizan. A la mañana siguiente refiere que no puede lactar cuando intenta amamantar a su hijo. ¿Cuál es la causa más probable de la falla de lactancia en esta paciente? Opciones traducidas: Tumor hipofisario; Tristeza puerperal; Restos placentarios retenidos; Infarto hipofisario; Hemorragia hipofisaria. Respuesta fuente: D — Pituitary infarction. Texto fuente conservado (inglés): A 24-year-old woman delivers a baby at term. The Apgar counts are 9 and 10 at 1 and 5 minutes, respectively. Thirty minutes after delivery, the mother’s blood pressure drops to 80/60 mm Hg and her pulse is 124/min. On physical examination, her distal extremities are clammy and cold, and the uterus is boggy. Aggressive fluid resuscitation is initiated. After administering 4 units of IV fluids and 4 units of whole blood, her vitals stabilize. The next morning, she says she is unable to lactate when she tries to breastfeed her child. Which of the following is the most likely cause of the failure of lactation in this patient? Opciones fuente: Pituitary tumor; Postpartum blues; Remains of placenta in uterus; Pituitary infarction; Pituitary hemorrhage",
           "evidence_ids": [
-            "GOB-003.historia.fuente_medqa"
+            "GOB-003.motivo.queja_principal"
           ],
           "weight": 3,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "id": "kq2",
+          "topic": "Exploración física tras el parto: extremidades frías y húmedas, útero atónico",
+          "evidence_ids": [
+            "GOB-003.examen.exploracion_fisica"
+          ],
+          "weight": 4,
           "critical": true,
           "error_if_missing": "razonamiento_clinico"
         }

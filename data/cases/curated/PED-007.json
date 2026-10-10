@@ -20,30 +20,70 @@
     "chief_complaint": {
       "evidence_id": "PED-007.motivo.queja_principal",
       "category": "motivo",
-      "label": "Queja principal",
-      "text": "Niño de 7 años presenta cojera y dolor referido en la rodilla izquierda."
+      "label": "Motivo de consulta",
+      "text": "Cojea y protege la pierna izquierda; su madre nota que cambió su forma de jugar."
     },
     "items": [
       {
-        "evidence_id": "PED-007.historia.fuente_medqa",
-        "category": "anamnesis",
-        "label": "Resumen clínico (adaptado de MedQA)",
-        "text": "Niño de 7 años presenta cojera y dolor referido en la rodilla izquierda. Está afebril, con signos vitales estables y desarrollo adecuado. La rodilla conserva todo su rango de movimiento, pero la movilización pasiva de la cadera provoca dolor; la radiografía muestra aplanamiento de la cabeza femoral izquierda."
+        "evidence_id": "PED-007.vital.signos_vitales",
+        "category": "signo_vital",
+        "label": "Signos vitales",
+        "text": "Afebril; signos vitales estables."
       }
     ],
     "allergies_recorded": false
   },
   "on_request": [
     {
-      "evidence_id": "PED-007.solicitud.exploracion_fisica",
-      "category": "examen_fisico",
-      "label": "Exploración física",
-      "text": "Los hallazgos de exploración física descritos por la fuente ya están incluidos en la historia pública; no se documentan otros hallazgos para revelar.",
+      "evidence_id": "PED-007.sintoma.dolor",
+      "category": "sintoma",
+      "label": "Localización del dolor",
+      "text": "Al preguntarle, el niño dice que le duele la rodilla izquierda.",
       "reveal_policy": {
-        "owner": "medico_asistente",
+        "owner": "paciente",
         "mode": "al_preguntar",
         "requires": [
+          "caracteristicas_sintoma"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-007.antecedente.antecedentes",
+      "category": "antecedente",
+      "label": "Desarrollo y nutrición",
+      "text": "Está bien nutrido y cumple todos los hitos del desarrollo.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "antecedentes_personales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-007.examen.exploracion_fisica",
+      "category": "examen_fisico",
+      "label": "Exploración física",
+      "text": "La rodilla tiene rango de movimiento completo; la movilización pasiva provoca dolor en la cadera izquierda.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
           "exploracion_fisica"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-007.imagen.radiografia",
+      "category": "imagen",
+      "label": "Radiografía",
+      "text": "Cabeza femoral izquierda aplanada.",
+      "interpretation": "A",
+      "reveal_policy": {
+        "owner": "radiologia",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "radiografia"
         ]
       }
     }
@@ -89,13 +129,43 @@
       "key_questions": [
         {
           "id": "kq1",
-          "topic": "Traducción al español: Niño de 7 años presenta cojera y favorece la pierna izquierda; refiere dolor en la rodilla. Está afebril y con signos vitales estables. La rodilla tiene rango de movimiento completo, pero la movilización pasiva provoca dolor en la cadera izquierda. La radiografía muestra aplanamiento de la cabeza femoral izquierda. ¿Cuál es el diagnóstico más probable? Opciones traducidas: Artritis séptica; Raquitismo; Osteopetrosis; Enfermedad de Legg-Calvé-Perthes; Enfermedad de Osgood-Schlatter; Epifisiólisis de la cabeza femoral; Artritis idiopática juvenil. Respuesta fuente: D — Legg-Calvé-Perthes disease (LCPD). Texto fuente conservado (inglés): A 7-year-old boy presents to the clinic with his mother, who notes that the way in which he plays has changed and that he has been limping, favoring his left leg. When asked, the patient states that his left knee hurts. He is afebrile and vital signs are stable. The patient is well nourished and meeting all developmental milestones. On physical examination, the knee has a full range of motion; however, passive motion elicits pain in the left hip. An X-ray is performed and reveals a flattened left femoral head. Which of the following is the most likely diagnosis? Opciones fuente: Septic arthritis; Rickets; Osteopetrosis; Legg-Calvé-Perthes disease (LCPD); Osgood-Schlatter disease (OSD); Slipped capital femoral epiphysis; Juvenile idiopathic arthritis (JIA)",
+          "topic": "Traducción al español: Niño de 7 años acude a consulta con su madre, que nota que ha cambiado su forma de jugar y que cojea, protegiendo la pierna izquierda. Al preguntarle, el niño dice que le duele la rodilla izquierda. Está afebril y con signos vitales estables. Está bien nutrido y cumple todos los hitos del desarrollo. En la exploración física, la rodilla tiene rango de movimiento completo; sin embargo, la movilización pasiva provoca dolor en la cadera izquierda. Se realiza una radiografía que muestra una cabeza femoral izquierda aplanada. ¿Cuál es el diagnóstico más probable? Opciones traducidas: Artritis séptica; Raquitismo; Osteopetrosis; Enfermedad de Legg-Calvé-Perthes; Enfermedad de Osgood-Schlatter; Epifisiólisis de la cabeza femoral; Artritis idiopática juvenil. Respuesta fuente: D — Legg-Calvé-Perthes disease (LCPD). Texto fuente conservado (inglés): A 7-year-old boy presents to the clinic with his mother, who notes that the way in which he plays has changed and that he has been limping, favoring his left leg. When asked, the patient states that his left knee hurts. He is afebrile and vital signs are stable. The patient is well nourished and meeting all developmental milestones. On physical examination, the knee has a full range of motion; however, passive motion elicits pain in the left hip. An X-ray is performed and reveals a flattened left femoral head. Which of the following is the most likely diagnosis? Opciones fuente: Septic arthritis; Rickets; Osteopetrosis; Legg-Calvé-Perthes disease (LCPD); Osgood-Schlatter disease (OSD); Slipped capital femoral epiphysis; Juvenile idiopathic arthritis (JIA)",
           "evidence_ids": [
-            "PED-007.historia.fuente_medqa"
+            "PED-007.motivo.queja_principal"
           ],
           "weight": 3,
           "critical": true,
           "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "id": "kq2",
+          "topic": "Exploración de rodilla y cadera: dolor de cadera a la movilización pasiva",
+          "evidence_ids": [
+            "PED-007.examen.exploracion_fisica"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "id": "kq3",
+          "topic": "Radiografía: cabeza femoral izquierda aplanada",
+          "evidence_ids": [
+            "PED-007.imagen.radiografia"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "id": "kq4",
+          "topic": "Localización del dolor referido en la rodilla",
+          "evidence_ids": [
+            "PED-007.sintoma.dolor"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "anamnesis_incompleta"
         }
       ],
       "tests": {

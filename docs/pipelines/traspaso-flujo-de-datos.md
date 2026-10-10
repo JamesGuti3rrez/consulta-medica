@@ -1,6 +1,6 @@
 # Traspaso: flujo de datos de casos → siguiente etapa
 
-**Responsable de esta etapa:** James Gutiérrez · **Fecha:** 2026-10-08 · **Actualizada:** 2026-10-09
+**Responsable de esta etapa:** James Gutiérrez · **Fecha:** 2026-10-08 · **Actualizada:** 2026-10-09 (reparto de los casos)
 
 Esta nota resume qué entrega la etapa de datos y qué debe saber quien implemente el diálogo clínico o
 la base de datos. Aquí no se implementa nada de esas etapas.
@@ -24,34 +24,25 @@ la base de datos. Aquí no se implementa nada de esas etapas.
 - **Evidencias** de cada fase en `pruebas/`; todo se repite con
   `backend\.venv\Scripts\python.exe pruebas\_herramientas\recorrido_completo.py`.
 
-## Limitación que afecta al diálogo clínico
+## Reparto de los casos para el diálogo clínico
 
-En los 10 casos, **toda la historia clínica está en la ficha pública** (`public.chief_complaint` y
-`public.items`). En `on_request` hay un solo elemento por caso (`solicitud.exploracion_fisica`), cuyo
-texto es un marcador: «los hallazgos … ya están incluidos en la historia pública; no se documentan
-otros hallazgos para revelar».
-
-Consecuencia: hoy no hay información que el paciente o el médico asistente puedan revelar al
-preguntar o examinar. Un diálogo sobre estos casos solo repetiría la ficha o, si usa un LLM, tendría
-que inventar respuestas. El aviso W01 de las Quality Gates lo señala: 4 casos tienen laboratorio o
-examen físico en `public`, que según la arquitectura (§6.1) y el SP-002 van en `on_request`.
-
-Además, el texto público es un resumen adaptado del enunciado, no su traducción completa, y cada caso
-tiene una sola `key_question` cuyo campo `topic` guarda el enunciado original. La redistribución debe
-hacer las tres cosas a la vez: traducción completa, reparto entre zonas y preguntas clave que citen la
-evidencia de `on_request`.
-
-Antes del diálogo habrá que redistribuir cada caso, como nueva versión del lote curado:
+Desde el 2026-10-09 cada caso separa lo que el estudiante ve al inicio de lo que debe obtener
+(`pruebas/08_redistribucion_casos/`):
 
 | Dónde | Qué | Quién lo revela (`reveal_policy`) |
 | --- | --- | --- |
 | `public` | Alias, edad y sexo, motivo de consulta, datos de llegada y signos vitales (arquitectura §6.1) | — (visible desde el inicio) |
-| `on_request` | Anamnesis (tiempo de evolución, antecedentes, hábitos…) | `paciente`, `al_preguntar` |
+| `on_request` | Anamnesis: evolución, síntomas asociados, antecedentes, medicación, alergias, hábitos | `paciente`, `al_preguntar` |
 | `on_request` | Exploración física | `medico_asistente`, `al_examinar` |
 | `on_request` | Laboratorio e imágenes | `laboratorio` / `radiologia`, `al_solicitar_examen` |
 
-El esquema ya admite todo esto; solo cambia el contenido de los casos. El enunciado original de MedQA
-se conserva en `protected` y sirve para verificar que no se pierda ni se invente ningún dato.
+En total hay 34 datos a petición y 38 preguntas clave en los 10 casos. Los temas de `requires` son los
+del contrato de indexado del RAG (Julio) y la regla R14 los comprueba. El reparto vive en
+`data/cases/reviews/medqa_lote_curacion.json` (`distribution`) y el enunciado original de MedQA se
+conserva en `protected` para verificar que no se pierda ni se invente ningún dato.
+
+Para quien implemente el diálogo: en EME-001, EME-002 y CIR-006 el paciente no puede contestar y en
+PED-007 y PED-010 es un menor; el rol `paciente` representa al acompañante o a la historia clínica.
 
 ## Idea de funcionamiento recogida (pendiente de decidir)
 

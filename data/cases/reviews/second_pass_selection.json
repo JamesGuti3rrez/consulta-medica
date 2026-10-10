@@ -1,6 +1,6 @@
 {
   "dataset": "MedQA",
-  "status": "ai_assisted_curation_completed",
+  "status": "curacion_con_revision_documentada",
   "selected_count": 10,
   "specialty_counts": {
     "emergencias": 2,
@@ -151,9 +151,7 @@
       "source_file": "data_clean.zip:data_clean/questions/US/US_qbank.jsonl",
       "source_line": 8431,
       "question_type": "diagnostico",
-      "quality_gate_warnings": [
-        "W01 laboratorio o examen físico en public: ['exploración', 'ph vaginal']"
-      ],
+      "quality_gate_warnings": [],
       "specialty": "ginecologia_obstetricia",
       "source_answer": "E",
       "source_answer_text": "Trichomoniasis",
@@ -181,9 +179,7 @@
       "source_file": "data_clean.zip:data_clean/questions/US/US_qbank.jsonl",
       "source_line": 9978,
       "question_type": "diagnostico",
-      "quality_gate_warnings": [
-        "W01 laboratorio o examen físico en public: ['tiempo de protrombina']"
-      ],
+      "quality_gate_warnings": [],
       "specialty": "cirugia_general",
       "source_answer": "A",
       "source_answer_text": "Hemophilia A",
@@ -210,9 +206,7 @@
       "source_file": "data_clean.zip:data_clean/questions/US/US_qbank.jsonl",
       "source_line": 10428,
       "question_type": "diagnostico",
-      "quality_gate_warnings": [
-        "W01 laboratorio o examen físico en public: ['crepitantes']"
-      ],
+      "quality_gate_warnings": [],
       "specialty": "cirugia_general",
       "source_answer": "C",
       "source_answer_text": "Sepsis",
@@ -239,9 +233,7 @@
       "source_file": "data_clean.zip:data_clean/questions/US/US_qbank.jsonl",
       "source_line": 7214,
       "question_type": "diagnostico",
-      "quality_gate_warnings": [
-        "W01 laboratorio o examen físico en public: ['radiografía']"
-      ],
+      "quality_gate_warnings": [],
       "specialty": "pediatria",
       "source_answer": "D",
       "source_answer_text": "Legg-Calvé-Perthes disease (LCPD)",

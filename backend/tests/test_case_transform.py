@@ -9,6 +9,21 @@ from case_preparation.transform.medqa_final_review import (
 )
 from server.cases.validator import validate_case_document
 
+DISTRIBUTION = {
+    "chief_complaint": "Fiebre y dolor abdominal.",
+    "public": [{"key": "signos_vitales", "category": "signo_vital", "label": "Signos vitales", "text": "Fiebre."}],
+    "on_request": [
+        {"key": "dolor", "category": "sintoma", "label": "Dolor", "text": "Dolor abdominal.",
+         "owner": "paciente", "requires": ["caracteristicas_sintoma"]},
+        {"key": "exploracion_fisica", "category": "examen_fisico", "label": "Exploración física",
+         "text": "Abdomen doloroso.", "owner": "medico_asistente", "requires": ["exploracion_fisica"]},
+    ],
+    "key_questions": [
+        {"topic": "Exploración abdominal", "evidence": ["exploracion_fisica"], "weight": 5, "critical": True,
+         "error_if_missing": "razonamiento_clinico"},
+    ],
+}
+
 
 def test_build_case_validates_against_schema():
     candidate = {
@@ -19,6 +34,7 @@ def test_build_case_validates_against_schema():
         "specialty": "pediatria",
         "question_translation_es": "Niña de 16 años con fiebre y dolor abdominal: ¿cuál es el diagnóstico más probable?",
         "options_translation_es": ["Apendicitis", "Neumonía", "Migraña", "Ansiedad"],
+        "distribution": DISTRIBUTION,
     }
 
     case = _build_case(candidate, 1)
@@ -26,8 +42,12 @@ def test_build_case_validates_against_schema():
     assert case["case_id"] == "PED-001"
     assert case["public"]["patient"]["age_years"] == 16
     assert case["public"]["patient"]["sex"] == "femenino"
-    assert case["public"]["items"][0]["text"] == candidate["question"]
-    assert "ya están incluidos en la historia pública" in case["on_request"][0]["text"]
+    assert case["public"]["chief_complaint"]["text"] == "Fiebre y dolor abdominal."
+    assert case["public"]["items"][0]["evidence_id"] == "PED-001.vital.signos_vitales"
+    policies = {item["evidence_id"]: item["reveal_policy"] for item in case["on_request"]}
+    assert policies["PED-001.sintoma.dolor"]["mode"] == "al_preguntar"
+    assert policies["PED-001.examen.exploracion_fisica"]["mode"] == "al_examinar"
+    assert case["protected"]["evaluation"]["key_questions"][1]["evidence_ids"] == ["PED-001.examen.exploracion_fisica"]
     assert case["protected"]["diagnosis"]["name"] == "A. Appendicitis"
     topic = case["protected"]["evaluation"]["key_questions"][0]["topic"]
     assert topic.startswith("Traducción al español:")
@@ -49,6 +69,22 @@ def test_build_case_requires_source_demographics():
         _build_case(candidate, 1)
     except ValueError as error:
         assert "edad y sexo inequívocos" in str(error)
+    else:
+        raise AssertionError("Se esperaba rechazar un caso sin edad y sexo de origen.")
+
+
+def test_build_case_requires_distribution():
+    candidate = {
+        "candidate_id": "medqa-00004",
+        "question": "A 30-year-old man presents with fever. Which is the most likely diagnosis?",
+        "options": ["A. Influenza", "B. Pneumonia"],
+        "answer": "A",
+        "specialty": "medicina_interna",
+    }
+    try:
+        _build_case(candidate, 1)
+    except ValueError as error:
+        assert "reparto" in str(error)
     else:
         raise AssertionError("Se esperaba rechazar un caso sin edad y sexo de origen.")
 
@@ -96,7 +132,7 @@ def test_final_review_batch_uses_supported_postoperative_and_emergency_cases():
         "MED-009",
         "PED-010",
     ]
-    assert "TTPa prolongado" in SPANISH_SOURCE_TEXT["medqa-4135d59786b5b7ac"]["question"]
+    assert "tiempo de tromboplastina parcial prolongado" in SPANISH_SOURCE_TEXT["medqa-4135d59786b5b7ac"]["question"]
     assert "frecuencia respiratoria de 20/min" in SPANISH_SOURCE_TEXT["medqa-83b0322c93dff066"]["question"]
 
 
@@ -115,6 +151,7 @@ def test_build_case_preserves_differential_risk_and_reviewed_test_recommendation
         ],
         "recommended_tests": ["tc_craneal_sin_contraste_urgente"],
         "optional_tests": ["puncion_lumbar_si_persiste_sospecha"],
+        "distribution": DISTRIBUTION,
     }
 
     case = _build_case(candidate, 1)
@@ -138,6 +175,7 @@ def test_curation_changes_only_status_and_curation_provenance():
         "answer_text": "Subarachnoid hemorrhage",
         "specialty": "emergencias",
         "clinical_diagnosis": "Hemorragia subaracnoidea",
+        "distribution": DISTRIBUTION,
     }
     case = _build_case(candidate, 1)
     original_public = case["public"].copy()

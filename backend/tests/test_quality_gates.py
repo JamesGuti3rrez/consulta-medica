@@ -13,9 +13,13 @@ def _load(folder: str, case_id: str) -> dict:
 
 
 def test_accepts_curated_case_and_reports_warnings():
-    result = evaluate_case(_load("curated", "GOB-004"))
+    case = _load("curated", "GOB-004")
+    result = evaluate_case(case)
     assert result.accepted
-    assert result.errors == []
+    assert result.errors == [] and result.warnings == []
+    case["public"]["items"][0]["text"] = "Exploración: cérvix en fresa."
+    result = evaluate_case(case)
+    assert result.accepted
     assert result.warnings and result.warnings[0].startswith("W01")
 
 
