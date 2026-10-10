@@ -60,7 +60,8 @@ def test_r04_diagnosis_not_visible(case):
 
 
 def test_r05_allergies_consistent(case):
-    case["public"]["allergies"] = []
+    case["public"]["allergies_recorded"] = True
+    case["public"].pop("allergies", None)
     assert "R05" in _codes(case)
 
 
@@ -120,8 +121,30 @@ def test_r13_accepts_source_figures_written_in_words_or_without_leading_zero():
 
 def test_w01_warns_about_exam_in_public_without_blocking():
     surgical = _load("curated", "CIR-006")
+    assert check_case_warnings(surgical) == []
+    surgical["public"]["items"][0]["text"] += " Tiene crepitantes en la base pulmonar derecha."
     assert check_case_rules(surgical) == []
     assert [warning.split(" ", 1)[0] for warning in check_case_warnings(surgical)] == ["W01"]
+
+
+def test_r14_mode_must_match_owner(case):
+    exam = next(item for item in case["on_request"] if item["reveal_policy"]["owner"] == "medico_asistente")
+    exam["reveal_policy"]["mode"] = "al_preguntar"
+    assert "R14" in _codes(case)
+
+
+def test_r14_patient_and_assistant_use_agreed_topics(case):
+    patient = next(item for item in case["on_request"] if item["reveal_policy"]["owner"] == "paciente")
+    patient["reveal_policy"]["requires"] = ["tema_inventado"]
+    assert "R14" in _codes(case)
+
+
+def test_curated_cases_reveal_history_on_request():
+    for path in sorted((CASES_DIR / "curated").glob("*.json")):
+        case = json.loads(path.read_text(encoding="utf-8"))
+        assert case["on_request"], case["case_id"]
+        assert all("ya están incluidos en la historia pública" not in item["text"] for item in case["on_request"])
+        assert len(case["protected"]["evaluation"]["key_questions"]) >= 2, case["case_id"]
 
 
 def test_items_with_value_and_unit_instead_of_text(case):

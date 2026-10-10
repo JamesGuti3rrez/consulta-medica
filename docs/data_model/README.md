@@ -24,6 +24,7 @@ El respaldo del esquema (EN-001) menciona reglas «E02 a E13», pero su definici
 | R11 | Los diferenciales (opciones incorrectas) no salen de `protected` | SP-002, riesgo R1 | Rechaza |
 | R12 | No queda texto de la pregunta de opción múltiple | SP-002, regla 4 | Rechaza |
 | R13 | No hay cifras que no estén en el enunciado original (acepta cifras escritas con letras) | SP-002, regla 3 | Rechaza |
+| R14 | Cada dato bajo solicitud usa el modo de su dueño (paciente `al_preguntar`, médico asistente `al_examinar`, laboratorio y radiología `al_solicitar_examen`); paciente y médico asistente solo usan los temas acordados de `requires` | Contrato de indexado del RAG | Rechaza |
 | W01 | Laboratorio, imágenes y examen físico no van en `public` | SP-002 regla 2 y arquitectura §6.1 | Aviso: no bloquea hasta redistribuir los casos entre `public` y `on_request` |
 - Tablas de Supabase: se documentarán aquí a partir de `backend/supabase/migrations/`.
 - Observaciones del análisis: `observaciones_caso_schema.md`.

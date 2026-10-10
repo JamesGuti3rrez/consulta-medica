@@ -37,6 +37,19 @@ EXAM_OR_LAB = re.compile(
     r"|tiempo de (?:tromboplastina|protrombina)|ph vaginal)\b",
     re.IGNORECASE,
 )
+# Contrato de revelación del indexado del RAG (rama feature/rag-light-rag-sprint1,
+# case_preparation/indexing/documents.py): qué temas puede revelar cada dueño y con qué acción.
+PATIENT_REQUIRES = frozenset({
+    "inicio_y_evolucion", "caracteristicas_sintoma", "sintomas_asociados", "antecedentes_personales",
+    "antecedentes_familiares", "medicacion", "alergias", "habitos", "antecedentes_gineco_obstetricos",
+})
+ASSISTANT_REQUIRES = frozenset({"signos_vitales", "exploracion_fisica"})
+MODE_BY_OWNER = {
+    "paciente": "al_preguntar",
+    "medico_asistente": "al_examinar",
+    "laboratorio": "al_solicitar_examen",
+    "radiologia": "al_solicitar_examen",
+}
 NUMBER = re.compile(r"\d*[.,]?\d+")
 # La fuente a veces escribe las cifras con letras («Thirty minutes»): cuentan como la cifra.
 NUMBER_WORDS = {
@@ -176,6 +189,18 @@ def check_case_rules(case: dict[str, Any]) -> list[str]:
         invented = sorted(_numbers(_visible_text(case)) - source_numbers - _numbers(case["case_id"]))
         if invented:
             errors.append(f"R13 cifras que no están en la fuente: {invented}")
+
+    # R14 · contrato de revelación del RAG: cada dato bajo solicitud tiene el modo de su dueño, y el
+    # paciente y el médico asistente solo usan los temas acordados.
+    for item in case["on_request"]:
+        policy = item["reveal_policy"]
+        owner, mode, requires = policy["owner"], policy["mode"], set(policy["requires"])
+        expected_mode = MODE_BY_OWNER.get(owner)
+        if expected_mode and mode != expected_mode:
+            errors.append(f"R14 {item['evidence_id']}: {owner} revela con {expected_mode}, no con {mode}")
+        allowed = {"paciente": PATIENT_REQUIRES, "medico_asistente": ASSISTANT_REQUIRES}.get(owner)
+        if allowed is not None and not requires <= allowed:
+            errors.append(f"R14 {item['evidence_id']}: temas no acordados para {owner}: {sorted(requires - allowed)}")
 
     return errors
 

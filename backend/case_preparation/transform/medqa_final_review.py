@@ -44,6 +44,7 @@ CLINICAL_REVIEW: dict[str, dict[str, Any]] = _CURATION_INPUT["clinical_review"]
 CLINICAL_OVERRIDES: dict[str, dict[str, Any]] = _CURATION_INPUT["clinical_overrides"]
 LEGACY_CASES_TO_REJECT: dict[str, str] = _CURATION_INPUT["legacy_cases_to_reject"]
 INVALIDATED_LEGACY_CURATIONS: set[str] = set(_CURATION_INPUT["invalidated_legacy_curations"])
+DISTRIBUTION: dict[str, dict[str, Any]] = _CURATION_INPUT["distribution"]
 
 
 def _load_selected_sources(path: Path) -> dict[str, dict[str, Any]]:
@@ -268,6 +269,7 @@ def build_reviewed_cases() -> dict[str, Any]:
         candidate = dict(sources[selection["candidate_id"]])
         candidate.update({key: value for key, value in selection.items() if key != "rationale"})
         candidate.update(CLINICAL_OVERRIDES[selection["case_id"]])
+        candidate["distribution"] = DISTRIBUTION[selection["case_id"]]
         translation = SPANISH_SOURCE_TEXT[selection["candidate_id"]]
         if len(translation["options"]) != len(candidate["options"]):
             raise ValueError(f"La traducción de opciones no coincide con la fuente para {selection['case_id']}.")

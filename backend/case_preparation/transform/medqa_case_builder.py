@@ -21,6 +21,26 @@ SPECIALTY_PREFIX = {
     "cirugia_general": "CIR",
     "emergencias": "EME",
 }
+# Tipo del evidence_id (CASO.tipo.nombre) según la categoría del dato.
+EVIDENCE_TYPE = {
+    "motivo": "motivo",
+    "sintoma": "sintoma",
+    "antecedente": "antecedente",
+    "medicacion": "medicacion",
+    "signo_vital": "vital",
+    "anamnesis": "anamnesis",
+    "examen_fisico": "examen",
+    "laboratorio": "lab",
+    "imagen": "imagen",
+    "estudio": "estudio",
+}
+# Acción del estudiante que revela el dato, según su dueño (contrato de indexado del RAG, regla R14).
+MODE_BY_OWNER = {
+    "paciente": "al_preguntar",
+    "medico_asistente": "al_examinar",
+    "laboratorio": "al_solicitar_examen",
+    "radiologia": "al_solicitar_examen",
+}
 SPECIALTY_LABEL = {
     "medicina_interna": "medicina interna",
     "pediatria": "pediatría",
@@ -81,6 +101,24 @@ def _question_as_title(question: str, specialty: str) -> str:
     return f"Paciente {age_suffix} con cuadro de {SPECIALTY_LABEL[specialty]}"
 
 
+def _evidence(case_id: str, entry: dict[str, Any]) -> dict[str, Any]:
+    item = {
+        "evidence_id": f"{case_id}.{EVIDENCE_TYPE[entry['category']]}.{entry['key']}",
+        "category": entry["category"],
+        "label": entry["label"],
+        "text": entry["text"],
+    }
+    if "interpretation" in entry:
+        item["interpretation"] = entry["interpretation"]
+    if "owner" in entry:
+        item["reveal_policy"] = {
+            "owner": entry["owner"],
+            "mode": MODE_BY_OWNER[entry["owner"]],
+            "requires": entry["requires"],
+        }
+    return item
+
+
 def _build_case(candidate: dict[str, Any], index: int) -> dict[str, Any]:
     specialty = candidate.get("specialty", "medicina_interna")
     question = _clean_question_text(candidate.get("question", ""))
@@ -100,9 +138,15 @@ def _build_case(candidate: dict[str, Any], index: int) -> dict[str, Any]:
         raise ValueError(f"El caso {candidate.get('candidate_id')} no tiene una respuesta correcta recuperable.")
 
     title = _question_as_title(question, specialty)
-    public_case_text = _as_text(candidate.get("clinical_summary_es")) or question
-    chief_complaint = re.split(r"(?<=[.!?])\s+", public_case_text, maxsplit=1)[0]
-    source_evidence_id = f"{case_id}.historia.fuente_medqa"
+    # Reparto de cada dato entre public y on_request (data/cases/reviews/medqa_lote_curacion.json).
+    distribution = candidate.get("distribution")
+    if not distribution:
+        raise ValueError(f"El caso {case_id} no tiene reparto entre public y on_request.")
+    chief_complaint_id = f"{case_id}.motivo.queja_principal"
+    public_items = [_evidence(case_id, entry) for entry in distribution["public"]]
+    on_request = [_evidence(case_id, entry) for entry in distribution["on_request"]]
+    evidence_by_key = {entry["key"]: item["evidence_id"]
+                       for entry, item in zip(distribution["on_request"], on_request)}
     distractors = candidate.get("clinical_differentials") or [
         {"name": _as_text(option), "must_not_miss": False}
         for option_index, option in enumerate(options)
@@ -117,7 +161,7 @@ def _build_case(candidate: dict[str, Any], index: int) -> dict[str, Any]:
         }
         for item in distractors
     ]
-    allergies = candidate.get("allergies")
+    allergies = candidate.get("allergies") if distribution.get("allergies_in_public", True) else None
     treatment_reference = candidate.get("treatment_reference") or {
         "summary": (
             "La fuente MedQA no aporta un plan terapéutico validado para este paciente. "
@@ -150,38 +194,16 @@ def _build_case(candidate: dict[str, Any], index: int) -> dict[str, Any]:
                 "sex": sex,
             },
             "chief_complaint": {
-                "evidence_id": f"{case_id}.motivo.queja_principal",
+                "evidence_id": chief_complaint_id,
                 "category": "motivo",
-                "label": "Queja principal",
-                "text": chief_complaint,
+                "label": "Motivo de consulta",
+                "text": distribution["chief_complaint"],
             },
-            "items": [
-                {
-                    "evidence_id": source_evidence_id,
-                    "category": "anamnesis",
-                    "label": "Resumen clínico (adaptado de MedQA)",
-                    "text": public_case_text,
-                }
-            ],
+            "items": public_items,
             "allergies_recorded": bool(allergies),
             **({"allergies": allergies} if allergies else {}),
         },
-        "on_request": [
-            {
-                "evidence_id": f"{case_id}.solicitud.exploracion_fisica",
-                "category": "examen_fisico",
-                "label": "Exploración física",
-                "text": (
-                    "Los hallazgos de exploración física descritos por la fuente ya están incluidos en la "
-                    "historia pública; no se documentan otros hallazgos para revelar."
-                ),
-                "reveal_policy": {
-                    "owner": "medico_asistente",
-                    "mode": "al_preguntar",
-                    "requires": ["exploracion_fisica"],
-                },
-            }
-        ],
+        "on_request": on_request,
         "protected": {
             "diagnosis": {
                 "name": _as_text(candidate.get("clinical_diagnosis")) or answer_text,
@@ -204,7 +226,15 @@ def _build_case(candidate: dict[str, Any], index: int) -> dict[str, Any]:
                 }
             ],
             "treatment_reference": treatment_reference,
-            "contraindications": [],
+            "contraindications": [
+                {
+                    "id": item["id"],
+                    "drug_or_class": item["drug_or_class"],
+                    "reason": item["reason"],
+                    "evidence_id": evidence_by_key[item["evidence"]],
+                }
+                for item in distribution.get("contraindications", [])
+            ],
             "evaluation": {
                 "key_questions": [
                     {
@@ -218,11 +248,22 @@ def _build_case(candidate: dict[str, Any], index: int) -> dict[str, Any]:
                             f"Texto fuente conservado (inglés): {question} "
                             f"Opciones fuente: {'; '.join(options)}"
                         ),
-                        "evidence_ids": [source_evidence_id],
+                        "evidence_ids": [chief_complaint_id],
                         "weight": 3,
                         "critical": True,
                         "error_if_missing": "razonamiento_clinico",
-                    }
+                    },
+                    *(
+                        {
+                            "id": f"kq{position}",
+                            "topic": question["topic"],
+                            "evidence_ids": [evidence_by_key[key] for key in question["evidence"]],
+                            "weight": question["weight"],
+                            "critical": question["critical"],
+                            "error_if_missing": question["error_if_missing"],
+                        }
+                        for position, question in enumerate(distribution["key_questions"], start=2)
+                    ),
                 ],
                 "tests": {
                     "recommended": candidate.get("recommended_tests", ["revision_fuente"]),
