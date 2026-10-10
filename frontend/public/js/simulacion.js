@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const saveDiagnosis = $('save-diagnosis');
   const closeDiagnosis = $('close-diagnosis');
   const diagnosisFeedback = $('diagnosis-feedback');
+  const skipButtons = [...document.querySelectorAll('[data-role="skip-speech"]')];
   const tabButtons = [...document.querySelectorAll('[data-tab]')];
   const tabPanels = [...document.querySelectorAll('[data-tab-panel]')];
   const consultaTab = tabButtons.find(button => button.dataset.tab === 'consulta');
@@ -133,23 +134,40 @@ document.addEventListener('DOMContentLoaded', async () => {
     .replace(/(\d+),(\d+)/g, '$1 coma $2')
     .replace(/ × /g, ' por ');
 
+  // Velocidad de la voz: 1,5 veces la normal.
+  const SPEECH_RATE = 1.5;
   // Tiempo de lectura estimado: se usa sin voz y como límite si el navegador nunca avisa del final.
-  const readingTime = text => Math.min(9000, 1500 + text.length * 45);
+  const readingTime = text => Math.min(6000, 1000 + text.length * 30);
+  // «Saltar» termina la frase en curso y la conversación sigue con la siguiente.
+  let skipCurrent = null;
+  const setSkipVisible = visible => skipButtons.forEach(button => {
+    button.hidden = !visible;
+    button.classList.toggle('hidden', !visible);
+    button.classList.toggle('inline-flex', visible);
+  });
+  skipButtons.forEach(button => button.addEventListener('click', () => {
+    window.speechSynthesis?.cancel();
+    skipCurrent?.();
+  }));
 
   const speak = text => new Promise(resolve => {
-    if (!('speechSynthesis' in window)) {
-      wait(readingTime(text)).then(resolve);
-      return;
-    }
     let done = false;
     const finish = () => {
       if (done) return;
       done = true;
+      skipCurrent = null;
+      setSkipVisible(false);
       resolve();
     };
+    skipCurrent = finish;
+    setSkipVisible(true);
+    if (!('speechSynthesis' in window)) {
+      wait(readingTime(text)).then(finish);
+      return;
+    }
     const utterance = new SpeechSynthesisUtterance(spokenText(text));
     utterance.lang = 'es-ES';
-    utterance.rate = 0.95;
+    utterance.rate = SPEECH_RATE;
     utterance.onend = finish;
     utterance.onerror = finish;
     window.speechSynthesis.cancel();
