@@ -52,6 +52,26 @@ lugar de forzarlos (por ejemplo, hemofilia A frente a B solo se distinguen midie
 Commit `1226fc7`. Evidencia: [03_descartes/descartes_terminal.png](03_descartes/descartes_terminal.png)
 ([mostrar_descartes.py](03_descartes/mostrar_descartes.py)).
 
+## 4. Síntomas inventados por los agentes (rama de integración)
+
+En una prueba, el paciente añadió «mareado», que el caso no tiene. Se añadió una comprobación
+automática en los agentes (commits `3482548` y `031b97f`):
+
+- `backend/server/ai/agents/invencion.py`: busca síntomas comunes (mareo, tos, dolor de pecho, náuseas,
+  fiebre…) en cada respuesta y comprueba si están en el contexto autorizado que recibió el agente. No
+  cuentan los negados («no tengo tos») ni la fiebre si el caso tiene una temperatura de 38 °C o más.
+- Si encuentra uno, el agente pide una corrección al LLM; si insiste, se quitan solo las frases con el
+  síntoma inventado (y si no queda nada, el paciente responde «No»).
+- El agente recibe además el nombre, la edad y el sexo del paciente (ya visibles en la ficha): dice
+  cómo se llama y habla en su género (antes, Rosa Villanueva decía «confundido»). Ante preguntas
+  abiertas («¿cómo se siente?») cuenta su motivo de consulta en lugar de responder «No».
+- [bateria_groq.py](04_datos_inventados/bateria_groq.py) hace 6 preguntas en los 10 casos con el LLM
+  real (nombre, cómo se siente y cuatro síntomas que casi ningún caso tiene) y revisa cada respuesta
+  contra todo lo que el caso describe. Resultado: 0 de 60 respuestas con síntomas inventados
+  ([bateria_groq_terminal.png](04_datos_inventados/bateria_groq_terminal.png)).
+- Pendiente: en EME-001 (Glasgow 10) el paciente responde «No» a «¿Cómo se siente?»; en los casos
+  en que el paciente no puede contestar debería hablar un acompañante.
+
 ## Pendiente
 
 - La revisión de los casos por una persona con formación médica (los vínculos de la sección 3 son
