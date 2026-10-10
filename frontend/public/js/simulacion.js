@@ -371,22 +371,29 @@ document.addEventListener('DOMContentLoaded', async () => {
   };
 
   // Respuesta a una intervención del estudiante: el agente que corresponda contesta con su burbuja.
+  // Puntos de «pensando» en la burbuja de quien va a hablar.
+  const showThinking = speaker => {
+    const isPatient = speaker === 'patient';
+    const bubble = isPatient ? patientBubble : doctorBubble;
+    const text = isPatient ? patientText : doctorText;
+    if (!bubble || !text) return;
+    show(doctorBubble, !isPatient);
+    show(patientBubble, isPatient);
+    const dots = document.createElement('span');
+    dots.className = 'typing-dots';
+    dots.setAttribute('aria-label', 'Pensando');
+    dots.append(...[0, 1, 2].map(() => document.createElement('i')));
+    text.replaceChildren(dots);
+    setPill(isPatient ? patientStatus : doctorStatus, 'Pensando');
+  };
+
   const respondToStudent = async (question, current) => {
     if (!aiSessionId) {
       await say('doctor', 'El interrogatorio con el paciente todavía no está disponible en esta versión.');
       if (current === session) setReady();
       return;
     }
-    if (patientBubble && patientText) {
-      show(doctorBubble, false);
-      show(patientBubble);
-      const dots = document.createElement('span');
-      dots.className = 'typing-dots';
-      dots.setAttribute('aria-label', 'Pensando');
-      dots.append(...[0, 1, 2].map(() => document.createElement('i')));
-      patientText.replaceChildren(dots);
-      setPill(patientStatus, 'Pensando');
-    }
+    showThinking('doctor');
     let reply;
     try {
       const response = await fetch(`/api/ai/sessions/${encodeURIComponent(aiSessionId)}/message`, {
@@ -401,6 +408,12 @@ document.addEventListener('DOMContentLoaded', async () => {
       reply = { agent: 'medico_asistente', response: 'No pude procesar tu pregunta. Inténtalo de nuevo.' };
     }
     if (current !== session) return;
+    // El médico tratante le hace al paciente la pregunta reformulada; luego el paciente responde.
+    if (reply.doctor_question) {
+      await say('doctor', reply.doctor_question);
+      if (current !== session) return;
+      showThinking('patient');
+    }
     await wait(500);
     if (current !== session) return;
     const speaker = { paciente: 'patient', medico_asistente: 'doctor' }[reply.agent] || reply.agent;
