@@ -862,7 +862,8 @@
       ],
       "notes": [
         "El paciente no puede dar la información: la aporta un acompañante o la historia clínica."
-      ]
+      ],
+      "alias": "Jorge Salazar"
     },
     "EME-002": {
       "chief_complaint": "Cefalea intensa de inicio súbito mientras se bañaba, seguida de vómitos; acude a urgencias.",
@@ -925,7 +926,8 @@
       "notes": [
         "El paciente no puede dar la información: la aporta un acompañante o la historia clínica.",
         "El enunciado fuente (banco Taiwan, traducido del chino) está redactado de forma deficiente; se interpreta que la cefalea comenzó de forma súbita mientras se bañaba y que el paciente localiza el estímulo doloroso."
-      ]
+      ],
+      "alias": "Ricardo Medina"
     },
     "GOB-003": {
       "chief_complaint": "A la mañana siguiente del parto no puede lactar cuando intenta amamantar a su bebé.",
@@ -962,7 +964,8 @@
       ],
       "notes": [
         "La fuente solo describe la evolución del parto y la falla de lactancia: no aporta otros antecedentes, exámenes ni hallazgos actuales para revelar."
-      ]
+      ],
+      "alias": "Lucía Paredes"
     },
     "GOB-004": {
       "chief_complaint": "Molestia pélvica leve y flujo vaginal espumoso y amarillento desde hace 2 semanas.",
@@ -1066,7 +1069,8 @@
           "error_if_missing": "razonamiento_clinico"
         }
       ],
-      "notes": []
+      "notes": [],
+      "alias": "Andrea Castillo"
     },
     "CIR-005": {
       "chief_complaint": "Ingresó por dolor abdominal intenso; se diagnosticó apendicitis y se le realizó una apendicectomía de urgencia.",
@@ -1141,7 +1145,8 @@
           "error_if_missing": "razonamiento_clinico"
         }
       ],
-      "notes": []
+      "notes": [],
+      "alias": "Martín Rojas"
     },
     "CIR-006": {
       "chief_complaint": "Confusión en el quinto día después de una hemicolectomía derecha electiva.",
@@ -1222,7 +1227,8 @@
       ],
       "notes": [
         "La paciente está confusa: los antecedentes los aporta un acompañante o la historia clínica."
-      ]
+      ],
+      "alias": "Rosa Villanueva"
     },
     "PED-007": {
       "chief_complaint": "Cojea y protege la pierna izquierda; su madre nota que cambió su forma de jugar.",
@@ -1308,7 +1314,8 @@
       ],
       "notes": [
         "Paciente pediátrico: parte de la historia la aporta la madre."
-      ]
+      ],
+      "alias": "Mateo Quispe"
     },
     "MED-008": {
       "chief_complaint": "Cefalea, fiebre intermitente con escalofríos, dolores articulares generalizados, sed excesiva con aumento de la ingesta de líquidos y una erupción progresiva en la espalda.",
@@ -1432,7 +1439,8 @@
       "notes": [
         "Se omite la frase del enunciado en la que el médico decide iniciar el antimicrobiano: esa decisión le corresponde al estudiante.",
         "La alergia deja de estar en la ficha pública (allergies_recorded: false): el estudiante debe preguntarla, y no hacerlo se evalúa como negligencia."
-      ]
+      ],
+      "alias": "Patricia Vargas"
     },
     "MED-009": {
       "chief_complaint": "Acude a su control anual; no tiene molestias en este momento.",
@@ -1505,7 +1513,8 @@
           "error_if_missing": "anamnesis_incompleta"
         }
       ],
-      "notes": []
+      "notes": [],
+      "alias": "Alberto Núñez"
     },
     "PED-010": {
       "chief_complaint": "Fractura de brazo.",
@@ -1583,7 +1592,8 @@
       "notes": [
         "Paciente pediátrica: parte de la historia la aporta un acompañante.",
         "El enunciado fuente (banco Taiwan, traducido del chino) menciona a la vez hipotiroidismo e hipertiroidismo; se conserva tal cual, sin completarlo."
-      ]
+      ],
+      "alias": "Valeria Torres"
     }
   }
 }
