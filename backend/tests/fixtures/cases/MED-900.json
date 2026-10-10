@@ -1,0 +1,294 @@
+{
+  "schema_version": "1.0.0",
+  "case_id": "MED-900",
+  "title": "Cefalea recurrente en adulto joven",
+  "specialty": "medicina_interna",
+  "language": "es",
+  "status": "curado",
+  "source": {
+    "dataset": "manual",
+    "item_id": "demo-cefalea-001",
+    "license": "Uso educativo interno",
+    "method": "manual"
+  },
+  "public": {
+    "patient": {
+      "alias": "Carlos Ramos",
+      "age_years": 28,
+      "sex": "masculino"
+    },
+    "chief_complaint": {
+      "evidence_id": "MED-900.motivo.cefalea",
+      "category": "motivo",
+      "label": "Motivo de consulta",
+      "text": "Dolor de cabeza de 3 días de evolución"
+    },
+    "items": [
+      {
+        "evidence_id": "MED-900.vital.presion_arterial",
+        "category": "signo_vital",
+        "label": "Presión arterial",
+        "text": "120/80 mmHg"
+      },
+      {
+        "evidence_id": "MED-900.vital.frecuencia_cardiaca",
+        "category": "signo_vital",
+        "label": "Frecuencia cardiaca",
+        "value": 74,
+        "unit": "/min"
+      },
+      {
+        "evidence_id": "MED-900.vital.temperatura",
+        "category": "signo_vital",
+        "label": "Temperatura",
+        "value": 36.8,
+        "unit": "Cel"
+      }
+    ],
+    "allergies_recorded": false
+  },
+  "on_request": [
+    {
+      "evidence_id": "MED-900.anamnesis.inicio_dolor",
+      "category": "anamnesis",
+      "label": "Inicio y características del dolor",
+      "text": "El dolor comenzó hace tres días; es pulsátil y predomina en el lado derecho.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "inicio_dolor"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-900.sintoma.fotofobia",
+      "category": "sintoma",
+      "label": "Fotofobia",
+      "text": "La luz le molesta bastante.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "fotofobia"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-900.sintoma.nauseas",
+      "category": "sintoma",
+      "label": "Náuseas",
+      "text": "Presenta náuseas leves y niega vómitos.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "nauseas"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-900.antecedente.familiar_migrana",
+      "category": "antecedente",
+      "label": "Antecedente familiar de cefalea",
+      "text": "Su madre presenta antecedentes de cefaleas recurrentes.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "antecedente_familiar"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-900.medicacion.paracetamol",
+      "category": "medicacion",
+      "label": "Medicamento utilizado",
+      "text": "Tomó paracetamol 1 g, con mejoría parcial y transitoria.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "medicacion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-900.anamnesis.alergias",
+      "category": "anamnesis",
+      "label": "Alergias",
+      "text": "Niega alergias medicamentosas conocidas.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "alergias"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-900.anamnesis.signos_alarma",
+      "category": "anamnesis",
+      "label": "Signos de alarma neurológica",
+      "text": "Niega debilidad, dificultad para hablar, desmayo y rigidez de nuca.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "signos_alarma"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-900.examen.neurologico",
+      "category": "examen_fisico",
+      "label": "Examen neurológico",
+      "text": "Paciente orientado, sin déficit neurológico focal aparente y sin rigidez de nuca.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "examen_neurologico"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-900.laboratorio.hemograma",
+      "category": "laboratorio",
+      "label": "Hemograma",
+      "text": "Hemograma sin alteraciones relevantes.",
+      "interpretation": "N",
+      "reveal_policy": {
+        "owner": "laboratorio",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "hemograma"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-900.imagen.tomografia_craneo",
+      "category": "imagen",
+      "label": "Tomografía de cráneo",
+      "text": "Tomografía de cráneo sin hallazgos agudos.",
+      "interpretation": "N",
+      "reveal_policy": {
+        "owner": "radiologia",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "tomografia"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-900.estudio.interconsulta_neurologia",
+      "category": "estudio",
+      "label": "Interconsulta de neurología",
+      "text": "Neurología no identifica signos de alarma ni déficit focal en la evaluación disponible.",
+      "reveal_policy": {
+        "owner": "especialista",
+        "mode": "al_preguntar",
+        "requires": [
+          "neurologia"
+        ]
+      }
+    }
+  ],
+  "protected": {
+    "diagnosis": {
+      "name": "Migraña sin signos de alarma",
+      "synonyms": [
+        "migraña",
+        "cefalea migrañosa"
+      ]
+    },
+    "differentials": [
+      {
+        "name": "Meningitis",
+        "must_not_miss": true,
+        "discard_evidence_ids": [
+          "MED-900.anamnesis.signos_alarma",
+          "MED-900.vital.temperatura"
+        ]
+      },
+      {
+        "name": "Hemorragia subaracnoidea",
+        "must_not_miss": true,
+        "discard_evidence_ids": [
+          "MED-900.anamnesis.inicio_dolor",
+          "MED-900.anamnesis.signos_alarma"
+        ]
+      },
+      {
+        "name": "Cefalea tensional",
+        "must_not_miss": false,
+        "discard_evidence_ids": [
+          "MED-900.anamnesis.inicio_dolor",
+          "MED-900.sintoma.fotofobia"
+        ]
+      }
+    ],
+    "treatment_reference": {
+      "summary": "Manejo sintomático y seguimiento clínico según la evaluación profesional.",
+      "key_actions": [
+        "Control sintomático",
+        "Reevaluar signos de alarma",
+        "Seguimiento clínico"
+      ]
+    },
+    "contraindications": [],
+    "evaluation": {
+      "key_questions": [
+        {
+          "id": "kq1",
+          "topic": "inicio y características del dolor",
+          "evidence_ids": [
+            "MED-900.anamnesis.inicio_dolor"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq2",
+          "topic": "signos de alarma neurológica",
+          "evidence_ids": [
+            "MED-900.anamnesis.signos_alarma"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq3",
+          "topic": "alergias",
+          "evidence_ids": [
+            "MED-900.anamnesis.alergias"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "negligencia"
+        }
+      ],
+      "tests": {
+        "recommended": [
+          "evaluacion_clinica"
+        ],
+        "optional": [
+          "hemograma",
+          "tomografia"
+        ],
+        "unnecessary": []
+      }
+    }
+  },
+  "provenance": {
+    "created_by": "equipo",
+    "created_at": "2026-10-08",
+    "validator_version": "1.0.0",
+    "validated_at": "2026-10-08",
+    "curated_by": "equipo",
+    "curated_at": "2026-10-08",
+    "rejection_reason": null
+  }
+}
