@@ -58,6 +58,15 @@ Como en el simulador original (`f0881ca`): al terminar la presentación desapare
   [sin_agentes_terminal.png](sin_agentes_terminal.png). El único error de consola es el 404 de
   `/api/ai/sessions`, que en esta rama no existe.
 
+## Avisos de estado ocultos (intento 4)
+
+- El recuadro de avisos del panel («Especialidad: … Pulsa «Iniciar simulación»…», «Consulta en
+  curso…») ya no se muestra al estudiante; solo aparece ante un error (por ejemplo, servidor no
+  disponible). [portada_3_simulador_listo.png](portada_3_simulador_listo.png): al entrar solo se ve
+  «Iniciar simulación».
+- Los scripts de prueba abren el navegador con `--mute-audio`: el navegador automático también usa la
+  voz del sistema y cada prueba sonaba en el equipo.
+
 ## Evidencia
 
 - Intento 2 (sin código del caso): [portada_3_simulador_listo.png](portada_3_simulador_listo.png) (al

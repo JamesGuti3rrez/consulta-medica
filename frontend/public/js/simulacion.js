@@ -95,9 +95,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   });
 
+  // Los avisos de estado no se muestran al estudiante; el recuadro solo aparece ante un error.
   const setStatus = (message, isError = false) => {
     if (!statusMessage) return;
     statusMessage.textContent = message;
+    statusMessage.hidden = !isError;
+    statusMessage.classList.toggle('hidden', !isError);
     statusMessage.classList.toggle('border-amber-200', !isError);
     statusMessage.classList.toggle('bg-amber-50', !isError);
     statusMessage.classList.toggle('text-amber-900', !isError);

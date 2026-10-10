@@ -44,7 +44,7 @@ function protectedTexts(caseId) {
 
 (async () => {
   fs.mkdirSync(outDir, { recursive: true });
-  const browser = await chromium.launch();
+  const browser = await chromium.launch({ args: ['--mute-audio'] });
   const page = await browser.newPage({ viewport: VIEWPORT, deviceScaleFactor: 1 });
   const log = [];
   const say = line => { console.log(line); log.push(line); };
