@@ -12,6 +12,17 @@
   display: none !important;
 }
 
+/* Burbujas del diálogo de muestra */
+.bubble {
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.bubble.is-hidden {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
 /* Muestra de la interfaz al pie de cada paso */
 .step {
   display: flex;
@@ -309,7 +320,42 @@ form .field:focus {
   }
 }
 
-/* Ventanas de acceso y registro */
+/* Especialidades como opciones seleccionables */
+.specialty {
+  display: flex;
+  min-height: 52px;
+  align-items: center;
+  gap: 12px;
+  padding: 0 14px;
+  border: 1px solid var(--field-border);
+  border-radius: 12px;
+  font-size: 16px;
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.specialty:hover {
+  border-color: var(--action);
+}
+
+.specialty .material-symbols-outlined {
+  font-size: 22px;
+  color: var(--action);
+}
+
+.specialty:has(input:checked) {
+  border: 2px solid var(--action);
+  padding: 0 13px;
+  background: rgb(var(--c-brand-50));
+  font-weight: 600;
+}
+
+.specialty:has(input:focus-visible) {
+  box-shadow: 0 0 0 3px var(--action-soft);
+}
+
+/* Ventana de elección de caso */
 .picker-card {
   animation: picker-in 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -331,6 +377,10 @@ form .field:focus {
 
   .picker-card {
     animation: none;
+  }
+
+  .bubble {
+    transition: none;
   }
 }
 
@@ -559,6 +609,94 @@ form .field:focus {
   }
 }
 
+/* Fichas que flotan alrededor de la ilustración (solo en pantallas grandes) */
+.float-chip {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .float-chip {
+    display: block;
+    position: absolute;
+    z-index: 2;
+  }
+
+  .chip-vitals {
+    top: -26px;
+    left: -28px;
+  }
+
+  .chip-hypothesis {
+    top: 50%;
+    right: -36px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .chip-vitals {
+    left: -64px;
+  }
+
+  .chip-hypothesis {
+    right: -72px;
+  }
+}
+
+.float-chip-body {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px 10px 10px;
+  border-radius: 14px;
+  border: 1px solid var(--hairline);
+  background: rgb(var(--c-surface));
+  box-shadow: 3px 5px 30px 0 rgb(16 38 43 / 0.16);
+  text-align: left;
+  animation: chip-float 7s ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s);
+  will-change: transform;
+}
+
+.chip-icon {
+  display: inline-flex;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: rgb(var(--c-brand-50));
+  color: var(--action);
+  font-size: 20px;
+}
+
+.chip-label {
+  display: block;
+  font-size: 13px;
+  line-height: 1.2;
+  color: rgb(var(--c-slate-600));
+}
+
+.chip-value {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+@keyframes chip-float {
+
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+
 /* Brillo suave detrás del cierre */
 .cta-glow {
   position: absolute;
@@ -600,7 +738,8 @@ form .field:focus {
     transition: none;
   }
 
-  .cta-pulse::after {
+  .cta-pulse::after,
+  .float-chip-body {
     animation: none;
   }
 

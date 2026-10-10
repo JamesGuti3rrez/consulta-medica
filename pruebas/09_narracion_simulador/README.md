@@ -9,6 +9,12 @@ catálogo curado, dentro de la especialidad elegida.
 
 ## Qué cambió
 
+- **Portada original restaurada** (`frontend/public/index.html`, `js/landing.js`, `css/landing.css`, tal
+  como estaban en `f0881ca`). El commit `93ba45b` la había cambiado por una página genérica sin
+  ejemplos. Con ella vuelve el recorrido original: «Probar la simulación» abre la ventana «Elige tu
+  caso» (nombres, apellidos y especialidad) y «Generar caso aleatorio» lleva a
+  `simulacion.html?especialidad=…`. Los nombres quedan en la sesión del navegador; en la URL solo
+  viaja la especialidad.
 - `frontend/public/simulacion.html`: selector de especialidad junto al botón de inicio
   («Cualquier especialidad» o una de las cinco). Respeta `?especialidad=` en la URL.
 - `frontend/public/js/simulacion.js`: al iniciar pide `GET /api/caso?especialidad=…` y el doctor
@@ -22,6 +28,10 @@ catálogo curado, dentro de la especialidad elegida.
 
 ## Evidencia
 
+- [portada_1_inicio.png](portada_1_inicio.png), [portada_2_elige_tu_caso.png](portada_2_elige_tu_caso.png)
+  y [portada_3_caso_presentado.png](portada_3_caso_presentado.png): recorrido desde la portada
+  (emergencias) hasta el caso presentado; [probar_portada_terminal.png](probar_portada_terminal.png),
+  ejecución de [probar_portada.cjs](probar_portada.cjs) (EME-001, sin errores en la consola).
 - [narracion_1_narrando.png](narracion_1_narrando.png): pediatría elegida; el doctor presenta a la
   paciente y la ficha muestra solo lo narrado.
 - [narracion_2_terminada.png](narracion_2_terminada.png): presentación terminada; historial de la

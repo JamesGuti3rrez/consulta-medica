@@ -1,8 +1,10 @@
-// Ventanas de inicio de sesión y creación de cuenta.
+// Ventanas de la portada: elegir caso, iniciar sesión y crear cuenta.
 const dialogs = {
+  case: document.querySelector('[data-role="case-picker-panel"]'),
   login: document.querySelector('[data-role="login-panel"]'),
   signup: document.querySelector('[data-role="signup-panel"]')
 };
+const casePickerForm = document.querySelector('[data-role="case-picker"]');
 let activeDialog = null;
 let lastOpener = null;
 
@@ -63,7 +65,7 @@ function showSignupDone(email) {
   document.querySelector('[data-role="signup-done-title"]')?.focus();
 }
 
-const unavailableMessage = 'El inicio de sesión no está disponible en este momento. Verifica la configuración de acceso.';
+const unavailableMessage = 'El inicio de sesión no está disponible en este momento. Puedes practicar sin cuenta.';
 
 function showFeedback(form, message, isError = false) {
   const feedback = form.querySelector('[data-role="auth-feedback"]');
@@ -97,6 +99,20 @@ function firstInvalidField(form) {
     clave: invalid.minLength > 0 ? 'La contraseña debe tener al menos 8 caracteres.' : 'Escribe tu contraseña.',
   };
   return { field: invalid, message: messages[invalid.name] || 'Revisa los campos marcados.' };
+}
+
+// El encabezado lo maneja perfil.js; aquí solo lo propio de la portada.
+function renderSession(user) {
+  const signedIn = Boolean(user);
+  const guestNote = document.querySelector('[data-role="guest-note"]');
+  if (guestNote) guestNote.hidden = signedIn;
+  if (!signedIn) return;
+
+  // La ventana de elección de caso ya conoce al alumno.
+  const meta = user.user_metadata || {};
+  const { nombres, apellidos } = casePickerForm.elements;
+  if (!nombres.value && meta.nombres) nombres.value = meta.nombres;
+  if (!apellidos.value && meta.apellidos) apellidos.value = meta.apellidos;
 }
 
 loginForm?.addEventListener('submit', async (event) => {
@@ -173,13 +189,88 @@ signupForm?.addEventListener('submit', async (event) => {
   showSignupDone(email);
 });
 
-// Enlaces que abren una ventana al llegar: ?cuenta=login o ?cuenta=registro.
+window.auth.ready.then(async (client) => {
+  if (!client) return;
+  const { data } = await client.auth.getSession();
+  renderSession(data.session?.user);
+  client.auth.onAuthStateChange((_event, session) => renderSession(session?.user));
+});
+
+// Enlaces que abren una ventana al llegar: ?nuevo=1 (elegir caso) y ?cuenta=login (desde la simulación).
 const params = new URLSearchParams(window.location.search);
-const dialogFromUrl = { login: 'login', registro: 'signup' }[params.get('cuenta')];
+const dialogFromUrl = params.get('nuevo') === '1' ? 'case' : { login: 'login', registro: 'signup' }[params.get('cuenta')];
 if (dialogFromUrl) {
   window.history.replaceState(null, '', window.location.pathname);
   window.setTimeout(() => showDialog(dialogFromUrl), 300);
 }
+
+// Los nombres quedan en la sesión del navegador; en la URL solo viaja la especialidad.
+casePickerForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const { nombres, apellidos, especialidad } = casePickerForm.elements;
+  const student = { nombres: nombres.value.trim(), apellidos: apellidos.value.trim() };
+
+  if (!student.nombres || !student.apellidos) {
+    (student.nombres ? apellidos : nombres).focus();
+    return;
+  }
+
+  try {
+    sessionStorage.setItem('estudiante', JSON.stringify(student));
+  } catch {
+    // Sin almacenamiento disponible la simulación funciona igual, solo sin el nombre.
+  }
+  window.location.href = `simulacion.html?especialidad=${encodeURIComponent(especialidad.value)}`;
+});
+
+// Diálogo de muestra en la portada: recorre algunos turnos del guion del caso de demostración.
+const demoTurns = [
+  ['¿Dónde le duele y desde cuándo empezó?',
+    'Empezó ayer alrededor del ombligo y ahora me duele más abajo, a la derecha.'],
+  ['¿Ha tenido fiebre, náuseas o vómitos?',
+    'Anoche tuve fiebre y vomité una vez. Desde entonces no tengo hambre.'],
+  ['¿El dolor aumenta al caminar o al toser?',
+    'Sí, cuando camino o toso me duele mucho más.'],
+  ['¿Ha tomado algo para el dolor?',
+    'Solo una pastilla para los gases, pero no me hizo nada.']
+];
+const demoDoctorBubble = document.querySelector('[data-role="demo-doctor-bubble"]');
+const demoPatientBubble = document.querySelector('[data-role="demo-patient-bubble"]');
+const demoDoctorText = document.querySelector('[data-role="demo-doctor"]');
+const demoPatientText = document.querySelector('[data-role="demo-patient"]');
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const DEMO_READ_TIME = 6500;
+const DEMO_FADE_TIME = 500;
+const DEMO_REPLY_DELAY = 1200;
+let demoTurn = 0;
+
+const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+async function showNextDemoTurn() {
+  demoDoctorBubble.classList.add('is-hidden');
+  demoPatientBubble.classList.add('is-hidden');
+  await wait(DEMO_FADE_TIME);
+
+  demoTurn = (demoTurn + 1) % demoTurns.length;
+  const [question, answer] = demoTurns[demoTurn];
+  demoDoctorText.textContent = question;
+  demoPatientText.textContent = answer;
+
+  demoDoctorBubble.classList.remove('is-hidden');
+  await wait(DEMO_REPLY_DELAY);
+  demoPatientBubble.classList.remove('is-hidden');
+}
+
+async function runDemoConversation() {
+  while (true) {
+    await wait(DEMO_READ_TIME);
+    // Con la pestaña oculta o con movimiento reducido el diálogo se queda en el turno actual.
+    if (document.hidden || reducedMotion.matches) continue;
+    await showNextDemoTurn();
+  }
+}
+
+if (demoDoctorBubble && demoPatientBubble) runDemoConversation();
 
 // Apariciones al entrar en pantalla: cada elemento con data-reveal se anima una sola vez.
 const revealTargets = document.querySelectorAll('[data-reveal]');
