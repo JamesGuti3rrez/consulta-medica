@@ -1,23 +1,48 @@
 document.addEventListener('DOMContentLoaded', async () => {
-  const statusMessage = document.querySelector('[data-role="case-status"]');
-  const simulatorStatus = document.querySelector('[data-role="simulator-status"]');
-  const recordStatus = document.querySelector('[data-role="record-status"]');
-  const startButton = document.querySelector('[data-role="start-simulation"]');
-  const doctorBubble = document.querySelector('[data-role="doctor-bubble"]');
-  const doctorText = document.querySelector('[data-role="doctor-text"]');
-  const doctorStatus = document.querySelector('[data-role="doctor-status"]');
-  const conversation = document.querySelector('[data-role="conversation-history"]');
-  const conversationStatus = document.querySelector('[data-role="conversation-status"]');
-  const nextPrompt = document.querySelector('[data-role="next-prompt"]');
-  const record = document.querySelector('[data-role="patient-record"]');
-  const emptyRecord = document.querySelector('[data-role="record-empty"]');
-  const recordHistory = document.querySelector('[data-role="record-history"]');
+  const $ = role => document.querySelector(`[data-role="${role}"]`);
+  const statusMessage = $('case-status');
+  const simulatorStatus = $('simulator-status');
+  const recordStatus = $('record-status');
+  const startButton = $('start-simulation');
+  const micButton = document.querySelector('[aria-label="Micrófono"]');
+  const diagnosisButton = $('diagnosis-button');
+  const doctorBubble = $('doctor-bubble');
+  const doctorText = $('doctor-text');
+  const doctorStatus = $('doctor-status');
+  const patientBubble = $('patient-bubble');
+  const patientText = $('patient-text');
+  const patientStatus = $('patient-status');
+  const conversation = $('conversation-history');
+  const conversationStatus = $('conversation-status');
+  const nextPrompt = $('next-prompt');
+  const record = $('patient-record');
+  const emptyRecord = $('record-empty');
+  const recordHistory = $('record-history');
+  const hypothesesPanel = $('hypotheses-panel');
+  const hypothesesCount = $('hypotheses-count');
+  const hypothesesHint = $('hypotheses-hint');
+  const hypothesisInput = $('hypothesis-input');
+  const hypothesisMic = $('hypothesis-mic');
+  const addHypothesisButton = $('add-hypothesis');
+  const hypothesesList = $('hypotheses-list');
+  const hypothesesFeedback = $('hypotheses-feedback');
+  const diagnosisPanel = $('diagnosis-panel');
+  const diagnosisInput = $('diagnosis-input');
+  const diagnosisMic = $('diagnosis-mic');
+  const saveDiagnosis = $('save-diagnosis');
+  const closeDiagnosis = $('close-diagnosis');
+  const diagnosisFeedback = $('diagnosis-feedback');
   const tabButtons = [...document.querySelectorAll('[data-tab]')];
   const tabPanels = [...document.querySelectorAll('[data-tab-panel]')];
   const consultaTab = tabButtons.find(button => button.dataset.tab === 'consulta');
-  let caseAvailable = false;
-  // Cada inicio aumenta el número de sesión: una narración anterior que siga en curso se detiene.
-  let session = 0;
+
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const recognition = SpeechRecognition ? new SpeechRecognition() : null;
+  if (recognition) {
+    recognition.lang = 'es-ES';
+    recognition.continuous = false;
+    recognition.interimResults = true;
+  }
 
   // La especialidad se elige en la portada y llega en la URL (simulacion.html?especialidad=pediatria).
   // El estudiante no ve qué caso le tocó: ni su código ni nada fuera de la ficha pública.
@@ -30,7 +55,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     cirugia_general: 'Cirugía general',
   };
   const specialtyName = SPECIALTY_NAMES[specialty];
-  const caseUrl = () => (specialtyName ? `/api/caso?especialidad=${encodeURIComponent(specialty)}` : '/api/caso');
+  const caseUrl = specialtyName ? `/api/caso?especialidad=${encodeURIComponent(specialty)}` : '/api/caso';
+
+  let caseAvailable = false;
+  // Cada intervención aumenta el número de sesión: lo que siga en curso de una anterior se detiene.
+  let session = 0;
+  let isRunning = false;
+  let isListening = false;
+  let cancelListening = false;
+  let finalTranscript = '';
+  let studentPreview = null;
+  let aiSessionId = null;
+  let hypotheses = [];
+  let discardingIndex = null;
+  let consultationClosed = false;
 
   const showTab = name => {
     tabButtons.forEach(button => {
@@ -74,6 +112,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (textNode) textNode.nodeValue = ` ${text}`;
   };
 
+  const show = (element, visible = true) => {
+    if (!element) return;
+    element.hidden = !visible;
+    element.classList.toggle('hidden', !visible);
+  };
+
   const wait = milliseconds => new Promise(resolve => window.setTimeout(resolve, milliseconds));
 
   // La voz lee las unidades completas; el texto en pantalla no cambia.
@@ -110,16 +154,26 @@ document.addEventListener('DOMContentLoaded', async () => {
     wait(readingTime(text) * 2).then(finish);
   });
 
+  const SPEAKERS = {
+    doctor: { name: 'Doctor', role: 'Médico asistente', icon: 'stethoscope' },
+    patient: { name: 'Paciente', role: 'Paciente', icon: 'person' },
+    student: { name: 'Tú', role: 'Médico en formación', icon: 'mic' },
+    laboratorio: { name: 'Laboratorio', role: 'Resultados', icon: 'biotech' },
+    radiologia: { name: 'Radiología', role: 'Informe de imagen', icon: 'radiology' },
+    especialista: { name: 'Especialista', role: 'Interconsulta', icon: 'medical_services' },
+  };
+
   const appendChat = (text, speaker) => {
     if (!conversation) return;
-    const speakers = {
-      doctor: { name: 'Doctor', role: 'Médico asistente', icon: 'stethoscope' },
-      patient: { name: 'Paciente', role: 'Paciente', icon: 'person' },
-      student: { name: 'Tú', role: 'Médico en formación', icon: 'mic' },
-    };
-    const who = speakers[speaker];
+    if (conversation.dataset.started !== 'true') {
+      conversation.replaceChildren();
+      conversation.dataset.started = 'true';
+    }
+    const who = SPEAKERS[speaker] || SPEAKERS.doctor;
+    // Laboratorio, radiología y especialista usan el estilo del doctor: hablan del lado del equipo.
+    const style = ['patient', 'student'].includes(speaker) ? speaker : 'doctor';
     const entry = document.createElement('div');
-    entry.className = `chat-row chat-${speaker}`;
+    entry.className = `chat-row chat-${style}`;
     const avatar = document.createElement('span');
     avatar.className = 'chat-avatar material-symbols-outlined';
     avatar.setAttribute('aria-hidden', 'true');
@@ -143,14 +197,29 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (consultaTab && !consultaTab.classList.contains('is-active')) consultaTab.classList.add('has-news');
   };
 
-  // El doctor dice una frase: burbuja sobre la escena, mensaje en el historial y voz.
-  const doctorSays = async text => {
-    doctorBubble?.classList.remove('hidden');
-    if (doctorText) doctorText.textContent = text;
-    setPill(doctorStatus, 'Hablando');
-    if (conversationStatus) conversationStatus.textContent = 'Doctor hablando';
-    appendChat(text, 'doctor');
+  // Una sola burbuja sobre la escena a la vez: la del equipo (doctor) o la del paciente.
+  const setSpeaker = (speaker, text) => {
+    const doctorSpeaks = speaker !== 'patient';
+    show(doctorBubble, doctorSpeaks);
+    show(patientBubble, !doctorSpeaks);
+    setPill(doctorStatus, doctorSpeaks ? 'Hablando' : 'En espera');
+    setPill(patientStatus, doctorSpeaks ? 'En espera' : 'Hablando');
+    if (doctorSpeaks && doctorText) doctorText.textContent = text;
+    if (!doctorSpeaks && patientText) patientText.textContent = text;
+    if (conversationStatus) conversationStatus.textContent = doctorSpeaks ? 'Doctor hablando' : 'Paciente respondiendo';
+  };
+
+  const say = async (speaker, text) => {
+    appendChat(text, speaker);
+    setSpeaker(speaker, text);
     await speak(text);
+  };
+
+  const setReady = () => {
+    setPill(doctorStatus, 'Listo');
+    setPill(patientStatus, 'Listo');
+    if (conversationStatus) conversationStatus.textContent = 'Tu turno';
+    isRunning = false;
   };
 
   const recordSection = (label, text) => {
@@ -168,22 +237,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Ficha vacía al iniciar: se completa a medida que el doctor presenta el caso.
   const resetRecord = patientCase => {
-    document.querySelector('[data-role="record-name"]').textContent = patientCase.patient.alias;
-    document.querySelector('[data-role="record-demographics"]').textContent =
-      `${patientCase.patient.age_years} años · ${patientCase.patient.sex}`;
-    document.querySelector('[data-role="record-chief"]').textContent = patientCase.chief_complaint.text;
-    document.querySelector('[data-role="record-allergies"]').textContent = patientCase.allergies_recorded
+    $('record-name').textContent = patientCase.patient.alias;
+    $('record-demographics').textContent = `${patientCase.patient.age_years} años · ${patientCase.patient.sex}`;
+    $('record-chief').textContent = patientCase.chief_complaint.text;
+    $('record-allergies').textContent = patientCase.allergies_recorded
       ? patientCase.allergies.join(', ')
       : 'No documentadas; deben preguntarse.';
     recordHistory.replaceChildren();
     [...record.children].forEach(section => { section.hidden = true; });
     emptyRecord.hidden = true;
-    record.hidden = false;
-    record.classList.remove('hidden');
-    conversation.replaceChildren();
+    show(record);
+    conversation.dataset.started = 'false';
   };
-
-  const reveal = element => { if (element) element.hidden = false; };
 
   const presentCase = async (patientCase, current) => {
     const [header, chief, history, allergies] = record.children;
@@ -205,62 +270,404 @@ document.addEventListener('DOMContentLoaded', async () => {
           : 'No hay alergias documentadas en la ficha.',
       },
     ];
-
     for (const step of steps) {
       if (current !== session) return false;
-      step.show.forEach(reveal);
+      step.show.forEach(element => { if (element) element.hidden = false; });
       if (step.add) recordHistory.append(step.add);
-      await doctorSays(step.text);
+      await say('doctor', step.text);
     }
     if (current !== session) return false;
-    await doctorSays('Doctor, puede comenzar con el interrogatorio.');
+    await say('doctor', 'Doctor, puede comenzar con el interrogatorio.');
     return current === session;
   };
 
+  // La conversación con los agentes (/api/ai) se abre si el servidor la ofrece.
+  const openConversation = async caseId => {
+    try {
+      const response = await fetch('/api/ai/sessions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ case_id: caseId }),
+      });
+      return response.ok ? (await response.json()).session_id : null;
+    } catch {
+      return null;
+    }
+  };
+
   const startSimulation = async () => {
+    if (isRunning) return;
+    isRunning = true;
     session += 1;
     const current = session;
-    window.speechSynthesis?.cancel();
+    hypotheses = [];
+    discardingIndex = null;
+    consultationClosed = false;
+    renderHypotheses();
     startButton.disabled = true;
-    startButton.lastChild.textContent = ' Cargando caso...';
+    startButton.lastChild.textContent = ' Presentando caso...';
 
     let patientCase;
     try {
-      const response = await fetch(caseUrl());
+      const response = await fetch(caseUrl);
       if (!response.ok) {
         const body = await response.json().catch(() => ({}));
         throw new Error(body.detail || `API respondió con HTTP ${response.status}`);
       }
       patientCase = await response.json();
     } catch (error) {
-      console.error('No se pudo cargar un caso curado:', error);
+      console.error('No se pudo cargar un caso:', error);
       setStatus('No se pudo cargar el caso. Verifica la conexión e inténtalo de nuevo.', true);
       startButton.disabled = !caseAvailable;
-      startButton.lastChild.textContent = caseAvailable ? ' Reintentar carga' : ' Sin casos disponibles';
+      startButton.lastChild.textContent = caseAvailable ? ' Reintentar' : ' Sin casos disponibles';
+      isRunning = false;
       return;
     }
 
+    aiSessionId = await openConversation(patientCase.case_id);
     resetRecord(patientCase);
     showTab('ficha');
     simulatorStatus.textContent = 'Presentación del caso';
     recordStatus.lastChild.textContent = 'En consulta';
     if (nextPrompt) nextPrompt.textContent = 'Escucha la presentación del caso.';
     setStatus('El doctor te presenta al paciente.');
-    // Se puede pedir otro caso en cualquier momento: la narración en curso se detiene.
-    startButton.disabled = false;
-    startButton.lastChild.textContent = ' Cargar otro caso';
 
     const finished = await presentCase(patientCase, current);
     if (!finished) return;
-    setPill(doctorStatus, 'Listo');
-    if (conversationStatus) conversationStatus.textContent = 'Presentación terminada';
-    simulatorStatus.textContent = 'Listo para el interrogatorio';
+    show(startButton, false);
+    show(micButton);
+    if (micButton) micButton.disabled = false;
+    show(diagnosisButton);
+    if (diagnosisButton) diagnosisButton.disabled = false;
+    show(hypothesesPanel);
+    simulatorStatus.textContent = 'Consulta en curso';
     if (nextPrompt) {
-      nextPrompt.textContent = 'Presentación terminada. El interrogatorio con el paciente estará disponible al conectar los agentes.';
+      nextPrompt.textContent = 'Pulsa el micrófono y haz tu primera pregunta: al paciente, al doctor o pide un examen.';
     }
-    setStatus('Presentación terminada. Revisa la ficha y la consulta.');
+    setStatus('Consulta en curso. Habla con el micrófono; cuando tengas tu diagnóstico, pulsa «Realizar Diagnóstico».');
     showTab('consulta');
+    setReady();
   };
+
+  // Respuesta a una intervención del estudiante: el agente que corresponda contesta con su burbuja.
+  const respondToStudent = async (question, current) => {
+    if (!aiSessionId) {
+      await say('doctor', 'El interrogatorio con el paciente todavía no está disponible en esta versión.');
+      if (current === session) setReady();
+      return;
+    }
+    if (patientBubble && patientText) {
+      show(doctorBubble, false);
+      show(patientBubble);
+      const dots = document.createElement('span');
+      dots.className = 'typing-dots';
+      dots.setAttribute('aria-label', 'Pensando');
+      dots.append(...[0, 1, 2].map(() => document.createElement('i')));
+      patientText.replaceChildren(dots);
+      setPill(patientStatus, 'Pensando');
+    }
+    let reply;
+    try {
+      const response = await fetch(`/api/ai/sessions/${encodeURIComponent(aiSessionId)}/message`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: question }),
+      });
+      if (!response.ok) throw new Error(`API respondió con HTTP ${response.status}`);
+      reply = await response.json();
+    } catch (error) {
+      console.error('No se pudo obtener la respuesta:', error);
+      reply = { agent: 'medico_asistente', response: 'No pude procesar tu pregunta. Inténtalo de nuevo.' };
+    }
+    if (current !== session) return;
+    await wait(500);
+    if (current !== session) return;
+    const speaker = { paciente: 'patient', medico_asistente: 'doctor' }[reply.agent] || reply.agent;
+    await say(SPEAKERS[speaker] ? speaker : 'doctor', reply.response);
+    if (current !== session) return;
+    if (hypothesesHint) hypothesesHint.textContent = '¿Este dato cambia alguna de tus hipótesis?';
+    setReady();
+  };
+
+  const removeStudentPreview = () => {
+    studentPreview?.remove();
+    studentPreview = null;
+  };
+
+  const setMicListening = listening => {
+    if (!micButton) return;
+    micButton.title = listening ? 'Escuchando...' : 'Hablar / Siguiente Intervención';
+    micButton.classList.toggle('bg-red-600', listening);
+    micButton.classList.toggle('hover:bg-red-700', listening);
+    micButton.classList.toggle('is-listening', listening);
+    micButton.classList.toggle('bg-brand-600', !listening);
+    micButton.classList.toggle('hover:bg-brand-700', !listening);
+  };
+
+  if (recognition) {
+    recognition.onstart = () => {
+      finalTranscript = '';
+      cancelListening = false;
+      isRunning = true;
+      isListening = true;
+      showTab('consulta');
+      show(doctorBubble, false);
+      show(patientBubble, false);
+      setMicListening(true);
+      setPill(doctorStatus, 'En espera');
+      setPill(patientStatus, 'Escuchando');
+      if (conversationStatus) conversationStatus.textContent = 'Escuchándote';
+      removeStudentPreview();
+      studentPreview = document.createElement('p');
+      studentPreview.className = 'chat-preview';
+      studentPreview.textContent = 'Escuchándote...';
+      conversation.appendChild(studentPreview);
+      conversation.scrollTop = conversation.scrollHeight;
+    };
+
+    // Transcripción en vivo de lo que dice el estudiante.
+    recognition.onresult = event => {
+      let visible = '';
+      for (let index = event.resultIndex; index < event.results.length; index += 1) {
+        const text = event.results[index][0].transcript;
+        visible += text;
+        if (event.results[index].isFinal) finalTranscript += text;
+      }
+      if (visible.trim() && studentPreview) {
+        studentPreview.textContent = visible.trim();
+        conversation.scrollTop = conversation.scrollHeight;
+      }
+    };
+
+    recognition.onerror = event => {
+      cancelListening = false;
+      isRunning = false;
+      isListening = false;
+      setMicListening(false);
+      setPill(patientStatus, 'Listo');
+      removeStudentPreview();
+      if (event.error !== 'aborted') {
+        window.alert('No se pudo usar el micrófono. Revisa el permiso del navegador.');
+      }
+    };
+
+    recognition.onend = async () => {
+      isListening = false;
+      setMicListening(false);
+      removeStudentPreview();
+      if (cancelListening) {
+        cancelListening = false;
+        setReady();
+        return;
+      }
+      const question = finalTranscript.trim();
+      if (!question) {
+        setReady();
+        return;
+      }
+      appendChat(question, 'student');
+      await respondToStudent(question, session);
+    };
+  }
+
+  const startListening = () => {
+    if (!recognition || isListening || consultationClosed) return;
+    session += 1;
+    recognition.start();
+  };
+
+  micButton?.addEventListener('click', () => {
+    if (!recognition) {
+      window.alert('El reconocimiento de voz no está disponible. Usa Chrome o Edge con permiso para el micrófono.');
+      return;
+    }
+    if (isListening) {
+      cancelListening = true;
+      session += 1;
+      window.speechSynthesis?.cancel();
+      recognition.stop();
+      return;
+    }
+    // Pulsar mientras alguien habla lo interrumpe y abre el micrófono.
+    if (isRunning) {
+      session += 1;
+      window.speechSynthesis?.cancel();
+      isRunning = false;
+      setPill(doctorStatus, 'Interrumpido');
+    }
+    startListening();
+  });
+
+  // Dictado de una sola frase para hipótesis, motivos de descarte y diagnóstico.
+  const dictate = (input, feedback) => {
+    if (!SpeechRecognition) {
+      if (feedback) feedback.textContent = 'El dictado requiere Chrome o Edge.';
+      return;
+    }
+    const dictation = new SpeechRecognition();
+    dictation.lang = 'es-ES';
+    dictation.continuous = false;
+    dictation.interimResults = false;
+    dictation.onstart = () => { if (feedback) feedback.textContent = 'Escuchando...'; };
+    dictation.onresult = event => {
+      input.value = `${input.value} ${event.results[0][0].transcript}`.trim();
+      if (feedback) feedback.textContent = 'Dictado terminado.';
+    };
+    dictation.onerror = () => { if (feedback) feedback.textContent = 'No se pudo usar el micrófono.'; };
+    dictation.start();
+  };
+
+  function renderHypotheses() {
+    if (!hypothesesList) return;
+    hypothesesList.replaceChildren();
+    const activeCount = hypotheses.filter(hypothesis => !hypothesis.discarded).length;
+    if (hypothesesCount) hypothesesCount.textContent = `${activeCount} ${activeCount === 1 ? 'activa' : 'activas'}`;
+
+    hypotheses.forEach((hypothesis, index) => {
+      const item = document.createElement('li');
+      item.className = 'bg-surface border border-slate-200 rounded-xl p-3 flex flex-col gap-2';
+      const header = document.createElement('div');
+      header.className = 'flex items-center justify-between gap-2';
+      const name = document.createElement('span');
+      name.className = hypothesis.discarded
+        ? 'flex items-center gap-2 text-sm font-medium text-slate-500 line-through'
+        : 'flex items-center gap-2 text-sm font-semibold text-slate-900';
+      const dot = document.createElement('span');
+      dot.className = `w-2 h-2 shrink-0 rounded-full ${hypothesis.discarded ? 'bg-slate-300' : 'bg-brand-600'}`;
+      name.append(dot, hypothesis.name);
+      header.appendChild(name);
+
+      if (!hypothesis.discarded && !consultationClosed && discardingIndex !== index) {
+        const discardButton = document.createElement('button');
+        discardButton.type = 'button';
+        discardButton.className = 'rounded-lg px-2 py-1 text-[13px] font-semibold text-slate-600 hover:bg-red-50 hover:text-red-700 transition-colors';
+        discardButton.textContent = 'Descartar';
+        discardButton.addEventListener('click', () => {
+          discardingIndex = index;
+          renderHypotheses();
+        });
+        header.appendChild(discardButton);
+      }
+      item.appendChild(header);
+
+      if (hypothesis.discarded && hypothesis.reason) {
+        const reason = document.createElement('p');
+        reason.className = 'text-[13px] text-slate-600 italic leading-relaxed';
+        reason.textContent = `Descartada: ${hypothesis.reason}`;
+        item.appendChild(reason);
+      }
+
+      if (discardingIndex === index) {
+        const form = document.createElement('div');
+        form.className = 'flex flex-wrap items-center gap-1.5';
+        const reasonInput = document.createElement('input');
+        reasonInput.type = 'text';
+        reasonInput.placeholder = '¿Por qué la descartas?';
+        reasonInput.className = 'h-10 flex-1 min-w-0 rounded-lg border border-slate-300 bg-surface px-2.5 text-sm text-slate-900 outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-100';
+        const reasonMic = document.createElement('button');
+        reasonMic.type = 'button';
+        reasonMic.title = 'Dictar motivo';
+        reasonMic.className = 'flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200';
+        const reasonMicIcon = document.createElement('span');
+        reasonMicIcon.className = 'material-symbols-outlined text-lg';
+        reasonMicIcon.textContent = 'mic';
+        reasonMic.append(reasonMicIcon);
+        reasonMic.addEventListener('click', () => dictate(reasonInput, hypothesesFeedback));
+        const confirmButton = document.createElement('button');
+        confirmButton.type = 'button';
+        confirmButton.className = 'h-10 rounded-lg bg-brand-600 px-3 text-[13px] font-semibold text-white hover:bg-brand-700';
+        confirmButton.textContent = 'Confirmar';
+        const cancelButton = document.createElement('button');
+        cancelButton.type = 'button';
+        cancelButton.className = 'h-10 rounded-lg px-2 text-[13px] font-semibold text-slate-600 hover:bg-slate-100';
+        cancelButton.textContent = 'Cancelar';
+        const confirmDiscard = () => {
+          const reasonText = reasonInput.value.trim();
+          if (!reasonText) {
+            if (hypothesesFeedback) hypothesesFeedback.textContent = 'Indica el motivo del descarte.';
+            reasonInput.focus();
+            return;
+          }
+          hypothesis.discarded = true;
+          hypothesis.reason = reasonText;
+          discardingIndex = null;
+          if (hypothesesFeedback) hypothesesFeedback.textContent = `Descartaste ${hypothesis.name}.`;
+          renderHypotheses();
+        };
+        confirmButton.addEventListener('click', confirmDiscard);
+        reasonInput.addEventListener('keydown', event => { if (event.key === 'Enter') confirmDiscard(); });
+        cancelButton.addEventListener('click', () => {
+          discardingIndex = null;
+          renderHypotheses();
+        });
+        form.append(reasonInput, reasonMic, confirmButton, cancelButton);
+        item.appendChild(form);
+        window.setTimeout(() => reasonInput.focus(), 0);
+      }
+      hypothesesList.appendChild(item);
+    });
+  }
+
+  const addHypothesis = () => {
+    if (!hypothesisInput || consultationClosed) return;
+    const text = hypothesisInput.value.trim();
+    if (!text) {
+      if (hypothesesFeedback) hypothesesFeedback.textContent = 'Escribe o dicta una hipótesis.';
+      return;
+    }
+    const existing = hypotheses.find(hypothesis => hypothesis.name.toLowerCase() === text.toLowerCase());
+    if (existing && !existing.discarded) {
+      if (hypothesesFeedback) hypothesesFeedback.textContent = `${existing.name} ya está en tu lista.`;
+      return;
+    }
+    if (existing) {
+      existing.discarded = false;
+      existing.reason = '';
+      if (hypothesesFeedback) hypothesesFeedback.textContent = `Retomaste ${existing.name} como hipótesis activa.`;
+    } else {
+      hypotheses.push({ name: text, discarded: false, reason: '' });
+      if (hypothesesFeedback) hypothesesFeedback.textContent = `Agregaste ${text}.`;
+    }
+    hypothesisInput.value = '';
+    if (hypothesesHint) hypothesesHint.textContent = 'Actualiza tus hipótesis a medida que obtengas nuevos datos.';
+    renderHypotheses();
+  };
+
+  addHypothesisButton?.addEventListener('click', addHypothesis);
+  hypothesisInput?.addEventListener('keydown', event => { if (event.key === 'Enter') addHypothesis(); });
+  hypothesisMic?.addEventListener('click', () => dictate(hypothesisInput, hypothesesFeedback));
+
+  diagnosisButton?.addEventListener('click', () => {
+    showTab('hipotesis');
+    show(diagnosisPanel);
+    diagnosisInput?.focus();
+  });
+  closeDiagnosis?.addEventListener('click', () => show(diagnosisPanel, false));
+  diagnosisMic?.addEventListener('click', () => dictate(diagnosisInput, diagnosisFeedback));
+
+  saveDiagnosis?.addEventListener('click', async () => {
+    const diagnosis = diagnosisInput?.value.trim();
+    if (!diagnosis) {
+      if (diagnosisFeedback) diagnosisFeedback.textContent = 'Escribe o dicta un diagnóstico antes de guardar.';
+      return;
+    }
+    consultationClosed = true;
+    discardingIndex = null;
+    session += 1;
+    window.speechSynthesis?.cancel();
+    if (recognition && isListening) recognition.abort();
+    [saveDiagnosis, diagnosisMic, micButton, diagnosisButton, hypothesisInput, hypothesisMic, addHypothesisButton].forEach(element => {
+      if (element) element.disabled = true;
+    });
+    renderHypotheses();
+    if (aiSessionId) {
+      await fetch(`/api/ai/sessions/${encodeURIComponent(aiSessionId)}/finish`, { method: 'POST' }).catch(() => null);
+    }
+    if (diagnosisFeedback) diagnosisFeedback.textContent = 'Diagnóstico guardado. Consulta finalizada.';
+    simulatorStatus.textContent = 'Consulta finalizada';
+    recordStatus.lastChild.textContent = 'Finalizada';
+    setStatus('Consulta finalizada. Para practicar con otro paciente, vuelve al inicio.');
+  });
 
   if (startButton) startButton.disabled = true;
   if (!statusMessage || !startButton || !record || !emptyRecord || !recordHistory || !conversation) return;
@@ -273,12 +680,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     caseAvailable = status.caseConfigured && status.availableCases > 0;
     startButton.disabled = !caseAvailable;
     startButton.lastChild.textContent = caseAvailable ? ' Iniciar simulación' : ' Sin casos disponibles';
-    simulatorStatus.textContent = caseAvailable
-      ? `${status.availableCases} casos curados disponibles`
-      : 'Sin casos curados';
+    simulatorStatus.textContent = specialtyName || 'Cualquier especialidad';
     setStatus(caseAvailable
       ? `${specialtyName ? `Especialidad: ${specialtyName}. ` : ''}Pulsa «Iniciar simulación»: el doctor te presentará al paciente.`
-      : 'Aún no hay casos clínicos curados disponibles.');
+      : 'Aún no hay casos clínicos disponibles.');
   } catch (error) {
     console.error('No se pudo comprobar la disponibilidad de casos clínicos:', error);
     setStatus('No se pudo comprobar el estado del simulador. Verifica que el servidor esté en ejecución.', true);

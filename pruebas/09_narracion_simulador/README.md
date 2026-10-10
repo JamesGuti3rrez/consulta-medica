@@ -30,6 +30,34 @@ catálogo curado, dentro de la especialidad elegida.
 - La narración usa solo los datos públicos del caso (`to_student_case`): lo que está en
   `on_request` se sigue obteniendo al preguntar.
 
+## Interrogatorio por micrófono (intento 3)
+
+Como en el simulador original (`f0881ca`): al terminar la presentación desaparece el botón de inicio
+(no hay «cambiar de caso»; para otro paciente se vuelve al inicio) y aparecen «Pulsa para hablar» y
+«Realizar Diagnóstico».
+
+- **Micrófono:** reconocimiento de voz del navegador (`es-ES`), con la transcripción en vivo en la
+  consulta («Escuchándote...» y el texto parcial). Al terminar, la frase queda como burbuja del
+  estudiante. Pulsar mientras alguien habla lo interrumpe y abre el micrófono.
+- **Respuesta:** si el servidor tiene los agentes (`/api/ai`, rama `feature/integracion-sma-rag`), el
+  simulador abre una sesión al iniciar y envía cada frase; responde el agente que corresponda (paciente
+  con su burbuja y los puntos de «pensando»; doctor, laboratorio, radiología o especialista con la
+  burbuja del equipo), con voz. Sin agentes, el doctor avisa que el interrogatorio todavía no está
+  disponible.
+- **Hipótesis:** agregar (escrita o dictada), descartar con motivo y retomar. El original las
+  comparaba con los diferenciales del caso (`/api/hipotesis`); eso queda para la evaluación.
+- **Diagnóstico:** escrito o dictado; al guardarlo se cierra la consulta (y la sesión de agentes).
+  El puntaje y el reporte del original dependían de un guion fijo; la evaluación es parte del motor
+  clínico (Julio).
+- [probar_interrogatorio.cjs](probar_interrogatorio.cjs) sustituye el micrófono por uno simulado que
+  «dice» frases de prueba, porque el navegador automático no tiene micrófono.
+- Sin agentes (esta rama): [sin_agentes_1_listo_para_preguntar.png](sin_agentes_1_listo_para_preguntar.png),
+  [sin_agentes_2_transcribiendo.png](sin_agentes_2_transcribiendo.png),
+  [sin_agentes_3_respuestas.png](sin_agentes_3_respuestas.png),
+  [sin_agentes_4_diagnostico.png](sin_agentes_4_diagnostico.png) y
+  [sin_agentes_terminal.png](sin_agentes_terminal.png). El único error de consola es el 404 de
+  `/api/ai/sessions`, que en esta rama no existe.
+
 ## Evidencia
 
 - Intento 2 (sin código del caso): [portada_3_simulador_listo.png](portada_3_simulador_listo.png) (al
