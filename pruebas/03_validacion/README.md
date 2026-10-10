@@ -68,3 +68,4 @@ cd backend
 | 1 | Fallido: EME-002 y PED-010 venían del banco Taiwan y la decisión 0001 solo admitía el banco US | [intentos/01_casos_fuera_del_banco_us/](intentos/01_casos_fuera_del_banco_us/README.md) |
 | 2 | Correcto: se actualizó la decisión 0001 (§1 admite Taiwan en inglés, §5 `ia_validador`, §6 traducción con la misma información) y todo pasa | esta carpeta |
 | 3 | Correcto: reglas R11–R13 y aviso W01 del validador del SP-002, aplicados por las Quality Gates | [../06_correcciones/10_quality_gates_sp002/](../06_correcciones/10_quality_gates_sp002/) |
+| 4 | Incompleto: la comprobación 6 (banco de origen) se omitía porque buscaba la carpeta descomprimida, eliminada en la limpieza; la salida de `ejecucion/01_verificar_casos.txt` lo muestra. Corregido: lee el zip y los 10 casos pasan | [../06_correcciones/14_banco_de_origen/](../06_correcciones/14_banco_de_origen/) |

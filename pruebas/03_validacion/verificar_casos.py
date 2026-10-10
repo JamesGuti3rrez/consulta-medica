@@ -12,6 +12,7 @@ from __future__ import annotations
 import json
 import re
 import sys
+import zipfile
 from collections import Counter
 from pathlib import Path
 
@@ -25,7 +26,8 @@ from server.cases.catalog import CURATED_CASES_DIR, load_curated_cases, to_stude
 from server.cases.validator import load_schema  # noqa: E402
 
 CASES_ROOT = REPO_ROOT / "data" / "cases"
-QUESTIONS_ROOT = REPO_ROOT / "data" / "raw" / "medqa" / "data_clean" / "questions"
+QUESTIONS_ZIP = REPO_ROOT / "data" / "raw" / "medqa" / "data_clean.zip"
+QUESTIONS_PREFIX = "data_clean/questions/"
 SOURCE_MARKER = "Texto fuente conservado (inglés): "
 ALLOWED_BANKS = {"US", "Taiwan"}  # docs/decisions/0001 §1; Mainland (chino) no se admite.
 FOLDERS = ("curated", "validated", "rejected")
@@ -132,14 +134,18 @@ for folder in FOLDERS:
         print(f"      {case_id}: {warnings}")
 
 print("\n6. Banco de origen de cada pregunta (docs/decisions/0001 §1: US o Taiwan en inglés)")
-if not QUESTIONS_ROOT.exists():
-    print("  [OMITIDO] falta data/raw/medqa; ejecute antes «sources fetch»")
+if not QUESTIONS_ZIP.exists():
+    print("  [OMITIDO] falta data/raw/medqa/data_clean.zip; ejecute antes «sources fetch»")
 else:
-    # (banco, contenido) de cada .jsonl; el banco es la primera carpeta: US, Mainland o Taiwan.
-    banks = [
-        (path.relative_to(QUESTIONS_ROOT).parts[0], path.read_text(encoding="utf-8"))
-        for path in sorted(QUESTIONS_ROOT.rglob("*.jsonl"))
-    ]
+    # (banco, contenido) de cada .jsonl del zip, leído sin descomprimirlo; el banco es la primera
+    # carpeta bajo questions/: US, Mainland o Taiwan. Se leen todos para comprobar que no hay
+    # casos del banco Mainland.
+    with zipfile.ZipFile(QUESTIONS_ZIP) as archive:
+        banks = [
+            (name[len(QUESTIONS_PREFIX):].split("/", 1)[0], archive.read(name).decode("utf-8"))
+            for name in sorted(archive.namelist())
+            if name.startswith(QUESTIONS_PREFIX) and name.endswith(".jsonl")
+        ]
     for case_id, case in sorted(curated.items()):
         topic = case["protected"]["evaluation"]["key_questions"][0]["topic"]
         source_text = topic.split(SOURCE_MARKER, 1)[1].split(" Opciones fuente:", 1)[0][:120]
