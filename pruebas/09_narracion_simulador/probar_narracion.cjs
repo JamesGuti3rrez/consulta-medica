@@ -4,7 +4,7 @@
 const { chromium } = require('playwright');
 (async () => {
   const out = process.argv[2] || 'pruebas/09_narracion_simulador/narracion';
-  const browser = await chromium.launch();
+  const browser = await chromium.launch({ args: ['--mute-audio'] });
   const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
   const errors = [];
   page.on('pageerror', e => errors.push(e.message));
@@ -18,7 +18,7 @@ const { chromium } = require('playwright');
   const caseId = (await response.json()).case_id;
   await page.waitForTimeout(2500);
   await page.screenshot({ path: out + '_1_narrando.png' });
-  await page.waitForFunction(() => document.querySelector('[data-role="conversation-status"]').textContent.includes('terminada'), null, { timeout: 90000 });
+  await page.locator('[aria-label="Micrófono"]').waitFor({ state: 'visible', timeout: 90000 });
   await page.waitForTimeout(800);
   console.log('tabs:', await page.$$eval('[data-tab]', b => b.map(x => x.dataset.tab + '=' + x.className)));
   await page.screenshot({ path: out + '_2_terminada.png' });

@@ -18,7 +18,7 @@ const PREGUNTAS = {
   const specialty = process.argv[3] || 'emergencias';
   const prefix = process.argv[4] || 'interrogatorio';
   const shot = name => path.join(outDir, `${prefix}_${name}.png`);
-  const browser = await chromium.launch();
+  const browser = await chromium.launch({ args: ['--mute-audio'] });
   const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
   await page.addInitScript(phrases => {
     let next = 0;
