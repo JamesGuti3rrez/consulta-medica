@@ -29,6 +29,7 @@ ningún dato de ellos**; solo sus especificaciones y criterios.
 | 11 | La prueba del simulador dependía de Playwright en la caché de npx de un solo equipo | Playwright `1.63.0` como dependencia de desarrollo del proyecto | `61bdd24` | [11_playwright_del_proyecto/](11_playwright_del_proyecto/) |
 | 12 | La API ignoraba la especialidad: «las cinco especialidades cargan el mismo caso» (arquitectura, pendientes) | `GET /api/caso?especialidad=…`, conteo por especialidad en `/api/status` y el simulador pasa el parámetro de su URL | `0dab41d` | [12_caso_por_especialidad/](12_caso_por_especialidad/) |
 | 13 | La documentación decía que las reglas cruzadas no existían, describía carpetas sin uso y la decisión 0001 no reflejaba la fuente real | README de `data/`, del pipeline y del esquema, tabla de reglas en `docs/data_model/`, decisión 0001 y nota de traspaso actualizadas | `889b65f` | — |
+| 14 | La comprobación 6 de `verificar_casos.py` (banco de origen de cada pregunta) buscaba la carpeta `data_clean/` descomprimida, que se eliminó en la corrección 3: se omitía sin fallar (la salida de `03_validacion/ejecucion/01_verificar_casos.txt` muestra «[OMITIDO]») | Lee las preguntas dentro de `data_clean.zip`, sin descomprimirlo; los 10 casos aparecen en el banco US o Taiwan | (rama `feature/integracion-sma-rag`) | [14_banco_de_origen/](14_banco_de_origen/) |
 
 Comprobación final: el recorrido completo pasa 8 de 8 y `pytest` pasa 45 de 45
 ([../05_recorrido_completo/](../05_recorrido_completo/README.md)).
