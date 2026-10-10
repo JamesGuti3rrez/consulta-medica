@@ -6,6 +6,7 @@ from pathlib import Path
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 
+from .api.ai import router as ai_router
 from .api.routes import router as api_router
 from .rag.router import router as rag_router
 
@@ -41,8 +42,9 @@ async def security_headers(request: Request, call_next):
     return response
 
 
-# Rutas de la API: las del RAG (rag/router.py) van antes que api/routes.py, que termina con la
-# respuesta 404 para cualquier otra ruta /api/.
+# Rutas de la API: las del SMA (api/ai.py) y las del RAG (rag/router.py) van antes que api/routes.py,
+# que termina con la respuesta 404 para cualquier otra ruta /api/.
+app.include_router(ai_router)
 app.include_router(rag_router)
 app.include_router(api_router)
 
