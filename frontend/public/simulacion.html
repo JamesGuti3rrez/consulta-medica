@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>Consulta Médica Virtual | Simulador Clínico</title>
-  <meta name="description" content="Espacio de consulta clínica preparado para tus propios datos. Aún no hay casos conectados.">
+  <meta name="description" content="Simulador clínico: entrevista a un paciente virtual, plantea tus hipótesis y registra tu diagnóstico.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
@@ -128,13 +128,13 @@
             <div class="flex items-center justify-between gap-2">
               <div class="flex items-center gap-1.5">
                 <span class="material-symbols-outlined text-base text-white/85">record_voice_over</span>
-                <span class="text-[13px] sm:text-sm font-semibold text-white/85">Consulta</span>
+                <span class="text-[13px] sm:text-sm font-semibold text-white/85">Doctor (Voz sintetizada)</span>
               </div>
               <span data-role="doctor-status"
                 class="status-pill flex items-center gap-1.5 text-[13px] bg-white/15 px-2.5 py-0.5 rounded-full font-medium"><span
                   class="w-1.5 h-1.5 rounded-full bg-white/80"></span> En espera</span>
             </div>
-            <p data-role="doctor-text" class="text-[15px] sm:text-[17px] leading-snug font-semibold text-white">La consulta estará disponible al conectar tus datos.</p>
+            <p data-role="doctor-text" class="text-[15px] sm:text-[17px] leading-snug font-semibold text-white">Presiona “Iniciar simulación” para comenzar.</p>
           </div>
 
           <div data-role="patient-bubble"
@@ -149,7 +149,7 @@
                   class="w-1.5 h-1.5 rounded-full bg-brand-500"></span> En espera</span>
             </div>
             <p data-role="patient-text" class="text-[15px] sm:text-[17px] leading-snug text-slate-900">
-              La información del paciente aparecerá aquí cuando conectes un caso.</p>
+              Esperando la presentación del caso...</p>
           </div>
         </div>
       </div>
@@ -164,7 +164,7 @@
             <span class="material-symbols-outlined text-[22px]">assignment</span></div>
           <div>
             <h3 class="text-[17px] font-semibold text-slate-900 leading-tight">Tablilla Médica</h3>
-            <p class="text-[13px] text-slate-500">Catálogo curado de demostración</p>
+            <p class="text-[13px] text-slate-500">Ficha clínica y presentación inicial</p>
           </div>
         </div>
         <span data-role="record-status"
@@ -185,7 +185,7 @@
         <div class="tab-panel" data-tab-panel="ficha" role="tabpanel">
             <p data-role="record-empty"
               class="text-sm text-slate-500 bg-surface border border-dashed border-slate-300 rounded-card p-5 text-center leading-relaxed">
-              Aún no hay datos clínicos conectados.</p>
+              Presiona “Iniciar simulación” para cargar la ficha progresivamente.</p>
             <div data-role="patient-record" hidden
               class="record-card hidden bg-surface border border-slate-200 rounded-card p-4 flex flex-col gap-3.5">
               <div class="flex items-center justify-between gap-2 border-b border-slate-100 pb-3">
@@ -213,10 +213,10 @@
                 class="section-icon material-symbols-outlined">forum</span>Consulta en vivo</span><span
               data-role="conversation-status" class="text-[13px] font-medium text-slate-500">Esperando inicio</span></div>
           <p data-role="next-prompt"
-            class="text-[13px] text-brand-700 leading-relaxed bg-brand-50 rounded-lg px-3 py-2">La consulta clínica interactiva aún no está conectada.</p>
+            class="text-[13px] text-brand-700 leading-relaxed bg-brand-50 rounded-lg px-3 py-2">La siguiente pregunta aparecerá aquí.</p>
           <div data-role="conversation-history"
             class="sim-scroll max-h-72 lg:max-h-none lg:flex-1 lg:min-h-0 overflow-y-auto pr-1 flex flex-col gap-2.5 text-sm leading-relaxed">
-            <p class="text-slate-400 italic text-[13px]">Aquí aparecerá la conversación de tu caso.</p>
+            <p class="text-slate-400 italic text-[13px]">La conversación aparecerá aquí, una intervención a la vez.</p>
           </div>
         </div>
 
@@ -242,7 +242,7 @@
               <p data-role="hypotheses-feedback" class="text-[13px] text-slate-500" aria-live="polite"></p>
             </div>
           <p class="hyp-placeholder text-sm text-slate-500 bg-surface border border-dashed border-slate-300 rounded-card p-5 text-center leading-relaxed">
-            La sección de hipótesis estará disponible al conectar tus datos.</p>
+            Podrás plantear tus hipótesis cuando termine la presentación del caso.</p>
             <div data-role="diagnosis-panel" hidden class="hidden border-t border-slate-200 pt-5 flex flex-col gap-3">
               <div class="flex items-center justify-between">
                 <span class="section-title"><span class="section-icon material-symbols-outlined">stethoscope</span>Diagnóstico
@@ -268,16 +268,16 @@
 
       <div class="pt-4 border-t border-slate-200 flex flex-col gap-2.5">
         <p data-role="case-status" class="rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm leading-relaxed text-amber-900" role="status" aria-live="polite">
-          Aún no hay datos clínicos conectados. La simulación se habilitará cuando integres tus propios casos.</p>
+          Comprobando la disponibilidad de casos...</p>
         <button data-role="start-simulation" disabled
           class="w-full h-12 px-4 rounded-full bg-accent-600 text-white text-[17px] font-semibold transition-colors duration-200 flex items-center justify-center gap-2 disabled:cursor-not-allowed disabled:opacity-50"
-          type="button"><span class="material-symbols-outlined text-lg">database</span> Cargando disponibilidad</button>
+          type="button"><span class="material-symbols-outlined text-lg">play_arrow</span> Cargando disponibilidad</button>
         <button
-          class="mic-button hidden w-full h-14 px-4 rounded-full bg-brand-600 hover:bg-brand-700 active:scale-[0.98] text-white text-[17px] font-semibold cursor-pointer transition-colors duration-200 flex items-center justify-center gap-2"
+          class="mic-button hidden w-full h-14 px-4 rounded-full bg-brand-600 hover:bg-brand-700 active:scale-[0.98] text-white text-[17px] font-semibold cursor-pointer transition-colors duration-200 flex items-center justify-center gap-2 disabled:cursor-not-allowed disabled:opacity-50"
           type="button" title="Hablar / Siguiente Intervención" aria-label="Micrófono" disabled><span
             class="material-symbols-outlined text-2xl leading-none">mic</span><span>Pulsa para hablar</span></button>
         <button
-          class="hidden w-full h-11 px-4 rounded-full border border-brand-600 bg-surface text-brand-700 hover:bg-brand-50 text-[15px] font-semibold cursor-pointer transition-colors duration-200 flex items-center justify-center gap-1.5"
+          class="hidden w-full h-11 px-4 rounded-full border border-brand-600 bg-surface text-brand-700 hover:bg-brand-50 text-[15px] font-semibold cursor-pointer transition-colors duration-200 flex items-center justify-center gap-1.5 disabled:cursor-not-allowed disabled:opacity-50"
           type="button" data-role="diagnosis-button" disabled><span
             class="material-symbols-outlined text-lg">check_circle</span> Realizar Diagnóstico</button>
       </div>

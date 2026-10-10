@@ -13,6 +13,7 @@ Todas las capturas están en **vista de escritorio/PC (1440 px de ancho)**; ning
 | 6. Auditoría y correcciones | [06_correcciones/](06_correcciones/README.md) | Hallazgos de la revisión, contraste con los documentos del proyecto y una corrección por commit | OK |
 | 7. Integración del SMA y del RAG | [07_integracion_sma_rag/](07_integracion_sma_rag/README.md) | El trabajo de la rama `Rodrigo` adaptado a la estructura y a los datos actuales, con una consulta simulada | OK |
 | 8. Redistribución de los casos | [08_redistribucion_casos/](08_redistribucion_casos/README.md) | Cada dato en su zona (`public` u `on_request`), con dueño, tema y preguntas clave; traducción completa | OK |
+| 9. Presentación narrada | [09_narracion_simulador/](09_narracion_simulador/README.md) | El doctor presenta un caso al azar de la especialidad elegida, con burbuja, voz y chat | OK |
 
 ## Convención de cada fase
 

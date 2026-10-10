@@ -4,9 +4,9 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Consulta Médica Virtual | Portal Clínico</title>
+  <title>Consulta Médica Virtual | Simulador Clínico</title>
   <meta name="description"
-    content="Interfaz de simulación clínica preparada para conectarse con tus propios datos, sin pacientes ni guiones de muestra.">
+    content="Simulador educativo para estudiantes de medicina: entrevista a un paciente virtual, maneja tus hipótesis y recibe un reporte de tu razonamiento.">
   <meta name="theme-color" content="#0e7490">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
@@ -14,7 +14,7 @@
   <meta property="og:locale" content="es_PE">
   <meta property="og:title" content="Consulta Médica Virtual">
   <meta property="og:description"
-    content="Interfaz clínica preparada para conectarse con tus propios datos, sin pacientes ni guiones de muestra.">
+    content="Practica la entrevista clínica con un paciente virtual y recibe un reporte de lo que preguntaste y lo que faltó.">
   <meta property="og:image" content="assets/og-image.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -125,16 +125,16 @@
       <div class="hero-content mx-auto flex max-w-6xl flex-col items-center px-4 pt-14 text-center sm:px-6 lg:pt-20">
         <h1 style="--d: 0ms"
           class="hero-in max-w-4xl text-balance text-[2.5rem] font-semibold leading-[1.08] tracking-[-0.02em] text-slate-900 sm:text-5xl lg:text-[3.5rem]">
-          Una interfaz clínica preparada para tus datos</h1>
+          Practica la entrevista clínica con un paciente virtual</h1>
         <p style="--d: 120ms" class="hero-in mt-5 max-w-2xl text-xl leading-snug text-slate-600 sm:text-[21px]">
-          Se retiraron los pacientes y guiones de muestra. Conecta tus propios casos para habilitar la simulación.</p>
+          Conduce la consulta por voz, plantea tus hipótesis y recibe un reporte de lo que preguntaste y lo que faltó.</p>
         <div style="--d: 240ms" class="hero-in mt-8 flex flex-col items-center gap-3 sm:flex-row">
-          <a href="simulacion.html"
+          <button data-role="open-case-picker" data-open="case" type="button"
             class="cta-pulse inline-flex h-12 cursor-pointer items-center justify-center gap-2 lift rounded-full bg-brand-600 px-7 text-[17px] font-semibold text-white hover:bg-brand-700">
-            <span class="material-symbols-outlined text-[22px]">arrow_forward</span>Abrir el simulador</a>
+            <span class="material-symbols-outlined text-[22px]">play_arrow</span>Probar la simulación</button>
           <a href="#como-funciona"
             class="inline-flex h-12 items-center justify-center rounded-full border border-brand-600 px-7 text-[17px] font-semibold text-brand-700 transition-colors duration-200 hover:bg-brand-50">
-            Preparar mis datos</a>
+            Ver cómo funciona</a>
         </div>
       </div>
 
@@ -146,10 +146,31 @@
             <img alt="Consulta médica entre doctor y paciente en consultorio" src="assets/consulta-1600.webp" width="1577"
               height="997" fetchpriority="high" class="aspect-[1577/997] w-full rounded-card object-cover shadow-float">
           </picture>
-          <div class="bubble relative ml-auto mt-4 max-w-[92%] rounded-card rounded-tr-md bg-brand-600 p-4 text-left text-white shadow-float sm:absolute sm:right-6 sm:top-8 sm:mt-0 sm:max-w-sm">
+          <div data-role="demo-doctor-bubble"
+            class="bubble relative ml-auto mt-4 min-h-[104px] max-w-[92%] rounded-card rounded-tr-md bg-brand-600 p-4 text-left text-white shadow-float sm:absolute sm:-right-6 sm:top-8 sm:mt-0 sm:min-h-0 sm:max-w-sm">
             <p class="flex items-center gap-1.5 text-sm font-semibold text-white/85"><span
-                class="material-symbols-outlined text-base">medical_information</span>Espacio de consulta</p>
-            <p class="mt-1 text-[17px] leading-snug">La ficha aparecerá cuando conectes tus propios datos.</p>
+                class="material-symbols-outlined text-base">record_voice_over</span>Tú, como médico</p>
+            <p data-role="demo-doctor" class="mt-1 text-[17px] font-semibold leading-snug">¿Dónde le duele y desde cuándo
+              empezó?</p>
+          </div>
+          <div data-role="demo-patient-bubble"
+            class="bubble relative mt-3 min-h-[128px] max-w-[92%] rounded-card rounded-tl-md border border-slate-200 bg-surface p-4 text-left shadow-float sm:absolute sm:-left-6 sm:bottom-10 sm:mt-0 sm:min-h-0 sm:max-w-md sm:border-0">
+            <p class="flex items-center gap-1.5 text-sm font-semibold text-slate-600"><span
+                class="material-symbols-outlined text-base">person</span>Diego, paciente</p>
+            <p data-role="demo-patient" class="mt-1 text-[17px] leading-snug text-slate-900">Empezó ayer alrededor del ombligo
+              y ahora me duele más abajo, a la derecha.</p>
+          </div>
+          <div class="float-chip chip-vitals hero-in" style="--d: 900ms" aria-hidden="true">
+            <div class="float-chip-body" style="--float-delay: 0s">
+              <span class="chip-icon material-symbols-outlined">monitor_heart</span>
+              <span><span class="chip-label">Signos vitales</span><span class="chip-value">T 38.1 °C, FC 98 lpm</span></span>
+            </div>
+          </div>
+          <div class="float-chip chip-hypothesis hero-in" style="--d: 1050ms" aria-hidden="true">
+            <div class="float-chip-body" style="--float-delay: -2.4s">
+              <span class="chip-icon material-symbols-outlined">psychology</span>
+              <span><span class="chip-label">Hipótesis activa</span><span class="chip-value">Apendicitis aguda</span></span>
+            </div>
           </div>
         </figure>
       </div>
@@ -160,53 +181,61 @@
       <div class="mx-auto max-w-6xl px-4 sm:px-6">
         <div data-reveal class="mx-auto max-w-2xl text-center">
           <h2 class="text-balance text-3xl font-semibold tracking-[-0.015em] text-slate-900 sm:text-[2.5rem] sm:leading-[1.1]">
-            Prepara el espacio para tus casos</h2>
-          <p class="mt-4 text-xl leading-snug text-slate-600">La estructura está lista; los datos clínicos los aportas tú.</p>
+            De la entrevista al diagnóstico en cuatro pasos</h2>
+          <p class="mt-4 text-xl leading-snug text-slate-600">Los mismos que seguirías con un paciente real.</p>
         </div>
         <ol class="steps mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
           <li class="step" data-reveal style="--d: 0ms; --i: 0">
             <span class="step-mark">1</span>
-            <h3 class="mt-5 text-[21px] font-semibold leading-tight text-slate-900">Organiza tus casos</h3>
-            <p class="mt-2 leading-relaxed text-slate-600">Organiza tus casos según la especialidad que uses.</p>
+            <h3 class="mt-5 text-[21px] font-semibold leading-tight text-slate-900">Elige una especialidad</h3>
+            <p class="mt-2 leading-relaxed text-slate-600">Recibes un paciente al azar con su ficha clínica y signos
+              vitales.</p>
             <div class="step-demo" aria-hidden="true">
               <div class="flex flex-wrap gap-1.5">
-                <span class="demo-pill is-on">Tus casos</span>
-                <span class="demo-pill">Tus categorías</span>
+                <span class="demo-pill is-on">Medicina interna</span>
+                <span class="demo-pill">Pediatría</span>
+                <span class="demo-pill">Cirugía general</span>
+                <span class="demo-pill">Emergencias</span>
               </div>
             </div>
           </li>
           <li class="step" data-reveal style="--d: 120ms; --i: 1">
             <span class="step-mark">2</span>
-            <h3 class="mt-5 text-[21px] font-semibold leading-tight text-slate-900">Entrevista clínica</h3>
-            <p class="mt-2 leading-relaxed text-slate-600">Conecta la fuente de datos que definirá la entrevista.</p>
+            <h3 class="mt-5 text-[21px] font-semibold leading-tight text-slate-900">Entrevista al paciente</h3>
+            <p class="mt-2 leading-relaxed text-slate-600">Hazle tus preguntas en voz alta y escucha lo que
+              te cuenta sobre sus síntomas.</p>
             <div class="step-demo" aria-hidden="true">
               <div class="flex items-center gap-3">
                 <span class="demo-mic material-symbols-outlined">mic</span>
                 <span class="demo-wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
               </div>
-              <p class="mt-3 text-[15px] font-medium leading-snug text-slate-900">Entrevista clínica</p>
+              <p class="mt-3 text-[15px] font-medium leading-snug text-slate-900">¿El dolor aumenta al caminar?</p>
             </div>
           </li>
           <li class="step" data-reveal style="--d: 240ms; --i: 2">
             <span class="step-mark">3</span>
-            <h3 class="mt-5 text-[21px] font-semibold leading-tight text-slate-900">Registra hipótesis</h3>
-            <p class="mt-2 leading-relaxed text-slate-600">Define cómo registrar hipótesis con la información de tus casos.</p>
+            <h3 class="mt-5 text-[21px] font-semibold leading-tight text-slate-900">Maneja tus hipótesis</h3>
+            <p class="mt-2 leading-relaxed text-slate-600">Plantea diagnósticos diferenciales y descártalos con el dato
+              que lo justifica.</p>
             <div class="step-demo" aria-hidden="true">
-              <p class="demo-hyp"><span class="demo-dot"></span>Hipótesis propias</p>
-              <p class="demo-hyp is-out"><span class="demo-dot"></span>Datos vinculados</p>
+              <p class="demo-hyp"><span class="demo-dot"></span>Apendicitis aguda</p>
+              <p class="demo-hyp is-out"><span class="demo-dot"></span>Gastroenteritis</p>
+              <p class="mt-1 pl-4 text-[13px] italic leading-snug text-slate-600">Descartada: el dolor migró a la fosa
+                ilíaca derecha.</p>
             </div>
           </li>
           <li class="step" data-reveal style="--d: 360ms; --i: 3">
             <span class="step-mark">4</span>
-            <h3 class="mt-5 text-[21px] font-semibold leading-tight text-slate-900">Define los resultados</h3>
-            <p class="mt-2 leading-relaxed text-slate-600">Conecta los criterios de resultado que quieras aplicar.</p>
+            <h3 class="mt-5 text-[21px] font-semibold leading-tight text-slate-900">Recibe tu reporte</h3>
+            <p class="mt-2 leading-relaxed text-slate-600">Registra tu diagnóstico y obtén un puntaje con fortalezas,
+              omisiones y recomendaciones.</p>
             <div class="step-demo" aria-hidden="true">
               <div class="flex items-center gap-4">
                 <span class="demo-ring"><svg viewBox="0 0 36 36"><circle class="ring-track" cx="18" cy="18" r="15.5"
-                      pathLength="100" /><circle class="ring-value" cx="18" cy="18" r="15.5" pathLength="100" /></svg><b>--</b></span>
+                      pathLength="100" /><circle class="ring-value" cx="18" cy="18" r="15.5" pathLength="100" /></svg><b>82</b></span>
                 <div>
-                  <p class="text-[15px] font-semibold leading-tight text-slate-900">Resultados</p>
-                  <p class="mt-0.5 text-[13px] leading-snug text-slate-600">criterios definidos por ti</p>
+                  <p class="text-[15px] font-semibold leading-tight text-slate-900">Tu puntaje</p>
+                  <p class="mt-0.5 text-[13px] leading-snug text-slate-600">con lo que hiciste bien y lo que faltó</p>
                 </div>
               </div>
             </div>
@@ -219,13 +248,13 @@
       <div class="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-20">
         <div data-reveal class="lg:sticky lg:top-28 lg:self-start">
           <h2 class="text-balance text-3xl font-semibold tracking-[-0.015em] text-slate-900 sm:text-[2.5rem] sm:leading-[1.1]">
-            Diseñado para tus propios criterios clínicos</h2>
-          <p class="mt-4 text-xl leading-snug text-slate-600">La estructura permite definir qué información usar y cómo
-            quieres organizar el razonamiento.</p>
+            No solo el diagnóstico: también el camino</h2>
+          <p class="mt-4 text-xl leading-snug text-slate-600">El reporte revisa cómo llegaste a la respuesta y si
+            descartaste lo peligroso con fundamento.</p>
           <div class="mt-8 flex gap-3 rounded-card bg-brand-50 p-5">
             <span class="material-symbols-outlined shrink-0 text-brand-700" aria-hidden="true">lightbulb</span>
-            <p class="text-[15px] leading-relaxed text-slate-800">No se incluyen datos clínicos de ejemplo. La consulta
-              se habilitará al conectar tus propios casos.</p>
+            <p class="text-[15px] leading-relaxed text-slate-800">Acertar al final no basta. Si descartas una causa
+              grave antes de tener el dato que lo justifica, el reporte te lo señala.</p>
           </div>
         </div>
 
@@ -233,29 +262,33 @@
           <li data-reveal style="--d: 0ms">
             <span class="criteria-icon material-symbols-outlined" aria-hidden="true">quiz</span>
             <div>
-              <h3 class="text-[19px] font-semibold leading-tight text-slate-900">Tus casos clínicos</h3>
-              <p class="mt-1.5 leading-relaxed text-slate-600">Conecta la fuente donde mantienes la información clínica.</p>
+              <h3 class="text-[19px] font-semibold leading-tight text-slate-900">Preguntas clave</h3>
+              <p class="mt-1.5 leading-relaxed text-slate-600">Qué datos obtuviste en la entrevista y cuáles quedaron sin
+                preguntar.</p>
             </div>
           </li>
           <li data-reveal style="--d: 100ms">
             <span class="criteria-icon material-symbols-outlined" aria-hidden="true">task_alt</span>
             <div>
-              <h3 class="text-[19px] font-semibold leading-tight text-slate-900">Tu estructura</h3>
-              <p class="mt-1.5 leading-relaxed text-slate-600">Define los campos y categorías que utilizas en tu trabajo.</p>
+              <h3 class="text-[19px] font-semibold leading-tight text-slate-900">Hipótesis correcta</h3>
+              <p class="mt-1.5 leading-relaxed text-slate-600">Si llegaste al diagnóstico acertado a partir de lo que
+                preguntaste.</p>
             </div>
           </li>
           <li data-reveal style="--d: 200ms">
             <span class="criteria-icon material-symbols-outlined" aria-hidden="true">warning</span>
             <div>
-              <h3 class="text-[19px] font-semibold leading-tight text-slate-900">Tus criterios</h3>
-              <p class="mt-1.5 leading-relaxed text-slate-600">Conecta las reglas que quieres aplicar a cada caso.</p>
+              <h3 class="text-[19px] font-semibold leading-tight text-slate-900">Diagnósticos peligrosos</h3>
+              <p class="mt-1.5 leading-relaxed text-slate-600">Si consideraste las causas graves que no se pueden pasar
+                por alto.</p>
             </div>
           </li>
           <li data-reveal style="--d: 300ms">
             <span class="criteria-icon material-symbols-outlined" aria-hidden="true">schedule</span>
             <div>
-              <h3 class="text-[19px] font-semibold leading-tight text-slate-900">Tu flujo de trabajo</h3>
-              <p class="mt-1.5 leading-relaxed text-slate-600">La interfaz se integrará con el proceso que definas.</p>
+              <h3 class="text-[19px] font-semibold leading-tight text-slate-900">Descarte oportuno</h3>
+              <p class="mt-1.5 leading-relaxed text-slate-600">Si descartaste cada hipótesis después de tener el dato que
+                lo justifica, no antes.</p>
             </div>
           </li>
         </ul>
@@ -265,12 +298,12 @@
     <section class="relative overflow-hidden bg-slate-50 py-20 sm:py-24">
       <div class="cta-glow" aria-hidden="true"></div>
       <div data-reveal class="relative mx-auto flex max-w-3xl flex-col items-center px-4 text-center sm:px-6">
-        <h2 class="text-3xl font-semibold tracking-[-0.015em] text-slate-900 sm:text-[2.5rem] sm:leading-[1.1]">Conecta
-          tus casos clínicos</h2>
-        <p class="mt-4 text-xl text-slate-600">El simulador no cargará pacientes de muestra.</p>
-        <a href="simulacion.html"
+        <h2 class="text-3xl font-semibold tracking-[-0.015em] text-slate-900 sm:text-[2.5rem] sm:leading-[1.1]">Tu próximo
+          paciente te está esperando</h2>
+        <p class="mt-4 text-xl text-slate-600">Elige una especialidad y empieza. No necesitas una cuenta.</p>
+        <button data-role="open-case-picker" data-open="case" type="button"
           class="cta-pulse mt-8 inline-flex h-12 cursor-pointer items-center justify-center gap-2 lift rounded-full bg-brand-600 px-7 text-[17px] font-semibold text-white hover:bg-brand-700">
-          <span class="material-symbols-outlined text-[22px]">arrow_forward</span>Abrir el simulador</a>
+          <span class="material-symbols-outlined text-[22px]">play_arrow</span>Probar la simulación</button>
       </div>
     </section>
   </main>
@@ -383,6 +416,71 @@
     </form>
   </div>
 
+  <div data-role="case-picker-panel" hidden
+    class="hidden fixed inset-0 z-50 items-center justify-center bg-slate-950/50 p-4 backdrop-blur-sm" role="dialog"
+    aria-modal="true" aria-labelledby="case-picker-title">
+    <form data-role="case-picker" action="simulacion.html" method="get"
+      class="picker-card max-h-[92vh] w-full max-w-lg overflow-y-auto rounded-card bg-surface p-6 shadow-float sm:p-8">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <h2 id="case-picker-title" class="text-[28px] font-semibold leading-tight tracking-[-0.015em] text-slate-900">
+            Elige tu caso</h2>
+          <p class="mt-1 text-[15px] text-slate-600">Tus datos y la especialidad. El paciente se asigna al azar.</p>
+        </div>
+        <button data-role="close-case-picker" data-close-dialog type="button" aria-label="Cerrar"
+          class="flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-full bg-slate-100 text-slate-900 transition-colors duration-200 hover:bg-slate-200"><span
+            class="material-symbols-outlined text-xl">close</span></button>
+      </div>
+
+      <div class="mt-6 flex flex-col gap-6">
+        <div class="grid gap-4 sm:grid-cols-2">
+          <label class="flex flex-col gap-2">
+            <span class="text-[15px] font-semibold text-slate-900">Nombres</span>
+            <input name="nombres" type="text" required autocomplete="given-name" placeholder="Ej. María José"
+              class="field">
+          </label>
+          <label class="flex flex-col gap-2">
+            <span class="text-[15px] font-semibold text-slate-900">Apellidos</span>
+            <input name="apellidos" type="text" required autocomplete="family-name" placeholder="Ej. Pérez Díaz"
+              class="field">
+          </label>
+        </div>
+
+        <fieldset>
+          <legend class="text-[15px] font-semibold text-slate-900">Especialidad</legend>
+          <div class="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2">
+            <label class="specialty">
+              <input type="radio" name="especialidad" value="medicina_interna" required class="sr-only">
+              <span class="material-symbols-outlined" aria-hidden="true">stethoscope</span>Medicina interna
+            </label>
+            <label class="specialty">
+              <input type="radio" name="especialidad" value="pediatria" class="sr-only">
+              <span class="material-symbols-outlined" aria-hidden="true">child_care</span>Pediatría
+            </label>
+            <label class="specialty">
+              <input type="radio" name="especialidad" value="ginecologia_obstetricia" class="sr-only">
+              <span class="material-symbols-outlined" aria-hidden="true">pregnant_woman</span>Ginecología y obstetricia
+            </label>
+            <label class="specialty">
+              <input type="radio" name="especialidad" value="cirugia_general" class="sr-only">
+              <span class="material-symbols-outlined" aria-hidden="true">surgical</span>Cirugía general
+            </label>
+            <label class="specialty">
+              <input type="radio" name="especialidad" value="emergencias" class="sr-only">
+              <span class="material-symbols-outlined" aria-hidden="true">warning</span>Emergencias
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="flex flex-col gap-3">
+          <button type="submit"
+            class="inline-flex h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-brand-600 px-5 text-[17px] font-semibold text-white transition-colors duration-200 hover:bg-brand-700 active:scale-[0.98]">
+            <span class="material-symbols-outlined text-[22px]">shuffle</span>Generar caso aleatorio</button>
+          <p data-role="guest-note" class="text-center text-sm text-slate-600">Puedes practicar sin iniciar sesión.</p>
+        </div>
+      </div>
+    </form>
+  </div>
   <script src="vendor/supabase.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/perfil.js"></script>

@@ -67,12 +67,13 @@ function protectedTexts(caseId) {
       start.click(),
     ]);
     const body = await response.json();
-    await page.waitForFunction(id => document.body.innerText.includes(`Caso ${id} cargado`), body.case_id);
+    await page.waitForFunction(alias => document.querySelector('[data-role="record-name"]').textContent === alias, body.patient.alias);
     if (!targets.includes(body.case_id) || seen.has(body.case_id)) continue;
 
     const screenText = await page.locator('body').innerText();
     const shown = await page.locator('[data-role="record-name"]').innerText();
-    const leaks = protectedTexts(body.case_id).filter(t => screenText.toLowerCase().includes(t.toLowerCase()));
+    // Ni los textos protegidos ni el código del caso se muestran al estudiante.
+    const leaks = [...protectedTexts(body.case_id), body.case_id].filter(t => screenText.toLowerCase().includes(t.toLowerCase()));
     const apiKeys = Object.keys(body).sort();
     const forbiddenKeys = apiKeys.filter(k => ['protected', 'on_request', 'source', 'provenance'].includes(k));
     const ok = leaks.length === 0 && forbiddenKeys.length === 0 && shown === body.patient.alias;
@@ -98,7 +99,7 @@ function protectedTexts(caseId) {
       specialtyStart.click(),
     ]);
     const body = await response.json();
-    await specialtyPage.waitForFunction(id => document.body.innerText.includes(`Caso ${id} cargado`), body.case_id);
+    await specialtyPage.waitForFunction(alias => document.querySelector('[data-role="record-name"]').textContent === alias, body.patient.alias);
     const ok = body.specialty === 'pediatria' && response.url().endsWith('?especialidad=pediatria');
     if (!ok) failures += 1;
     say(`[${ok ? 'OK' : 'FALLA'}] ?especialidad=pediatria, carga ${attempt}: ${body.case_id} (${body.specialty})`);
