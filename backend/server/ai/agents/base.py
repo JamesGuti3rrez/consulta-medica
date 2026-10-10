@@ -31,6 +31,37 @@ EVIDENCE_SOLICITATION_PATTERNS = (
 )
 
 
+# Reglas comunes a todos los agentes: lo que ve el estudiante es texto plano y solo con datos del caso.
+COMMON_RULES = (
+    "\n\nREGLAS DE RESPUESTA:\n"
+    "- Responde en texto plano: sin Markdown, sin asteriscos, sin viñetas ni títulos.\n"
+    "- No menciones identificadores, códigos, referencias ni nombres de campos internos "
+    "(por ejemplo retrieved_evidence o evidence_id).\n"
+    "- Si el dato que te piden no está en el CONTEXTO AUTORIZADO, di que no lo sabes. "
+    "Nunca lo niegues ni lo afirmes por tu cuenta."
+)
+
+# Limpieza final por si el modelo no sigue las reglas: códigos de evidencia (MED-008.sintoma.x, también
+# con guiones tipográficos), «(Referencia: …)», marcas de Markdown y nombres de campos internos.
+EVIDENCE_CODE = re.compile(r"\b[A-Z]{3,5}[-‐‑‒–]\d{3}(?:\.[A-Za-z0-9_]+)*\b")
+REFERENCE_NOTE = re.compile(r"\(?\s*(?:Referencias?|Fuente|Evidencia)\s*:[^)\n]*\)?", re.IGNORECASE)
+INTERNAL_TERMS = re.compile(
+    r"\(?\s*(?:retrieved[_ ]evidence|evidence[_ ]ids?|public[_ ]evidence)\s*\)?", re.IGNORECASE
+)
+
+
+def clean_reply(text: str) -> str:
+    text = REFERENCE_NOTE.sub("", text)
+    text = EVIDENCE_CODE.sub("", text)
+    text = INTERNAL_TERMS.sub("", text)
+    text = re.sub(r"[*_]{2,}|^#+\s*", "", text, flags=re.MULTILINE)
+    text = re.sub(r"^\s*[-•]\s+", "", text, flags=re.MULTILINE)
+    text = re.sub(r"\(\s*\)", "", text)
+    text = re.sub(r"\s*\n\s*", " ", text)
+    text = re.sub(r"\s+([.,;:])", r"\1", text)
+    return re.sub(r"\s{2,}", " ", text).strip()
+
+
 class BaseAgent(ABC):
     role: AgentRole
 
@@ -79,7 +110,7 @@ class BaseAgent(ABC):
             )
 
         return [
-            {"role": "system", "content": self.system_prompt + grounding_rule},
+            {"role": "system", "content": self.system_prompt + grounding_rule + COMMON_RULES},
             {
                 "role": "user",
                 "content": (
@@ -144,7 +175,7 @@ class BaseAgent(ABC):
             ]
         return AgentReply(
             role=self.role,
-            text=result_text,
+            text=clean_reply(result_text),
             provider=result.provider,
             model=result.model,
             evidence_ids=evidence_ids,

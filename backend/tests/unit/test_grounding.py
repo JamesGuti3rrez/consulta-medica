@@ -77,3 +77,15 @@ def test_agent_fails_closed_to_retrieved_evidence_after_second_grounding_violati
     assert reply.grounding_retry_used is True
     assert reply.grounding_fallback_used is True
     assert reply.text == "Exploración física sin hallazgos adicionales para revelar."
+
+
+def test_replies_are_plain_text_without_internal_codes():
+    from server.ai.agents.base import clean_reply
+
+    assert clean_reply("Hace tres días noté una lesión.\n(Referencia: MED‑008.sintoma.evolucion)") == (
+        "Hace tres días noté una lesión."
+    )
+    assert clean_reply("**Exploración física (retrieved evidence):**\n- Tono muscular mínimo.") == (
+        "Exploración física: Tono muscular mínimo."
+    )
+    assert clean_reply("La presión es 109/62 mmHg y el pH vaginal 5,8.") == "La presión es 109/62 mmHg y el pH vaginal 5,8."
