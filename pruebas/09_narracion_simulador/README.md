@@ -36,8 +36,10 @@ catálogo curado, dentro de la especialidad elegida.
   entrar, solo «Iniciar simulación»), [portada_4_caso_presentado.png](portada_4_caso_presentado.png) y
   [probar_portada_sin_codigo_terminal.png](probar_portada_sin_codigo_terminal.png) (la API devuelve
   EME-001 y el código no está visible en pantalla).
-- Intento 1: las capturas de abajo todavía muestran el código del caso y el selector de especialidad
-  en el simulador.
+- Intento 1 (con el código del caso y el selector en el simulador): las capturas `narracion_*.png`,
+  `portada_1` y `portada_2` se volvieron a tomar en el intento 2; las del intento 1 se conservan en el
+  historial de Git (commits `e2de531` y `81f5489`), junto con `portada_3_caso_presentado.png` y
+  `probar_portada_terminal.png`, que siguen en esta carpeta.
 - [portada_1_inicio.png](portada_1_inicio.png), [portada_2_elige_tu_caso.png](portada_2_elige_tu_caso.png)
   y [portada_3_caso_presentado.png](portada_3_caso_presentado.png): recorrido desde la portada
   (emergencias) hasta el caso presentado; [probar_portada_terminal.png](probar_portada_terminal.png),
