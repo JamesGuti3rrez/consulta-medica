@@ -344,7 +344,7 @@ def build_reviewed_cases() -> dict[str, Any]:
         json.dumps(
             {
                 "dataset": "MedQA",
-                "status": "ai_assisted_curation_completed",
+                "status": "curacion_con_revision_documentada",
                 "selected_count": len(case_index),
                 "specialty_counts": specialty_counts,
                 "clinical_review_counts": review_counts,
@@ -360,8 +360,8 @@ def build_reviewed_cases() -> dict[str, Any]:
     CLINICAL_REVIEW_PATH.write_text(
         json.dumps(
             {
-                "review_type": "AI-assisted curation and content/source-fidelity review",
-                "review_status": "ai_assisted_curation_completed",
+                "review_type": "Curación y revisión de fidelidad a la fuente",
+                "review_status": "curacion_con_revision_documentada",
                 "audit_round": 2,
                 "reviewed_at": BATCH_DATE,
                 "method": (

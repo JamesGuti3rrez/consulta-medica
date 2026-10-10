@@ -1,6 +1,6 @@
 {
   "dataset": "MedQA",
-  "status": "ai_assisted_curation_completed",
+  "status": "curacion_con_revision_documentada",
   "selected_count": 10,
   "specialty_counts": {
     "emergencias": 2,

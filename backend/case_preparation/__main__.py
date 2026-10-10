@@ -28,7 +28,7 @@ def main() -> int:
     extract_parser.add_argument("--input-dir", type=Path, default=None)
     extract_parser.add_argument("--output", type=Path, default=None)
 
-    subparsers.add_parser("curation", help="Genera y cura el lote MedQA con la revisión clínica asistida registrada")
+    subparsers.add_parser("curation", help="Genera y cura el lote MedQA con la revisión documentada de cada caso")
 
     args = parser.parse_args()
     if args.command == "sources" and args.source_command == "fetch":
