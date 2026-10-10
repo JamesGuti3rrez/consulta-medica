@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from server.cases.catalog import load_curated_cases
+from server.cases.catalog import load_curated_cases, to_student_case
 from server.cases.rules import check_batch_rules, check_case_rules, check_case_warnings
 
 CASES_DIR = Path(__file__).resolve().parents[2] / "data" / "cases"
@@ -122,3 +122,15 @@ def test_w01_warns_about_exam_in_public_without_blocking():
     surgical = _load("curated", "CIR-006")
     assert check_case_rules(surgical) == []
     assert [warning.split(" ", 1)[0] for warning in check_case_warnings(surgical)] == ["W01"]
+
+
+def test_items_with_value_and_unit_instead_of_text(case):
+    case["public"]["items"].append({
+        "evidence_id": "MED-008.vital.frecuencia_cardiaca",
+        "category": "signo_vital",
+        "label": "Frecuencia cardiaca",
+        "value": 74,
+        "unit": "/min",
+    })
+    assert check_case_warnings(case) == check_case_warnings(_load("curated", "MED-008"))
+    assert to_student_case(case)["items"][-1] == {"label": "Frecuencia cardiaca", "text": "74 /min"}

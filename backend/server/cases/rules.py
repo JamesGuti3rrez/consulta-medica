@@ -46,6 +46,13 @@ NUMBER_WORDS = {
 }
 
 
+def evidence_text(item: dict[str, Any]) -> str:
+    """Texto de un dato. El esquema admite `value` y `unit` en lugar de `text` (por ejemplo, un signo vital)."""
+    if "text" in item:
+        return item["text"]
+    return f"{item['value']} {item['unit']}"
+
+
 def _evidence_items(case: dict[str, Any]) -> list[dict[str, Any]]:
     public = case["public"]
     return [public["chief_complaint"], *public["items"], *case["on_request"]]
@@ -179,7 +186,7 @@ def check_case_warnings(case: dict[str, Any]) -> list[str]:
     # W01 · SP-002 (regla 2) y arquitectura §6.1: laboratorio, imágenes y examen físico van en
     # on_request. No bloquea mientras los casos no se redistribuyan entre public y on_request.
     public = case["public"]
-    public_text = " ".join([public["chief_complaint"]["text"], *(item["text"] for item in public["items"])])
+    public_text = " ".join(evidence_text(item) for item in [public["chief_complaint"], *public["items"]])
     found = sorted({match.group(0).lower() for match in EXAM_OR_LAB.finditer(public_text)})
     if found:
         warnings.append(f"W01 laboratorio o examen físico en public: {found}")
