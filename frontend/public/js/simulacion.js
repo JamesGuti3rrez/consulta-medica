@@ -134,8 +134,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     .replace(/(\d+),(\d+)/g, '$1 coma $2')
     .replace(/ × /g, ' por ');
 
-  // Velocidad de la voz: 1,5 veces la normal.
-  const SPEECH_RATE = 1.5;
+  // Velocidad de la voz: 1,3 veces la normal.
+  const SPEECH_RATE = 1.3;
   // Tiempo de lectura estimado: se usa sin voz y como límite si el navegador nunca avisa del final.
   const readingTime = text => Math.min(6000, 1000 + text.length * 30);
   // «Saltar» termina la frase en curso y la conversación sigue con la siguiente.

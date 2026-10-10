@@ -70,7 +70,7 @@ Como en el simulador original (`f0881ca`): al terminar la presentación desapare
 ## Saltar diálogos y voz más rápida (intento 5)
 
 - La voz usa la síntesis de texto a voz del navegador (Web Speech API, `speechSynthesis`, `es-ES`).
-  Su velocidad pasa de 0,95 a 1,5 (`SPEECH_RATE` en `simulacion.js`).
+  Su velocidad pasa de 0,95 a 1,5 y luego a 1,3, un poco más pausada (`SPEECH_RATE` en `simulacion.js`).
 - Botón «Saltar» en la burbuja del doctor y en la del paciente, visible mientras hablan: termina la
   frase en curso y la conversación sigue con la siguiente.
 - [saltar_boton_visible.png](saltar_boton_visible.png) y [saltar_terminal.png](saltar_terminal.png)
