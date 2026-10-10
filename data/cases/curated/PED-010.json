@@ -35,10 +35,23 @@
   },
   "on_request": [
     {
-      "evidence_id": "PED-010.examen.exploracion_fisica",
+      "evidence_id": "PED-010.examen.desarrollo_mamario",
       "category": "examen_fisico",
-      "label": "Exploración física",
-      "text": "En la revisión física se encuentran desarrollo mamario y manchas café con leche en la piel.",
+      "label": "Exploración física: mamas",
+      "text": "Se encuentra desarrollo mamario.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "exploracion_fisica"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-010.examen.manchas_piel",
+      "category": "examen_fisico",
+      "label": "Exploración física: piel",
+      "text": "Se encuentran manchas café con leche en la piel.",
       "reveal_policy": {
         "owner": "medico_asistente",
         "mode": "al_examinar",
@@ -65,13 +78,27 @@
       "evidence_id": "PED-010.imagen.imagen_osea",
       "category": "imagen",
       "label": "Estudio de imagen ósea",
-      "text": "Muestra crecimiento fibroso del hueso (displasia fibrosa); la edad ósea se interpreta como de 9 años.",
+      "text": "Muestra crecimiento fibroso del hueso (displasia fibrosa).",
       "interpretation": "A",
       "reveal_policy": {
         "owner": "radiologia",
         "mode": "al_solicitar_examen",
         "requires": [
           "imagen_osea"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-010.imagen.edad_osea",
+      "category": "imagen",
+      "label": "Edad ósea",
+      "text": "La edad ósea se interpreta como de 9 años.",
+      "interpretation": "A",
+      "reveal_policy": {
+        "owner": "radiologia",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "edad_osea"
         ]
       }
     }
@@ -127,9 +154,9 @@
         },
         {
           "id": "kq2",
-          "topic": "Exploración física: desarrollo mamario y manchas café con leche",
+          "topic": "Exploración física: desarrollo mamario",
           "evidence_ids": [
-            "PED-010.examen.exploracion_fisica"
+            "PED-010.examen.desarrollo_mamario"
           ],
           "weight": 5,
           "critical": true,
@@ -137,7 +164,17 @@
         },
         {
           "id": "kq3",
-          "topic": "Estudio de imagen ósea: displasia fibrosa y edad ósea adelantada",
+          "topic": "Exploración física: manchas café con leche",
+          "evidence_ids": [
+            "PED-010.examen.manchas_piel"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "id": "kq4",
+          "topic": "Estudio de imagen ósea: displasia fibrosa",
           "evidence_ids": [
             "PED-010.imagen.imagen_osea"
           ],
@@ -146,7 +183,17 @@
           "error_if_missing": "razonamiento_clinico"
         },
         {
-          "id": "kq4",
+          "id": "kq5",
+          "topic": "Edad ósea adelantada",
+          "evidence_ids": [
+            "PED-010.imagen.edad_osea"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "id": "kq6",
           "topic": "Función tiroidea",
           "evidence_ids": [
             "PED-010.lab.funcion_tiroidea"

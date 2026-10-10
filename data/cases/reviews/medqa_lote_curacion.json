@@ -933,13 +933,33 @@
       "chief_complaint": "A la mañana siguiente del parto no puede lactar cuando intenta amamantar a su bebé.",
       "public": [
         {
-          "key": "evolucion_parto",
+          "key": "llegada",
           "category": "anamnesis",
-          "label": "Evolución del parto",
-          "text": "Parto a término. Apgar del recién nacido: 9 al minuto y 10 a los 5 minutos. Treinta minutos después del parto, la presión arterial de la madre bajó a 80/60 mmHg y su pulso fue de 124/min. Se inició reanimación intensiva con líquidos: tras administrar 4 unidades de líquidos intravenosos y 4 unidades de sangre total, sus signos vitales se estabilizaron."
+          "label": "Datos de ingreso",
+          "text": "Puérpera de 24 años; tuvo un parto a término el día anterior."
         }
       ],
       "on_request": [
+        {
+          "key": "evolucion_parto",
+          "category": "antecedente",
+          "label": "Parto y puerperio inmediato",
+          "text": "Tuvo el parto a término; el recién nacido obtuvo un Apgar de 9 al minuto y de 10 a los 5 minutos. Media hora después del parto le administraron líquidos y sangre por la vena.",
+          "owner": "paciente",
+          "requires": [
+            "antecedentes_gineco_obstetricos"
+          ]
+        },
+        {
+          "key": "signos_vitales",
+          "category": "signo_vital",
+          "label": "Signos vitales tras el parto",
+          "text": "A los 30 minutos del parto: presión arterial de 80/60 mmHg y pulso de 124/min. Tras 4 unidades de líquidos intravenosos y 4 unidades de sangre total, los signos vitales se estabilizaron.",
+          "owner": "medico_asistente",
+          "requires": [
+            "signos_vitales"
+          ]
+        },
         {
           "key": "exploracion_fisica",
           "category": "examen_fisico",
@@ -952,6 +972,24 @@
         }
       ],
       "key_questions": [
+        {
+          "topic": "Evolución del parto y reposición de líquidos y sangre",
+          "evidence": [
+            "evolucion_parto"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "topic": "Signos vitales tras el parto: hipotensión y taquicardia",
+          "evidence": [
+            "signos_vitales"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
         {
           "topic": "Exploración física tras el parto: extremidades frías y húmedas, útero atónico",
           "evidence": [
@@ -1528,10 +1566,20 @@
       ],
       "on_request": [
         {
-          "key": "exploracion_fisica",
+          "key": "desarrollo_mamario",
           "category": "examen_fisico",
-          "label": "Exploración física",
-          "text": "En la revisión física se encuentran desarrollo mamario y manchas café con leche en la piel.",
+          "label": "Exploración física: mamas",
+          "text": "Se encuentra desarrollo mamario.",
+          "owner": "medico_asistente",
+          "requires": [
+            "exploracion_fisica"
+          ]
+        },
+        {
+          "key": "manchas_piel",
+          "category": "examen_fisico",
+          "label": "Exploración física: piel",
+          "text": "Se encuentran manchas café con leche en la piel.",
           "owner": "medico_asistente",
           "requires": [
             "exploracion_fisica"
@@ -1552,31 +1600,60 @@
           "key": "imagen_osea",
           "category": "imagen",
           "label": "Estudio de imagen ósea",
-          "text": "Muestra crecimiento fibroso del hueso (displasia fibrosa); la edad ósea se interpreta como de 9 años.",
+          "text": "Muestra crecimiento fibroso del hueso (displasia fibrosa).",
           "owner": "radiologia",
           "requires": [
             "imagen_osea"
+          ],
+          "interpretation": "A"
+        },
+        {
+          "key": "edad_osea",
+          "category": "imagen",
+          "label": "Edad ósea",
+          "text": "La edad ósea se interpreta como de 9 años.",
+          "owner": "radiologia",
+          "requires": [
+            "edad_osea"
           ],
           "interpretation": "A"
         }
       ],
       "key_questions": [
         {
-          "topic": "Exploración física: desarrollo mamario y manchas café con leche",
+          "topic": "Exploración física: desarrollo mamario",
           "evidence": [
-            "exploracion_fisica"
+            "desarrollo_mamario"
           ],
           "weight": 5,
           "critical": true,
           "error_if_missing": "razonamiento_clinico"
         },
         {
-          "topic": "Estudio de imagen ósea: displasia fibrosa y edad ósea adelantada",
+          "topic": "Exploración física: manchas café con leche",
+          "evidence": [
+            "manchas_piel"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "topic": "Estudio de imagen ósea: displasia fibrosa",
           "evidence": [
             "imagen_osea"
           ],
           "weight": 4,
           "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "topic": "Edad ósea adelantada",
+          "evidence": [
+            "edad_osea"
+          ],
+          "weight": 3,
+          "critical": false,
           "error_if_missing": "razonamiento_clinico"
         },
         {
