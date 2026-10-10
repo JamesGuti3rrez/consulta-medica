@@ -147,6 +147,13 @@ def _build_case(candidate: dict[str, Any], index: int) -> dict[str, Any]:
     on_request = [_evidence(case_id, entry) for entry in distribution["on_request"]]
     evidence_by_key = {entry["key"]: item["evidence_id"]
                        for entry, item in zip(distribution["on_request"], on_request)}
+    # Los diferenciales pueden descartarse también con datos visibles desde el inicio.
+    any_evidence_by_key = {
+        "queja_principal": chief_complaint_id,
+        **{entry["key"]: item["evidence_id"] for entry, item in zip(distribution["public"], public_items)},
+        **evidence_by_key,
+    }
+    discard = distribution.get("discard", {})
     distractors = candidate.get("clinical_differentials") or [
         {"name": _as_text(option), "must_not_miss": False}
         for option_index, option in enumerate(options)
@@ -161,6 +168,9 @@ def _build_case(candidate: dict[str, Any], index: int) -> dict[str, Any]:
         }
         for item in distractors
     ]
+    unknown = set(discard) - {item["name"] for item in normalized_differentials[:4]}
+    if unknown:
+        raise ValueError(f"El caso {case_id} descarta diferenciales que no tiene: {sorted(unknown)}")
     allergies = candidate.get("allergies") if distribution.get("allergies_in_public", True) else None
     treatment_reference = candidate.get("treatment_reference") or {
         "summary": (
@@ -215,7 +225,7 @@ def _build_case(candidate: dict[str, Any], index: int) -> dict[str, Any]:
                 {
                     "name": distractor["name"],
                     "must_not_miss": distractor["must_not_miss"],
-                    "discard_evidence_ids": [],
+                    "discard_evidence_ids": [any_evidence_by_key[key] for key in discard.get(distractor["name"], [])],
                 }
                 for distractor in normalized_differentials[:4]
             ] or [

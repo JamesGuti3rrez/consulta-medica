@@ -125,22 +125,31 @@
       {
         "name": "Enfermedad pélvica inflamatoria",
         "must_not_miss": true,
-        "discard_evidence_ids": []
+        "discard_evidence_ids": [
+          "GOB-004.vital.signos_vitales"
+        ]
       },
       {
         "name": "Cervicitis por gonorrea o clamidia",
         "must_not_miss": true,
-        "discard_evidence_ids": []
+        "discard_evidence_ids": [
+          "GOB-004.examen.exploracion_fisica"
+        ]
       },
       {
         "name": "Vaginosis bacteriana",
         "must_not_miss": false,
-        "discard_evidence_ids": []
+        "discard_evidence_ids": [
+          "GOB-004.examen.exploracion_fisica"
+        ]
       },
       {
         "name": "Candidiasis vulvovaginal",
         "must_not_miss": false,
-        "discard_evidence_ids": []
+        "discard_evidence_ids": [
+          "GOB-004.motivo.queja_principal",
+          "GOB-004.lab.ph_vaginal"
+        ]
       }
     ],
     "treatment_reference": {

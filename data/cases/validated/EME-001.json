@@ -85,7 +85,9 @@
       {
         "name": "Síndrome neuroléptico maligno",
         "must_not_miss": true,
-        "discard_evidence_ids": []
+        "discard_evidence_ids": [
+          "EME-001.examen.exploracion_fisica"
+        ]
       },
       {
         "name": "Tormenta tiroidea",
@@ -100,7 +102,9 @@
       {
         "name": "Hipertermia maligna perioperatoria",
         "must_not_miss": false,
-        "discard_evidence_ids": []
+        "discard_evidence_ids": [
+          "EME-001.antecedente.antecedentes"
+        ]
       }
     ],
     "treatment_reference": {

@@ -92,17 +92,24 @@
       {
         "name": "Enfermedad de von Willebrand",
         "must_not_miss": false,
-        "discard_evidence_ids": []
+        "discard_evidence_ids": [
+          "CIR-005.lab.coagulacion_preoperatoria"
+        ]
       },
       {
         "name": "Inhibidor adquirido de factor VIII",
         "must_not_miss": true,
-        "discard_evidence_ids": []
+        "discard_evidence_ids": [
+          "CIR-005.antecedente.antecedentes_familiares"
+        ]
       },
       {
         "name": "Coagulopatía perioperatoria adquirida",
         "must_not_miss": true,
-        "discard_evidence_ids": []
+        "discard_evidence_ids": [
+          "CIR-005.lab.coagulacion_posoperatoria",
+          "CIR-005.antecedente.antecedentes_familiares"
+        ]
       }
     ],
     "treatment_reference": {

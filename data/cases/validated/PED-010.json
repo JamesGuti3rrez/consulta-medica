@@ -114,22 +114,33 @@
       {
         "name": "Neurofibromatosis tipo 1",
         "must_not_miss": false,
-        "discard_evidence_ids": []
+        "discard_evidence_ids": [
+          "PED-010.imagen.imagen_osea",
+          "PED-010.examen.desarrollo_mamario"
+        ]
       },
       {
         "name": "Síndrome de Peutz-Jeghers",
         "must_not_miss": false,
-        "discard_evidence_ids": []
+        "discard_evidence_ids": [
+          "PED-010.examen.manchas_piel"
+        ]
       },
       {
         "name": "Displasia fibrosa ósea no sindrómica",
         "must_not_miss": false,
-        "discard_evidence_ids": []
+        "discard_evidence_ids": [
+          "PED-010.examen.desarrollo_mamario",
+          "PED-010.examen.manchas_piel"
+        ]
       },
       {
         "name": "Otras causas de pubertad precoz periférica",
         "must_not_miss": true,
-        "discard_evidence_ids": []
+        "discard_evidence_ids": [
+          "PED-010.imagen.imagen_osea",
+          "PED-010.examen.manchas_piel"
+        ]
       }
     ],
     "treatment_reference": {

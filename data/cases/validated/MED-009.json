@@ -85,22 +85,30 @@
       {
         "name": "Carcinoma escamocelular",
         "must_not_miss": true,
-        "discard_evidence_ids": []
+        "discard_evidence_ids": [
+          "MED-009.examen.exploracion_fisica"
+        ]
       },
       {
         "name": "Carcinoma sebáceo palpebral",
         "must_not_miss": true,
-        "discard_evidence_ids": []
+        "discard_evidence_ids": [
+          "MED-009.examen.exploracion_fisica"
+        ]
       },
       {
         "name": "Queratoacantoma",
         "must_not_miss": false,
-        "discard_evidence_ids": []
+        "discard_evidence_ids": [
+          "MED-009.sintoma.evolucion"
+        ]
       },
       {
         "name": "Chalazión persistente",
         "must_not_miss": false,
-        "discard_evidence_ids": []
+        "discard_evidence_ids": [
+          "MED-009.examen.exploracion_fisica"
+        ]
       }
     ],
     "treatment_reference": {

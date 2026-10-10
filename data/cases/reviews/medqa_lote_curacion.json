@@ -863,7 +863,15 @@
       "notes": [
         "El paciente no puede dar la información: la aporta un acompañante o la historia clínica."
       ],
-      "alias": "Jorge Salazar"
+      "alias": "Jorge Salazar",
+      "discard": {
+        "Síndrome neuroléptico maligno": [
+          "exploracion_fisica"
+        ],
+        "Hipertermia maligna perioperatoria": [
+          "antecedentes"
+        ]
+      }
     },
     "EME-002": {
       "chief_complaint": "Cefalea intensa de inicio súbito mientras se bañaba, seguida de vómitos; acude a urgencias.",
@@ -927,7 +935,20 @@
         "El paciente no puede dar la información: la aporta un acompañante o la historia clínica.",
         "El enunciado fuente (banco Taiwan, traducido del chino) está redactado de forma deficiente; se interpreta que la cefalea comenzó de forma súbita mientras se bañaba y que el paciente localiza el estímulo doloroso."
       ],
-      "alias": "Ricardo Medina"
+      "alias": "Ricardo Medina",
+      "discard": {
+        "Meningitis o meningoencefalitis": [
+          "queja_principal",
+          "signos_vitales"
+        ],
+        "Trombosis venosa cerebral": [
+          "queja_principal"
+        ],
+        "Crisis epiléptica": [
+          "queja_principal",
+          "exploracion_fisica"
+        ]
+      }
     },
     "GOB-003": {
       "chief_complaint": "A la mañana siguiente del parto no puede lactar cuando intenta amamantar a su bebé.",
@@ -1003,7 +1024,13 @@
       "notes": [
         "La fuente solo describe la evolución del parto y la falla de lactancia: no aporta otros antecedentes, exámenes ni hallazgos actuales para revelar."
       ],
-      "alias": "Lucía Paredes"
+      "alias": "Lucía Paredes",
+      "discard": {
+        "Hipofisitis posparto": [
+          "evolucion_parto",
+          "signos_vitales"
+        ]
+      }
     },
     "GOB-004": {
       "chief_complaint": "Molestia pélvica leve y flujo vaginal espumoso y amarillento desde hace 2 semanas.",
@@ -1108,7 +1135,22 @@
         }
       ],
       "notes": [],
-      "alias": "Andrea Castillo"
+      "alias": "Andrea Castillo",
+      "discard": {
+        "Enfermedad pélvica inflamatoria": [
+          "signos_vitales"
+        ],
+        "Cervicitis por gonorrea o clamidia": [
+          "exploracion_fisica"
+        ],
+        "Vaginosis bacteriana": [
+          "exploracion_fisica"
+        ],
+        "Candidiasis vulvovaginal": [
+          "queja_principal",
+          "ph_vaginal"
+        ]
+      }
     },
     "CIR-005": {
       "chief_complaint": "Ingresó por dolor abdominal intenso; se diagnosticó apendicitis y se le realizó una apendicectomía de urgencia.",
@@ -1184,7 +1226,19 @@
         }
       ],
       "notes": [],
-      "alias": "Martín Rojas"
+      "alias": "Martín Rojas",
+      "discard": {
+        "Enfermedad de von Willebrand": [
+          "coagulacion_preoperatoria"
+        ],
+        "Inhibidor adquirido de factor VIII": [
+          "antecedentes_familiares"
+        ],
+        "Coagulopatía perioperatoria adquirida": [
+          "coagulacion_posoperatoria",
+          "antecedentes_familiares"
+        ]
+      }
     },
     "CIR-006": {
       "chief_complaint": "Confusión en el quinto día después de una hemicolectomía derecha electiva.",
@@ -1266,7 +1320,17 @@
       "notes": [
         "La paciente está confusa: los antecedentes los aporta un acompañante o la historia clínica."
       ],
-      "alias": "Rosa Villanueva"
+      "alias": "Rosa Villanueva",
+      "discard": {
+        "Embolia pulmonar posoperatoria": [
+          "exploracion_fisica",
+          "signos_vitales"
+        ],
+        "Delirio posoperatorio por causa metabólica o farmacológica": [
+          "signos_vitales",
+          "exploracion_fisica"
+        ]
+      }
     },
     "PED-007": {
       "chief_complaint": "Cojea y protege la pierna izquierda; su madre nota que cambió su forma de jugar.",
@@ -1353,7 +1417,21 @@
       "notes": [
         "Paciente pediátrico: parte de la historia la aporta la madre."
       ],
-      "alias": "Mateo Quispe"
+      "alias": "Mateo Quispe",
+      "discard": {
+        "Artritis séptica": [
+          "signos_vitales"
+        ],
+        "Epifisiólisis de la cabeza femoral": [
+          "radiografia"
+        ],
+        "Osteomielitis": [
+          "signos_vitales"
+        ],
+        "Artritis idiopática juvenil": [
+          "radiografia"
+        ]
+      }
     },
     "MED-008": {
       "chief_complaint": "Cefalea, fiebre intermitente con escalofríos, dolores articulares generalizados, sed excesiva con aumento de la ingesta de líquidos y una erupción progresiva en la espalda.",
@@ -1478,7 +1556,16 @@
         "Se omite la frase del enunciado en la que el médico decide iniciar el antimicrobiano: esa decisión le corresponde al estudiante.",
         "La alergia deja de estar en la ficha pública (allergies_recorded: false): el estudiante debe preguntarla, y no hacerlo se evalúa como negligencia."
       ],
-      "alias": "Patricia Vargas"
+      "alias": "Patricia Vargas",
+      "discard": {
+        "Celulitis bacteriana": [
+          "exploracion_fisica"
+        ],
+        "Reacción local a picadura": [
+          "exploracion_fisica",
+          "signos_vitales"
+        ]
+      }
     },
     "MED-009": {
       "chief_complaint": "Acude a su control anual; no tiene molestias en este momento.",
@@ -1552,7 +1639,21 @@
         }
       ],
       "notes": [],
-      "alias": "Alberto Núñez"
+      "alias": "Alberto Núñez",
+      "discard": {
+        "Carcinoma escamocelular": [
+          "exploracion_fisica"
+        ],
+        "Carcinoma sebáceo palpebral": [
+          "exploracion_fisica"
+        ],
+        "Queratoacantoma": [
+          "evolucion"
+        ],
+        "Chalazión persistente": [
+          "exploracion_fisica"
+        ]
+      }
     },
     "PED-010": {
       "chief_complaint": "Fractura de brazo.",
@@ -1670,7 +1771,24 @@
         "Paciente pediátrica: parte de la historia la aporta un acompañante.",
         "El enunciado fuente (banco Taiwan, traducido del chino) menciona a la vez hipotiroidismo e hipertiroidismo; se conserva tal cual, sin completarlo."
       ],
-      "alias": "Valeria Torres"
+      "alias": "Valeria Torres",
+      "discard": {
+        "Neurofibromatosis tipo 1": [
+          "imagen_osea",
+          "desarrollo_mamario"
+        ],
+        "Síndrome de Peutz-Jeghers": [
+          "manchas_piel"
+        ],
+        "Displasia fibrosa ósea no sindrómica": [
+          "desarrollo_mamario",
+          "manchas_piel"
+        ],
+        "Otras causas de pubertad precoz periférica": [
+          "imagen_osea",
+          "manchas_piel"
+        ]
+      }
     }
   }
 }

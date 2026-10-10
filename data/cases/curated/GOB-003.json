@@ -100,7 +100,10 @@
       {
         "name": "Hipofisitis posparto",
         "must_not_miss": false,
-        "discard_evidence_ids": []
+        "discard_evidence_ids": [
+          "GOB-003.antecedente.evolucion_parto",
+          "GOB-003.vital.signos_vitales"
+        ]
       }
     ],
     "treatment_reference": {

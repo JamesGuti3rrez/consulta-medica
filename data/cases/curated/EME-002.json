@@ -78,7 +78,10 @@
       {
         "name": "Meningitis o meningoencefalitis",
         "must_not_miss": true,
-        "discard_evidence_ids": []
+        "discard_evidence_ids": [
+          "EME-002.motivo.queja_principal",
+          "EME-002.vital.signos_vitales"
+        ]
       },
       {
         "name": "Hemorragia intracerebral",
@@ -88,12 +91,17 @@
       {
         "name": "Trombosis venosa cerebral",
         "must_not_miss": true,
-        "discard_evidence_ids": []
+        "discard_evidence_ids": [
+          "EME-002.motivo.queja_principal"
+        ]
       },
       {
         "name": "Crisis epiléptica",
         "must_not_miss": false,
-        "discard_evidence_ids": []
+        "discard_evidence_ids": [
+          "EME-002.motivo.queja_principal",
+          "EME-002.examen.exploracion_fisica"
+        ]
       }
     ],
     "treatment_reference": {
