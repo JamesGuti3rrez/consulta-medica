@@ -23,12 +23,18 @@ const { chromium } = require('playwright');
   await Promise.all([page.waitForURL(/simulacion\.html\?especialidad=emergencias/), page.getByRole('button', { name: /Generar caso aleatorio/ }).click()]);
   await page.waitForFunction(() => !document.querySelector('[data-role="start-simulation"]').disabled);
   console.log('URL:', page.url());
-  console.log('especialidad elegida en el simulador:', await page.inputValue('[data-role="specialty-select"]'));
-  await page.getByRole('button', { name: /Iniciar simulaci/ }).click();
+  console.log('mensaje del simulador:', (await page.textContent('[data-role="case-status"]')).trim());
+  await page.screenshot({ path: shot('portada_3_simulador_listo.png') });
+  const [response] = await Promise.all([
+    page.waitForResponse(r => r.url().includes('/api/caso')),
+    page.getByRole('button', { name: /Iniciar simulaci/ }).click(),
+  ]);
+  const caseId = (await response.json()).case_id;
   await page.waitForFunction(() => document.querySelector('[data-role="conversation-status"]').textContent.includes('terminada'), null, { timeout: 90000 });
   await page.waitForTimeout(800);
-  await page.screenshot({ path: shot('portada_3_caso_presentado.png') });
-  console.log('caso:', await page.textContent('[data-role="record-status"]'));
+  await page.screenshot({ path: shot('portada_4_caso_presentado.png') });
+  console.log('caso recibido de la API:', caseId, '· ¿visible en pantalla?', (await page.locator('body').innerText()).includes(caseId));
+  console.log('mensaje al terminar:', (await page.textContent('[data-role="case-status"]')).trim());
   console.log((await page.$$eval('.chat-row .chat-text', els => els.map(e => e.textContent))).join('\n'));
   console.log('errores:', errors);
   await browser.close();

@@ -15,8 +15,12 @@ catálogo curado, dentro de la especialidad elegida.
   caso» (nombres, apellidos y especialidad) y «Generar caso aleatorio» lleva a
   `simulacion.html?especialidad=…`. Los nombres quedan en la sesión del navegador; en la URL solo
   viaja la especialidad.
-- `frontend/public/simulacion.html`: selector de especialidad junto al botón de inicio
-  («Cualquier especialidad» o una de las cinco). Respeta `?especialidad=` en la URL.
+- `frontend/public/simulacion.html`: en el primer intento tenía un selector de especialidad junto al
+  botón de inicio; se quitó porque la especialidad ya se elige en la portada. Al entrar, el simulador
+  muestra la especialidad recibida y solo el botón «Iniciar simulación».
+- El estudiante no ve qué caso le tocó: ni el código del caso (EME-002…) en los mensajes ni en la
+  etiqueta de la tablilla, que dice «En consulta». `capturar_frontend.cjs` comprueba ahora que el
+  código no aparezca en pantalla.
 - `frontend/public/js/simulacion.js`: al iniciar pide `GET /api/caso?especialidad=…` y el doctor
   narra, en orden, el paciente y el motivo de consulta, cada dato público de la ficha (datos de
   llegada, signos vitales…) y las alergias; termina con «Doctor, puede comenzar con el interrogatorio».
@@ -28,6 +32,12 @@ catálogo curado, dentro de la especialidad elegida.
 
 ## Evidencia
 
+- Intento 2 (sin código del caso): [portada_3_simulador_listo.png](portada_3_simulador_listo.png) (al
+  entrar, solo «Iniciar simulación»), [portada_4_caso_presentado.png](portada_4_caso_presentado.png) y
+  [probar_portada_sin_codigo_terminal.png](probar_portada_sin_codigo_terminal.png) (la API devuelve
+  EME-001 y el código no está visible en pantalla).
+- Intento 1: las capturas de abajo todavía muestran el código del caso y el selector de especialidad
+  en el simulador.
 - [portada_1_inicio.png](portada_1_inicio.png), [portada_2_elige_tu_caso.png](portada_2_elige_tu_caso.png)
   y [portada_3_caso_presentado.png](portada_3_caso_presentado.png): recorrido desde la portada
   (emergencias) hasta el caso presentado; [probar_portada_terminal.png](probar_portada_terminal.png),

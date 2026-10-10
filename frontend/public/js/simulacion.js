@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const simulatorStatus = document.querySelector('[data-role="simulator-status"]');
   const recordStatus = document.querySelector('[data-role="record-status"]');
   const startButton = document.querySelector('[data-role="start-simulation"]');
-  const specialtySelect = document.querySelector('[data-role="specialty-select"]');
   const doctorBubble = document.querySelector('[data-role="doctor-bubble"]');
   const doctorText = document.querySelector('[data-role="doctor-text"]');
   const doctorStatus = document.querySelector('[data-role="doctor-status"]');
@@ -20,13 +19,18 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Cada inicio aumenta el número de sesión: una narración anterior que siga en curso se detiene.
   let session = 0;
 
-  // La especialidad puede venir en la URL (simulacion.html?especialidad=pediatria).
-  const urlSpecialty = new URLSearchParams(window.location.search).get('especialidad');
-  if (specialtySelect && urlSpecialty) specialtySelect.value = urlSpecialty;
-  const caseUrl = () => {
-    const specialty = specialtySelect?.value;
-    return specialty ? `/api/caso?especialidad=${encodeURIComponent(specialty)}` : '/api/caso';
+  // La especialidad se elige en la portada y llega en la URL (simulacion.html?especialidad=pediatria).
+  // El estudiante no ve qué caso le tocó: ni su código ni nada fuera de la ficha pública.
+  const specialty = new URLSearchParams(window.location.search).get('especialidad');
+  const SPECIALTY_NAMES = {
+    emergencias: 'Emergencias',
+    medicina_interna: 'Medicina interna',
+    pediatria: 'Pediatría',
+    ginecologia_obstetricia: 'Ginecología y obstetricia',
+    cirugia_general: 'Cirugía general',
   };
+  const specialtyName = SPECIALTY_NAMES[specialty];
+  const caseUrl = () => (specialtyName ? `/api/caso?especialidad=${encodeURIComponent(specialty)}` : '/api/caso');
 
   const showTab = name => {
     tabButtons.forEach(button => {
@@ -239,9 +243,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     resetRecord(patientCase);
     showTab('ficha');
     simulatorStatus.textContent = 'Presentación del caso';
-    recordStatus.lastChild.textContent = `Caso ${patientCase.case_id}`;
+    recordStatus.lastChild.textContent = 'En consulta';
     if (nextPrompt) nextPrompt.textContent = 'Escucha la presentación del caso.';
-    setStatus(`Caso ${patientCase.case_id} cargado. El doctor presenta al paciente.`);
+    setStatus('El doctor te presenta al paciente.');
     // Se puede pedir otro caso en cualquier momento: la narración en curso se detiene.
     startButton.disabled = false;
     startButton.lastChild.textContent = ' Cargar otro caso';
@@ -254,7 +258,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (nextPrompt) {
       nextPrompt.textContent = 'Presentación terminada. El interrogatorio con el paciente estará disponible al conectar los agentes.';
     }
-    setStatus(`Caso ${patientCase.case_id}: presentación terminada. Revisa la ficha y la consulta.`);
+    setStatus('Presentación terminada. Revisa la ficha y la consulta.');
     showTab('consulta');
   };
 
@@ -273,7 +277,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       ? `${status.availableCases} casos curados disponibles`
       : 'Sin casos curados';
     setStatus(caseAvailable
-      ? `${status.availableCases} casos curados disponibles. Elige una especialidad e inicia: el doctor te presentará un caso al azar.`
+      ? `${specialtyName ? `Especialidad: ${specialtyName}. ` : ''}Pulsa «Iniciar simulación»: el doctor te presentará al paciente.`
       : 'Aún no hay casos clínicos curados disponibles.');
   } catch (error) {
     console.error('No se pudo comprobar la disponibilidad de casos clínicos:', error);
