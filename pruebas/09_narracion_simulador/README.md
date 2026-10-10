@@ -85,6 +85,29 @@ Como en el simulador original (`f0881ca`): al terminar la presentación desapare
   ([probar_saltar.cjs](probar_saltar.cjs)): saltando cada frase, la presentación completa tarda menos
   de 3 segundos y todas las frases quedan en el chat.
 
+## El médico tratante reformula la pregunta (intento 6, rama de integración)
+
+Flujo pedido: el estudiante le habla al médico («pregúntale si tiene alergias»), el médico tratante
+(LLM) le hace la pregunta al paciente («¿Tiene alergias?») y el paciente responde.
+
+- `backend/server/ai/agents/reformulador.py` y `prompts/reformulador.md`: solo recibe la frase del
+  estudiante, nunca el caso; pregunta únicamente lo que se pidió. Sin LLM, una regla quita la orden
+  («pregúntale si…») y devuelve la pregunta.
+- El orquestador lo usa antes del paciente. El acceso por rol sigue decidiendo con la frase original
+  del estudiante: la reformulación no puede desbloquear datos y la evaluación mide lo que él preguntó.
+- La API devuelve `doctor_question`; el simulador muestra la burbuja del médico con esa pregunta y
+  después la del paciente.
+- Reglas comunes de los agentes y limpieza final de cada respuesta: texto plano, sin códigos internos
+  (el LLM había escrito «(Referencia: MED‑008.sintoma.evolucion)», que mostraba el código del caso)
+  y, si el dato no está en el caso, «no lo sé» (antes había respondido «No, no tengo ninguna alergia»
+  en EME-001, que no documenta alergias).
+- Las pruebas de la API usan siempre el proveedor local aunque el `.env` tenga claves de Groq: no
+  gastan cuota y su resultado no varía.
+- [reformulacion_3_respuestas.png](reformulacion_3_respuestas.png) (con sus capturas 1, 2 y 4) y
+  [reformulacion_terminal.png](reformulacion_terminal.png), con Groq: «Pregúntale qué medicamentos
+  toma» → «¿Qué medicamentos toma?» → «Tomo haloperidol, fenitoína y propranolol»; «Pregúntale si
+  tiene alergias» → «¿Tiene alergias?» → «No lo sé».
+
 ## Evidencia
 
 - Intento 2 (sin código del caso): [portada_3_simulador_listo.png](portada_3_simulador_listo.png) (al

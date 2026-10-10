@@ -9,7 +9,7 @@ const { chromium } = require('playwright');
 
 const PREGUNTAS = {
   medicina_interna: ['¿Desde cuándo tiene la lesión?', '¿Es alérgica a algún medicamento?', 'Exploro la espalda'],
-  emergencias: ['¿Toma algún medicamento?', 'Voy a examinar al paciente', 'Solicito un hemograma'],
+  emergencias: ['Pregúntale qué medicamentos toma', 'Pregúntale si tiene alergias', 'Voy a examinar al paciente'],
   cirugia_general: ['¿Hay alguna enfermedad en su familia?', 'Pido pruebas de coagulación'],
 };
 
