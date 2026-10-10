@@ -41,6 +41,8 @@ class ContextAssembler:
             "role": role.value,
             "case_id": case["case_id"],
             "case_title": case["title"],
+            # Datos de la ficha visible: el agente sabe cómo se llama el paciente y habla en su género.
+            "patient": dict(case["public"]["patient"]),
             "public_evidence": public_items,
             "revealed_evidence": previously_revealed,
             "retrieved_evidence": [
