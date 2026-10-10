@@ -7,6 +7,7 @@ from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 
 from .api.routes import router as api_router
+from .rag.router import router as rag_router
 
 PUBLIC_DIR = Path(__file__).resolve().parents[2] / "frontend" / "public"
 
@@ -40,7 +41,9 @@ async def security_headers(request: Request, call_next):
     return response
 
 
-# Rutas de la API: definidas en api/routes.py.
+# Rutas de la API: las del RAG (rag/router.py) van antes que api/routes.py, que termina con la
+# respuesta 404 para cualquier otra ruta /api/.
+app.include_router(rag_router)
 app.include_router(api_router)
 
 # Todo lo demás son los archivos del frontend.
