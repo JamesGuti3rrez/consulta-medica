@@ -108,6 +108,15 @@ Flujo pedido: el estudiante le habla al médico («pregúntale si tiene alergias
   toma» → «¿Qué medicamentos toma?» → «Tomo haloperidol, fenitoína y propranolol»; «Pregúntale si
   tiene alergias» → «¿Tiene alergias?» → «No lo sé».
 
+## Respuesta cuando el dato no está en el caso (intento 7, rama de integración)
+
+- El paciente ya no dice «No lo sé»: lo que el caso no describe se toma como ausente y responde con
+  naturalidad en negativo («No», «No, nada de eso»). Sigue prohibido añadir síntomas, enfermedades,
+  valores o resultados que no estén en el caso. Laboratorio y radiología dicen que no hay resultado.
+- Con Groq, en EME-001: alergias → «No.»; «¿Fuma o bebe alcohol?» → «No, nada de eso.»; «¿Le duele el
+  pecho?» → «No.»; medicación → «Toma haloperidol, fenitoína y propranolol.»
+- La voz baja de 1,5 a 1,3.
+
 ## Evidencia
 
 - Intento 2 (sin código del caso): [portada_3_simulador_listo.png](portada_3_simulador_listo.png) (al

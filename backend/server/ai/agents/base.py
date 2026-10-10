@@ -37,8 +37,8 @@ COMMON_RULES = (
     "- Responde en texto plano: sin Markdown, sin asteriscos, sin viñetas ni títulos.\n"
     "- No menciones identificadores, códigos, referencias ni nombres de campos internos "
     "(por ejemplo retrieved_evidence o evidence_id).\n"
-    "- Si el dato que te piden no está en el CONTEXTO AUTORIZADO, di que no lo sabes. "
-    "Nunca lo niegues ni lo afirmes por tu cuenta."
+    "- No inventes síntomas, enfermedades, antecedentes, valores, hallazgos ni resultados que no estén "
+    "en el CONTEXTO AUTORIZADO."
 )
 
 # Limpieza final por si el modelo no sigue las reglas: códigos de evidencia (MED-008.sintoma.x, también
@@ -71,6 +71,11 @@ class BaseAgent(ABC):
     @property
     @abstractmethod
     def prompt_filename(self) -> str: ...
+
+    # Qué hacer cuando la pregunta no tiene dato en el caso; cada agente puede definir la suya.
+    missing_data_rule = (
+        "Si no hay evidencia recuperada suficiente para responder, indícalo de forma breve y no inventes datos."
+    )
 
     @property
     def system_prompt(self) -> str:
@@ -105,8 +110,7 @@ class BaseAgent(ABC):
             )
         else:
             grounding_rule = (
-                "\n\nREGLA DE AUSENCIA DE EVIDENCIA:\n"
-                "Si no hay evidencia recuperada suficiente para responder, indícalo de forma breve y no inventes datos."
+                "\n\nREGLA DE AUSENCIA DE EVIDENCIA:\n" + self.missing_data_rule
             )
 
         return [
