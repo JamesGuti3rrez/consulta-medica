@@ -13,37 +13,65 @@
   },
   "public": {
     "patient": {
-      "alias": "Paciente 4",
+      "alias": "Paciente 10",
       "age_years": 6,
       "sex": "femenino"
     },
     "chief_complaint": {
       "evidence_id": "PED-010.motivo.queja_principal",
       "category": "motivo",
-      "label": "Queja principal",
-      "text": "Niña de 6 años evaluada después de una fractura del brazo."
+      "label": "Motivo de consulta",
+      "text": "Fractura de brazo."
     },
     "items": [
       {
-        "evidence_id": "PED-010.historia.fuente_medqa",
+        "evidence_id": "PED-010.anamnesis.llegada",
         "category": "anamnesis",
-        "label": "Resumen clínico (adaptado de MedQA)",
-        "text": "Niña de 6 años evaluada después de una fractura del brazo. Se describen desarrollo mamario precoz, manchas café con leche, displasia fibrosa ósea y edad ósea de 9 años. El enunciado fuente menciona alteraciones tiroideas con términos contradictorios, por lo que no se especifica si tiene hipo o hipertiroidismo."
+        "label": "Datos de ingreso",
+        "text": "Niña de 6 años hospitalizada por una fractura de brazo."
       }
     ],
     "allergies_recorded": false
   },
   "on_request": [
     {
-      "evidence_id": "PED-010.solicitud.exploracion_fisica",
+      "evidence_id": "PED-010.examen.exploracion_fisica",
       "category": "examen_fisico",
       "label": "Exploración física",
-      "text": "Los hallazgos de exploración física descritos por la fuente ya están incluidos en la historia pública; no se documentan otros hallazgos para revelar.",
+      "text": "En la revisión física se encuentran desarrollo mamario y manchas café con leche en la piel.",
       "reveal_policy": {
         "owner": "medico_asistente",
-        "mode": "al_preguntar",
+        "mode": "al_examinar",
         "requires": [
           "exploracion_fisica"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-010.lab.funcion_tiroidea",
+      "category": "laboratorio",
+      "label": "Función tiroidea",
+      "text": "La fuente describe a la vez hipotiroidismo e hipertiroidismo, sin más detalle.",
+      "interpretation": "A",
+      "reveal_policy": {
+        "owner": "laboratorio",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "funcion_tiroidea"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-010.imagen.imagen_osea",
+      "category": "imagen",
+      "label": "Estudio de imagen ósea",
+      "text": "Muestra crecimiento fibroso del hueso (displasia fibrosa); la edad ósea se interpreta como de 9 años.",
+      "interpretation": "A",
+      "reveal_policy": {
+        "owner": "radiologia",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "imagen_osea"
         ]
       }
     }
@@ -89,12 +117,42 @@
       "key_questions": [
         {
           "id": "kq1",
-          "topic": "Adaptación clínica en español (no literal): Niña de 6 años hospitalizada por fractura del brazo presenta desarrollo mamario, manchas café con leche y displasia fibrosa en estudios óseos; su edad ósea se estima en 9 años. El texto fuente menciona alteraciones tiroideas de forma contradictoria, sin aclarar cuál presenta. ¿Cuál es el diagnóstico más probable? Opciones traducidas: Síndrome de Fanconi; Síndrome de McCune-Albright; Neurofibromatosis; Síndrome de Peutz-Jeghers. Respuesta fuente: B — McCune-Albright syndrome. Texto fuente conservado (inglés): A 6-year-old girl was hospitalized with a broken arm, body checkups have been found in breast development, skin showing cafe au lait spots (café-au-lait spots), hypothyroidism, hyperthyroidism also the phenomenon of poor bone imaging examination showed fibrous growth ( fibrous dysplasia), the interpretation of bone age was 9 years old, the most likely diagnosis is: Opciones fuente: Fanconi syndrome; McCune-Albright syndrome; neurofibromatosis; Peutz-Jeghers syndrome",
+          "topic": "Traducción al español: Niña de 6 años hospitalizada por una fractura de brazo; en la revisión física se encuentran desarrollo mamario, manchas café con leche en la piel, hipotiroidismo e hipertiroidismo, y el estudio de imagen ósea muestra crecimiento fibroso (displasia fibrosa); la edad ósea se interpreta como de 9 años. ¿Cuál es el diagnóstico más probable? Opciones traducidas: Síndrome de Fanconi; Síndrome de McCune-Albright; Neurofibromatosis; Síndrome de Peutz-Jeghers. Respuesta fuente: B — McCune-Albright syndrome. Texto fuente conservado (inglés): A 6-year-old girl was hospitalized with a broken arm, body checkups have been found in breast development, skin showing cafe au lait spots (café-au-lait spots), hypothyroidism, hyperthyroidism also the phenomenon of poor bone imaging examination showed fibrous growth ( fibrous dysplasia), the interpretation of bone age was 9 years old, the most likely diagnosis is: Opciones fuente: Fanconi syndrome; McCune-Albright syndrome; neurofibromatosis; Peutz-Jeghers syndrome",
           "evidence_ids": [
-            "PED-010.historia.fuente_medqa"
+            "PED-010.motivo.queja_principal"
           ],
           "weight": 3,
           "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "id": "kq2",
+          "topic": "Exploración física: desarrollo mamario y manchas café con leche",
+          "evidence_ids": [
+            "PED-010.examen.exploracion_fisica"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "id": "kq3",
+          "topic": "Estudio de imagen ósea: displasia fibrosa y edad ósea adelantada",
+          "evidence_ids": [
+            "PED-010.imagen.imagen_osea"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "id": "kq4",
+          "topic": "Función tiroidea",
+          "evidence_ids": [
+            "PED-010.lab.funcion_tiroidea"
+          ],
+          "weight": 3,
+          "critical": false,
           "error_if_missing": "razonamiento_clinico"
         }
       ],
@@ -113,11 +171,11 @@
     }
   },
   "provenance": {
-    "created_by": "case_preparation.transform.medqa_selection",
+    "created_by": "case_preparation.transform.medqa_final_review",
     "created_at": "2026-10-08",
     "validator_version": "1.0.0",
     "validated_at": "2026-10-08",
-    "curated_by": "curacion_asistida_por_ia",
+    "curated_by": "case_preparation.curation",
     "curated_at": "2026-10-08",
     "rejection_reason": null
   }

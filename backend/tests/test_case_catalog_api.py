@@ -11,7 +11,8 @@ def test_status_reports_curated_catalog_without_claiming_full_simulation_ready()
     response = client.get("/api/status")
 
     assert response.status_code == 200
-    assert response.json() == {
+    body = response.json()
+    assert {key: body[key] for key in ("caseConfigured", "simulationReady", "availableCases")} == {
         "caseConfigured": True,
         "simulationReady": False,
         "availableCases": 10,
@@ -50,3 +51,26 @@ def test_case_endpoint_reports_unavailable_when_catalog_is_empty(monkeypatch):
 
     assert response.status_code == 503
     assert response.json()["detail"] == "No hay casos curados disponibles."
+
+
+def test_case_endpoint_filters_by_specialty():
+    for _ in range(10):
+        response = client.get("/api/caso", params={"especialidad": "pediatria"})
+        assert response.status_code == 200
+        assert response.json()["specialty"] == "pediatria"
+
+
+def test_case_endpoint_rejects_unknown_specialty():
+    response = client.get("/api/caso", params={"especialidad": "cardiologia"})
+    assert response.status_code == 422
+
+
+def test_status_reports_cases_by_specialty():
+    counts = client.get("/api/status").json()["casesBySpecialty"]
+    assert counts == {
+        "medicina_interna": 2,
+        "pediatria": 2,
+        "ginecologia_obstetricia": 2,
+        "cirugia_general": 2,
+        "emergencias": 2,
+    }

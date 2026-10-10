@@ -1,0 +1,24 @@
+DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica
+COMANDO: backend\.venv\Scripts\python.exe pruebas\06_correcciones\02_extractor\comprobar_raw_intacto.py
+FECHA: 2026-10-09 06:52:16 UTC
+CODIGO_SALIDA: 0
+
+STDOUT:
+data/raw antes:   294 archivos
+data/raw después: 294 archivos
+archivos creados, modificados o borrados en data/raw: 0
+
+Extracción (código 0):
+  files_scanned: ["data_clean.zip:data_clean/questions/Taiwan/tw_translated_jsonl/en/dev-2en.jsonl", "data_clean.zip:data_clean/questions/Taiwan/tw_translated_jsonl/en/test-2en.jsonl", "data_clean.zip:data_clean/questions/Taiwan/tw_translated_jsonl/en/train-2en.jsonl", "data_clean.zip:data_clean/questions/US/US_qbank.jsonl"]
+  records_scanned: 28492
+  rejected_by_reason: {"depende_de_imagen": 2642, "enunciado_corto": 11353, "investigacion": 426, "no_pide_diagnostico_ni_tratamiento": 7279, "sin_contexto_clinico": 764, "sin_paciente": 1238}
+  duplicates_skipped: 0
+  candidates_kept: 4790
+  question_type_counts: {"diagnostico": 2529, "tratamiento": 2261}
+  specialty_counts: {"cirugia_general": 243, "emergencias": 1010, "ginecologia_obstetricia": 667, "medicina_interna": 2022, "pediatria": 848}
+
+RESULTADO: data/raw intacto y candidatos sin duplicados.
+
+
+STDERR:
+

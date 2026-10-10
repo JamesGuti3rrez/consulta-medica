@@ -1,0 +1,1589 @@
+{
+  "description": "Datos de entrada de la curación del lote MedQA: selección de las 10 preguntas, traducción completa al español, fuentes clínicas, revisión y ajustes de cada caso, reparto de cada dato entre public y on_request (distribution: zona, dueño, requires y preguntas clave), y casos de la primera selección que se rechazan. Los lee backend/case_preparation/transform/medqa_final_review.py.",
+  "selected_cases": [
+    {
+      "case_id": "MED-008",
+      "candidate_id": "medqa-bd8bb86bdc2e57fe",
+      "specialty": "medicina_interna",
+      "clinical_diagnosis": "Enfermedad de Lyme con eritema migrans",
+      "clinical_differentials": [
+        "Celulitis bacteriana",
+        "Eritema multiforme",
+        "Rickettsiosis"
+      ],
+      "allergies": [
+        "Tetraciclinas (antecedente de anafilaxia)"
+      ],
+      "treatment_reference": {
+        "summary": "La respuesta correcta registrada por MedQA es amoxicilina (opción B); el ítem no especifica dosis ni duración y no constituye por sí solo una prescripción.",
+        "key_actions": [
+          "Conservar la respuesta textual de la fuente: amoxicilina.",
+          "Verificar pauta, alergias y guías clínicas vigentes antes de cualquier uso."
+        ]
+      },
+      "rationale": "Medicina interna: cuadro de eritema migrans y síntomas sistémicos; alergia a tetraciclinas y respuesta fuente recuperada como opción B (amoxicilina)."
+    },
+    {
+      "case_id": "MED-009",
+      "candidate_id": "medqa-7fe0528c54197057",
+      "specialty": "medicina_interna",
+      "clinical_diagnosis": "Carcinoma basocelular",
+      "clinical_differentials": [
+        "Carcinoma escamocelular",
+        "Queratoacantoma",
+        "Carcinoma verrugoso",
+        "Queratosis actínica"
+      ],
+      "rationale": "Medicina interna: adulto con lesión cutánea descrita clínicamente; este registro no depende de una imagen ausente."
+    },
+    {
+      "case_id": "PED-007",
+      "candidate_id": "medqa-dadd721b55c88d20",
+      "specialty": "pediatria",
+      "clinical_diagnosis": "Enfermedad de Legg-Calvé-Perthes",
+      "clinical_differentials": [
+        "Artritis séptica",
+        "Raquitismo",
+        "Osteopetrosis",
+        "Enfermedad de Osgood-Schlatter",
+        "Epifisiólisis de la cabeza femoral",
+        "Artritis idiopática juvenil"
+      ],
+      "rationale": "Pediatría: paciente de 7 años y hallazgos osteoarticulares pediátricos explícitos."
+    },
+    {
+      "case_id": "PED-010",
+      "candidate_id": "medqa-5fc375051c4a68f2",
+      "specialty": "pediatria",
+      "clinical_diagnosis": "Síndrome de McCune-Albright",
+      "clinical_differentials": [
+        "Neurofibromatosis tipo 1",
+        "Síndrome de Peutz-Jeghers",
+        "Displasia fibrosa ósea no sindrómica",
+        "Otras causas de pubertad precoz periférica"
+      ],
+      "rationale": "Pediatría: fractura, manchas café con leche, displasia fibrosa y desarrollo mamario precoz apoyan síndrome de McCune-Albright."
+    },
+    {
+      "case_id": "GOB-003",
+      "candidate_id": "medqa-b437ab65d13f9352",
+      "specialty": "ginecologia_obstetricia",
+      "clinical_diagnosis": "Infarto hipofisario posparto (síndrome de Sheehan)",
+      "clinical_differentials": [
+        "Tumor hipofisario",
+        "Retención de restos placentarios",
+        "Hemorragia hipofisaria"
+      ],
+      "rationale": "Gineco-obstetricia: complicación inmediatamente posparto con hemorragia/hipotensión y falla de lactancia."
+    },
+    {
+      "case_id": "GOB-004",
+      "candidate_id": "medqa-a04db516708da5ae",
+      "specialty": "ginecologia_obstetricia",
+      "clinical_diagnosis": "Tricomoniasis vulvovaginal",
+      "clinical_differentials": [
+        "Candidiasis vulvovaginal",
+        "Vaginitis atrófica",
+        "Vaginosis bacteriana",
+        "Infección por clamidia"
+      ],
+      "rationale": "Gineco-obstetricia: síntomas genitales y hallazgos de examen pélvico explícitos."
+    },
+    {
+      "case_id": "CIR-005",
+      "candidate_id": "medqa-4135d59786b5b7ac",
+      "specialty": "cirugia_general",
+      "clinical_diagnosis": "Hemofilia A",
+      "clinical_differentials": [
+        "Síndrome de Bernard-Soulier",
+        "Trombastenia de Glanzmann",
+        "Púrpura trombótica trombocitopénica",
+        "Enfermedad de von Willebrand"
+      ],
+      "rationale": "Cirugía general: episodio hemorrágico intraoperatorio durante apendicectomía, con estudio de coagulación posoperatorio."
+    },
+    {
+      "case_id": "CIR-006",
+      "candidate_id": "medqa-e9b7102d702a0a7f",
+      "specialty": "cirugia_general",
+      "clinical_diagnosis": "Sepsis posoperatoria",
+      "clinical_differentials": [
+        "Síndrome de respuesta inflamatoria sistémica no infeccioso",
+        "Síndrome de disfunción multiorgánica",
+        "Fiebre inducida por fármacos"
+      ],
+      "rationale": "Cirugía general: deterioro infeccioso probable en el posoperatorio, con fiebre, taquipnea, hipoxemia y confusión."
+    },
+    {
+      "case_id": "EME-001",
+      "candidate_id": "medqa-a83444b6eabc9a5b",
+      "specialty": "emergencias",
+      "clinical_diagnosis": "Golpe de calor por esfuerzo",
+      "clinical_differentials": [
+        "Hipertermia maligna",
+        "Síndrome neuroléptico maligno",
+        "Estado epiléptico",
+        "Tormenta tiroidea"
+      ],
+      "rationale": "Emergencias: hipertermia grave y alteración aguda de conciencia en el lugar de trabajo."
+    },
+    {
+      "case_id": "EME-002",
+      "candidate_id": "medqa-83b0322c93dff066",
+      "specialty": "emergencias",
+      "clinical_diagnosis": "Hemorragia subaracnoidea",
+      "clinical_differentials": [
+        "Meningoencefalitis aguda",
+        "Hemorragia intracerebral",
+        "Crisis epiléptica"
+      ],
+      "rationale": "Emergencias: cefalea súbita intensa, vómitos, alteración de conciencia y rigidez de nuca; la respuesta fuente es hemorragia subaracnoidea."
+    }
+  ],
+  "spanish_source_text": {
+    "medqa-bd8bb86bdc2e57fe": {
+      "question": "Mujer de 48 años acude al hospital por cefalea, fiebre intermitente con escalofríos, dolores articulares generalizados, sed excesiva, aumento de la ingesta de líquidos y una erupción progresiva en la espalda. Tres días antes de la consulta notó en la espalda una lesión pequeña, algo elevada, parecida a una picadura de araña o de insecto, que consideró una costra. Dos días antes de acudir al hospital tuvo fiebre de 39,4 °C, con una sensación de ardor cada vez más intensa en la zona. Un familiar revisó la picadura y vio que el bulto se había convertido en una erupción circular. Tomó ibuprofeno de venta libre por el dolor intenso para poder dormir. El día anterior a la consulta se sintió agotada, pero completó una jornada laboral normal. El día de la consulta despertó muy enferma, con dolores articulares punzantes, fiebre alta y sed excesiva, y por eso buscó atención médica. En la exploración física su temperatura es de 40,1 °C y presenta en la espalda una erupción roja, circular y grande, con aspecto en diana (17 × 19 cm de diámetro). El resto de la exploración física no muestra hallazgos. Sus antecedentes médicos y quirúrgicos no son relevantes, salvo una anafilaxia al tomar una tetraciclina. Recuerda una caminata por el bosque 3 semanas antes, pero niega haber encontrado una garrapata u otro ectoparásito en su cuerpo. Niega alergias alimentarias o por inhalación, aunque recalca que es alérgica a las tetraciclinas. Con sus síntomas, antecedentes y hallazgos, el médico decide iniciar tratamiento antimicrobiano de inmediato. ¿Qué antimicrobiano prescribió el médico?",
+      "options": [
+        "Cefalexina",
+        "Amoxicilina",
+        "Azitromicina",
+        "Eritromicina",
+        "Doxiciclina"
+      ]
+    },
+    "medqa-7fe0528c54197057": {
+      "question": "Hombre de 68 años acude a su consulta para el examen físico anual. No tiene molestias en este momento y su hipertensión crónica está bien controlada. Se observa en el párpado una pápula de 0,5 cm, rosada y de aspecto perlado, con bordes enrollados y telangiectasias en la superficie. Al seguir preguntando, se sabe que trabajó como vendedor puerta a puerta, pasó mucho tiempo al aire libre y no usaba protector solar. Tiene piel clara y cabello rubio. Refiere que notó la lesión por primera vez hace unos 6 meses y que desde entonces ha crecido ligeramente. ¿Cuál es el diagnóstico más probable?",
+      "options": [
+        "Carcinoma escamocelular",
+        "Queratoacantoma",
+        "Carcinoma verrugoso",
+        "Carcinoma basocelular",
+        "Queratosis actínica"
+      ]
+    },
+    "medqa-dadd721b55c88d20": {
+      "question": "Niño de 7 años acude a consulta con su madre, que nota que ha cambiado su forma de jugar y que cojea, protegiendo la pierna izquierda. Al preguntarle, el niño dice que le duele la rodilla izquierda. Está afebril y con signos vitales estables. Está bien nutrido y cumple todos los hitos del desarrollo. En la exploración física, la rodilla tiene rango de movimiento completo; sin embargo, la movilización pasiva provoca dolor en la cadera izquierda. Se realiza una radiografía que muestra una cabeza femoral izquierda aplanada. ¿Cuál es el diagnóstico más probable?",
+      "options": [
+        "Artritis séptica",
+        "Raquitismo",
+        "Osteopetrosis",
+        "Enfermedad de Legg-Calvé-Perthes",
+        "Enfermedad de Osgood-Schlatter",
+        "Epifisiólisis de la cabeza femoral",
+        "Artritis idiopática juvenil"
+      ]
+    },
+    "medqa-5fc375051c4a68f2": {
+      "question": "Niña de 6 años hospitalizada por una fractura de brazo; en la revisión física se encuentran desarrollo mamario, manchas café con leche en la piel, hipotiroidismo e hipertiroidismo, y el estudio de imagen ósea muestra crecimiento fibroso (displasia fibrosa); la edad ósea se interpreta como de 9 años. ¿Cuál es el diagnóstico más probable?",
+      "options": [
+        "Síndrome de Fanconi",
+        "Síndrome de McCune-Albright",
+        "Neurofibromatosis",
+        "Síndrome de Peutz-Jeghers"
+      ]
+    },
+    "medqa-b437ab65d13f9352": {
+      "question": "Mujer de 24 años tiene un parto a término. El Apgar del recién nacido es de 9 y 10 al minuto y a los 5 minutos, respectivamente. Treinta minutos después del parto, la presión arterial de la madre baja a 80/60 mmHg y su pulso es de 124/min. En la exploración física, sus extremidades distales están frías y húmedas y el útero está blando (atónico). Se inicia reanimación intensiva con líquidos. Tras administrar 4 unidades de líquidos intravenosos y 4 unidades de sangre total, sus signos vitales se estabilizan. A la mañana siguiente refiere que no puede lactar cuando intenta amamantar a su hijo. ¿Cuál es la causa más probable de la falla de lactancia en esta paciente?",
+      "options": [
+        "Tumor hipofisario",
+        "Tristeza puerperal",
+        "Restos placentarios retenidos",
+        "Infarto hipofisario",
+        "Hemorragia hipofisaria"
+      ]
+    },
+    "medqa-a04db516708da5ae": {
+      "question": "Mujer de 24 años consulta a su ginecólogo por molestia pélvica leve y flujo vaginal espumoso y amarillento desde hace 2 semanas. También refiere dolor durante las relaciones sexuales y, a veces, después de orinar. Sus antecedentes médicos no son relevantes. Toma anticonceptivos orales y un multivitamínico a diario. Ha tenido dos parejas sexuales masculinas en su vida y usa preservativo de forma irregular. Hoy sus signos vitales son normales. En la exploración pélvica presenta eritema vulvovaginal y un cuello uterino en fresa, doloroso a la movilización, con escaso flujo verde-amarillento maloliente. Se analiza el pH de un hisopado de la pared vaginal junto a la cama: el pH vaginal es 5,8. ¿Cuál es el diagnóstico más probable en esta paciente?",
+      "options": [
+        "Candidiasis vulvovaginal",
+        "Vaginitis atrófica",
+        "Vaginosis bacteriana",
+        "Infección por clamidia",
+        "Tricomoniasis"
+      ]
+    },
+    "medqa-4135d59786b5b7ac": {
+      "question": "Hombre de 28 años consulta por dolor abdominal intenso y se le diagnostica apendicitis. Se le realiza una apendicectomía de urgencia. Durante la intervención presenta un sangrado masivo y persistente que requiere transfusión de sangre. Los estudios de laboratorio preoperatorios mostraban tiempo de sangrado normal, tiempo de protrombina normal, INR de 1,0 y recuento de plaquetas normal. Después de la cirugía, cuando se le informa de las complicaciones, recuerda que olvidó mencionar que en su familia hay antecedentes de un trastorno hemorrágico que no sabe precisar. Los estudios posoperatorios muestran un tiempo de tromboplastina parcial prolongado. ¿Cuál es el diagnóstico más probable en este paciente?",
+      "options": [
+        "Hemofilia A",
+        "Síndrome de Bernard-Soulier",
+        "Trombastenia de Glanzmann",
+        "Púrpura trombótica trombocitopénica",
+        "Enfermedad de von Willebrand"
+      ]
+    },
+    "medqa-e9b7102d702a0a7f": {
+      "question": "Mujer de 68 años ingresa en el hospital para una hemicolectomía derecha electiva. Se moviliza de forma independiente y hace sus propias compras. Tiene diabetes mellitus tipo 2 desde hace 20 años, hipertensión esencial desde hace 15 años y angina de esfuerzo desde hace 6 años. Tiene un tabaquismo de 30 paquetes-año. La operación transcurre sin complicaciones. En el quinto día posoperatorio presenta confusión. Temperatura de 38,5 °C, frecuencia respiratoria de 28/min y saturación de oxígeno de 92 % con oxígeno a 2 L. Está taquicárdica, con 118/min, y su presión arterial es de 110/65 mmHg. En la auscultación torácica tiene crepitantes gruesos en la base pulmonar derecha. La herida quirúrgica cicatriza bien y el abdomen está blando y no doloroso. ¿Cuál es el diagnóstico más probable?",
+      "options": [
+        "Síndrome de respuesta inflamatoria sistémica no infeccioso",
+        "Síndrome de disfunción multiorgánica",
+        "Sepsis",
+        "Hipertermia maligna",
+        "Fiebre inducida por fármacos"
+      ]
+    },
+    "medqa-a83444b6eabc9a5b": {
+      "question": "Hombre de 33 años acude a urgencias con alteración del estado mental. Trabaja como obrero de construcción y sus compañeros lo encontraron en el suelo de la obra. Hace varios meses recibió anestesia para una apendicectomía. Tiene antecedentes de esquizofrenia bien controlada con haloperidol y actualmente toma fenitoína para la epilepsia. También toma propranolol para la ansiedad y el hipertiroidismo. Temperatura de 41,1 °C, presión arterial de 109/62 mmHg, pulso de 170/min, frecuencia respiratoria de 23/min y saturación de oxígeno de 95 % al aire ambiente. En la exploración física destaca un hombre con alteración del estado mental y escala de coma de Glasgow de 10. Tiene un tono muscular mínimo y responde de forma incoherente a las preguntas. Está cubierto de sudor y suciedad. ¿Cuál es el diagnóstico más probable?",
+      "options": [
+        "Golpe de calor por esfuerzo",
+        "Hipertermia maligna",
+        "Síndrome neuroléptico maligno",
+        "Estado epiléptico",
+        "Tormenta tiroidea"
+      ]
+    },
+    "medqa-83b0322c93dff066": {
+      "question": "Hombre de 57 años con hipertensión presenta, de forma inesperada mientras se baña, cefalea intensa y vómitos, y es llevado a urgencias. Unos 30 minutos después, los médicos de urgencias lo encuentran con alteración de la conciencia: ante estímulos dolorosos abre los ojos y gime, señala el punto donde se le aplica el estímulo doloroso y presenta rigidez de nuca. Presión arterial de 180/110 mmHg, temperatura ótica de 37,9 °C, pulso regular de 80/min y frecuencia respiratoria de 20/min. Nota: el enunciado fuente está redactado de forma deficiente; esta traducción interpreta que la cefalea comenzó de forma súbita mientras se bañaba. Según la historia, ¿cuál es el diagnóstico más probable?",
+      "options": [
+        "Intoxicación por monóxido de carbono",
+        "Hemorragia subaracnoidea",
+        "Meningoencefalitis aguda",
+        "Crisis epiléptica"
+      ]
+    }
+  },
+  "clinical_sources": {
+    "cdc_lyme": {
+      "title": "CDC: Clinical treatment of erythema migrans",
+      "url": "https://www.cdc.gov/lyme/hcp/clinical-care/erythema-migrans-rash.html"
+    },
+    "aad_bcc": {
+      "title": "American Academy of Dermatology: Basal cell carcinoma",
+      "url": "https://www.aad.org/public/diseases/skin-cancer/basal-cell-carcinoma"
+    },
+    "aaos_perthes": {
+      "title": "AAOS OrthoInfo: Legg-Calve-Perthes disease",
+      "url": "https://orthoinfo.aaos.org/en/diseases--conditions/legg-calve-perthes-disease/"
+    },
+    "medlineplus_mccune_albright": {
+      "title": "MedlinePlus Genetics: McCune-Albright syndrome",
+      "url": "https://medlineplus.gov/genetics/condition/mccune-albright-syndrome/"
+    },
+    "sheehan_statpearls": {
+      "title": "NCBI Bookshelf: Sheehan syndrome",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK459166/"
+    },
+    "cdc_trich": {
+      "title": "CDC STI Treatment Guidelines: Trichomoniasis",
+      "url": "https://www.cdc.gov/std/treatment-guidelines/trichomoniasis.htm"
+    },
+    "cdc_pid": {
+      "title": "CDC STI Treatment Guidelines: Pelvic inflammatory disease",
+      "url": "https://www.cdc.gov/std/treatment-guidelines/pid.htm"
+    },
+    "cdc_hemophilia": {
+      "title": "CDC: Hemophilia treatment overview",
+      "url": "https://www.cdc.gov/hemophilia/treatment/index.html"
+    },
+    "cdc_sepsis": {
+      "title": "CDC: About sepsis",
+      "url": "https://www.cdc.gov/sepsis/about/index.html"
+    },
+    "heatstroke_position": {
+      "title": "National Athletic Trainers' Association position statement: exertional heat illnesses",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC164365/"
+    },
+    "nice_sah": {
+      "title": "NICE NG228: Subarachnoid haemorrhage caused by a ruptured aneurysm",
+      "url": "https://www.nice.org.uk/guidance/ng228/chapter/Recommendations"
+    }
+  },
+  "clinical_review": {
+    "MED-008": {
+      "disposition": "coherente_con_precauciones",
+      "confidence": "moderada_alta",
+      "assessment": "La placa anular expansiva mayor de 5 cm tras exposición posible a garrapata es compatible con eritema migrans; la ausencia de garrapata observada no lo excluye. Amoxicilina es una opción recomendada por CDC para enfermedad de Lyme temprana localizada. La fiebre de 40,1 °C es marcadamente alta y exige valoración urgente de gravedad y diagnósticos alternativos; no asumir que todo el cuadro queda explicado por Lyme.",
+      "actions": [
+        "Mantener el diagnóstico fuente como probable, no como confirmación etiológica absoluta.",
+        "Conservar la anafilaxia a tetraciclinas; verificar alergias a beta-lactámicos antes de cualquier uso de amoxicilina.",
+        "En eritema migrans típico el diagnóstico es clínico y la serología inicial puede ser negativa; reconsiderar pruebas si la presentación es atípica.",
+        "No añadir dosis al caso como prescripción individual; la referencia CDC describe pautas generales."
+      ],
+      "source_ids": [
+        "cdc_lyme"
+      ]
+    },
+    "MED-009": {
+      "disposition": "compatible_requiere_confirmacion",
+      "confidence": "moderada",
+      "assessment": "La pápula perlada rosada con borde sobreelevado y telangiectasias es muy sugestiva de carcinoma basocelular. La ficha no incluye histopatología; por tanto, no es diagnóstico confirmado. El párpado es una localización funcionalmente crítica y requiere valoración dermatológica y oftalmológica/oculoplástica, con confirmación histológica y planificación terapéutica.",
+      "actions": [
+        "Mantener carcinoma basocelular como diagnóstico presuntivo, pendiente de biopsia.",
+        "Añadir carcinoma sebáceo palpebral y chalazión persistente como alternativas clínicas pertinentes, sin presentarlas como más probables.",
+        "No recomendar observación rutinaria ni destruir/tratar la lesión sin diagnóstico histológico y valoración especializada."
+      ],
+      "source_ids": [
+        "aad_bcc"
+      ]
+    },
+    "PED-007": {
+      "disposition": "coherente_con_precauciones",
+      "confidence": "moderada_alta",
+      "assessment": "La edad, cojera, dolor de cadera referido a rodilla y aplanamiento radiográfico de la cabeza femoral son compatibles con enfermedad de Legg-Calve-Perthes. La ficha ya contiene radiografía; la caracterización y el manejo dependen de extensión, edad y evolución.",
+      "actions": [
+        "Mantener Legg-Calve-Perthes como diagnóstico más probable y añadir valoración por ortopedia pediátrica.",
+        "Conservar artritis séptica como diagnóstico que no se debe pasar por alto: estar afebril no la excluye si aparecen dolor intenso, incapacidad para apoyar o mal estado general.",
+        "No inventar estadificación radiológica ni tratamiento sin descripción de proyecciones/etapa."
+      ],
+      "source_ids": [
+        "aaos_perthes"
+      ]
+    },
+    "PED-010": {
+      "disposition": "coherente_con_precauciones",
+      "confidence": "moderada_alta",
+      "assessment": "La combinación de displasia fibrosa, manchas café con leche y desarrollo mamario precoz es altamente compatible con síndrome de McCune-Albright. El enunciado fuente contiene una descripción contradictoria de la función tiroidea; no permite definir un fenotipo tiroideo concreto ni justificar un tratamiento.",
+      "actions": [
+        "Mantener síndrome de McCune-Albright como diagnóstico probable según los hallazgos descritos.",
+        "Solicitar evaluación por endocrinología pediátrica y revisar el informe radiológico de la displasia fibrosa.",
+        "Aclarar la alteración tiroidea con historia, examen y pruebas de función tiroidea; no asumir hipo ni hipertiroidismo.",
+        "Documentar pubertad precoz y planificar seguimiento endocrino y esquelético; el caso no aporta resultados suficientes para indicar tratamiento individual."
+      ],
+      "source_ids": [
+        "medlineplus_mccune_albright"
+      ]
+    },
+    "GOB-003": {
+      "disposition": "compatible_requiere_confirmacion",
+      "confidence": "moderada",
+      "assessment": "El shock hemorrágico posparto y la incapacidad de lactar hacen plausible el infarto hipofisario posparto (síndrome de Sheehan), que coincide con la respuesta fuente. La imposibilidad de lactar a la mañana siguiente por sí sola no confirma hipopituitarismo; el evento de atonía/hemorragia requiere manejo obstétrico urgente independientemente de esa hipótesis.",
+      "actions": [
+        "Mantener Sheehan como explicación probable de examen, no como diagnóstico endocrinológico confirmado.",
+        "Priorizar documentación y manejo de hemorragia posparto; si persisten síntomas o se sospecha déficit hipofisario, solicitar evaluación endocrina urgente.",
+        "Valorar ejes hipofisarios, incluido cortisol, con interpretación especializada; no iniciar sustitución hormonal a partir de esta ficha aislada."
+      ],
+      "source_ids": [
+        "sheehan_statpearls"
+      ]
+    },
+    "GOB-004": {
+      "disposition": "coherente_con_alerta_de_pid",
+      "confidence": "moderada_alta",
+      "assessment": "Flujo espumoso amarillo-verdoso, pH elevado y cérvix en fresa apoyan tricomoniasis. Sin embargo, dolor pélvico y dolor a la movilización cervical obligan a evaluar enfermedad pélvica inflamatoria (EPI); no debe cerrarse como vaginitis aislada.",
+      "actions": [
+        "Mantener tricomoniasis como diagnóstico fuente y confirmar con NAAT cuando esté disponible.",
+        "Evaluar EPI con umbral bajo por dolor pélvico y dolor a la movilización cervical; valorar embarazo y diagnósticos alternativos.",
+        "La guía CDC para mujeres recomienda metronidazol oral 500 mg dos veces al día durante 7 días; además, manejo de parejas sexuales, abstinencia hasta completar tratamiento y resolución de síntomas, pruebas de otras ITS y repetición de prueba aproximadamente a los 3 meses. Es información educativa, no receta individual."
+      ],
+      "source_ids": [
+        "cdc_trich",
+        "cdc_pid"
+      ]
+    },
+    "CIR-005": {
+      "disposition": "compatible_requiere_confirmacion",
+      "confidence": "moderada",
+      "assessment": "Sangrado con plaquetas, tiempo de protrombina e INR normales y TTPa prolongado es compatible con deficiencia de factor de la vía intrínseca; la historia familiar favorece hemofilia hereditaria. El TTPa prolongado aislado no distingue hemofilia A de hemofilia B, enfermedad de von Willebrand u otras causas.",
+      "actions": [
+        "Mantener hemofilia A como respuesta fuente probable, no confirmada sin actividad de factor VIII.",
+        "Añadir valoración hematológica urgente, repetición/confirmación de coagulación, estudio de mezcla y actividad de factores VIII y IX; considerar estudio de von Willebrand.",
+        "La hemorragia quirúrgica activa requiere control hemostático especializado; no inferir dosis de factor ni transfusiones adicionales en este JSON."
+      ],
+      "source_ids": [
+        "cdc_hemophilia"
+      ]
+    },
+    "CIR-006": {
+      "disposition": "compatible_urgente_requiere_confirmacion",
+      "confidence": "moderada",
+      "assessment": "Fiebre, taquicardia, taquipnea, hipoxemia, confusión y crepitantes basales en el quinto día posoperatorio son preocupantes por infección respiratoria con posible sepsis y disfunción orgánica. El foco pulmonar es probable, pero no está confirmado por imagen o microbiología; también hay que valorar embolia pulmonar y otras causas de hipoxemia/delirio.",
+      "actions": [
+        "Mantener sospecha de sepsis posoperatoria como diagnóstico de trabajo y dejar explícito que no está confirmada microbiológicamente.",
+        "Indicar evaluación y tratamiento hospitalarios inmediatos; investigar foco con imagen torácica, cultivos y lactato según protocolo local sin retrasar antimicrobianos si la sospecha de sepsis es alta.",
+        "Añadir embolia pulmonar como diferencial grave posoperatorio; elegir pruebas según probabilidad clínica."
+      ],
+      "source_ids": [
+        "cdc_sepsis"
+      ]
+    },
+    "EME-001": {
+      "disposition": "coherente_urgencia_critica",
+      "confidence": "moderada_alta",
+      "assessment": "Temperatura central de 41,1 °C y alteración neurológica después de trabajo físico al aire libre son altamente compatibles con golpe de calor por esfuerzo. La diaforesis no lo descarta. Haloperidol hace importante considerar síndrome neuroléptico maligno; anestesia meses antes no apoya hipertermia maligna perioperatoria actual.",
+      "actions": [
+        "Tratarlo como emergencia vital: iniciar enfriamiento activo inmediato y traslado/atención de emergencia; no retrasar el enfriamiento por estudios.",
+        "Evaluar daño renal, muscular, hepático, electrolítico y de coagulación; explorar síndrome neuroléptico maligno por la medicación.",
+        "No usar antipiréticos como sustituto del enfriamiento en hipertermia por golpe de calor."
+      ],
+      "source_ids": [
+        "heatstroke_position"
+      ]
+    },
+    "EME-002": {
+      "disposition": "compatible_urgencia_critica_requiere_confirmacion",
+      "confidence": "moderada_alta",
+      "assessment": "Cefalea explosiva, vómitos, deterioro de conciencia y rigidez de nuca son altamente preocupantes por hemorragia subaracnoidea, pero la fuente no aporta neuroimagen ni LCR: la respuesta de MedQA no equivale a confirmación.",
+      "actions": [
+        "Tratar como emergencia neurológica: evaluación hospitalaria inmediata y TC craneal sin contraste urgente.",
+        "Si la TC no confirma hemorragia y persiste la sospecha, completar investigación (por ejemplo, punción lumbar o angio-TC) según tiempo de inicio, hallazgos y protocolo/localidad; consultar neurología/neurocirugía.",
+        "Mantener meningitis/meningoencefalitis y otras causas de cefalea en trueno en el diagnóstico diferencial."
+      ],
+      "source_ids": [
+        "nice_sah"
+      ]
+    }
+  },
+  "clinical_overrides": {
+    "MED-008": {
+      "clinical_differentials": [
+        {
+          "name": "Celulitis bacteriana",
+          "must_not_miss": false
+        },
+        {
+          "name": "Reacción local a picadura",
+          "must_not_miss": false
+        },
+        {
+          "name": "Otras infecciones transmitidas por garrapatas",
+          "must_not_miss": true
+        }
+      ],
+      "recommended_tests": [
+        "valoracion_clinica_urgente_por_fiebre_alta"
+      ],
+      "optional_tests": [
+        "ninguna_serologia_si_eritema_migrans_tipico",
+        "serologia_si_presentacion_atipica"
+      ],
+      "treatment_reference": {
+        "summary": "CDC incluye amoxicilina como opción general para eritema migrans; la fuente MedQA marca amoxicilina (B). No es una prescripción individual: valorar fiebre muy alta, alergias a beta-lactámicos, embarazo, diseminación y diagnósticos alternativos.",
+        "key_actions": [
+          "No retrasar valoración urgente de fiebre de 40,1 °C.",
+          "Confirmar antecedentes alérgicos antes de cualquier antibiótico.",
+          "Usar guías locales actualizadas para pauta y duración."
+        ]
+      }
+    },
+    "MED-009": {
+      "clinical_differentials": [
+        {
+          "name": "Carcinoma escamocelular",
+          "must_not_miss": true
+        },
+        {
+          "name": "Carcinoma sebáceo palpebral",
+          "must_not_miss": true
+        },
+        {
+          "name": "Queratoacantoma",
+          "must_not_miss": false
+        },
+        {
+          "name": "Chalazión persistente",
+          "must_not_miss": false
+        }
+      ],
+      "recommended_tests": [
+        "biopsia_o_confirmacion_histopatologica"
+      ],
+      "optional_tests": [
+        "valoracion_dermatologia_y_oftalmologia_oculoplastica"
+      ],
+      "treatment_reference": {
+        "summary": "No hay confirmación histológica ni tratamiento individual en la fuente. Por la localización palpebral, requiere diagnóstico tisular y planificación por especialistas antes de tratar.",
+        "key_actions": [
+          "No retrasar la valoración especializada de una lesión palpebral que crece.",
+          "Evitar tratamiento destructivo sin confirmación diagnóstica."
+        ]
+      }
+    },
+    "PED-007": {
+      "clinical_differentials": [
+        {
+          "name": "Artritis séptica",
+          "must_not_miss": true
+        },
+        {
+          "name": "Epifisiólisis de la cabeza femoral",
+          "must_not_miss": true
+        },
+        {
+          "name": "Osteomielitis",
+          "must_not_miss": true
+        },
+        {
+          "name": "Artritis idiopática juvenil",
+          "must_not_miss": false
+        }
+      ],
+      "recommended_tests": [
+        "valoracion_ortopedia_pediatrica",
+        "revisar_radiografias_de_cadera"
+      ],
+      "optional_tests": [
+        "resonancia_si_diagnostico_temprano_incierto"
+      ],
+      "treatment_reference": {
+        "summary": "La radiografía y la edad apoyan Legg-Calve-Perthes. El manejo depende de extensión y evolución, por lo que debe decidirlo ortopedia pediátrica; la ficha no prescribe tratamiento.",
+        "key_actions": [
+          "Valorar por ortopedia pediátrica.",
+          "Reevaluar con urgencia si aparece fiebre, dolor intenso o incapacidad para apoyar."
+        ]
+      }
+    },
+    "PED-010": {
+      "clinical_differentials": [
+        {
+          "name": "Neurofibromatosis tipo 1",
+          "must_not_miss": false
+        },
+        {
+          "name": "Síndrome de Peutz-Jeghers",
+          "must_not_miss": false
+        },
+        {
+          "name": "Displasia fibrosa ósea no sindrómica",
+          "must_not_miss": false
+        },
+        {
+          "name": "Otras causas de pubertad precoz periférica",
+          "must_not_miss": true
+        }
+      ],
+      "recommended_tests": [
+        "valoracion_endocrinologia_pediatrica",
+        "funcion_tiroidea_para_aclarar_enunciado_fuente",
+        "revisar_imagenes_y_extension_de_displasia_fibrosa"
+      ],
+      "optional_tests": [
+        "evaluacion_endocrina_de_pubertad_precoz",
+        "seguimiento_esqueletico_segun_especialista"
+      ],
+      "treatment_reference": {
+        "summary": "Los hallazgos descritos apoyan síndrome de McCune-Albright, pero el texto fuente es ambiguo sobre la función tiroidea y no aporta resultados hormonales completos. No se establece tratamiento individual; requiere evaluación endocrina y esquelética pediátrica.",
+        "key_actions": [
+          "Aclarar y confirmar la función tiroidea; no asumir que la paciente tiene simultáneamente hipotiroidismo e hipertiroidismo.",
+          "Coordinar seguimiento por endocrinología pediátrica y ortopedia según extensión ósea y manifestaciones."
+        ]
+      }
+    },
+    "GOB-003": {
+      "clinical_differentials": [
+        {
+          "name": "Hemorragia posparto por atonía uterina",
+          "must_not_miss": true
+        },
+        {
+          "name": "Hipopituitarismo posparto (síndrome de Sheehan)",
+          "must_not_miss": true
+        },
+        {
+          "name": "Retención de restos placentarios",
+          "must_not_miss": true
+        },
+        {
+          "name": "Hipofisitis posparto",
+          "must_not_miss": false
+        }
+      ],
+      "recommended_tests": [
+        "evaluar_y_documentar_hemorragia_posparto"
+      ],
+      "optional_tests": [
+        "eje_hipofisario_si_persisten_sintomas"
+      ],
+      "treatment_reference": {
+        "summary": "La fuente plantea infarto hipofisario tras shock hemorrágico, pero no proporciona un plan terapéutico. La hemorragia posparto es la prioridad; sospecha de déficit hipofisario requiere evaluación endocrina urgente y tratamiento especializado.",
+        "key_actions": [
+          "Priorizar estabilización y control obstétrico de la hemorragia.",
+          "No inferir ni iniciar reemplazo hormonal sin evaluación urgente del eje, incluido cortisol."
+        ]
+      }
+    },
+    "GOB-004": {
+      "clinical_differentials": [
+        {
+          "name": "Enfermedad pélvica inflamatoria",
+          "must_not_miss": true
+        },
+        {
+          "name": "Cervicitis por gonorrea o clamidia",
+          "must_not_miss": true
+        },
+        {
+          "name": "Vaginosis bacteriana",
+          "must_not_miss": false
+        },
+        {
+          "name": "Candidiasis vulvovaginal",
+          "must_not_miss": false
+        }
+      ],
+      "recommended_tests": [
+        "naat_trichomonas",
+        "naat_gonorrea_y_clamidia",
+        "evaluar_criterios_de_enfermedad_pelvica_inflamatoria"
+      ],
+      "optional_tests": [
+        "prueba_de_embarazo",
+        "pruebas_de_otras_its"
+      ],
+      "treatment_reference": {
+        "summary": "CDC recomienda para tricomoniasis en mujeres metronidazol oral 500 mg dos veces al día durante 7 días y manejo de parejas; si se sospecha EPI, necesita evaluación y tratamiento presuntivo por un profesional, ya que el esquema para vaginitis no cubre por sí solo toda EPI.",
+        "key_actions": [
+          "No omitir evaluación de EPI ante dolor pélvico y dolor a la movilización cervical.",
+          "Tratar simultáneamente a las parejas sexuales y evitar relaciones hasta completar tratamiento y resolver síntomas.",
+          "Ofrecer pruebas para otras ITS y repetir prueba de tricomoniasis aproximadamente a los 3 meses."
+        ]
+      }
+    },
+    "CIR-005": {
+      "clinical_differentials": [
+        {
+          "name": "Hemofilia B",
+          "must_not_miss": false
+        },
+        {
+          "name": "Enfermedad de von Willebrand",
+          "must_not_miss": false
+        },
+        {
+          "name": "Inhibidor adquirido de factor VIII",
+          "must_not_miss": true
+        },
+        {
+          "name": "Coagulopatía perioperatoria adquirida",
+          "must_not_miss": true
+        }
+      ],
+      "recommended_tests": [
+        "actividad_de_factor_viii_y_factor_ix",
+        "estudio_de_mezcla_del_ttp",
+        "valoracion_hematologia_urgente"
+      ],
+      "optional_tests": [
+        "antigeno_y_actividad_del_factor_de_von_willebrand"
+      ],
+      "treatment_reference": {
+        "summary": "El sangrado activo con posible hemofilia requiere control hemostático urgente con hematología. El producto depende de factor deficiente, inhibidores y situación clínica; la fuente no permite elegir producto ni dosis.",
+        "key_actions": [
+          "No retrasar consulta de hematología ante sangrado quirúrgico persistente.",
+          "Confirmar actividad de factor VIII/IX y descartar inhibidor antes de etiquetar hemofilia A."
+        ]
+      }
+    },
+    "CIR-006": {
+      "clinical_differentials": [
+        {
+          "name": "Neumonía posoperatoria",
+          "must_not_miss": true
+        },
+        {
+          "name": "Embolia pulmonar posoperatoria",
+          "must_not_miss": true
+        },
+        {
+          "name": "Atelectasia u otra causa de hipoxemia",
+          "must_not_miss": false
+        },
+        {
+          "name": "Delirio posoperatorio por causa metabólica o farmacológica",
+          "must_not_miss": false
+        }
+      ],
+      "recommended_tests": [
+        "evaluacion_hospitalaria_inmediata",
+        "radiografia_o_imagen_de_torax",
+        "cultivos_y_lactato_segun_protocolo_sin_retrasar_tratamiento"
+      ],
+      "optional_tests": [
+        "evaluacion_de_embolia_pulmonar_segun_probabilidad"
+      ],
+      "treatment_reference": {
+        "summary": "Posible sepsis posoperatoria: requiere evaluación y tratamiento hospitalarios inmediatos, búsqueda del foco y soporte de órganos. La fuente no demuestra germen ni prescribe un antibiótico específico.",
+        "key_actions": [
+          "No retrasar tratamiento de sepsis probable para completar pruebas no esenciales.",
+          "Investigar foco pulmonar y valorar diagnósticos alternativos graves, especialmente embolia pulmonar."
+        ]
+      }
+    },
+    "EME-001": {
+      "clinical_differentials": [
+        {
+          "name": "Síndrome neuroléptico maligno",
+          "must_not_miss": true
+        },
+        {
+          "name": "Tormenta tiroidea",
+          "must_not_miss": true
+        },
+        {
+          "name": "Estado epiléptico",
+          "must_not_miss": true
+        },
+        {
+          "name": "Hipertermia maligna perioperatoria",
+          "must_not_miss": false
+        }
+      ],
+      "recommended_tests": [
+        "enfriamiento_activo_inmediato",
+        "creatina_quinasa_funcion_renal_electrolitos",
+        "funcion_hepatica_y_coagulacion"
+      ],
+      "optional_tests": [
+        "ecg_glucosa_y_evaluacion_de_sindrome_neuroleptico_maligno"
+      ],
+      "treatment_reference": {
+        "summary": "Golpe de calor por esfuerzo con alteración neurológica es una emergencia vital. El enfriamiento activo debe comenzar de inmediato; la fuente no autoriza una pauta farmacológica individual.",
+        "key_actions": [
+          "Iniciar enfriamiento activo rápido y activar atención de emergencia.",
+          "No usar antipiréticos como sustituto del enfriamiento.",
+          "Vigilar rabdomiólisis, lesión renal/hepática, alteraciones electrolíticas y coagulopatía."
+        ]
+      }
+    },
+    "EME-002": {
+      "clinical_differentials": [
+        {
+          "name": "Meningitis o meningoencefalitis",
+          "must_not_miss": true
+        },
+        {
+          "name": "Hemorragia intracerebral",
+          "must_not_miss": true
+        },
+        {
+          "name": "Trombosis venosa cerebral",
+          "must_not_miss": true
+        },
+        {
+          "name": "Crisis epiléptica",
+          "must_not_miss": false
+        }
+      ],
+      "recommended_tests": [
+        "tc_craneal_sin_contraste_urgente"
+      ],
+      "optional_tests": [
+        "puncion_lumbar_o_angio_tc_si_persiste_sospecha_tras_tc"
+      ],
+      "treatment_reference": {
+        "summary": "Sospecha de hemorragia subaracnoidea: evaluación hospitalaria inmediata y neuroimagen urgente. Si TC inicial no confirma y persiste sospecha, completar estudio según tiempo de inicio y protocolo especializado; la fuente no contiene imagen confirmatoria.",
+        "key_actions": [
+          "No demorar TC craneal y valoración neurológica/neuroquirúrgica urgente.",
+          "No declarar hemorragia confirmada solo por la clave de respuesta MedQA."
+        ]
+      }
+    }
+  },
+  "legacy_cases_to_reject": {
+    "MED-001": "No es un caso de paciente; corresponde a un diseño de estudio o ensayo clínico agrupado.",
+    "MED-002": "No es un caso de paciente; corresponde a un diseño de estudio o ensayo clínico agrupado.",
+    "PED-003": "No es un caso de paciente; corresponde a un diseño de estudio o ensayo clínico agrupado.",
+    "PED-004": "No es un caso de paciente; corresponde a un diseño de estudio o ensayo clínico agrupado.",
+    "CIR-007": "Fuente incompleta para un caso clínico: el resumen original no está disponible, la ficha contiene diagnóstico genérico y el sexo de la copia curada contradice el dato fuente.",
+    "CIR-008": "Fuente incompleta para un caso clínico: el resumen original no está disponible, la ficha contiene diagnóstico genérico y el sexo de la copia curada contradice el dato fuente.",
+    "EME-009": "El texto fuente es el resumen de un ensayo comparativo sobre imágenes para nefrolitiasis, no un caso clínico individual; la ficha tampoco tiene diagnóstico específico.",
+    "EME-010": "El texto fuente es un duplicado del resumen de un ensayo comparativo sobre imágenes para nefrolitiasis, no un caso clínico individual; la ficha tampoco tiene diagnóstico específico.",
+    "GOB-005": "La fuente describe a una recién nacida de un día con un problema de extremidad superior, no un caso de ginecología-obstetricia; la copia curada contiene sexo y edad incompatibles con la fuente.",
+    "GOB-006": "La fuente describe a una recién nacida de un día con un problema de extremidad superior, no un caso de ginecología-obstetricia; la copia curada contiene sexo y edad incompatibles con la fuente."
+  },
+  "invalidated_legacy_curations": [
+    "CIR-007",
+    "CIR-008",
+    "EME-009",
+    "EME-010",
+    "GOB-005",
+    "GOB-006"
+  ],
+  "distribution": {
+    "EME-001": {
+      "chief_complaint": "Alteración del estado mental: sus compañeros de trabajo lo encontraron en el suelo de la obra donde trabaja como obrero de construcción.",
+      "public": [
+        {
+          "key": "signos_vitales",
+          "category": "signo_vital",
+          "label": "Signos vitales",
+          "text": "Temperatura 41,1 °C, presión arterial 109/62 mmHg, pulso 170/min, frecuencia respiratoria 23/min y saturación de oxígeno 95 % al aire ambiente."
+        }
+      ],
+      "on_request": [
+        {
+          "key": "antecedentes",
+          "category": "antecedente",
+          "label": "Antecedentes personales",
+          "text": "Hace varios meses recibió anestesia para una apendicectomía. Tiene esquizofrenia bien controlada, epilepsia, ansiedad e hipertiroidismo.",
+          "owner": "paciente",
+          "requires": [
+            "antecedentes_personales"
+          ]
+        },
+        {
+          "key": "tratamiento_habitual",
+          "category": "medicacion",
+          "label": "Medicación habitual",
+          "text": "Toma haloperidol para la esquizofrenia, fenitoína para la epilepsia y propranolol para la ansiedad y el hipertiroidismo.",
+          "owner": "paciente",
+          "requires": [
+            "medicacion"
+          ]
+        },
+        {
+          "key": "exploracion_fisica",
+          "category": "examen_fisico",
+          "label": "Exploración física",
+          "text": "Paciente con alteración del estado mental y escala de coma de Glasgow de 10. Tono muscular mínimo; responde de forma incoherente a las preguntas. Está cubierto de sudor y suciedad.",
+          "owner": "medico_asistente",
+          "requires": [
+            "exploracion_fisica"
+          ]
+        }
+      ],
+      "key_questions": [
+        {
+          "topic": "Medicación habitual: haloperidol, fenitoína y propranolol",
+          "evidence": [
+            "tratamiento_habitual"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "topic": "Antecedentes: anestesia reciente, esquizofrenia, epilepsia e hipertiroidismo",
+          "evidence": [
+            "antecedentes"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "topic": "Exploración física: nivel de conciencia, tono muscular y sudoración",
+          "evidence": [
+            "exploracion_fisica"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        }
+      ],
+      "notes": [
+        "El paciente no puede dar la información: la aporta un acompañante o la historia clínica."
+      ]
+    },
+    "EME-002": {
+      "chief_complaint": "Cefalea intensa de inicio súbito mientras se bañaba, seguida de vómitos; acude a urgencias.",
+      "public": [
+        {
+          "key": "llegada",
+          "category": "anamnesis",
+          "label": "Datos de llegada",
+          "text": "Unos 30 minutos después del inicio, el equipo de urgencias lo encuentra con alteración de la conciencia."
+        },
+        {
+          "key": "signos_vitales",
+          "category": "signo_vital",
+          "label": "Signos vitales",
+          "text": "Presión arterial 180/110 mmHg, temperatura ótica 37,9 °C, pulso regular de 80/min y frecuencia respiratoria de 20/min."
+        }
+      ],
+      "on_request": [
+        {
+          "key": "antecedentes",
+          "category": "antecedente",
+          "label": "Antecedentes personales",
+          "text": "Tiene hipertensión arterial.",
+          "owner": "paciente",
+          "requires": [
+            "antecedentes_personales"
+          ]
+        },
+        {
+          "key": "exploracion_fisica",
+          "category": "examen_fisico",
+          "label": "Exploración física",
+          "text": "Ante estímulos dolorosos abre los ojos y gime, y señala el punto donde se le aplica el estímulo. Presenta rigidez de nuca.",
+          "owner": "medico_asistente",
+          "requires": [
+            "exploracion_fisica"
+          ]
+        }
+      ],
+      "key_questions": [
+        {
+          "topic": "Exploración física: respuesta a estímulos y rigidez de nuca",
+          "evidence": [
+            "exploracion_fisica"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "topic": "Antecedente de hipertensión arterial",
+          "evidence": [
+            "antecedentes"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "anamnesis_incompleta"
+        }
+      ],
+      "notes": [
+        "El paciente no puede dar la información: la aporta un acompañante o la historia clínica.",
+        "El enunciado fuente (banco Taiwan, traducido del chino) está redactado de forma deficiente; se interpreta que la cefalea comenzó de forma súbita mientras se bañaba y que el paciente localiza el estímulo doloroso."
+      ]
+    },
+    "GOB-003": {
+      "chief_complaint": "A la mañana siguiente del parto no puede lactar cuando intenta amamantar a su bebé.",
+      "public": [
+        {
+          "key": "evolucion_parto",
+          "category": "anamnesis",
+          "label": "Evolución del parto",
+          "text": "Parto a término. Apgar del recién nacido: 9 al minuto y 10 a los 5 minutos. Treinta minutos después del parto, la presión arterial de la madre bajó a 80/60 mmHg y su pulso fue de 124/min. Se inició reanimación intensiva con líquidos: tras administrar 4 unidades de líquidos intravenosos y 4 unidades de sangre total, sus signos vitales se estabilizaron."
+        }
+      ],
+      "on_request": [
+        {
+          "key": "exploracion_fisica",
+          "category": "examen_fisico",
+          "label": "Exploración física",
+          "text": "Exploración registrada a los 30 minutos del parto: extremidades distales frías y húmedas; útero blando (atónico).",
+          "owner": "medico_asistente",
+          "requires": [
+            "exploracion_fisica"
+          ]
+        }
+      ],
+      "key_questions": [
+        {
+          "topic": "Exploración física tras el parto: extremidades frías y húmedas, útero atónico",
+          "evidence": [
+            "exploracion_fisica"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        }
+      ],
+      "notes": [
+        "La fuente solo describe la evolución del parto y la falla de lactancia: no aporta otros antecedentes, exámenes ni hallazgos actuales para revelar."
+      ]
+    },
+    "GOB-004": {
+      "chief_complaint": "Molestia pélvica leve y flujo vaginal espumoso y amarillento desde hace 2 semanas.",
+      "public": [
+        {
+          "key": "signos_vitales",
+          "category": "signo_vital",
+          "label": "Signos vitales",
+          "text": "Signos vitales normales."
+        }
+      ],
+      "on_request": [
+        {
+          "key": "sintomas_asociados",
+          "category": "sintoma",
+          "label": "Síntomas asociados",
+          "text": "Dolor durante las relaciones sexuales y, a veces, después de orinar.",
+          "owner": "paciente",
+          "requires": [
+            "sintomas_asociados"
+          ]
+        },
+        {
+          "key": "antecedentes",
+          "category": "antecedente",
+          "label": "Antecedentes personales",
+          "text": "Sus antecedentes médicos no son relevantes.",
+          "owner": "paciente",
+          "requires": [
+            "antecedentes_personales"
+          ]
+        },
+        {
+          "key": "tratamiento_habitual",
+          "category": "medicacion",
+          "label": "Medicación habitual",
+          "text": "Toma anticonceptivos orales y un multivitamínico a diario.",
+          "owner": "paciente",
+          "requires": [
+            "medicacion"
+          ]
+        },
+        {
+          "key": "vida_sexual",
+          "category": "anamnesis",
+          "label": "Vida sexual",
+          "text": "Ha tenido dos parejas sexuales masculinas en su vida y usa preservativo de forma irregular.",
+          "owner": "paciente",
+          "requires": [
+            "habitos"
+          ]
+        },
+        {
+          "key": "exploracion_fisica",
+          "category": "examen_fisico",
+          "label": "Exploración ginecológica",
+          "text": "Eritema vulvovaginal y cuello uterino en fresa, doloroso a la movilización, con escaso flujo verde-amarillento maloliente.",
+          "owner": "medico_asistente",
+          "requires": [
+            "exploracion_fisica"
+          ]
+        },
+        {
+          "key": "ph_vaginal",
+          "category": "laboratorio",
+          "label": "pH vaginal",
+          "text": "pH vaginal medido junto a la cama a partir de un hisopado de la pared vaginal: 5,8.",
+          "owner": "laboratorio",
+          "requires": [
+            "ph_vaginal"
+          ],
+          "interpretation": "H"
+        }
+      ],
+      "key_questions": [
+        {
+          "topic": "Vida sexual: parejas y uso de preservativo",
+          "evidence": [
+            "vida_sexual"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "topic": "Exploración ginecológica: cuello uterino en fresa y flujo",
+          "evidence": [
+            "exploracion_fisica"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "topic": "pH vaginal",
+          "evidence": [
+            "ph_vaginal"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "razonamiento_clinico"
+        }
+      ],
+      "notes": []
+    },
+    "CIR-005": {
+      "chief_complaint": "Ingresó por dolor abdominal intenso; se diagnosticó apendicitis y se le realizó una apendicectomía de urgencia.",
+      "public": [
+        {
+          "key": "evolucion_quirurgica",
+          "category": "anamnesis",
+          "label": "Evolución quirúrgica",
+          "text": "Durante la intervención presentó un sangrado masivo y persistente que requirió transfusión de sangre."
+        }
+      ],
+      "on_request": [
+        {
+          "key": "antecedentes_familiares",
+          "category": "antecedente",
+          "label": "Antecedentes familiares",
+          "text": "Al informarle de las complicaciones después de la cirugía, recuerda que olvidó mencionar que en su familia hay antecedentes de un trastorno hemorrágico que no sabe precisar.",
+          "owner": "paciente",
+          "requires": [
+            "antecedentes_familiares"
+          ]
+        },
+        {
+          "key": "coagulacion_preoperatoria",
+          "category": "laboratorio",
+          "label": "Pruebas de coagulación preoperatorias",
+          "text": "Tiempo de sangrado normal, tiempo de protrombina normal, INR de 1,0 y recuento de plaquetas normal.",
+          "owner": "laboratorio",
+          "requires": [
+            "coagulacion"
+          ],
+          "interpretation": "N"
+        },
+        {
+          "key": "coagulacion_posoperatoria",
+          "category": "laboratorio",
+          "label": "Pruebas de coagulación posoperatorias",
+          "text": "Tiempo de tromboplastina parcial prolongado.",
+          "owner": "laboratorio",
+          "requires": [
+            "coagulacion"
+          ],
+          "interpretation": "A"
+        }
+      ],
+      "key_questions": [
+        {
+          "topic": "Antecedentes familiares de trastorno hemorrágico",
+          "evidence": [
+            "antecedentes_familiares"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "topic": "Pruebas de coagulación posoperatorias: tiempo de tromboplastina parcial prolongado",
+          "evidence": [
+            "coagulacion_posoperatoria"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "topic": "Pruebas de coagulación preoperatorias normales",
+          "evidence": [
+            "coagulacion_preoperatoria"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "razonamiento_clinico"
+        }
+      ],
+      "notes": []
+    },
+    "CIR-006": {
+      "chief_complaint": "Confusión en el quinto día después de una hemicolectomía derecha electiva.",
+      "public": [
+        {
+          "key": "evolucion_quirurgica",
+          "category": "anamnesis",
+          "label": "Evolución quirúrgica",
+          "text": "La operación transcurrió sin complicaciones."
+        },
+        {
+          "key": "signos_vitales",
+          "category": "signo_vital",
+          "label": "Signos vitales",
+          "text": "Temperatura 38,5 °C, frecuencia respiratoria 28/min, saturación de oxígeno 92 % con oxígeno a 2 L, pulso 118/min (taquicardia) y presión arterial 110/65 mmHg."
+        }
+      ],
+      "on_request": [
+        {
+          "key": "antecedentes",
+          "category": "antecedente",
+          "label": "Antecedentes personales",
+          "text": "Diabetes mellitus tipo 2 desde hace 20 años, hipertensión esencial desde hace 15 años y angina de esfuerzo desde hace 6 años.",
+          "owner": "paciente",
+          "requires": [
+            "antecedentes_personales"
+          ]
+        },
+        {
+          "key": "habitos",
+          "category": "anamnesis",
+          "label": "Hábitos y autonomía",
+          "text": "Tabaquismo de 30 paquetes-año. Antes de la cirugía se movilizaba de forma independiente y hacía sus propias compras.",
+          "owner": "paciente",
+          "requires": [
+            "habitos"
+          ]
+        },
+        {
+          "key": "exploracion_fisica",
+          "category": "examen_fisico",
+          "label": "Exploración física",
+          "text": "Auscultación torácica: crepitantes gruesos en la base pulmonar derecha. La herida quirúrgica cicatriza bien; el abdomen está blando y no doloroso.",
+          "owner": "medico_asistente",
+          "requires": [
+            "exploracion_fisica"
+          ]
+        }
+      ],
+      "key_questions": [
+        {
+          "topic": "Exploración física: crepitantes en la base pulmonar derecha, herida y abdomen",
+          "evidence": [
+            "exploracion_fisica"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "topic": "Antecedentes: diabetes, hipertensión y angina",
+          "evidence": [
+            "antecedentes"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "topic": "Tabaquismo y autonomía previa",
+          "evidence": [
+            "habitos"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "anamnesis_incompleta"
+        }
+      ],
+      "notes": [
+        "La paciente está confusa: los antecedentes los aporta un acompañante o la historia clínica."
+      ]
+    },
+    "PED-007": {
+      "chief_complaint": "Cojea y protege la pierna izquierda; su madre nota que cambió su forma de jugar.",
+      "public": [
+        {
+          "key": "signos_vitales",
+          "category": "signo_vital",
+          "label": "Signos vitales",
+          "text": "Afebril; signos vitales estables."
+        }
+      ],
+      "on_request": [
+        {
+          "key": "dolor",
+          "category": "sintoma",
+          "label": "Localización del dolor",
+          "text": "Al preguntarle, el niño dice que le duele la rodilla izquierda.",
+          "owner": "paciente",
+          "requires": [
+            "caracteristicas_sintoma"
+          ]
+        },
+        {
+          "key": "antecedentes",
+          "category": "antecedente",
+          "label": "Desarrollo y nutrición",
+          "text": "Está bien nutrido y cumple todos los hitos del desarrollo.",
+          "owner": "paciente",
+          "requires": [
+            "antecedentes_personales"
+          ]
+        },
+        {
+          "key": "exploracion_fisica",
+          "category": "examen_fisico",
+          "label": "Exploración física",
+          "text": "La rodilla tiene rango de movimiento completo; la movilización pasiva provoca dolor en la cadera izquierda.",
+          "owner": "medico_asistente",
+          "requires": [
+            "exploracion_fisica"
+          ]
+        },
+        {
+          "key": "radiografia",
+          "category": "imagen",
+          "label": "Radiografía",
+          "text": "Cabeza femoral izquierda aplanada.",
+          "owner": "radiologia",
+          "requires": [
+            "radiografia"
+          ],
+          "interpretation": "A"
+        }
+      ],
+      "key_questions": [
+        {
+          "topic": "Exploración de rodilla y cadera: dolor de cadera a la movilización pasiva",
+          "evidence": [
+            "exploracion_fisica"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "topic": "Radiografía: cabeza femoral izquierda aplanada",
+          "evidence": [
+            "radiografia"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "topic": "Localización del dolor referido en la rodilla",
+          "evidence": [
+            "dolor"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "anamnesis_incompleta"
+        }
+      ],
+      "notes": [
+        "Paciente pediátrico: parte de la historia la aporta la madre."
+      ]
+    },
+    "MED-008": {
+      "chief_complaint": "Cefalea, fiebre intermitente con escalofríos, dolores articulares generalizados, sed excesiva con aumento de la ingesta de líquidos y una erupción progresiva en la espalda.",
+      "public": [
+        {
+          "key": "signos_vitales",
+          "category": "signo_vital",
+          "label": "Signos vitales",
+          "text": "Temperatura 40,1 °C."
+        }
+      ],
+      "on_request": [
+        {
+          "key": "evolucion",
+          "category": "sintoma",
+          "label": "Evolución de la lesión y de los síntomas",
+          "text": "Tres días antes de consultar notó en la espalda una lesión pequeña, algo elevada, parecida a una picadura de araña o de insecto, que consideró una costra. Dos días antes de acudir tuvo fiebre de 39,4 °C, con una sensación de ardor cada vez más intensa en la zona. Un familiar revisó la picadura y vio que el bulto se había convertido en una erupción circular. El día anterior se sintió agotada, pero completó una jornada laboral normal. Hoy despertó muy enferma, con dolores articulares punzantes, fiebre alta y sed excesiva.",
+          "owner": "paciente",
+          "requires": [
+            "inicio_y_evolucion"
+          ]
+        },
+        {
+          "key": "tratamiento_previo",
+          "category": "medicacion",
+          "label": "Medicación tomada",
+          "text": "Tomó ibuprofeno de venta libre por el dolor intenso para poder dormir.",
+          "owner": "paciente",
+          "requires": [
+            "medicacion"
+          ]
+        },
+        {
+          "key": "antecedentes",
+          "category": "antecedente",
+          "label": "Antecedentes personales",
+          "text": "Sus antecedentes médicos y quirúrgicos no son relevantes, salvo una anafilaxia al tomar una tetraciclina.",
+          "owner": "paciente",
+          "requires": [
+            "antecedentes_personales"
+          ]
+        },
+        {
+          "key": "alergias",
+          "category": "antecedente",
+          "label": "Alergias",
+          "text": "Tuvo anafilaxia al tomar una tetraciclina y recalca que es alérgica a las tetraciclinas. Niega alergias alimentarias o por inhalación.",
+          "owner": "paciente",
+          "requires": [
+            "alergias"
+          ]
+        },
+        {
+          "key": "exposicion",
+          "category": "anamnesis",
+          "label": "Exposición reciente",
+          "text": "Recuerda una caminata por el bosque 3 semanas antes, pero niega haber encontrado una garrapata u otro ectoparásito en su cuerpo.",
+          "owner": "paciente",
+          "requires": [
+            "habitos"
+          ]
+        },
+        {
+          "key": "exploracion_fisica",
+          "category": "examen_fisico",
+          "label": "Exploración física",
+          "text": "Erupción roja, circular y grande, con aspecto en diana (17 × 19 cm de diámetro), en la espalda. El resto de la exploración física no muestra hallazgos.",
+          "owner": "medico_asistente",
+          "requires": [
+            "exploracion_fisica"
+          ]
+        }
+      ],
+      "key_questions": [
+        {
+          "topic": "Alergias: anafilaxia a tetraciclinas",
+          "evidence": [
+            "alergias"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "topic": "Exposición: caminata por el bosque y contacto con garrapatas",
+          "evidence": [
+            "exposicion"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "topic": "Exploración física: erupción en diana en la espalda",
+          "evidence": [
+            "exploracion_fisica"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "topic": "Evolución de la lesión y de la fiebre",
+          "evidence": [
+            "evolucion"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "anamnesis_incompleta"
+        }
+      ],
+      "contraindications": [
+        {
+          "id": "ci1",
+          "drug_or_class": "Tetraciclinas (incluida la doxiciclina)",
+          "reason": "Antecedente de anafilaxia al tomar una tetraciclina.",
+          "evidence": "alergias"
+        }
+      ],
+      "allergies_in_public": false,
+      "notes": [
+        "Se omite la frase del enunciado en la que el médico decide iniciar el antimicrobiano: esa decisión le corresponde al estudiante.",
+        "La alergia deja de estar en la ficha pública (allergies_recorded: false): el estudiante debe preguntarla, y no hacerlo se evalúa como negligencia."
+      ]
+    },
+    "MED-009": {
+      "chief_complaint": "Acude a su control anual; no tiene molestias en este momento.",
+      "public": [
+        {
+          "key": "antecedentes_registrados",
+          "category": "antecedente",
+          "label": "Antecedentes registrados",
+          "text": "Hipertensión crónica bien controlada."
+        }
+      ],
+      "on_request": [
+        {
+          "key": "exploracion_fisica",
+          "category": "examen_fisico",
+          "label": "Exploración física",
+          "text": "En el párpado hay una pápula de 0,5 cm, rosada y de aspecto perlado, con bordes enrollados y telangiectasias en la superficie.",
+          "owner": "medico_asistente",
+          "requires": [
+            "exploracion_fisica"
+          ]
+        },
+        {
+          "key": "evolucion",
+          "category": "sintoma",
+          "label": "Evolución de la lesión",
+          "text": "Notó la lesión por primera vez hace unos 6 meses y desde entonces ha crecido ligeramente.",
+          "owner": "paciente",
+          "requires": [
+            "inicio_y_evolucion"
+          ]
+        },
+        {
+          "key": "exposicion_solar",
+          "category": "anamnesis",
+          "label": "Exposición solar",
+          "text": "Trabajó como vendedor puerta a puerta, pasó mucho tiempo al aire libre y no usaba protector solar. Tiene piel clara y cabello rubio.",
+          "owner": "paciente",
+          "requires": [
+            "habitos"
+          ]
+        }
+      ],
+      "key_questions": [
+        {
+          "topic": "Exploración física: pápula perlada del párpado con bordes enrollados y telangiectasias",
+          "evidence": [
+            "exploracion_fisica"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "topic": "Exposición solar y fototipo",
+          "evidence": [
+            "exposicion_solar"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "topic": "Tiempo de evolución y crecimiento de la lesión",
+          "evidence": [
+            "evolucion"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "anamnesis_incompleta"
+        }
+      ],
+      "notes": []
+    },
+    "PED-010": {
+      "chief_complaint": "Fractura de brazo.",
+      "public": [
+        {
+          "key": "llegada",
+          "category": "anamnesis",
+          "label": "Datos de ingreso",
+          "text": "Niña de 6 años hospitalizada por una fractura de brazo."
+        }
+      ],
+      "on_request": [
+        {
+          "key": "exploracion_fisica",
+          "category": "examen_fisico",
+          "label": "Exploración física",
+          "text": "En la revisión física se encuentran desarrollo mamario y manchas café con leche en la piel.",
+          "owner": "medico_asistente",
+          "requires": [
+            "exploracion_fisica"
+          ]
+        },
+        {
+          "key": "funcion_tiroidea",
+          "category": "laboratorio",
+          "label": "Función tiroidea",
+          "text": "La fuente describe a la vez hipotiroidismo e hipertiroidismo, sin más detalle.",
+          "owner": "laboratorio",
+          "requires": [
+            "funcion_tiroidea"
+          ],
+          "interpretation": "A"
+        },
+        {
+          "key": "imagen_osea",
+          "category": "imagen",
+          "label": "Estudio de imagen ósea",
+          "text": "Muestra crecimiento fibroso del hueso (displasia fibrosa); la edad ósea se interpreta como de 9 años.",
+          "owner": "radiologia",
+          "requires": [
+            "imagen_osea"
+          ],
+          "interpretation": "A"
+        }
+      ],
+      "key_questions": [
+        {
+          "topic": "Exploración física: desarrollo mamario y manchas café con leche",
+          "evidence": [
+            "exploracion_fisica"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "topic": "Estudio de imagen ósea: displasia fibrosa y edad ósea adelantada",
+          "evidence": [
+            "imagen_osea"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "topic": "Función tiroidea",
+          "evidence": [
+            "funcion_tiroidea"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "razonamiento_clinico"
+        }
+      ],
+      "notes": [
+        "Paciente pediátrica: parte de la historia la aporta un acompañante.",
+        "El enunciado fuente (banco Taiwan, traducido del chino) menciona a la vez hipotiroidismo e hipertiroidismo; se conserva tal cual, sin completarlo."
+      ]
+    }
+  }
+}

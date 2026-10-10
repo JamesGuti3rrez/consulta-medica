@@ -25,14 +25,15 @@ SOURCE_DEFINITIONS: dict[str, SourceDefinition] = {
     "medqa": SourceDefinition(
         name="MedQA",
         url="https://github.com/jind11/MedQA",
-        version="master",
+        # Commit fijo del repositorio oficial: la rama master podría cambiar y romper la huella.
+        version="27b02f66aac217933c9648a06f82e9f720377925",
         license="MIT",
         files=(
             SourceFile(
-                name="MedQA-master.zip",
-                url="https://github.com/jind11/MedQA/archive/refs/heads/master.zip",
-                sha256="1b7af07b4de67376d0e5fb4a376a7bcc605678aa32a26f0409fcc7d0d8c4b60c",
-                description="Repositorio oficial: código, README y LICENSE (MIT). No contiene las preguntas.",
+                name="MedQA-27b02f66.zip",
+                url="https://github.com/jind11/MedQA/archive/27b02f66aac217933c9648a06f82e9f720377925.zip",
+                sha256="8cba6bdd54810ff8773a2f29129117c7142d135a5d0a0698ed929c267418fa15",
+                description="Repositorio oficial en el commit 27b02f6: código, README y LICENSE (MIT). No contiene las preguntas.",
             ),
             SourceFile(
                 name="data_clean.zip",

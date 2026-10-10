@@ -1,0 +1,180 @@
+{
+  "schema_version": "1.0.0",
+  "case_id": "EME-001",
+  "title": "Paciente de 33 años con cuadro de emergencias",
+  "specialty": "emergencias",
+  "language": "es",
+  "status": "validado",
+  "source": {
+    "dataset": "MedQA",
+    "item_id": "medqa-a83444b6eabc9a5b",
+    "license": "MIT",
+    "method": "ia_validador"
+  },
+  "public": {
+    "patient": {
+      "alias": "Paciente 1",
+      "age_years": 33,
+      "sex": "masculino"
+    },
+    "chief_complaint": {
+      "evidence_id": "EME-001.motivo.queja_principal",
+      "category": "motivo",
+      "label": "Motivo de consulta",
+      "text": "Alteración del estado mental: sus compañeros de trabajo lo encontraron en el suelo de la obra donde trabaja como obrero de construcción."
+    },
+    "items": [
+      {
+        "evidence_id": "EME-001.vital.signos_vitales",
+        "category": "signo_vital",
+        "label": "Signos vitales",
+        "text": "Temperatura 41,1 °C, presión arterial 109/62 mmHg, pulso 170/min, frecuencia respiratoria 23/min y saturación de oxígeno 95 % al aire ambiente."
+      }
+    ],
+    "allergies_recorded": false
+  },
+  "on_request": [
+    {
+      "evidence_id": "EME-001.antecedente.antecedentes",
+      "category": "antecedente",
+      "label": "Antecedentes personales",
+      "text": "Hace varios meses recibió anestesia para una apendicectomía. Tiene esquizofrenia bien controlada, epilepsia, ansiedad e hipertiroidismo.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "antecedentes_personales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-001.medicacion.tratamiento_habitual",
+      "category": "medicacion",
+      "label": "Medicación habitual",
+      "text": "Toma haloperidol para la esquizofrenia, fenitoína para la epilepsia y propranolol para la ansiedad y el hipertiroidismo.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "medicacion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-001.examen.exploracion_fisica",
+      "category": "examen_fisico",
+      "label": "Exploración física",
+      "text": "Paciente con alteración del estado mental y escala de coma de Glasgow de 10. Tono muscular mínimo; responde de forma incoherente a las preguntas. Está cubierto de sudor y suciedad.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "exploracion_fisica"
+        ]
+      }
+    }
+  ],
+  "protected": {
+    "diagnosis": {
+      "name": "Golpe de calor por esfuerzo",
+      "synonyms": [
+        "Golpe de calor por esfuerzo"
+      ]
+    },
+    "differentials": [
+      {
+        "name": "Síndrome neuroléptico maligno",
+        "must_not_miss": true,
+        "discard_evidence_ids": []
+      },
+      {
+        "name": "Tormenta tiroidea",
+        "must_not_miss": true,
+        "discard_evidence_ids": []
+      },
+      {
+        "name": "Estado epiléptico",
+        "must_not_miss": true,
+        "discard_evidence_ids": []
+      },
+      {
+        "name": "Hipertermia maligna perioperatoria",
+        "must_not_miss": false,
+        "discard_evidence_ids": []
+      }
+    ],
+    "treatment_reference": {
+      "summary": "Golpe de calor por esfuerzo con alteración neurológica es una emergencia vital. El enfriamiento activo debe comenzar de inmediato; la fuente no autoriza una pauta farmacológica individual.",
+      "key_actions": [
+        "Iniciar enfriamiento activo rápido y activar atención de emergencia.",
+        "No usar antipiréticos como sustituto del enfriamiento.",
+        "Vigilar rabdomiólisis, lesión renal/hepática, alteraciones electrolíticas y coagulopatía."
+      ]
+    },
+    "contraindications": [],
+    "evaluation": {
+      "key_questions": [
+        {
+          "id": "kq1",
+          "topic": "Traducción al español: Hombre de 33 años acude a urgencias con alteración del estado mental. Trabaja como obrero de construcción y sus compañeros lo encontraron en el suelo de la obra. Hace varios meses recibió anestesia para una apendicectomía. Tiene antecedentes de esquizofrenia bien controlada con haloperidol y actualmente toma fenitoína para la epilepsia. También toma propranolol para la ansiedad y el hipertiroidismo. Temperatura de 41,1 °C, presión arterial de 109/62 mmHg, pulso de 170/min, frecuencia respiratoria de 23/min y saturación de oxígeno de 95 % al aire ambiente. En la exploración física destaca un hombre con alteración del estado mental y escala de coma de Glasgow de 10. Tiene un tono muscular mínimo y responde de forma incoherente a las preguntas. Está cubierto de sudor y suciedad. ¿Cuál es el diagnóstico más probable? Opciones traducidas: Golpe de calor por esfuerzo; Hipertermia maligna; Síndrome neuroléptico maligno; Estado epiléptico; Tormenta tiroidea. Respuesta fuente: A — Exertional heat stroke. Texto fuente conservado (inglés): A 33-year-old man presents to the emergency department with altered mental status. He was at work as a construction worker when his coworkers found him down at the work site. The patient recently underwent anesthesia for an appendectomy several months ago. He also has a past medical history of schizophrenia well controlled with haloperidol and is currently taking phenytoin for epilepsy. He is also currently taking propranolol for anxiety and hyperthyroidism. His temperature is 106°F (41.1°C), blood pressure is 109/62 mmHg, pulse is 170/min, respirations are 23/min, and oxygen saturation is 95% on room air. Physical exam is notable for an altered man with a Glasgow Coma Scale of 10. He has minimal muscle tone and is incoherent when answering questions. The patient is covered in sweat and dirt. Which of the following is the most likely diagnosis? Opciones fuente: Exertional heat stroke; Malignant hyperthermia; Neuroleptic malignant syndrome; Status epilepticus; Thyroid storm",
+          "evidence_ids": [
+            "EME-001.motivo.queja_principal"
+          ],
+          "weight": 3,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "id": "kq2",
+          "topic": "Medicación habitual: haloperidol, fenitoína y propranolol",
+          "evidence_ids": [
+            "EME-001.medicacion.tratamiento_habitual"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq3",
+          "topic": "Antecedentes: anestesia reciente, esquizofrenia, epilepsia e hipertiroidismo",
+          "evidence_ids": [
+            "EME-001.antecedente.antecedentes"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq4",
+          "topic": "Exploración física: nivel de conciencia, tono muscular y sudoración",
+          "evidence_ids": [
+            "EME-001.examen.exploracion_fisica"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        }
+      ],
+      "tests": {
+        "recommended": [
+          "enfriamiento_activo_inmediato",
+          "creatina_quinasa_funcion_renal_electrolitos",
+          "funcion_hepatica_y_coagulacion"
+        ],
+        "optional": [
+          "ecg_glucosa_y_evaluacion_de_sindrome_neuroleptico_maligno"
+        ],
+        "unnecessary": []
+      }
+    }
+  },
+  "provenance": {
+    "created_by": "case_preparation.transform.medqa_final_review",
+    "created_at": "2026-10-08",
+    "validator_version": "1.0.0",
+    "validated_at": "2026-10-08",
+    "curated_by": null,
+    "curated_at": null,
+    "rejection_reason": null
+  }
+}

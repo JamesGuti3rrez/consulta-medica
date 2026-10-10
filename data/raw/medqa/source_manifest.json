@@ -1,0 +1,31 @@
+{
+  "name": "MedQA",
+  "url": "https://github.com/jind11/MedQA",
+  "version": "27b02f66aac217933c9648a06f82e9f720377925",
+  "license": "MIT",
+  "files": [
+    {
+      "name": "MedQA-27b02f66.zip",
+      "url": "https://github.com/jind11/MedQA/archive/27b02f66aac217933c9648a06f82e9f720377925.zip",
+      "description": "Repositorio oficial en el commit 27b02f6: código, README y LICENSE (MIT). No contiene las preguntas.",
+      "path": "data\\raw\\medqa\\MedQA-27b02f66.zip",
+      "sha256": "8cba6bdd54810ff8773a2f29129117c7142d135a5d0a0698ed929c267418fa15",
+      "sha256_verified": true,
+      "status": "existing",
+      "obtained_at": "2026-10-09T06:48:47.559528+00:00"
+    },
+    {
+      "name": "data_clean.zip",
+      "url": "https://drive.usercontent.google.com/download?id=1ImYUSLk9JbgHXOemfvyiDiirluZHPeQw&export=download&confirm=t",
+      "description": "Preguntas y libros de texto enlazados desde la sección Data del README oficial (Google Drive).",
+      "path": "data\\raw\\medqa\\data_clean.zip",
+      "sha256": "1c2ca8130b3d86d9a99a432ab9bef14f3bb9807bef20facd9ac86ba36960f629",
+      "sha256_verified": true,
+      "status": "existing",
+      "obtained_at": "2026-10-08T08:13:15.561429+00:00"
+    }
+  ],
+  "obtained_at": "2026-10-08T08:13:15.561429+00:00",
+  "obtained_by": "James Gutiérrez",
+  "verified_at": "2026-10-09T07:12:41.100784+00:00"
+}

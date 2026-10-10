@@ -8,8 +8,8 @@ primera fase que falle.
 Uso (desde la raíz del repositorio):
   backend/.venv/Scripts/python.exe pruebas/_herramientas/recorrido_completo.py
 
-La fase 4 necesita Node y el paquete `playwright` (no es dependencia del proyecto). Si no está en
-NODE_PATH, se busca en la caché de npx; se instala con `npx playwright@1.63.0 install chromium`.
+La fase 4 necesita Node y `playwright`, dependencia de desarrollo del proyecto: `npm install` y, una
+sola vez, `npx playwright install chromium` para descargar el navegador.
 """
 
 from __future__ import annotations
@@ -39,7 +39,9 @@ def evidencia(*args: str) -> int:
 
 def ejecutar(etapa: str, descripcion: str, comando: str, salida: str, cwd: Path = REPO_ROOT) -> None:
     print(f"\n== {etapa}: {descripcion}\n   {comando}")
-    code = evidencia("ejecutar", comando, "--cwd", str(cwd), "--salida", str(PRUEBAS / salida))
+    # Solo el .txt: la evidencia visual es la foto real de la terminal donde corre este script.
+    code = evidencia("ejecutar", comando, "--cwd", str(cwd), "--salida", str(PRUEBAS / salida), "--sin-png")
+    salida = salida.rsplit(".", 1)[0] + ".txt"
     results.append((etapa, descripcion, code))
     print(f"   código de salida: {code} → {salida}")
     if code != 0:
@@ -50,17 +52,15 @@ def captura(tipo: str, archivo: str, salida: str, lineas: str | None = None) -> 
     args = [tipo, archivo, "--salida", str(PRUEBAS / salida)]
     if lineas:
         args += ["--lineas", lineas]
-    evidencia(*args)
-    print(f"   captura de {archivo} → {salida}")
+    code = evidencia(*args)
+    print(f"   captura de {archivo} → {salida} (código {code})")
+    if code != 0:
+        results.append(("Evidencia", f"no se pudo generar {salida}", code))
+        finish()
 
 
-def playwright_node_path() -> str | None:
-    if os.environ.get("NODE_PATH"):
-        return os.environ["NODE_PATH"]
-    cache = Path.home() / "AppData" / "Local" / "npm-cache" / "_npx"
-    for candidate in sorted(cache.glob("*/node_modules/playwright")):
-        return str(candidate.parent)
-    return None
+def playwright_available() -> bool:
+    return (REPO_ROOT / "node_modules" / "playwright").exists()
 
 
 def wait_for_server(url: str, timeout: float = 30) -> bool:
@@ -87,9 +87,11 @@ def finish() -> None:
     out = PRUEBAS / "05_recorrido_completo" / "resumen_recorrido.txt"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(text, encoding="utf-8")
-    evidencia("archivo", str(out), "--salida", str(out.with_suffix(".png")))
+    image_code = evidencia("archivo", str(out), "--salida", str(out.with_suffix(".png")))
     print("\n" + text)
-    sys.exit(0 if ok else 1)
+    if image_code != 0:
+        print(f"No se pudo generar la imagen del resumen (código {image_code}).")
+    sys.exit(0 if ok and image_code == 0 else 1)
 
 
 def main() -> None:
@@ -128,9 +130,8 @@ def main() -> None:
              "03_validacion/ejecucion/02_pytest_backend.png", BACKEND)
 
     # Fase 4: conexión con el frontend.
-    node_path = playwright_node_path()
-    if not node_path:
-        print("No se encontró el paquete playwright. Ejecute: npx playwright@1.63.0 install chromium")
+    if not playwright_available():
+        print("Falta playwright. Ejecute: npm install && npx playwright install chromium")
         results.append(("Fase 4", "playwright no disponible", 1))
         finish()
     server = subprocess.Popen(
@@ -143,10 +144,9 @@ def main() -> None:
         if not wait_for_server(f"http://localhost:{PORT}/api/status"):
             results.append(("Fase 4", "el servidor no respondió", 1))
             finish()
-        os.environ["NODE_PATH"] = node_path
         os.environ["BASE_URL"] = f"http://localhost:{PORT}"
         ejecutar("Fase 4", "carga de un caso por especialidad en /simulacion.html (1440 px)",
-                 "node pruebas/_herramientas/capturar_frontend.cjs pruebas/04_frontend/capturas 5",
+                 "node pruebas/_herramientas/capturar_frontend.cjs pruebas/04_frontend/capturas",
                  "04_frontend/ejecucion/01_capturar_frontend.png")
     finally:
         server.terminate()

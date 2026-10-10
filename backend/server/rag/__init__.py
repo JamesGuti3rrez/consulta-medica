@@ -1,1 +1,5 @@
-"""Servicio RAG: indexación y recuperación semántica limitada al caso activo y a la evidencia autorizada. El almacén vectorial está pendiente de decisión."""
+"""Recuperación RAG segura. Autorización siempre viene de engine/disclosure."""
+
+from .port import RetrievedEvidence, RetrieverPort
+
+__all__ = ["RetrievedEvidence", "RetrieverPort"]

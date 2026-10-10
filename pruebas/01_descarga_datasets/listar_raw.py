@@ -5,11 +5,13 @@ from __future__ import annotations
 
 import hashlib
 import sys
+import zipfile
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT / "backend"))
 
+from case_preparation.adapters.medqa import _is_allowed_source  # noqa: E402
 from case_preparation.sources.registry import SOURCE_DEFINITIONS  # noqa: E402
 
 RAW_DIR = REPO_ROOT / "data" / "raw" / "medqa"
@@ -43,6 +45,12 @@ for source_file in source.files:
     print(f"        obtenido: {actual}")
     print(f"        {source_file.description}")
 
-jsonl = sorted((RAW_DIR / "data_clean" / "questions").rglob("*.jsonl"))
-print(f"\ndata_clean.zip extraído: {len(jsonl)} archivos .jsonl en data_clean/questions/ (US, Mainland, Taiwan).")
+zip_path = RAW_DIR / "data_clean.zip"
+if zip_path.exists():
+    names = [n for n in zipfile.ZipFile(zip_path).namelist() if n.endswith(".jsonl") and "__MACOSX" not in n]
+    admitted = [n for n in names if _is_allowed_source(n)]
+    print(f"\ndata_clean.zip (se lee sin descomprimir): {len(names)} archivos .jsonl; "
+          f"{len(admitted)} admitidos por la decisión 0001 §1:")
+    for name in admitted:
+        print(f"  {name}")
 sys.exit(1 if failed else 0)

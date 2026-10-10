@@ -1,0 +1,160 @@
+{
+  "schema_version": "1.0.0",
+  "case_id": "EME-002",
+  "title": "Paciente de 57 años con cuadro de emergencias",
+  "specialty": "emergencias",
+  "language": "es",
+  "status": "validado",
+  "source": {
+    "dataset": "MedQA",
+    "item_id": "medqa-83b0322c93dff066",
+    "license": "MIT",
+    "method": "ia_validador"
+  },
+  "public": {
+    "patient": {
+      "alias": "Paciente 2",
+      "age_years": 57,
+      "sex": "masculino"
+    },
+    "chief_complaint": {
+      "evidence_id": "EME-002.motivo.queja_principal",
+      "category": "motivo",
+      "label": "Motivo de consulta",
+      "text": "Cefalea intensa de inicio súbito mientras se bañaba, seguida de vómitos; acude a urgencias."
+    },
+    "items": [
+      {
+        "evidence_id": "EME-002.anamnesis.llegada",
+        "category": "anamnesis",
+        "label": "Datos de llegada",
+        "text": "Unos 30 minutos después del inicio, el equipo de urgencias lo encuentra con alteración de la conciencia."
+      },
+      {
+        "evidence_id": "EME-002.vital.signos_vitales",
+        "category": "signo_vital",
+        "label": "Signos vitales",
+        "text": "Presión arterial 180/110 mmHg, temperatura ótica 37,9 °C, pulso regular de 80/min y frecuencia respiratoria de 20/min."
+      }
+    ],
+    "allergies_recorded": false
+  },
+  "on_request": [
+    {
+      "evidence_id": "EME-002.antecedente.antecedentes",
+      "category": "antecedente",
+      "label": "Antecedentes personales",
+      "text": "Tiene hipertensión arterial.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "antecedentes_personales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-002.examen.exploracion_fisica",
+      "category": "examen_fisico",
+      "label": "Exploración física",
+      "text": "Ante estímulos dolorosos abre los ojos y gime, y señala el punto donde se le aplica el estímulo. Presenta rigidez de nuca.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "exploracion_fisica"
+        ]
+      }
+    }
+  ],
+  "protected": {
+    "diagnosis": {
+      "name": "Hemorragia subaracnoidea",
+      "synonyms": [
+        "Hemorragia subaracnoidea"
+      ]
+    },
+    "differentials": [
+      {
+        "name": "Meningitis o meningoencefalitis",
+        "must_not_miss": true,
+        "discard_evidence_ids": []
+      },
+      {
+        "name": "Hemorragia intracerebral",
+        "must_not_miss": true,
+        "discard_evidence_ids": []
+      },
+      {
+        "name": "Trombosis venosa cerebral",
+        "must_not_miss": true,
+        "discard_evidence_ids": []
+      },
+      {
+        "name": "Crisis epiléptica",
+        "must_not_miss": false,
+        "discard_evidence_ids": []
+      }
+    ],
+    "treatment_reference": {
+      "summary": "Sospecha de hemorragia subaracnoidea: evaluación hospitalaria inmediata y neuroimagen urgente. Si TC inicial no confirma y persiste sospecha, completar estudio según tiempo de inicio y protocolo especializado; la fuente no contiene imagen confirmatoria.",
+      "key_actions": [
+        "No demorar TC craneal y valoración neurológica/neuroquirúrgica urgente.",
+        "No declarar hemorragia confirmada solo por la clave de respuesta MedQA."
+      ]
+    },
+    "contraindications": [],
+    "evaluation": {
+      "key_questions": [
+        {
+          "id": "kq1",
+          "topic": "Traducción al español: Hombre de 57 años con hipertensión presenta, de forma inesperada mientras se baña, cefalea intensa y vómitos, y es llevado a urgencias. Unos 30 minutos después, los médicos de urgencias lo encuentran con alteración de la conciencia: ante estímulos dolorosos abre los ojos y gime, señala el punto donde se le aplica el estímulo doloroso y presenta rigidez de nuca. Presión arterial de 180/110 mmHg, temperatura ótica de 37,9 °C, pulso regular de 80/min y frecuencia respiratoria de 20/min. Nota: el enunciado fuente está redactado de forma deficiente; esta traducción interpreta que la cefalea comenzó de forma súbita mientras se bañaba. Según la historia, ¿cuál es el diagnóstico más probable? Opciones traducidas: Intoxicación por monóxido de carbono; Hemorragia subaracnoidea; Meningoencefalitis aguda; Crisis epiléptica. Respuesta fuente: B — Subarachnoid hemorrhage (subarachnoid hemorrhage). Texto fuente conservado (inglés): 57-year-old male with hypertension, unexpected bath severe headache, vomiting, to emergency medical treatment. After 30 minutes, the emergency room physicians found that patients with consciousness, but to pain stimulation Zhang eyes and groan, also pointed to poke stinging pain points and was stiff neck. Blood pressure 180/110 mmHg; ear temperature 37.9 ° C; regular pulse 80 beats / min; respiratory rate 20 breaths / min. According to history, the most likely diagnosis is: Opciones fuente: Carbon monoxide poisoning (CO intoxication); Subarachnoid hemorrhage (subarachnoid hemorrhage); Acute meningoencephalitis (acute meningoencephalitis); Seizures (epilepsy)",
+          "evidence_ids": [
+            "EME-002.motivo.queja_principal"
+          ],
+          "weight": 3,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "id": "kq2",
+          "topic": "Exploración física: respuesta a estímulos y rigidez de nuca",
+          "evidence_ids": [
+            "EME-002.examen.exploracion_fisica"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "id": "kq3",
+          "topic": "Antecedente de hipertensión arterial",
+          "evidence_ids": [
+            "EME-002.antecedente.antecedentes"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "anamnesis_incompleta"
+        }
+      ],
+      "tests": {
+        "recommended": [
+          "tc_craneal_sin_contraste_urgente"
+        ],
+        "optional": [
+          "puncion_lumbar_o_angio_tc_si_persiste_sospecha_tras_tc"
+        ],
+        "unnecessary": []
+      }
+    }
+  },
+  "provenance": {
+    "created_by": "case_preparation.transform.medqa_final_review",
+    "created_at": "2026-10-08",
+    "validator_version": "1.0.0",
+    "validated_at": "2026-10-08",
+    "curated_by": null,
+    "curated_at": null,
+    "rejection_reason": null
+  }
+}

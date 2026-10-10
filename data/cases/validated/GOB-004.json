@@ -1,0 +1,221 @@
+{
+  "schema_version": "1.0.0",
+  "case_id": "GOB-004",
+  "title": "Paciente de 24 años con cuadro de ginecología y obstetricia",
+  "specialty": "ginecologia_obstetricia",
+  "language": "es",
+  "status": "validado",
+  "source": {
+    "dataset": "MedQA",
+    "item_id": "medqa-a04db516708da5ae",
+    "license": "MIT",
+    "method": "ia_validador"
+  },
+  "public": {
+    "patient": {
+      "alias": "Paciente 4",
+      "age_years": 24,
+      "sex": "femenino"
+    },
+    "chief_complaint": {
+      "evidence_id": "GOB-004.motivo.queja_principal",
+      "category": "motivo",
+      "label": "Motivo de consulta",
+      "text": "Molestia pélvica leve y flujo vaginal espumoso y amarillento desde hace 2 semanas."
+    },
+    "items": [
+      {
+        "evidence_id": "GOB-004.vital.signos_vitales",
+        "category": "signo_vital",
+        "label": "Signos vitales",
+        "text": "Signos vitales normales."
+      }
+    ],
+    "allergies_recorded": false
+  },
+  "on_request": [
+    {
+      "evidence_id": "GOB-004.sintoma.sintomas_asociados",
+      "category": "sintoma",
+      "label": "Síntomas asociados",
+      "text": "Dolor durante las relaciones sexuales y, a veces, después de orinar.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "sintomas_asociados"
+        ]
+      }
+    },
+    {
+      "evidence_id": "GOB-004.antecedente.antecedentes",
+      "category": "antecedente",
+      "label": "Antecedentes personales",
+      "text": "Sus antecedentes médicos no son relevantes.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "antecedentes_personales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "GOB-004.medicacion.tratamiento_habitual",
+      "category": "medicacion",
+      "label": "Medicación habitual",
+      "text": "Toma anticonceptivos orales y un multivitamínico a diario.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "medicacion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "GOB-004.anamnesis.vida_sexual",
+      "category": "anamnesis",
+      "label": "Vida sexual",
+      "text": "Ha tenido dos parejas sexuales masculinas en su vida y usa preservativo de forma irregular.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "GOB-004.examen.exploracion_fisica",
+      "category": "examen_fisico",
+      "label": "Exploración ginecológica",
+      "text": "Eritema vulvovaginal y cuello uterino en fresa, doloroso a la movilización, con escaso flujo verde-amarillento maloliente.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "exploracion_fisica"
+        ]
+      }
+    },
+    {
+      "evidence_id": "GOB-004.lab.ph_vaginal",
+      "category": "laboratorio",
+      "label": "pH vaginal",
+      "text": "pH vaginal medido junto a la cama a partir de un hisopado de la pared vaginal: 5,8.",
+      "interpretation": "H",
+      "reveal_policy": {
+        "owner": "laboratorio",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "ph_vaginal"
+        ]
+      }
+    }
+  ],
+  "protected": {
+    "diagnosis": {
+      "name": "Tricomoniasis vulvovaginal",
+      "synonyms": [
+        "Tricomoniasis vulvovaginal"
+      ]
+    },
+    "differentials": [
+      {
+        "name": "Enfermedad pélvica inflamatoria",
+        "must_not_miss": true,
+        "discard_evidence_ids": []
+      },
+      {
+        "name": "Cervicitis por gonorrea o clamidia",
+        "must_not_miss": true,
+        "discard_evidence_ids": []
+      },
+      {
+        "name": "Vaginosis bacteriana",
+        "must_not_miss": false,
+        "discard_evidence_ids": []
+      },
+      {
+        "name": "Candidiasis vulvovaginal",
+        "must_not_miss": false,
+        "discard_evidence_ids": []
+      }
+    ],
+    "treatment_reference": {
+      "summary": "CDC recomienda para tricomoniasis en mujeres metronidazol oral 500 mg dos veces al día durante 7 días y manejo de parejas; si se sospecha EPI, necesita evaluación y tratamiento presuntivo por un profesional, ya que el esquema para vaginitis no cubre por sí solo toda EPI.",
+      "key_actions": [
+        "No omitir evaluación de EPI ante dolor pélvico y dolor a la movilización cervical.",
+        "Tratar simultáneamente a las parejas sexuales y evitar relaciones hasta completar tratamiento y resolver síntomas.",
+        "Ofrecer pruebas para otras ITS y repetir prueba de tricomoniasis aproximadamente a los 3 meses."
+      ]
+    },
+    "contraindications": [],
+    "evaluation": {
+      "key_questions": [
+        {
+          "id": "kq1",
+          "topic": "Traducción al español: Mujer de 24 años consulta a su ginecólogo por molestia pélvica leve y flujo vaginal espumoso y amarillento desde hace 2 semanas. También refiere dolor durante las relaciones sexuales y, a veces, después de orinar. Sus antecedentes médicos no son relevantes. Toma anticonceptivos orales y un multivitamínico a diario. Ha tenido dos parejas sexuales masculinas en su vida y usa preservativo de forma irregular. Hoy sus signos vitales son normales. En la exploración pélvica presenta eritema vulvovaginal y un cuello uterino en fresa, doloroso a la movilización, con escaso flujo verde-amarillento maloliente. Se analiza el pH de un hisopado de la pared vaginal junto a la cama: el pH vaginal es 5,8. ¿Cuál es el diagnóstico más probable en esta paciente? Opciones traducidas: Candidiasis vulvovaginal; Vaginitis atrófica; Vaginosis bacteriana; Infección por clamidia; Tricomoniasis. Respuesta fuente: E — Trichomoniasis. Texto fuente conservado (inglés): A 24-year-old woman presents to her gynecologist complaining of mild pelvic discomfort and a frothy, yellowish discharge from her vagina for the past 2 weeks. She also complains of pain during sexual intercourse and sometimes after urination. Her past medical history is noncontributory. She takes oral contraceptives and a multivitamin daily. She has had two male sexual partners in her lifetime and uses condoms inconsistently. Today, her vitals are normal. On pelvic exam, she has vulvovaginal erythema and a 'strawberry cervix' that is tender to motion, with minimal green-yellow malodorous discharge. A swab of the vaginal wall is analyzed for pH at bedside. Vaginal pH is 5.8. Which of the following is the most likely diagnosis for this patient? Opciones fuente: Vulvovaginal candidiasis; Atrophic vaginitis; Bacterial vaginosis; Chlamydia; Trichomoniasis",
+          "evidence_ids": [
+            "GOB-004.motivo.queja_principal"
+          ],
+          "weight": 3,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "id": "kq2",
+          "topic": "Vida sexual: parejas y uso de preservativo",
+          "evidence_ids": [
+            "GOB-004.anamnesis.vida_sexual"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq3",
+          "topic": "Exploración ginecológica: cuello uterino en fresa y flujo",
+          "evidence_ids": [
+            "GOB-004.examen.exploracion_fisica"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "id": "kq4",
+          "topic": "pH vaginal",
+          "evidence_ids": [
+            "GOB-004.lab.ph_vaginal"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "razonamiento_clinico"
+        }
+      ],
+      "tests": {
+        "recommended": [
+          "naat_trichomonas",
+          "naat_gonorrea_y_clamidia",
+          "evaluar_criterios_de_enfermedad_pelvica_inflamatoria"
+        ],
+        "optional": [
+          "prueba_de_embarazo",
+          "pruebas_de_otras_its"
+        ],
+        "unnecessary": []
+      }
+    }
+  },
+  "provenance": {
+    "created_by": "case_preparation.transform.medqa_final_review",
+    "created_at": "2026-10-08",
+    "validator_version": "1.0.0",
+    "validated_at": "2026-10-08",
+    "curated_by": null,
+    "curated_at": null,
+    "rejection_reason": null
+  }
+}

@@ -1,6 +1,6 @@
 {
   "dataset": "MedQA",
-  "status": "curado_con_revision_asistida_por_ia",
+  "status": "curado_con_revision_documentada",
   "selection_criteria": [
     "10 preguntas fuente únicas; selección entre variantes con opciones y clave completas",
     "edad y sexo derivados del texto original, sin valores por defecto",
@@ -33,9 +33,9 @@
     "schema_ok": true,
     "unique_source_items": 10,
     "total_validated": 10,
-    "source_dir": "data/cases/validated_second_pass"
+    "source_dir": "data/cases/validated"
   },
-  "clinical_review": "Lote curado mediante revisión asistida por IA y fuentes identificadas. Cada caso conserva sus incertidumbres, alertas y necesidades de confirmación. PED-010 se sustituyó por una fuente pediátrica completa sin imagen faltante.",
+  "clinical_review": "Lote curado mediante revisión documentada caso por caso y fuentes clínicas identificadas. Cada caso conserva sus incertidumbres, alertas y necesidades de confirmación. PED-010 se sustituyó por una fuente pediátrica completa sin imagen faltante.",
   "clinical_review_counts": {
     "coherente_urgencia_critica": 1,
     "compatible_urgencia_critica_requiere_confirmacion": 1,

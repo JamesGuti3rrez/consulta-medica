@@ -12,6 +12,7 @@ from __future__ import annotations
 import json
 import re
 import sys
+import zipfile
 from collections import Counter
 from pathlib import Path
 
@@ -20,11 +21,16 @@ sys.path.insert(0, str(REPO_ROOT / "backend"))
 
 from jsonschema import Draft202012Validator  # noqa: E402
 
+from server.cases.rules import check_batch_rules, check_case_rules, check_case_warnings  # noqa: E402
 from server.cases.catalog import CURATED_CASES_DIR, load_curated_cases, to_student_case  # noqa: E402
 from server.cases.validator import load_schema  # noqa: E402
 
 CASES_ROOT = REPO_ROOT / "data" / "cases"
-FOLDERS = ("curated", "validated_second_pass", "rejected")
+QUESTIONS_ZIP = REPO_ROOT / "data" / "raw" / "medqa" / "data_clean.zip"
+QUESTIONS_PREFIX = "data_clean/questions/"
+SOURCE_MARKER = "Texto fuente conservado (inglés): "
+ALLOWED_BANKS = {"US", "Taiwan"}  # docs/decisions/0001 §1; Mainland (chino) no se admite.
+FOLDERS = ("curated", "validated", "rejected")
 STUDENT_KEYS = {"case_id", "specialty", "patient", "chief_complaint", "items", "allergies_recorded", "allergies"}
 
 failures: list[str] = []
@@ -103,6 +109,48 @@ for case in api_cases:
     )
     for text in leaks:
         print(f"      texto protegido visible: {text!r}")
+
+print("\n5. Reglas cruzadas (backend/server/cases/rules.py)")
+for folder in FOLDERS:
+    cases = [load(path) for path in sorted((CASES_ROOT / folder).glob("*.json"))]
+    broken = {case["case_id"]: check_case_rules(case) for case in cases}
+    broken = {case_id: errors for case_id, errors in broken.items() if errors}
+    batch = check_batch_rules(cases)
+    if folder == "rejected":
+        # Informativo: los rechazados pueden incumplir reglas; es justamente por lo que se rechazaron.
+        print(f"  [INFO] rejected/: {len(broken)} de {len(cases)} incumplen reglas")
+        for case_id, errors in broken.items():
+            print(f"      {case_id}: {errors}")
+        continue
+    check(not broken and not batch, f"{folder}/: {len(cases)} casos cumplen R01–R13")
+    for case_id, errors in broken.items():
+        print(f"      {case_id}: {errors}")
+    for error in batch:
+        print(f"      lote: {error}")
+    warned = {case["case_id"]: check_case_warnings(case) for case in cases}
+    warned = {case_id: warnings for case_id, warnings in warned.items() if warnings}
+    print(f"  [INFO] {folder}/: {len(warned)} casos con avisos (no bloquean)")
+    for case_id, warnings in warned.items():
+        print(f"      {case_id}: {warnings}")
+
+print("\n6. Banco de origen de cada pregunta (docs/decisions/0001 §1: US o Taiwan en inglés)")
+if not QUESTIONS_ZIP.exists():
+    print("  [OMITIDO] falta data/raw/medqa/data_clean.zip; ejecute antes «sources fetch»")
+else:
+    # (banco, contenido) de cada .jsonl del zip, leído sin descomprimirlo; el banco es la primera
+    # carpeta bajo questions/: US, Mainland o Taiwan. Se leen todos para comprobar que no hay
+    # casos del banco Mainland.
+    with zipfile.ZipFile(QUESTIONS_ZIP) as archive:
+        banks = [
+            (name[len(QUESTIONS_PREFIX):].split("/", 1)[0], archive.read(name).decode("utf-8"))
+            for name in sorted(archive.namelist())
+            if name.startswith(QUESTIONS_PREFIX) and name.endswith(".jsonl")
+        ]
+    for case_id, case in sorted(curated.items()):
+        topic = case["protected"]["evaluation"]["key_questions"][0]["topic"]
+        source_text = topic.split(SOURCE_MARKER, 1)[1].split(" Opciones fuente:", 1)[0][:120]
+        found = sorted({bank for bank, text in banks if source_text in text})
+        check(bool(found) and set(found) <= ALLOWED_BANKS, f"{case_id}: pregunta encontrada en el banco {found or 'ninguno'}")
 
 print()
 if failures:

@@ -13,37 +13,65 @@
   },
   "public": {
     "patient": {
-      "alias": "Paciente 7",
+      "alias": "Paciente 5",
       "age_years": 28,
       "sex": "masculino"
     },
     "chief_complaint": {
       "evidence_id": "CIR-005.motivo.queja_principal",
       "category": "motivo",
-      "label": "Queja principal",
-      "text": "Hombre de 28 años con dolor abdominal intenso y apendicitis fue sometido a apendicectomía urgente."
+      "label": "Motivo de consulta",
+      "text": "Ingresó por dolor abdominal intenso; se diagnosticó apendicitis y se le realizó una apendicectomía de urgencia."
     },
     "items": [
       {
-        "evidence_id": "CIR-005.historia.fuente_medqa",
+        "evidence_id": "CIR-005.anamnesis.evolucion_quirurgica",
         "category": "anamnesis",
-        "label": "Resumen clínico (adaptado de MedQA)",
-        "text": "Hombre de 28 años con dolor abdominal intenso y apendicitis fue sometido a apendicectomía urgente. Durante la intervención presentó hemorragia persistente que requirió transfusión. Antes de la cirugía tenía tiempo de sangrado, tiempo de protrombina/INR y recuento plaquetario normales; después se encontró TTPa prolongado y refirió antecedente familiar de trastorno hemorrágico."
+        "label": "Evolución quirúrgica",
+        "text": "Durante la intervención presentó un sangrado masivo y persistente que requirió transfusión de sangre."
       }
     ],
     "allergies_recorded": false
   },
   "on_request": [
     {
-      "evidence_id": "CIR-005.solicitud.exploracion_fisica",
-      "category": "examen_fisico",
-      "label": "Exploración física",
-      "text": "Los hallazgos de exploración física descritos por la fuente ya están incluidos en la historia pública; no se documentan otros hallazgos para revelar.",
+      "evidence_id": "CIR-005.antecedente.antecedentes_familiares",
+      "category": "antecedente",
+      "label": "Antecedentes familiares",
+      "text": "Al informarle de las complicaciones después de la cirugía, recuerda que olvidó mencionar que en su familia hay antecedentes de un trastorno hemorrágico que no sabe precisar.",
       "reveal_policy": {
-        "owner": "medico_asistente",
+        "owner": "paciente",
         "mode": "al_preguntar",
         "requires": [
-          "exploracion_fisica"
+          "antecedentes_familiares"
+        ]
+      }
+    },
+    {
+      "evidence_id": "CIR-005.lab.coagulacion_preoperatoria",
+      "category": "laboratorio",
+      "label": "Pruebas de coagulación preoperatorias",
+      "text": "Tiempo de sangrado normal, tiempo de protrombina normal, INR de 1,0 y recuento de plaquetas normal.",
+      "interpretation": "N",
+      "reveal_policy": {
+        "owner": "laboratorio",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "coagulacion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "CIR-005.lab.coagulacion_posoperatoria",
+      "category": "laboratorio",
+      "label": "Pruebas de coagulación posoperatorias",
+      "text": "Tiempo de tromboplastina parcial prolongado.",
+      "interpretation": "A",
+      "reveal_policy": {
+        "owner": "laboratorio",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "coagulacion"
         ]
       }
     }
@@ -89,12 +117,42 @@
       "key_questions": [
         {
           "id": "kq1",
-          "topic": "Adaptación clínica en español (no literal): Hombre de 28 años con apendicitis se somete a apendicectomía urgente y presenta sangrado persistente que requiere transfusión. Antes de la cirugía tenía tiempo de sangrado, tiempo de protrombina/INR y recuento plaquetario normales; después se detecta TTPa prolongado y refiere antecedentes familiares de un trastorno hemorrágico. ¿Cuál es el diagnóstico más probable? Opciones traducidas: Hemofilia A; Síndrome de Bernard-Soulier; Trombastenia de Glanzmann; Púrpura trombótica trombocitopénica; Enfermedad de von Willebrand. Respuesta fuente: A — Hemophilia A. Texto fuente conservado (inglés): A 28-year-old man presents for severe abdominal pain and is diagnosed with appendicitis. He is taken for emergent appendectomy. During the procedure, the patient has massive and persistent bleeding requiring a blood transfusion. The preoperative laboratory studies showed a normal bleeding time, normal prothrombin time (PT), an INR of 1.0, and a normal platelet count. Postoperatively, when the patient is told about the complications during the surgery, he recalls that he forgot to mention that he has a family history of an unknown bleeding disorder. The postoperative laboratory tests reveal a prolonged partial thromboplastin time (PTT). Which of the following is the most likely diagnosis in this patient? Opciones fuente: Hemophilia A; Bernard-Soulier syndrome; Glanzman syndrome; Thrombotic thrombocytopenic purpura; von Willebrand disease",
+          "topic": "Traducción al español: Hombre de 28 años consulta por dolor abdominal intenso y se le diagnostica apendicitis. Se le realiza una apendicectomía de urgencia. Durante la intervención presenta un sangrado masivo y persistente que requiere transfusión de sangre. Los estudios de laboratorio preoperatorios mostraban tiempo de sangrado normal, tiempo de protrombina normal, INR de 1,0 y recuento de plaquetas normal. Después de la cirugía, cuando se le informa de las complicaciones, recuerda que olvidó mencionar que en su familia hay antecedentes de un trastorno hemorrágico que no sabe precisar. Los estudios posoperatorios muestran un tiempo de tromboplastina parcial prolongado. ¿Cuál es el diagnóstico más probable en este paciente? Opciones traducidas: Hemofilia A; Síndrome de Bernard-Soulier; Trombastenia de Glanzmann; Púrpura trombótica trombocitopénica; Enfermedad de von Willebrand. Respuesta fuente: A — Hemophilia A. Texto fuente conservado (inglés): A 28-year-old man presents for severe abdominal pain and is diagnosed with appendicitis. He is taken for emergent appendectomy. During the procedure, the patient has massive and persistent bleeding requiring a blood transfusion. The preoperative laboratory studies showed a normal bleeding time, normal prothrombin time (PT), an INR of 1.0, and a normal platelet count. Postoperatively, when the patient is told about the complications during the surgery, he recalls that he forgot to mention that he has a family history of an unknown bleeding disorder. The postoperative laboratory tests reveal a prolonged partial thromboplastin time (PTT). Which of the following is the most likely diagnosis in this patient? Opciones fuente: Hemophilia A; Bernard-Soulier syndrome; Glanzman syndrome; Thrombotic thrombocytopenic purpura; von Willebrand disease",
           "evidence_ids": [
-            "CIR-005.historia.fuente_medqa"
+            "CIR-005.motivo.queja_principal"
           ],
           "weight": 3,
           "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "id": "kq2",
+          "topic": "Antecedentes familiares de trastorno hemorrágico",
+          "evidence_ids": [
+            "CIR-005.antecedente.antecedentes_familiares"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq3",
+          "topic": "Pruebas de coagulación posoperatorias: tiempo de tromboplastina parcial prolongado",
+          "evidence_ids": [
+            "CIR-005.lab.coagulacion_posoperatoria"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "id": "kq4",
+          "topic": "Pruebas de coagulación preoperatorias normales",
+          "evidence_ids": [
+            "CIR-005.lab.coagulacion_preoperatoria"
+          ],
+          "weight": 3,
+          "critical": false,
           "error_if_missing": "razonamiento_clinico"
         }
       ],
@@ -112,11 +170,11 @@
     }
   },
   "provenance": {
-    "created_by": "case_preparation.transform.medqa_selection",
+    "created_by": "case_preparation.transform.medqa_final_review",
     "created_at": "2026-10-08",
     "validator_version": "1.0.0",
     "validated_at": "2026-10-08",
-    "curated_by": "curacion_asistida_por_ia",
+    "curated_by": "case_preparation.curation",
     "curated_at": "2026-10-08",
     "rejection_reason": null
   }

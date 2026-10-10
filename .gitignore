@@ -6,9 +6,6 @@
 backend/.venv/
 node_modules/
 
-# Índices RAG regenerables
-data/indexes/
-
 # Archivos temporales
 pdf-context.txt
 *.log

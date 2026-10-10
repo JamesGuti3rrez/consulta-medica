@@ -1,0 +1,131 @@
+{
+  "schema_version": "1.0.0",
+  "case_id": "GOB-003",
+  "title": "Paciente de 24 años con cuadro de ginecología y obstetricia",
+  "specialty": "ginecologia_obstetricia",
+  "language": "es",
+  "status": "validado",
+  "source": {
+    "dataset": "MedQA",
+    "item_id": "medqa-b437ab65d13f9352",
+    "license": "MIT",
+    "method": "ia_validador"
+  },
+  "public": {
+    "patient": {
+      "alias": "Paciente 3",
+      "age_years": 24,
+      "sex": "femenino"
+    },
+    "chief_complaint": {
+      "evidence_id": "GOB-003.motivo.queja_principal",
+      "category": "motivo",
+      "label": "Motivo de consulta",
+      "text": "A la mañana siguiente del parto no puede lactar cuando intenta amamantar a su bebé."
+    },
+    "items": [
+      {
+        "evidence_id": "GOB-003.anamnesis.evolucion_parto",
+        "category": "anamnesis",
+        "label": "Evolución del parto",
+        "text": "Parto a término. Apgar del recién nacido: 9 al minuto y 10 a los 5 minutos. Treinta minutos después del parto, la presión arterial de la madre bajó a 80/60 mmHg y su pulso fue de 124/min. Se inició reanimación intensiva con líquidos: tras administrar 4 unidades de líquidos intravenosos y 4 unidades de sangre total, sus signos vitales se estabilizaron."
+      }
+    ],
+    "allergies_recorded": false
+  },
+  "on_request": [
+    {
+      "evidence_id": "GOB-003.examen.exploracion_fisica",
+      "category": "examen_fisico",
+      "label": "Exploración física",
+      "text": "Exploración registrada a los 30 minutos del parto: extremidades distales frías y húmedas; útero blando (atónico).",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "exploracion_fisica"
+        ]
+      }
+    }
+  ],
+  "protected": {
+    "diagnosis": {
+      "name": "Infarto hipofisario posparto (síndrome de Sheehan)",
+      "synonyms": [
+        "Infarto hipofisario posparto (síndrome de Sheehan)"
+      ]
+    },
+    "differentials": [
+      {
+        "name": "Hemorragia posparto por atonía uterina",
+        "must_not_miss": true,
+        "discard_evidence_ids": []
+      },
+      {
+        "name": "Hipopituitarismo posparto (síndrome de Sheehan)",
+        "must_not_miss": true,
+        "discard_evidence_ids": []
+      },
+      {
+        "name": "Retención de restos placentarios",
+        "must_not_miss": true,
+        "discard_evidence_ids": []
+      },
+      {
+        "name": "Hipofisitis posparto",
+        "must_not_miss": false,
+        "discard_evidence_ids": []
+      }
+    ],
+    "treatment_reference": {
+      "summary": "La fuente plantea infarto hipofisario tras shock hemorrágico, pero no proporciona un plan terapéutico. La hemorragia posparto es la prioridad; sospecha de déficit hipofisario requiere evaluación endocrina urgente y tratamiento especializado.",
+      "key_actions": [
+        "Priorizar estabilización y control obstétrico de la hemorragia.",
+        "No inferir ni iniciar reemplazo hormonal sin evaluación urgente del eje, incluido cortisol."
+      ]
+    },
+    "contraindications": [],
+    "evaluation": {
+      "key_questions": [
+        {
+          "id": "kq1",
+          "topic": "Traducción al español: Mujer de 24 años tiene un parto a término. El Apgar del recién nacido es de 9 y 10 al minuto y a los 5 minutos, respectivamente. Treinta minutos después del parto, la presión arterial de la madre baja a 80/60 mmHg y su pulso es de 124/min. En la exploración física, sus extremidades distales están frías y húmedas y el útero está blando (atónico). Se inicia reanimación intensiva con líquidos. Tras administrar 4 unidades de líquidos intravenosos y 4 unidades de sangre total, sus signos vitales se estabilizan. A la mañana siguiente refiere que no puede lactar cuando intenta amamantar a su hijo. ¿Cuál es la causa más probable de la falla de lactancia en esta paciente? Opciones traducidas: Tumor hipofisario; Tristeza puerperal; Restos placentarios retenidos; Infarto hipofisario; Hemorragia hipofisaria. Respuesta fuente: D — Pituitary infarction. Texto fuente conservado (inglés): A 24-year-old woman delivers a baby at term. The Apgar counts are 9 and 10 at 1 and 5 minutes, respectively. Thirty minutes after delivery, the mother’s blood pressure drops to 80/60 mm Hg and her pulse is 124/min. On physical examination, her distal extremities are clammy and cold, and the uterus is boggy. Aggressive fluid resuscitation is initiated. After administering 4 units of IV fluids and 4 units of whole blood, her vitals stabilize. The next morning, she says she is unable to lactate when she tries to breastfeed her child. Which of the following is the most likely cause of the failure of lactation in this patient? Opciones fuente: Pituitary tumor; Postpartum blues; Remains of placenta in uterus; Pituitary infarction; Pituitary hemorrhage",
+          "evidence_ids": [
+            "GOB-003.motivo.queja_principal"
+          ],
+          "weight": 3,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "id": "kq2",
+          "topic": "Exploración física tras el parto: extremidades frías y húmedas, útero atónico",
+          "evidence_ids": [
+            "GOB-003.examen.exploracion_fisica"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        }
+      ],
+      "tests": {
+        "recommended": [
+          "evaluar_y_documentar_hemorragia_posparto"
+        ],
+        "optional": [
+          "eje_hipofisario_si_persisten_sintomas"
+        ],
+        "unnecessary": []
+      }
+    }
+  },
+  "provenance": {
+    "created_by": "case_preparation.transform.medqa_final_review",
+    "created_at": "2026-10-08",
+    "validator_version": "1.0.0",
+    "validated_at": "2026-10-08",
+    "curated_by": null,
+    "curated_at": null,
+    "rejection_reason": null
+  }
+}

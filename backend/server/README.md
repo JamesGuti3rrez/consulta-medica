@@ -1,6 +1,6 @@
 # backend/server/
 
-Paquete Python del servidor FastAPI (`server.main:app`). `main.py` arma la aplicación (cabeceras de seguridad, rutas y archivos del frontend) y `config.py` lee el `.env`. Las rutas viven en `api/routes.py`: hoy son `/api/status`, `/api/config` y `/api/caso`, que responde 503 hasta conectar casos.
+Paquete Python del servidor FastAPI (`server.main:app`). `main.py` arma la aplicación (cabeceras de seguridad, rutas y archivos del frontend) y `config.py` lee el `.env`. Rutas: `api/routes.py` (`/api/status`, `/api/config` y `/api/caso`, que sirve la ficha pública de un caso curado), `api/ai.py` (`/api/ai`, sesiones del sistema multiagente) y `rag/router.py` (`/api/v1/rag`). La arquitectura del SMA está en `docs/agents/ARQUITECTURA_SMA.md` y el contrato del RAG en `docs/rag/README.md`.
 
 ## Principio rector
 

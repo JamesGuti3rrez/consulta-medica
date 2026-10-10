@@ -94,9 +94,11 @@ def _render_json_or_csv_png(file_path: Path, output: Path) -> None:
         with file_path.open("r", encoding="utf-8", newline="") as handle:
             rows = list(csv.reader(handle))
         text = "\n".join(", ".join(row) for row in rows[:40])
-    else:
+    elif file_path.suffix.lower() == ".json":
         data = json.loads(file_path.read_text(encoding="utf-8-sig"))
         text = json.dumps(data, ensure_ascii=False, indent=2, sort_keys=True)
+    else:
+        text = file_path.read_text(encoding="utf-8-sig")
     _render_text_png(f"Archivo: {file_path}", text, output)
 
 
@@ -127,7 +129,8 @@ def cmd_ejecutar(args: argparse.Namespace) -> int:
         f"STDOUT:\n{result.stdout}\n\nSTDERR:\n{result.stderr}\n"
     )
     output_txt.write_text(payload, encoding="utf-8")
-    _render_text_png(f"Ejecución: {args.comando}", payload, Path(args.salida))
+    if not args.sin_png:
+        _render_text_png(f"Ejecución: {args.comando}", payload, Path(args.salida))
     return result.returncode
 
 
@@ -149,10 +152,15 @@ def parse_args() -> argparse.Namespace:
     ejecutar = subparsers.add_parser("ejecutar", help="Genera una captura de una ejecución.")
     ejecutar.add_argument("comando")
     ejecutar.add_argument("--cwd", default=None, help="Directorio de trabajo del comando (evita depender de 'cd').")
+    ejecutar.add_argument(
+        "--sin-png",
+        action="store_true",
+        help="Guarda solo el .txt; la evidencia visual es la foto real de terminal (captura_terminal.ps1).",
+    )
     ejecutar.add_argument("--salida", required=True)
     ejecutar.set_defaults(func=cmd_ejecutar)
 
-    archivo = subparsers.add_parser("archivo", help="Genera una captura de un archivo JSON o CSV.")
+    archivo = subparsers.add_parser("archivo", help="Genera una captura de un archivo JSON, CSV o de texto.")
     archivo.add_argument("archivo")
     archivo.add_argument("--salida", required=True)
     archivo.set_defaults(func=cmd_archivo)

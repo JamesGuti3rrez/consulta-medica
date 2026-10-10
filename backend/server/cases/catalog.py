@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+from .rules import check_case_rules, evidence_text
 from .validator import validate_case_document
 
 CURATED_CASES_DIR = Path(__file__).resolve().parents[3] / "data" / "cases" / "curated"
@@ -17,6 +18,9 @@ def load_curated_cases(directory: Path | str = CURATED_CASES_DIR) -> list[dict[s
         if not isinstance(case, dict):
             raise ValueError(f"El archivo de caso debe contener un objeto JSON: {case_path}")
         validate_case_document(case)
+        errors = check_case_rules(case)
+        if errors:
+            raise ValueError(f"El caso {case_path.name} incumple reglas cruzadas: {errors}")
         if case["status"] == "curado":
             cases.append(case)
     return cases
@@ -34,12 +38,12 @@ def to_student_case(case: dict[str, Any]) -> dict[str, Any]:
         },
         "chief_complaint": {
             "label": public["chief_complaint"]["label"],
-            "text": public["chief_complaint"]["text"],
+            "text": evidence_text(public["chief_complaint"]),
         },
         "items": [
             {
                 "label": item["label"],
-                "text": item["text"],
+                "text": evidence_text(item),
             }
             for item in public["items"]
         ],

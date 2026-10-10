@@ -1,4 +1,8 @@
+# Datasets descargados: no se versionan. El manifiesto de procedencia de cada fuente sí.
 raw/*
+!raw/*/
+raw/*/*
+!raw/*/source_manifest.json
 interim/*
 indexes/*
 !*/.gitkeep

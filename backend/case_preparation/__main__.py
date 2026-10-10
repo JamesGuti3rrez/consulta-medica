@@ -11,12 +11,10 @@ from .indexing.documents import (
     documents_fingerprint,
     load_approved_knowledge_documents,
 )
-from .indexing.lightrag_backend import run_index
+from .quality_gates import evaluate_batch, evaluate_case
 from .sources.fetch import fetch_dataset
 from .sources.registry import SOURCE_DEFINITIONS
 from .transform.medqa_final_review import build_reviewed_cases
-from .transform.medqa_selection import build_selected_cases
-from server.cases.validator import validate_case_document
 
 
 def main() -> int:
@@ -37,16 +35,10 @@ def main() -> int:
     extract_parser.add_argument("--input-dir", type=Path, default=None)
     extract_parser.add_argument("--output", type=Path, default=None)
 
-    transform_parser = subparsers.add_parser("transform", help="Transforma candidatos en casos canónicos")
-    transform_parser.add_argument("--dataset", required=True, choices=["medqa"])
-    transform_parser.add_argument("--input", type=Path, default=None)
-    transform_parser.add_argument("--output-dir", type=Path, default=None)
-    transform_parser.add_argument("--count", type=int, default=10)
-
-    subparsers.add_parser("curation", help="Genera y cura el lote MedQA con la revisión clínica asistida registrada")
+    subparsers.add_parser("curation", help="Genera y cura el lote MedQA con la revisión documentada de cada caso")
     index_parser = subparsers.add_parser(
         "index",
-        help="Indexa offline evidencia autorizada de casos curados y fuentes aprobadas",
+        help="Indexa offline la evidencia autorizada de los casos curados y de las fuentes aprobadas",
     )
     index_parser.add_argument("--cases-dir", type=Path, default=None)
     index_parser.add_argument("--knowledge-dir", type=Path, default=None)
@@ -62,39 +54,37 @@ def main() -> int:
         print(json.dumps(result, ensure_ascii=False, indent=2))
         return 0
 
-    if args.command == "transform":
-        repo_root = Path(__file__).resolve().parents[2]
-        input_path = args.input or repo_root / "data" / "interim" / "medqa_candidatos.jsonl"
-        output_dir = args.output_dir or repo_root / "data" / "cases" / "validated"
-        result = build_selected_cases(input_path=input_path, output_dir=output_dir, count=args.count)
-        print(json.dumps(result, ensure_ascii=False, indent=2))
-        return 0
-
     if args.command == "curation":
         result = build_reviewed_cases()
         print(json.dumps(result, ensure_ascii=False, indent=2))
         return 0
 
     if args.command == "index":
+        # LightRAG es una dependencia opcional (extra "indexing"): se importa solo para este comando.
+        from .indexing.lightrag_backend import run_index
+
         repo_root = Path(__file__).resolve().parents[2]
         cases_dir = args.cases_dir or repo_root / "data" / "cases" / "curated"
         knowledge_dir = args.knowledge_dir or repo_root / "data" / "knowledge"
         output_dir = args.output_dir or repo_root / "data" / "indexes" / "lightrag"
-        cases = []
-        for case_path in sorted(cases_dir.glob("*.json")):
-            case = json.loads(case_path.read_text(encoding="utf-8"))
-            validate_case_document(case)
-            cases.append(case)
+        cases = [json.loads(path.read_text(encoding="utf-8")) for path in sorted(cases_dir.glob("*.json"))]
         if not cases:
             raise IndexingError(f"No hay casos curados en {cases_dir}.")
+        # Solo se indexan casos que pasan las Quality Gates (esquema y reglas cruzadas).
+        rejected = {result.case_id: result.errors for result in map(evaluate_case, cases) if not result.accepted}
+        batch_errors = evaluate_batch(cases)
+        if rejected or batch_errors:
+            raise IndexingError(f"Casos que no pasan las Quality Gates: {rejected or batch_errors}")
         documents = build_case_documents(cases)
         documents += load_approved_knowledge_documents(knowledge_dir, cases)
         destination = run_index(documents, output_dir)
         print(
             json.dumps(
                 {
+                    "cases": len(cases),
                     "documents": len(documents),
-                    "fingerprint": documents_fingerprint(documents),
+                    "documents_fingerprint": documents_fingerprint(documents),
+                    "index_fingerprint": destination.name,
                     "index_dir": str(destination),
                 },
                 ensure_ascii=False,

@@ -13,37 +13,63 @@
   },
   "public": {
     "patient": {
-      "alias": "Paciente 2",
+      "alias": "Paciente 9",
       "age_years": 68,
       "sex": "masculino"
     },
     "chief_complaint": {
       "evidence_id": "MED-009.motivo.queja_principal",
       "category": "motivo",
-      "label": "Queja principal",
-      "text": "Hombre de 68 años acude a control anual; su hipertensión está controlada y no tiene otros síntomas."
+      "label": "Motivo de consulta",
+      "text": "Acude a su control anual; no tiene molestias en este momento."
     },
     "items": [
       {
-        "evidence_id": "MED-009.historia.fuente_medqa",
-        "category": "anamnesis",
-        "label": "Resumen clínico (adaptado de MedQA)",
-        "text": "Hombre de 68 años acude a control anual; su hipertensión está controlada y no tiene otros síntomas. Presenta en el párpado una pápula perlada rosada de 0,5 cm, con borde sobreelevado y telangiectasias. Tiene piel clara, cabello rubio y exposición laboral prolongada al sol sin protector; notó la lesión hace seis meses y ha crecido ligeramente."
+        "evidence_id": "MED-009.antecedente.antecedentes_registrados",
+        "category": "antecedente",
+        "label": "Antecedentes registrados",
+        "text": "Hipertensión crónica bien controlada."
       }
     ],
     "allergies_recorded": false
   },
   "on_request": [
     {
-      "evidence_id": "MED-009.solicitud.exploracion_fisica",
+      "evidence_id": "MED-009.examen.exploracion_fisica",
       "category": "examen_fisico",
       "label": "Exploración física",
-      "text": "Los hallazgos de exploración física descritos por la fuente ya están incluidos en la historia pública; no se documentan otros hallazgos para revelar.",
+      "text": "En el párpado hay una pápula de 0,5 cm, rosada y de aspecto perlado, con bordes enrollados y telangiectasias en la superficie.",
       "reveal_policy": {
         "owner": "medico_asistente",
-        "mode": "al_preguntar",
+        "mode": "al_examinar",
         "requires": [
           "exploracion_fisica"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-009.sintoma.evolucion",
+      "category": "sintoma",
+      "label": "Evolución de la lesión",
+      "text": "Notó la lesión por primera vez hace unos 6 meses y desde entonces ha crecido ligeramente.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "inicio_y_evolucion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-009.anamnesis.exposicion_solar",
+      "category": "anamnesis",
+      "label": "Exposición solar",
+      "text": "Trabajó como vendedor puerta a puerta, pasó mucho tiempo al aire libre y no usaba protector solar. Tiene piel clara y cabello rubio.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
         ]
       }
     }
@@ -89,13 +115,43 @@
       "key_questions": [
         {
           "id": "kq1",
-          "topic": "Adaptación clínica en español (no literal): Hombre de 68 años acude a su control anual sin síntomas y con hipertensión controlada. Se observa en el párpado una pápula de 0,5 cm, rosada y perlada, con borde sobreelevado y telangiectasias. Tiene piel clara, cabello rubio y exposición laboral prolongada al sol sin protector. La lesión apareció hace unos seis meses y ha crecido ligeramente. ¿Cuál es el diagnóstico más probable? Opciones traducidas: Carcinoma escamocelular; Queratoacantoma; Carcinoma verrugoso; Carcinoma basocelular; Queratosis actínica. Respuesta fuente: D — Basal cell carcinoma. Texto fuente conservado (inglés): A 68-year-old male presents to your office for his annual physical exam. He has no complaints at this time and his chronic hypertension is well controlled. You notice a .5cm papule on the patient's eyelid that has a pink pearly appearance, rolled borders, and overlying telangiectasias. On further questioning, you find out the patient was a door-to-door salesman and spent a lot of time outdoors, and he did not wear sunscreen. He has fair skin and blonde hair. The patient states that he first noticed the lesion about 6 months prior, and it has grown slightly since then. What is the most likely diagnosis? Opciones fuente: Squamous cell carcinoma; Keratoacanthoma; Verrucous carcinoma; Basal cell carcinoma; Actinic keratosis",
+          "topic": "Traducción al español: Hombre de 68 años acude a su consulta para el examen físico anual. No tiene molestias en este momento y su hipertensión crónica está bien controlada. Se observa en el párpado una pápula de 0,5 cm, rosada y de aspecto perlado, con bordes enrollados y telangiectasias en la superficie. Al seguir preguntando, se sabe que trabajó como vendedor puerta a puerta, pasó mucho tiempo al aire libre y no usaba protector solar. Tiene piel clara y cabello rubio. Refiere que notó la lesión por primera vez hace unos 6 meses y que desde entonces ha crecido ligeramente. ¿Cuál es el diagnóstico más probable? Opciones traducidas: Carcinoma escamocelular; Queratoacantoma; Carcinoma verrugoso; Carcinoma basocelular; Queratosis actínica. Respuesta fuente: D — Basal cell carcinoma. Texto fuente conservado (inglés): A 68-year-old male presents to your office for his annual physical exam. He has no complaints at this time and his chronic hypertension is well controlled. You notice a .5cm papule on the patient's eyelid that has a pink pearly appearance, rolled borders, and overlying telangiectasias. On further questioning, you find out the patient was a door-to-door salesman and spent a lot of time outdoors, and he did not wear sunscreen. He has fair skin and blonde hair. The patient states that he first noticed the lesion about 6 months prior, and it has grown slightly since then. What is the most likely diagnosis? Opciones fuente: Squamous cell carcinoma; Keratoacanthoma; Verrucous carcinoma; Basal cell carcinoma; Actinic keratosis",
           "evidence_ids": [
-            "MED-009.historia.fuente_medqa"
+            "MED-009.motivo.queja_principal"
           ],
           "weight": 3,
           "critical": true,
           "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "id": "kq2",
+          "topic": "Exploración física: pápula perlada del párpado con bordes enrollados y telangiectasias",
+          "evidence_ids": [
+            "MED-009.examen.exploracion_fisica"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "id": "kq3",
+          "topic": "Exposición solar y fototipo",
+          "evidence_ids": [
+            "MED-009.anamnesis.exposicion_solar"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq4",
+          "topic": "Tiempo de evolución y crecimiento de la lesión",
+          "evidence_ids": [
+            "MED-009.sintoma.evolucion"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "anamnesis_incompleta"
         }
       ],
       "tests": {
@@ -110,11 +166,11 @@
     }
   },
   "provenance": {
-    "created_by": "case_preparation.transform.medqa_selection",
+    "created_by": "case_preparation.transform.medqa_final_review",
     "created_at": "2026-10-08",
     "validator_version": "1.0.0",
     "validated_at": "2026-10-08",
-    "curated_by": "curacion_asistida_por_ia",
+    "curated_by": "case_preparation.curation",
     "curated_at": "2026-10-08",
     "rejection_reason": null
   }

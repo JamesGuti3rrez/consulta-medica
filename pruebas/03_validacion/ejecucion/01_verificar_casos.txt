@@ -1,12 +1,12 @@
 DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica
 COMANDO: backend\.venv\Scripts\python.exe pruebas/03_validacion/verificar_casos.py
-FECHA: 2026-10-08 18:03:02 UTC
+FECHA: 2026-10-09 07:12:02 UTC
 CODIGO_SALIDA: 0
 
 STDOUT:
 1. Validación contra schemas/caso.schema.json
   [OK] curated/: 10 archivos válidos, estados {'curado': 10}
-  [OK] validated_second_pass/: 10 archivos válidos, estados {'validado': 10}
+  [OK] validated/: 10 archivos válidos, estados {'validado': 10}
   [OK] rejected/: 10 archivos válidos, estados {'rechazado': 10}
 
 2. Lote curado (data/cases/curated/)
@@ -35,6 +35,30 @@ STDOUT:
   [OK] MED-009: campos ['allergies_recorded', 'case_id', 'chief_complaint', 'items', 'patient', 'specialty']; diagnóstico protegido «Carcinoma basocelular» no aparece
   [OK] PED-007: campos ['allergies_recorded', 'case_id', 'chief_complaint', 'items', 'patient', 'specialty']; diagnóstico protegido «Enfermedad de Legg-Calvé-Perthes» no aparece
   [OK] PED-010: campos ['allergies_recorded', 'case_id', 'chief_complaint', 'items', 'patient', 'specialty']; diagnóstico protegido «Síndrome de McCune-Albright» no aparece
+
+5. Reglas cruzadas (backend/server/cases/rules.py)
+  [OK] curated/: 10 casos cumplen R01–R13
+  [INFO] curated/: 4 casos con avisos (no bloquean)
+      CIR-005: ["W01 laboratorio o examen físico en public: ['tiempo de protrombina']"]
+      CIR-006: ["W01 laboratorio o examen físico en public: ['crepitantes']"]
+      GOB-004: ["W01 laboratorio o examen físico en public: ['exploración', 'ph vaginal']"]
+      PED-007: ["W01 laboratorio o examen físico en public: ['radiografía']"]
+  [OK] validated/: 10 casos cumplen R01–R13
+  [INFO] validated/: 4 casos con avisos (no bloquean)
+      CIR-005: ["W01 laboratorio o examen físico en public: ['tiempo de protrombina']"]
+      CIR-006: ["W01 laboratorio o examen físico en public: ['crepitantes']"]
+      GOB-004: ["W01 laboratorio o examen físico en public: ['exploración', 'ph vaginal']"]
+      PED-007: ["W01 laboratorio o examen físico en public: ['radiografía']"]
+  [INFO] rejected/: 6 de 10 incumplen reglas
+      CIR-007: ["R12 texto de la pregunta de opción múltiple: ['which of the following']"]
+      CIR-008: ["R12 texto de la pregunta de opción múltiple: ['which of the following']"]
+      GOB-005: ["R12 texto de la pregunta de opción múltiple: ['Which of the following']"]
+      GOB-006: ["R12 texto de la pregunta de opción múltiple: ['Which of the following']"]
+      PED-003: ['R06 edad 45 incompatible con la especialidad pediatria']
+      PED-004: ['R06 edad 45 incompatible con la especialidad pediatria']
+
+6. Banco de origen de cada pregunta (docs/decisions/0001 §1: US o Taiwan en inglés)
+  [OMITIDO] falta data/raw/medqa; ejecute antes «sources fetch»
 
 RESULTADO: todas las comprobaciones pasaron.
 
