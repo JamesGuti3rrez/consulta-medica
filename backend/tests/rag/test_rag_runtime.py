@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from dataclasses import replace
 from pathlib import Path
 
 import pytest
@@ -152,10 +153,12 @@ def test_http_contract_matches_multiagent_http_retriever(tmp_path, monkeypatch):
     _write_index(tmp_path)
     service = RAGService(tmp_path, tmp_path / "retrieval.jsonl")
     monkeypatch.setattr(rag_router_module, "service", service)
+    monkeypatch.setattr(rag_router_module, "settings", replace(rag_router_module.settings, rag_http_token="secreto"))
     client = TestClient(app)
 
     response = client.post(
         "/api/v1/rag/evidence/search",
+        headers={"X-RAG-Token": "secreto"},
         json={
             "query": "¿cuándo comenzó el dolor?",
             "case_id": "MED-001",

@@ -58,9 +58,10 @@ class CaseEvidenceRetriever:
 class HttpRetriever:
     """Contrato HTTP para LightRAG/pgvector u otro servicio del equipo RAG."""
 
-    def __init__(self, base_url: str, timeout: float = 10.0):
+    def __init__(self, base_url: str, timeout: float = 10.0, token: str = ""):
         self.base_url = base_url.rstrip("/")
         self.timeout = timeout
+        self.token = token
 
     def retrieve(
         self,
@@ -83,6 +84,7 @@ class HttpRetriever:
                 "session_id": session_id,
                 "agent": agent_role.value,
             },
+            headers={"X-RAG-Token": self.token},
             timeout=self.timeout,
         )
         response.raise_for_status()

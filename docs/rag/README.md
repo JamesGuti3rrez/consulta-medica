@@ -111,6 +111,9 @@ RAG_SERVICE_URL=http://127.0.0.1:8001
 
 ## Seguridad
 
+0. Las rutas de búsqueda y `reload` exigen el token entre servicios `RAG_HTTP_TOKEN` en la cabecera
+   `X-RAG-Token`; sin token configurado no se atienden. Un estudiante no puede llamarlas para pedir
+   evidencia que `engine/disclosure` no le autorizó. `health` es pública.
 1. `case_id` es obligatorio para recuperar evidencia clínica.
 2. `allowed_evidence_ids` es obligatorio y nunca se amplía dentro del RAG.
 3. Un `evidence_id` perteneciente a otro caso produce error 400.

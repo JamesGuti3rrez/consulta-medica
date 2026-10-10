@@ -1,8 +1,9 @@
 from __future__ import annotations
 
+import hmac
 from typing import Literal
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends, Header, HTTPException
 from pydantic import BaseModel, Field
 
 from ..config import settings
@@ -11,6 +12,21 @@ from .service import RAGService
 
 router = APIRouter(prefix="/api/v1/rag", tags=["RAG"])
 service = RAGService(settings.rag_index_dir, settings.rag_log_path)
+
+
+def require_internal_token(x_rag_token: str | None = Header(default=None)) -> None:
+    """Las búsquedas reciben allowed_evidence_ids del cliente: solo las puede llamar otro servicio.
+
+    Sin RAG_HTTP_TOKEN las rutas no se atienden; así un estudiante no puede pedir evidencia que el
+    acceso por rol (engine/disclosure) no le autorizó.
+    """
+    if not settings.rag_http_token:
+        raise HTTPException(status_code=404, detail="Ruta de API no encontrada")
+    if not x_rag_token or not hmac.compare_digest(x_rag_token, settings.rag_http_token):
+        raise HTTPException(status_code=401, detail="Token de servicio inválido.")
+
+
+internal = [Depends(require_internal_token)]
 
 
 class EvidenceSearchRequest(BaseModel):
@@ -64,7 +80,7 @@ def rag_health():
     return status
 
 
-@router.post("/reload")
+@router.post("/reload", dependencies=internal)
 def rag_reload():
     try:
         return service.reload()
@@ -72,7 +88,7 @@ def rag_reload():
         _handle_error(error)
 
 
-@router.post("/evidence/search")
+@router.post("/evidence/search", dependencies=internal)
 def evidence_search(request: EvidenceSearchRequest):
     try:
         results = service.evidence_search(**request.model_dump())
@@ -86,7 +102,7 @@ def evidence_search(request: EvidenceSearchRequest):
         _handle_error(error)
 
 
-@router.post("/cases/search")
+@router.post("/cases/search", dependencies=internal)
 def cases_search(request: CaseSearchRequest):
     try:
         results = service.case_search(**request.model_dump())
@@ -108,7 +124,7 @@ def cases_search(request: CaseSearchRequest):
         _handle_error(error)
 
 
-@router.post("/knowledge/search")
+@router.post("/knowledge/search", dependencies=internal)
 def knowledge_search(request: KnowledgeSearchRequest):
     try:
         results = service.knowledge_search(**request.model_dump())

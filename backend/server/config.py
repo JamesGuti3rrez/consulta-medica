@@ -37,6 +37,7 @@ class Settings:
     rag_embedded_enabled: bool
     rag_index_dir: Path
     rag_log_path: Path
+    rag_http_token: str
     langsmith_tracing: bool
     langsmith_api_key: str
     langsmith_project: str
@@ -65,6 +66,7 @@ settings = Settings(
     rag_embedded_enabled=_flag("RAG_EMBEDDED", "true"),
     rag_index_dir=(ROOT_DIR / os.getenv("RAG_INDEX_DIR", "data/indexes/lightrag")).resolve(),
     rag_log_path=(ROOT_DIR / os.getenv("RAG_LOG_PATH", "backend/logs/rag_retrieval.jsonl")).resolve(),
+    rag_http_token=os.getenv("RAG_HTTP_TOKEN", "").strip(),
     langsmith_tracing=_flag("LANGSMITH_TRACING", "false"),
     langsmith_api_key=os.getenv("LANGSMITH_API_KEY", "").strip(),
     langsmith_project=os.getenv("LANGSMITH_PROJECT", "paciente-virtual-sma").strip(),

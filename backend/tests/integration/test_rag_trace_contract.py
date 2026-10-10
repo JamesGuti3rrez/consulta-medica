@@ -18,9 +18,10 @@ class _Response:
 def test_http_retriever_propagates_session_and_agent(monkeypatch):
     captured = {}
 
-    def fake_post(url, *, json, timeout):
+    def fake_post(url, *, json, headers, timeout):
         captured["url"] = url
         captured["json"] = json
+        captured["headers"] = headers
         captured["timeout"] = timeout
         return _Response(
             {
@@ -35,7 +36,7 @@ def test_http_retriever_propagates_session_and_agent(monkeypatch):
         )
 
     monkeypatch.setattr("server.rag.retriever.httpx.post", fake_post)
-    retriever = HttpRetriever("http://127.0.0.1:8001")
+    retriever = HttpRetriever("http://127.0.0.1:8001", token="secreto")
     result = retriever.retrieve(
         query="Realizo exploración física",
         case_id="EME-001",
@@ -48,4 +49,5 @@ def test_http_retriever_propagates_session_and_agent(monkeypatch):
     assert captured["json"]["session_id"] == "session-123"
     assert captured["json"]["agent"] == "medico_asistente"
     assert captured["json"]["owner"] == "medico_asistente"
+    assert captured["headers"] == {"X-RAG-Token": "secreto"}
     assert [item.evidence_id for item in result] == ["EME-001.solicitud.exploracion_fisica"]
