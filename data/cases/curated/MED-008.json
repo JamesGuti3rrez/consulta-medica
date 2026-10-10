@@ -13,7 +13,7 @@
   },
   "public": {
     "patient": {
-      "alias": "Paciente 8",
+      "alias": "Patricia Vargas",
       "age_years": 48,
       "sex": "femenino"
     },
@@ -124,12 +124,17 @@
       {
         "name": "Celulitis bacteriana",
         "must_not_miss": false,
-        "discard_evidence_ids": []
+        "discard_evidence_ids": [
+          "MED-008.examen.exploracion_fisica"
+        ]
       },
       {
         "name": "Reacción local a picadura",
         "must_not_miss": false,
-        "discard_evidence_ids": []
+        "discard_evidence_ids": [
+          "MED-008.examen.exploracion_fisica",
+          "MED-008.vital.signos_vitales"
+        ]
       },
       {
         "name": "Otras infecciones transmitidas por garrapatas",

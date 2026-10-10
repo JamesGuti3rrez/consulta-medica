@@ -13,7 +13,7 @@
   },
   "public": {
     "patient": {
-      "alias": "Paciente 6",
+      "alias": "Rosa Villanueva",
       "age_years": 68,
       "sex": "femenino"
     },
@@ -96,7 +96,10 @@
       {
         "name": "Embolia pulmonar posoperatoria",
         "must_not_miss": true,
-        "discard_evidence_ids": []
+        "discard_evidence_ids": [
+          "CIR-006.examen.exploracion_fisica",
+          "CIR-006.vital.signos_vitales"
+        ]
       },
       {
         "name": "Atelectasia u otra causa de hipoxemia",
@@ -106,7 +109,10 @@
       {
         "name": "Delirio posoperatorio por causa metabólica o farmacológica",
         "must_not_miss": false,
-        "discard_evidence_ids": []
+        "discard_evidence_ids": [
+          "CIR-006.vital.signos_vitales",
+          "CIR-006.examen.exploracion_fisica"
+        ]
       }
     ],
     "treatment_reference": {

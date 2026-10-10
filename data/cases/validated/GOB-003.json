@@ -13,7 +13,7 @@
   },
   "public": {
     "patient": {
-      "alias": "Paciente 3",
+      "alias": "Lucía Paredes",
       "age_years": 24,
       "sex": "femenino"
     },
@@ -25,15 +25,41 @@
     },
     "items": [
       {
-        "evidence_id": "GOB-003.anamnesis.evolucion_parto",
+        "evidence_id": "GOB-003.anamnesis.llegada",
         "category": "anamnesis",
-        "label": "Evolución del parto",
-        "text": "Parto a término. Apgar del recién nacido: 9 al minuto y 10 a los 5 minutos. Treinta minutos después del parto, la presión arterial de la madre bajó a 80/60 mmHg y su pulso fue de 124/min. Se inició reanimación intensiva con líquidos: tras administrar 4 unidades de líquidos intravenosos y 4 unidades de sangre total, sus signos vitales se estabilizaron."
+        "label": "Datos de ingreso",
+        "text": "Puérpera de 24 años; tuvo un parto a término el día anterior."
       }
     ],
     "allergies_recorded": false
   },
   "on_request": [
+    {
+      "evidence_id": "GOB-003.antecedente.evolucion_parto",
+      "category": "antecedente",
+      "label": "Parto y puerperio inmediato",
+      "text": "Tuvo el parto a término; el recién nacido obtuvo un Apgar de 9 al minuto y de 10 a los 5 minutos. Media hora después del parto le administraron líquidos y sangre por la vena.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "antecedentes_gineco_obstetricos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "GOB-003.vital.signos_vitales",
+      "category": "signo_vital",
+      "label": "Signos vitales tras el parto",
+      "text": "A los 30 minutos del parto: presión arterial de 80/60 mmHg y pulso de 124/min. Tras 4 unidades de líquidos intravenosos y 4 unidades de sangre total, los signos vitales se estabilizaron.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "signos_vitales"
+        ]
+      }
+    },
     {
       "evidence_id": "GOB-003.examen.exploracion_fisica",
       "category": "examen_fisico",
@@ -74,7 +100,10 @@
       {
         "name": "Hipofisitis posparto",
         "must_not_miss": false,
-        "discard_evidence_ids": []
+        "discard_evidence_ids": [
+          "GOB-003.antecedente.evolucion_parto",
+          "GOB-003.vital.signos_vitales"
+        ]
       }
     ],
     "treatment_reference": {
@@ -99,6 +128,26 @@
         },
         {
           "id": "kq2",
+          "topic": "Evolución del parto y reposición de líquidos y sangre",
+          "evidence_ids": [
+            "GOB-003.antecedente.evolucion_parto"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq3",
+          "topic": "Signos vitales tras el parto: hipotensión y taquicardia",
+          "evidence_ids": [
+            "GOB-003.vital.signos_vitales"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "id": "kq4",
           "topic": "Exploración física tras el parto: extremidades frías y húmedas, útero atónico",
           "evidence_ids": [
             "GOB-003.examen.exploracion_fisica"

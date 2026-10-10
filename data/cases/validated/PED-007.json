@@ -13,7 +13,7 @@
   },
   "public": {
     "patient": {
-      "alias": "Paciente 7",
+      "alias": "Mateo Quispe",
       "age_years": 7,
       "sex": "masculino"
     },
@@ -99,22 +99,30 @@
       {
         "name": "Artritis séptica",
         "must_not_miss": true,
-        "discard_evidence_ids": []
+        "discard_evidence_ids": [
+          "PED-007.vital.signos_vitales"
+        ]
       },
       {
         "name": "Epifisiólisis de la cabeza femoral",
         "must_not_miss": true,
-        "discard_evidence_ids": []
+        "discard_evidence_ids": [
+          "PED-007.imagen.radiografia"
+        ]
       },
       {
         "name": "Osteomielitis",
         "must_not_miss": true,
-        "discard_evidence_ids": []
+        "discard_evidence_ids": [
+          "PED-007.vital.signos_vitales"
+        ]
       },
       {
         "name": "Artritis idiopática juvenil",
         "must_not_miss": false,
-        "discard_evidence_ids": []
+        "discard_evidence_ids": [
+          "PED-007.imagen.radiografia"
+        ]
       }
     ],
     "treatment_reference": {

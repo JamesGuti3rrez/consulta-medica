@@ -126,11 +126,15 @@ def check_case_rules(case: dict[str, Any]) -> list[str]:
     if foreign:
         errors.append(f"R02 evidence_id de otro caso: {foreign}")
 
-    # R03 · la evaluación solo puede citar evidencia que existe en el caso.
+    # R03 · la evaluación y los diferenciales solo pueden citar evidencia que existe en el caso.
     cited = {eid for question in case["protected"]["evaluation"]["key_questions"] for eid in question["evidence_ids"]}
     missing = sorted(cited - set(evidence_ids))
     if missing:
         errors.append(f"R03 key_questions citan evidencia inexistente: {missing}")
+    discarding = {eid for differential in case["protected"]["differentials"] for eid in differential["discard_evidence_ids"]}
+    missing = sorted(discarding - set(evidence_ids))
+    if missing:
+        errors.append(f"R03 differentials citan evidencia inexistente: {missing}")
 
     # R04 · esquema («el título no debe revelar el diagnóstico») y separación public/protected.
     visible = " ".join(

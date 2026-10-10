@@ -54,6 +54,19 @@ def test_r03_key_questions_cite_existing_evidence(case):
     assert "R03" in _codes(case)
 
 
+def test_r03_differentials_cite_existing_evidence(case):
+    case["protected"]["differentials"][0]["discard_evidence_ids"] = ["MED-008.historia.no_existe"]
+    assert "R03" in _codes(case)
+
+
+def test_curated_differentials_cite_the_data_that_discards_them():
+    linked = 0
+    for path in sorted((CASES_DIR / "curated").glob("*.json")):
+        case = json.loads(path.read_text(encoding="utf-8"))
+        linked += sum(bool(item["discard_evidence_ids"]) for item in case["protected"]["differentials"])
+    assert linked >= 25
+
+
 def test_r04_diagnosis_not_visible(case):
     case["title"] = f"Caso de {case['protected']['diagnosis']['name']}"
     assert "R04" in _codes(case)
