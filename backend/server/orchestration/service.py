@@ -81,6 +81,8 @@ class MultiAgentSessionService:
             ])
         )
         session["history"].append({"role": "student", "text": student_message})
+        if result.get("doctor_question"):
+            session["history"].append({"role": "medico_tratante", "text": result["doctor_question"]})
         session["history"].append({"role": result["active_agent"], "text": result["response_text"]})
         self.store.save(session)
 
@@ -92,6 +94,7 @@ class MultiAgentSessionService:
             "agent": result["active_agent"],
             "route_reason": result.get("route_reason"),
             "route_confidence": result.get("route_confidence"),
+            "doctor_question": result.get("doctor_question"),
             "provider": result.get("provider"),
             "model": result.get("model"),
             "input_tokens": result.get("input_tokens", 0),
@@ -115,6 +118,7 @@ class MultiAgentSessionService:
             "intent": result.get("route_intent"),
             "agent": result["active_agent"],
             "response": result["response_text"],
+            "doctor_question": result.get("doctor_question"),
             "provider": result.get("provider"),
             "model": result.get("model"),
             "evidence_ids": result.get("retrieved_evidence_ids", []),

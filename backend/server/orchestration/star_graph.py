@@ -21,6 +21,7 @@ class StarGraphOrchestrator:
         state_machine,
         output_guard,
         protected_lexicon,
+        reformulator=None,
         temperature: float = 0.0,
     ):
         self.router = router
@@ -32,6 +33,7 @@ class StarGraphOrchestrator:
         self.state_machine = state_machine
         self.output_guard = output_guard
         self.protected_lexicon = protected_lexicon
+        self.reformulator = reformulator
         self.temperature = temperature
         self.graph = self._build()
 
@@ -68,6 +70,13 @@ class StarGraphOrchestrator:
         def node(state: TurnGraphState) -> dict[str, Any]:
             case = self.repository.get_conversation_case(state["case_id"])
             intent = Intent(state["route_intent"])
+            # Al paciente le habla el médico tratante: reformula lo que pidió el estudiante. La
+            # autorización usa la frase original, así la reformulación no puede revelar datos.
+            reformulation = None
+            message_for_agent = state["student_message"]
+            if role == AgentRole.PACIENTE and self.reformulator is not None:
+                reformulation = self.reformulator.reformulate(state["student_message"], temperature=self.temperature)
+                message_for_agent = reformulation.text
             disclosure = self.disclosure_policy.authorize(
                 case=case,
                 role=role,
@@ -75,7 +84,7 @@ class StarGraphOrchestrator:
                 student_message=state["student_message"],
             )
             retrieved = self.retriever.retrieve(
-                query=state["student_message"],
+                query=message_for_agent,
                 case_id=state["case_id"],
                 agent_role=role,
                 allowed_evidence_ids=disclosure.allowed_evidence_ids,
@@ -89,7 +98,7 @@ class StarGraphOrchestrator:
                 conversation_tail=state.get("conversation_tail", []),
             )
             reply = self.agents[role].respond(
-                student_message=state["student_message"],
+                student_message=message_for_agent,
                 context=context,
                 temperature=self.temperature,
             )
@@ -97,10 +106,11 @@ class StarGraphOrchestrator:
             ok, reason = self.output_guard.validate(reply.text, forbidden_terms)
             return {
                 "response_text": reply.text if ok else "La respuesta fue bloqueada por la política de seguridad.",
+                "doctor_question": reformulation.text if reformulation else None,
                 "provider": reply.provider,
                 "model": reply.model,
-                "input_tokens": reply.input_tokens,
-                "output_tokens": reply.output_tokens,
+                "input_tokens": reply.input_tokens + (reformulation.input_tokens if reformulation else 0),
+                "output_tokens": reply.output_tokens + (reformulation.output_tokens if reformulation else 0),
                 "fallback_used": reply.fallback_used,
                 "grounding_retry_used": reply.grounding_retry_used,
                 "grounding_fallback_used": reply.grounding_fallback_used,

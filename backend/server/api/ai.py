@@ -7,6 +7,8 @@ from functools import lru_cache
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 
+from server.ai.agents.base import PROMPTS_DIR
+from server.ai.agents.reformulador import QuestionReformulator
 from server.ai.agents.registry import build_agents
 from server.ai.llm.factory import build_gateway
 from server.cases import CanonicalCaseRepository, CaseNotAvailable, CaseNotFound
@@ -64,6 +66,7 @@ def get_service() -> MultiAgentSessionService:
         state_machine=ClinicalStateMachine(),
         output_guard=OutputGuard(),
         protected_lexicon=ProtectedLexiconService(repository),
+        reformulator=QuestionReformulator(gateway, PROMPTS_DIR),
         temperature=settings.llm_temperature,
     )
     return MultiAgentSessionService(

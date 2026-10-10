@@ -73,6 +73,7 @@ class TurnGraphState(TypedDict, total=False):
     route_reason: str
     route_confidence: float
     response_text: str
+    doctor_question: str | None
     provider: str
     model: str
     input_tokens: int

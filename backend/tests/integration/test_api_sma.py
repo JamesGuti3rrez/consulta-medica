@@ -5,6 +5,8 @@ import pytest
 from fastapi.testclient import TestClient
 
 import server.api.ai as ai_module
+from server.ai.llm.gateway import LLMGateway
+from server.ai.llm.providers import LocalDevelopmentProvider
 from server.api.ai import STORE, get_service
 from server.main import app
 
@@ -20,6 +22,8 @@ def fixture_cases(monkeypatch):
     # El caso de prueba no está en el índice de LightRAG: la evidencia se lee del caso, sin depender
     # de si en el equipo hay un índice construido.
     monkeypatch.setattr(ai_module, "settings", replace(ai_module.settings, rag_embedded_enabled=False, rag_service_url=""))
+    # Sin LLM real aunque el .env tenga claves: la prueba no gasta cuota y su resultado no varía.
+    monkeypatch.setattr(ai_module, "build_gateway", lambda: LLMGateway([LocalDevelopmentProvider()]))
     STORE.clear()
     get_service.cache_clear()
     yield
@@ -45,6 +49,13 @@ def test_five_agents_in_one_star_session_with_traceable_evidence():
     patient = _send(sid, "¿Desde cuándo comenzó el dolor y cómo lo describiría?")
     assert patient["agent"] == "paciente"
     assert patient["evidence_ids"] == ["MED-900.anamnesis.inicio_dolor"]
+    # Al paciente le habla el médico tratante con la pregunta reformulada.
+    assert patient["doctor_question"]
+
+    ordered = _send(sid, "Pregúntale si tiene alergias")
+    assert ordered["agent"] == "paciente"
+    assert ordered["doctor_question"] == "¿Tiene alergias?"
+    assert ordered["evidence_ids"] == ["MED-900.anamnesis.alergias"]
 
     lab = _send(sid, "Solicito un hemograma y análisis de sangre")
     assert lab["agent"] == "laboratorio"
@@ -65,7 +76,7 @@ def test_five_agents_in_one_star_session_with_traceable_evidence():
     assert events.status_code == 200
     turns = [event for event in events.json() if event.get("type") == "turn"]
     assert [turn["agent"] for turn in turns] == [
-        "paciente", "laboratorio", "radiologia", "especialista", "medico_asistente"
+        "paciente", "paciente", "laboratorio", "radiologia", "especialista", "medico_asistente"
     ]
     assert all("evidence_ids" in turn for turn in turns)
 
