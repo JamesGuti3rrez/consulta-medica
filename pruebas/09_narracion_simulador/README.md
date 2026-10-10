@@ -58,6 +58,15 @@ Como en el simulador original (`f0881ca`): al terminar la presentación desapare
   [sin_agentes_terminal.png](sin_agentes_terminal.png). El único error de consola es el 404 de
   `/api/ai/sessions`, que en esta rama no existe.
 
+- Con agentes (rama `feature/integracion-sma-rag`, sin clave de LLM):
+  [con_agentes_cirugia_general_3_respuestas.png](con_agentes_cirugia_general_3_respuestas.png) y
+  [con_agentes_medicina_interna_3_respuestas.png](con_agentes_medicina_interna_3_respuestas.png)
+  (con sus capturas 1, 2 y 4) y [con_agentes_terminal.png](con_agentes_terminal.png): el paciente
+  revela los antecedentes familiares, el laboratorio las pruebas de coagulación y el doctor la
+  exploración; sin errores de consola. Sin LLM, la respuesta es el texto del dato tal como está en el
+  índice (con su etiqueta y el código de interpretación, «A» o «N»); con una clave de Groq el agente
+  lo redacta.
+
 ## Evidencia
 
 - Intento 2 (sin código del caso): [portada_3_simulador_listo.png](portada_3_simulador_listo.png) (al
