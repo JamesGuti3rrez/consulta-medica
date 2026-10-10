@@ -1,1 +1,1 @@
-"""Cliente de modelo de lenguaje con proveedor intercambiable (pendiente: Groq, OpenRouter, Claude o Gemini)."""
+"""Cliente de modelo de lenguaje: gateway con varias claves de Groq y cambio de clave ante fallos; sin clave, proveedor local que repite la evidencia."""
