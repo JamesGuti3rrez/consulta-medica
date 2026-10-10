@@ -130,9 +130,14 @@
                 <span class="material-symbols-outlined text-base text-white/85">record_voice_over</span>
                 <span class="text-[13px] sm:text-sm font-semibold text-white/85">Doctor (Voz sintetizada)</span>
               </div>
-              <span data-role="doctor-status"
-                class="status-pill flex items-center gap-1.5 text-[13px] bg-white/15 px-2.5 py-0.5 rounded-full font-medium"><span
-                  class="w-1.5 h-1.5 rounded-full bg-white/80"></span> En espera</span>
+              <div class="flex items-center gap-1.5">
+                <span data-role="doctor-status"
+                  class="status-pill flex items-center gap-1.5 text-[13px] bg-white/15 px-2.5 py-0.5 rounded-full font-medium"><span
+                    class="w-1.5 h-1.5 rounded-full bg-white/80"></span> En espera</span>
+                <button data-role="skip-speech" type="button" hidden title="Saltar al siguiente diálogo"
+                  class="hidden items-center gap-0.5 rounded-full px-2.5 py-0.5 text-[13px] font-semibold transition-colors bg-white/20 text-white hover:bg-white/30"><span
+                    class="material-symbols-outlined text-base leading-none">skip_next</span>Saltar</button>
+              </div>
             </div>
             <p data-role="doctor-text" class="text-[15px] sm:text-[17px] leading-snug font-semibold text-white">Presiona “Iniciar simulación” para comenzar.</p>
           </div>
@@ -144,9 +149,14 @@
                 <span class="material-symbols-outlined text-base text-brand-600">person</span>
                 <span class="text-[13px] sm:text-sm font-semibold text-slate-600">Paciente</span>
               </div>
-              <span data-role="patient-status"
-                class="status-pill flex items-center gap-1.5 text-[13px] bg-slate-100 text-slate-600 px-2.5 py-0.5 rounded-full font-medium"><span
-                  class="w-1.5 h-1.5 rounded-full bg-brand-500"></span> En espera</span>
+              <div class="flex items-center gap-1.5">
+                <span data-role="patient-status"
+                  class="status-pill flex items-center gap-1.5 text-[13px] bg-slate-100 text-slate-600 px-2.5 py-0.5 rounded-full font-medium"><span
+                    class="w-1.5 h-1.5 rounded-full bg-brand-500"></span> En espera</span>
+                <button data-role="skip-speech" type="button" hidden title="Saltar al siguiente diálogo"
+                  class="hidden items-center gap-0.5 rounded-full px-2.5 py-0.5 text-[13px] font-semibold transition-colors bg-slate-100 text-slate-700 hover:bg-slate-200"><span
+                    class="material-symbols-outlined text-base leading-none">skip_next</span>Saltar</button>
+              </div>
             </div>
             <p data-role="patient-text" class="text-[15px] sm:text-[17px] leading-snug text-slate-900">
               Esperando la presentación del caso...</p>

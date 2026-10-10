@@ -75,6 +75,16 @@ Como en el simulador original (`f0881ca`): al terminar la presentación desapare
 - Los scripts de prueba abren el navegador con `--mute-audio`: el navegador automático también usa la
   voz del sistema y cada prueba sonaba en el equipo.
 
+## Saltar diálogos y voz más rápida (intento 5)
+
+- La voz usa la síntesis de texto a voz del navegador (Web Speech API, `speechSynthesis`, `es-ES`).
+  Su velocidad pasa de 0,95 a 1,5 (`SPEECH_RATE` en `simulacion.js`).
+- Botón «Saltar» en la burbuja del doctor y en la del paciente, visible mientras hablan: termina la
+  frase en curso y la conversación sigue con la siguiente.
+- [saltar_boton_visible.png](saltar_boton_visible.png) y [saltar_terminal.png](saltar_terminal.png)
+  ([probar_saltar.cjs](probar_saltar.cjs)): saltando cada frase, la presentación completa tarda menos
+  de 3 segundos y todas las frases quedan en el chat.
+
 ## Evidencia
 
 - Intento 2 (sin código del caso): [portada_3_simulador_listo.png](portada_3_simulador_listo.png) (al
