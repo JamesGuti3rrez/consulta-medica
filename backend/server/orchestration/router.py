@@ -22,12 +22,17 @@ class DecisionRouter:
     }
     RADIOLOGY = {"radiografia", "ecografia", "tomografia", "resonancia", "imagen", "rayos x", "tac", "edad osea"}
     SPECIALIST = {"especialista", "interconsulta", "neurologia", "cardiologia", "cirugia", "ginecologia"}
-    ASSISTANT = {"resumen", "que sabemos", "presentacion", "historia clinica", "estado del caso"}
+    ASSISTANT = {"resumen", "que sabemos", "presentacion", "historia clinica", "estado del caso",
+                 "el diagnostico", "que tiene el paciente", "cual es la enfermedad"}
     EXAMINE = {"examen fisico", "examinar", "examino", "exploracion", "exploro", "explorar", "neurologico",
                "ausculto", "auscultar", "palpo", "palpar", "examen ginecologico"}
     HYPOTHESIS = {"mi hipotesis", "hipotesis es", "considero que", "sospecho"}
     DIAGNOSIS = {"mi diagnostico", "diagnostico final", "diagnostico es"}
-    TREATMENT = {"tratamiento", "prescribo", "indicaria", "receta"}
+    # Propuestas del estudiante en primera persona. No basta «tratamiento» o «receta»: «¿Está en
+    # tratamiento?» o «¿Qué le recetaron?» son preguntas al paciente.
+    TREATMENT = {"mi tratamiento", "el tratamiento es", "el tratamiento seria", "el tratamiento que", "como tratamiento",
+                 "prescribo", "indicaria", "le indico", "administro", "le administro", "le doy", "le daria",
+                 "le pongo", "inicio tratamiento", "iniciaria"}
     FINISH = {"finalizar consulta", "terminar consulta", "cerrar consulta", "finalizar sesion"}
 
     def route(self, message: str) -> RouteDecision:
@@ -36,7 +41,8 @@ class DecisionRouter:
             return RouteDecision(Intent.FINISH, AgentRole.MEDICO_ASISTENTE, 1.0, "solicitud explícita de cierre")
         if any(term in text for term in self.DIAGNOSIS):
             return RouteDecision(Intent.PROPOSE_DIAGNOSIS, AgentRole.MEDICO_ASISTENTE, 0.98, "propuesta de diagnóstico")
-        if any(term in text for term in self.TREATMENT):
+        # Una pregunta («¿Qué le indicó su médico?») no es una propuesta de tratamiento.
+        if "?" not in message and any(term in text for term in self.TREATMENT):
             return RouteDecision(Intent.PROPOSE_TREATMENT, AgentRole.MEDICO_ASISTENTE, 0.98, "propuesta de tratamiento")
         if any(term in text for term in self.HYPOTHESIS):
             return RouteDecision(Intent.PROPOSE_HYPOTHESIS, AgentRole.MEDICO_ASISTENTE, 0.95, "registro de hipótesis")

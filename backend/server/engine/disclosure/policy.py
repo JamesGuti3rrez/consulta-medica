@@ -26,7 +26,7 @@ ALIASES: dict[str, tuple[str, ...]] = {
                                 "operacion", "cirugia previa", "desarrollo"),
     "antecedentes_familiares": ("familia", "familiar", "familiares", "padres", "madre", "padre", "hermanos"),
     "medicacion": ("medicacion", "medicamento", "medicamentos", "pastillas", "toma algo", "tomo algo", "tomado",
-                   "paracetamol",
+                   "paracetamol", "tratamiento", "recetaron", "receta",
                    "tratamiento habitual", "que toma"),
     "alergias": ("alergia", "alergias", "alergico", "alergica"),
     "habitos": ("habitos", "fuma", "tabaco", "alcohol", "drogas", "trabajo", "ocupacion", "viaje", "al sol", "protector solar",
