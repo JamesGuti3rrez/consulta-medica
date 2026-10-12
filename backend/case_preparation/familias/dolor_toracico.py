@@ -166,7 +166,7 @@ CASES = [
             "asociados": "Al comienzo sintió que se iba a desmayar y estuvo mareado unos minutos. Tiene sudor frío. No tiene tos ni fiebre.",
             "antecedentes": "Hipertensión arterial desde hace 15 años, mal controlada. No lo han operado.",
             "familiares": "No recuerda enfermedades del corazón en su familia.",
-            "medicacion": "Le recetaron amlodipino 10 mg al día, pero dejó de tomarlo hace 4 meses.",
+            "medicacion": "Ahora no toma nada: dejó hace 4 meses el amlodipino 10 mg al día que le recetaron para la presión.",
             "alergias": "No tiene alergias conocidas a medicamentos.",
             "habitos": "Fuma 10 cigarrillos al día y toma alcohol los fines de semana. No consume drogas. No ha hecho viajes recientes.",
             "exploracion": "Paciente sudoroso y muy angustiado por el dolor. Presión arterial 174/98 mmHg en el brazo derecho y 132/80 mmHg en el izquierdo; pulso radial izquierdo más débil que el derecho. Soplo diastólico suave en el borde esternal izquierdo. Pulmones sin crepitantes. Piernas sin edema y pantorrillas no dolorosas.",

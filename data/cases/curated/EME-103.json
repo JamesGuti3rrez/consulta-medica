@@ -103,7 +103,7 @@
       "evidence_id": "EME-103.medicacion.tratamiento_habitual",
       "category": "medicacion",
       "label": "Medicación habitual",
-      "text": "Le recetaron amlodipino 10 mg al día, pero dejó de tomarlo hace 4 meses.",
+      "text": "Ahora no toma nada: dejó hace 4 meses el amlodipino 10 mg al día que le recetaron para la presión.",
       "reveal_policy": {
         "owner": "paciente",
         "mode": "al_preguntar",
