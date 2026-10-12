@@ -7,7 +7,7 @@ from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Any
 
-from server.ai.agents.invencion import invented_symptoms
+from server.ai.agents.invencion import invented_symptoms, omitted_figures
 from server.ai.llm.gateway import LLMGateway
 from server.domain import AgentReply, AgentRole
 
@@ -194,6 +194,26 @@ class BaseAgent(ABC):
                 else:
                     result_text = "No." if self.role == AgentRole.PACIENTE else self._deterministic_evidence_fallback(context)
             else:
+                result_text = retry.text
+
+        # Cifras del dato que la respuesta omite (una dosis, una duración, un valor): se pide una corrección
+        # una vez y se usa la nueva respuesta si ya no omite nada.
+        omitted = omitted_figures(result_text, context) if self._has_retrieved_evidence(context) else []
+        if omitted and not grounding_fallback_used:
+            grounding_retry_used = True
+            correction = {
+                "role": "user",
+                "content": (
+                    f"CORRECCIÓN: tu respuesta omite datos de retrieved_evidence ({', '.join(omitted)}). Responde de "
+                    "nuevo con tus palabras incluyendo esas cifras, sin añadir nada que no esté en el contexto."
+                ),
+            }
+            retry = self.gateway.generate([*messages, {"role": "assistant", "content": result_text}, correction], temperature=temperature)
+            total_input_tokens += retry.input_tokens
+            total_output_tokens += retry.output_tokens
+            provider_fallback_used = provider_fallback_used or retry.fallback_used
+            if not omitted_figures(retry.text, context) and not invented_symptoms(retry.text, context):
+                result = retry
                 result_text = retry.text
 
         evidence_ids = [

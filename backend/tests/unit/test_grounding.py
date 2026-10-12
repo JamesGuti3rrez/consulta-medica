@@ -127,3 +127,37 @@ def test_only_sentences_with_invented_symptoms_are_removed():
     gateway = SequenceGateway(["Me siento mal. Estoy mareado.", "Me siento mal. Sigo mareado."])
     reply = PacienteAgent(gateway).respond(student_message="¿Cómo se siente?", context={**_context(), "role": "paciente"})
     assert reply.text == "Me siento mal."
+
+
+def _medication_context():
+    return {**_context(), "role": "paciente", "retrieved_evidence": [{
+        "evidence_id": "EME-103.medicacion.tratamiento_habitual",
+        "text": "Ahora no toma nada: dejó hace 4 meses el amlodipino 10 mg al día que le recetaron para la presión.",
+        "score": 0.9,
+    }]}
+
+
+def test_omitted_figures_are_corrected_once():
+    from server.ai.agents.paciente import PacienteAgent
+
+    gateway = SequenceGateway(["No, ya no tomo nada.", "No, dejé el amlodipino de 10 mg hace cuatro meses."])
+    reply = PacienteAgent(gateway).respond(student_message="¿Toma algún medicamento?", context=_medication_context())
+    assert len(gateway.calls) == 2
+    assert "4" in gateway.calls[1][-1]["content"] and "10" in gateway.calls[1][-1]["content"]
+    assert reply.text == "No, dejé el amlodipino de 10 mg hace cuatro meses."
+
+
+def test_reply_with_all_figures_is_not_retried():
+    from server.ai.agents.paciente import PacienteAgent
+
+    gateway = SequenceGateway(["Ya no tomo nada: dejé el amlodipino de 10 mg hace 4 meses."])
+    PacienteAgent(gateway).respond(student_message="¿Toma algún medicamento?", context=_medication_context())
+    assert len(gateway.calls) == 1
+
+
+def test_first_reply_is_kept_if_the_correction_still_omits():
+    from server.ai.agents.paciente import PacienteAgent
+
+    gateway = SequenceGateway(["No, ya no tomo nada.", "No tomo nada."])
+    reply = PacienteAgent(gateway).respond(student_message="¿Toma algún medicamento?", context=_medication_context())
+    assert reply.text == "No, ya no tomo nada."

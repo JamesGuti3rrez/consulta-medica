@@ -83,3 +83,27 @@ def invented_symptoms(reply: str, context: dict[str, Any]) -> list[str]:
             if name in found:
                 break
     return found
+
+
+# Cifras escritas con letras que cuentan como la cifra («hace cinco días» = 5).
+NUMBER_WORDS = {
+    "1": ("uno", "una", "un"), "2": ("dos",), "3": ("tres",), "4": ("cuatro",), "5": ("cinco",), "6": ("seis",),
+    "7": ("siete",), "8": ("ocho",), "9": ("nueve",), "10": ("diez",), "12": ("doce",), "15": ("quince",),
+    "20": ("veinte",), "30": ("treinta",), "60": ("sesenta",),
+}
+FIGURE = re.compile(r"\d+(?:[.,]\d+)?")
+
+
+def omitted_figures(reply: str, context: dict[str, Any]) -> list[str]:
+    """Cifras de la evidencia recuperada que la respuesta no menciona (ni con dígitos ni con letras).
+
+    Una dosis, una duración o un valor de laboratorio que se omite cambia el caso: «dejó el amlodipino»
+    no es lo mismo que «dejó el amlodipino 10 mg hace 4 meses».
+    """
+    evidence = " ".join(str(item.get("text", "")) for item in context.get("retrieved_evidence") or [])
+    in_reply = {figure.replace(",", ".") for figure in FIGURE.findall(reply)}
+    words = set(_normalize(reply).split())
+    return [
+        figure for figure in dict.fromkeys(FIGURE.findall(evidence))
+        if figure.replace(",", ".") not in in_reply and not words & set(NUMBER_WORDS.get(figure, ()))
+    ]
