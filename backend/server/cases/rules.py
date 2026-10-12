@@ -207,6 +207,22 @@ def check_case_rules(case: dict[str, Any]) -> list[str]:
         if allowed is not None and not requires <= allowed:
             errors.append(f"R14 {item['evidence_id']}: temas no acordados para {owner}: {sorted(requires - allowed)}")
 
+    if case["source"]["dataset"] == "sintetico":
+        # R15 · casos sintéticos (data/cases/familias/README.md): cada hipótesis alternativa se puede
+        # descartar con algún dato del caso.
+        without = [d["name"] for d in case["protected"]["differentials"] if not d["discard_evidence_ids"]]
+        if without:
+            errors.append(f"R15 diferenciales sin dato que los descarte: {without}")
+        # R16 · los datos que descartan están ocultos hasta que se piden; si fueran visibles, el
+        # estudiante descartaría sin preguntar.
+        on_request = {item["evidence_id"] for item in case["on_request"]}
+        visible = sorted({eid for d in case["protected"]["differentials"] for eid in d["discard_evidence_ids"]} - on_request)
+        if visible:
+            errors.append(f"R16 datos que descartan y no están en on_request: {visible}")
+        # R17 · la familia va en source.item_id como «familia/diagnóstico».
+        if not re.fullmatch(r"[a-z0-9_]+/[a-z0-9_]+", str(case["source"]["item_id"] or "")):
+            errors.append("R17 source.item_id de un caso sintético debe ser «familia/diagnostico»")
+
     return errors
 
 
@@ -238,4 +254,22 @@ def check_batch_rules(cases: list[dict[str, Any]]) -> list[str]:
     duplicated = sorted({case_id for case_id in ids if ids.count(case_id) > 1})
     if duplicated:
         errors.append(f"R10 case_id repetidos: {duplicated}")
+    # R18 · familias de casos sintéticos: los casos de una familia empiezan con el mismo motivo de
+    # consulta, y cada uno tiene como diferenciales los diagnósticos de los demás.
+    families: dict[str, list[dict[str, Any]]] = {}
+    for case in cases:
+        if case["source"]["dataset"] == "sintetico" and "/" in str(case["source"]["item_id"] or ""):
+            families.setdefault(case["source"]["item_id"].split("/", 1)[0], []).append(case)
+    for family, members in sorted(families.items()):
+        if len(members) < 2:
+            errors.append(f"R18 la familia {family} tiene un solo caso")
+            continue
+        complaints = {_normalize(case["public"]["chief_complaint"]["text"]) for case in members}
+        if len(complaints) > 1:
+            errors.append(f"R18 la familia {family} no comparte el motivo de consulta")
+        for case in members:
+            differentials = {_normalize(d["name"]) for d in case["protected"]["differentials"]}
+            for other in members:
+                if other is not case and _normalize(other["protected"]["diagnosis"]["name"]) not in differentials:
+                    errors.append(f"R18 {case['case_id']} no considera el diagnóstico de {other['case_id']} entre sus diferenciales")
     return errors
