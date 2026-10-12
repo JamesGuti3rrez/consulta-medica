@@ -25,7 +25,8 @@ class DecisionRouter:
     ASSISTANT = {"resumen", "que sabemos", "presentacion", "historia clinica", "estado del caso",
                  "el diagnostico", "que tiene el paciente", "cual es la enfermedad"}
     EXAMINE = {"examen fisico", "examinar", "examino", "exploracion", "exploro", "explorar", "neurologico",
-               "ausculto", "auscultar", "palpo", "palpar", "examen ginecologico"}
+               "ausculto", "auscultar", "palpo", "palpar", "examen ginecologico",
+               "signos vitales", "tomo la presion", "tomar la presion", "mido la presion"}
     HYPOTHESIS = {"mi hipotesis", "hipotesis es", "considero que", "sospecho"}
     DIAGNOSIS = {"mi diagnostico", "diagnostico final", "diagnostico es"}
     # Propuestas del estudiante en primera persona. No basta «tratamiento» o «receta»: «¿Está en

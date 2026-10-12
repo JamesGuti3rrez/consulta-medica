@@ -27,3 +27,9 @@ def test_asking_for_the_diagnosis_goes_to_the_assistant():
     router = DecisionRouter()
     assert router.route("¿Qué tiene el paciente? Dígame el diagnóstico").target == AgentRole.MEDICO_ASISTENTE
     assert router.route("Mi diagnóstico es infarto").intent == Intent.PROPOSE_DIAGNOSIS
+
+
+def test_taking_vital_signs_is_an_examination():
+    router = DecisionRouter()
+    assert router.route("Voy a tomar los signos vitales").intent == Intent.EXAMINE
+    assert router.route("¿Tiene la presión alta?").target == AgentRole.PACIENTE
