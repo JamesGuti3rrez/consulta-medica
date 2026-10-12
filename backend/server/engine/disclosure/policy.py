@@ -41,6 +41,12 @@ ALIASES: dict[str, tuple[str, ...]] = {
     "funcion_tiroidea": ("funcion tiroidea", "tiroides", "tsh", "hormonas tiroideas"),
     "imagen_osea": ("imagen osea", "radiografia", "edad osea", "serie osea"),
     "radiografia": ("radiografia", "rayos x", "placa"),
+    # Exámenes de la familia de casos sintéticos de dolor torácico (EME-101 a EME-103).
+    "electrocardiograma": ("electrocardiograma", "ecg", "electro"),
+    "troponina": ("troponina", "enzimas cardiacas", "marcadores cardiacos"),
+    "dimero_d": ("dimero d", "dimero"),
+    "radiografia_torax": ("radiografia", "rayos x", "placa de torax"),
+    "angiotomografia_torax": ("angiotomografia", "angiotac", "tomografia"),
     # Temas propios del caso de prueba original (CARD-001).
     "inicio_dolor": ("desde cuando", "cuando comenzo", "inicio", "duracion", "como lo describiria", "dolor"),
     "fotofobia": ("fotofobia", "luz", "molesta la luz"),

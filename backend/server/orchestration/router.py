@@ -18,6 +18,7 @@ class DecisionRouter:
     LAB = {
         "laboratorio", "analisis", "hemograma", "troponina", "glucosa", "sangre", "orina",
         "coagulacion", "coagulograma", "ttpa", "tiempo de protrombina", "ph vaginal", "tiroides", "tiroidea", "tsh",
+        "electrocardiograma", "ecg", "electro", "dimero", "enzimas cardiacas",
     }
     RADIOLOGY = {"radiografia", "ecografia", "tomografia", "resonancia", "imagen", "rayos x", "tac", "edad osea"}
     SPECIALIST = {"especialista", "interconsulta", "neurologia", "cardiologia", "cirugia", "ginecologia"}
