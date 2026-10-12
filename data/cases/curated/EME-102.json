@@ -172,6 +172,7 @@
       "unit": "ng/L",
       "reference_range": "< 26 ng/L",
       "interpretation": "H",
+      "text": "Troponina I ultrasensible: 38 ng/L (valor de referencia < 26 ng/L); por encima del rango normal.",
       "reveal_policy": {
         "owner": "laboratorio",
         "mode": "al_solicitar_examen",
@@ -188,6 +189,7 @@
       "unit": "ng/mL",
       "reference_range": "< 500 ng/mL",
       "interpretation": "H",
+      "text": "Dímero D: 3200 ng/mL (valor de referencia < 500 ng/mL); por encima del rango normal.",
       "reveal_policy": {
         "owner": "laboratorio",
         "mode": "al_solicitar_examen",

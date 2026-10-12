@@ -57,6 +57,7 @@ NAMES = {
     "troponina": "troponina", "dimero": "dimero_d", "radiografia": "radiografia_torax", "angiotac": "angiotomografia_torax",
 }
 TROPONINA_RANGO = "< 26 ng/L"
+INTERPRETATION = {"N": "dentro del rango normal", "H": "por encima del rango normal", "L": "por debajo del rango normal", "A": "anormal"}
 DIMERO_RANGO = "< 500 ng/mL"
 
 CASES = [
@@ -222,6 +223,8 @@ def build_case(spec: dict) -> dict:
         if isinstance(content, tuple):
             value, unit, reference_range, interpretation = content
             item.update(value=value, unit=unit, reference_range=reference_range, interpretation=interpretation)
+            # El texto lleva el rango: sin él, el estudiante no sabe si el valor es normal.
+            item["text"] = f"{label}: {value} {unit} (valor de referencia {reference_range}); {INTERPRETATION[interpretation]}."
         else:
             item["text"] = content
         item["reveal_policy"] = {"owner": owner, "mode": mode, "requires": requires}
