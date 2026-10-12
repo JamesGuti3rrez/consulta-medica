@@ -1,0 +1,369 @@
+{
+  "schema_version": "1.1.0",
+  "case_id": "EME-103",
+  "title": "Paciente de 61 años con dolor en el pecho",
+  "specialty": "emergencias",
+  "language": "es",
+  "status": "curado",
+  "source": {
+    "dataset": "sintetico",
+    "item_id": "dolor_toracico/diseccion_aortica",
+    "license": "CC BY 4.0",
+    "method": "generado_ia"
+  },
+  "public": {
+    "patient": {
+      "alias": "Víctor Chávez",
+      "age_years": 61,
+      "sex": "masculino"
+    },
+    "chief_complaint": {
+      "evidence_id": "EME-103.motivo.queja_principal",
+      "category": "motivo",
+      "label": "Motivo de consulta",
+      "text": "Dolor en el pecho que empezó hace unas 2 horas y no se le pasa."
+    },
+    "items": [
+      {
+        "evidence_id": "EME-103.vital.signos_vitales",
+        "category": "signo_vital",
+        "label": "Signos vitales",
+        "text": "Presión arterial 172/98 mmHg, pulso 104/min, frecuencia respiratoria 20/min, temperatura 36,6 °C y saturación de oxígeno 97 % al aire ambiente."
+      }
+    ],
+    "allergies_recorded": false
+  },
+  "on_request": [
+    {
+      "evidence_id": "EME-103.anamnesis.caracteristicas_dolor",
+      "category": "anamnesis",
+      "label": "Características del dolor",
+      "text": "Es el peor dolor de su vida, como si algo se le desgarrara por dentro. Empezó en el centro del pecho y ahora lo siente entre los omóplatos. No cambia al respirar ni al inclinarse hacia adelante. Lo califica con 10 de 10.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "caracteristicas_sintoma"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-103.anamnesis.inicio_evolucion",
+      "category": "anamnesis",
+      "label": "Inicio y evolución",
+      "text": "Empezó de golpe hace unas 2 horas, con toda su fuerza desde el primer momento, mientras cargaba un costal en el mercado. Desde entonces el dolor se ha ido corriendo hacia la espalda.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "inicio_y_evolucion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-103.sintoma.sintomas_acompanantes",
+      "category": "sintoma",
+      "label": "Síntomas acompañantes",
+      "text": "Al comienzo sintió que se iba a desmayar y estuvo mareado unos minutos. Tiene sudor frío. No tiene tos ni fiebre.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "sintomas_asociados"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-103.antecedente.antecedentes",
+      "category": "antecedente",
+      "label": "Antecedentes personales",
+      "text": "Hipertensión arterial desde hace 15 años, mal controlada. No lo han operado.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "antecedentes_personales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-103.antecedente.antecedentes_familiares",
+      "category": "antecedente",
+      "label": "Antecedentes familiares",
+      "text": "No recuerda enfermedades del corazón en su familia.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "antecedentes_familiares"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-103.medicacion.tratamiento_habitual",
+      "category": "medicacion",
+      "label": "Medicación habitual",
+      "text": "Le recetaron amlodipino 10 mg al día, pero dejó de tomarlo hace 4 meses.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "medicacion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-103.antecedente.alergias",
+      "category": "antecedente",
+      "label": "Alergias",
+      "text": "No tiene alergias conocidas a medicamentos.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "alergias"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-103.antecedente.habitos",
+      "category": "antecedente",
+      "label": "Hábitos y viajes",
+      "text": "Fuma 10 cigarrillos al día y toma alcohol los fines de semana. No consume drogas. No ha hecho viajes recientes.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-103.examen.exploracion_fisica",
+      "category": "examen_fisico",
+      "label": "Exploración física",
+      "text": "Paciente sudoroso y muy angustiado por el dolor. Presión arterial 174/98 mmHg en el brazo derecho y 132/80 mmHg en el izquierdo; pulso radial izquierdo más débil que el derecho. Soplo diastólico suave en el borde esternal izquierdo. Pulmones sin crepitantes. Piernas sin edema y pantorrillas no dolorosas.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "exploracion_fisica"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-103.estudio.electrocardiograma",
+      "category": "estudio",
+      "label": "Electrocardiograma de 12 derivaciones",
+      "text": "Ritmo sinusal a 104/min con signos de crecimiento del ventrículo izquierdo. Sin elevación ni descenso del segmento ST.",
+      "reveal_policy": {
+        "owner": "laboratorio",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "electrocardiograma"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-103.lab.troponina",
+      "category": "laboratorio",
+      "label": "Troponina I ultrasensible",
+      "value": 18,
+      "unit": "ng/L",
+      "reference_range": "< 26 ng/L",
+      "interpretation": "N",
+      "reveal_policy": {
+        "owner": "laboratorio",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "troponina"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-103.lab.dimero_d",
+      "category": "laboratorio",
+      "label": "Dímero D",
+      "value": 2400,
+      "unit": "ng/mL",
+      "reference_range": "< 500 ng/mL",
+      "interpretation": "H",
+      "reveal_policy": {
+        "owner": "laboratorio",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "dimero_d"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-103.imagen.radiografia_torax",
+      "category": "imagen",
+      "label": "Radiografía de tórax",
+      "text": "Mediastino ensanchado, de 8,5 cm a la altura del botón aórtico, con contorno aórtico irregular. Campos pulmonares sin infiltrados.",
+      "reveal_policy": {
+        "owner": "radiologia",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "radiografia_torax"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-103.imagen.angiotomografia_torax",
+      "category": "imagen",
+      "label": "Angiotomografía de tórax",
+      "text": "Colgajo intimal que se origina en la aorta ascendente, 2 cm por encima de la válvula aórtica, y se extiende por el arco hasta la aorta descendente, con una luz verdadera y una luz falsa. Arterias pulmonares sin defectos de llenado.",
+      "reveal_policy": {
+        "owner": "radiologia",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "angiotomografia_torax"
+        ]
+      }
+    }
+  ],
+  "protected": {
+    "diagnosis": {
+      "name": "Disección aórtica aguda tipo A",
+      "synonyms": [
+        "Disección aórtica aguda",
+        "Disección de aorta",
+        "Disección aórtica",
+        "Síndrome aórtico agudo"
+      ]
+    },
+    "differentials": [
+      {
+        "name": "Infarto agudo de miocardio con elevación del ST",
+        "must_not_miss": true,
+        "discard_evidence_ids": [
+          "EME-103.estudio.electrocardiograma",
+          "EME-103.lab.troponina"
+        ]
+      },
+      {
+        "name": "Tromboembolia pulmonar aguda",
+        "must_not_miss": true,
+        "discard_evidence_ids": [
+          "EME-103.examen.exploracion_fisica",
+          "EME-103.imagen.angiotomografia_torax"
+        ]
+      },
+      {
+        "name": "Pericarditis aguda",
+        "must_not_miss": false,
+        "discard_evidence_ids": [
+          "EME-103.anamnesis.caracteristicas_dolor",
+          "EME-103.estudio.electrocardiograma"
+        ]
+      }
+    ],
+    "treatment_reference": {
+      "summary": "Emergencia quirúrgica: cirugía urgente de la aorta ascendente. Mientras tanto, analgesia con opioides y betabloqueador intravenoso para bajar la frecuencia a menos de 60/min y la presión sistólica a 100–120 mmHg.",
+      "key_actions": [
+        "Medir la presión en ambos brazos ante un dolor torácico desgarrante.",
+        "Angiotomografía urgente para confirmar y ver la extensión.",
+        "Betabloqueador intravenoso y analgesia; vasodilatador solo después del betabloqueador.",
+        "Interconsulta urgente con cirugía cardiovascular."
+      ]
+    },
+    "contraindications": [
+      {
+        "id": "ci1",
+        "drug_or_class": "Antiagregantes, anticoagulantes y fibrinolíticos (aspirina, heparina, alteplasa)",
+        "reason": "Aumentan el riesgo de sangrado y de rotura de la aorta; darlos como si fuera un infarto puede ser mortal.",
+        "evidence_id": "EME-103.imagen.angiotomografia_torax",
+        "alternative": "Analgesia, betabloqueador intravenoso y cirugía urgente."
+      }
+    ],
+    "evaluation": {
+      "key_questions": [
+        {
+          "id": "kq1",
+          "topic": "Características del dolor: desgarrante, migra a la espalda, máximo desde el inicio",
+          "evidence_ids": [
+            "EME-103.anamnesis.caracteristicas_dolor",
+            "EME-103.anamnesis.inicio_evolucion"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "id": "kq2",
+          "topic": "Hipertensión mal controlada y abandono del tratamiento",
+          "evidence_ids": [
+            "EME-103.antecedente.antecedentes",
+            "EME-103.medicacion.tratamiento_habitual"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq3",
+          "topic": "Presión arterial en ambos brazos y pulsos",
+          "evidence_ids": [
+            "EME-103.examen.exploracion_fisica"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq4",
+          "topic": "Alergias antes de indicar medicamentos",
+          "evidence_ids": [
+            "EME-103.antecedente.alergias"
+          ],
+          "weight": 3,
+          "critical": true,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq5",
+          "topic": "Angiotomografía: colgajo intimal en la aorta ascendente",
+          "evidence_ids": [
+            "EME-103.imagen.angiotomografia_torax"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq6",
+          "topic": "Electrocardiograma sin isquemia: no tratar como infarto",
+          "evidence_ids": [
+            "EME-103.estudio.electrocardiograma"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        }
+      ],
+      "tests": {
+        "recommended": [
+          "angiotomografia_torax",
+          "electrocardiograma",
+          "radiografia_torax"
+        ],
+        "optional": [
+          "troponina"
+        ],
+        "unnecessary": [
+          "dimero_d"
+        ]
+      }
+    }
+  },
+  "provenance": {
+    "created_by": "case_preparation.familias.dolor_toracico",
+    "created_at": "2026-10-12",
+    "validator_version": "1.1.0",
+    "validated_at": "2026-10-12",
+    "curated_by": "James Bryam Gutiérrez Rubio",
+    "curated_at": "2026-10-12",
+    "rejection_reason": null
+  }
+}

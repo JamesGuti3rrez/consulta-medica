@@ -1,0 +1,361 @@
+{
+  "schema_version": "1.1.0",
+  "case_id": "EME-102",
+  "title": "Paciente de 56 años con dolor en el pecho",
+  "specialty": "emergencias",
+  "language": "es",
+  "status": "curado",
+  "source": {
+    "dataset": "sintetico",
+    "item_id": "dolor_toracico/tromboembolia_pulmonar",
+    "license": "CC BY 4.0",
+    "method": "generado_ia"
+  },
+  "public": {
+    "patient": {
+      "alias": "Luis Ramírez",
+      "age_years": 56,
+      "sex": "masculino"
+    },
+    "chief_complaint": {
+      "evidence_id": "EME-102.motivo.queja_principal",
+      "category": "motivo",
+      "label": "Motivo de consulta",
+      "text": "Dolor en el pecho que empezó hace unas 2 horas y no se le pasa."
+    },
+    "items": [
+      {
+        "evidence_id": "EME-102.vital.signos_vitales",
+        "category": "signo_vital",
+        "label": "Signos vitales",
+        "text": "Presión arterial 126/78 mmHg, pulso 112/min, frecuencia respiratoria 26/min, temperatura 37,4 °C y saturación de oxígeno 90 % al aire ambiente."
+      }
+    ],
+    "allergies_recorded": false
+  },
+  "on_request": [
+    {
+      "evidence_id": "EME-102.anamnesis.caracteristicas_dolor",
+      "category": "anamnesis",
+      "label": "Características del dolor",
+      "text": "Es un dolor punzante en el lado derecho del pecho que empeora al respirar hondo y al toser. No se le va al brazo ni a la espalda y no cambia al inclinarse hacia adelante. Lo califica con 6 de 10.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "caracteristicas_sintoma"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-102.anamnesis.inicio_evolucion",
+      "category": "anamnesis",
+      "label": "Inicio y evolución",
+      "text": "Empezó de golpe hace unas 2 horas, junto con falta de aire, cuando se levantó de la cama para ir al baño. Desde entonces le cuesta respirar incluso sentado.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "inicio_y_evolucion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-102.sintoma.sintomas_acompanantes",
+      "category": "sintoma",
+      "label": "Síntomas acompañantes",
+      "text": "Falta de aire desde el inicio y tos seca; esta mañana escupió una flema con hilos de sangre. No ha tenido fiebre ni sudor frío.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "sintomas_asociados"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-102.antecedente.antecedentes",
+      "category": "antecedente",
+      "label": "Antecedentes personales",
+      "text": "Cáncer de próstata en tratamiento hormonal desde hace un año. Hipertensión arterial. No tiene diabetes.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "antecedentes_personales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-102.antecedente.antecedentes_familiares",
+      "category": "antecedente",
+      "label": "Antecedentes familiares",
+      "text": "No sabe de enfermedades del corazón en su familia.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "antecedentes_familiares"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-102.medicacion.tratamiento_habitual",
+      "category": "medicacion",
+      "label": "Medicación habitual",
+      "text": "Leuprolida inyectable cada 3 meses y losartán 50 mg al día.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "medicacion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-102.antecedente.alergias",
+      "category": "antecedente",
+      "label": "Alergias",
+      "text": "Es alérgico a la penicilina: le salieron ronchas en todo el cuerpo.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "alergias"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-102.antecedente.habitos",
+      "category": "antecedente",
+      "label": "Hábitos y viajes",
+      "text": "Hace 5 días volvió de un viaje en bus de 20 horas desde Cusco y casi no se levantó del asiento. No fuma ni toma alcohol.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-102.examen.exploracion_fisica",
+      "category": "examen_fisico",
+      "label": "Exploración física",
+      "text": "Paciente ansioso, respira rápido. Ruidos cardiacos rítmicos y rápidos, sin soplos ni roce; el segundo ruido pulmonar está aumentado. Pulmones con murmullo vesicular conservado, sin crepitantes. Pulsos simétricos y presión arterial igual en ambos brazos. Pantorrilla derecha hinchada, 3 cm más gruesa que la izquierda, caliente y dolorosa a la palpación.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "exploracion_fisica"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-102.estudio.electrocardiograma",
+      "category": "estudio",
+      "label": "Electrocardiograma de 12 derivaciones",
+      "text": "Taquicardia sinusal a 112/min. Onda S profunda en I, onda Q y onda T negativa en III, y ondas T negativas de V1 a V3. Sin elevación del segmento ST.",
+      "reveal_policy": {
+        "owner": "laboratorio",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "electrocardiograma"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-102.lab.troponina",
+      "category": "laboratorio",
+      "label": "Troponina I ultrasensible",
+      "value": 38,
+      "unit": "ng/L",
+      "reference_range": "< 26 ng/L",
+      "interpretation": "H",
+      "reveal_policy": {
+        "owner": "laboratorio",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "troponina"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-102.lab.dimero_d",
+      "category": "laboratorio",
+      "label": "Dímero D",
+      "value": 3200,
+      "unit": "ng/mL",
+      "reference_range": "< 500 ng/mL",
+      "interpretation": "H",
+      "reveal_policy": {
+        "owner": "laboratorio",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "dimero_d"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-102.imagen.radiografia_torax",
+      "category": "imagen",
+      "label": "Radiografía de tórax",
+      "text": "Sin infiltrados ni derrame pleural importante. Silueta cardiaca y mediastino de tamaño normal.",
+      "reveal_policy": {
+        "owner": "radiologia",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "radiografia_torax"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-102.imagen.angiotomografia_torax",
+      "category": "imagen",
+      "label": "Angiotomografía de tórax",
+      "text": "Defectos de llenado en la arteria pulmonar principal derecha que se extienden a las ramas lobares media e inferior. Relación entre ventrículo derecho e izquierdo de 1,1. Aorta de calibre normal, sin colgajo intimal.",
+      "reveal_policy": {
+        "owner": "radiologia",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "angiotomografia_torax"
+        ]
+      }
+    }
+  ],
+  "protected": {
+    "diagnosis": {
+      "name": "Tromboembolia pulmonar aguda",
+      "synonyms": [
+        "Tromboembolismo pulmonar",
+        "Tromboembolia pulmonar",
+        "Embolia pulmonar"
+      ]
+    },
+    "differentials": [
+      {
+        "name": "Infarto agudo de miocardio con elevación del ST",
+        "must_not_miss": true,
+        "discard_evidence_ids": [
+          "EME-102.anamnesis.caracteristicas_dolor",
+          "EME-102.estudio.electrocardiograma"
+        ]
+      },
+      {
+        "name": "Disección aórtica aguda tipo A",
+        "must_not_miss": true,
+        "discard_evidence_ids": [
+          "EME-102.anamnesis.caracteristicas_dolor",
+          "EME-102.examen.exploracion_fisica",
+          "EME-102.imagen.angiotomografia_torax"
+        ]
+      },
+      {
+        "name": "Pericarditis aguda",
+        "must_not_miss": false,
+        "discard_evidence_ids": [
+          "EME-102.anamnesis.caracteristicas_dolor",
+          "EME-102.examen.exploracion_fisica",
+          "EME-102.estudio.electrocardiograma"
+        ]
+      }
+    ],
+    "treatment_reference": {
+      "summary": "Anticoagulación inmediata con heparina, ingreso con monitorización por el riesgo intermedio (ventrículo derecho dilatado y troponina elevada con presión normal) y fibrinólisis de rescate solo si se deteriora.",
+      "key_actions": [
+        "Calcular la probabilidad clínica (escala de Wells) antes de pedir exámenes.",
+        "Con probabilidad alta, angiotomografía directa sin esperar el dímero D.",
+        "Anticoagular con heparina de bajo peso molecular o heparina no fraccionada.",
+        "Vigilar presión arterial y oxigenación por si necesita fibrinólisis."
+      ]
+    },
+    "contraindications": [],
+    "evaluation": {
+      "key_questions": [
+        {
+          "id": "kq1",
+          "topic": "Características del dolor: pleurítico, empeora al respirar",
+          "evidence_ids": [
+            "EME-102.anamnesis.caracteristicas_dolor"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "id": "kq2",
+          "topic": "Inicio brusco con falta de aire",
+          "evidence_ids": [
+            "EME-102.anamnesis.inicio_evolucion",
+            "EME-102.sintoma.sintomas_acompanantes"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq3",
+          "topic": "Factores de riesgo de trombosis: cáncer y viaje largo inmóvil",
+          "evidence_ids": [
+            "EME-102.antecedente.antecedentes",
+            "EME-102.antecedente.habitos"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq4",
+          "topic": "Alergias antes de indicar medicamentos",
+          "evidence_ids": [
+            "EME-102.antecedente.alergias"
+          ],
+          "weight": 3,
+          "critical": true,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq5",
+          "topic": "Exploración: pantorrilla derecha hinchada y dolorosa",
+          "evidence_ids": [
+            "EME-102.examen.exploracion_fisica"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "id": "kq6",
+          "topic": "Angiotomografía: defectos de llenado en las arterias pulmonares",
+          "evidence_ids": [
+            "EME-102.imagen.angiotomografia_torax"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "negligencia"
+        }
+      ],
+      "tests": {
+        "recommended": [
+          "angiotomografia_torax",
+          "electrocardiograma",
+          "troponina"
+        ],
+        "optional": [
+          "dimero_d",
+          "radiografia_torax"
+        ],
+        "unnecessary": []
+      }
+    }
+  },
+  "provenance": {
+    "created_by": "case_preparation.familias.dolor_toracico",
+    "created_at": "2026-10-12",
+    "validator_version": "1.1.0",
+    "validated_at": "2026-10-12",
+    "curated_by": "James Bryam Gutiérrez Rubio",
+    "curated_at": "2026-10-12",
+    "rejection_reason": null
+  }
+}

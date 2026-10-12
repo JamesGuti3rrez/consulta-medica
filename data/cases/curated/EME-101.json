@@ -1,0 +1,366 @@
+{
+  "schema_version": "1.1.0",
+  "case_id": "EME-101",
+  "title": "Paciente de 58 años con dolor en el pecho",
+  "specialty": "emergencias",
+  "language": "es",
+  "status": "curado",
+  "source": {
+    "dataset": "sintetico",
+    "item_id": "dolor_toracico/infarto_inferior",
+    "license": "CC BY 4.0",
+    "method": "generado_ia"
+  },
+  "public": {
+    "patient": {
+      "alias": "Carlos Mendoza",
+      "age_years": 58,
+      "sex": "masculino"
+    },
+    "chief_complaint": {
+      "evidence_id": "EME-101.motivo.queja_principal",
+      "category": "motivo",
+      "label": "Motivo de consulta",
+      "text": "Dolor en el pecho que empezó hace unas 2 horas y no se le pasa."
+    },
+    "items": [
+      {
+        "evidence_id": "EME-101.vital.signos_vitales",
+        "category": "signo_vital",
+        "label": "Signos vitales",
+        "text": "Presión arterial 148/92 mmHg, pulso 98/min, frecuencia respiratoria 20/min, temperatura 36,8 °C y saturación de oxígeno 95 % al aire ambiente."
+      }
+    ],
+    "allergies_recorded": false
+  },
+  "on_request": [
+    {
+      "evidence_id": "EME-101.anamnesis.caracteristicas_dolor",
+      "category": "anamnesis",
+      "label": "Características del dolor",
+      "text": "Es un dolor opresivo, como un peso en el centro del pecho, que se le va al brazo izquierdo y a la mandíbula. No cambia al respirar, al moverse ni al inclinarse hacia adelante. Lo califica con 8 de 10.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "caracteristicas_sintoma"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-101.anamnesis.inicio_evolucion",
+      "category": "anamnesis",
+      "label": "Inicio y evolución",
+      "text": "Empezó hace unas 2 horas mientras subía las escaleras de su casa cargando bolsas; no se le quitó al sentarse. La semana pasada tuvo molestias parecidas al caminar rápido, que se le pasaban en pocos minutos al descansar.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "inicio_y_evolucion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-101.sintoma.sintomas_acompanantes",
+      "category": "sintoma",
+      "label": "Síntomas acompañantes",
+      "text": "Sudor frío y náuseas desde que empezó el dolor, y un poco de falta de aire. No ha tenido tos, fiebre ni desmayos.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "sintomas_asociados"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-101.antecedente.antecedentes",
+      "category": "antecedente",
+      "label": "Antecedentes personales",
+      "text": "Diabetes tipo 2 desde hace 8 años e hipertensión arterial. Le dijeron que tenía el colesterol alto, pero no se trata. No lo han operado y no ha estado en cama en las últimas semanas.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "antecedentes_personales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-101.antecedente.antecedentes_familiares",
+      "category": "antecedente",
+      "label": "Antecedentes familiares",
+      "text": "Su padre murió de un ataque al corazón a los 60 años.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "antecedentes_familiares"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-101.medicacion.tratamiento_habitual",
+      "category": "medicacion",
+      "label": "Medicación habitual",
+      "text": "Metformina 850 mg dos veces al día y enalapril 10 mg al día.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "medicacion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-101.antecedente.alergias",
+      "category": "antecedente",
+      "label": "Alergias",
+      "text": "No tiene alergias conocidas a medicamentos.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "alergias"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-101.antecedente.habitos",
+      "category": "antecedente",
+      "label": "Hábitos y viajes",
+      "text": "Fuma una cajetilla al día desde hace 30 años. No ha hecho viajes largos recientemente.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-101.examen.exploracion_fisica",
+      "category": "examen_fisico",
+      "label": "Exploración física",
+      "text": "Paciente pálido y sudoroso. Ruidos cardiacos rítmicos, sin soplos ni roce. Pulmones con murmullo vesicular normal, sin crepitantes. Pulsos radiales simétricos; presión arterial 146/90 mmHg en el brazo derecho y 148/92 mmHg en el izquierdo. Piernas sin edema y pantorrillas no dolorosas.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "exploracion_fisica"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-101.estudio.electrocardiograma",
+      "category": "estudio",
+      "label": "Electrocardiograma de 12 derivaciones",
+      "text": "Ritmo sinusal a 96/min. Elevación del segmento ST de 3 mm en II, III y aVF, con descenso del ST en I y aVL.",
+      "reveal_policy": {
+        "owner": "laboratorio",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "electrocardiograma"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-101.lab.troponina",
+      "category": "laboratorio",
+      "label": "Troponina I ultrasensible",
+      "value": 2850,
+      "unit": "ng/L",
+      "reference_range": "< 26 ng/L",
+      "interpretation": "H",
+      "reveal_policy": {
+        "owner": "laboratorio",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "troponina"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-101.lab.dimero_d",
+      "category": "laboratorio",
+      "label": "Dímero D",
+      "value": 420,
+      "unit": "ng/mL",
+      "reference_range": "< 500 ng/mL",
+      "interpretation": "N",
+      "reveal_policy": {
+        "owner": "laboratorio",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "dimero_d"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-101.imagen.radiografia_torax",
+      "category": "imagen",
+      "label": "Radiografía de tórax",
+      "text": "Silueta cardiaca y mediastino de tamaño normal. Campos pulmonares sin infiltrados ni derrame. Sin neumotórax.",
+      "reveal_policy": {
+        "owner": "radiologia",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "radiografia_torax"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-101.imagen.angiotomografia_torax",
+      "category": "imagen",
+      "label": "Angiotomografía de tórax",
+      "text": "Arterias pulmonares sin defectos de llenado. Aorta de calibre normal, sin colgajo intimal.",
+      "reveal_policy": {
+        "owner": "radiologia",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "angiotomografia_torax"
+        ]
+      }
+    }
+  ],
+  "protected": {
+    "diagnosis": {
+      "name": "Infarto agudo de miocardio con elevación del ST",
+      "synonyms": [
+        "Infarto agudo de miocardio",
+        "IAMCEST",
+        "Síndrome coronario agudo con elevación del ST",
+        "Infarto de cara inferior"
+      ]
+    },
+    "differentials": [
+      {
+        "name": "Tromboembolia pulmonar aguda",
+        "must_not_miss": true,
+        "discard_evidence_ids": [
+          "EME-101.antecedente.habitos",
+          "EME-101.examen.exploracion_fisica",
+          "EME-101.lab.dimero_d",
+          "EME-101.imagen.angiotomografia_torax"
+        ]
+      },
+      {
+        "name": "Disección aórtica aguda tipo A",
+        "must_not_miss": true,
+        "discard_evidence_ids": [
+          "EME-101.anamnesis.caracteristicas_dolor",
+          "EME-101.examen.exploracion_fisica",
+          "EME-101.imagen.radiografia_torax",
+          "EME-101.imagen.angiotomografia_torax"
+        ]
+      },
+      {
+        "name": "Pericarditis aguda",
+        "must_not_miss": false,
+        "discard_evidence_ids": [
+          "EME-101.anamnesis.caracteristicas_dolor",
+          "EME-101.examen.exploracion_fisica",
+          "EME-101.estudio.electrocardiograma"
+        ]
+      }
+    ],
+    "treatment_reference": {
+      "summary": "Reperfusión urgente: angioplastia primaria, idealmente en menos de 90 minutos desde el diagnóstico, o fibrinólisis si no se puede hacer en menos de 120 minutos. Doble antiagregación, anticoagulación y analgesia.",
+      "key_actions": [
+        "Electrocardiograma en los primeros 10 minutos de la llegada.",
+        "Activar la sala de hemodinamia para angioplastia primaria.",
+        "Aspirina y un segundo antiagregante, más anticoagulación, si no hay contraindicación.",
+        "Oxígeno solo si la saturación es menor de 90 %."
+      ]
+    },
+    "contraindications": [],
+    "evaluation": {
+      "key_questions": [
+        {
+          "id": "kq1",
+          "topic": "Características del dolor: opresivo, irradiado al brazo izquierdo y la mandíbula",
+          "evidence_ids": [
+            "EME-101.anamnesis.caracteristicas_dolor"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "id": "kq2",
+          "topic": "Inicio con el esfuerzo y molestias previas al caminar",
+          "evidence_ids": [
+            "EME-101.anamnesis.inicio_evolucion"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq3",
+          "topic": "Factores de riesgo: diabetes, hipertensión, colesterol, tabaco y antecedente familiar",
+          "evidence_ids": [
+            "EME-101.antecedente.antecedentes",
+            "EME-101.antecedente.habitos",
+            "EME-101.antecedente.antecedentes_familiares"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq4",
+          "topic": "Alergias antes de indicar antiagregantes",
+          "evidence_ids": [
+            "EME-101.antecedente.alergias"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq5",
+          "topic": "Electrocardiograma: elevación del ST en cara inferior",
+          "evidence_ids": [
+            "EME-101.estudio.electrocardiograma"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq6",
+          "topic": "Troponina elevada",
+          "evidence_ids": [
+            "EME-101.lab.troponina"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "razonamiento_clinico"
+        }
+      ],
+      "tests": {
+        "recommended": [
+          "electrocardiograma",
+          "troponina"
+        ],
+        "optional": [
+          "radiografia_torax"
+        ],
+        "unnecessary": [
+          "dimero_d",
+          "angiotomografia_torax"
+        ]
+      }
+    }
+  },
+  "provenance": {
+    "created_by": "case_preparation.familias.dolor_toracico",
+    "created_at": "2026-10-12",
+    "validator_version": "1.1.0",
+    "validated_at": "2026-10-12",
+    "curated_by": "James Bryam Gutiérrez Rubio",
+    "curated_at": "2026-10-12",
+    "rejection_reason": null
+  }
+}
