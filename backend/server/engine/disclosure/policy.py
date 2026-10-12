@@ -22,7 +22,7 @@ ALIASES: dict[str, tuple[str, ...]] = {
                                 "localizacion", "que le duele"),
     "sintomas_asociados": ("otros sintomas", "algun otro sintoma", "algo mas", "nausea", "vomito", "luz",
                            "fiebre", "orinar", "relaciones sexuales", "debilidad", "rigidez", "desmayo"),
-    "antecedentes_personales": ("antecedentes", "enfermedades", "enfermedad previa", "problemas de salud",
+    "antecedentes_personales": ("antecedentes", "enfermedad", "problemas de salud",
                                 "operacion", "cirugia previa", "desarrollo"),
     "antecedentes_familiares": ("familia", "familiar", "familiares", "padres", "madre", "padre", "hermanos"),
     "medicacion": ("medicacion", "medicamento", "medicamentos", "pastillas", "toma algo", "tomo algo", "tomado",
