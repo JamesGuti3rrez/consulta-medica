@@ -179,3 +179,85 @@ GUIONES = {
         "nota": "El resultado tiroideo es ambiguo porque la fuente (banco de Taiwán) menciona hipotiroidismo e hipertiroidismo a la vez.",
     },
 }
+
+
+# Por qué se hace cada pedido y para qué sirve (documento «Guiones de prueba por paciente»). No nombra el
+# diagnóstico del caso: explica qué orienta cada dato.
+POR_QUE_DOLOR_TORACICO = {
+    "¿Cómo es el dolor? Descríbalo, por favor": "El tipo de dolor es lo que más separa las causas graves de dolor torácico: opresivo e irradiado al brazo o la mandíbula orienta al corazón; punzante y que empeora al respirar, al pulmón o al pericardio; desgarrante y hacia la espalda, a la aorta.",
+    "Pregúntele cuándo empezó y cómo ha evolucionado": "El modo de inicio orienta la causa: con el esfuerzo y con molestias previas sugiere origen coronario; de golpe y con falta de aire, una embolia; brusco y máximo desde el primer momento, la aorta.",
+    "¿Tiene algún otro síntoma?": "Los síntomas que acompañan al dolor ayudan a separar: sudor frío y náuseas acompañan a la isquemia; falta de aire y tos con sangre, a la embolia pulmonar; sentir que se desmaya, a un problema de la aorta.",
+    "Pregúntele por sus antecedentes de enfermedades": "Busca factores de riesgo: diabetes, hipertensión y colesterol para enfermedad coronaria; un cáncer para trombosis; hipertensión mal controlada para problemas de la aorta.",
+    "¿Toma algún medicamento?": "Muestra qué enfermedades trata y si cumple el tratamiento. Abandonar los antihipertensivos deja la presión alta sin control.",
+    "¿Tiene alergias?": "Es obligatoria antes de indicar cualquier medicamento: en el dolor torácico se usan antiagregantes, anticoagulantes y otros fármacos.",
+    "¿Fuma? ¿Ha hecho algún viaje reciente?": "El tabaco es factor de riesgo coronario. Un viaje largo sin moverse favorece los coágulos en las piernas, que pueden llegar al pulmón.",
+    "¿Alguien en su familia ha tenido problemas del corazón?": "Un familiar con infarto a edad temprana aumenta el riesgo de enfermedad coronaria.",
+    "Voy a realizar la exploración física completa": "Busca los signos que separan las causas: presión distinta entre los brazos y soplo (aorta), pierna hinchada y dolorosa (coágulo que pudo llegar al pulmón), roce al auscultar (pericardio).",
+    "Pido un electrocardiograma de 12 derivaciones": "Es el primer examen ante un dolor torácico, en los primeros 10 minutos: muestra si hay un infarto que necesita tratamiento inmediato y otros patrones (pericarditis, sobrecarga del corazón derecho).",
+    "Solicito troponina": "Mide el daño del músculo del corazón. Sube mucho en el infarto, pero también algo en otras causas, como la embolia pulmonar.",
+    "Solicito dímero D": "Si es normal, hace muy poco probable una embolia pulmonar. Si está alto no aclara nada: también sube en otras causas, como la enfermedad de la aorta.",
+    "Pido una radiografía de tórax": "Busca un mediastino ensanchado (aorta) y descarta otras causas de dolor, como un neumotórax o una neumonía.",
+    "Solicito una angiotomografía de tórax": "Con un solo estudio confirma o descarta un coágulo en las arterias del pulmón y un problema de la aorta.",
+}
+
+POR_QUE = {
+    "EME-101": POR_QUE_DOLOR_TORACICO,
+    "EME-102": POR_QUE_DOLOR_TORACICO,
+    "EME-103": POR_QUE_DOLOR_TORACICO,
+    "EME-001": {
+        "Pregúntele por sus antecedentes de enfermedades": "Sus enfermedades (epilepsia, esquizofrenia, tiroides) pueden causar por sí mismas fiebre alta y confusión, o tratarse con fármacos que las provocan.",
+        "¿Qué medicamentos toma?": "Algunos fármacos, como los antipsicóticos, pueden causar fiebre muy alta con rigidez; otros cambian el pulso o la temperatura.",
+        "Voy a examinar al paciente": "El tono muscular separa las causas de fiebre muy alta con confusión: rigidez en unas, músculos flojos en otras. El sudor y la suciedad orientan al esfuerzo físico al calor.",
+    },
+    "EME-002": {
+        "¿Tiene alguna enfermedad?": "La hipertensión es un factor de riesgo de sangrado dentro de la cabeza.",
+        "Voy a realizar la exploración física": "El nivel de conciencia y la rigidez de nuca orientan: tras una cefalea súbita, la rigidez sugiere sangre o infección alrededor del cerebro.",
+    },
+    "CIR-005": {
+        "¿Alguien en su familia tiene problemas de sangrado?": "Un trastorno de sangrado en la familia orienta a una enfermedad hereditaria de la coagulación.",
+        "Solicito pruebas de coagulación": "Comparar antes y después de la cirugía: si las plaquetas y el tiempo de protrombina son normales y solo se alarga el tiempo de tromboplastina parcial, el defecto está en una parte concreta de la coagulación.",
+    },
+    "CIR-006": {
+        "¿Qué enfermedades tiene?": "La diabetes, la hipertensión y la angina aumentan el riesgo de complicaciones después de una cirugía.",
+        "¿Fuma?": "El tabaco aumenta el riesgo de complicaciones pulmonares tras operarse.",
+        "Voy a examinar a la paciente y auscultar los pulmones": "Busca de dónde viene la fiebre: pulmones (crepitantes), herida quirúrgica y abdomen.",
+    },
+    "GOB-003": {
+        "¿Cómo fue el parto?": "Saber si hubo un sangrado importante: una hemorragia grande en el parto puede dañar glándulas que necesitan mucho riego.",
+        "Voy a tomar los signos vitales": "Muestran si hubo shock por el sangrado: presión baja y pulso rápido.",
+        "Voy a realizar la exploración física": "Busca signos de shock y la causa del sangrado, como un útero que no se contrae.",
+    },
+    "GOB-004": {
+        "¿Tiene algún otro síntoma?": "El dolor al tener relaciones o al orinar orienta a una infección genital.",
+        "Pregúntele por sus antecedentes de enfermedades": "Descarta enfermedades previas que cambien el cuadro.",
+        "¿Toma algún medicamento?": "Saber qué toma: los anticonceptivos orales no protegen de las infecciones de transmisión sexual.",
+        "¿Cuántas parejas sexuales ha tenido? ¿Usa preservativo?": "Las parejas sexuales y el uso irregular del preservativo aumentan el riesgo de infecciones de transmisión sexual.",
+        "Voy a realizar el examen ginecológico": "Ver el aspecto de la vulva, del cuello uterino y del flujo, que es distinto en cada infección.",
+        "Mido el pH vaginal": "Separa las causas de flujo: un pH alto (mayor de 4,5) apunta a unas infecciones y uno normal, a otras.",
+    },
+    "MED-008": {
+        "Pregúntele desde cuándo empezó y cómo ha evolucionado": "Cómo cambió la lesión de la espalda: una picadura que crece en forma de anillo es muy orientadora.",
+        "¿Ha tomado algún medicamento?": "Saber qué tomó y si eso pudo cambiar los síntomas, como la fiebre.",
+        "Pregúntele por sus antecedentes de enfermedades": "Busca enfermedades previas y reacciones a medicamentos.",
+        "¿Tiene alergias?": "Es crítica en este caso: el tratamiento habitual de este cuadro puede ser un fármaco al que la paciente es alérgica.",
+        "¿Ha hecho alguna actividad al aire libre o algún viaje?": "Una salida al campo o al bosque expone a picaduras de garrapatas y otros insectos.",
+        "Voy a examinar a la paciente": "Ver la lesión: su tamaño y su forma orientan el diagnóstico.",
+    },
+    "MED-009": {
+        "Voy a examinar al paciente": "En un control sin molestias, la exploración completa es la única forma de encontrar lesiones que el paciente no nota.",
+        "¿Desde cuándo tiene esa lesión?": "El tiempo de evolución y si crece ayudan a separar lesiones benignas de malignas.",
+        "¿Ha trabajado al sol? ¿Usa protector solar?": "El sol sin protección y la piel clara son factores de riesgo de cáncer de piel.",
+    },
+    "PED-007": {
+        "¿Dónde le duele?": "Localizar el dolor. En los niños, un problema de la cadera muchas veces se siente en la rodilla.",
+        "Pregúntele por sus antecedentes y su desarrollo": "Descarta enfermedades previas y problemas de crecimiento.",
+        "Voy a examinar al niño": "Mover la rodilla y la cadera muestra de dónde viene realmente el dolor.",
+        "Pido una radiografía de cadera": "Ver la forma de la cabeza del fémur.",
+    },
+    "PED-010": {
+        "Voy a examinar a la niña": "Busca signos de pubertad adelantada y manchas en la piel, que juntos orientan a síndromes concretos.",
+        "Solicito función tiroidea": "Ver si otras glándulas también están alteradas.",
+        "Pido una radiografía de los huesos": "Buscar lesiones óseas que expliquen una fractura con un golpe pequeño.",
+        "Solicito la edad ósea": "Una edad ósea mayor que la real indica un exceso de hormonas desde hace tiempo.",
+    },
+}
