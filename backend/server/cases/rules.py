@@ -18,7 +18,8 @@ SPECIALTY_PREFIX = {
     "EME": "emergencias",
 }
 # backend/case_preparation/sources/registry.py: licencia registrada de cada fuente.
-SOURCE_LICENSE = {"MedQA": "MIT"}
+# Los casos sintéticos son propios del proyecto (data/cases/familias/README.md).
+SOURCE_LICENSE = {"MedQA": "MIT", "sintetico": "CC BY 4.0"}
 PEDIATRIC_AGE_LIMIT = 18
 
 # SP-002 C.4: el validador revisa que no quede texto de la pregunta de opción múltiple, que las

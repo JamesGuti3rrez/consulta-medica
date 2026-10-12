@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://paciente-virtual-adaptativo/schemas/caso/1.0.0",
+  "$id": "https://paciente-virtual-adaptativo/schemas/caso/1.1.0",
   "title": "Caso clínico progresivo · Paciente Virtual Adaptativo",
   "description": "Contrato de datos de un caso clínico. Separa lo que el estudiante ve al inicio (public), lo que se revela solo si lo pide (on_request) y lo que solo lee el motor de reglas y la evaluación (protected). Las reglas que cruzan campos se verifican con validar_caso.py.",
   "type": "object",
@@ -204,10 +204,10 @@
       "additionalProperties": false,
       "required": ["dataset", "item_id", "license", "method"],
       "properties": {
-        "dataset": { "enum": ["MedQA", "Synthea", "manual"] },
+        "dataset": { "enum": ["MedQA", "Synthea", "manual", "sintetico"], "description": "sintetico: caso diseñado para probar el sistema, en una familia de casos que comparten la presentación inicial." },
         "item_id": { "type": ["string", "null"] },
         "license": { "type": "string", "minLength": 2 },
-        "method": { "enum": ["manual", "ia_validador", "synthea"] }
+        "method": { "enum": ["manual", "ia_validador", "synthea", "generado_ia"] }
       }
     },
     "provenance": {
