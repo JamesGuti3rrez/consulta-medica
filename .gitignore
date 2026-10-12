@@ -26,3 +26,6 @@ frontend/public/assets/apple-touch-icon.png
 # Vínculo local con Vercel y variables que descarga su CLI
 .vercel
 .env.local
+
+# Archivos locales de la CLI de Supabase (proyecto enlazado, versión)
+supabase/.temp/
