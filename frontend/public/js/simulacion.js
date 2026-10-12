@@ -56,7 +56,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     cirugia_general: 'Cirugía general',
   };
   const specialtyName = SPECIALTY_NAMES[specialty];
-  const caseUrl = specialtyName ? `/api/caso?especialidad=${encodeURIComponent(specialty)}` : '/api/caso';
+  // Solo para pruebas: simulacion.html?caso=EME-103 abre ese caso (guía de pruebas en docs/).
+  const testCase = new URLSearchParams(window.location.search).get('caso');
+  const caseUrl = testCase
+    ? `/api/caso?caso=${encodeURIComponent(testCase)}`
+    : specialtyName ? `/api/caso?especialidad=${encodeURIComponent(specialty)}` : '/api/caso';
 
   let caseAvailable = false;
   // Cada intervención aumenta el número de sesión: lo que siga en curso de una anterior se detiene.

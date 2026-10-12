@@ -17,11 +17,20 @@ SPECIALTIES = tuple(load_schema()["properties"]["specialty"]["enum"])
 
 
 @router.get("/caso")
-def get_case(especialidad: str | None = None):
-    """Un caso curado al azar; con ?especialidad=…, solo de esa especialidad (la elige el estudiante)."""
+def get_case(especialidad: str | None = None, caso: str | None = None):
+    """Un caso curado al azar; con ?especialidad=…, solo de esa especialidad (la elige el estudiante).
+
+    ?caso=EME-103 devuelve ese caso: solo para pruebas (docs/guia_de_pruebas). Entrega la misma vista
+    pública que el azar, sin protected.
+    """
     if especialidad is not None and especialidad not in SPECIALTIES:
         raise HTTPException(status_code=422, detail=f"Especialidad no válida. Use una de: {', '.join(SPECIALTIES)}.")
     cases = load_curated_cases()
+    if caso is not None:
+        chosen = next((case for case in cases if case["case_id"] == caso), None)
+        if chosen is None:
+            raise HTTPException(status_code=404, detail="Caso no encontrado.")
+        return to_student_case(chosen)
     if especialidad is not None:
         cases = [case for case in cases if case["specialty"] == especialidad]
     if not cases:

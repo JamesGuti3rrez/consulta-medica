@@ -74,3 +74,13 @@ def test_status_reports_cases_by_specialty():
         "cirugia_general": 2,
         "emergencias": 5,  # EME-001, EME-002 y la familia EME-101 a EME-103
     }
+
+
+def test_case_can_be_chosen_by_id_for_testing():
+    response = client.get("/api/caso", params={"caso": "EME-103"})
+    assert response.status_code == 200
+    body = response.json()
+    assert body["case_id"] == "EME-103"
+    assert "protected" not in body and "on_request" not in body
+    assert client.get("/api/caso", params={"caso": "../EME-103"}).status_code == 404
+    assert client.get("/api/caso", params={"caso": "EME-999"}).status_code == 404
