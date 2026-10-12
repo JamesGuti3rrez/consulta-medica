@@ -15,7 +15,7 @@ def test_status_reports_curated_catalog_without_claiming_full_simulation_ready()
     assert {key: body[key] for key in ("caseConfigured", "simulationReady", "availableCases")} == {
         "caseConfigured": True,
         "simulationReady": False,
-        "availableCases": 10,
+        "availableCases": 13,  # 10 de MedQA y 3 de la familia sintética de dolor torácico
     }
 
 
@@ -72,5 +72,5 @@ def test_status_reports_cases_by_specialty():
         "pediatria": 2,
         "ginecologia_obstetricia": 2,
         "cirugia_general": 2,
-        "emergencias": 2,
+        "emergencias": 5,  # EME-001, EME-002 y la familia EME-101 a EME-103
     }

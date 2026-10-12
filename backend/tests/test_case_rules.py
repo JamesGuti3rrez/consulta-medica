@@ -27,7 +27,8 @@ def case() -> dict:
 
 def test_all_curated_cases_pass_rules():
     cases = [json.loads(path.read_text(encoding="utf-8")) for path in sorted((CASES_DIR / "curated").glob("*.json"))]
-    assert len(cases) == 10
+    assert sum(case["source"]["dataset"] == "MedQA" for case in cases) == 10
+    assert sum(case["source"]["dataset"] == "sintetico" for case in cases) == 3
     assert {case["case_id"]: check_case_rules(case) for case in cases} == {case["case_id"]: [] for case in cases}
     assert check_batch_rules(cases) == []
 
@@ -156,7 +157,7 @@ def test_curated_cases_reveal_history_on_request():
     for path in sorted((CASES_DIR / "curated").glob("*.json")):
         case = json.loads(path.read_text(encoding="utf-8"))
         assert case["on_request"], case["case_id"]
-        assert all("ya están incluidos en la historia pública" not in item["text"] for item in case["on_request"])
+        assert all("ya están incluidos en la historia pública" not in item.get("text", "") for item in case["on_request"])
         assert len(case["protected"]["evaluation"]["key_questions"]) >= 2, case["case_id"]
 
 
