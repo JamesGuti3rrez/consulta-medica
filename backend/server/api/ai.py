@@ -24,16 +24,33 @@ from server.orchestration import (
     InMemorySessionStore,
     MultiAgentSessionService,
     SessionNotFound,
+    SessionStoreError,
     StarGraphOrchestrator,
+    SupabaseSessionStore,
 )
 from server.rag.embedded import EmbeddedRAGRetriever
 from server.rag.retriever import CaseEvidenceRetriever, HttpRetriever
 from server.tracing import LangSmithObserver, LocalTraceLogger
 
 router = APIRouter(prefix="/api/ai", tags=["ai-sma"])
-STORE = InMemorySessionStore()
+
+
+def build_session_store() -> InMemorySessionStore | SupabaseSessionStore:
+    if settings.session_store == "supabase":
+        return SupabaseSessionStore(settings.supabase_url, settings.supabase_secret_key)
+    if settings.session_store != "memoria":
+        raise ValueError(f"SESSION_STORE no reconocido: {settings.session_store!r} (use memoria o supabase).")
+    return InMemorySessionStore()
+
+
+STORE = build_session_store()
 # Carpeta de casos que atiende el SMA; las pruebas la cambian por tests/fixtures/cases.
 CASES_DIR = CURATED_CASES_DIR
+
+
+def _store_unavailable(exc: SessionStoreError) -> HTTPException:
+    print(f"[sesiones] {exc}")
+    return HTTPException(status_code=503, detail="No se pudo acceder a las sesiones. Inténtalo de nuevo.")
 
 
 class StartRequest(BaseModel):
@@ -98,6 +115,7 @@ def status():
             else "embedded-lightrag" if isinstance(service.graph.retriever, EmbeddedRAGRetriever)
             else "deterministic-case-fallback"
         ),
+        "session_store": settings.session_store,
         "langsmith_enabled": settings.langsmith_tracing and bool(settings.langsmith_api_key),
         "agents": ["medico_asistente", "paciente", "laboratorio", "radiologia", "especialista"],
         "gateway": service.graph.agents[next(iter(service.graph.agents))].gateway.status(),
@@ -110,6 +128,8 @@ def start(payload: StartRequest):
         return get_service().start(payload.case_id)
     except (CaseNotFound, CaseNotAvailable) as exc:
         raise HTTPException(status_code=404, detail="Caso no encontrado o no disponible.") from exc
+    except SessionStoreError as exc:
+        raise _store_unavailable(exc) from exc
 
 
 @router.get("/sessions/{session_id}")
@@ -118,6 +138,8 @@ def get_session(session_id: str):
         return get_service().get(session_id)
     except SessionNotFound as exc:
         raise HTTPException(status_code=404, detail="Sesión no encontrada.") from exc
+    except SessionStoreError as exc:
+        raise _store_unavailable(exc) from exc
 
 
 @router.post("/sessions/{session_id}/message")
@@ -126,6 +148,8 @@ def message(session_id: str, payload: MessageRequest):
         return get_service().message(session_id, payload.message)
     except SessionNotFound as exc:
         raise HTTPException(status_code=404, detail="Sesión no encontrada.") from exc
+    except SessionStoreError as exc:
+        raise _store_unavailable(exc) from exc
     except ValueError as exc:
         raise HTTPException(status_code=409, detail=str(exc)) from exc
 
@@ -136,6 +160,8 @@ def events(session_id: str):
         return get_service().events(session_id)
     except SessionNotFound as exc:
         raise HTTPException(status_code=404, detail="Sesión no encontrada.") from exc
+    except SessionStoreError as exc:
+        raise _store_unavailable(exc) from exc
 
 
 @router.post("/sessions/{session_id}/finish")
@@ -144,3 +170,5 @@ def finish(session_id: str):
         return get_service().finish(session_id)
     except SessionNotFound as exc:
         raise HTTPException(status_code=404, detail="Sesión no encontrada.") from exc
+    except SessionStoreError as exc:
+        raise _store_unavailable(exc) from exc

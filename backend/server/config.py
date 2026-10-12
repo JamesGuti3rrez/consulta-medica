@@ -42,6 +42,7 @@ class Settings:
     langsmith_api_key: str
     langsmith_project: str
     trace_path: Path
+    session_store: str
 
     @property
     def auth_enabled(self) -> bool:
@@ -71,4 +72,6 @@ settings = Settings(
     langsmith_api_key=os.getenv("LANGSMITH_API_KEY", "").strip(),
     langsmith_project=os.getenv("LANGSMITH_PROJECT", "paciente-virtual-sma").strip(),
     trace_path=(ROOT_DIR / os.getenv("AI_TRACE_PATH", "backend/logs/ai_traces.jsonl")).resolve(),
+    # memoria (desarrollo y pruebas) o supabase (despliegue con varias instancias, como Vercel).
+    session_store=os.getenv("SESSION_STORE", "memoria").strip().lower(),
 )

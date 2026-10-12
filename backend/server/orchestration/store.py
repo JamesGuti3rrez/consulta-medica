@@ -9,7 +9,7 @@ class SessionNotFound(KeyError):
 
 
 class InMemorySessionStore:
-    """Persistencia temporal de sesión. James puede sustituirla por una implementación transaccional."""
+    """Sesiones en memoria del proceso: para desarrollo y pruebas. En Vercel se usa SupabaseSessionStore."""
 
     def __init__(self):
         self._sessions: dict[str, dict] = {}
