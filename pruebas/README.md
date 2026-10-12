@@ -15,6 +15,7 @@ Todas las capturas están en **vista de escritorio/PC (1440 px de ancho)**; ning
 | 8. Redistribución de los casos | [08_redistribucion_casos/](08_redistribucion_casos/README.md) | Cada dato en su zona (`public` u `on_request`), con dueño, tema y preguntas clave; traducción completa | OK |
 | 9. Presentación narrada | [09_narracion_simulador/](09_narracion_simulador/README.md) | El doctor presenta un caso al azar de la especialidad elegida, con burbuja, voz y chat | OK |
 | 10. Mejoras de los casos | [10_mejoras_casos/](10_mejoras_casos/README.md) | Nombres de los pacientes, más datos en GOB-003 y PED-010 y datos que descartan cada diferencial | OK |
+| 11. Sesiones en Supabase | [11_sesiones_supabase/](11_sesiones_supabase/README.md) | Las consultas se guardan en Supabase: en Vercel cualquier instancia del servidor encuentra la sesión (antes, HTTP 404) | OK |
 
 ## Convención de cada fase
 
