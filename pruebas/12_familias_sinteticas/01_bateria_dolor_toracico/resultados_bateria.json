@@ -1,0 +1,1044 @@
+{
+  "guion": [
+    "¿Cómo es el dolor? Descríbalo, por favor",
+    "Pregúntele cuándo empezó y cómo ha evolucionado",
+    "¿Tiene algún otro síntoma?",
+    "Pregúntele por sus antecedentes de enfermedades",
+    "¿Toma algún medicamento?",
+    "¿Tiene alergias?",
+    "¿Fuma? ¿Ha hecho algún viaje reciente?",
+    "¿Alguien en su familia ha tenido problemas del corazón?",
+    "Voy a realizar la exploración física completa",
+    "Pido un electrocardiograma de 12 derivaciones",
+    "Solicito troponina",
+    "Solicito dímero D",
+    "Pido una radiografía de tórax",
+    "Solicito una angiotomografía de tórax"
+  ],
+  "casos": {
+    "EME-101": {
+      "diagnostico": "Infarto agudo de miocardio con elevación del ST",
+      "turnos": [
+        {
+          "pedido": "¿Cómo es el dolor? Descríbalo, por favor",
+          "agente_esperado": "paciente",
+          "agente": "paciente",
+          "dato_esperado": "EME-101.anamnesis.caracteristicas_dolor",
+          "evidencia": [
+            "EME-101.anamnesis.caracteristicas_dolor"
+          ],
+          "medico_tratante": "¿Cómo es el dolor? Descríbalo, por favor.",
+          "respuesta": "Es un dolor opresivo, como un peso en el centro del pecho. Se irradia al brazo izquierdo y a la mandíbula. No cambia al respirar, al moverse ni al inclinarme hacia adelante. Lo califico con 8 de 10.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [
+            "Disección aórtica aguda tipo A: menos probable",
+            "Pericarditis aguda: menos probable"
+          ],
+          "estado_de_hipotesis": {
+            "Infarto agudo de miocardio con elevación del ST": "en pie",
+            "Tromboembolia pulmonar aguda": "en pie",
+            "Disección aórtica aguda tipo A": "menos probable",
+            "Pericarditis aguda": "menos probable"
+          }
+        },
+        {
+          "pedido": "Pregúntele cuándo empezó y cómo ha evolucionado",
+          "agente_esperado": "paciente",
+          "agente": "paciente",
+          "dato_esperado": "EME-101.anamnesis.inicio_evolucion",
+          "evidencia": [
+            "EME-101.anamnesis.inicio_evolucion"
+          ],
+          "medico_tratante": "¿Cuándo empezó y cómo ha evolucionado?",
+          "respuesta": "Empezó hace unas 2 horas mientras subía las escaleras de mi casa cargando bolsas. No se me quitó al sentarme. La semana pasada tuve molestias parecidas al caminar rápido, que se me pasaban en pocos minutos al descansar.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [],
+          "estado_de_hipotesis": {
+            "Infarto agudo de miocardio con elevación del ST": "en pie",
+            "Tromboembolia pulmonar aguda": "en pie",
+            "Disección aórtica aguda tipo A": "menos probable",
+            "Pericarditis aguda": "menos probable"
+          }
+        },
+        {
+          "pedido": "¿Tiene algún otro síntoma?",
+          "agente_esperado": "paciente",
+          "agente": "paciente",
+          "dato_esperado": "EME-101.sintoma.sintomas_acompanantes",
+          "evidencia": [
+            "EME-101.sintoma.sintomas_acompanantes"
+          ],
+          "medico_tratante": "¿Tiene algún otro síntoma?",
+          "respuesta": "Sí, tengo sudor frío, náuseas y un poco de falta de aire. No he tenido tos, fiebre ni desmayos.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [],
+          "estado_de_hipotesis": {
+            "Infarto agudo de miocardio con elevación del ST": "en pie",
+            "Tromboembolia pulmonar aguda": "en pie",
+            "Disección aórtica aguda tipo A": "menos probable",
+            "Pericarditis aguda": "menos probable"
+          }
+        },
+        {
+          "pedido": "Pregúntele por sus antecedentes de enfermedades",
+          "agente_esperado": "paciente",
+          "agente": "paciente",
+          "dato_esperado": "EME-101.antecedente.antecedentes",
+          "evidencia": [
+            "EME-101.antecedente.antecedentes"
+          ],
+          "medico_tratante": "¿Tiene antecedentes de enfermedades?",
+          "respuesta": "Sí, tengo diabetes tipo 2 desde hace 8 años e hipertensión arterial. También me dijeron que tengo colesterol alto, pero no lo estoy tratando.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [],
+          "estado_de_hipotesis": {
+            "Infarto agudo de miocardio con elevación del ST": "en pie",
+            "Tromboembolia pulmonar aguda": "en pie",
+            "Disección aórtica aguda tipo A": "menos probable",
+            "Pericarditis aguda": "menos probable"
+          }
+        },
+        {
+          "pedido": "¿Toma algún medicamento?",
+          "agente_esperado": "paciente",
+          "agente": "paciente",
+          "dato_esperado": "EME-101.medicacion.tratamiento_habitual",
+          "evidencia": [
+            "EME-101.medicacion.tratamiento_habitual"
+          ],
+          "medico_tratante": "¿Está tomando algún medicamento?",
+          "respuesta": "Sí, estoy tomando metformina 850 mg dos veces al día y enalapril 10 mg al día.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [],
+          "estado_de_hipotesis": {
+            "Infarto agudo de miocardio con elevación del ST": "en pie",
+            "Tromboembolia pulmonar aguda": "en pie",
+            "Disección aórtica aguda tipo A": "menos probable",
+            "Pericarditis aguda": "menos probable"
+          }
+        },
+        {
+          "pedido": "¿Tiene alergias?",
+          "agente_esperado": "paciente",
+          "agente": "paciente",
+          "dato_esperado": "EME-101.antecedente.alergias",
+          "evidencia": [
+            "EME-101.antecedente.alergias"
+          ],
+          "medico_tratante": "¿Tiene alergias?",
+          "respuesta": "No, no tengo alergias conocidas a medicamentos.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [],
+          "estado_de_hipotesis": {
+            "Infarto agudo de miocardio con elevación del ST": "en pie",
+            "Tromboembolia pulmonar aguda": "en pie",
+            "Disección aórtica aguda tipo A": "menos probable",
+            "Pericarditis aguda": "menos probable"
+          }
+        },
+        {
+          "pedido": "¿Fuma? ¿Ha hecho algún viaje reciente?",
+          "agente_esperado": "paciente",
+          "agente": "paciente",
+          "dato_esperado": "EME-101.antecedente.habitos",
+          "evidencia": [
+            "EME-101.antecedente.habitos"
+          ],
+          "medico_tratante": "¿Fuma usted? ¿Ha hecho algún viaje reciente?",
+          "respuesta": "Sí, fumo una cajetilla al día desde hace 30 años. No he hecho viajes largos recientemente.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [
+            "Tromboembolia pulmonar aguda: menos probable"
+          ],
+          "estado_de_hipotesis": {
+            "Infarto agudo de miocardio con elevación del ST": "en pie",
+            "Tromboembolia pulmonar aguda": "menos probable",
+            "Disección aórtica aguda tipo A": "menos probable",
+            "Pericarditis aguda": "menos probable"
+          }
+        },
+        {
+          "pedido": "¿Alguien en su familia ha tenido problemas del corazón?",
+          "agente_esperado": "paciente",
+          "agente": "paciente",
+          "dato_esperado": "EME-101.antecedente.antecedentes_familiares",
+          "evidencia": [
+            "EME-101.antecedente.antecedentes_familiares"
+          ],
+          "medico_tratante": "¿Algún familiar ha tenido problemas cardíacos?",
+          "respuesta": "Sí, mi padre murió de un ataque al corazón a los 60 años.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [],
+          "estado_de_hipotesis": {
+            "Infarto agudo de miocardio con elevación del ST": "en pie",
+            "Tromboembolia pulmonar aguda": "menos probable",
+            "Disección aórtica aguda tipo A": "menos probable",
+            "Pericarditis aguda": "menos probable"
+          }
+        },
+        {
+          "pedido": "Voy a realizar la exploración física completa",
+          "agente_esperado": "medico_asistente",
+          "agente": "medico_asistente",
+          "dato_esperado": "EME-101.examen.exploracion_fisica",
+          "evidencia": [
+            "EME-101.examen.exploracion_fisica"
+          ],
+          "medico_tratante": null,
+          "respuesta": "Paciente pálido y sudoroso. Ruidos cardiacos rítmicos, sin soplos ni roce. Pulmones con murmullo vesicular normal, sin crepitantes. Pulsos radiales simétricos; presión arterial 146/90 mmHg en el brazo derecho y 148/92 mmHg en el izquierdo. Piernas sin edema y pantorrillas no dolorosas.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [],
+          "estado_de_hipotesis": {
+            "Infarto agudo de miocardio con elevación del ST": "en pie",
+            "Tromboembolia pulmonar aguda": "menos probable",
+            "Disección aórtica aguda tipo A": "menos probable",
+            "Pericarditis aguda": "menos probable"
+          }
+        },
+        {
+          "pedido": "Pido un electrocardiograma de 12 derivaciones",
+          "agente_esperado": "laboratorio",
+          "agente": "laboratorio",
+          "dato_esperado": "EME-101.estudio.electrocardiograma",
+          "evidencia": [
+            "EME-101.estudio.electrocardiograma"
+          ],
+          "medico_tratante": null,
+          "respuesta": "Ritmo sinusal a 96/min. Elevación del segmento ST de 3 mm en II, III y aVF, con descenso del ST en I y aVL.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [
+            "Pericarditis aguda: descartada"
+          ],
+          "estado_de_hipotesis": {
+            "Infarto agudo de miocardio con elevación del ST": "en pie",
+            "Tromboembolia pulmonar aguda": "menos probable",
+            "Disección aórtica aguda tipo A": "menos probable",
+            "Pericarditis aguda": "descartada"
+          }
+        },
+        {
+          "pedido": "Solicito troponina",
+          "agente_esperado": "laboratorio",
+          "agente": "laboratorio",
+          "dato_esperado": "EME-101.lab.troponina",
+          "evidencia": [
+            "EME-101.lab.troponina"
+          ],
+          "medico_tratante": null,
+          "respuesta": "Troponina I ultrasensible: 2850 ng/L (valor de referencia < 26 ng/L); por encima del rango normal.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [],
+          "estado_de_hipotesis": {
+            "Infarto agudo de miocardio con elevación del ST": "en pie",
+            "Tromboembolia pulmonar aguda": "menos probable",
+            "Disección aórtica aguda tipo A": "menos probable",
+            "Pericarditis aguda": "descartada"
+          }
+        },
+        {
+          "pedido": "Solicito dímero D",
+          "agente_esperado": "laboratorio",
+          "agente": "laboratorio",
+          "dato_esperado": "EME-101.lab.dimero_d",
+          "evidencia": [
+            "EME-101.lab.dimero_d"
+          ],
+          "medico_tratante": null,
+          "respuesta": "Dímero D: 420 ng/mL (valor de referencia < 500 ng/mL); dentro del rango normal.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [],
+          "estado_de_hipotesis": {
+            "Infarto agudo de miocardio con elevación del ST": "en pie",
+            "Tromboembolia pulmonar aguda": "menos probable",
+            "Disección aórtica aguda tipo A": "menos probable",
+            "Pericarditis aguda": "descartada"
+          }
+        },
+        {
+          "pedido": "Pido una radiografía de tórax",
+          "agente_esperado": "radiologia",
+          "agente": "radiologia",
+          "dato_esperado": "EME-101.imagen.radiografia_torax",
+          "evidencia": [
+            "EME-101.imagen.radiografia_torax"
+          ],
+          "medico_tratante": null,
+          "respuesta": "Silueta cardiaca y mediastino de tamaño normal. Campos pulmonares sin infiltrados ni derrame. Sin neumotórax.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [],
+          "estado_de_hipotesis": {
+            "Infarto agudo de miocardio con elevación del ST": "en pie",
+            "Tromboembolia pulmonar aguda": "menos probable",
+            "Disección aórtica aguda tipo A": "menos probable",
+            "Pericarditis aguda": "descartada"
+          }
+        },
+        {
+          "pedido": "Solicito una angiotomografía de tórax",
+          "agente_esperado": "radiologia",
+          "agente": "radiologia",
+          "dato_esperado": "EME-101.imagen.angiotomografia_torax",
+          "evidencia": [
+            "EME-101.imagen.angiotomografia_torax"
+          ],
+          "medico_tratante": null,
+          "respuesta": "Arterias pulmonares sin defectos de llenado. Aorta de calibre normal, sin colgajo intimal.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [
+            "Tromboembolia pulmonar aguda: descartada",
+            "Disección aórtica aguda tipo A: descartada"
+          ],
+          "estado_de_hipotesis": {
+            "Infarto agudo de miocardio con elevación del ST": "en pie",
+            "Tromboembolia pulmonar aguda": "descartada",
+            "Disección aórtica aguda tipo A": "descartada",
+            "Pericarditis aguda": "descartada"
+          }
+        }
+      ],
+      "queda_solo_el_diagnostico": true
+    },
+    "EME-102": {
+      "diagnostico": "Tromboembolia pulmonar aguda",
+      "turnos": [
+        {
+          "pedido": "¿Cómo es el dolor? Descríbalo, por favor",
+          "agente_esperado": "paciente",
+          "agente": "paciente",
+          "dato_esperado": "EME-102.anamnesis.caracteristicas_dolor",
+          "evidencia": [
+            "EME-102.anamnesis.caracteristicas_dolor"
+          ],
+          "medico_tratante": "¿Cómo es el dolor? Descríbalo, por favor.",
+          "respuesta": "Es un dolor punzante en el lado derecho del pecho. Empeora cuando respiro hondo o tosa. No se irradia al brazo ni a la espalda y no cambia al inclinarme hacia adelante. Lo califico con 6 de 10.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [
+            "Infarto agudo de miocardio con elevación del ST: menos probable",
+            "Disección aórtica aguda tipo A: menos probable",
+            "Pericarditis aguda: menos probable"
+          ],
+          "estado_de_hipotesis": {
+            "Tromboembolia pulmonar aguda": "en pie",
+            "Infarto agudo de miocardio con elevación del ST": "menos probable",
+            "Disección aórtica aguda tipo A": "menos probable",
+            "Pericarditis aguda": "menos probable"
+          }
+        },
+        {
+          "pedido": "Pregúntele cuándo empezó y cómo ha evolucionado",
+          "agente_esperado": "paciente",
+          "agente": "paciente",
+          "dato_esperado": "EME-102.anamnesis.inicio_evolucion",
+          "evidencia": [
+            "EME-102.anamnesis.inicio_evolucion"
+          ],
+          "medico_tratante": "¿Cuándo empezó y cómo ha evolucionado?",
+          "respuesta": "Empezó de golpe hace unas 2 horas, cuando me levanté de la cama para ir al baño. Desde entonces el dolor no se ha ido y me cuesta respirar, incluso cuando estoy sentado.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [],
+          "estado_de_hipotesis": {
+            "Tromboembolia pulmonar aguda": "en pie",
+            "Infarto agudo de miocardio con elevación del ST": "menos probable",
+            "Disección aórtica aguda tipo A": "menos probable",
+            "Pericarditis aguda": "menos probable"
+          }
+        },
+        {
+          "pedido": "¿Tiene algún otro síntoma?",
+          "agente_esperado": "paciente",
+          "agente": "paciente",
+          "dato_esperado": "EME-102.sintoma.sintomas_acompanantes",
+          "evidencia": [
+            "EME-102.sintoma.sintomas_acompanantes"
+          ],
+          "medico_tratante": "¿Tiene algún otro síntoma?",
+          "respuesta": "Sí, he tenido falta de aire desde que empezó el dolor y tos seca. Esta mañana escupí una flema con hilos de sangre. No he tenido fiebre ni sudor frío.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [],
+          "estado_de_hipotesis": {
+            "Tromboembolia pulmonar aguda": "en pie",
+            "Infarto agudo de miocardio con elevación del ST": "menos probable",
+            "Disección aórtica aguda tipo A": "menos probable",
+            "Pericarditis aguda": "menos probable"
+          }
+        },
+        {
+          "pedido": "Pregúntele por sus antecedentes de enfermedades",
+          "agente_esperado": "paciente",
+          "agente": "paciente",
+          "dato_esperado": "EME-102.antecedente.antecedentes",
+          "evidencia": [
+            "EME-102.antecedente.antecedentes"
+          ],
+          "medico_tratante": "¿Tiene antecedentes de enfermedades?",
+          "respuesta": "Sí, tengo antecedentes. Tengo cáncer de próstata y estoy en tratamiento hormonal desde hace un año. También tengo hipertensión arterial y no tengo diabetes.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [],
+          "estado_de_hipotesis": {
+            "Tromboembolia pulmonar aguda": "en pie",
+            "Infarto agudo de miocardio con elevación del ST": "menos probable",
+            "Disección aórtica aguda tipo A": "menos probable",
+            "Pericarditis aguda": "menos probable"
+          }
+        },
+        {
+          "pedido": "¿Toma algún medicamento?",
+          "agente_esperado": "paciente",
+          "agente": "paciente",
+          "dato_esperado": "EME-102.medicacion.tratamiento_habitual",
+          "evidencia": [
+            "EME-102.medicacion.tratamiento_habitual"
+          ],
+          "medico_tratante": "¿Está tomando algún medicamento?",
+          "respuesta": "Sí, estoy tomando leuprolida inyectable cada tres meses y losartán 50 mg al día.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [],
+          "estado_de_hipotesis": {
+            "Tromboembolia pulmonar aguda": "en pie",
+            "Infarto agudo de miocardio con elevación del ST": "menos probable",
+            "Disección aórtica aguda tipo A": "menos probable",
+            "Pericarditis aguda": "menos probable"
+          }
+        },
+        {
+          "pedido": "¿Tiene alergias?",
+          "agente_esperado": "paciente",
+          "agente": "paciente",
+          "dato_esperado": "EME-102.antecedente.alergias",
+          "evidencia": [
+            "EME-102.antecedente.alergias"
+          ],
+          "medico_tratante": "¿Tiene alergias?",
+          "respuesta": "Sí, soy alérgico a la penicilina; me salieron ronchas en todo el cuerpo.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [],
+          "estado_de_hipotesis": {
+            "Tromboembolia pulmonar aguda": "en pie",
+            "Infarto agudo de miocardio con elevación del ST": "menos probable",
+            "Disección aórtica aguda tipo A": "menos probable",
+            "Pericarditis aguda": "menos probable"
+          }
+        },
+        {
+          "pedido": "¿Fuma? ¿Ha hecho algún viaje reciente?",
+          "agente_esperado": "paciente",
+          "agente": "paciente",
+          "dato_esperado": "EME-102.antecedente.habitos",
+          "evidencia": [
+            "EME-102.antecedente.habitos"
+          ],
+          "medico_tratante": "¿Fuma usted? ¿Ha hecho algún viaje reciente?",
+          "respuesta": "No fumo. Hace cinco días regresé de un viaje en bus de 20 horas desde Cusco y casi no me levanté del asiento.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [],
+          "estado_de_hipotesis": {
+            "Tromboembolia pulmonar aguda": "en pie",
+            "Infarto agudo de miocardio con elevación del ST": "menos probable",
+            "Disección aórtica aguda tipo A": "menos probable",
+            "Pericarditis aguda": "menos probable"
+          }
+        },
+        {
+          "pedido": "¿Alguien en su familia ha tenido problemas del corazón?",
+          "agente_esperado": "paciente",
+          "agente": "paciente",
+          "dato_esperado": "EME-102.antecedente.antecedentes_familiares",
+          "evidencia": [
+            "EME-102.antecedente.antecedentes_familiares"
+          ],
+          "medico_tratante": "¿Algún familiar ha tenido problemas cardíacos?",
+          "respuesta": "No, no sé de enfermedades del corazón en mi familia.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [],
+          "estado_de_hipotesis": {
+            "Tromboembolia pulmonar aguda": "en pie",
+            "Infarto agudo de miocardio con elevación del ST": "menos probable",
+            "Disección aórtica aguda tipo A": "menos probable",
+            "Pericarditis aguda": "menos probable"
+          }
+        },
+        {
+          "pedido": "Voy a realizar la exploración física completa",
+          "agente_esperado": "medico_asistente",
+          "agente": "medico_asistente",
+          "dato_esperado": "EME-102.examen.exploracion_fisica",
+          "evidencia": [
+            "EME-102.examen.exploracion_fisica"
+          ],
+          "medico_tratante": null,
+          "respuesta": "Paciente ansioso, respira rápido. Ruidos cardiacos rítmicos y rápidos, sin soplos ni roce; el segundo ruido pulmonar está aumentado. Pulmones con murmullo vesicular conservado, sin crepitantes. Pulsos simétricos y presión arterial igual en ambos brazos. Pantorrilla derecha hinchada, 3 cm más gruesa que la izquierda, caliente y dolorosa a la palpación.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [],
+          "estado_de_hipotesis": {
+            "Tromboembolia pulmonar aguda": "en pie",
+            "Infarto agudo de miocardio con elevación del ST": "menos probable",
+            "Disección aórtica aguda tipo A": "menos probable",
+            "Pericarditis aguda": "menos probable"
+          }
+        },
+        {
+          "pedido": "Pido un electrocardiograma de 12 derivaciones",
+          "agente_esperado": "laboratorio",
+          "agente": "laboratorio",
+          "dato_esperado": "EME-102.estudio.electrocardiograma",
+          "evidencia": [
+            "EME-102.estudio.electrocardiograma"
+          ],
+          "medico_tratante": null,
+          "respuesta": "Taquicardia sinusal a 112/min. Onda S profunda en I, onda Q y onda T negativa en III, y ondas T negativas de V1 a V3. Sin elevación del segmento ST.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [
+            "Infarto agudo de miocardio con elevación del ST: descartada",
+            "Pericarditis aguda: descartada"
+          ],
+          "estado_de_hipotesis": {
+            "Tromboembolia pulmonar aguda": "en pie",
+            "Infarto agudo de miocardio con elevación del ST": "descartada",
+            "Disección aórtica aguda tipo A": "menos probable",
+            "Pericarditis aguda": "descartada"
+          }
+        },
+        {
+          "pedido": "Solicito troponina",
+          "agente_esperado": "laboratorio",
+          "agente": "laboratorio",
+          "dato_esperado": "EME-102.lab.troponina",
+          "evidencia": [
+            "EME-102.lab.troponina"
+          ],
+          "medico_tratante": null,
+          "respuesta": "Troponina I ultrasensible: 38 ng/L (valor de referencia < 26 ng/L); por encima del rango normal.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [],
+          "estado_de_hipotesis": {
+            "Tromboembolia pulmonar aguda": "en pie",
+            "Infarto agudo de miocardio con elevación del ST": "descartada",
+            "Disección aórtica aguda tipo A": "menos probable",
+            "Pericarditis aguda": "descartada"
+          }
+        },
+        {
+          "pedido": "Solicito dímero D",
+          "agente_esperado": "laboratorio",
+          "agente": "laboratorio",
+          "dato_esperado": "EME-102.lab.dimero_d",
+          "evidencia": [
+            "EME-102.lab.dimero_d"
+          ],
+          "medico_tratante": null,
+          "respuesta": "Dímero D: 3200 ng/mL (valor de referencia < 500 ng/mL); por encima del rango normal.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [],
+          "estado_de_hipotesis": {
+            "Tromboembolia pulmonar aguda": "en pie",
+            "Infarto agudo de miocardio con elevación del ST": "descartada",
+            "Disección aórtica aguda tipo A": "menos probable",
+            "Pericarditis aguda": "descartada"
+          }
+        },
+        {
+          "pedido": "Pido una radiografía de tórax",
+          "agente_esperado": "radiologia",
+          "agente": "radiologia",
+          "dato_esperado": "EME-102.imagen.radiografia_torax",
+          "evidencia": [
+            "EME-102.imagen.radiografia_torax"
+          ],
+          "medico_tratante": null,
+          "respuesta": "Sin infiltrados ni derrame pleural importante. Silueta cardiaca y mediastino de tamaño normal.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [],
+          "estado_de_hipotesis": {
+            "Tromboembolia pulmonar aguda": "en pie",
+            "Infarto agudo de miocardio con elevación del ST": "descartada",
+            "Disección aórtica aguda tipo A": "menos probable",
+            "Pericarditis aguda": "descartada"
+          }
+        },
+        {
+          "pedido": "Solicito una angiotomografía de tórax",
+          "agente_esperado": "radiologia",
+          "agente": "radiologia",
+          "dato_esperado": "EME-102.imagen.angiotomografia_torax",
+          "evidencia": [
+            "EME-102.imagen.angiotomografia_torax"
+          ],
+          "medico_tratante": null,
+          "respuesta": "Defectos de llenado en la arteria pulmonar principal derecha que se extienden a las ramas lobares media e inferior. Relación entre ventrículo derecho e izquierdo de 1,1. Aorta de calibre normal, sin colgajo intimal.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [
+            "Disección aórtica aguda tipo A: descartada"
+          ],
+          "estado_de_hipotesis": {
+            "Tromboembolia pulmonar aguda": "en pie",
+            "Infarto agudo de miocardio con elevación del ST": "descartada",
+            "Disección aórtica aguda tipo A": "descartada",
+            "Pericarditis aguda": "descartada"
+          }
+        }
+      ],
+      "queda_solo_el_diagnostico": true
+    },
+    "EME-103": {
+      "diagnostico": "Disección aórtica aguda tipo A",
+      "turnos": [
+        {
+          "pedido": "¿Cómo es el dolor? Descríbalo, por favor",
+          "agente_esperado": "paciente",
+          "agente": "paciente",
+          "dato_esperado": "EME-103.anamnesis.caracteristicas_dolor",
+          "evidencia": [
+            "EME-103.anamnesis.caracteristicas_dolor"
+          ],
+          "medico_tratante": "¿Cómo es el dolor? Descríbalo, por favor.",
+          "respuesta": "Es el peor dolor de mi vida, como si algo se me desgarrara por dentro. Empezó en el centro del pecho y ahora lo siento entre los omóplatos. No cambia al respirar ni al inclinarme hacia adelante. Lo califico con 10 de 10.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [
+            "Pericarditis aguda: menos probable"
+          ],
+          "estado_de_hipotesis": {
+            "Disección aórtica aguda tipo A": "en pie",
+            "Infarto agudo de miocardio con elevación del ST": "en pie",
+            "Tromboembolia pulmonar aguda": "en pie",
+            "Pericarditis aguda": "menos probable"
+          }
+        },
+        {
+          "pedido": "Pregúntele cuándo empezó y cómo ha evolucionado",
+          "agente_esperado": "paciente",
+          "agente": "paciente",
+          "dato_esperado": "EME-103.anamnesis.inicio_evolucion",
+          "evidencia": [
+            "EME-103.anamnesis.inicio_evolucion"
+          ],
+          "medico_tratante": "¿Cuándo empezó y cómo ha evolucionado?",
+          "respuesta": "Empezó de golpe hace unas 2 horas, mientras cargaba un costal en el mercado. Desde entonces el dolor se ha ido corriendo hacia la espalda.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [],
+          "estado_de_hipotesis": {
+            "Disección aórtica aguda tipo A": "en pie",
+            "Infarto agudo de miocardio con elevación del ST": "en pie",
+            "Tromboembolia pulmonar aguda": "en pie",
+            "Pericarditis aguda": "menos probable"
+          }
+        },
+        {
+          "pedido": "¿Tiene algún otro síntoma?",
+          "agente_esperado": "paciente",
+          "agente": "paciente",
+          "dato_esperado": "EME-103.sintoma.sintomas_acompanantes",
+          "evidencia": [
+            "EME-103.sintoma.sintomas_acompanantes"
+          ],
+          "medico_tratante": "¿Tiene algún otro síntoma?",
+          "respuesta": "Sí, al principio sentí que me iba a desmayar y estuve mareado unos minutos. También tuve sudor frío. No tengo tos ni fiebre.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [],
+          "estado_de_hipotesis": {
+            "Disección aórtica aguda tipo A": "en pie",
+            "Infarto agudo de miocardio con elevación del ST": "en pie",
+            "Tromboembolia pulmonar aguda": "en pie",
+            "Pericarditis aguda": "menos probable"
+          }
+        },
+        {
+          "pedido": "Pregúntele por sus antecedentes de enfermedades",
+          "agente_esperado": "paciente",
+          "agente": "paciente",
+          "dato_esperado": "EME-103.antecedente.antecedentes",
+          "evidencia": [
+            "EME-103.antecedente.antecedentes"
+          ],
+          "medico_tratante": "¿Tiene antecedentes de enfermedades?",
+          "respuesta": "Sí, llevo hipertensión arterial desde hace 15 años y está mal controlada. No me han operado.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [],
+          "estado_de_hipotesis": {
+            "Disección aórtica aguda tipo A": "en pie",
+            "Infarto agudo de miocardio con elevación del ST": "en pie",
+            "Tromboembolia pulmonar aguda": "en pie",
+            "Pericarditis aguda": "menos probable"
+          }
+        },
+        {
+          "pedido": "¿Toma algún medicamento?",
+          "agente_esperado": "paciente",
+          "agente": "paciente",
+          "dato_esperado": "EME-103.medicacion.tratamiento_habitual",
+          "evidencia": [
+            "EME-103.medicacion.tratamiento_habitual"
+          ],
+          "medico_tratante": "¿Usted está tomando algún medicamento?",
+          "respuesta": "No, ya no tomo nada. Dejé el amlodipino 10 mg al día hace 4 meses.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [],
+          "estado_de_hipotesis": {
+            "Disección aórtica aguda tipo A": "en pie",
+            "Infarto agudo de miocardio con elevación del ST": "en pie",
+            "Tromboembolia pulmonar aguda": "en pie",
+            "Pericarditis aguda": "menos probable"
+          }
+        },
+        {
+          "pedido": "¿Tiene alergias?",
+          "agente_esperado": "paciente",
+          "agente": "paciente",
+          "dato_esperado": "EME-103.antecedente.alergias",
+          "evidencia": [
+            "EME-103.antecedente.alergias"
+          ],
+          "medico_tratante": "¿Tiene alergias?",
+          "respuesta": "No, no tengo alergias conocidas a medicamentos.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [],
+          "estado_de_hipotesis": {
+            "Disección aórtica aguda tipo A": "en pie",
+            "Infarto agudo de miocardio con elevación del ST": "en pie",
+            "Tromboembolia pulmonar aguda": "en pie",
+            "Pericarditis aguda": "menos probable"
+          }
+        },
+        {
+          "pedido": "¿Fuma? ¿Ha hecho algún viaje reciente?",
+          "agente_esperado": "paciente",
+          "agente": "paciente",
+          "dato_esperado": "EME-103.antecedente.habitos",
+          "evidencia": [
+            "EME-103.antecedente.habitos"
+          ],
+          "medico_tratante": "¿Fuma usted? ¿Ha hecho algún viaje reciente?",
+          "respuesta": "Sí, fumo 10 cigarrillos al día. No he hecho viajes recientes.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [],
+          "estado_de_hipotesis": {
+            "Disección aórtica aguda tipo A": "en pie",
+            "Infarto agudo de miocardio con elevación del ST": "en pie",
+            "Tromboembolia pulmonar aguda": "en pie",
+            "Pericarditis aguda": "menos probable"
+          }
+        },
+        {
+          "pedido": "¿Alguien en su familia ha tenido problemas del corazón?",
+          "agente_esperado": "paciente",
+          "agente": "paciente",
+          "dato_esperado": "EME-103.antecedente.antecedentes_familiares",
+          "evidencia": [
+            "EME-103.antecedente.antecedentes_familiares"
+          ],
+          "medico_tratante": "¿Algún familiar ha tenido problemas cardíacos?",
+          "respuesta": "No, no recuerdo que haya tenido problemas cardíacos en mi familia.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [],
+          "estado_de_hipotesis": {
+            "Disección aórtica aguda tipo A": "en pie",
+            "Infarto agudo de miocardio con elevación del ST": "en pie",
+            "Tromboembolia pulmonar aguda": "en pie",
+            "Pericarditis aguda": "menos probable"
+          }
+        },
+        {
+          "pedido": "Voy a realizar la exploración física completa",
+          "agente_esperado": "medico_asistente",
+          "agente": "medico_asistente",
+          "dato_esperado": "EME-103.examen.exploracion_fisica",
+          "evidencia": [
+            "EME-103.examen.exploracion_fisica"
+          ],
+          "medico_tratante": null,
+          "respuesta": "Paciente sudoroso y muy angustiado por el dolor. Presión arterial 174/98 mmHg en el brazo derecho y 132/80 mmHg en el izquierdo; pulso radial izquierdo más débil que el derecho. Soplo diastólico suave en el borde esternal izquierdo. Pulmones sin crepitantes. Piernas sin edema y pantorrillas no dolorosas.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [
+            "Tromboembolia pulmonar aguda: menos probable"
+          ],
+          "estado_de_hipotesis": {
+            "Disección aórtica aguda tipo A": "en pie",
+            "Infarto agudo de miocardio con elevación del ST": "en pie",
+            "Tromboembolia pulmonar aguda": "menos probable",
+            "Pericarditis aguda": "menos probable"
+          }
+        },
+        {
+          "pedido": "Pido un electrocardiograma de 12 derivaciones",
+          "agente_esperado": "laboratorio",
+          "agente": "laboratorio",
+          "dato_esperado": "EME-103.estudio.electrocardiograma",
+          "evidencia": [
+            "EME-103.estudio.electrocardiograma"
+          ],
+          "medico_tratante": null,
+          "respuesta": "Ritmo sinusal a 104/min con signos de crecimiento del ventrículo izquierdo. Sin elevación ni descenso del segmento ST.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [
+            "Infarto agudo de miocardio con elevación del ST: menos probable",
+            "Pericarditis aguda: descartada"
+          ],
+          "estado_de_hipotesis": {
+            "Disección aórtica aguda tipo A": "en pie",
+            "Infarto agudo de miocardio con elevación del ST": "menos probable",
+            "Tromboembolia pulmonar aguda": "menos probable",
+            "Pericarditis aguda": "descartada"
+          }
+        },
+        {
+          "pedido": "Solicito troponina",
+          "agente_esperado": "laboratorio",
+          "agente": "laboratorio",
+          "dato_esperado": "EME-103.lab.troponina",
+          "evidencia": [
+            "EME-103.lab.troponina"
+          ],
+          "medico_tratante": null,
+          "respuesta": "Troponina I ultrasensible: 18 ng/L (valor de referencia < 26 ng/L); dentro del rango normal.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [
+            "Infarto agudo de miocardio con elevación del ST: descartada"
+          ],
+          "estado_de_hipotesis": {
+            "Disección aórtica aguda tipo A": "en pie",
+            "Infarto agudo de miocardio con elevación del ST": "descartada",
+            "Tromboembolia pulmonar aguda": "menos probable",
+            "Pericarditis aguda": "descartada"
+          }
+        },
+        {
+          "pedido": "Solicito dímero D",
+          "agente_esperado": "laboratorio",
+          "agente": "laboratorio",
+          "dato_esperado": "EME-103.lab.dimero_d",
+          "evidencia": [
+            "EME-103.lab.dimero_d"
+          ],
+          "medico_tratante": null,
+          "respuesta": "Dímero D: 2400 ng/mL (valor de referencia < 500 ng/mL); por encima del rango normal.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [],
+          "estado_de_hipotesis": {
+            "Disección aórtica aguda tipo A": "en pie",
+            "Infarto agudo de miocardio con elevación del ST": "descartada",
+            "Tromboembolia pulmonar aguda": "menos probable",
+            "Pericarditis aguda": "descartada"
+          }
+        },
+        {
+          "pedido": "Pido una radiografía de tórax",
+          "agente_esperado": "radiologia",
+          "agente": "radiologia",
+          "dato_esperado": "EME-103.imagen.radiografia_torax",
+          "evidencia": [
+            "EME-103.imagen.radiografia_torax"
+          ],
+          "medico_tratante": null,
+          "respuesta": "Mediastino ensanchado, de 8,5 cm a la altura del botón aórtico, con contorno aórtico irregular. Campos pulmonares sin infiltrados.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [],
+          "estado_de_hipotesis": {
+            "Disección aórtica aguda tipo A": "en pie",
+            "Infarto agudo de miocardio con elevación del ST": "descartada",
+            "Tromboembolia pulmonar aguda": "menos probable",
+            "Pericarditis aguda": "descartada"
+          }
+        },
+        {
+          "pedido": "Solicito una angiotomografía de tórax",
+          "agente_esperado": "radiologia",
+          "agente": "radiologia",
+          "dato_esperado": "EME-103.imagen.angiotomografia_torax",
+          "evidencia": [
+            "EME-103.imagen.angiotomografia_torax"
+          ],
+          "medico_tratante": null,
+          "respuesta": "Colgajo intimal que se origina en la aorta ascendente, 2 cm por encima de la válvula aórtica, y se extiende por el arco hasta la aorta descendente, con una luz verdadera y una luz falsa. Arterias pulmonares sin defectos de llenado.",
+          "ok": true,
+          "fuga": [],
+          "inventa": [],
+          "omite": [],
+          "bloqueada": false,
+          "cambios_de_hipotesis": [
+            "Tromboembolia pulmonar aguda: descartada"
+          ],
+          "estado_de_hipotesis": {
+            "Disección aórtica aguda tipo A": "en pie",
+            "Infarto agudo de miocardio con elevación del ST": "descartada",
+            "Tromboembolia pulmonar aguda": "descartada",
+            "Pericarditis aguda": "descartada"
+          }
+        }
+      ],
+      "queda_solo_el_diagnostico": true
+    }
+  },
+  "resumen": {
+    "turnos": 42,
+    "agente_y_dato_ok": 42,
+    "fugas": 0,
+    "inventadas": 0,
+    "omisiones": 0,
+    "bloqueadas": 0,
+    "respuestas_distintas": 13,
+    "casos_resueltos": 3
+  }
+}
