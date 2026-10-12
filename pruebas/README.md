@@ -17,6 +17,7 @@ Todas las capturas están en **vista de escritorio/PC (1440 px de ancho)**; ning
 | 10. Mejoras de los casos | [10_mejoras_casos/](10_mejoras_casos/README.md) | Nombres de los pacientes, más datos en GOB-003 y PED-010 y datos que descartan cada diferencial | OK |
 | 11. Sesiones en Supabase | [11_sesiones_supabase/](11_sesiones_supabase/README.md) | Las consultas se guardan en Supabase: en Vercel cualquier instancia del servidor encuentra la sesión (antes, HTTP 404) | OK |
 | 12. Familias sintéticas | [12_familias_sinteticas/](12_familias_sinteticas/README.md) | Tres casos con la misma presentación y distinto diagnóstico; con el modelo real, cada pedido revela el dato correcto y las hipótesis se descartan hasta dejar solo el diagnóstico | OK (intento 3) |
+| 13. Guiones por paciente | [13_guiones_por_paciente/](13_guiones_por_paciente/README.md) | Los 13 casos recorridos con su guion (qué preguntar y qué no) con el modelo real: 114 de 114 pedidos correctos | OK (intento 2) |
 
 ## Convención de cada fase
 
