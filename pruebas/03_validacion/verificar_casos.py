@@ -73,16 +73,22 @@ for folder in FOLDERS:
 
 print("\n2. Lote curado (data/cases/curated/)")
 curated = {path.stem: load(path) for path in sorted(CURATED_CASES_DIR.glob("*.json"))}
-check(len(curated) == 10, f"hay {len(curated)} casos curados (se esperan 10)")
+# Desde la fase 12 conviven los 10 casos de MedQA (001-010) con las familias sintéticas (101 en adelante).
+medqa = {case_id: case for case_id, case in curated.items() if case["source"]["dataset"] == "MedQA"}
+sinteticos = {case_id: case for case_id, case in curated.items() if case["source"]["dataset"] == "sintetico"}
+check(len(medqa) + len(sinteticos) == len(curated), f"{len(curated)} casos curados: {len(medqa)} de MedQA y {len(sinteticos)} sintéticos")
+check(len(medqa) == 10, f"hay {len(medqa)} casos de MedQA (se esperan 10)")
 check(all(case["status"] == "curado" for case in curated.values()), "todos tienen status = curado")
 check(all(case["case_id"] == stem for stem, case in curated.items()), "el nombre de archivo coincide con case_id")
-suffixes = sorted(int(re.fullmatch(r"[A-Z]{3}-(\d{3})", case_id).group(1)) for case_id in curated)
-check(suffixes == list(range(1, 11)), f"sufijos de ID 001–010 sin huecos ni repetidos: {suffixes}")
-ordered = sorted(curated, key=lambda case_id: case_id[-3:])
+suffixes = sorted(int(re.fullmatch(r"[A-Z]{3}-(\d{3})", case_id).group(1)) for case_id in medqa)
+check(suffixes == list(range(1, 11)), f"sufijos de ID de MedQA 001–010 sin huecos ni repetidos: {suffixes}")
+ordered = sorted(medqa, key=lambda case_id: case_id[-3:])
 print(f"      orden por posición: {', '.join(ordered)}")
-specialties = Counter(case["specialty"] for case in curated.values())
-check(set(specialties.values()) == {2}, f"2 casos por especialidad: {dict(specialties)}")
-check(all(case["source"]["dataset"] == "MedQA" for case in curated.values()), "fuente MedQA en todos")
+specialties = Counter(case["specialty"] for case in medqa.values())
+check(set(specialties.values()) == {2}, f"MedQA: 2 casos por especialidad: {dict(specialties)}")
+check(all(int(case_id[-3:]) >= 101 for case_id in sinteticos), f"sintéticos numerados desde 101: {sorted(sinteticos)}")
+families = Counter(case["source"]["item_id"].split("/", 1)[0] for case in sinteticos.values())
+print(f"      familias sintéticas: {dict(families)}")
 check(
     all(case["provenance"].get("curated_by") for case in curated.values()),
     "procedencia de curación registrada (provenance.curated_by)",
@@ -122,7 +128,7 @@ for folder in FOLDERS:
         for case_id, errors in broken.items():
             print(f"      {case_id}: {errors}")
         continue
-    check(not broken and not batch, f"{folder}/: {len(cases)} casos cumplen R01–R13")
+    check(not broken and not batch, f"{folder}/: {len(cases)} casos cumplen R01–R18")
     for case_id, errors in broken.items():
         print(f"      {case_id}: {errors}")
     for error in batch:
@@ -146,7 +152,7 @@ else:
             for name in sorted(archive.namelist())
             if name.startswith(QUESTIONS_PREFIX) and name.endswith(".jsonl")
         ]
-    for case_id, case in sorted(curated.items()):
+    for case_id, case in sorted(medqa.items()):
         topic = case["protected"]["evaluation"]["key_questions"][0]["topic"]
         source_text = topic.split(SOURCE_MARKER, 1)[1].split(" Opciones fuente:", 1)[0][:120]
         found = sorted({bank for bank, text in banks if source_text in text})
