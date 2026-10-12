@@ -87,3 +87,43 @@ def test_five_agents_in_one_star_session_with_traceable_evidence():
     finish = client.post(f"/api/ai/sessions/{sid}/finish")
     assert finish.status_code == 200
     assert finish.json()["phase"] == "finalizada"
+
+
+def test_session_survives_across_instances_with_supabase_store(monkeypatch):
+    """En Vercel cada petición puede llegar a otra instancia: con SESSION_STORE=supabase la sesión sigue."""
+    from server.orchestration import SupabaseSessionStore
+    from tests.fakes_supabase import FakeSupabase
+
+    fake = FakeSupabase()
+
+    def new_instance():
+        monkeypatch.setattr(ai_module, "STORE", SupabaseSessionStore("https://proyecto.supabase.co", "sb_secret_prueba", client=fake.client()))
+        get_service.cache_clear()
+
+    new_instance()
+    start = client.post("/api/ai/sessions", json={"case_id": "MED-900"})
+    assert start.status_code == 200, start.text
+    sid = start.json()["session_id"]
+
+    new_instance()
+    reply = _send(sid, "Pregúntele cuándo empezó el dolor")
+    assert reply["evidence_ids"] == ["MED-900.anamnesis.inicio_dolor"]
+
+    new_instance()
+    assert client.post(f"/api/ai/sessions/{sid}/finish").status_code == 200
+    types = [event["type"] for event in client.get(f"/api/ai/sessions/{sid}/events").json()]
+    assert types == ["session_started", "turn", "session_finished"]
+    assert fake.sessions[sid]["phase"] == "finalizada"
+
+
+def test_store_failure_returns_503(monkeypatch):
+    from server.orchestration import SupabaseSessionStore
+    from tests.fakes_supabase import FakeSupabase
+
+    fake = FakeSupabase()
+    fake.fail_with = 500
+    monkeypatch.setattr(ai_module, "STORE", SupabaseSessionStore("https://proyecto.supabase.co", "sb_secret_prueba", client=fake.client()))
+    get_service.cache_clear()
+    response = client.post("/api/ai/sessions", json={"case_id": "MED-900"})
+    assert response.status_code == 503
+    assert "supabase" not in response.text.lower()
