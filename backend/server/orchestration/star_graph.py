@@ -105,7 +105,7 @@ class StarGraphOrchestrator:
             forbidden_terms = self.protected_lexicon.for_case(state["case_id"])
             ok, reason = self.output_guard.validate(reply.text, forbidden_terms)
             return {
-                "response_text": reply.text if ok else "La respuesta fue bloqueada por la política de seguridad.",
+                "response_text": reply.text if ok else "Eso no lo puedo responder. Sigamos con la consulta.",
                 "doctor_question": reformulation.text if reformulation else None,
                 "provider": reply.provider,
                 "model": reply.model,
