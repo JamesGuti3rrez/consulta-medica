@@ -127,3 +127,22 @@ def test_store_failure_returns_503(monkeypatch):
     response = client.post("/api/ai/sessions", json={"case_id": "MED-900"})
     assert response.status_code == 503
     assert "supabase" not in response.text.lower()
+
+
+def test_llm_unavailable_returns_503_with_clear_message(monkeypatch):
+    from server.ai.llm.providers import ProviderError
+
+    class Rejected:
+        name = "groq-1"
+        model = "m"
+
+        def generate(self, messages, *, temperature=0.0):
+            raise ProviderError("groq-1: HTTP 401: Invalid API Key", invalid_credential=True)
+
+    monkeypatch.setattr(ai_module, "build_gateway", lambda: LLMGateway([Rejected()]))
+    get_service.cache_clear()
+    sid = client.post("/api/ai/sessions", json={"case_id": "MED-900"}).json()["session_id"]
+    response = client.post(f"/api/ai/sessions/{sid}/message", json={"message": "¿Desde cuándo comenzó el dolor?"})
+    assert response.status_code == 503
+    assert "no puede responder" in response.json()["detail"]
+    assert "Invalid API Key" not in response.text

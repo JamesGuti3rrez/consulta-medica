@@ -7,9 +7,11 @@ from server.ai.llm.base import LLMResult
 
 
 class ProviderError(RuntimeError):
-    def __init__(self, message: str, *, retryable: bool = False):
+    def __init__(self, message: str, *, retryable: bool = False, invalid_credential: bool = False):
         super().__init__(message)
         self.retryable = retryable
+        # La clave fue rechazada (401/403): no sirve reintentar con ella, pero sí con otra del pool.
+        self.invalid_credential = invalid_credential
 
 
 class GroqProvider:
@@ -34,7 +36,11 @@ class GroqProvider:
         if response.status_code >= 400:
             retryable = response.status_code in {408, 409, 429} or response.status_code >= 500
             detail = response.text[:400]
-            raise ProviderError(f"{self.name}: HTTP {response.status_code}: {detail}", retryable=retryable)
+            raise ProviderError(
+                f"{self.name}: HTTP {response.status_code}: {detail}",
+                retryable=retryable,
+                invalid_credential=response.status_code in {401, 403},
+            )
 
         data = response.json()
         usage = data.get("usage") or {}

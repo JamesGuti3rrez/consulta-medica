@@ -7,6 +7,14 @@ from server.ai.llm.base import LLMProvider, LLMResult
 from server.ai.llm.providers import ProviderError
 
 
+class LLMUnavailable(RuntimeError):
+    """Ningún proveedor del pool pudo responder (claves rechazadas, saturación o caída del servicio)."""
+
+
+# Una clave rechazada se aparta más tiempo que una saturada: no se arregla sola en un minuto.
+INVALID_CREDENTIAL_COOLDOWN_SECONDS = 3600.0
+
+
 class LLMGateway:
     """Pool con balanceo simple, cooldown y fallback entre credenciales/proveedores autorizados."""
 
@@ -34,11 +42,14 @@ class LLMGateway:
                 return result
             except ProviderError as exc:
                 errors.append(str(exc))
+                if exc.invalid_credential:
+                    self._cooldown_until[provider.name] = time.monotonic() + INVALID_CREDENTIAL_COOLDOWN_SECONDS
+                    continue
                 if exc.retryable:
                     self._cooldown_until[provider.name] = time.monotonic() + self.cooldown_seconds
                     continue
                 raise
-        raise RuntimeError("No hay proveedor LLM disponible. " + " | ".join(errors))
+        raise LLMUnavailable("No hay proveedor LLM disponible. " + " | ".join(errors))
 
     def _ordered_available(self) -> list[LLMProvider]:
         now = time.monotonic()

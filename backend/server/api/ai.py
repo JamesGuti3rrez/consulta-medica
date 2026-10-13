@@ -11,6 +11,7 @@ from server.ai.agents.base import PROMPTS_DIR
 from server.ai.agents.reformulador import QuestionReformulator
 from server.ai.agents.registry import build_agents
 from server.ai.llm.factory import build_gateway
+from server.ai.llm.gateway import LLMUnavailable
 from server.cases import CanonicalCaseRepository, CaseNotAvailable, CaseNotFound
 from server.cases.catalog import CURATED_CASES_DIR
 from server.config import settings
@@ -51,6 +52,9 @@ CASES_DIR = CURATED_CASES_DIR
 def _store_unavailable(exc: SessionStoreError) -> HTTPException:
     print(f"[sesiones] {exc}")
     return HTTPException(status_code=503, detail="No se pudo acceder a las sesiones. Inténtalo de nuevo.")
+
+
+LLM_UNAVAILABLE_DETAIL = "El simulador no puede responder en este momento. Inténtalo de nuevo en unos minutos."
 
 
 class StartRequest(BaseModel):
@@ -150,6 +154,10 @@ def message(session_id: str, payload: MessageRequest):
         raise HTTPException(status_code=404, detail="Sesión no encontrada.") from exc
     except SessionStoreError as exc:
         raise _store_unavailable(exc) from exc
+    except LLMUnavailable as exc:
+        # Claves rechazadas o servicio caído: se registra el motivo y el estudiante recibe un aviso claro.
+        print(f"[llm] {exc}")
+        raise HTTPException(status_code=503, detail=LLM_UNAVAILABLE_DETAIL) from exc
     except ValueError as exc:
         raise HTTPException(status_code=409, detail=str(exc)) from exc
 
