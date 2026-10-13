@@ -405,11 +405,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: question }),
       });
-      if (!response.ok) throw new Error(`API respondió con HTTP ${response.status}`);
+      if (!response.ok) {
+        // 503: el servidor explica qué pasa (por ejemplo, el modelo de lenguaje no está disponible).
+        const body = await response.json().catch(() => ({}));
+        const error = new Error(`API respondió con HTTP ${response.status}`);
+        error.detail = response.status === 503 ? body.detail : null;
+        throw error;
+      }
       reply = await response.json();
     } catch (error) {
       console.error('No se pudo obtener la respuesta:', error);
-      reply = { agent: 'medico_asistente', response: 'No pude procesar tu pregunta. Inténtalo de nuevo.' };
+      reply = { agent: 'medico_asistente', response: error.detail || 'No pude procesar tu pregunta. Inténtalo de nuevo.' };
     }
     if (current !== session) return;
     // El médico tratante le hace al paciente la pregunta reformulada; luego el paciente responde.
