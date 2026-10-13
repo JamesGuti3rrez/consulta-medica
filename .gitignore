@@ -29,3 +29,23 @@ frontend/public/assets/apple-touch-icon.png
 
 # Archivos locales de la CLI de Supabase (proyecto enlazado, versión)
 supabase/.temp/
+
+# Documentos del curso y entregables: se entregan aparte, no van al repositorio
+DOCUMENTOS DEL PROYECTO/
+Entregables/
+*.docx
+*.doc
+*.pdf
+*.xlsx
+*.xls
+*.pptx
+*.ppt
+# Archivos de bloqueo de Office (se crean al abrir un documento)
+~$*
+
+# Archivos del sistema operativo y cachés de herramientas
+Thumbs.db
+desktop.ini
+.DS_Store
+.pytest_cache/
+*.tmp
