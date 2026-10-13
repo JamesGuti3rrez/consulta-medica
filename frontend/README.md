@@ -36,4 +36,4 @@ expediente; el navegador muestra la ficha usando `textContent`. No se envían al
 secciones `on_request` ni `protected`. Esta etapa carga datos para demostración, pero no implementa
 todavía turnos de conversación, evaluación clínica ni guardado de intentos.
 
-Evidencia visual del hito: `docs/evidence/simulador-caso-curado.png`.
+Evidencia visual del hito: `pruebas/04_frontend/` (las fotos se guardan en el equipo, no en GitHub).

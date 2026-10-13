@@ -36,7 +36,6 @@ El script abre `/simulacion.html` en Chromium con una ventana de **1440 × 1100 
 - `capturas/08_respuesta_api_caso.png`: respuesta JSON de `GET /api/caso` tal como llega al navegador.
 - [ejecucion/01_capturar_frontend_terminal.png](ejecucion/01_capturar_frontend_terminal.png): foto de la terminal donde se ejecutó la prueba.
 - [ejecucion/01_capturar_frontend.png](ejecucion/01_capturar_frontend.png): salida de la prueba generada desde el texto.
-- [../../docs/evidence/simulador-caso-curado.png](../../docs/evidence/simulador-caso-curado.png): captura previa del caso PED-010.
 
 ## Intentos
 
