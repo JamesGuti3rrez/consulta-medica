@@ -81,6 +81,6 @@ ejecutar `npm run build:css` cuando cambien las clases Tailwind.
 - La ficha de demostración no constituye una simulación clínica interactiva ni ofrece consejo médico.
 - `GET /api/config` entrega al navegador únicamente la URL y la clave pública de Supabase.
 - La configuración local se carga desde `.env` en la raíz. El acceso a Supabase es opcional.
-- Para preparar las tablas de acceso, ejecuta `backend/supabase/migrations/0001_perfiles_e_intentos.sql`
+- Para preparar las tablas de acceso, ejecuta `backend/supabase/migrations/0001_perfiles_e_intentos.sql`; para guardar las consultas del simulador, `0002_sesiones_sma.sql`
   en el SQL Editor de tu proyecto Supabase.
 - La documentación interactiva de la API está disponible en `http://localhost:3000/api/docs`.

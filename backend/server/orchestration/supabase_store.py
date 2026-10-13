@@ -1,7 +1,7 @@
 """Sesiones del SMA guardadas en Supabase (tablas sma_sesiones y sma_eventos, por su API REST).
 
 En Vercel cada petición puede atenderla una instancia distinta del servidor, así que la sesión no puede
-vivir en memoria. Las tablas se crean con supabase/migrations/20261011_sesiones_sma.sql y solo se
+vivir en memoria. Las tablas se crean con backend/supabase/migrations/0002_sesiones_sma.sql y solo se
 acceden con la clave secreta del servidor: tienen RLS activado y ninguna política para el navegador.
 """
 

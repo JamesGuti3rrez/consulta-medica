@@ -22,7 +22,7 @@ deja un registro permanente de cada consulta para la evaluación futura.
 | Pieza | Archivo | Commit |
 | --- | --- | --- |
 | Almacén en Supabase (misma interfaz que el de memoria) | `backend/server/orchestration/supabase_store.py` | `76c6ab3` |
-| Tablas `sma_sesiones` y `sma_eventos`, con RLS y sin acceso para el navegador | `supabase/migrations/20261011_sesiones_sma.sql` | `76c6ab3` |
+| Tablas `sma_sesiones` y `sma_eventos`, con RLS y sin acceso para el navegador | `supabase/migrations/20261011_sesiones_sma.sql` (desde el 2026-10-12, `backend/supabase/migrations/0002_sesiones_sma.sql`) | `76c6ab3` |
 | Elección con `SESSION_STORE` (`memoria` por defecto, `supabase` en Vercel); error 503 si Supabase falla | `backend/server/config.py`, `backend/server/api/ai.py`, `.env.example` | `2df6ce7` |
 | 9 pruebas con una imitación de la API de Supabase (sin red) | `backend/tests/unit/test_supabase_store.py`, `backend/tests/integration/test_api_sma.py` | `1bb3d19` |
 | Carpeta temporal de la CLI de Supabase fuera del repositorio | `.gitignore` | `34fd32c` |
