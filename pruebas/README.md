@@ -3,6 +3,10 @@
 Recorrido comprobado: **fuente MedQA → descarga verificada → candidatos → 10 casos JSON → validación → frontend**.
 Todas las capturas están en **vista de escritorio/PC (1440 px de ancho)**; ninguna usa vista móvil.
 
+> **Fotos:** desde el 12 de octubre de 2026 las fotos (`.png`, `.jpg`) de esta carpeta no se suben a GitHub; se
+> guardan en el equipo del responsable y se entregan aparte. Los enlaces a imágenes de estos README solo funcionan
+> en esa copia local. El código, las salidas en texto y los resultados en JSON sí están en el repositorio.
+
 | Fase | Carpeta | Qué demuestra | Resultado |
 | --- | --- | --- | --- |
 | 1. Descarga | [01_descarga_datasets/](01_descarga_datasets/README.md) | Fuente y archivos originales identificados, URL de obtención y huella SHA-256 verificada | OK |

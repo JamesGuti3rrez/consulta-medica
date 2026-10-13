@@ -49,3 +49,8 @@ desktop.ini
 .DS_Store
 .pytest_cache/
 *.tmp
+
+# Fotos de evidencia de pruebas/: se guardan en el equipo, no en GitHub
+pruebas/**/*.png
+pruebas/**/*.jpg
+pruebas/**/*.jpeg
