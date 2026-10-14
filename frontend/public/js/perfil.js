@@ -109,7 +109,11 @@
     const titles = element('div');
     const title = element('h2', 'history-title', 'Mis simulaciones');
     title.id = 'history-title';
-    titles.append(title, element('p', 'history-subtitle', 'Tus consultas guardadas, de la más reciente a la más antigua.'));
+    const subtitle = element('p', 'history-subtitle', 'Tus consultas guardadas, de la más reciente a la más antigua. ');
+    const privacy = element('a', 'history-privacy', 'Aviso de privacidad');
+    privacy.href = 'privacidad.html';
+    subtitle.append(privacy);
+    titles.append(title, subtitle);
     const close = element('button', 'history-close');
     close.type = 'button';
     close.setAttribute('aria-label', 'Cerrar');

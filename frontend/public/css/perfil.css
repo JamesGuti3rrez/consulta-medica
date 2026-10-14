@@ -159,6 +159,11 @@
   color: rgb(var(--c-slate-600));
 }
 
+.history-privacy {
+  font-weight: 600;
+  color: rgb(var(--c-brand-700));
+}
+
 .history-close {
   display: flex;
   width: 40px;
