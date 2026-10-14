@@ -1194,6 +1194,20 @@
             "coagulacion"
           ],
           "interpretation": "A"
+        },
+        {
+          "key": "factores_coagulacion",
+          "category": "laboratorio",
+          "label": "Dosaje de factores de coagulación",
+          "text": "Actividad del factor VIII disminuida; actividad del factor IX normal.",
+          "owner": "laboratorio",
+          "requires": [
+            "factores_coagulacion"
+          ],
+          "complemento": {
+            "fuente": "cdc_hemophilia",
+            "motivo": "El TTPa prolongado no distingue hemofilia A de B; solo el dosaje de factores lo hace."
+          }
         }
       ],
       "key_questions": [
@@ -1223,6 +1237,15 @@
           "weight": 3,
           "critical": false,
           "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "topic": "Dosaje de factores: factor VIII disminuido y factor IX normal",
+          "evidence": [
+            "factores_coagulacion"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
         }
       ],
       "notes": [],
@@ -1237,6 +1260,9 @@
         "Coagulopatía perioperatoria adquirida": [
           "coagulacion_posoperatoria",
           "antecedentes_familiares"
+        ],
+        "Hemofilia B": [
+          "factores_coagulacion"
         ]
       }
     },
