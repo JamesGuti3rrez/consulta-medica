@@ -30,6 +30,7 @@ Todas las capturas están en **vista de escritorio/PC (1440 px de ancho)**; ning
 | 19. Aviso de privacidad | [19_aviso_privacidad/](19_aviso_privacidad/README.md) | Aviso según la Ley 29733 enlazado desde la portada y «Mis simulaciones»; crear cuenta exige aceptarlo y guarda versión y fecha | OK (intento 2) |
 | 20. Sinónimos del diagnóstico | [20_sinonimos_diagnostico/](20_sinonimos_diagnostico/README.md) | Cada caso acepta al menos tres formas de nombrar su diagnóstico (52 en total, antes 21), base para calificar el diagnóstico escrito | OK |
 | 21. Cierre del sprint 1 | [21_cierre_sprint1/](21_cierre_sprint1/README.md) | Qué pedía el sprint, qué se entregó y dónde está la prueba de cada componente; recorrido completo con un comando | ver README |
+| 22. Pedidos genéricos | [22_pedidos_genericos/](22_pedidos_genericos/README.md) | Ante un pedido sin nombre de examen («análisis de sangre»), el laboratorio y radiología preguntan cuál en lugar de afirmar que no se realizó | OK (intento 2) |
 
 ## Convención de cada fase
 
