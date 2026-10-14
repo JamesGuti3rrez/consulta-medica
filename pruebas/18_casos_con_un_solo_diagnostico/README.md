@@ -37,8 +37,8 @@ Cada caso suma también una pregunta clave con el examen decisivo, así que el p
 Las fuentes nuevas (MedlinePlus y CDC) se verificaron en línea antes de citarlas. Las páginas de NCBI
 piden captcha y no se pudieron verificar, así que solo se usa la que ya estaba registrada.
 
-**Revisión clínica pendiente:** los complementos los propuso el equipo con su fuente, pero deben pasar por la
-revisión de un médico o del docente antes de usarse con estudiantes.
+**Sin revisión médica:** por decisión del equipo, los complementos no los revisa un médico. Su respaldo es la
+fuente clínica de cada uno (decisión 0002).
 
 ## Cambios en el código
 

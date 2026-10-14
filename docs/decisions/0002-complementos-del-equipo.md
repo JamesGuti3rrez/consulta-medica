@@ -1,6 +1,6 @@
 # 0002 · Complementos del equipo en los casos de MedQA
 
-- **Estado:** propuesta
+- **Estado:** aceptada
 - **Fecha:** 2026-10-14
 - **Responsable:** James Gutiérrez (datos)
 
@@ -61,7 +61,14 @@ Se adopta la alternativa 3, con estas condiciones:
 
 - Los 6 casos afectados reciben exámenes o datos nuevos a petición, y sus preguntas clave incluyen el
   examen decisivo; el puntaje máximo exige pedirlo.
-- Los complementos deben pasar por revisión clínica (docente o médico) antes de usarse con estudiantes:
-  el equipo propone valores habituales con su fuente, pero no reemplaza esa revisión.
+- No hay revisión médica de los complementos (decisión del equipo). Su respaldo es la fuente clínica de
+  cada uno: las 5 fuentes nuevas (MedlinePlus y CDC) se verificaron en línea al citarlas; las demás ya
+  estaban registradas desde la curación del lote. Son hallazgos cualitativos habituales para el diagnóstico de la
+  fuente, no valores de un paciente real.
 - La decisión 0001 §6 sigue vigente para la traducción: el enunciado se traduce sin completar; los
   complementos van como datos aparte.
+
+## Historial de cambios
+
+- 2026-10-14: pasa a «aceptada». El equipo decide que no habrá revisión médica de los complementos; el
+  respaldo es la fuente clínica de cada uno.
