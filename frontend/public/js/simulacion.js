@@ -313,9 +313,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   // La conversación con los agentes (/api/ai) se abre si el servidor la ofrece.
   const openConversation = async caseId => {
     try {
+      // La consulta queda a nombre del alumno con sesión iniciada: solo él podrá guardarla al terminar.
+      const headers = { 'Content-Type': 'application/json' };
+      const token = await accessToken();
+      if (token) headers.Authorization = `Bearer ${token}`;
       const response = await fetch('/api/ai/sessions', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify({ case_id: caseId }),
       });
       return response.ok ? (await response.json()).session_id : null;
@@ -719,7 +723,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   const SAVED_MESSAGES = {
     guardado: 'Consulta guardada en «Mis simulaciones».',
     sin_sesion: 'Esta consulta no se guardó: inicia sesión para guardar tus próximas consultas en «Mis simulaciones».',
+    iniciada_sin_sesion: 'Esta consulta empezó sin sesión iniciada, así que no se guardó. Las próximas se guardarán.',
     sesion_invalida: 'Tu sesión venció: vuelve a iniciar sesión para guardar tus próximas consultas.',
+    otro_usuario: 'Esta consulta la empezó otra cuenta, así que no se guardó en la tuya.',
     no_configurado: 'El guardado de consultas no está disponible en este servidor.',
     error: 'No se pudo guardar esta consulta. La evaluación sigue siendo válida.',
   };
