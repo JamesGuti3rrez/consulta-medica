@@ -286,6 +286,10 @@
     "nice_sah": {
       "title": "NICE NG228: Subarachnoid haemorrhage caused by a ruptured aneurysm",
       "url": "https://www.nice.org.uk/guidance/ng228/chapter/Recommendations"
+    },
+    "medlineplus_atelectasis": {
+      "title": "MedlinePlus Medical Encyclopedia: Atelectasis",
+      "url": "https://medlineplus.gov/ency/article/000065.htm"
     }
   },
   "clinical_review": {
@@ -666,8 +670,8 @@
     "CIR-006": {
       "clinical_differentials": [
         {
-          "name": "Neumonía posoperatoria",
-          "must_not_miss": true
+          "name": "Síndrome de respuesta inflamatoria sistémica no infeccioso",
+          "must_not_miss": false
         },
         {
           "name": "Embolia pulmonar posoperatoria",
@@ -1312,6 +1316,34 @@
           "requires": [
             "exploracion_fisica"
           ]
+        },
+        {
+          "key": "radiografia_torax",
+          "category": "imagen",
+          "label": "Radiografía de tórax",
+          "text": "Consolidación en la base pulmonar derecha con broncograma aéreo, compatible con neumonía; sin colapso lobar ni desplazamiento de cisuras.",
+          "owner": "radiologia",
+          "requires": [
+            "radiografia_torax"
+          ],
+          "complemento": {
+            "fuente": "medlineplus_atelectasis",
+            "motivo": "Muestra el foco infeccioso (neumonía) y distingue la consolidación de una atelectasia."
+          }
+        },
+        {
+          "key": "hemograma",
+          "category": "laboratorio",
+          "label": "Hemograma",
+          "text": "Leucocitosis con neutrofilia.",
+          "owner": "laboratorio",
+          "requires": [
+            "hemograma"
+          ],
+          "complemento": {
+            "fuente": "cdc_sepsis",
+            "motivo": "Apoya un origen infeccioso frente a una respuesta inflamatoria no infecciosa."
+          }
         }
       ],
       "key_questions": [
@@ -1341,6 +1373,15 @@
           "weight": 3,
           "critical": false,
           "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "topic": "Radiografía de tórax: consolidación en la base derecha (foco de la sepsis)",
+          "evidence": [
+            "radiografia_torax"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
         }
       ],
       "notes": [
@@ -1355,6 +1396,13 @@
         "Delirio posoperatorio por causa metabólica o farmacológica": [
           "signos_vitales",
           "exploracion_fisica"
+        ],
+        "Síndrome de respuesta inflamatoria sistémica no infeccioso": [
+          "radiografia_torax",
+          "hemograma"
+        ],
+        "Atelectasia u otra causa de hipoxemia": [
+          "radiografia_torax"
         ]
       }
     },

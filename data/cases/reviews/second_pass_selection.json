@@ -61,6 +61,10 @@
     "nice_sah": {
       "title": "NICE NG228: Subarachnoid haemorrhage caused by a ruptured aneurysm",
       "url": "https://www.nice.org.uk/guidance/ng228/chapter/Recommendations"
+    },
+    "medlineplus_atelectasis": {
+      "title": "MedlinePlus Medical Encyclopedia: Atelectasis",
+      "url": "https://medlineplus.gov/ency/article/000065.htm"
     }
   },
   "cases": [
