@@ -75,3 +75,16 @@ def test_mood_questions_reach_associated_symptoms():
     from server.engine.disclosure.policy import DisclosurePolicy, _normalize
 
     assert DisclosurePolicy._requirement_matches("sintomas_asociados", _normalize("¿Cómo está de ánimo? ¿Se ha sentido triste?"))
+
+
+def test_tells_a_named_exam_from_a_generic_request():
+    # Un pedido genérico no nombra ningún examen: el laboratorio debe preguntar cuál, no decir que no existe.
+    from server.engine.disclosure.policy import DisclosurePolicy
+
+    names = DisclosurePolicy.names_specific_exam
+    for specific in ("Pido un hemograma", "Solicito pruebas de coagulación", "Pido una tomografía de cráneo",
+                     "Solicito función tiroidea", "Pido una radiografía de tórax", "Pido el dosaje del factor VIII"):
+        assert names(specific), specific
+    for generic in ("¿Qué resultados tienen los análisis de sangre de antes de la operación?",
+                    "Pido unos exámenes de laboratorio", "Quiero un estudio de imagen", "Mándele unos análisis"):
+        assert not names(generic), generic

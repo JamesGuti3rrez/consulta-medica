@@ -85,6 +85,17 @@ class DisclosureDecision:
     matched_requirements: list[str]
 
 
+# Temas de los exámenes que piden el laboratorio y radiología (ver ALIASES). Sirven para distinguir un
+# examen concreto («Pido un hemograma») de un pedido genérico («unos análisis de sangre»).
+EXAM_TOPICS = (
+    "coagulacion", "ph_vaginal", "funcion_tiroidea", "imagen_osea", "radiografia", "factores_coagulacion",
+    "prolactina", "electroencefalograma", "electrocardiograma", "troponina", "dimero_d", "radiografia_torax",
+    "angiotomografia_torax", "hemograma", "tomografia",
+)
+# Alias que no nombran un examen concreto: no bastan para decir que «ese examen no se realizó».
+GENERIC_EXAM_TERMS = frozenset({"analisis de sangre"})
+
+
 class DisclosurePolicy:
     """Aplica reveal_policy sin LLM y calcula allowed_evidence_ids por turno."""
 
@@ -115,6 +126,17 @@ class DisclosurePolicy:
             allowed_evidence_ids=allowed,
             matched_requirements=list(dict.fromkeys(matched)),
         )
+
+    @staticmethod
+    def names_specific_exam(student_message: str) -> bool:
+        """True si el mensaje nombra un examen concreto; False si el pedido es genérico."""
+        message = _normalize(student_message)
+        terms = {
+            _normalize(term)
+            for topic in EXAM_TOPICS
+            for term in (topic.replace("_", " "), *ALIASES.get(topic, ()))
+        } - {_normalize(term) for term in GENERIC_EXAM_TERMS}
+        return any(f" {term} " in f" {message} " for term in terms if term)
 
     @staticmethod
     def initial_evidence_ids(case: dict[str, Any]) -> list[str]:
