@@ -24,7 +24,7 @@ def test_accepts_curated_case_and_reports_warnings():
 
 
 def test_rejects_case_that_breaks_the_schema():
-    case = _load("curated", "MED-008")
+    case = _load("curated", "MED-007")
     del case["protected"]["diagnosis"]
     result = evaluate_case(case)
     assert not result.accepted
@@ -38,7 +38,7 @@ def test_rejects_case_that_breaks_cross_rules():
 
 
 def test_batch_rejects_repeated_source_question():
-    case = _load("curated", "MED-008")
+    case = _load("curated", "MED-007")
     assert evaluate_batch([case, dict(case, case_id="MED-011")]) == [
-        "R09 MED-011 reutiliza la pregunta fuente de MED-008"
+        "R09 MED-011 reutiliza la pregunta fuente de MED-007"
     ]

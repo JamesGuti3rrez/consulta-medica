@@ -97,5 +97,5 @@ def test_another_case_of_the_same_specialty_skips_the_ones_already_seen():
 def test_when_every_case_was_seen_it_only_avoids_the_current_one():
     # Pediatría tiene dos casos: vistos los dos, se repite el otro, nunca el que acaba de terminar.
     for _ in range(10):
-        body = client.get("/api/caso", params={"especialidad": "pediatria", "excluir": "PED-007,PED-010"}).json()
+        body = client.get("/api/caso", params={"especialidad": "pediatria", "excluir": "PED-009,PED-010"}).json()
         assert body["case_id"] == "PED-010"

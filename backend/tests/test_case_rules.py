@@ -22,7 +22,7 @@ def _codes(case: dict) -> set[str]:
 
 @pytest.fixture
 def case() -> dict:
-    return _load("curated", "MED-008")
+    return _load("curated", "MED-007")
 
 
 def test_all_curated_cases_pass_rules():
@@ -51,12 +51,12 @@ def test_r02_evidence_ids_unique_and_own(case):
 
 
 def test_r03_key_questions_cite_existing_evidence(case):
-    case["protected"]["evaluation"]["key_questions"][0]["evidence_ids"] = ["MED-008.historia.no_existe"]
+    case["protected"]["evaluation"]["key_questions"][0]["evidence_ids"] = ["MED-007.historia.no_existe"]
     assert "R03" in _codes(case)
 
 
 def test_r03_differentials_cite_existing_evidence(case):
-    case["protected"]["differentials"][0]["discard_evidence_ids"] = ["MED-008.historia.no_existe"]
+    case["protected"]["differentials"][0]["discard_evidence_ids"] = ["MED-007.historia.no_existe"]
     assert "R03" in _codes(case)
 
 
@@ -116,7 +116,7 @@ def test_r09_r10_batch_rules(case):
 
 def test_catalog_refuses_case_that_breaks_rules(tmp_path, case):
     case["specialty"] = "emergencias"
-    (tmp_path / "MED-008.json").write_text(json.dumps(case, ensure_ascii=False), encoding="utf-8")
+    (tmp_path / "MED-007.json").write_text(json.dumps(case, ensure_ascii=False), encoding="utf-8")
     with pytest.raises(ValueError, match="R01"):
         load_curated_cases(tmp_path)
 
@@ -139,7 +139,7 @@ def test_r13_rejects_figures_not_in_source(case):
 
 def test_r13_accepts_source_figures_written_in_words_or_without_leading_zero():
     gyn = _load("curated", "GOB-003")  # la fuente dice «Thirty minutes»; el caso, «30 minutos»
-    eyelid = _load("curated", "MED-009")  # la fuente dice «.5cm»; el caso, «0,5 cm»
+    eyelid = _load("curated", "MED-008")  # la fuente dice «.5cm»; el caso, «0,5 cm»
     assert "R13" not in _codes(gyn)
     assert "R13" not in _codes(eyelid)
 
@@ -174,13 +174,13 @@ def test_curated_cases_reveal_history_on_request():
 
 def test_items_with_value_and_unit_instead_of_text(case):
     case["public"]["items"].append({
-        "evidence_id": "MED-008.vital.frecuencia_cardiaca",
+        "evidence_id": "MED-007.vital.frecuencia_cardiaca",
         "category": "signo_vital",
         "label": "Frecuencia cardiaca",
         "value": 74,
         "unit": "/min",
     })
-    assert check_case_warnings(case) == check_case_warnings(_load("curated", "MED-008"))
+    assert check_case_warnings(case) == check_case_warnings(_load("curated", "MED-007"))
     assert to_student_case(case)["items"][-1] == {"label": "Frecuencia cardiaca", "text": "74 /min"}
 
 

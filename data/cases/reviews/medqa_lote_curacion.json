@@ -2,67 +2,29 @@
   "description": "Datos de entrada de la curación del lote MedQA: selección de las 10 preguntas, traducción completa al español, fuentes clínicas, revisión y ajustes de cada caso, reparto de cada dato entre public y on_request (distribution: zona, dueño, requires y preguntas clave), y casos de la primera selección que se rechazan. Los lee backend/case_preparation/transform/medqa_final_review.py.",
   "selected_cases": [
     {
-      "case_id": "MED-008",
-      "candidate_id": "medqa-bd8bb86bdc2e57fe",
-      "specialty": "medicina_interna",
-      "clinical_diagnosis": "Enfermedad de Lyme con eritema migrans",
+      "case_id": "EME-001",
+      "candidate_id": "medqa-a83444b6eabc9a5b",
+      "specialty": "emergencias",
+      "clinical_diagnosis": "Golpe de calor por esfuerzo",
       "clinical_differentials": [
-        "Celulitis bacteriana",
-        "Eritema multiforme",
-        "Rickettsiosis"
+        "Hipertermia maligna",
+        "Síndrome neuroléptico maligno",
+        "Estado epiléptico",
+        "Tormenta tiroidea"
       ],
-      "allergies": [
-        "Tetraciclinas (antecedente de anafilaxia)"
-      ],
-      "treatment_reference": {
-        "summary": "La respuesta correcta registrada por MedQA es amoxicilina (opción B); el ítem no especifica dosis ni duración y no constituye por sí solo una prescripción.",
-        "key_actions": [
-          "Conservar la respuesta textual de la fuente: amoxicilina.",
-          "Verificar pauta, alergias y guías clínicas vigentes antes de cualquier uso."
-        ]
-      },
-      "rationale": "Medicina interna: cuadro de eritema migrans y síntomas sistémicos; alergia a tetraciclinas y respuesta fuente recuperada como opción B (amoxicilina)."
+      "rationale": "Emergencias: hipertermia grave y alteración aguda de conciencia en el lugar de trabajo."
     },
     {
-      "case_id": "MED-009",
-      "candidate_id": "medqa-7fe0528c54197057",
-      "specialty": "medicina_interna",
-      "clinical_diagnosis": "Carcinoma basocelular",
+      "case_id": "EME-002",
+      "candidate_id": "medqa-83b0322c93dff066",
+      "specialty": "emergencias",
+      "clinical_diagnosis": "Hemorragia subaracnoidea",
       "clinical_differentials": [
-        "Carcinoma escamocelular",
-        "Queratoacantoma",
-        "Carcinoma verrugoso",
-        "Queratosis actínica"
+        "Meningoencefalitis aguda",
+        "Hemorragia intracerebral",
+        "Crisis epiléptica"
       ],
-      "rationale": "Medicina interna: adulto con lesión cutánea descrita clínicamente; este registro no depende de una imagen ausente."
-    },
-    {
-      "case_id": "PED-007",
-      "candidate_id": "medqa-dadd721b55c88d20",
-      "specialty": "pediatria",
-      "clinical_diagnosis": "Enfermedad de Legg-Calvé-Perthes",
-      "clinical_differentials": [
-        "Artritis séptica",
-        "Raquitismo",
-        "Osteopetrosis",
-        "Enfermedad de Osgood-Schlatter",
-        "Epifisiólisis de la cabeza femoral",
-        "Artritis idiopática juvenil"
-      ],
-      "rationale": "Pediatría: paciente de 7 años y hallazgos osteoarticulares pediátricos explícitos."
-    },
-    {
-      "case_id": "PED-010",
-      "candidate_id": "medqa-5fc375051c4a68f2",
-      "specialty": "pediatria",
-      "clinical_diagnosis": "Síndrome de McCune-Albright",
-      "clinical_differentials": [
-        "Neurofibromatosis tipo 1",
-        "Síndrome de Peutz-Jeghers",
-        "Displasia fibrosa ósea no sindrómica",
-        "Otras causas de pubertad precoz periférica"
-      ],
-      "rationale": "Pediatría: fractura, manchas café con leche, displasia fibrosa y desarrollo mamario precoz apoyan síndrome de McCune-Albright."
+      "rationale": "Emergencias: cefalea súbita intensa, vómitos, alteración de conciencia y rigidez de nuca; la respuesta fuente es hemorragia subaracnoidea."
     },
     {
       "case_id": "GOB-003",
@@ -115,29 +77,67 @@
       "rationale": "Cirugía general: deterioro infeccioso probable en el posoperatorio, con fiebre, taquipnea, hipoxemia y confusión."
     },
     {
-      "case_id": "EME-001",
-      "candidate_id": "medqa-a83444b6eabc9a5b",
-      "specialty": "emergencias",
-      "clinical_diagnosis": "Golpe de calor por esfuerzo",
+      "case_id": "MED-007",
+      "candidate_id": "medqa-bd8bb86bdc2e57fe",
+      "specialty": "medicina_interna",
+      "clinical_diagnosis": "Enfermedad de Lyme con eritema migrans",
       "clinical_differentials": [
-        "Hipertermia maligna",
-        "Síndrome neuroléptico maligno",
-        "Estado epiléptico",
-        "Tormenta tiroidea"
+        "Celulitis bacteriana",
+        "Eritema multiforme",
+        "Rickettsiosis"
       ],
-      "rationale": "Emergencias: hipertermia grave y alteración aguda de conciencia en el lugar de trabajo."
+      "allergies": [
+        "Tetraciclinas (antecedente de anafilaxia)"
+      ],
+      "treatment_reference": {
+        "summary": "La respuesta correcta registrada por MedQA es amoxicilina (opción B); el ítem no especifica dosis ni duración y no constituye por sí solo una prescripción.",
+        "key_actions": [
+          "Conservar la respuesta textual de la fuente: amoxicilina.",
+          "Verificar pauta, alergias y guías clínicas vigentes antes de cualquier uso."
+        ]
+      },
+      "rationale": "Medicina interna: cuadro de eritema migrans y síntomas sistémicos; alergia a tetraciclinas y respuesta fuente recuperada como opción B (amoxicilina)."
     },
     {
-      "case_id": "EME-002",
-      "candidate_id": "medqa-83b0322c93dff066",
-      "specialty": "emergencias",
-      "clinical_diagnosis": "Hemorragia subaracnoidea",
+      "case_id": "MED-008",
+      "candidate_id": "medqa-7fe0528c54197057",
+      "specialty": "medicina_interna",
+      "clinical_diagnosis": "Carcinoma basocelular",
       "clinical_differentials": [
-        "Meningoencefalitis aguda",
-        "Hemorragia intracerebral",
-        "Crisis epiléptica"
+        "Carcinoma escamocelular",
+        "Queratoacantoma",
+        "Carcinoma verrugoso",
+        "Queratosis actínica"
       ],
-      "rationale": "Emergencias: cefalea súbita intensa, vómitos, alteración de conciencia y rigidez de nuca; la respuesta fuente es hemorragia subaracnoidea."
+      "rationale": "Medicina interna: adulto con lesión cutánea descrita clínicamente; este registro no depende de una imagen ausente."
+    },
+    {
+      "case_id": "PED-009",
+      "candidate_id": "medqa-dadd721b55c88d20",
+      "specialty": "pediatria",
+      "clinical_diagnosis": "Enfermedad de Legg-Calvé-Perthes",
+      "clinical_differentials": [
+        "Artritis séptica",
+        "Raquitismo",
+        "Osteopetrosis",
+        "Enfermedad de Osgood-Schlatter",
+        "Epifisiólisis de la cabeza femoral",
+        "Artritis idiopática juvenil"
+      ],
+      "rationale": "Pediatría: paciente de 7 años y hallazgos osteoarticulares pediátricos explícitos."
+    },
+    {
+      "case_id": "PED-010",
+      "candidate_id": "medqa-5fc375051c4a68f2",
+      "specialty": "pediatria",
+      "clinical_diagnosis": "Síndrome de McCune-Albright",
+      "clinical_differentials": [
+        "Neurofibromatosis tipo 1",
+        "Síndrome de Peutz-Jeghers",
+        "Displasia fibrosa ósea no sindrómica",
+        "Otras causas de pubertad precoz periférica"
+      ],
+      "rationale": "Pediatría: fractura, manchas café con leche, displasia fibrosa y desarrollo mamario precoz apoyan síndrome de McCune-Albright."
     }
   ],
   "spanish_source_text": {
@@ -309,58 +309,30 @@
     }
   },
   "clinical_review": {
-    "MED-008": {
-      "disposition": "coherente_con_precauciones",
+    "EME-001": {
+      "disposition": "coherente_urgencia_critica",
       "confidence": "moderada_alta",
-      "assessment": "La placa anular expansiva mayor de 5 cm tras exposición posible a garrapata es compatible con eritema migrans; la ausencia de garrapata observada no lo excluye. Amoxicilina es una opción recomendada por CDC para enfermedad de Lyme temprana localizada. La fiebre de 40,1 °C es marcadamente alta y exige valoración urgente de gravedad y diagnósticos alternativos; no asumir que todo el cuadro queda explicado por Lyme.",
+      "assessment": "Temperatura central de 41,1 °C y alteración neurológica después de trabajo físico al aire libre son altamente compatibles con golpe de calor por esfuerzo. La diaforesis no lo descarta. Haloperidol hace importante considerar síndrome neuroléptico maligno; anestesia meses antes no apoya hipertermia maligna perioperatoria actual.",
       "actions": [
-        "Mantener el diagnóstico fuente como probable, no como confirmación etiológica absoluta.",
-        "Conservar la anafilaxia a tetraciclinas; verificar alergias a beta-lactámicos antes de cualquier uso de amoxicilina.",
-        "En eritema migrans típico el diagnóstico es clínico y la serología inicial puede ser negativa; reconsiderar pruebas si la presentación es atípica.",
-        "No añadir dosis al caso como prescripción individual; la referencia CDC describe pautas generales."
+        "Tratarlo como emergencia vital: iniciar enfriamiento activo inmediato y traslado/atención de emergencia; no retrasar el enfriamiento por estudios.",
+        "Evaluar daño renal, muscular, hepático, electrolítico y de coagulación; explorar síndrome neuroléptico maligno por la medicación.",
+        "No usar antipiréticos como sustituto del enfriamiento en hipertermia por golpe de calor."
       ],
       "source_ids": [
-        "cdc_lyme"
+        "heatstroke_position"
       ]
     },
-    "MED-009": {
-      "disposition": "compatible_requiere_confirmacion",
-      "confidence": "moderada",
-      "assessment": "La pápula perlada rosada con borde sobreelevado y telangiectasias es muy sugestiva de carcinoma basocelular. La ficha no incluye histopatología; por tanto, no es diagnóstico confirmado. El párpado es una localización funcionalmente crítica y requiere valoración dermatológica y oftalmológica/oculoplástica, con confirmación histológica y planificación terapéutica.",
-      "actions": [
-        "Mantener carcinoma basocelular como diagnóstico presuntivo, pendiente de biopsia.",
-        "Añadir carcinoma sebáceo palpebral y chalazión persistente como alternativas clínicas pertinentes, sin presentarlas como más probables.",
-        "No recomendar observación rutinaria ni destruir/tratar la lesión sin diagnóstico histológico y valoración especializada."
-      ],
-      "source_ids": [
-        "aad_bcc"
-      ]
-    },
-    "PED-007": {
-      "disposition": "coherente_con_precauciones",
+    "EME-002": {
+      "disposition": "compatible_urgencia_critica_requiere_confirmacion",
       "confidence": "moderada_alta",
-      "assessment": "La edad, cojera, dolor de cadera referido a rodilla y aplanamiento radiográfico de la cabeza femoral son compatibles con enfermedad de Legg-Calve-Perthes. La ficha ya contiene radiografía; la caracterización y el manejo dependen de extensión, edad y evolución.",
+      "assessment": "Cefalea explosiva, vómitos, deterioro de conciencia y rigidez de nuca son altamente preocupantes por hemorragia subaracnoidea, pero la fuente no aporta neuroimagen ni LCR: la respuesta de MedQA no equivale a confirmación.",
       "actions": [
-        "Mantener Legg-Calve-Perthes como diagnóstico más probable y añadir valoración por ortopedia pediátrica.",
-        "Conservar artritis séptica como diagnóstico que no se debe pasar por alto: estar afebril no la excluye si aparecen dolor intenso, incapacidad para apoyar o mal estado general.",
-        "No inventar estadificación radiológica ni tratamiento sin descripción de proyecciones/etapa."
+        "Tratar como emergencia neurológica: evaluación hospitalaria inmediata y TC craneal sin contraste urgente.",
+        "Si la TC no confirma hemorragia y persiste la sospecha, completar investigación (por ejemplo, punción lumbar o angio-TC) según tiempo de inicio, hallazgos y protocolo/localidad; consultar neurología/neurocirugía.",
+        "Mantener meningitis/meningoencefalitis y otras causas de cefalea en trueno en el diagnóstico diferencial."
       ],
       "source_ids": [
-        "aaos_perthes"
-      ]
-    },
-    "PED-010": {
-      "disposition": "coherente_con_precauciones",
-      "confidence": "moderada_alta",
-      "assessment": "La combinación de displasia fibrosa, manchas café con leche y desarrollo mamario precoz es altamente compatible con síndrome de McCune-Albright. El enunciado fuente contiene una descripción contradictoria de la función tiroidea; no permite definir un fenotipo tiroideo concreto ni justificar un tratamiento.",
-      "actions": [
-        "Mantener síndrome de McCune-Albright como diagnóstico probable según los hallazgos descritos.",
-        "Solicitar evaluación por endocrinología pediátrica y revisar el informe radiológico de la displasia fibrosa.",
-        "Aclarar la alteración tiroidea con historia, examen y pruebas de función tiroidea; no asumir hipo ni hipertiroidismo.",
-        "Documentar pubertad precoz y planificar seguimiento endocrino y esquelético; el caso no aporta resultados suficientes para indicar tratamiento individual."
-      ],
-      "source_ids": [
-        "medlineplus_mccune_albright"
+        "nice_sah"
       ]
     },
     "GOB-003": {
@@ -416,186 +388,139 @@
         "cdc_sepsis"
       ]
     },
-    "EME-001": {
-      "disposition": "coherente_urgencia_critica",
+    "MED-007": {
+      "disposition": "coherente_con_precauciones",
       "confidence": "moderada_alta",
-      "assessment": "Temperatura central de 41,1 °C y alteración neurológica después de trabajo físico al aire libre son altamente compatibles con golpe de calor por esfuerzo. La diaforesis no lo descarta. Haloperidol hace importante considerar síndrome neuroléptico maligno; anestesia meses antes no apoya hipertermia maligna perioperatoria actual.",
+      "assessment": "La placa anular expansiva mayor de 5 cm tras exposición posible a garrapata es compatible con eritema migrans; la ausencia de garrapata observada no lo excluye. Amoxicilina es una opción recomendada por CDC para enfermedad de Lyme temprana localizada. La fiebre de 40,1 °C es marcadamente alta y exige valoración urgente de gravedad y diagnósticos alternativos; no asumir que todo el cuadro queda explicado por Lyme.",
       "actions": [
-        "Tratarlo como emergencia vital: iniciar enfriamiento activo inmediato y traslado/atención de emergencia; no retrasar el enfriamiento por estudios.",
-        "Evaluar daño renal, muscular, hepático, electrolítico y de coagulación; explorar síndrome neuroléptico maligno por la medicación.",
-        "No usar antipiréticos como sustituto del enfriamiento en hipertermia por golpe de calor."
+        "Mantener el diagnóstico fuente como probable, no como confirmación etiológica absoluta.",
+        "Conservar la anafilaxia a tetraciclinas; verificar alergias a beta-lactámicos antes de cualquier uso de amoxicilina.",
+        "En eritema migrans típico el diagnóstico es clínico y la serología inicial puede ser negativa; reconsiderar pruebas si la presentación es atípica.",
+        "No añadir dosis al caso como prescripción individual; la referencia CDC describe pautas generales."
       ],
       "source_ids": [
-        "heatstroke_position"
+        "cdc_lyme"
       ]
     },
-    "EME-002": {
-      "disposition": "compatible_urgencia_critica_requiere_confirmacion",
-      "confidence": "moderada_alta",
-      "assessment": "Cefalea explosiva, vómitos, deterioro de conciencia y rigidez de nuca son altamente preocupantes por hemorragia subaracnoidea, pero la fuente no aporta neuroimagen ni LCR: la respuesta de MedQA no equivale a confirmación.",
+    "MED-008": {
+      "disposition": "compatible_requiere_confirmacion",
+      "confidence": "moderada",
+      "assessment": "La pápula perlada rosada con borde sobreelevado y telangiectasias es muy sugestiva de carcinoma basocelular. La ficha no incluye histopatología; por tanto, no es diagnóstico confirmado. El párpado es una localización funcionalmente crítica y requiere valoración dermatológica y oftalmológica/oculoplástica, con confirmación histológica y planificación terapéutica.",
       "actions": [
-        "Tratar como emergencia neurológica: evaluación hospitalaria inmediata y TC craneal sin contraste urgente.",
-        "Si la TC no confirma hemorragia y persiste la sospecha, completar investigación (por ejemplo, punción lumbar o angio-TC) según tiempo de inicio, hallazgos y protocolo/localidad; consultar neurología/neurocirugía.",
-        "Mantener meningitis/meningoencefalitis y otras causas de cefalea en trueno en el diagnóstico diferencial."
+        "Mantener carcinoma basocelular como diagnóstico presuntivo, pendiente de biopsia.",
+        "Añadir carcinoma sebáceo palpebral y chalazión persistente como alternativas clínicas pertinentes, sin presentarlas como más probables.",
+        "No recomendar observación rutinaria ni destruir/tratar la lesión sin diagnóstico histológico y valoración especializada."
       ],
       "source_ids": [
-        "nice_sah"
+        "aad_bcc"
+      ]
+    },
+    "PED-009": {
+      "disposition": "coherente_con_precauciones",
+      "confidence": "moderada_alta",
+      "assessment": "La edad, cojera, dolor de cadera referido a rodilla y aplanamiento radiográfico de la cabeza femoral son compatibles con enfermedad de Legg-Calve-Perthes. La ficha ya contiene radiografía; la caracterización y el manejo dependen de extensión, edad y evolución.",
+      "actions": [
+        "Mantener Legg-Calve-Perthes como diagnóstico más probable y añadir valoración por ortopedia pediátrica.",
+        "Conservar artritis séptica como diagnóstico que no se debe pasar por alto: estar afebril no la excluye si aparecen dolor intenso, incapacidad para apoyar o mal estado general.",
+        "No inventar estadificación radiológica ni tratamiento sin descripción de proyecciones/etapa."
+      ],
+      "source_ids": [
+        "aaos_perthes"
+      ]
+    },
+    "PED-010": {
+      "disposition": "coherente_con_precauciones",
+      "confidence": "moderada_alta",
+      "assessment": "La combinación de displasia fibrosa, manchas café con leche y desarrollo mamario precoz es altamente compatible con síndrome de McCune-Albright. El enunciado fuente contiene una descripción contradictoria de la función tiroidea; no permite definir un fenotipo tiroideo concreto ni justificar un tratamiento.",
+      "actions": [
+        "Mantener síndrome de McCune-Albright como diagnóstico probable según los hallazgos descritos.",
+        "Solicitar evaluación por endocrinología pediátrica y revisar el informe radiológico de la displasia fibrosa.",
+        "Aclarar la alteración tiroidea con historia, examen y pruebas de función tiroidea; no asumir hipo ni hipertiroidismo.",
+        "Documentar pubertad precoz y planificar seguimiento endocrino y esquelético; el caso no aporta resultados suficientes para indicar tratamiento individual."
+      ],
+      "source_ids": [
+        "medlineplus_mccune_albright"
       ]
     }
   },
   "clinical_overrides": {
-    "MED-008": {
+    "EME-001": {
       "clinical_differentials": [
         {
-          "name": "Celulitis bacteriana",
-          "must_not_miss": false
-        },
-        {
-          "name": "Reacción local a picadura",
-          "must_not_miss": false
-        },
-        {
-          "name": "Otras infecciones transmitidas por garrapatas",
+          "name": "Síndrome neuroléptico maligno",
           "must_not_miss": true
+        },
+        {
+          "name": "Tormenta tiroidea",
+          "must_not_miss": true
+        },
+        {
+          "name": "Estado epiléptico",
+          "must_not_miss": true
+        },
+        {
+          "name": "Hipertermia maligna perioperatoria",
+          "must_not_miss": false
         }
       ],
       "recommended_tests": [
-        "valoracion_clinica_urgente_por_fiebre_alta"
+        "enfriamiento_activo_inmediato",
+        "creatina_quinasa_funcion_renal_electrolitos",
+        "funcion_hepatica_y_coagulacion"
       ],
       "optional_tests": [
-        "ninguna_serologia_si_eritema_migrans_tipico",
-        "serologia_si_presentacion_atipica"
+        "ecg_glucosa_y_evaluacion_de_sindrome_neuroleptico_maligno"
       ],
       "treatment_reference": {
-        "summary": "CDC incluye amoxicilina como opción general para eritema migrans; la fuente MedQA marca amoxicilina (B). No es una prescripción individual: valorar fiebre muy alta, alergias a beta-lactámicos, embarazo, diseminación y diagnósticos alternativos.",
+        "summary": "Golpe de calor por esfuerzo con alteración neurológica es una emergencia vital. El enfriamiento activo debe comenzar de inmediato; la fuente no autoriza una pauta farmacológica individual.",
         "key_actions": [
-          "No retrasar valoración urgente de fiebre de 40,1 °C.",
-          "Confirmar antecedentes alérgicos antes de cualquier antibiótico.",
-          "Usar guías locales actualizadas para pauta y duración."
+          "Iniciar enfriamiento activo rápido y activar atención de emergencia.",
+          "No usar antipiréticos como sustituto del enfriamiento.",
+          "Vigilar rabdomiólisis, lesión renal/hepática, alteraciones electrolíticas y coagulopatía."
         ]
       },
       "diagnosis_synonyms": [
-        "Enfermedad de Lyme",
-        "Borreliosis de Lyme",
-        "Lyme con eritema migrans"
+        "Golpe de calor",
+        "Golpe de calor por ejercicio",
+        "Hipertermia por esfuerzo"
       ]
     },
-    "MED-009": {
+    "EME-002": {
       "clinical_differentials": [
         {
-          "name": "Carcinoma escamocelular",
+          "name": "Meningitis o meningoencefalitis",
           "must_not_miss": true
         },
         {
-          "name": "Carcinoma sebáceo palpebral",
+          "name": "Hemorragia intracerebral",
           "must_not_miss": true
         },
         {
-          "name": "Queratoacantoma",
-          "must_not_miss": false
+          "name": "Trombosis venosa cerebral",
+          "must_not_miss": true
         },
         {
-          "name": "Chalazión persistente",
+          "name": "Crisis epiléptica",
           "must_not_miss": false
         }
       ],
       "recommended_tests": [
-        "biopsia_o_confirmacion_histopatologica"
+        "tc_craneal_sin_contraste_urgente"
       ],
       "optional_tests": [
-        "valoracion_dermatologia_y_oftalmologia_oculoplastica"
+        "puncion_lumbar_o_angio_tc_si_persiste_sospecha_tras_tc"
       ],
       "treatment_reference": {
-        "summary": "No hay confirmación histológica ni tratamiento individual en la fuente. Por la localización palpebral, requiere diagnóstico tisular y planificación por especialistas antes de tratar.",
+        "summary": "Sospecha de hemorragia subaracnoidea: evaluación hospitalaria inmediata y neuroimagen urgente. Si TC inicial no confirma y persiste sospecha, completar estudio según tiempo de inicio y protocolo especializado; la fuente no contiene imagen confirmatoria.",
         "key_actions": [
-          "No retrasar la valoración especializada de una lesión palpebral que crece.",
-          "Evitar tratamiento destructivo sin confirmación diagnóstica."
+          "No demorar TC craneal y valoración neurológica/neuroquirúrgica urgente.",
+          "No declarar hemorragia confirmada solo por la clave de respuesta MedQA."
         ]
       },
       "diagnosis_synonyms": [
-        "Carcinoma de células basales",
-        "Basalioma",
-        "Epitelioma basocelular"
-      ]
-    },
-    "PED-007": {
-      "clinical_differentials": [
-        {
-          "name": "Artritis séptica",
-          "must_not_miss": true
-        },
-        {
-          "name": "Epifisiólisis de la cabeza femoral",
-          "must_not_miss": true
-        },
-        {
-          "name": "Osteomielitis",
-          "must_not_miss": true
-        },
-        {
-          "name": "Artritis idiopática juvenil",
-          "must_not_miss": false
-        }
-      ],
-      "recommended_tests": [
-        "valoracion_ortopedia_pediatrica",
-        "revisar_radiografias_de_cadera"
-      ],
-      "optional_tests": [
-        "resonancia_si_diagnostico_temprano_incierto"
-      ],
-      "treatment_reference": {
-        "summary": "La radiografía y la edad apoyan Legg-Calve-Perthes. El manejo depende de extensión y evolución, por lo que debe decidirlo ortopedia pediátrica; la ficha no prescribe tratamiento.",
-        "key_actions": [
-          "Valorar por ortopedia pediátrica.",
-          "Reevaluar con urgencia si aparece fiebre, dolor intenso o incapacidad para apoyar."
-        ]
-      },
-      "diagnosis_synonyms": [
-        "Enfermedad de Perthes",
-        "Legg-Calvé-Perthes",
-        "Osteonecrosis idiopática de la cabeza femoral"
-      ]
-    },
-    "PED-010": {
-      "clinical_differentials": [
-        {
-          "name": "Neurofibromatosis tipo 1",
-          "must_not_miss": false
-        },
-        {
-          "name": "Síndrome de Peutz-Jeghers",
-          "must_not_miss": false
-        },
-        {
-          "name": "Displasia fibrosa ósea no sindrómica",
-          "must_not_miss": false
-        },
-        {
-          "name": "Otras causas de pubertad precoz periférica",
-          "must_not_miss": true
-        }
-      ],
-      "recommended_tests": [
-        "valoracion_endocrinologia_pediatrica",
-        "funcion_tiroidea_para_aclarar_enunciado_fuente",
-        "revisar_imagenes_y_extension_de_displasia_fibrosa"
-      ],
-      "optional_tests": [
-        "evaluacion_endocrina_de_pubertad_precoz",
-        "seguimiento_esqueletico_segun_especialista"
-      ],
-      "treatment_reference": {
-        "summary": "Los hallazgos descritos apoyan síndrome de McCune-Albright, pero el texto fuente es ambiguo sobre la función tiroidea y no aporta resultados hormonales completos. No se establece tratamiento individual; requiere evaluación endocrina y esquelética pediátrica.",
-        "key_actions": [
-          "Aclarar y confirmar la función tiroidea; no asumir que la paciente tiene simultáneamente hipotiroidismo e hipertiroidismo.",
-          "Coordinar seguimiento por endocrinología pediátrica y ortopedia según extensión ósea y manifestaciones."
-        ]
-      },
-      "diagnosis_synonyms": [
-        "McCune-Albright",
-        "Síndrome de McCune-Albright-Sternberg",
-        "Displasia fibrosa poliostótica con pubertad precoz"
+        "HSA",
+        "Hemorragia subaracnoidea aneurismática",
+        "Sangrado subaracnoideo"
       ]
     },
     "GOB-003": {
@@ -759,83 +684,158 @@
         "Sepsis por neumonía posoperatoria"
       ]
     },
-    "EME-001": {
+    "MED-007": {
       "clinical_differentials": [
         {
-          "name": "Síndrome neuroléptico maligno",
-          "must_not_miss": true
-        },
-        {
-          "name": "Tormenta tiroidea",
-          "must_not_miss": true
-        },
-        {
-          "name": "Estado epiléptico",
-          "must_not_miss": true
-        },
-        {
-          "name": "Hipertermia maligna perioperatoria",
+          "name": "Celulitis bacteriana",
           "must_not_miss": false
+        },
+        {
+          "name": "Reacción local a picadura",
+          "must_not_miss": false
+        },
+        {
+          "name": "Otras infecciones transmitidas por garrapatas",
+          "must_not_miss": true
         }
       ],
       "recommended_tests": [
-        "enfriamiento_activo_inmediato",
-        "creatina_quinasa_funcion_renal_electrolitos",
-        "funcion_hepatica_y_coagulacion"
+        "valoracion_clinica_urgente_por_fiebre_alta"
       ],
       "optional_tests": [
-        "ecg_glucosa_y_evaluacion_de_sindrome_neuroleptico_maligno"
+        "ninguna_serologia_si_eritema_migrans_tipico",
+        "serologia_si_presentacion_atipica"
       ],
       "treatment_reference": {
-        "summary": "Golpe de calor por esfuerzo con alteración neurológica es una emergencia vital. El enfriamiento activo debe comenzar de inmediato; la fuente no autoriza una pauta farmacológica individual.",
+        "summary": "CDC incluye amoxicilina como opción general para eritema migrans; la fuente MedQA marca amoxicilina (B). No es una prescripción individual: valorar fiebre muy alta, alergias a beta-lactámicos, embarazo, diseminación y diagnósticos alternativos.",
         "key_actions": [
-          "Iniciar enfriamiento activo rápido y activar atención de emergencia.",
-          "No usar antipiréticos como sustituto del enfriamiento.",
-          "Vigilar rabdomiólisis, lesión renal/hepática, alteraciones electrolíticas y coagulopatía."
+          "No retrasar valoración urgente de fiebre de 40,1 °C.",
+          "Confirmar antecedentes alérgicos antes de cualquier antibiótico.",
+          "Usar guías locales actualizadas para pauta y duración."
         ]
       },
       "diagnosis_synonyms": [
-        "Golpe de calor",
-        "Golpe de calor por ejercicio",
-        "Hipertermia por esfuerzo"
+        "Enfermedad de Lyme",
+        "Borreliosis de Lyme",
+        "Lyme con eritema migrans"
       ]
     },
-    "EME-002": {
+    "MED-008": {
       "clinical_differentials": [
         {
-          "name": "Meningitis o meningoencefalitis",
+          "name": "Carcinoma escamocelular",
           "must_not_miss": true
         },
         {
-          "name": "Hemorragia intracerebral",
+          "name": "Carcinoma sebáceo palpebral",
           "must_not_miss": true
         },
         {
-          "name": "Trombosis venosa cerebral",
-          "must_not_miss": true
+          "name": "Queratoacantoma",
+          "must_not_miss": false
         },
         {
-          "name": "Crisis epiléptica",
+          "name": "Chalazión persistente",
           "must_not_miss": false
         }
       ],
       "recommended_tests": [
-        "tc_craneal_sin_contraste_urgente"
+        "biopsia_o_confirmacion_histopatologica"
       ],
       "optional_tests": [
-        "puncion_lumbar_o_angio_tc_si_persiste_sospecha_tras_tc"
+        "valoracion_dermatologia_y_oftalmologia_oculoplastica"
       ],
       "treatment_reference": {
-        "summary": "Sospecha de hemorragia subaracnoidea: evaluación hospitalaria inmediata y neuroimagen urgente. Si TC inicial no confirma y persiste sospecha, completar estudio según tiempo de inicio y protocolo especializado; la fuente no contiene imagen confirmatoria.",
+        "summary": "No hay confirmación histológica ni tratamiento individual en la fuente. Por la localización palpebral, requiere diagnóstico tisular y planificación por especialistas antes de tratar.",
         "key_actions": [
-          "No demorar TC craneal y valoración neurológica/neuroquirúrgica urgente.",
-          "No declarar hemorragia confirmada solo por la clave de respuesta MedQA."
+          "No retrasar la valoración especializada de una lesión palpebral que crece.",
+          "Evitar tratamiento destructivo sin confirmación diagnóstica."
         ]
       },
       "diagnosis_synonyms": [
-        "HSA",
-        "Hemorragia subaracnoidea aneurismática",
-        "Sangrado subaracnoideo"
+        "Carcinoma de células basales",
+        "Basalioma",
+        "Epitelioma basocelular"
+      ]
+    },
+    "PED-009": {
+      "clinical_differentials": [
+        {
+          "name": "Artritis séptica",
+          "must_not_miss": true
+        },
+        {
+          "name": "Epifisiólisis de la cabeza femoral",
+          "must_not_miss": true
+        },
+        {
+          "name": "Osteomielitis",
+          "must_not_miss": true
+        },
+        {
+          "name": "Artritis idiopática juvenil",
+          "must_not_miss": false
+        }
+      ],
+      "recommended_tests": [
+        "valoracion_ortopedia_pediatrica",
+        "revisar_radiografias_de_cadera"
+      ],
+      "optional_tests": [
+        "resonancia_si_diagnostico_temprano_incierto"
+      ],
+      "treatment_reference": {
+        "summary": "La radiografía y la edad apoyan Legg-Calve-Perthes. El manejo depende de extensión y evolución, por lo que debe decidirlo ortopedia pediátrica; la ficha no prescribe tratamiento.",
+        "key_actions": [
+          "Valorar por ortopedia pediátrica.",
+          "Reevaluar con urgencia si aparece fiebre, dolor intenso o incapacidad para apoyar."
+        ]
+      },
+      "diagnosis_synonyms": [
+        "Enfermedad de Perthes",
+        "Legg-Calvé-Perthes",
+        "Osteonecrosis idiopática de la cabeza femoral"
+      ]
+    },
+    "PED-010": {
+      "clinical_differentials": [
+        {
+          "name": "Neurofibromatosis tipo 1",
+          "must_not_miss": false
+        },
+        {
+          "name": "Síndrome de Peutz-Jeghers",
+          "must_not_miss": false
+        },
+        {
+          "name": "Displasia fibrosa ósea no sindrómica",
+          "must_not_miss": false
+        },
+        {
+          "name": "Otras causas de pubertad precoz periférica",
+          "must_not_miss": true
+        }
+      ],
+      "recommended_tests": [
+        "valoracion_endocrinologia_pediatrica",
+        "funcion_tiroidea_para_aclarar_enunciado_fuente",
+        "revisar_imagenes_y_extension_de_displasia_fibrosa"
+      ],
+      "optional_tests": [
+        "evaluacion_endocrina_de_pubertad_precoz",
+        "seguimiento_esqueletico_segun_especialista"
+      ],
+      "treatment_reference": {
+        "summary": "Los hallazgos descritos apoyan síndrome de McCune-Albright, pero el texto fuente es ambiguo sobre la función tiroidea y no aporta resultados hormonales completos. No se establece tratamiento individual; requiere evaluación endocrina y esquelética pediátrica.",
+        "key_actions": [
+          "Aclarar y confirmar la función tiroidea; no asumir que la paciente tiene simultáneamente hipotiroidismo e hipertiroidismo.",
+          "Coordinar seguimiento por endocrinología pediátrica y ortopedia según extensión ósea y manifestaciones."
+        ]
+      },
+      "diagnosis_synonyms": [
+        "McCune-Albright",
+        "Síndrome de McCune-Albright-Sternberg",
+        "Displasia fibrosa poliostótica con pubertad precoz"
       ]
     }
   },
@@ -1603,108 +1603,7 @@
         ]
       }
     },
-    "PED-007": {
-      "chief_complaint": "Cojea y protege la pierna izquierda; su madre nota que cambió su forma de jugar.",
-      "public": [
-        {
-          "key": "signos_vitales",
-          "category": "signo_vital",
-          "label": "Signos vitales",
-          "text": "Afebril; signos vitales estables."
-        }
-      ],
-      "on_request": [
-        {
-          "key": "dolor",
-          "category": "sintoma",
-          "label": "Localización del dolor",
-          "text": "Al preguntarle, el niño dice que le duele la rodilla izquierda.",
-          "owner": "paciente",
-          "requires": [
-            "caracteristicas_sintoma"
-          ]
-        },
-        {
-          "key": "antecedentes",
-          "category": "antecedente",
-          "label": "Desarrollo y nutrición",
-          "text": "Está bien nutrido y cumple todos los hitos del desarrollo.",
-          "owner": "paciente",
-          "requires": [
-            "antecedentes_personales"
-          ]
-        },
-        {
-          "key": "exploracion_fisica",
-          "category": "examen_fisico",
-          "label": "Exploración física",
-          "text": "La rodilla tiene rango de movimiento completo; la movilización pasiva provoca dolor en la cadera izquierda.",
-          "owner": "medico_asistente",
-          "requires": [
-            "exploracion_fisica"
-          ]
-        },
-        {
-          "key": "radiografia",
-          "category": "imagen",
-          "label": "Radiografía",
-          "text": "Cabeza femoral izquierda aplanada.",
-          "owner": "radiologia",
-          "requires": [
-            "radiografia"
-          ],
-          "interpretation": "A"
-        }
-      ],
-      "key_questions": [
-        {
-          "topic": "Exploración de rodilla y cadera: dolor de cadera a la movilización pasiva",
-          "evidence": [
-            "exploracion_fisica"
-          ],
-          "weight": 5,
-          "critical": true,
-          "error_if_missing": "razonamiento_clinico"
-        },
-        {
-          "topic": "Radiografía: cabeza femoral izquierda aplanada",
-          "evidence": [
-            "radiografia"
-          ],
-          "weight": 4,
-          "critical": true,
-          "error_if_missing": "razonamiento_clinico"
-        },
-        {
-          "topic": "Localización del dolor referido en la rodilla",
-          "evidence": [
-            "dolor"
-          ],
-          "weight": 3,
-          "critical": false,
-          "error_if_missing": "anamnesis_incompleta"
-        }
-      ],
-      "notes": [
-        "Paciente pediátrico: parte de la historia la aporta la madre."
-      ],
-      "alias": "Mateo Quispe",
-      "discard": {
-        "Artritis séptica": [
-          "signos_vitales"
-        ],
-        "Epifisiólisis de la cabeza femoral": [
-          "radiografia"
-        ],
-        "Osteomielitis": [
-          "signos_vitales"
-        ],
-        "Artritis idiopática juvenil": [
-          "radiografia"
-        ]
-      }
-    },
-    "MED-008": {
+    "MED-007": {
       "chief_complaint": "Cefalea, fiebre intermitente con escalofríos, dolores articulares generalizados, sed excesiva con aumento de la ingesta de líquidos y una erupción progresiva en la espalda.",
       "public": [
         {
@@ -1865,7 +1764,7 @@
         ]
       }
     },
-    "MED-009": {
+    "MED-008": {
       "chief_complaint": "Acude a su control anual; no tiene molestias en este momento.",
       "public": [
         {
@@ -1950,6 +1849,107 @@
         ],
         "Chalazión persistente": [
           "exploracion_fisica"
+        ]
+      }
+    },
+    "PED-009": {
+      "chief_complaint": "Cojea y protege la pierna izquierda; su madre nota que cambió su forma de jugar.",
+      "public": [
+        {
+          "key": "signos_vitales",
+          "category": "signo_vital",
+          "label": "Signos vitales",
+          "text": "Afebril; signos vitales estables."
+        }
+      ],
+      "on_request": [
+        {
+          "key": "dolor",
+          "category": "sintoma",
+          "label": "Localización del dolor",
+          "text": "Al preguntarle, el niño dice que le duele la rodilla izquierda.",
+          "owner": "paciente",
+          "requires": [
+            "caracteristicas_sintoma"
+          ]
+        },
+        {
+          "key": "antecedentes",
+          "category": "antecedente",
+          "label": "Desarrollo y nutrición",
+          "text": "Está bien nutrido y cumple todos los hitos del desarrollo.",
+          "owner": "paciente",
+          "requires": [
+            "antecedentes_personales"
+          ]
+        },
+        {
+          "key": "exploracion_fisica",
+          "category": "examen_fisico",
+          "label": "Exploración física",
+          "text": "La rodilla tiene rango de movimiento completo; la movilización pasiva provoca dolor en la cadera izquierda.",
+          "owner": "medico_asistente",
+          "requires": [
+            "exploracion_fisica"
+          ]
+        },
+        {
+          "key": "radiografia",
+          "category": "imagen",
+          "label": "Radiografía",
+          "text": "Cabeza femoral izquierda aplanada.",
+          "owner": "radiologia",
+          "requires": [
+            "radiografia"
+          ],
+          "interpretation": "A"
+        }
+      ],
+      "key_questions": [
+        {
+          "topic": "Exploración de rodilla y cadera: dolor de cadera a la movilización pasiva",
+          "evidence": [
+            "exploracion_fisica"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "topic": "Radiografía: cabeza femoral izquierda aplanada",
+          "evidence": [
+            "radiografia"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "topic": "Localización del dolor referido en la rodilla",
+          "evidence": [
+            "dolor"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "anamnesis_incompleta"
+        }
+      ],
+      "notes": [
+        "Paciente pediátrico: parte de la historia la aporta la madre."
+      ],
+      "alias": "Mateo Quispe",
+      "discard": {
+        "Artritis séptica": [
+          "signos_vitales"
+        ],
+        "Epifisiólisis de la cabeza femoral": [
+          "radiografia"
+        ],
+        "Osteomielitis": [
+          "signos_vitales"
+        ],
+        "Artritis idiopática juvenil": [
+          "radiografia"
         ]
       }
     },

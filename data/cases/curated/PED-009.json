@@ -1,10 +1,10 @@
 {
   "schema_version": "1.0.0",
-  "case_id": "PED-007",
+  "case_id": "PED-009",
   "title": "Paciente de 7 años con cuadro de pediatría",
   "specialty": "pediatria",
   "language": "es",
-  "status": "validado",
+  "status": "curado",
   "source": {
     "dataset": "MedQA",
     "item_id": "medqa-dadd721b55c88d20",
@@ -18,14 +18,14 @@
       "sex": "masculino"
     },
     "chief_complaint": {
-      "evidence_id": "PED-007.motivo.queja_principal",
+      "evidence_id": "PED-009.motivo.queja_principal",
       "category": "motivo",
       "label": "Motivo de consulta",
       "text": "Cojea y protege la pierna izquierda; su madre nota que cambió su forma de jugar."
     },
     "items": [
       {
-        "evidence_id": "PED-007.vital.signos_vitales",
+        "evidence_id": "PED-009.vital.signos_vitales",
         "category": "signo_vital",
         "label": "Signos vitales",
         "text": "Afebril; signos vitales estables."
@@ -35,7 +35,7 @@
   },
   "on_request": [
     {
-      "evidence_id": "PED-007.sintoma.dolor",
+      "evidence_id": "PED-009.sintoma.dolor",
       "category": "sintoma",
       "label": "Localización del dolor",
       "text": "Al preguntarle, el niño dice que le duele la rodilla izquierda.",
@@ -48,7 +48,7 @@
       }
     },
     {
-      "evidence_id": "PED-007.antecedente.antecedentes",
+      "evidence_id": "PED-009.antecedente.antecedentes",
       "category": "antecedente",
       "label": "Desarrollo y nutrición",
       "text": "Está bien nutrido y cumple todos los hitos del desarrollo.",
@@ -61,7 +61,7 @@
       }
     },
     {
-      "evidence_id": "PED-007.examen.exploracion_fisica",
+      "evidence_id": "PED-009.examen.exploracion_fisica",
       "category": "examen_fisico",
       "label": "Exploración física",
       "text": "La rodilla tiene rango de movimiento completo; la movilización pasiva provoca dolor en la cadera izquierda.",
@@ -74,7 +74,7 @@
       }
     },
     {
-      "evidence_id": "PED-007.imagen.radiografia",
+      "evidence_id": "PED-009.imagen.radiografia",
       "category": "imagen",
       "label": "Radiografía",
       "text": "Cabeza femoral izquierda aplanada.",
@@ -103,28 +103,28 @@
         "name": "Artritis séptica",
         "must_not_miss": true,
         "discard_evidence_ids": [
-          "PED-007.vital.signos_vitales"
+          "PED-009.vital.signos_vitales"
         ]
       },
       {
         "name": "Epifisiólisis de la cabeza femoral",
         "must_not_miss": true,
         "discard_evidence_ids": [
-          "PED-007.imagen.radiografia"
+          "PED-009.imagen.radiografia"
         ]
       },
       {
         "name": "Osteomielitis",
         "must_not_miss": true,
         "discard_evidence_ids": [
-          "PED-007.vital.signos_vitales"
+          "PED-009.vital.signos_vitales"
         ]
       },
       {
         "name": "Artritis idiopática juvenil",
         "must_not_miss": false,
         "discard_evidence_ids": [
-          "PED-007.imagen.radiografia"
+          "PED-009.imagen.radiografia"
         ]
       }
     ],
@@ -142,7 +142,7 @@
           "id": "kq1",
           "topic": "Traducción al español: Niño de 7 años acude a consulta con su madre, que nota que ha cambiado su forma de jugar y que cojea, protegiendo la pierna izquierda. Al preguntarle, el niño dice que le duele la rodilla izquierda. Está afebril y con signos vitales estables. Está bien nutrido y cumple todos los hitos del desarrollo. En la exploración física, la rodilla tiene rango de movimiento completo; sin embargo, la movilización pasiva provoca dolor en la cadera izquierda. Se realiza una radiografía que muestra una cabeza femoral izquierda aplanada. ¿Cuál es el diagnóstico más probable? Opciones traducidas: Artritis séptica; Raquitismo; Osteopetrosis; Enfermedad de Legg-Calvé-Perthes; Enfermedad de Osgood-Schlatter; Epifisiólisis de la cabeza femoral; Artritis idiopática juvenil. Respuesta fuente: D — Legg-Calvé-Perthes disease (LCPD). Texto fuente conservado (inglés): A 7-year-old boy presents to the clinic with his mother, who notes that the way in which he plays has changed and that he has been limping, favoring his left leg. When asked, the patient states that his left knee hurts. He is afebrile and vital signs are stable. The patient is well nourished and meeting all developmental milestones. On physical examination, the knee has a full range of motion; however, passive motion elicits pain in the left hip. An X-ray is performed and reveals a flattened left femoral head. Which of the following is the most likely diagnosis? Opciones fuente: Septic arthritis; Rickets; Osteopetrosis; Legg-Calvé-Perthes disease (LCPD); Osgood-Schlatter disease (OSD); Slipped capital femoral epiphysis; Juvenile idiopathic arthritis (JIA)",
           "evidence_ids": [
-            "PED-007.motivo.queja_principal"
+            "PED-009.motivo.queja_principal"
           ],
           "weight": 3,
           "critical": true,
@@ -152,7 +152,7 @@
           "id": "kq2",
           "topic": "Exploración de rodilla y cadera: dolor de cadera a la movilización pasiva",
           "evidence_ids": [
-            "PED-007.examen.exploracion_fisica"
+            "PED-009.examen.exploracion_fisica"
           ],
           "weight": 5,
           "critical": true,
@@ -162,7 +162,7 @@
           "id": "kq3",
           "topic": "Radiografía: cabeza femoral izquierda aplanada",
           "evidence_ids": [
-            "PED-007.imagen.radiografia"
+            "PED-009.imagen.radiografia"
           ],
           "weight": 4,
           "critical": true,
@@ -172,7 +172,7 @@
           "id": "kq4",
           "topic": "Localización del dolor referido en la rodilla",
           "evidence_ids": [
-            "PED-007.sintoma.dolor"
+            "PED-009.sintoma.dolor"
           ],
           "weight": 3,
           "critical": false,
@@ -196,8 +196,8 @@
     "created_at": "2026-10-08",
     "validator_version": "1.0.0",
     "validated_at": "2026-10-08",
-    "curated_by": null,
-    "curated_at": null,
+    "curated_by": "case_preparation.curation",
+    "curated_at": "2026-10-08",
     "rejection_reason": null
   }
 }

@@ -127,9 +127,9 @@ def test_final_review_batch_uses_supported_postoperative_and_emergency_cases():
         "GOB-004",
         "CIR-005",
         "CIR-006",
-        "PED-007",
+        "MED-007",
         "MED-008",
-        "MED-009",
+        "PED-009",
         "PED-010",
     ]
     assert "tiempo de tromboplastina parcial prolongado" in SPANISH_SOURCE_TEXT["medqa-4135d59786b5b7ac"]["question"]

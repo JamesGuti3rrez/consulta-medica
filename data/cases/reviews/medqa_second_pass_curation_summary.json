@@ -62,16 +62,7 @@
       "source_review": "clinical_coherence_review.json"
     },
     {
-      "case_id": "PED-007",
-      "status": "curado",
-      "curated_by": "case_preparation.curation",
-      "disposition": "coherente_con_precauciones",
-      "confidence": "moderada_alta",
-      "review": "La edad, cojera, dolor de cadera referido a rodilla y aplanamiento radiográfico de la cabeza femoral son compatibles con enfermedad de Legg-Calve-Perthes. La ficha ya contiene radiografía; la caracterización y el manejo dependen de extensión, edad y evolución.",
-      "source_review": "clinical_coherence_review.json"
-    },
-    {
-      "case_id": "MED-008",
+      "case_id": "MED-007",
       "status": "curado",
       "curated_by": "case_preparation.curation",
       "disposition": "coherente_con_precauciones",
@@ -80,12 +71,21 @@
       "source_review": "clinical_coherence_review.json"
     },
     {
-      "case_id": "MED-009",
+      "case_id": "MED-008",
       "status": "curado",
       "curated_by": "case_preparation.curation",
       "disposition": "compatible_requiere_confirmacion",
       "confidence": "moderada",
       "review": "La pápula perlada rosada con borde sobreelevado y telangiectasias es muy sugestiva de carcinoma basocelular. La ficha no incluye histopatología; por tanto, no es diagnóstico confirmado. El párpado es una localización funcionalmente crítica y requiere valoración dermatológica y oftalmológica/oculoplástica, con confirmación histológica y planificación terapéutica.",
+      "source_review": "clinical_coherence_review.json"
+    },
+    {
+      "case_id": "PED-009",
+      "status": "curado",
+      "curated_by": "case_preparation.curation",
+      "disposition": "coherente_con_precauciones",
+      "confidence": "moderada_alta",
+      "review": "La edad, cojera, dolor de cadera referido a rodilla y aplanamiento radiográfico de la cabeza femoral son compatibles con enfermedad de Legg-Calve-Perthes. La ficha ya contiene radiografía; la caracterización y el manejo dependen de extensión, edad y evolución.",
       "source_review": "clinical_coherence_review.json"
     },
     {

@@ -42,7 +42,7 @@ COMMON_RULES = (
     "en el CONTEXTO AUTORIZADO."
 )
 
-# Limpieza final por si el modelo no sigue las reglas: códigos de evidencia (MED-008.sintoma.x, también
+# Limpieza final por si el modelo no sigue las reglas: códigos de evidencia (MED-007.sintoma.x, también
 # con guiones tipográficos), «(Referencia: …)», marcas de Markdown y nombres de campos internos.
 EVIDENCE_CODE = re.compile(r"\b[A-Z]{3,5}[-‐‑‒–]\d{3}(?:\.[A-Za-z0-9_]+)*\b")
 REFERENCE_NOTE = re.compile(r"\(?\s*(?:Referencias?|Fuente|Evidencia)\s*:[^)\n]*\)?", re.IGNORECASE)

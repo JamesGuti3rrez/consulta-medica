@@ -244,34 +244,7 @@
       "schema_valid": true
     },
     {
-      "case_id": "PED-007",
-      "candidate_id": "medqa-dadd721b55c88d20",
-      "source_file": "data_clean.zip:data_clean/questions/US/US_qbank.jsonl",
-      "source_line": 7214,
-      "question_type": "diagnostico",
-      "quality_gate_warnings": [],
-      "specialty": "pediatria",
-      "source_answer": "D",
-      "source_answer_text": "Legg-Calvé-Perthes disease (LCPD)",
-      "clinical_diagnosis": "Enfermedad de Legg-Calvé-Perthes",
-      "rationale": "Pediatría: paciente de 7 años y hallazgos osteoarticulares pediátricos explícitos.",
-      "clinical_review": {
-        "disposition": "coherente_con_precauciones",
-        "confidence": "moderada_alta",
-        "assessment": "La edad, cojera, dolor de cadera referido a rodilla y aplanamiento radiográfico de la cabeza femoral son compatibles con enfermedad de Legg-Calve-Perthes. La ficha ya contiene radiografía; la caracterización y el manejo dependen de extensión, edad y evolución.",
-        "actions": [
-          "Mantener Legg-Calve-Perthes como diagnóstico más probable y añadir valoración por ortopedia pediátrica.",
-          "Conservar artritis séptica como diagnóstico que no se debe pasar por alto: estar afebril no la excluye si aparecen dolor intenso, incapacidad para apoyar o mal estado general.",
-          "No inventar estadificación radiológica ni tratamiento sin descripción de proyecciones/etapa."
-        ],
-        "source_ids": [
-          "aaos_perthes"
-        ]
-      },
-      "schema_valid": true
-    },
-    {
-      "case_id": "MED-008",
+      "case_id": "MED-007",
       "candidate_id": "medqa-bd8bb86bdc2e57fe",
       "source_file": "data_clean.zip:data_clean/questions/US/US_qbank.jsonl",
       "source_line": 7973,
@@ -299,7 +272,7 @@
       "schema_valid": true
     },
     {
-      "case_id": "MED-009",
+      "case_id": "MED-008",
       "candidate_id": "medqa-7fe0528c54197057",
       "source_file": "data_clean.zip:data_clean/questions/US/US_qbank.jsonl",
       "source_line": 5006,
@@ -321,6 +294,33 @@
         ],
         "source_ids": [
           "aad_bcc"
+        ]
+      },
+      "schema_valid": true
+    },
+    {
+      "case_id": "PED-009",
+      "candidate_id": "medqa-dadd721b55c88d20",
+      "source_file": "data_clean.zip:data_clean/questions/US/US_qbank.jsonl",
+      "source_line": 7214,
+      "question_type": "diagnostico",
+      "quality_gate_warnings": [],
+      "specialty": "pediatria",
+      "source_answer": "D",
+      "source_answer_text": "Legg-Calvé-Perthes disease (LCPD)",
+      "clinical_diagnosis": "Enfermedad de Legg-Calvé-Perthes",
+      "rationale": "Pediatría: paciente de 7 años y hallazgos osteoarticulares pediátricos explícitos.",
+      "clinical_review": {
+        "disposition": "coherente_con_precauciones",
+        "confidence": "moderada_alta",
+        "assessment": "La edad, cojera, dolor de cadera referido a rodilla y aplanamiento radiográfico de la cabeza femoral son compatibles con enfermedad de Legg-Calve-Perthes. La ficha ya contiene radiografía; la caracterización y el manejo dependen de extensión, edad y evolución.",
+        "actions": [
+          "Mantener Legg-Calve-Perthes como diagnóstico más probable y añadir valoración por ortopedia pediátrica.",
+          "Conservar artritis séptica como diagnóstico que no se debe pasar por alto: estar afebril no la excluye si aparecen dolor intenso, incapacidad para apoyar o mal estado general.",
+          "No inventar estadificación radiológica ni tratamiento sin descripción de proyecciones/etapa."
+        ],
+        "source_ids": [
+          "aaos_perthes"
         ]
       },
       "schema_valid": true

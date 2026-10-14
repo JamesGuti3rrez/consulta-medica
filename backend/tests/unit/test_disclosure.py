@@ -41,14 +41,14 @@ def test_disclosure_uses_owner_mode_and_requires():
 
 
 def test_curated_case_reveals_allergy_when_asked():
-    case = CanonicalCaseRepository().get_conversation_case("MED-008")
+    case = CanonicalCaseRepository().get_conversation_case("MED-007")
     decision = DisclosurePolicy().authorize(
         case=case,
         role=AgentRole.PACIENTE,
         intent=Intent.ASK_PATIENT,
         student_message="¿Es alérgica a algún medicamento?",
     )
-    assert "MED-008.antecedente.alergias" in decision.allowed_evidence_ids
+    assert "MED-007.antecedente.alergias" in decision.allowed_evidence_ids
 
 
 def test_curated_case_reveals_exam_only_when_examining():

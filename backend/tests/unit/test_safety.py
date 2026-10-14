@@ -24,14 +24,14 @@ def test_flags_registered_allergy_and_case_contraindication_without_exposing_det
             {
                 "drug_or_class": "Tetraciclinas (incluida la doxiciclina)",
                 "reason": "Detalle protegido",
-                "evidence_id": "MED-008.antecedente.alergias",
+                "evidence_id": "MED-007.antecedente.alergias",
             }
         ],
     )
     engine = ClinicalSafetyEngine(repository)
 
     alerts = engine.evaluate_treatment(
-        case_id="MED-008",
+        case_id="MED-007",
         message="Prescribo penicilina y doxiciclina.",
         intent=Intent.PROPOSE_TREATMENT,
     )

@@ -1,0 +1,264 @@
+{
+  "schema_version": "1.0.0",
+  "case_id": "MED-007",
+  "title": "Paciente de 48 años con cuadro de medicina interna",
+  "specialty": "medicina_interna",
+  "language": "es",
+  "status": "curado",
+  "source": {
+    "dataset": "MedQA",
+    "item_id": "medqa-bd8bb86bdc2e57fe",
+    "license": "MIT",
+    "method": "ia_validador"
+  },
+  "public": {
+    "patient": {
+      "alias": "Patricia Vargas",
+      "age_years": 48,
+      "sex": "femenino"
+    },
+    "chief_complaint": {
+      "evidence_id": "MED-007.motivo.queja_principal",
+      "category": "motivo",
+      "label": "Motivo de consulta",
+      "text": "Cefalea, fiebre intermitente con escalofríos, dolores articulares generalizados, sed excesiva con aumento de la ingesta de líquidos y una erupción progresiva en la espalda."
+    },
+    "items": [
+      {
+        "evidence_id": "MED-007.vital.signos_vitales",
+        "category": "signo_vital",
+        "label": "Signos vitales",
+        "text": "Temperatura 40,1 °C."
+      }
+    ],
+    "allergies_recorded": false
+  },
+  "on_request": [
+    {
+      "evidence_id": "MED-007.sintoma.evolucion",
+      "category": "sintoma",
+      "label": "Evolución de la lesión y de los síntomas",
+      "text": "Tres días antes de consultar notó en la espalda una lesión pequeña, algo elevada, parecida a una picadura de araña o de insecto, que consideró una costra. Dos días antes de acudir tuvo fiebre de 39,4 °C, con una sensación de ardor cada vez más intensa en la zona. Un familiar revisó la picadura y vio que el bulto se había convertido en una erupción circular. El día anterior se sintió agotada, pero completó una jornada laboral normal. Hoy despertó muy enferma, con dolores articulares punzantes, fiebre alta y sed excesiva.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "inicio_y_evolucion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-007.medicacion.tratamiento_previo",
+      "category": "medicacion",
+      "label": "Medicación tomada",
+      "text": "Tomó ibuprofeno de venta libre por el dolor intenso para poder dormir.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "medicacion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-007.antecedente.antecedentes",
+      "category": "antecedente",
+      "label": "Antecedentes personales",
+      "text": "Sus antecedentes médicos y quirúrgicos no son relevantes, salvo una anafilaxia al tomar una tetraciclina.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "antecedentes_personales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-007.antecedente.alergias",
+      "category": "antecedente",
+      "label": "Alergias",
+      "text": "Tuvo anafilaxia al tomar una tetraciclina y recalca que es alérgica a las tetraciclinas. Niega alergias alimentarias o por inhalación.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "alergias"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-007.anamnesis.exposicion",
+      "category": "anamnesis",
+      "label": "Exposición reciente",
+      "text": "Recuerda una caminata por el bosque 3 semanas antes, pero niega haber encontrado una garrapata u otro ectoparásito en su cuerpo.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-007.examen.exploracion_fisica",
+      "category": "examen_fisico",
+      "label": "Exploración física",
+      "text": "Erupción roja, circular y grande, con aspecto en diana (17 × 19 cm de diámetro), en la espalda. El resto de la exploración física no muestra hallazgos.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "exploracion_fisica"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-007.lab.hemograma_bioquimica",
+      "category": "laboratorio",
+      "label": "Hemograma y perfil hepático",
+      "text": "Leucocitos y plaquetas normales; transaminasas normales.",
+      "reveal_policy": {
+        "owner": "laboratorio",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "hemograma"
+        ]
+      }
+    }
+  ],
+  "protected": {
+    "diagnosis": {
+      "name": "Enfermedad de Lyme con eritema migrans",
+      "synonyms": [
+        "Enfermedad de Lyme con eritema migrans",
+        "Enfermedad de Lyme",
+        "Borreliosis de Lyme",
+        "Lyme con eritema migrans"
+      ]
+    },
+    "differentials": [
+      {
+        "name": "Celulitis bacteriana",
+        "must_not_miss": false,
+        "discard_evidence_ids": [
+          "MED-007.examen.exploracion_fisica"
+        ]
+      },
+      {
+        "name": "Reacción local a picadura",
+        "must_not_miss": false,
+        "discard_evidence_ids": [
+          "MED-007.examen.exploracion_fisica",
+          "MED-007.vital.signos_vitales"
+        ]
+      },
+      {
+        "name": "Otras infecciones transmitidas por garrapatas",
+        "must_not_miss": true,
+        "discard_evidence_ids": [
+          "MED-007.lab.hemograma_bioquimica",
+          "MED-007.examen.exploracion_fisica"
+        ]
+      }
+    ],
+    "treatment_reference": {
+      "summary": "CDC incluye amoxicilina como opción general para eritema migrans; la fuente MedQA marca amoxicilina (B). No es una prescripción individual: valorar fiebre muy alta, alergias a beta-lactámicos, embarazo, diseminación y diagnósticos alternativos.",
+      "key_actions": [
+        "No retrasar valoración urgente de fiebre de 40,1 °C.",
+        "Confirmar antecedentes alérgicos antes de cualquier antibiótico.",
+        "Usar guías locales actualizadas para pauta y duración."
+      ]
+    },
+    "contraindications": [
+      {
+        "id": "ci1",
+        "drug_or_class": "Tetraciclinas (incluida la doxiciclina)",
+        "reason": "Antecedente de anafilaxia al tomar una tetraciclina.",
+        "evidence_id": "MED-007.antecedente.alergias"
+      }
+    ],
+    "evaluation": {
+      "key_questions": [
+        {
+          "id": "kq1",
+          "topic": "Traducción al español: Mujer de 48 años acude al hospital por cefalea, fiebre intermitente con escalofríos, dolores articulares generalizados, sed excesiva, aumento de la ingesta de líquidos y una erupción progresiva en la espalda. Tres días antes de la consulta notó en la espalda una lesión pequeña, algo elevada, parecida a una picadura de araña o de insecto, que consideró una costra. Dos días antes de acudir al hospital tuvo fiebre de 39,4 °C, con una sensación de ardor cada vez más intensa en la zona. Un familiar revisó la picadura y vio que el bulto se había convertido en una erupción circular. Tomó ibuprofeno de venta libre por el dolor intenso para poder dormir. El día anterior a la consulta se sintió agotada, pero completó una jornada laboral normal. El día de la consulta despertó muy enferma, con dolores articulares punzantes, fiebre alta y sed excesiva, y por eso buscó atención médica. En la exploración física su temperatura es de 40,1 °C y presenta en la espalda una erupción roja, circular y grande, con aspecto en diana (17 × 19 cm de diámetro). El resto de la exploración física no muestra hallazgos. Sus antecedentes médicos y quirúrgicos no son relevantes, salvo una anafilaxia al tomar una tetraciclina. Recuerda una caminata por el bosque 3 semanas antes, pero niega haber encontrado una garrapata u otro ectoparásito en su cuerpo. Niega alergias alimentarias o por inhalación, aunque recalca que es alérgica a las tetraciclinas. Con sus síntomas, antecedentes y hallazgos, el médico decide iniciar tratamiento antimicrobiano de inmediato. ¿Qué antimicrobiano prescribió el médico? Opciones traducidas: Cefalexina; Amoxicilina; Azitromicina; Eritromicina; Doxiciclina. Respuesta fuente: B — Amoxicillin. Texto fuente conservado (inglés): A 48-year-old woman presented to the hospital with a headache, intermittent fevers and chills, generalized arthralgias, excessive thirst, increased fluid intake, and a progressive rash that developed on her back. Three days before seeking evaluation at the hospital, she noticed a small, slightly raised lesion appearing like a spider or insect bite on her back, which she considered to be a scab covering the affected region. The patient's fever reached 39.4°C (102.9°F) 2 days before coming to the hospital, with an intensifying burning sensation on the affected site. When a family member examined the bite, it was noticed that the bump had transformed into a circular rash. The patient took over-the-counter ibuprofen for intense pain so she could sleep through the night. The day before her hospital visit, the patient felt exhausted but managed to complete a normal workday. On the day of the hospital visit, she awoke feeling very ill, with shooting joint pains, high fevers, and excessive thirst, which led to her to seek medical attention. On physical examination, her temperature was 40.1°C (104.2°F), and there was a large circular red rash with a bulls-eye appearance (17 × 19 cm in diameter) on her back. The rest of the physical examination was unremarkable. Her past medical and surgical histories were not significant apart from a history of anaphylaxis when taking a tetracycline. She recalled a walk in the woods 3 weeks before this exam but denied finding a tick or any other ectoparasite on her body. She denied any nutritional or inhalational allergies, although she emphasized that she is allergic to tetracyclines. Based on her symptoms, medical history, and physical examination findings, the attending physician decides to institute antimicrobial therapy immediately. Which antimicrobial drug did the physician prescribe? Opciones fuente: Cephalexin; Amoxicillin; Azithromycin; Erythromycin; Doxycycline",
+          "evidence_ids": [
+            "MED-007.motivo.queja_principal"
+          ],
+          "weight": 3,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "id": "kq2",
+          "topic": "Alergias: anafilaxia a tetraciclinas",
+          "evidence_ids": [
+            "MED-007.antecedente.alergias"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq3",
+          "topic": "Exposición: caminata por el bosque y contacto con garrapatas",
+          "evidence_ids": [
+            "MED-007.anamnesis.exposicion"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq4",
+          "topic": "Exploración física: erupción en diana en la espalda",
+          "evidence_ids": [
+            "MED-007.examen.exploracion_fisica"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "id": "kq5",
+          "topic": "Evolución de la lesión y de la fiebre",
+          "evidence_ids": [
+            "MED-007.sintoma.evolucion"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq6",
+          "topic": "Hemograma y perfil hepático normales",
+          "evidence_ids": [
+            "MED-007.lab.hemograma_bioquimica"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "razonamiento_clinico"
+        }
+      ],
+      "tests": {
+        "recommended": [
+          "valoracion_clinica_urgente_por_fiebre_alta"
+        ],
+        "optional": [
+          "ninguna_serologia_si_eritema_migrans_tipico",
+          "serologia_si_presentacion_atipica"
+        ],
+        "unnecessary": []
+      }
+    }
+  },
+  "provenance": {
+    "created_by": "case_preparation.transform.medqa_final_review",
+    "created_at": "2026-10-08",
+    "validator_version": "1.0.0",
+    "validated_at": "2026-10-08",
+    "curated_by": "case_preparation.curation",
+    "curated_at": "2026-10-08",
+    "rejection_reason": null
+  }
+}
