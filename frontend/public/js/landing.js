@@ -46,6 +46,8 @@ document.addEventListener('keydown', (event) => {
 });
 
 // Cuentas con Supabase Auth: iniciar sesión, crear cuenta y cerrar sesión.
+// Versión del aviso de privacidad (privacidad.html) que acepta quien crea una cuenta.
+const PRIVACY_VERSION = '1';
 const loginForm = document.querySelector('[data-role="login-form"]');
 const signupForm = document.querySelector('[data-role="signup-form"]');
 const signupFields = document.querySelector('[data-role="signup-fields"]');
@@ -76,6 +78,12 @@ function showFeedback(form, message, isError = false) {
   feedback.focus();
 }
 
+// Al marcar la casilla del aviso desaparece el mensaje que pedía aceptarlo.
+signupForm?.elements.privacidad?.addEventListener('change', (event) => {
+  const feedback = signupForm.querySelector('[data-role="auth-feedback"]');
+  if (event.target.checked && feedback) feedback.hidden = true;
+});
+
 function setBusy(form, busy, busyLabel) {
   const button = form.querySelector('button[type="submit"]');
   if (!button) return;
@@ -97,6 +105,7 @@ function firstInvalidField(form) {
     apellidos: 'Escribe tus apellidos.',
     correo: 'Escribe un correo válido, por ejemplo nombre@universidad.edu.pe.',
     clave: invalid.minLength > 0 ? 'La contraseña debe tener al menos 8 caracteres.' : 'Escribe tu contraseña.',
+    privacidad: 'Para crear la cuenta, acepta el aviso de privacidad.',
   };
   return { field: invalid, message: messages[invalid.name] || 'Revisa los campos marcados.' };
 }
@@ -164,7 +173,13 @@ signupForm?.addEventListener('submit', async (event) => {
     email,
     password: clave.value,
     options: {
-      data: { nombres: nombres.value.trim(), apellidos: apellidos.value.trim() },
+      // Consentimiento del aviso de privacidad (Ley 29733): versión y fecha en que se aceptó.
+      data: {
+        nombres: nombres.value.trim(),
+        apellidos: apellidos.value.trim(),
+        privacidad_version: PRIVACY_VERSION,
+        privacidad_aceptada_en: new Date().toISOString(),
+      },
       emailRedirectTo: window.location.origin,
     },
   });

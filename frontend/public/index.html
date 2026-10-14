@@ -311,7 +311,8 @@
     <div
       class="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-8 text-sm text-slate-600 sm:flex-row sm:items-center sm:justify-between sm:px-6">
       <p class="font-semibold text-slate-900">Consulta Médica Virtual</p>
-      <p>Simulación educativa. No usar para diagnóstico o tratamiento real.</p>
+      <p>Simulación educativa. No usar para diagnóstico o tratamiento real. <a href="privacidad.html"
+          class="font-semibold text-brand-700 underline-offset-4 hover:underline">Aviso de privacidad</a></p>
     </div>
   </footer>
 
@@ -386,6 +387,12 @@
           <input name="clave" type="password" required minlength="8" autocomplete="new-password" class="field"
             aria-describedby="signup-password-help">
           <span id="signup-password-help" class="text-[13px] text-slate-600">Mínimo 8 caracteres.</span>
+        </label>
+        <label class="flex items-start gap-3 text-[15px] text-slate-700">
+          <input name="privacidad" type="checkbox" required class="mt-1 h-5 w-5 shrink-0 cursor-pointer rounded text-brand-600">
+          <span>He leído y acepto el <a href="privacidad.html" target="_blank" rel="noopener"
+              class="font-semibold text-brand-700 underline-offset-4 hover:underline">aviso de privacidad</a>: con la
+            cuenta se guardan mis datos y mi historial de simulaciones.</span>
         </label>
         <p data-role="auth-feedback" hidden tabindex="-1" role="status" class="auth-feedback"></p>
         <button type="submit"

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Aviso de privacidad | Consulta Médica Virtual</title>
+  <meta name="description" content="Qué datos guarda Consulta Médica Virtual, para qué los usa y cómo ejercer tus derechos (Ley 29733).">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <script>
+    // Antes de pintar: aplica el tema elegido en el menú de perfil, para que no parpadee.
+    try {
+      const tema = localStorage.getItem('tema');
+      if (tema === 'light' || tema === 'dark') document.documentElement.dataset.theme = tema;
+    } catch (error) {
+      // Sin almacenamiento se usa el tema del sistema.
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+  <style>
+    body { margin: 0; font-family: Figtree, system-ui, sans-serif; font-size: 17px; line-height: 1.6;
+      color: rgb(var(--c-slate-900)); background: rgb(var(--c-surface)); }
+    main { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
+    a { color: rgb(var(--c-brand-700)); font-weight: 600; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 24px 0 4px; }
+    h2 { font-size: 21px; margin: 32px 0 8px; }
+    p, li { color: rgb(var(--c-slate-700)); }
+    .meta { color: rgb(var(--c-slate-500)); font-size: 15px; }
+    table { width: 100%; border-collapse: collapse; font-size: 15px; margin-top: 8px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid rgb(var(--c-slate-200)); }
+    th { color: rgb(var(--c-slate-900)); background: rgb(var(--c-slate-50)); }
+  </style>
+</head>
+
+<body>
+  <main>
+    <a href="index.html">Volver al inicio</a>
+    <h1>Aviso de privacidad</h1>
+    <p class="meta">Versión 1 · 14 de octubre de 2026</p>
+
+    <p>Consulta Médica Virtual es un simulador educativo desarrollado como proyecto académico por estudiantes. No
+      se usa para diagnóstico ni tratamiento real. Este aviso explica qué datos personales guarda, para qué y cómo
+      ejercer tus derechos según la Ley N.º 29733, Ley de Protección de Datos Personales del Perú.</p>
+
+    <h2>Qué datos guardamos</h2>
+    <table>
+      <thead>
+        <tr><th>Cuándo</th><th>Datos</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Al crear una cuenta</td><td>Nombres, apellidos, correo y contraseña (cifrada por el servicio de cuentas;
+            nadie del equipo puede leerla). También la fecha en que aceptaste este aviso.</td></tr>
+        <tr><td>Al terminar una consulta con la sesión iniciada</td><td>Especialidad del caso, puntaje, diagnóstico e
+            hipótesis que escribiste, duración, cuántos datos clave obtuviste y si hubo alertas de seguridad.</td></tr>
+        <tr><td>Durante cualquier consulta</td><td>La conversación con los personajes del simulador (tus preguntas y
+            sus respuestas). Si tienes la sesión iniciada, queda asociada a tu cuenta.</td></tr>
+      </tbody>
+    </table>
+    <p>Si usas el simulador sin cuenta, no se guarda tu nombre ni tu historial. Los nombres que escribes al elegir
+      una especialidad sin cuenta quedan solo en tu navegador.</p>
+
+    <h2>Para qué los usamos</h2>
+    <ul>
+      <li>Identificarte al iniciar sesión.</li>
+      <li>Mostrarte tu historial en «Mis simulaciones». Solo tú puedes verlo.</li>
+      <li>Hacer funcionar la consulta y revisar errores del simulador.</li>
+    </ul>
+    <p>No vendemos ni compartimos tus datos con fines comerciales, y no los usamos para evaluarte fuera del
+      simulador.</p>
+
+    <h2>Dónde se guardan y quién los procesa</h2>
+    <ul>
+      <li><strong>Supabase</strong> guarda las cuentas, el historial y las conversaciones.</li>
+      <li><strong>Vercel</strong> aloja el sitio y el servidor.</li>
+      <li><strong>Groq</strong> recibe el texto de tus preguntas durante la consulta para redactar las respuestas
+        de los personajes. No recibe tu nombre ni tu correo.</li>
+    </ul>
+    <p>Son servicios en la nube que pueden alojar los datos fuera del Perú.</p>
+
+    <h2>Cuánto tiempo los conservamos</h2>
+    <p>Mientras dure el proyecto académico o hasta que pidas su eliminación.</p>
+
+    <h2>Tus derechos</h2>
+    <p>Puedes pedir acceder a tus datos, corregirlos, eliminarlos u oponerte a su uso (derechos ARCO). Para
+      hacerlo, comunícate con el responsable de datos del proyecto, James Gutiérrez, a través del docente del curso.
+      Si eliminas tu cuenta, también se elimina tu historial.</p>
+
+    <h2>Consentimiento</h2>
+    <p>Al crear una cuenta marcas que leíste y aceptas este aviso. Usar el simulador sin cuenta no requiere
+      aceptarlo, porque no se guarda información que te identifique.</p>
+  </main>
+</body>
+
+</html>
