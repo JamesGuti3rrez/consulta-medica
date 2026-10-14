@@ -80,7 +80,7 @@ diferencial queda descartado cuando se revelaron todos sus datos de descarte.
 | Ejecución | Resultado | Evidencia |
 | --- | --- | --- |
 | Antes (versión publicada `ad2380a`) | 7 de 13 casos: CIR-005, CIR-006, EME-001, EME-002, GOB-003 y MED-008 terminaban con 1 a 3 diferenciales en pie | `intentos/01_antes_de_completar/` |
-| Pruebas del backend | 166 aprobadas | `ejecucion/01_pruebas_backend.txt`, `_terminal.png` |
+| Pruebas del backend | 169 aprobadas | `ejecucion/01_pruebas_backend.txt`, `_terminal.png` |
 | Batería local | 13 de 13 casos llegan a un solo diagnóstico | `ejecucion/02_bateria_local.txt`, `_terminal.png` |
 | Batería con Groq | 13 de 13 casos llegan a un solo diagnóstico; ninguna respuesta nombra el diagnóstico ni los diferenciales; en cada complemento el estudiante lee el dato completo (por ejemplo, «El factor VIII está disminuido; el factor IX es normal.») | `ejecucion/03_bateria_groq.txt`, `_terminal.png` |
 | Diferenciales sin dato que los descarte | De 10 de 48 a 0 de 48 | regla R15 |
@@ -114,20 +114,33 @@ de la vista».
 ### Intento 3: el índice local del RAG no tenía los datos nuevos
 
 La batería usa la recuperación directa del caso, igual que el sitio publicado. Pero en un equipo con el
-índice LightRAG construido (`data/indexes/lightrag/`), el servidor busca los datos en ese índice, que se
+índice LightRAG construido (`data/indexes/lightrag/`), el servidor buscaba los datos en ese índice, que se
 había armado antes de completar los casos. Al pedir el dosaje de factores en CIR-005, el laboratorio
-respondía «No hay evidencia adicional autorizada».
+respondía «No hay evidencia adicional autorizada». El dato estaba autorizado, pero el índice no lo tenía y
+se perdía en silencio.
 
-Corrección: reconstruir el índice después de cambiar los casos, desde `backend/`:
+Corrección (`98f125c`): el control de acceso por rol (`engine/disclosure`) ya decidió qué datos se pueden
+revelar; el índice solo los ordena. Ahora el adaptador del RAG embebido (`server/rag/embedded.py`) usa el
+caso para completar lo que el índice no tenga:
+
+- un dato autorizado que no está en el índice sale del caso;
+- un dato del índice cuyo texto ya cambió se entrega con el texto actual del caso;
+- nunca se agrega un dato fuera de los autorizados;
+- el servidor avisa en su registro: «[rag] índice desactualizado ... Reconstrúyalo con: python -m case_preparation index».
+
+Pruebas: `test_embedded_stale_index.py` (3 pruebas). Con el índice viejo real
+([probar_indice_viejo.py](probar_indice_viejo.py)), los 4 datos nuevos pedidos (CIR-005, EME-002, GOB-003 y
+MED-008) llegan al estudiante. Evidencia: `ejecucion/04_indice_rag_viejo.txt` y `_terminal.png`.
+
+Igual conviene reconstruir el índice después de cambiar los casos, para que también ordene bien los datos
+nuevos:
 
 ```powershell
 .\.venv\Scripts\python.exe -m case_preparation index
 ```
 
-Con el índice nuevo (13 casos, 103 documentos), CIR-005, EME-002 y GOB-003 devuelven su dato nuevo. El
-índice no se sube a GitHub (solo `data/indexes/.gitkeep`): Vercel no lo usa y lee los datos directo del
-caso, así que el sitio publicado no tiene este problema. Cada integrante que use el RAG en su equipo debe
-reconstruir su índice.
+El índice no se sube a GitHub (solo `data/indexes/.gitkeep`). Vercel no lo usa y lee los datos directo del
+caso, así que el sitio publicado no tenía este problema.
 
 ## Observaciones
 

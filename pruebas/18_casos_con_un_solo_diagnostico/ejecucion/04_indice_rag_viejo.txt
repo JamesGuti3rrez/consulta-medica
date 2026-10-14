@@ -1,0 +1,33 @@
+DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica\backend
+COMANDO: .venv\Scripts\python.exe ..\pruebas\18_casos_con_un_solo_diagnostico\probar_indice_viejo.py 46cfd26d96a47d54f459032b7b8bdcdea1dc6beed09c646e60f45a1bc40aaed2
+FECHA: 2026-10-14 10:41:03 UTC
+CODIGO_SALIDA: 0
+
+STDOUT:
+Índice usado: 46cfd26d96a4... (armado antes de completar los casos) | modo: embedded-lightrag
+
+[rag] índice desactualizado para CIR-005: se usan los datos del caso. Reconstrúyalo con: python -m case_preparation index
+CIR-005 «Pido el dosaje del factor VIII y del factor IX»
+   datos: ['CIR-005.lab.factores_coagulacion']
+   respuesta: Actividad del factor VIII disminuida; actividad del factor IX normal.
+
+[rag] índice desactualizado para EME-002: se usan los datos del caso. Reconstrúyalo con: python -m case_preparation index
+EME-002 «Solicito una tomografía de cráneo sin contraste»
+   datos: ['EME-002.imagen.tomografia_craneo']
+   respuesta: Sangre en el espacio subaracnoideo de las cisternas basales y los surcos, sin hematoma intraparenquimatoso.
+
+[rag] índice desactualizado para GOB-003: se usan los datos del caso. Reconstrúyalo con: python -m case_preparation index
+GOB-003 «Solicito una prolactina sérica»
+   datos: ['GOB-003.lab.prolactina']
+   respuesta: Prolactina baja para el puerperio.
+
+[rag] índice desactualizado para MED-008: se usan los datos del caso. Reconstrúyalo con: python -m case_preparation index
+MED-008 «Solicito un hemograma y perfil hepático»
+   datos: ['MED-008.lab.hemograma_bioquimica']
+   respuesta: Leucocitos y plaquetas normales; transaminasas normales.
+
+RESUMEN: 4 de 4 datos nuevos llegan al estudiante con el índice viejo
+
+
+STDERR:
+
