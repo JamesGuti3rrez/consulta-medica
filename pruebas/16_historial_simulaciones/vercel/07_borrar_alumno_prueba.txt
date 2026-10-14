@@ -1,0 +1,11 @@
+DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica
+COMANDO: backend\.venv\Scripts\python.exe pruebas\16_historial_simulaciones\usuario_prueba.py borrar C:\Users\Usuario\AppData\Local\Temp\claude\c--Users-Usuario-Documents-consulta-medica\07dd223a-b8fa-4c86-868a-5395bcae0eac\scratchpad\alumno_prueba.json
+FECHA: 2026-10-14 07:12:11 UTC
+CODIGO_SALIDA: 0
+
+STDOUT:
+Alumno de prueba borrado. Intentos que quedan de ese alumno: 0
+
+
+STDERR:
+

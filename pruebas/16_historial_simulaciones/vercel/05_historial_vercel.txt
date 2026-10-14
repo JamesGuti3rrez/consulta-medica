@@ -1,0 +1,30 @@
+DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica
+COMANDO: node pruebas/16_historial_simulaciones/probar_historial.cjs pruebas/16_historial_simulaciones/vercel
+FECHA: 2026-10-14 07:12:06 UTC
+CODIGO_SALIDA: 0
+
+STDOUT:
+1_invitado: inicio con sesión=false | puntaje 18.75% | attempt {"saved":false,"reason":"sin_sesion"}
+  aviso en la hoja: Esta consulta no se guardó: inicia sesión para guardar tus próximas consultas en «Mis simulaciones».
+inicio de sesión del alumno de prueba: ok
+2_con_sesion_completa: inicio con sesión=true | puntaje 100% | attempt {"saved":true,"id":"ae1fc2a7-2fce-44f9-83d1-a8cb94c3d126"}
+  aviso en la hoja: Consulta guardada en «Mis simulaciones».
+3_con_sesion_parcial: inicio con sesión=true | puntaje 18.75% | attempt {"saved":true,"id":"3649eb61-3b17-405d-9521-f9b2cd5bd27b"}
+  aviso en la hoja: Consulta guardada en «Mis simulaciones».
+4_historial_simulador: 2 consultas guardadas.
+  1. Medicina interna | 14 de octubre de 2026 a las 02:11 a. m. | 19% | Diagnóstico: Diagnóstico parcial | 1 de 4 datos clave · 1 min · con alerta de seguridad
+  2. Medicina interna | 14 de octubre de 2026 a las 02:11 a. m. | 100% | Diagnóstico: Reacción a tetraciclinas en estudio | 4 de 4 datos clave · 1 min
+5_historial_portada: 2 consultas guardadas.
+  1. Medicina interna | 14 de octubre de 2026 a las 02:11 a. m. | 19% | Diagnóstico: Diagnóstico parcial | 1 de 4 datos clave · 1 min · con alerta de seguridad
+  2. Medicina interna | 14 de octubre de 2026 a las 02:11 a. m. | 100% | Diagnóstico: Reacción a tetraciclinas en estudio | 4 de 4 datos clave · 1 min
+
+RESUMEN
+invitado guardado: false | motivo: sin_sesion
+consultas con sesión guardadas: 2 de 2
+consultas en el historial (simulador / portada): 2 / 2
+código del caso visible en el historial: false
+errores: []
+
+
+STDERR:
+

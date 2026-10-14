@@ -1,0 +1,13 @@
+DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica
+COMANDO: backend\.venv\Scripts\python.exe pruebas\16_historial_simulaciones\usuario_prueba.py intentos C:\Users\Usuario\AppData\Local\Temp\claude\c--Users-Usuario-Documents-consulta-medica\07dd223a-b8fa-4c86-868a-5395bcae0eac\scratchpad\alumno_prueba.json
+FECHA: 2026-10-14 07:12:08 UTC
+CODIGO_SALIDA: 0
+
+STDOUT:
+Intentos guardados del alumno de prueba: 2
+- medicina_interna: 100 % | 4 de 4 datos clave | diagnóstico: 'Reacción a tetraciclinas en estudio' | hipótesis: ['Hipótesis de 2_con_sesion_completa'] | 81 s | alertas: []
+- medicina_interna: 19 % | 1 de 4 datos clave | diagnóstico: 'Diagnóstico parcial' | hipótesis: ['Hipótesis de 3_con_sesion_parcial'] | 36 s | alertas: ['case_contraindication']
+
+
+STDERR:
+

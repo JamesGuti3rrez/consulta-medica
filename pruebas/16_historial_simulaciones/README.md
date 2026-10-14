@@ -81,6 +81,24 @@ repositorio, y nunca los imprime. Al borrarlo, sus intentos se borran en cascada
 
 Las fotos (`.png`) se guardan en el equipo y no se suben a GitHub.
 
+## Prueba en Vercel (producción)
+
+Tras el push del commit `62afe63`, Vercel desplegó el sitio (`https://consulta-medica-three.vercel.app`,
+«Deployment has completed»). Allí responde Groq y los intentos se guardan en el Supabase real. Se repitió la
+prueba del navegador con un alumno de prueba temporal, borrado al terminar:
+
+| Comprobación | Resultado |
+| --- | --- |
+| Invitado | No se guarda (`sin_sesion`) y la hoja lo avisa |
+| Con sesión | 2 de 2 consultas guardadas; el historial las muestra en el simulador y en la portada |
+| Supabase | 2 intentos con puntaje (100 y 19), diagnóstico, hipótesis, duración y la alerta de contraindicación |
+| Limpieza | Alumno borrado; quedan 0 intentos suyos |
+| Pantalla | Sin código del caso ni errores de consola |
+
+Evidencia: `vercel/05_historial_vercel.txt`, `vercel/06_intentos_vercel_en_supabase.txt`,
+`vercel/07_borrar_alumno_prueba.txt`, sus fotos de terminal y las capturas `vercel/*.png`. La foto de
+terminal es de una segunda corrida con otro alumno temporal, también borrado.
+
 ## Intento fallido
 
 ### Intento 1: cualquiera con el id de la consulta podía quedarse con ella
