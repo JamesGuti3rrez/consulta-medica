@@ -61,11 +61,22 @@ def test_r03_differentials_cite_existing_evidence(case):
 
 
 def test_curated_differentials_cite_the_data_that_discards_them():
-    linked = 0
+    # Decisión 0002: todos los diferenciales de los casos curados tienen un dato que los descarta.
     for path in sorted((CASES_DIR / "curated").glob("*.json")):
         case = json.loads(path.read_text(encoding="utf-8"))
-        linked += sum(bool(item["discard_evidence_ids"]) for item in case["protected"]["differentials"])
-    assert linked >= 25
+        without = [item["name"] for item in case["protected"]["differentials"] if not item["discard_evidence_ids"]]
+        assert without == [], (case["case_id"], without)
+
+
+def test_r15_applies_to_every_curated_case_not_only_synthetic(case):
+    # Un caso de MedQA curado con un diferencial que nada descarta no llega a un solo diagnóstico.
+    assert case["source"]["dataset"] == "MedQA" and case["status"] == "curado"
+    case["protected"]["differentials"][0]["discard_evidence_ids"] = []
+    assert "R15" in _codes(case)
+    # Un caso aún no curado puede tener diferenciales pendientes de completar.
+    case["status"] = "validado"
+    case["provenance"].update({"curated_by": None, "curated_at": None})
+    assert "R15" not in _codes(case)
 
 
 def test_r04_diagnosis_not_visible(case):

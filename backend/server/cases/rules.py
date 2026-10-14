@@ -207,12 +207,16 @@ def check_case_rules(case: dict[str, Any]) -> list[str]:
         if allowed is not None and not requires <= allowed:
             errors.append(f"R14 {item['evidence_id']}: temas no acordados para {owner}: {sorted(requires - allowed)}")
 
-    if case["source"]["dataset"] == "sintetico":
-        # R15 · casos sintéticos (data/cases/familias/README.md): cada hipótesis alternativa se puede
-        # descartar con algún dato del caso.
+    synthetic = case["source"]["dataset"] == "sintetico"
+    # R15 · cada hipótesis alternativa se puede descartar con algún dato del caso, para que el estudiante
+    # llegue a un solo diagnóstico: en los casos sintéticos (data/cases/familias/README.md) y en todo caso
+    # curado (decisión 0002).
+    if synthetic or case["status"] == "curado":
         without = [d["name"] for d in case["protected"]["differentials"] if not d["discard_evidence_ids"]]
         if without:
             errors.append(f"R15 diferenciales sin dato que los descarte: {without}")
+
+    if synthetic:
         # R16 · los datos que descartan están ocultos hasta que se piden; si fueran visibles, el
         # estudiante descartaría sin preguntar.
         on_request = {item["evidence_id"] for item in case["on_request"]}

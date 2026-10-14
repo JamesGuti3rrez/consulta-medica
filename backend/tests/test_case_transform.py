@@ -175,7 +175,8 @@ def test_curation_changes_only_status_and_curation_provenance():
         "answer_text": "Subarachnoid hemorrhage",
         "specialty": "emergencias",
         "clinical_diagnosis": "Hemorragia subaracnoidea",
-        "distribution": DISTRIBUTION,
+        # Un caso curado necesita un dato que descarte cada diferencial (R15, decisión 0002).
+        "distribution": {**DISTRIBUTION, "discard": {"A. Migraine": ["exploracion_fisica"]}},
     }
     case = _build_case(candidate, 1)
     original_public = case["public"].copy()
