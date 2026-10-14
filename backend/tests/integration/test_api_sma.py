@@ -150,3 +150,63 @@ def test_llm_unavailable_returns_503_with_clear_message(monkeypatch):
     assert response.status_code == 503
     assert "no puede responder" in response.json()["detail"]
     assert "Invalid API Key" not in response.text
+
+
+def _finished_session(monkeypatch, fake, **kwargs):
+    from server.persistence import SupabaseAttempts
+
+    attempts = SupabaseAttempts("https://proyecto.supabase.co", "sb_publishable_prueba", "sb_secret_prueba",
+                                client=fake.client())
+    monkeypatch.setattr(ai_module, "get_attempts", lambda: attempts)
+    sid = client.post("/api/ai/sessions", json={"case_id": "MED-900"}).json()["session_id"]
+    _send(sid, "¿Tiene alergias a algún medicamento?")
+    return sid, client.post(f"/api/ai/sessions/{sid}/finish", **kwargs)
+
+
+def test_finish_saves_the_attempt_only_for_a_signed_in_student(monkeypatch):
+    from tests.fakes_supabase import FakeSupabase
+
+    fake = FakeSupabase()
+    fake.users["token-alumno"] = "0b8f3c1e-5d4a-4f6b-9a1e-2c3d4e5f6a7b"
+    body = {"diagnosis": "Diagnóstico del alumno", "hypotheses": [{"name": "Hipótesis A", "discarded": False}]}
+    sid, finish = _finished_session(monkeypatch, fake, json=body, headers={"Authorization": "Bearer token-alumno"})
+
+    assert finish.status_code == 200
+    assert finish.json()["attempt"] == {"saved": True, "id": "intento-1"}
+    row = fake.attempts[0]
+    assert row["usuario_id"] == "0b8f3c1e-5d4a-4f6b-9a1e-2c3d4e5f6a7b"
+    assert row["caso_id"] == "MED-900"
+    assert row["especialidad"] == "medicina_interna"
+    assert row["puntaje"] == round(finish.json()["evaluation"]["score"])
+    assert row["diagnostico"] == "Diagnóstico del alumno"
+    assert row["hipotesis"] == [{"name": "Hipótesis A", "discarded": False, "reason": ""}]
+
+    # Cerrar otra vez no duplica el intento.
+    again = client.post(f"/api/ai/sessions/{sid}/finish", json=body, headers={"Authorization": "Bearer token-alumno"})
+    assert again.json()["attempt"] == {"saved": True, "id": "intento-1"}
+    assert len(fake.attempts) == 1
+
+
+def test_finish_without_session_or_with_a_forged_token_saves_nothing(monkeypatch):
+    from tests.fakes_supabase import FakeSupabase
+
+    fake = FakeSupabase()
+    _, guest = _finished_session(monkeypatch, fake)
+    assert guest.status_code == 200
+    assert guest.json()["evaluation"]["total_questions"] > 0
+    assert guest.json()["attempt"] == {"saved": False, "reason": "sin_sesion"}
+
+    _, forged = _finished_session(monkeypatch, fake, headers={"Authorization": "Bearer token-inventado"})
+    assert forged.json()["attempt"] == {"saved": False, "reason": "sesion_invalida"}
+    assert fake.attempts == []
+
+
+def test_finish_still_returns_the_evaluation_if_supabase_fails(monkeypatch):
+    from tests.fakes_supabase import FakeSupabase
+
+    fake = FakeSupabase()
+    fake.fail_with = 500
+    _, finish = _finished_session(monkeypatch, fake, headers={"Authorization": "Bearer token-alumno"})
+    assert finish.status_code == 200
+    assert finish.json()["evaluation"]["total_questions"] > 0
+    assert finish.json()["attempt"] == {"saved": False, "reason": "error"}

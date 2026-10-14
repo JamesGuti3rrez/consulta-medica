@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from functools import lru_cache
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Header, HTTPException
 from pydantic import BaseModel, Field
 
 from server.ai.agents.base import PROMPTS_DIR
@@ -31,6 +31,7 @@ from server.orchestration import (
     StarGraphOrchestrator,
     SupabaseSessionStore,
 )
+from server.persistence import AttemptStoreError, SupabaseAttempts, build_attempt
 from server.rag.embedded import EmbeddedRAGRetriever
 from server.rag.retriever import CaseEvidenceRetriever, HttpRetriever
 from server.tracing import LangSmithObserver, LocalTraceLogger
@@ -65,6 +66,27 @@ class StartRequest(BaseModel):
 
 class MessageRequest(BaseModel):
     message: str = Field(min_length=2, max_length=2000)
+
+
+class HypothesisItem(BaseModel):
+    name: str = Field(min_length=1, max_length=200)
+    discarded: bool = False
+    reason: str = Field(default="", max_length=500)
+
+
+class FinishRequest(BaseModel):
+    """Lo que registró el estudiante. No se califica: se guarda junto al puntaje del motor clínico."""
+
+    diagnosis: str | None = Field(default=None, max_length=2000)
+    hypotheses: list[HypothesisItem] = Field(default_factory=list, max_length=50)
+
+
+@lru_cache
+def get_attempts() -> SupabaseAttempts | None:
+    """Guardado de intentos; None si el servidor no tiene configurado Supabase."""
+    if not (settings.supabase_url and settings.supabase_publishable_key and settings.supabase_secret_key):
+        return None
+    return SupabaseAttempts(settings.supabase_url, settings.supabase_publishable_key, settings.supabase_secret_key)
 
 
 @lru_cache
@@ -179,10 +201,46 @@ def events(session_id: str):
 
 
 @router.post("/sessions/{session_id}/finish")
-def finish(session_id: str):
+def finish(session_id: str, payload: FinishRequest | None = None, authorization: str | None = Header(default=None)):
     try:
-        return get_service().finish(session_id)
+        service = get_service()
+        result = service.finish(session_id)
+        result["attempt"] = _save_attempt(service, result, payload or FinishRequest(), authorization)
+        return result
     except SessionNotFound as exc:
         raise HTTPException(status_code=404, detail="Sesión no encontrada.") from exc
     except SessionStoreError as exc:
         raise _store_unavailable(exc) from exc
+
+
+def _save_attempt(service: MultiAgentSessionService, session: dict, payload: FinishRequest,
+                  authorization: str | None) -> dict:
+    """Guarda la consulta en el historial del alumno, solo si tiene la sesión iniciada.
+
+    Un fallo de Supabase no impide ver la evaluación: se informa en attempt y la consulta termina igual.
+    """
+    if session.get("attempt_id"):
+        return {"saved": True, "id": session["attempt_id"]}
+    token = (authorization or "").removeprefix("Bearer ").strip()
+    if not token:
+        return {"saved": False, "reason": "sin_sesion"}
+    attempts = get_attempts()
+    if attempts is None:
+        return {"saved": False, "reason": "no_configurado"}
+    try:
+        user_id = attempts.user_id(token)
+        if not user_id:
+            return {"saved": False, "reason": "sesion_invalida"}
+        specialty = service.repository.get_conversation_case(session["case_id"])["specialty"]
+        attempt_id = attempts.save(build_attempt(
+            user_id=user_id,
+            session=session,
+            specialty=specialty,
+            diagnosis=payload.diagnosis,
+            hypotheses=[item.model_dump() for item in payload.hypotheses],
+        ))
+    except AttemptStoreError as exc:
+        print(f"[intentos] {exc}")
+        return {"saved": False, "reason": "error"}
+    service.attach_attempt(session["session_id"], attempt_id)
+    return {"saved": True, "id": attempt_id}

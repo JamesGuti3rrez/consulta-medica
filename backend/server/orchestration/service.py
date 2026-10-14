@@ -156,6 +156,9 @@ class MultiAgentSessionService:
 
     def finish(self, session_id: str) -> dict:
         session = self.store.get(session_id)
+        # Cerrar otra vez devuelve el mismo resultado: no se recalcula ni se duplica el intento guardado.
+        if session["phase"] == SessionPhase.FINALIZADA.value and session.get("evaluation"):
+            return self._public(session)
         self._ensure_clinical_state(session)
         case = self.repository.get_conversation_case(session["case_id"])
         session["evaluation"] = self.evaluation_engine.evaluate(
@@ -174,6 +177,12 @@ class MultiAgentSessionService:
         self.store.save(session)
         self.store.event(session_id, {"type": "session_finished", "case_id": session["case_id"]})
         return self._public(session)
+
+    def attach_attempt(self, session_id: str, attempt_id: str) -> None:
+        """Recuerda el intento guardado del alumno para no guardarlo dos veces."""
+        session = self.store.get(session_id)
+        session["attempt_id"] = attempt_id
+        self.store.save(session)
 
     def events(self, session_id: str) -> list[dict]:
         return self.store.events(session_id)
@@ -199,7 +208,7 @@ class MultiAgentSessionService:
             "started_at", "updated_at", "finished_at",
         }
         public = {key: state[key] for key in keys}
-        for key in ("avatar_state", "evaluation"):
+        for key in ("avatar_state", "evaluation", "attempt_id"):
             if key in state:
                 public[key] = state[key]
         return public
