@@ -964,6 +964,20 @@
           "requires": [
             "exploracion_fisica"
           ]
+        },
+        {
+          "key": "tomografia_craneo",
+          "category": "imagen",
+          "label": "Tomografía de cráneo sin contraste",
+          "text": "Sangre en el espacio subaracnoideo de las cisternas basales y los surcos, sin hematoma intraparenquimatoso.",
+          "owner": "radiologia",
+          "requires": [
+            "tomografia"
+          ],
+          "complemento": {
+            "fuente": "nice_sah",
+            "motivo": "La tomografía distingue la hemorragia subaracnoidea de la intracerebral."
+          }
         }
       ],
       "key_questions": [
@@ -984,6 +998,15 @@
           "weight": 3,
           "critical": false,
           "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "topic": "Tomografía de cráneo: sangre subaracnoidea sin hematoma intraparenquimatoso",
+          "evidence": [
+            "tomografia_craneo"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
         }
       ],
       "notes": [
@@ -1002,6 +1025,9 @@
         "Crisis epiléptica": [
           "queja_principal",
           "exploracion_fisica"
+        ],
+        "Hemorragia intracerebral": [
+          "tomografia_craneo"
         ]
       }
     },

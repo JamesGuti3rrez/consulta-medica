@@ -65,6 +65,19 @@
           "exploracion_fisica"
         ]
       }
+    },
+    {
+      "evidence_id": "EME-002.imagen.tomografia_craneo",
+      "category": "imagen",
+      "label": "Tomografía de cráneo sin contraste",
+      "text": "Sangre en el espacio subaracnoideo de las cisternas basales y los surcos, sin hematoma intraparenquimatoso.",
+      "reveal_policy": {
+        "owner": "radiologia",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "tomografia"
+        ]
+      }
     }
   ],
   "protected": {
@@ -86,7 +99,9 @@
       {
         "name": "Hemorragia intracerebral",
         "must_not_miss": true,
-        "discard_evidence_ids": []
+        "discard_evidence_ids": [
+          "EME-002.imagen.tomografia_craneo"
+        ]
       },
       {
         "name": "Trombosis venosa cerebral",
@@ -143,6 +158,16 @@
           "weight": 3,
           "critical": false,
           "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq4",
+          "topic": "Tomografía de cráneo: sangre subaracnoidea sin hematoma intraparenquimatoso",
+          "evidence_ids": [
+            "EME-002.imagen.tomografia_craneo"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
         }
       ],
       "tests": {
