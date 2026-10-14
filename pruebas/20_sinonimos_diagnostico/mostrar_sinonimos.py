@@ -21,9 +21,12 @@ for path in sorted(CURATED.glob("*.json")):
     print(f"         también: {'; '.join(synonyms)}")
 
 # Antes de esta fase (commit 47ef69d), para comparar.
+# Se recorren los archivos de esa versión por su nombre de entonces (los códigos cambiaron en la fase 23).
+git = dict(capture_output=True, text=True, encoding="utf-8", cwd=CURATED.parents[2], check=True)
+names = subprocess.run(["git", "ls-tree", "--name-only", "47ef69d", "data/cases/curated/"], **git).stdout.split()
+names = [name for name in names if name.endswith(".json")]
 before = 0
-for path in sorted(CURATED.glob("*.json")):
-    old = subprocess.run(["git", "show", f"47ef69d:data/cases/curated/{path.name}"], capture_output=True,
-                         text=True, encoding="utf-8", cwd=CURATED.parents[2], check=True).stdout
+for name in names:
+    old = subprocess.run(["git", "show", f"47ef69d:{name}"], **git).stdout
     before += len(json.loads(old)["protected"]["diagnosis"]["synonyms"])
 print(f"\n{total} formas de nombrar el diagnóstico en 13 casos (antes: {before}; los 10 de MedQA solo tenían su nombre)")
