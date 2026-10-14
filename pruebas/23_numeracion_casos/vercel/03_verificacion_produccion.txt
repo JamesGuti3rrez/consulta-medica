@@ -1,0 +1,79 @@
+DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica
+COMANDO: backend\.venv\Scripts\python.exe pruebas\23_numeracion_casos\verificar_produccion.py
+FECHA: 2026-10-14 12:27:20 UTC
+CODIGO_SALIDA: 0
+
+STDOUT:
+Alumno de prueba creado (id f6be4e41...). Credenciales guardadas fuera del repositorio.
+Alumno de prueba borrado. Intentos que quedan de ese alumno: 0
+Sitio: https://consulta-medica-three.vercel.app
+
+== Códigos de los casos
+  MED-007 -> Patricia Vargas (OK)
+  MED-008 -> Alberto Núñez (OK)
+  PED-009 -> Mateo Quispe (OK)
+  MED-009 (ya no existe) -> HTTP 404 (OK)
+  PED-007 (ya no existe) -> HTTP 404 (OK)
+
+== Fase 22: pedidos genéricos
+        esperado: resultado | obtenido: resultado
+  OK    [CIR-005] examen concreto que el caso no tiene
+        «Pido un hemograma» -> laboratorio
+        Ese examen no se realizó en este paciente.
+        esperado: no se realizó | obtenido: no se realizó
+  RESUMEN: 5 de 5 pedidos reciben la respuesta correcta
+
+== Fase 18: datos agregados por el equipo
+        Sangre en el espacio subaracnoideo de las cisternas basales y los surcos, sin hematoma intraparenquimatoso.
+  OK  GOB-003 «Solicito una prolactina sérica» -> laboratorio
+        Prolactina baja para el puerperio.
+  OK  MED-007 «Solicito un hemograma y perfil hepático» -> laboratorio
+        Leucocitos y plaquetas normales; transaminasas normales.
+  RESUMEN: 7 de 7 datos nuevos llegan al estudiante en el sitio publicado
+
+== Fase 15: hoja de evaluación
+  Probar otro caso
+  logout
+  Cerrar simulador
+  la hoja se cierra: true | se reabre con «Ver hoja de evaluación»: true
+  código del caso visible en pantalla: false
+  errores: []
+
+== Fase 17: probar otro caso
+  pediatría, misma especialidad en las 3 rondas: true
+  pediatría, la ronda 2 es otro paciente: true
+  pediatría, la ronda 3 no repite al de la ronda 2: true
+  desde caso de prueba, otro paciente de la misma especialidad: true
+  «Cerrar simulador» lleva a: /index.html
+  errores: []
+
+== Fase 19: aviso de privacidad
+    menciona Ley N.º 29733: true
+    menciona Supabase: true
+    menciona Groq: true
+    menciona Mis simulaciones: true
+    menciona ARCO: true
+  errores: []
+
+== Fase 16: Mis simulaciones (alumno temporal)
+  RESUMEN
+  invitado guardado: false | motivo: sin_sesion
+  consultas con sesión guardadas: 2 de 2
+  consultas en el historial (simulador / portada): 2 / 2
+  código del caso visible en el historial: false
+  errores: []
+
+RESUMEN
+  [OK] Códigos de los casos
+  [OK] Fase 22: pedidos genéricos
+  [OK] Fase 18: datos agregados
+  [OK] Fase 15: hoja de evaluación
+  [OK] Fase 17: otro caso
+  [OK] Fase 19: aviso de privacidad
+  [OK] Fase 16: Mis simulaciones
+
+RESULTADO: todo funciona en el sitio publicado.
+
+
+STDERR:
+

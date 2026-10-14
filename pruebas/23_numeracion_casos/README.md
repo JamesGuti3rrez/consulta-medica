@@ -77,6 +77,13 @@ EME-103  Víctor Chávez     Disección aórtica aguda tipo A
 
 Las fotos (`.png`) se guardan en el equipo y no se suben a GitHub.
 
+## Verificación en el sitio publicado
+
+Tras el push, [verificar_produccion.py](verificar_produccion.py) corrió contra Vercel, con Groq y Supabase, las
+pruebas de las fases 15 a 22, más los códigos nuevos. Para «Mis simulaciones» usó un alumno temporal, que se
+borró al terminar. Resultado: **7 de 7 comprobaciones OK**. MED-007, MED-008 y PED-009 abren a su paciente;
+MED-009 y PED-007 responden 404. Evidencia: `vercel/03_verificacion_produccion.txt` y `_terminal.png`.
+
 ## Intento fallido
 
 La primera corrida del recorrido tras la renumeración (`intentos/01_sinonimos_con_nombres_viejos/`) se detuvo
