@@ -50,6 +50,10 @@ de `simulacion.html`. Las hipótesis y el diagnóstico de la hoja salen de lo qu
 el puntaje no califica el diagnóstico escrito. El botón «Realizar Diagnóstico» pasa a «Ver hoja de
 evaluación» para reabrirla. Evidencia: `pruebas/15_integracion_motor_clinico/`.
 
+Al pie de la hoja, «Probar otro caso» reinicia el simulador sin recargar con otro paciente de la misma
+especialidad (`/api/caso?excluir=` con los casos ya vistos en la pestaña, guardados en `sessionStorage`) y
+«Cerrar simulador» vuelve a la portada. Evidencia: `pruebas/17_otro_caso/`.
+
 ## Mis simulaciones
 
 Con la sesión iniciada, el simulador envía el token de Supabase al iniciar y al finalizar la consulta; el
