@@ -15,8 +15,8 @@ Paquete Python del servidor FastAPI (`server.main:app`). `main.py` arma la aplic
 | `cases/` | Casos canónicos | Cargar casos, validar (esquema + reglas cruzadas), compuerta de `status`. | No |
 | `engine/state_machine/` | Máquina de estados | Fases de la consulta y transiciones; estado del avatar que consume el frontend. | No |
 | `engine/disclosure/` | Acceso por rol | Aplica `reveal_policy` y produce `allowed_evidence_ids` por turno. | No |
-| `engine/safety/` | Motor de reglas | Alergias, contraindicaciones, verificación de la receta, complicaciones. | No |
-| `engine/evaluation/` | Evaluación | Puntaje y clasificación de errores (negligencia, anamnesis incompleta, razonamiento clínico). | No |
+| `engine/safety/` | Motor de reglas | Compara propuestas de tratamiento con alergias registradas y contraindicaciones del caso; emite alertas sin exponer datos protegidos. | No |
+| `engine/evaluation/` | Evaluación | Puntúa evidencia recabada y agrupa omisiones por tipo de error al finalizar la sesión. | No |
 | `orchestration/` | Orquestador (StateGraph) | Decide qué agente atiende cada turno y encadena los pasos. | No (invoca IA) |
 | `rag/` | Servicio RAG | Política de indexación, chunks, recuperación filtrada por `case_id` y evidencia autorizada. | No (usa embeddings) |
 | `guardrails/` | Filtro de salida | Detecta términos protegidos en respuestas y en contenido a indexar. | No |
@@ -33,3 +33,9 @@ Paquete Python del servidor FastAPI (`server.main:app`). `main.py` arma la aplic
 - `protected` solo lo leen `engine/safety/` y `engine/evaluation/`.
 - `rag/` nunca indexa `protected` y nunca decide autorización: recibe `allowed_evidence_ids` de `engine/disclosure/`.
 - `api/` no contiene reglas clínicas; delega en `engine/` y `orchestration/`.
+
+## Estado clínico de la sesión
+
+La máquina conserva el avance de fase sin impedir que el estudiante vuelva a preguntar a otro agente. El estado del avatar expone los signos vitales definidos en `public`, una postura asociada a la fase y las alertas de seguridad. No modifica signos vitales ni inventa complicaciones: el esquema del caso aún no define una evolución por caso.
+
+La verificación determinística de tratamiento detecta nombres de alergias registradas y términos de `protected.contraindications`. Un resultado sin alertas significa que no hubo coincidencias con esos datos del caso, no que cualquier tratamiento sea universalmente seguro. Al cerrar, el reporte puntúa las preguntas de `protected.evaluation.key_questions` según la evidencia recuperada durante la sesión y solo devuelve conteos de errores, sin temas ni datos protegidos.
