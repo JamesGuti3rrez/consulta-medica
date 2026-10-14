@@ -110,7 +110,7 @@ GUIONES = {
             ("Voy a tomar los signos vitales", "medico_asistente", ["vital.signos_vitales"]),
             ("Voy a realizar la exploración física", "medico_asistente", ["examen.exploracion_fisica"]),
             ("¿Cómo está de ánimo? ¿Se ha sentido triste?", "paciente", ["sintoma.estado_de_animo"]),
-            ("¿Cómo eran sus reglas antes del embarazo? ¿Tenía dolores de cabeza o problemas de la vista?", "paciente", ["antecedente.evolucion_parto", "antecedente.antecedentes_menstruales"]),
+            ("¿Qué antecedentes tenía antes del embarazo? ¿Reglas irregulares, dolores de cabeza o problemas de la vista?", "paciente", ["antecedente.antecedentes_menstruales"]),
             ("Solicito una prolactina sérica", "laboratorio", ["lab.prolactina"]),
         ],
         "no_preguntar": [
@@ -243,7 +243,7 @@ POR_QUE = {
         "Voy a tomar los signos vitales": "Muestran si hubo shock por el sangrado: presión baja y pulso rápido.",
         "Voy a realizar la exploración física": "Busca signos de shock y la causa del sangrado, como un útero que no se contrae.",
         "¿Cómo está de ánimo? ¿Se ha sentido triste?": "Ver el ánimo: la tristeza del posparto no explica que no salga leche.",
-        "¿Cómo eran sus reglas antes del embarazo? ¿Tenía dolores de cabeza o problemas de la vista?": "Reglas normales y sin cefalea ni problemas de la vista antes del parto van en contra de un tumor de la hipófisis previo.",
+        "¿Qué antecedentes tenía antes del embarazo? ¿Reglas irregulares, dolores de cabeza o problemas de la vista?": "Reglas normales y sin cefalea ni problemas de la vista antes del parto van en contra de un tumor de la hipófisis previo.",
         "Solicito una prolactina sérica": "La prolactina es la hormona de la leche: si está baja tras el parto, la hipófisis está dañada.",
     },
     "GOB-004": {
