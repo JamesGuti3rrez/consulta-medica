@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import copy
+from typing import Any
+
 from server.domain import Intent, SessionPhase
 
 
@@ -26,9 +29,19 @@ _TARGET_BY_INTENT = {
     Intent.FINISH: SessionPhase.CIERRE,
 }
 
+_GESTURE_BY_PHASE = {
+    SessionPhase.PRESENTACION: "idle",
+    SessionPhase.ANAMNESIS: "attentive",
+    SessionPhase.EXAMENES: "attentive",
+    SessionPhase.HIPOTESIS: "thinking",
+    SessionPhase.DIAGNOSTICO: "thinking",
+    SessionPhase.CIERRE: "idle",
+    SessionPhase.FINALIZADA: "idle",
+}
+
 
 class ClinicalStateMachine:
-    """Fase clínica determinística; no obliga un pipeline rígido de agentes."""
+    """Fases clínicas y estado visual determinísticos; no infiere deterioro del paciente."""
 
     def advance(self, current: SessionPhase, intent: Intent) -> SessionPhase:
         if current == SessionPhase.FINALIZADA:
@@ -38,3 +51,32 @@ class ClinicalStateMachine:
             return target
         # La fase representa progreso alcanzado, no restringe volver a preguntar a otro agente.
         return target if _PHASE_ORDER[target] > _PHASE_ORDER[current] else current
+
+    def initial_avatar_state(self, case: dict[str, Any]) -> dict[str, Any]:
+        public = case["public"]
+        vitals = [
+            {
+                key: item[key]
+                for key in ("evidence_id", "label", "value", "unit", "text")
+                if key in item
+            }
+            for item in public["items"]
+            if item["category"] == "signo_vital"
+        ]
+        return {
+            "gesture": _GESTURE_BY_PHASE[SessionPhase.PRESENTACION],
+            "vitals": vitals,
+            "alerts": [],
+            "complications": [],
+        }
+
+    def update_avatar_state(
+        self,
+        current: dict[str, Any],
+        phase: SessionPhase,
+        alerts: list[dict[str, str]] | None = None,
+    ) -> dict[str, Any]:
+        updated = copy.deepcopy(current)
+        updated["gesture"] = _GESTURE_BY_PHASE[phase]
+        updated["alerts"].extend(copy.deepcopy(alerts or []))
+        return updated
