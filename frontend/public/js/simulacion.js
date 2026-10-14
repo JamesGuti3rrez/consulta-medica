@@ -813,10 +813,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     setField('evaluation-score', `${evaluation.score}%`);
+    // Sin datos clave obtenidos no hay logro que mostrar aquí: las omisiones van en «Lo que faltó preguntar».
     fillList('evaluation-strengths', [
       evaluation.completed_questions
         ? `Obtuviste ${evaluation.completed_questions} de ${evaluation.total_questions} datos clave del caso.`
-        : `No obtuviste ninguno de los ${evaluation.total_questions} datos clave del caso.`,
+        : 'Completaste la consulta y registraste un diagnóstico.',
     ]);
     const errors = Object.entries(evaluation.errors || {}).filter(([, count]) => count > 0);
     fillList('evaluation-missing', errors.length
