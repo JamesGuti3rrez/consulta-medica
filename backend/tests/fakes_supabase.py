@@ -1,4 +1,4 @@
-"""Imitación mínima de la API REST de Supabase (PostgREST) para probar SupabaseSessionStore sin red."""
+"""Imitación mínima de la API de Supabase (PostgREST y Auth) para probar sesiones e intentos sin red."""
 
 from __future__ import annotations
 
@@ -13,6 +13,9 @@ class FakeSupabase:
         self.events: list[dict] = []
         self.requests: list[httpx.Request] = []
         self.fail_with: int | None = None
+        # Tokens de acceso válidos de Supabase Auth -> id del usuario.
+        self.users: dict[str, str] = {}
+        self.attempts: list[dict] = []
 
     def transport(self) -> httpx.MockTransport:
         return httpx.MockTransport(self._handle)
@@ -24,6 +27,11 @@ class FakeSupabase:
         self.requests.append(request)
         if self.fail_with:
             return httpx.Response(self.fail_with, json={"message": "fallo simulado"})
+        if request.url.path == "/auth/v1/user":
+            token = request.headers.get("authorization", "").removeprefix("Bearer ")
+            if token in self.users:
+                return httpx.Response(200, json={"id": self.users[token], "aud": "authenticated"})
+            return httpx.Response(401, json={"code": "bad_jwt", "message": "invalid JWT"})
         table = request.url.path.rsplit("/", 1)[-1]
         params = request.url.params
         body = json.loads(request.content) if request.content else None
@@ -50,4 +58,8 @@ class FakeSupabase:
                 return httpx.Response(201)
             if request.method == "GET":
                 return httpx.Response(200, json=[{"payload": e["payload"]} for e in self.events if e["session_id"] == target])
+        if table == "intentos" and request.method == "POST":
+            row = {"id": f"intento-{len(self.attempts) + 1}", **body}
+            self.attempts.append(row)
+            return httpx.Response(201, json=[{"id": row["id"]}])
         return httpx.Response(404, json={"message": "ruta no simulada"})
