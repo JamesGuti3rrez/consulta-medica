@@ -37,3 +37,15 @@ secciones `on_request` ni `protected`. Esta etapa carga datos para demostración
 todavía turnos de conversación, evaluación clínica ni guardado de intentos.
 
 Evidencia visual del hito: `pruebas/04_frontend/` (las fotos se guardan en el equipo, no en GitHub).
+
+## Alertas y hoja de evaluación
+
+Cada respuesta de `POST /api/ai/sessions/{id}/message` puede traer `safety_alerts`: cuando el estudiante
+propone un tratamiento que coincide con una alergia registrada o una contraindicación del caso, el
+simulador muestra el aviso del motor clínico, que no nombra el fármaco ni el motivo protegido.
+
+Al guardar el diagnóstico, `POST /api/ai/sessions/{id}/finish` devuelve `evaluation` (puntaje, datos clave
+obtenidos y conteo de omisiones por tipo de error) y el simulador llena la «Hoja de evaluación clínica»
+de `simulacion.html`. Las hipótesis y el diagnóstico de la hoja salen de lo que registró el estudiante;
+el puntaje no califica el diagnóstico escrito. El botón «Realizar Diagnóstico» pasa a «Ver hoja de
+evaluación» para reabrirla. Evidencia: `pruebas/15_integracion_motor_clinico/`.
