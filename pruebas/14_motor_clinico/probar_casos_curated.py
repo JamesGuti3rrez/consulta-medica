@@ -28,7 +28,8 @@ from server.orchestration.router import DecisionRouter
 from server.main import app
 
 CASES_DIR = ROOT / "data" / "cases" / "curated"
-RESULTS_PATH = BACKEND / "resultados_casos_curados.json"
+RESULTS_DIR = Path(__file__).resolve().parent / "resultados"
+RESULTS_PATH = RESULTS_DIR / "resultados_casos_curados.json"
 
 INTENT_BY_POLICY = {
     ("paciente", "al_preguntar"): Intent.ASK_PATIENT,
@@ -259,6 +260,7 @@ def run() -> list[dict[str, Any]]:
     finally:
         ai_module.get_service.cache_clear()
 
+    RESULTS_DIR.mkdir(parents=True, exist_ok=True)
     RESULTS_PATH.write_text(
         json.dumps(results, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",

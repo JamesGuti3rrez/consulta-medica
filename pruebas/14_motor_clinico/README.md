@@ -10,17 +10,16 @@ Ejecutar desde `backend/` en Windows:
 .\.venv\Scripts\python.exe ..\pruebas\14_motor_clinico\probar_casos_curated.py
 ```
 
-El script invoca la misma aplicación FastAPI mediante `TestClient`, usa intencionalmente el proveedor local determinístico para evitar costos, cuotas o resultados variables de un LLM. El resultado detallado se guarda en `backend/resultados_casos_curados.json`. No sobrescribe `resultados_motor_clinico.json`.
+El script invoca la misma aplicación FastAPI mediante `TestClient` y usa intencionalmente el proveedor local determinístico para evitar costos, cuotas o resultados variables de un LLM. El resultado detallado se guarda en `pruebas/14_motor_clinico/resultados/resultados_casos_curados.json`.
 
 La prueba local verifica routing, autorización, recuperación, evaluación y reglas determinísticas; no mide calidad de redacción ni requiere una clave Groq ni conexión externa.
 
 ## Visualizar resultados
 
-Después de generar los JSON de resultados, crea un informe HTML con tablas para los casos curados, validados y la corrida clínica anterior:
+Después de generar los JSON de resultados, crea un informe HTML con tablas para los casos curados, validados y la corrida clínica anterior. Desde `backend/`:
 
 ```powershell
-Set-Location 'D:\Consulta-medica-rama\consulta-medica\consulta-medica\backend'
 .\.venv\Scripts\python.exe ..\pruebas\14_motor_clinico\visualizar_resultados.py
 ```
 
-El HTML se guarda en `backend/visualizacion_resultados_clinicos.html`; ábrelo con el navegador. Incluye un resumen por especialidad y una tabla por cada JSON disponible. Si falta algún archivo de resultados, el informe indica cuál prueba debe ejecutarse. Puedes elegir otro destino con `--output ruta\informe.html`.
+El HTML se guarda en `pruebas/14_motor_clinico/resultados/visualizacion_resultados_clinicos.html`; ábrelo con el navegador. Incluye un resumen por especialidad y una tabla por cada JSON disponible en `resultados/`. Si falta algún archivo de resultados, el informe indica cuál prueba debe ejecutarse. Puedes elegir otro destino con `--output ruta\informe.html`.

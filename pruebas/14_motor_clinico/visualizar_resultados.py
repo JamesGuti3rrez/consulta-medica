@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[2]
-BACKEND = ROOT / "backend"
+RESULTS_DIR = Path(__file__).resolve().parent / "resultados"
 
 RESULT_SETS = (
     {
@@ -227,7 +227,7 @@ def _specialty_summary(
 def generate_report(output_path: Path) -> Path:
     metadata = _clinical_case_metadata()
     loaded = [
-        (result_set, _read_result_file(BACKEND / result_set["filename"]))
+        (result_set, _read_result_file(RESULTS_DIR / result_set["filename"]))
         for result_set in RESULT_SETS
     ]
     sections = []
@@ -307,7 +307,7 @@ def generate_report(output_path: Path) -> Path:
     <header>
       <h1>Resultados del motor clínico</h1>
       <p class="muted">Generado: {html.escape(datetime.now().astimezone().strftime("%Y-%m-%d %H:%M:%S %Z"))}</p>
-      <p class="muted">Las tablas reflejan los JSON disponibles en <code>backend/</code>.</p>
+      <p class="muted">Las tablas reflejan los JSON disponibles en <code>pruebas/14_motor_clinico/resultados/</code>.</p>
     </header>
     <section class="panel">
       <div class="section-heading"><div><h2>Resumen por especialidad y corrida</h2></div></div>
@@ -338,8 +338,8 @@ def main() -> int:
     parser.add_argument(
         "--output",
         type=Path,
-        default=BACKEND / "visualizacion_resultados_clinicos.html",
-        help="Ruta del HTML de salida (por defecto, backend/visualizacion_resultados_clinicos.html).",
+        default=RESULTS_DIR / "visualizacion_resultados_clinicos.html",
+        help="Ruta del HTML de salida (por defecto, pruebas/14_motor_clinico/resultados/visualizacion_resultados_clinicos.html).",
     )
     args = parser.parse_args()
     output = args.output if args.output.is_absolute() else ROOT / args.output
