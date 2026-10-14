@@ -1,0 +1,28 @@
+DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica
+COMANDO: backend\.venv\Scripts\python.exe pruebas\18_casos_con_un_solo_diagnostico\probar_vercel.py
+FECHA: 2026-10-14 10:44:44 UTC
+CODIGO_SALIDA: 0
+
+STDOUT:
+Sitio: https://consulta-medica-three.vercel.app | modelo: groq-pool | recuperación: deterministic-case-fallback
+
+OK  CIR-005 «Pido el dosaje del factor VIII y del factor IX» -> laboratorio
+      Factor VIII: actividad disminuida. Factor IX: actividad normal.
+OK  CIR-006 «Pido una radiografía de tórax» -> radiologia
+      Consolidación en la base pulmonar derecha con broncograma aéreo, compatible con neumonía; sin colapso lobar ni desplazamiento de cisuras.
+OK  EME-001 «Solicito función tiroidea» -> laboratorio
+      TSH y tiroxina libre dentro del rango normal.
+OK  EME-001 «Pido un electroencefalograma» -> laboratorio
+      Sin actividad epileptiforme; enlentecimiento difuso propio de una encefalopatía.
+OK  EME-002 «Solicito una tomografía de cráneo sin contraste» -> radiologia
+      Sangre en el espacio subaracnoideo de las cisternas basales y los surcos, sin hematoma intraparenquimatoso.
+OK  GOB-003 «Solicito una prolactina sérica» -> laboratorio
+      Prolactina baja para el puerperio.
+OK  MED-008 «Solicito un hemograma y perfil hepático» -> laboratorio
+      Leucocitos y plaquetas normales; transaminasas normales.
+
+RESUMEN: 7 de 7 datos nuevos llegan al estudiante en el sitio publicado
+
+
+STDERR:
+

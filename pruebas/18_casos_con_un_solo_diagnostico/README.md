@@ -87,6 +87,19 @@ diferencial queda descartado cuando se revelaron todos sus datos de descarte.
 
 Las fotos (`.png`) se guardan en el equipo y no se suben a GitHub.
 
+## Prueba en Vercel (producción)
+
+Tras el push del commit `7c127be`, Vercel desplegó el sitio («Deployment has completed»). Allí responde Groq
+y la recuperación es directa del caso. [probar_vercel.py](probar_vercel.py) pide los 7 datos agregados
+por el equipo y muestra lo que lee el estudiante:
+
+```powershell
+backend\.venv\Scripts\python.exe pruebas8_casos_con_un_solo_diagnostico\probar_vercel.py
+```
+
+Resultado: 7 de 7 llegan completos (por ejemplo, CIR-005: «Factor VIII: actividad disminuida. Factor IX:
+actividad normal.»). Evidencia: `vercel/05_datos_nuevos_vercel.txt` y `_terminal.png`.
+
 ## Intentos fallidos
 
 ### Intento 1: antes de completar los casos
