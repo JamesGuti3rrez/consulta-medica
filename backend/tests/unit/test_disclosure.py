@@ -69,3 +69,9 @@ def test_team_exam_topics_match_how_students_ask_for_them():
     assert matches("factores_coagulacion", _normalize("Pido el dosaje del factor VIII y del factor IX"))
     assert matches("prolactina", _normalize("Solicito una prolactina sérica"))
     assert matches("electroencefalograma", _normalize("Pido un EEG"))
+
+
+def test_mood_questions_reach_associated_symptoms():
+    from server.engine.disclosure.policy import DisclosurePolicy, _normalize
+
+    assert DisclosurePolicy._requirement_matches("sintomas_asociados", _normalize("¿Cómo está de ánimo? ¿Se ha sentido triste?"))
