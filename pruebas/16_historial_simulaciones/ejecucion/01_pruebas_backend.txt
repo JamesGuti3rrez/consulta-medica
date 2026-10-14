@@ -1,0 +1,14 @@
+DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica\backend
+COMANDO: .venv\Scripts\python.exe -m pytest -q
+FECHA: 2026-10-14 06:19:03 UTC
+CODIGO_SALIDA: 0
+
+STDOUT:
+........................................................................ [ 45%]
+........................................................................ [ 90%]
+...............                                                          [100%]
+159 passed in 17.69s
+
+
+STDERR:
+
