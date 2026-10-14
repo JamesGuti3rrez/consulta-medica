@@ -41,6 +41,14 @@ from server.main import app  # noqa: E402
 from server.orchestration import InMemorySessionStore  # noqa: E402
 
 CURATED = ROOT / "data" / "cases" / "curated"
+REVIEW = ROOT / "data" / "cases" / "reviews" / "medqa_lote_curacion.json"
+
+
+def _complements() -> dict[str, set[str]]:
+    """Claves de los datos que agregó el equipo, por caso (marca «complemento» del reparto)."""
+    distribution = json.loads(REVIEW.read_text(encoding="utf-8"))["distribution"]
+    return {case_id: {entry["key"] for entry in dist["on_request"] if "complemento" in entry}
+            for case_id, dist in distribution.items()}
 
 
 def _normalize(text: str) -> str:
@@ -57,7 +65,7 @@ def _prepare(local: bool) -> str:
     return "local" if local else ("groq" if ai_module.settings.groq_api_keys else "local")
 
 
-def run_case(client: TestClient, case: dict, pause: float) -> dict:
+def run_case(client: TestClient, case: dict, pause: float, complements: set[str]) -> dict:
     case_id = case["case_id"]
     protected = case["protected"]
     forbidden = {_normalize(protected["diagnosis"]["name"])} | {_normalize(d["name"]) for d in protected["differentials"]}
@@ -80,8 +88,9 @@ def run_case(client: TestClient, case: dict, pause: float) -> dict:
             problems.append(f"«{message}»: no reveló {missing}")
         if leaks:
             problems.append(f"«{message}»: la respuesta nombra {leaks}")
+        team = sorted(suffix for suffix in expected if suffix.rsplit(".", 1)[-1] in complements)
         turns.append({"message": message, "agent": body.get("agent"), "evidence_ids": got,
-                      "response": body.get("response", ""), "leaks": leaks})
+                      "response": body.get("response", ""), "leaks": leaks, "complements": team})
         time.sleep(pause)
     standing = [d["name"] for d in protected["differentials"]
                 if not d["discard_evidence_ids"] or not set(d["discard_evidence_ids"]) <= revealed]
@@ -100,9 +109,11 @@ def main(args: list[str]) -> int:
     cases = [case for case in cases if not wanted or case["case_id"] in wanted]
     print(f"Modelo: {mode} | casos: {len(cases)}\n")
     results = []
+    complements = _complements()
     with TestClient(app) as client:
         for case in cases:
-            result = run_case(client, case, pause=0.0 if mode == "local" else 1.5)
+            result = run_case(client, case, pause=0.0 if mode == "local" else 1.5,
+                              complements=complements.get(case["case_id"], set()))
             results.append(result)
             estado = "OK" if not result["problems"] else "FALLA"
             descartados = len(result["differentials"]) - len(result["standing"])
@@ -112,6 +123,10 @@ def main(args: list[str]) -> int:
                   f"{estado:5} {result['case_id']}  {len(result['turns']):>2} pedidos  en pie: {result['standing']}")
             for problem in result["problems"]:
                 print(f"        - {problem}")
+            # Lo que el estudiante lee de cada dato agregado por el equipo (decisión 0002).
+            for turn in result["turns"]:
+                if turn["complements"]:
+                    print(f"        complemento «{turn['message']}» -> {turn['response']}")
     out = HERE / "resultados" / f"resultados_{mode}.json"
     out.parent.mkdir(exist_ok=True)
     out.write_text(json.dumps(results, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
