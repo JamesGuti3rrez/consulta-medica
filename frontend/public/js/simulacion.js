@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // La especialidad se elige en la portada y llega en la URL (simulacion.html?especialidad=pediatria).
   // El estudiante no ve qué caso le tocó: ni su código ni nada fuera de la ficha pública.
-  const specialty = new URLSearchParams(window.location.search).get('especialidad');
+  let specialty = new URLSearchParams(window.location.search).get('especialidad');
   const SPECIALTY_NAMES = {
     emergencias: 'Emergencias',
     medicina_interna: 'Medicina interna',
@@ -57,12 +57,39 @@ document.addEventListener('DOMContentLoaded', async () => {
     ginecologia_obstetricia: 'Ginecología y obstetricia',
     cirugia_general: 'Cirugía general',
   };
-  const specialtyName = SPECIALTY_NAMES[specialty];
+  let specialtyName = SPECIALTY_NAMES[specialty];
   // Solo para pruebas: simulacion.html?caso=EME-103 abre ese caso (guía de pruebas en docs/).
-  const testCase = new URLSearchParams(window.location.search).get('caso');
-  const caseUrl = testCase
-    ? `/api/caso?caso=${encodeURIComponent(testCase)}`
-    : specialtyName ? `/api/caso?especialidad=${encodeURIComponent(specialty)}` : '/api/caso';
+  let testCase = new URLSearchParams(window.location.search).get('caso');
+
+  // Casos ya vistos en esta pestaña (el actual primero): «Probar otro caso» no repite paciente.
+  // Se guardan en sessionStorage y no en la URL, para que el estudiante no vea códigos de caso.
+  const SEEN_KEY = 'casos_vistos';
+  const readSeen = () => {
+    try {
+      const seen = JSON.parse(sessionStorage.getItem(SEEN_KEY) || '[]');
+      return Array.isArray(seen) ? seen : [];
+    } catch {
+      return [];
+    }
+  };
+  const rememberCase = caseId => {
+    try {
+      sessionStorage.setItem(SEEN_KEY, JSON.stringify([caseId, ...readSeen().filter(id => id !== caseId)]));
+    } catch {
+      // Sin almacenamiento, el servidor solo puede evitar el caso actual.
+    }
+  };
+  const caseUrl = (excludeSeen = false) => {
+    if (testCase) return `/api/caso?caso=${encodeURIComponent(testCase)}`;
+    const params = new URLSearchParams();
+    if (specialtyName) params.set('especialidad', specialty);
+    if (excludeSeen) {
+      const seen = readSeen();
+      if (seen.length) params.set('excluir', seen.join(','));
+    }
+    const query = params.toString();
+    return query ? `/api/caso?${query}` : '/api/caso';
+  };
 
   let caseAvailable = false;
   // Cada intervención aumenta el número de sesión: lo que siga en curso de una anterior se detiene.
@@ -328,7 +355,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   };
 
-  const startSimulation = async () => {
+  const startSimulation = async ({ another = false } = {}) => {
     if (isRunning) return;
     isRunning = true;
     session += 1;
@@ -342,7 +369,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     let patientCase;
     try {
-      const response = await fetch(caseUrl);
+      const response = await fetch(caseUrl(another));
       if (!response.ok) {
         const body = await response.json().catch(() => ({}));
         throw new Error(body.detail || `API respondió con HTTP ${response.status}`);
@@ -358,6 +385,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     currentCase = patientCase;
+    rememberCase(patientCase.case_id);
     safetyAlertCount = 0;
     aiSessionId = await openConversation(patientCase.case_id);
     resetRecord(patientCase);
@@ -862,7 +890,39 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (diagnosisFeedback) diagnosisFeedback.textContent = 'Diagnóstico guardado. Consulta finalizada.';
     simulatorStatus.textContent = 'Consulta finalizada';
     recordStatus.lastChild.textContent = 'Finalizada';
-    setStatus('Consulta finalizada. Para practicar con otro paciente, vuelve al inicio.');
+    setStatus('Consulta finalizada. En la hoja de evaluación puedes probar otro caso o cerrar el simulador.');
+  });
+
+  // «Probar otro caso»: misma especialidad, otro paciente. Se reinicia aquí mismo, sin recargar, para que
+  // el clic del estudiante habilite la voz del doctor en la nueva presentación.
+  $('another-case')?.addEventListener('click', () => {
+    if (currentCase && (testCase || !specialtyName)) {
+      // Desde un caso de prueba o sin especialidad elegida, se sigue con la especialidad del caso actual.
+      specialty = currentCase.specialty;
+      specialtyName = SPECIALTY_NAMES[specialty];
+    }
+    testCase = null;
+    if (specialtyName) {
+      window.history.replaceState(null, '', `simulacion.html?especialidad=${encodeURIComponent(specialty)}`);
+    }
+    hideEvaluation();
+    aiSessionId = null;
+    isRunning = false;
+    [saveDiagnosis, diagnosisMic, hypothesisInput, hypothesisMic, addHypothesisButton].forEach(element => {
+      if (element) element.disabled = false;
+    });
+    if (diagnosisInput) diagnosisInput.value = '';
+    if (diagnosisFeedback) diagnosisFeedback.textContent = '';
+    if (hypothesesFeedback) hypothesesFeedback.textContent = '';
+    if (diagnosisButton) diagnosisButton.lastChild.textContent = ' Realizar Diagnóstico';
+    setField('evaluation-saved', '');
+    show(diagnosisPanel, false);
+    show(hypothesesPanel, false);
+    show(micButton, false);
+    show(diagnosisButton, false);
+    show(startButton);
+    simulatorStatus.textContent = specialtyName || 'Cualquier especialidad';
+    startSimulation({ another: true });
   });
 
   if (startButton) startButton.disabled = true;
