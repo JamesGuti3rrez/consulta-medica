@@ -72,6 +72,45 @@
           "exploracion_fisica"
         ]
       }
+    },
+    {
+      "evidence_id": "GOB-003.lab.prolactina",
+      "category": "laboratorio",
+      "label": "Prolactina sérica",
+      "text": "Prolactina baja para el puerperio.",
+      "reveal_policy": {
+        "owner": "laboratorio",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "prolactina"
+        ]
+      }
+    },
+    {
+      "evidence_id": "GOB-003.sintoma.estado_de_animo",
+      "category": "sintoma",
+      "label": "Estado de ánimo",
+      "text": "Se siente con ánimo para cuidar al bebé y quiere amamantar; niega tristeza, llanto o ansiedad.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "sintomas_asociados"
+        ]
+      }
+    },
+    {
+      "evidence_id": "GOB-003.antecedente.antecedentes_menstruales",
+      "category": "antecedente",
+      "label": "Antecedentes menstruales",
+      "text": "Antes del embarazo tenía reglas regulares; nunca tuvo cefalea persistente ni problemas de la vista.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "antecedentes_gineco_obstetricos"
+        ]
+      }
     }
   ],
   "protected": {
@@ -83,19 +122,26 @@
     },
     "differentials": [
       {
-        "name": "Hemorragia posparto por atonía uterina",
-        "must_not_miss": true,
-        "discard_evidence_ids": []
-      },
-      {
-        "name": "Hipopituitarismo posparto (síndrome de Sheehan)",
-        "must_not_miss": true,
-        "discard_evidence_ids": []
-      },
-      {
         "name": "Retención de restos placentarios",
         "must_not_miss": true,
-        "discard_evidence_ids": []
+        "discard_evidence_ids": [
+          "GOB-003.lab.prolactina"
+        ]
+      },
+      {
+        "name": "Tristeza puerperal",
+        "must_not_miss": false,
+        "discard_evidence_ids": [
+          "GOB-003.sintoma.estado_de_animo"
+        ]
+      },
+      {
+        "name": "Tumor hipofisario",
+        "must_not_miss": false,
+        "discard_evidence_ids": [
+          "GOB-003.antecedente.antecedentes_menstruales",
+          "GOB-003.lab.prolactina"
+        ]
       },
       {
         "name": "Hipofisitis posparto",
@@ -151,6 +197,16 @@
           "topic": "Exploración física tras el parto: extremidades frías y húmedas, útero atónico",
           "evidence_ids": [
             "GOB-003.examen.exploracion_fisica"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "id": "kq5",
+          "topic": "Prolactina baja para el puerperio",
+          "evidence_ids": [
+            "GOB-003.lab.prolactina"
           ],
           "weight": 4,
           "critical": true,

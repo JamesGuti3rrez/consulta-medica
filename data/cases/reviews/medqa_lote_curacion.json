@@ -298,6 +298,10 @@
     "medlineplus_thyroid_storm": {
       "title": "MedlinePlus Medical Encyclopedia: Thyroid storm",
       "url": "https://medlineplus.gov/ency/article/000400.htm"
+    },
+    "medlineplus_postpartum_depression": {
+      "title": "MedlinePlus Medical Encyclopedia: Postpartum depression",
+      "url": "https://medlineplus.gov/ency/article/007215.htm"
     }
   },
   "clinical_review": {
@@ -573,16 +577,16 @@
     "GOB-003": {
       "clinical_differentials": [
         {
-          "name": "Hemorragia posparto por atonía uterina",
-          "must_not_miss": true
-        },
-        {
-          "name": "Hipopituitarismo posparto (síndrome de Sheehan)",
-          "must_not_miss": true
-        },
-        {
           "name": "Retención de restos placentarios",
           "must_not_miss": true
+        },
+        {
+          "name": "Tristeza puerperal",
+          "must_not_miss": false
+        },
+        {
+          "name": "Tumor hipofisario",
+          "must_not_miss": false
         },
         {
           "name": "Hipofisitis posparto",
@@ -1071,6 +1075,48 @@
           "requires": [
             "exploracion_fisica"
           ]
+        },
+        {
+          "key": "prolactina",
+          "category": "laboratorio",
+          "label": "Prolactina sérica",
+          "text": "Prolactina baja para el puerperio.",
+          "owner": "laboratorio",
+          "requires": [
+            "prolactina"
+          ],
+          "complemento": {
+            "fuente": "sheehan_statpearls",
+            "motivo": "La prolactina baja apunta a un daño hipofisario y no a restos placentarios ni a un tumor que la eleve."
+          }
+        },
+        {
+          "key": "estado_de_animo",
+          "category": "sintoma",
+          "label": "Estado de ánimo",
+          "text": "Se siente con ánimo para cuidar al bebé y quiere amamantar; niega tristeza, llanto o ansiedad.",
+          "owner": "paciente",
+          "requires": [
+            "sintomas_asociados"
+          ],
+          "complemento": {
+            "fuente": "medlineplus_postpartum_depression",
+            "motivo": "Sin síntomas afectivos, la tristeza puerperal no explica el cuadro."
+          }
+        },
+        {
+          "key": "antecedentes_menstruales",
+          "category": "antecedente",
+          "label": "Antecedentes menstruales",
+          "text": "Antes del embarazo tenía reglas regulares; nunca tuvo cefalea persistente ni problemas de la vista.",
+          "owner": "paciente",
+          "requires": [
+            "antecedentes_gineco_obstetricos"
+          ],
+          "complemento": {
+            "fuente": "sheehan_statpearls",
+            "motivo": "Una función hipofisaria normal antes del parto va en contra de un tumor previo."
+          }
         }
       ],
       "key_questions": [
@@ -1100,6 +1146,15 @@
           "weight": 4,
           "critical": true,
           "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "topic": "Prolactina baja para el puerperio",
+          "evidence": [
+            "prolactina"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
         }
       ],
       "notes": [
@@ -1110,6 +1165,16 @@
         "Hipofisitis posparto": [
           "evolucion_parto",
           "signos_vitales"
+        ],
+        "Retención de restos placentarios": [
+          "prolactina"
+        ],
+        "Tristeza puerperal": [
+          "estado_de_animo"
+        ],
+        "Tumor hipofisario": [
+          "antecedentes_menstruales",
+          "prolactina"
         ]
       }
     },

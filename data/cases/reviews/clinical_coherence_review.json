@@ -69,6 +69,10 @@
     "medlineplus_thyroid_storm": {
       "title": "MedlinePlus Medical Encyclopedia: Thyroid storm",
       "url": "https://medlineplus.gov/ency/article/000400.htm"
+    },
+    "medlineplus_postpartum_depression": {
+      "title": "MedlinePlus Medical Encyclopedia: Postpartum depression",
+      "url": "https://medlineplus.gov/ency/article/007215.htm"
     }
   },
   "cases": [
