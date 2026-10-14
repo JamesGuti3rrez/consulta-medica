@@ -155,9 +155,9 @@ def status():
 
 
 @router.post("/sessions")
-def start(payload: StartRequest):
+def start(payload: StartRequest, authorization: str | None = Header(default=None)):
     try:
-        return get_service().start(payload.case_id)
+        return get_service().start(payload.case_id, owner_id=_student_id(authorization))
     except (CaseNotFound, CaseNotAvailable) as exc:
         raise HTTPException(status_code=404, detail="Caso no encontrado o no disponible.") from exc
     except SessionStoreError as exc:
@@ -221,16 +221,22 @@ def _save_attempt(service: MultiAgentSessionService, session: dict, payload: Fin
     """
     if session.get("attempt_id"):
         return {"saved": True, "id": session["attempt_id"]}
-    token = (authorization or "").removeprefix("Bearer ").strip()
+    token = _bearer(authorization)
     if not token:
         return {"saved": False, "reason": "sin_sesion"}
     attempts = get_attempts()
     if attempts is None:
         return {"saved": False, "reason": "no_configurado"}
+    owner_id = service.owner_of(session["session_id"])
+    if not owner_id:
+        return {"saved": False, "reason": "iniciada_sin_sesion"}
     try:
         user_id = attempts.user_id(token)
         if not user_id:
             return {"saved": False, "reason": "sesion_invalida"}
+        # Solo quien empezó la consulta puede guardarla: conocer su id no basta para quedarse con ella.
+        if user_id != owner_id:
+            return {"saved": False, "reason": "otro_usuario"}
         specialty = service.repository.get_conversation_case(session["case_id"])["specialty"]
         attempt_id = attempts.save(build_attempt(
             user_id=user_id,
@@ -244,3 +250,23 @@ def _save_attempt(service: MultiAgentSessionService, session: dict, payload: Fin
         return {"saved": False, "reason": "error"}
     service.attach_attempt(session["session_id"], attempt_id)
     return {"saved": True, "id": attempt_id}
+
+
+def _bearer(authorization: str | None) -> str:
+    return (authorization or "").removeprefix("Bearer ").strip()
+
+
+def _student_id(authorization: str | None) -> str | None:
+    """Id del alumno con sesión iniciada al empezar la consulta; None si es invitado o el token no vale.
+
+    Iniciar la consulta nunca falla por esto: si Supabase no responde, la consulta sigue sin dueño.
+    """
+    token = _bearer(authorization)
+    attempts = get_attempts() if token else None
+    if attempts is None:
+        return None
+    try:
+        return attempts.user_id(token)
+    except AttemptStoreError as exc:
+        print(f"[intentos] {exc}")
+        return None

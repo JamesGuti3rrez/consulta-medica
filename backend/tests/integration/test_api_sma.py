@@ -152,13 +152,14 @@ def test_llm_unavailable_returns_503_with_clear_message(monkeypatch):
     assert "Invalid API Key" not in response.text
 
 
-def _finished_session(monkeypatch, fake, **kwargs):
+def _finished_session(monkeypatch, fake, start_token=None, **kwargs):
     from server.persistence import SupabaseAttempts
 
     attempts = SupabaseAttempts("https://proyecto.supabase.co", "sb_publishable_prueba", "sb_secret_prueba",
                                 client=fake.client())
     monkeypatch.setattr(ai_module, "get_attempts", lambda: attempts)
-    sid = client.post("/api/ai/sessions", json={"case_id": "MED-900"}).json()["session_id"]
+    headers = {"Authorization": f"Bearer {start_token}"} if start_token else {}
+    sid = client.post("/api/ai/sessions", json={"case_id": "MED-900"}, headers=headers).json()["session_id"]
     _send(sid, "¿Tiene alergias a algún medicamento?")
     return sid, client.post(f"/api/ai/sessions/{sid}/finish", **kwargs)
 
@@ -169,7 +170,8 @@ def test_finish_saves_the_attempt_only_for_a_signed_in_student(monkeypatch):
     fake = FakeSupabase()
     fake.users["token-alumno"] = "0b8f3c1e-5d4a-4f6b-9a1e-2c3d4e5f6a7b"
     body = {"diagnosis": "Diagnóstico del alumno", "hypotheses": [{"name": "Hipótesis A", "discarded": False}]}
-    sid, finish = _finished_session(monkeypatch, fake, json=body, headers={"Authorization": "Bearer token-alumno"})
+    sid, finish = _finished_session(monkeypatch, fake, start_token="token-alumno", json=body,
+                                    headers={"Authorization": "Bearer token-alumno"})
 
     assert finish.status_code == 200
     assert finish.json()["attempt"] == {"saved": True, "id": "intento-1"}
@@ -196,7 +198,9 @@ def test_finish_without_session_or_with_a_forged_token_saves_nothing(monkeypatch
     assert guest.json()["evaluation"]["total_questions"] > 0
     assert guest.json()["attempt"] == {"saved": False, "reason": "sin_sesion"}
 
-    _, forged = _finished_session(monkeypatch, fake, headers={"Authorization": "Bearer token-inventado"})
+    fake.users["token-alumno"] = "0b8f3c1e-5d4a-4f6b-9a1e-2c3d4e5f6a7b"
+    _, forged = _finished_session(monkeypatch, fake, start_token="token-alumno",
+                                  headers={"Authorization": "Bearer token-inventado"})
     assert forged.json()["attempt"] == {"saved": False, "reason": "sesion_invalida"}
     assert fake.attempts == []
 
@@ -205,8 +209,38 @@ def test_finish_still_returns_the_evaluation_if_supabase_fails(monkeypatch):
     from tests.fakes_supabase import FakeSupabase
 
     fake = FakeSupabase()
+    fake.users["token-alumno"] = "0b8f3c1e-5d4a-4f6b-9a1e-2c3d4e5f6a7b"
+
+    # Supabase cae después de iniciar la consulta: al cerrarla no se puede guardar.
+    from server.persistence import SupabaseAttempts
+
+    attempts = SupabaseAttempts("https://proyecto.supabase.co", "sb_publishable_prueba", "sb_secret_prueba",
+                                client=fake.client())
+    monkeypatch.setattr(ai_module, "get_attempts", lambda: attempts)
+    sid = client.post("/api/ai/sessions", json={"case_id": "MED-900"},
+                      headers={"Authorization": "Bearer token-alumno"}).json()["session_id"]
     fake.fail_with = 500
-    _, finish = _finished_session(monkeypatch, fake, headers={"Authorization": "Bearer token-alumno"})
+    finish = client.post(f"/api/ai/sessions/{sid}/finish", headers={"Authorization": "Bearer token-alumno"})
     assert finish.status_code == 200
     assert finish.json()["evaluation"]["total_questions"] > 0
     assert finish.json()["attempt"] == {"saved": False, "reason": "error"}
+
+
+def test_only_the_student_who_started_the_consultation_can_save_it(monkeypatch):
+    from tests.fakes_supabase import FakeSupabase
+
+    fake = FakeSupabase()
+    fake.users["token-alumno"] = "0b8f3c1e-5d4a-4f6b-9a1e-2c3d4e5f6a7b"
+    fake.users["token-otro"] = "9f9f9f9f-0000-4000-8000-000000000001"
+
+    # Otro alumno con el id de la consulta no puede quedarse con el resultado.
+    _, stolen = _finished_session(monkeypatch, fake, start_token="token-alumno",
+                                  headers={"Authorization": "Bearer token-otro"})
+    assert stolen.json()["attempt"] == {"saved": False, "reason": "otro_usuario"}
+
+    # Una consulta empezada sin sesión no se guarda aunque se cierre con sesión.
+    _, guest_started = _finished_session(monkeypatch, fake, headers={"Authorization": "Bearer token-alumno"})
+    assert guest_started.json()["attempt"] == {"saved": False, "reason": "iniciada_sin_sesion"}
+    assert fake.attempts == []
+    # El dueño no sale en la respuesta pública de la sesión.
+    assert "owner_id" not in stolen.json()

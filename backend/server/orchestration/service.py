@@ -35,7 +35,7 @@ class MultiAgentSessionService:
         self.safety_engine = safety_engine
         self.evaluation_engine = evaluation_engine
 
-    def start(self, case_id: str) -> dict:
+    def start(self, case_id: str, owner_id: str | None = None) -> dict:
         case = self.repository.get_conversation_case(case_id)
         state = {
             "session_id": str(uuid4()),
@@ -46,6 +46,8 @@ class MultiAgentSessionService:
             "requested_evidence_ids": [],
             "avatar_state": self.state_machine.initial_avatar_state(case),
             "evaluation": None,
+            # Alumno con sesión iniciada que empezó la consulta: solo él puede guardarla. No es público.
+            "owner_id": owner_id,
             "history": [],
             "started_at": _now(),
             "updated_at": _now(),
@@ -177,6 +179,9 @@ class MultiAgentSessionService:
         self.store.save(session)
         self.store.event(session_id, {"type": "session_finished", "case_id": session["case_id"]})
         return self._public(session)
+
+    def owner_of(self, session_id: str) -> str | None:
+        return self.store.get(session_id).get("owner_id")
 
     def attach_attempt(self, session_id: str, attempt_id: str) -> None:
         """Recuerda el intento guardado del alumno para no guardarlo dos veces."""
