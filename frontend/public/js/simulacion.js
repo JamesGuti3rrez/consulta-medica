@@ -32,6 +32,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const saveDiagnosis = $('save-diagnosis');
   const closeDiagnosis = $('close-diagnosis');
   const diagnosisFeedback = $('diagnosis-feedback');
+  const evaluationPanel = $('evaluation-panel');
+  const closeEvaluation = $('close-evaluation');
   const skipButtons = [...document.querySelectorAll('[data-role="skip-speech"]')];
   const tabButtons = [...document.querySelectorAll('[data-tab]')];
   const tabPanels = [...document.querySelectorAll('[data-tab-panel]')];
@@ -74,6 +76,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   let hypotheses = [];
   let discardingIndex = null;
   let consultationClosed = false;
+  let currentCase = null;
+  let safetyAlertCount = 0;
 
   const showTab = name => {
     tabButtons.forEach(button => {
@@ -349,6 +353,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       return;
     }
 
+    currentCase = patientCase;
+    safetyAlertCount = 0;
     aiSessionId = await openConversation(patientCase.case_id);
     resetRecord(patientCase);
     showTab('ficha');
@@ -432,6 +438,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (hypothesesHint) hypothesesHint.textContent = '¿Este dato cambia alguna de tus hipótesis?';
     setReady();
     if (Array.isArray(reply.safety_alerts) && reply.safety_alerts.length) {
+      safetyAlertCount += reply.safety_alerts.length;
       setStatus(reply.safety_alerts.map(alert => alert.message).join(' '), true);
     }
   };
@@ -684,7 +691,102 @@ document.addEventListener('DOMContentLoaded', async () => {
   hypothesisInput?.addEventListener('keydown', event => { if (event.key === 'Enter') addHypothesis(); });
   hypothesisMic?.addEventListener('click', () => dictate(hypothesisInput, hypothesesFeedback));
 
+  // Hoja de evaluación: el motor clínico solo devuelve puntaje y conteos por tipo de error, nunca los
+  // temas protegidos; las hipótesis y el diagnóstico salen de lo que el estudiante registró.
+  const ERROR_NAMES = {
+    negligencia: 'Negligencia',
+    anamnesis_incompleta: 'Anamnesis incompleta',
+    razonamiento_clinico: 'Razonamiento clínico',
+  };
+  const RECOMMENDATIONS = {
+    negligencia: 'Antes de indicar un tratamiento, verifica alergias, antecedentes y los estudios críticos del caso.',
+    anamnesis_incompleta: 'Completa la anamnesis: inicio y evolución, antecedentes, medicación, alergias y hábitos.',
+    razonamiento_clinico: 'Pide la exploración y los exámenes que confirmen o descarten cada una de tus hipótesis.',
+  };
+  const fillList = (role, lines) => {
+    const list = $(role);
+    if (!list) return;
+    list.replaceChildren(...lines.map(line => {
+      const item = document.createElement('li');
+      item.textContent = line;
+      return item;
+    }));
+  };
+  const setField = (role, text) => {
+    const field = $(role);
+    if (field) field.textContent = text;
+  };
+  const openEvaluation = () => {
+    if (!evaluationPanel) return;
+    evaluationPanel.hidden = false;
+    evaluationPanel.classList.remove('hidden');
+    evaluationPanel.classList.add('flex');
+    closeEvaluation?.focus();
+  };
+  const hideEvaluation = () => {
+    if (!evaluationPanel) return;
+    evaluationPanel.hidden = true;
+    evaluationPanel.classList.add('hidden');
+    evaluationPanel.classList.remove('flex');
+    diagnosisButton?.focus();
+  };
+  closeEvaluation?.addEventListener('click', hideEvaluation);
+  evaluationPanel?.addEventListener('click', event => { if (event.target === evaluationPanel) hideEvaluation(); });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && evaluationPanel && !evaluationPanel.hidden) hideEvaluation();
+  });
+
+  const showEvaluation = (evaluation, diagnosis) => {
+    if (currentCase) {
+      const { alias, age_years: age } = currentCase.patient;
+      setField('evaluation-patient', `${alias}, ${age} años`);
+      setField('evaluation-chief', currentCase.chief_complaint.text);
+    }
+    setField('evaluation-date', new Date().toLocaleDateString('es-PE', { day: 'numeric', month: 'long', year: 'numeric' }));
+    setField('evaluation-diagnosis', diagnosis);
+
+    const active = hypotheses.filter(hypothesis => !hypothesis.discarded);
+    const discarded = hypotheses.filter(hypothesis => hypothesis.discarded);
+    fillList('evaluation-reasoning', [
+      active.length ? `Hipótesis activas: ${active.map(hypothesis => hypothesis.name).join(', ')}.` : 'No dejaste hipótesis activas.',
+      ...discarded.map(hypothesis => `Descartaste ${hypothesis.name}${hypothesis.reason ? `: ${hypothesis.reason}` : ''}.`),
+      'El diagnóstico escrito queda registrado; el puntaje no lo califica automáticamente.',
+    ]);
+
+    if (!evaluation) {
+      setField('evaluation-score', '—');
+      fillList('evaluation-strengths', []);
+      fillList('evaluation-missing', ['No se pudo obtener la evaluación de esta consulta. Verifica la conexión con el servidor.']);
+      fillList('evaluation-recommendations', []);
+      openEvaluation();
+      return;
+    }
+
+    setField('evaluation-score', `${evaluation.score}%`);
+    fillList('evaluation-strengths', [
+      evaluation.completed_questions
+        ? `Obtuviste ${evaluation.completed_questions} de ${evaluation.total_questions} datos clave del caso.`
+        : `No obtuviste ninguno de los ${evaluation.total_questions} datos clave del caso.`,
+    ]);
+    const errors = Object.entries(evaluation.errors || {}).filter(([, count]) => count > 0);
+    fillList('evaluation-missing', errors.length
+      ? errors.map(([type, count]) => `${ERROR_NAMES[type] || type}: ${count} ${count === 1 ? 'dato clave' : 'datos clave'} sin obtener.`)
+      : ['No quedaron datos clave sin obtener.']);
+    const recommendations = errors.map(([type]) => RECOMMENDATIONS[type]).filter(Boolean);
+    if (safetyAlertCount) {
+      recommendations.push('Propusiste un tratamiento que coincide con una alergia o contraindicación del caso: revisa los antecedentes antes de indicarlo.');
+    }
+    fillList('evaluation-recommendations', recommendations.length
+      ? recommendations
+      : ['Mantén el mismo orden: anamnesis completa, exámenes dirigidos y verificación de alergias antes de tratar.']);
+    openEvaluation();
+  };
+
   diagnosisButton?.addEventListener('click', () => {
+    if (consultationClosed) {
+      openEvaluation();
+      return;
+    }
     showTab('hipotesis');
     show(diagnosisPanel);
     diagnosisInput?.focus();
@@ -707,8 +809,19 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (element) element.disabled = true;
     });
     renderHypotheses();
+    let evaluation = null;
     if (aiSessionId) {
-      await fetch(`/api/ai/sessions/${encodeURIComponent(aiSessionId)}/finish`, { method: 'POST' }).catch(() => null);
+      const response = await fetch(`/api/ai/sessions/${encodeURIComponent(aiSessionId)}/finish`, { method: 'POST' })
+        .catch(() => null);
+      const finished = response?.ok ? await response.json().catch(() => null) : null;
+      evaluation = finished?.evaluation || null;
+    }
+    show(diagnosisPanel, false);
+    showEvaluation(evaluation, diagnosis);
+    // El botón de diagnóstico pasa a reabrir la hoja si el estudiante la cierra.
+    if (diagnosisButton) {
+      diagnosisButton.disabled = false;
+      diagnosisButton.lastChild.textContent = ' Ver hoja de evaluación';
     }
     if (diagnosisFeedback) diagnosisFeedback.textContent = 'Diagnóstico guardado. Consulta finalizada.';
     simulatorStatus.textContent = 'Consulta finalizada';
