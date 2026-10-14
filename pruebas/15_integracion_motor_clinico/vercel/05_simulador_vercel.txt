@@ -1,0 +1,66 @@
+DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica
+COMANDO: node pruebas/15_integracion_motor_clinico/probar_evaluacion.cjs parcial pruebas/15_integracion_motor_clinico/vercel
+FECHA: 2026-10-14 06:00:14 UTC
+CODIGO_SALIDA: 0
+
+STDOUT:
+turno 1: ¿Puede contarme sobre inicio y evolucion? -> paciente; evidencia ["MED-008.sintoma.evolucion"]; alertas []
+turno 2: Mi tratamiento es administrar doxiciclina. -> medico_asistente; evidencia ["MED-008.sintoma.evolucion"]; alertas ["case_contraindication"]
+alerta en pantalla: La propuesta coincide con una contraindicación del caso. Verifícala antes de continuar.
+evaluación devuelta por /finish: {"score":18.75,"earned_weight":3,"total_weight":16,"completed_questions":1,"total_questions":4,"errors":{"negligencia":1,"anamnesis_incompleta":1,"razonamiento_clinico":1}}
+hoja en pantalla:
+stethoscope
+
+Consulta Médica Virtual
+
+Hoja de evaluación clínica
+close
+Paciente
+Patricia Vargas, 48 años
+Fecha
+14 de octubre de 2026
+Motivo de consulta
+Cefalea, fiebre intermitente con escalofríos, dolores articulares generalizados, sed excesiva con aumento de la ingesta de líquidos y una erupción progresiva en la espalda.
+Diagnóstico registrado
+Diagnóstico de prueba
+
+Resultado de la anamnesis
+
+Datos clave del caso que obtuviste durante la consulta.
+
+Puntaje
+18.75%
+Evaluado
+check_circle
+Lo que hiciste bien
+Obtuviste 1 de 4 datos clave del caso.
+help
+Lo que faltó preguntar
+Negligencia: 1 dato clave sin obtener.
+Anamnesis incompleta: 1 dato clave sin obtener.
+Razonamiento clínico: 1 dato clave sin obtener.
+psychology
+Razonamiento diagnóstico
+Hipótesis activas: Hipótesis de prueba.
+El diagnóstico escrito queda registrado; el puntaje no lo califica automáticamente.
+lightbulb
+Recomendaciones
+Antes de indicar un tratamiento, verifica alergias, antecedentes y los estudios críticos del caso.
+Completa la anamnesis: inicio y evolución, antecedentes, medicación, alergias y hábitos.
+Pide la exploración y los exámenes que confirmen o descarten cada una de tus hipótesis.
+Propusiste un tratamiento que coincide con una alergia o contraindicación del caso: revisa los antecedentes antes de indicarlo.
+
+Consulta Médica Virtual
+
+Evaluado por
+
+ 
+
+Firma del alumno
+la hoja se cierra: true | se reabre con «Ver hoja de evaluación»: true
+código del caso visible en pantalla: false
+errores: []
+
+
+STDERR:
+

@@ -67,6 +67,28 @@ hace solo una pregunta y la misma propuesta.
 
 Las fotos (`.png`) se guardan en el equipo y no se suben a GitHub.
 
+## Prueba en Vercel (producción)
+
+El push a `main` (commit `04d9395`) desplegó automáticamente el sitio en
+`https://consulta-medica-three.vercel.app`; GitHub marcó el despliegue como «Deployment has completed».
+Allí el servidor usa el modelo real (Groq, `openai/gpt-oss-20b`) y guarda las sesiones en Supabase.
+
+```powershell
+$env:BASE_URL = 'https://consulta-medica-three.vercel.app'
+node pruebas/15_integracion_motor_clinico/probar_evaluacion.cjs parcial pruebas/15_integracion_motor_clinico/vercel
+```
+
+| Comprobación | Resultado |
+| --- | --- |
+| Respuestas de los agentes | Redactadas por Groq; el doctor anota la doxiciclina sin revelar la contraindicación |
+| Alerta de seguridad | `case_contraindication` en pantalla al proponer doxiciclina |
+| Hoja de evaluación | 18,75 %, 1 de 4 datos clave, una omisión de cada tipo y las cuatro recomendaciones; se cierra y se reabre |
+| Sesión en Supabase | Una sesión aparte, leída de nuevo tras `/finish`, conserva la evaluación guardada |
+| Datos protegidos | El código del caso no aparece en pantalla; sin errores de consola |
+
+Evidencia: `vercel/05_simulador_vercel.txt`, `vercel/05_simulador_vercel_terminal.png` y las capturas
+`vercel/parcial_*.png`.
+
 ## Intentos fallidos
 
 ### Intento 1: la evaluación tenía un techo imposible
