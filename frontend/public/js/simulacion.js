@@ -431,6 +431,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (current !== session) return;
     if (hypothesesHint) hypothesesHint.textContent = '¿Este dato cambia alguna de tus hipótesis?';
     setReady();
+    if (Array.isArray(reply.safety_alerts) && reply.safety_alerts.length) {
+      setStatus(reply.safety_alerts.map(alert => alert.message).join(' '), true);
+    }
   };
 
   const removeStudentPreview = () => {
