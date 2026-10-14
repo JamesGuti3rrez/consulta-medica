@@ -20,5 +20,10 @@ Reglas:
 - El esquema oficial está en `schemas/`, no aquí.
 - El campo `status` del JSON es la fuente de verdad; la carpeta solo refleja la etapa.
 - Los datos definitivos se construyen desde cero con el pipeline del proyecto; regenerarlos produce exactamente los mismos JSON.
-- El sufijo del ID (001–010) es la posición del caso en el lote, y coincide con el número del alias («Paciente 1» es EME-001); el prefijo identifica la especialidad.
+- El prefijo del ID identifica la especialidad y el sufijo (001–010) es la posición del caso en el lote,
+  agrupado por especialidad: EME 001-002, GOB 003-004, CIR 005-006, MED 007-008 y PED 009-010. Los casos
+  sintéticos van desde 101 (EME-101 a EME-103). Cada paciente tiene un nombre ficticio (`public.patient.alias`).
+- El 2026-10-14 (fase 23) se renombraron tres casos para agrupar las especialidades: MED-008 → MED-007
+  (Patricia Vargas), MED-009 → MED-008 (Alberto Núñez) y PED-007 → PED-009 (Mateo Quispe). La evidencia de las
+  fases anteriores conserva los códigos de su momento.
 - Solo datos públicos o sintéticos; nunca datos de pacientes reales.
