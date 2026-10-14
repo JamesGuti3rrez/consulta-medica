@@ -1,0 +1,23 @@
+DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica
+COMANDO: node pruebas/19_aviso_privacidad/probar_aviso.cjs
+FECHA: 2026-10-14 11:03:05 UTC
+CODIGO_SALIDA: 0
+
+STDOUT:
+enlace al aviso en el pie de la portada: true
+sin aceptar, mensaje: Para crear la cuenta, acepta el aviso de privacidad. | se envió a Supabase: false
+al marcar la casilla, el aviso de error desaparece: true
+aceptando, se envió a Supabase: true
+  datos de la cuenta: {"nombres":"Alumno","apellidos":"De Prueba","privacidad_version":"1","privacidad_aceptada_en":"(fecha ISO)"}
+  fecha válida: true
+página del aviso: Aviso de privacidad | Consulta Médica Virtual
+  menciona Ley N.º 29733: true
+  menciona Supabase: true
+  menciona Groq: true
+  menciona Mis simulaciones: true
+  menciona ARCO: true
+errores: []
+
+
+STDERR:
+
