@@ -1,5 +1,7 @@
 # Fase 10 · Mejoras de los casos (2026-10-10)
 
+> Numeración: este README usa los códigos de casos anteriores a la fase 23. Equivalencias actuales: MED-008 → MED-007 (Patricia Vargas), MED-009 → MED-008 (Alberto Núñez) y PED-007 → PED-009 (Mateo Quispe).
+
 ## 1. Nombres de los pacientes
 
 En lugar de «Paciente N», cada paciente tiene un nombre y apellido ficticios acordes a su sexo (y a

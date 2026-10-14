@@ -1,5 +1,7 @@
 # Fase 4 · Conexión con el frontend
 
+> Numeración: este README usa los códigos de casos anteriores a la fase 23. Equivalencias actuales: MED-008 → MED-007 (Patricia Vargas), MED-009 → MED-008 (Alberto Núñez) y PED-007 → PED-009 (Mateo Quispe).
+
 ## Objetivo
 
 Cargar varios casos en el simulador y verificar que la pantalla muestra solo datos públicos, sin

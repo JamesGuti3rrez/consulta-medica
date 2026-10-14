@@ -1,5 +1,7 @@
 # Fase 11 · Sesiones del simulador en Supabase (2026-10-11)
 
+> Numeración: este README usa los códigos de casos anteriores a la fase 23. Equivalencias actuales: MED-008 → MED-007 (Patricia Vargas), MED-009 → MED-008 (Alberto Núñez) y PED-007 → PED-009 (Mateo Quispe).
+
 ## Problema
 
 En el sitio publicado (https://consulta-medica-three.vercel.app) cada pregunta del estudiante mostraba

@@ -1,5 +1,7 @@
 # Intento 1 · Primera corrida de los 13 guiones: 102 de 114
 
+> Numeración: este README usa los códigos de casos anteriores a la fase 23. Equivalencias actuales: MED-008 → MED-007 (Patricia Vargas), MED-009 → MED-008 (Alberto Núñez) y PED-007 → PED-009 (Mateo Quispe).
+
 Salida completa en [salida_terminal.txt](salida_terminal.txt) y detalle en
 [resultados_guiones.json](resultados_guiones.json) (2026-10-12). Los 12 pedidos con problema:
 

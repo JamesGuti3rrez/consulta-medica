@@ -1,5 +1,7 @@
 # Fase 6 · Auditoría y correcciones (2026-10-09)
 
+> Numeración: este README usa los códigos de casos anteriores a la fase 23. Equivalencias actuales: MED-008 → MED-007 (Patricia Vargas), MED-009 → MED-008 (Alberto Núñez) y PED-007 → PED-009 (Mateo Quispe).
+
 ## Objetivo
 
 Revisar la parte de datos (descarga, conversión, validación y casos) en busca de problemas,

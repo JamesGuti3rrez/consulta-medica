@@ -1,5 +1,7 @@
 # Fase 7 · Integración del sistema multiagente y del RAG (2026-10-09)
 
+> Numeración: este README usa los códigos de casos anteriores a la fase 23. Equivalencias actuales: MED-008 → MED-007 (Patricia Vargas), MED-009 → MED-008 (Alberto Núñez) y PED-007 → PED-009 (Mateo Quispe).
+
 ## Objetivo
 
 Revisar el trabajo de la rama `Rodrigo` (commit `9493e8b`): sistema multiagente (SMA) y RAG, este

@@ -1,5 +1,7 @@
 # Fase 8 · Redistribución de los 10 casos entre public y on_request (2026-10-09)
 
+> Numeración: este README usa los códigos de casos anteriores a la fase 23. Equivalencias actuales: MED-008 → MED-007 (Patricia Vargas), MED-009 → MED-008 (Alberto Núñez) y PED-007 → PED-009 (Mateo Quispe).
+
 ## Objetivo
 
 Que cada caso funcione como una consulta: el estudiante ve al inicio solo el motivo de consulta, los

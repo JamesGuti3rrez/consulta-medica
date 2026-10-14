@@ -1,5 +1,7 @@
 # Fase 4 · Intento 2 (válido, reemplazado) — 2026-10-08
 
+> Numeración: este README usa los códigos de casos anteriores a la fase 23. Equivalencias actuales: MED-008 → MED-007 (Patricia Vargas), MED-009 → MED-008 (Alberto Núñez) y PED-007 → PED-009 (Mateo Quispe).
+
 Corrida correcta: un caso por especialidad (PED-010, GOB-004, EME-001, CIR-006, MED-009) y ningún
 texto protegido visible. Se reemplazó por dos motivos:
 
