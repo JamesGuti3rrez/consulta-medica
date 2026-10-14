@@ -1,15 +1,15 @@
 URL: http://localhost:3100/simulacion.html · ventana 1440x1100 (escritorio)
-GET /api/status → {"caseConfigured":true,"simulationReady":false,"availableCases":10,"casesBySpecialty":{"medicina_interna":2,"pediatria":2,"ginecologia_obstetricia":2,"cirugia_general":2,"emergencias":2}}
+GET /api/status → {"caseConfigured":true,"simulationReady":false,"availableCases":13,"casesBySpecialty":{"medicina_interna":2,"pediatria":2,"ginecologia_obstetricia":2,"cirugia_general":2,"emergencias":5}}
 Casos a mostrar (primero de cada especialidad): EME-001, GOB-003, CIR-005, PED-007, MED-008
-[OK] intento 2: CIR-005 (cirugia_general) · ficha "Paciente 5", 28 años · claves API ["allergies_recorded","case_id","chief_complaint","items","patient","specialty"] · textos protegidos visibles: 0 · captura 04_ficha_CIR-005.png
-[OK] intento 4: GOB-003 (ginecologia_obstetricia) · ficha "Paciente 3", 24 años · claves API ["allergies_recorded","case_id","chief_complaint","items","patient","specialty"] · textos protegidos visibles: 0 · captura 03_ficha_GOB-003.png
-[OK] intento 11: PED-007 (pediatria) · ficha "Paciente 7", 7 años · claves API ["allergies_recorded","case_id","chief_complaint","items","patient","specialty"] · textos protegidos visibles: 0 · captura 05_ficha_PED-007.png
-[OK] intento 22: MED-008 (medicina_interna) · ficha "Paciente 8", 48 años · claves API ["allergies","allergies_recorded","case_id","chief_complaint","items","patient","specialty"] · textos protegidos visibles: 0 · captura 06_ficha_MED-008.png
-[OK] intento 31: EME-001 (emergencias) · ficha "Paciente 1", 33 años · claves API ["allergies_recorded","case_id","chief_complaint","items","patient","specialty"] · textos protegidos visibles: 0 · captura 02_ficha_EME-001.png
-[OK] ?especialidad=pediatria, carga 1: PED-007 (pediatria)
-[OK] ?especialidad=pediatria, carga 2: PED-007 (pediatria)
-[OK] ?especialidad=pediatria, carga 3: PED-010 (pediatria)
-[OK] ?especialidad=pediatria, carga 4: PED-007 (pediatria)
+[OK] intento 1: EME-001 (emergencias) · ficha "Jorge Salazar", 33 años · claves API ["allergies_recorded","case_id","chief_complaint","items","patient","specialty"] · textos protegidos visibles: 0 · captura 02_ficha_EME-001.png
+[OK] intento 2: GOB-003 (ginecologia_obstetricia) · ficha "Lucía Paredes", 24 años · claves API ["allergies_recorded","case_id","chief_complaint","items","patient","specialty"] · textos protegidos visibles: 0 · captura 03_ficha_GOB-003.png
+[OK] intento 3: CIR-005 (cirugia_general) · ficha "Martín Rojas", 28 años · claves API ["allergies_recorded","case_id","chief_complaint","items","patient","specialty"] · textos protegidos visibles: 0 · captura 04_ficha_CIR-005.png
+[OK] intento 4: PED-007 (pediatria) · ficha "Mateo Quispe", 7 años · claves API ["allergies_recorded","case_id","chief_complaint","items","patient","specialty"] · textos protegidos visibles: 0 · captura 05_ficha_PED-007.png
+[OK] intento 5: MED-008 (medicina_interna) · ficha "Patricia Vargas", 48 años · claves API ["allergies_recorded","case_id","chief_complaint","items","patient","specialty"] · textos protegidos visibles: 0 · captura 06_ficha_MED-008.png
+[OK] ?especialidad=pediatria, carga 1: PED-010 (pediatria)
+[OK] ?especialidad=pediatria, carga 2: PED-010 (pediatria)
+[OK] ?especialidad=pediatria, carga 3: PED-007 (pediatria)
+[OK] ?especialidad=pediatria, carga 4: PED-010 (pediatria)
 [OK] ?especialidad=pediatria, carga 5: PED-010 (pediatria)
 Respuesta cruda de GET /api/caso guardada en 08_respuesta_api_caso.png
 RESULTADO: 5 casos, uno por especialidad, cargados sin información protegida.

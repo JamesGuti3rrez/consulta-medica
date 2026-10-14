@@ -1,5 +1,5 @@
-Recorrido completo del flujo de datos MedQA → casos curados → frontend
-Fecha: 2026-10-09 07:12:18 UTC
+Recorrido completo del sprint 1: flujo de datos MedQA → casos curados → frontend → simulador
+Fecha: 2026-10-14 11:26:32 UTC
 
 [OK] Fase 1: descarga y verificación SHA-256 de MedQA (código 0)
 [OK] Fase 1: listado de data/raw/medqa y huellas esperadas (código 0)
@@ -8,6 +8,12 @@ Fecha: 2026-10-09 07:12:18 UTC
 [OK] Fase 2: reproducibilidad: data/cases/ idéntico a lo versionado (código 0)
 [OK] Fase 3: esquema, lote curado y vista pública (código 0)
 [OK] Fase 3: pruebas automatizadas del backend (código 0)
+[OK] Fase 14: motor clínico con los 13 casos curados (API, roles, alertas y evaluación) (código 0)
+[OK] Fase 18: cada caso llega a un solo diagnóstico (modo local) (código 0)
+[OK] Fase 20: sinónimos del diagnóstico por caso (código 0)
 [OK] Fase 4: carga de un caso por especialidad en /simulacion.html (1440 px) (código 0)
+[OK] Fase 15: hoja de evaluación y alerta de seguridad en el navegador (código 0)
+[OK] Fase 17: probar otro caso y cerrar el simulador (código 0)
+[OK] Fase 19: aviso de privacidad y aceptación al crear cuenta (código 0)
 
 RESULTADO: recorrido completo sin errores.

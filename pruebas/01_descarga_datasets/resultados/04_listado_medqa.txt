@@ -1,6 +1,6 @@
 DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica
 COMANDO: backend\.venv\Scripts\python.exe pruebas/01_descarga_datasets/listar_raw.py
-FECHA: 2026-10-09 07:11:57 UTC
+FECHA: 2026-10-14 11:23:23 UTC
 CODIGO_SALIDA: 0
 
 STDOUT:

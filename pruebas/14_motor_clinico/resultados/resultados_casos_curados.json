@@ -4,16 +4,16 @@
     "specialty": "cirugia_general",
     "source_dataset": "MedQA",
     "status": "curado",
-    "verified_turns": 2,
+    "verified_turns": 3,
     "all_roles_and_evidence_correct": true,
     "treatment_safety_alerts": [],
     "vitals_preserved": true,
     "evaluation": {
       "score": 100.0,
-      "earned_weight": 13,
-      "total_weight": 13,
-      "completed_questions": 3,
-      "total_questions": 3,
+      "earned_weight": 17,
+      "total_weight": 17,
+      "completed_questions": 4,
+      "total_questions": 4,
       "errors": {
         "negligencia": 0,
         "anamnesis_incompleta": 0,
@@ -46,6 +46,22 @@
           "CIR-005.lab.coagulacion_posoperatoria"
         ],
         "safety_alerts": []
+      },
+      {
+        "message": "Solicito un examen de laboratorio: factores coagulacion.",
+        "intent": "request_lab",
+        "agent": "laboratorio",
+        "expected_evidence_ids": [
+          "CIR-005.lab.coagulacion_preoperatoria",
+          "CIR-005.lab.coagulacion_posoperatoria",
+          "CIR-005.lab.factores_coagulacion"
+        ],
+        "evidence_ids": [
+          "CIR-005.lab.coagulacion_preoperatoria",
+          "CIR-005.lab.coagulacion_posoperatoria",
+          "CIR-005.lab.factores_coagulacion"
+        ],
+        "safety_alerts": []
       }
     ]
   },
@@ -54,16 +70,16 @@
     "specialty": "cirugia_general",
     "source_dataset": "MedQA",
     "status": "curado",
-    "verified_turns": 3,
+    "verified_turns": 5,
     "all_roles_and_evidence_correct": true,
     "treatment_safety_alerts": [],
     "vitals_preserved": true,
     "evaluation": {
       "score": 100.0,
-      "earned_weight": 11,
-      "total_weight": 11,
-      "completed_questions": 3,
-      "total_questions": 3,
+      "earned_weight": 15,
+      "total_weight": 15,
+      "completed_questions": 4,
+      "total_questions": 4,
       "errors": {
         "negligencia": 0,
         "anamnesis_incompleta": 0,
@@ -106,6 +122,30 @@
           "CIR-006.examen.exploracion_fisica"
         ],
         "safety_alerts": []
+      },
+      {
+        "message": "Solicito una imagen para revisar radiografia torax.",
+        "intent": "request_radiology",
+        "agent": "radiologia",
+        "expected_evidence_ids": [
+          "CIR-006.imagen.radiografia_torax"
+        ],
+        "evidence_ids": [
+          "CIR-006.imagen.radiografia_torax"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Solicito un examen de laboratorio: hemograma.",
+        "intent": "request_lab",
+        "agent": "laboratorio",
+        "expected_evidence_ids": [
+          "CIR-006.lab.hemograma"
+        ],
+        "evidence_ids": [
+          "CIR-006.lab.hemograma"
+        ],
+        "safety_alerts": []
       }
     ]
   },
@@ -114,16 +154,16 @@
     "specialty": "emergencias",
     "source_dataset": "MedQA",
     "status": "curado",
-    "verified_turns": 3,
+    "verified_turns": 5,
     "all_roles_and_evidence_correct": true,
     "treatment_safety_alerts": [],
     "vitals_preserved": true,
     "evaluation": {
       "score": 100.0,
-      "earned_weight": 13,
-      "total_weight": 13,
-      "completed_questions": 3,
-      "total_questions": 3,
+      "earned_weight": 16,
+      "total_weight": 16,
+      "completed_questions": 4,
+      "total_questions": 4,
       "errors": {
         "negligencia": 0,
         "anamnesis_incompleta": 0,
@@ -166,6 +206,30 @@
           "EME-001.examen.exploracion_fisica"
         ],
         "safety_alerts": []
+      },
+      {
+        "message": "Solicito un examen de laboratorio: funcion tiroidea.",
+        "intent": "request_lab",
+        "agent": "laboratorio",
+        "expected_evidence_ids": [
+          "EME-001.lab.funcion_tiroidea"
+        ],
+        "evidence_ids": [
+          "EME-001.lab.funcion_tiroidea"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Solicito un examen de laboratorio: electroencefalograma.",
+        "intent": "request_lab",
+        "agent": "laboratorio",
+        "expected_evidence_ids": [
+          "EME-001.estudio.electroencefalograma"
+        ],
+        "evidence_ids": [
+          "EME-001.estudio.electroencefalograma"
+        ],
+        "safety_alerts": []
       }
     ]
   },
@@ -174,16 +238,16 @@
     "specialty": "emergencias",
     "source_dataset": "MedQA",
     "status": "curado",
-    "verified_turns": 2,
+    "verified_turns": 3,
     "all_roles_and_evidence_correct": true,
     "treatment_safety_alerts": [],
     "vitals_preserved": true,
     "evaluation": {
       "score": 100.0,
-      "earned_weight": 8,
-      "total_weight": 8,
-      "completed_questions": 2,
-      "total_questions": 2,
+      "earned_weight": 13,
+      "total_weight": 13,
+      "completed_questions": 3,
+      "total_questions": 3,
       "errors": {
         "negligencia": 0,
         "anamnesis_incompleta": 0,
@@ -212,6 +276,18 @@
         ],
         "evidence_ids": [
           "EME-002.examen.exploracion_fisica"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Solicito una imagen para revisar tomografia.",
+        "intent": "request_radiology",
+        "agent": "radiologia",
+        "expected_evidence_ids": [
+          "EME-002.imagen.tomografia_craneo"
+        ],
+        "evidence_ids": [
+          "EME-002.imagen.tomografia_craneo"
         ],
         "safety_alerts": []
       }
@@ -806,16 +882,16 @@
     "specialty": "ginecologia_obstetricia",
     "source_dataset": "MedQA",
     "status": "curado",
-    "verified_turns": 3,
+    "verified_turns": 5,
     "all_roles_and_evidence_correct": true,
     "treatment_safety_alerts": [],
     "vitals_preserved": true,
     "evaluation": {
       "score": 100.0,
-      "earned_weight": 14,
-      "total_weight": 14,
-      "completed_questions": 3,
-      "total_questions": 3,
+      "earned_weight": 18,
+      "total_weight": 18,
+      "completed_questions": 4,
+      "total_questions": 4,
       "errors": {
         "negligencia": 0,
         "anamnesis_incompleta": 0,
@@ -828,10 +904,12 @@
         "intent": "ask_patient",
         "agent": "paciente",
         "expected_evidence_ids": [
-          "GOB-003.antecedente.evolucion_parto"
+          "GOB-003.antecedente.evolucion_parto",
+          "GOB-003.antecedente.antecedentes_menstruales"
         ],
         "evidence_ids": [
-          "GOB-003.antecedente.evolucion_parto"
+          "GOB-003.antecedente.evolucion_parto",
+          "GOB-003.antecedente.antecedentes_menstruales"
         ],
         "safety_alerts": []
       },
@@ -858,6 +936,30 @@
         ],
         "evidence_ids": [
           "GOB-003.examen.exploracion_fisica"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Solicito un examen de laboratorio: prolactina.",
+        "intent": "request_lab",
+        "agent": "laboratorio",
+        "expected_evidence_ids": [
+          "GOB-003.lab.prolactina"
+        ],
+        "evidence_ids": [
+          "GOB-003.lab.prolactina"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "¿Puede contarme sobre sintomas asociados?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "GOB-003.sintoma.estado_de_animo"
+        ],
+        "evidence_ids": [
+          "GOB-003.sintoma.estado_de_animo"
         ],
         "safety_alerts": []
       }
@@ -964,7 +1066,7 @@
     "specialty": "medicina_interna",
     "source_dataset": "MedQA",
     "status": "curado",
-    "verified_turns": 6,
+    "verified_turns": 7,
     "all_roles_and_evidence_correct": true,
     "treatment_safety_alerts": [
       "case_contraindication"
@@ -972,10 +1074,10 @@
     "vitals_preserved": true,
     "evaluation": {
       "score": 100.0,
-      "earned_weight": 16,
-      "total_weight": 16,
-      "completed_questions": 4,
-      "total_questions": 4,
+      "earned_weight": 19,
+      "total_weight": 19,
+      "completed_questions": 5,
+      "total_questions": 5,
       "errors": {
         "negligencia": 0,
         "anamnesis_incompleta": 0,
@@ -1052,6 +1154,18 @@
         ],
         "evidence_ids": [
           "MED-008.examen.exploracion_fisica"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Solicito un examen de laboratorio: hemograma.",
+        "intent": "request_lab",
+        "agent": "laboratorio",
+        "expected_evidence_ids": [
+          "MED-008.lab.hemograma_bioquimica"
+        ],
+        "evidence_ids": [
+          "MED-008.lab.hemograma_bioquimica"
         ],
         "safety_alerts": []
       }
