@@ -82,7 +82,7 @@ backend\.venv\Scripts\python.exe pruebas\_herramientas\recorrido_completo.py
 
 ## Recorrido de cierre
 
-Corrida del 2026-10-14, 11:26 UTC: **14 de 14 comprobaciones sin errores.**
+Corrida del 2026-10-14, 11:26 UTC: **14 de 14 comprobaciones sin errores.** Se repitió a las 12:18 UTC, tras renumerar los casos ([fase 23](../23_numeracion_casos/README.md)), con el mismo resultado; los `.txt` de `recorrido/` son de esa última corrida.
 
 | Fase | Comprobación | Resultado |
 | --- | --- | --- |

@@ -1,6 +1,6 @@
 DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica
-COMANDO: node pruebas/19_aviso_privacidad/probar_aviso.cjs 21_cierre_sprint1/recorrido/capturas
-FECHA: 2026-10-14 11:26:32 UTC
+COMANDO: node pruebas/19_aviso_privacidad/probar_aviso.cjs pruebas/21_cierre_sprint1/recorrido/capturas
+FECHA: 2026-10-14 12:18:02 UTC
 CODIGO_SALIDA: 0
 
 STDOUT:

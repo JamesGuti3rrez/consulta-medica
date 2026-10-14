@@ -1,6 +1,6 @@
 DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica\backend
 COMANDO: .\.venv\Scripts\python.exe -m case_preparation curation
-FECHA: 2026-10-14 11:23:29 UTC
+FECHA: 2026-10-14 12:15:39 UTC
 CODIGO_SALIDA: 0
 
 STDOUT:
@@ -14,17 +14,17 @@ STDOUT:
     "GOB-004",
     "CIR-005",
     "CIR-006",
-    "PED-007",
+    "MED-007",
     "MED-008",
-    "MED-009",
+    "PED-009",
     "PED-010"
   ],
   "specialty_counts": {
     "emergencias": 2,
     "ginecologia_obstetricia": 2,
     "cirugia_general": 2,
-    "pediatria": 2,
-    "medicina_interna": 2
+    "medicina_interna": 2,
+    "pediatria": 2
   },
   "schema_valid": true,
   "curation_method": "curacion_con_revision_documentada"

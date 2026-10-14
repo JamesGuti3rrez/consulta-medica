@@ -1,6 +1,6 @@
 DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica
 COMANDO: backend\.venv\Scripts\python.exe pruebas/03_validacion/verificar_casos.py
-FECHA: 2026-10-14 11:23:32 UTC
+FECHA: 2026-10-14 12:15:41 UTC
 CODIGO_SALIDA: 0
 
 STDOUT:
@@ -15,7 +15,7 @@ STDOUT:
   [OK] todos tienen status = curado
   [OK] el nombre de archivo coincide con case_id
   [OK] sufijos de ID de MedQA 001–010 sin huecos ni repetidos: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-      orden por posición: EME-001, EME-002, GOB-003, GOB-004, CIR-005, CIR-006, PED-007, MED-008, MED-009, PED-010
+      orden por posición: EME-001, EME-002, GOB-003, GOB-004, CIR-005, CIR-006, MED-007, MED-008, PED-009, PED-010
   [OK] MedQA: 2 casos por especialidad: {'cirugia_general': 2, 'emergencias': 2, 'ginecologia_obstetricia': 2, 'medicina_interna': 2, 'pediatria': 2}
   [OK] sintéticos numerados desde 101: ['EME-101', 'EME-102', 'EME-103']
       familias sintéticas: {'dolor_toracico': 3}
@@ -36,9 +36,9 @@ STDOUT:
   [OK] EME-103: campos ['allergies_recorded', 'case_id', 'chief_complaint', 'items', 'patient', 'specialty']; diagnóstico protegido «Disección aórtica aguda tipo A» no aparece
   [OK] GOB-003: campos ['allergies_recorded', 'case_id', 'chief_complaint', 'items', 'patient', 'specialty']; diagnóstico protegido «Infarto hipofisario posparto (síndrome de Sheehan)» no aparece
   [OK] GOB-004: campos ['allergies_recorded', 'case_id', 'chief_complaint', 'items', 'patient', 'specialty']; diagnóstico protegido «Tricomoniasis vulvovaginal» no aparece
-  [OK] MED-008: campos ['allergies_recorded', 'case_id', 'chief_complaint', 'items', 'patient', 'specialty']; diagnóstico protegido «Enfermedad de Lyme con eritema migrans» no aparece
-  [OK] MED-009: campos ['allergies_recorded', 'case_id', 'chief_complaint', 'items', 'patient', 'specialty']; diagnóstico protegido «Carcinoma basocelular» no aparece
-  [OK] PED-007: campos ['allergies_recorded', 'case_id', 'chief_complaint', 'items', 'patient', 'specialty']; diagnóstico protegido «Enfermedad de Legg-Calvé-Perthes» no aparece
+  [OK] MED-007: campos ['allergies_recorded', 'case_id', 'chief_complaint', 'items', 'patient', 'specialty']; diagnóstico protegido «Enfermedad de Lyme con eritema migrans» no aparece
+  [OK] MED-008: campos ['allergies_recorded', 'case_id', 'chief_complaint', 'items', 'patient', 'specialty']; diagnóstico protegido «Carcinoma basocelular» no aparece
+  [OK] PED-009: campos ['allergies_recorded', 'case_id', 'chief_complaint', 'items', 'patient', 'specialty']; diagnóstico protegido «Enfermedad de Legg-Calvé-Perthes» no aparece
   [OK] PED-010: campos ['allergies_recorded', 'case_id', 'chief_complaint', 'items', 'patient', 'specialty']; diagnóstico protegido «Síndrome de McCune-Albright» no aparece
 
 5. Reglas cruzadas (backend/server/cases/rules.py)
@@ -65,9 +65,9 @@ STDOUT:
   [OK] EME-002: pregunta encontrada en el banco ['Taiwan']
   [OK] GOB-003: pregunta encontrada en el banco ['US']
   [OK] GOB-004: pregunta encontrada en el banco ['US']
+  [OK] MED-007: pregunta encontrada en el banco ['US']
   [OK] MED-008: pregunta encontrada en el banco ['US']
-  [OK] MED-009: pregunta encontrada en el banco ['US']
-  [OK] PED-007: pregunta encontrada en el banco ['US']
+  [OK] PED-009: pregunta encontrada en el banco ['US']
   [OK] PED-010: pregunta encontrada en el banco ['Taiwan']
 
 RESULTADO: todas las comprobaciones pasaron.

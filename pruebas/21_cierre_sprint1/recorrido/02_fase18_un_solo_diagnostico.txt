@@ -1,6 +1,6 @@
 DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica\backend
 COMANDO: .\.venv\Scripts\python.exe ../pruebas/18_casos_con_un_solo_diagnostico/bateria_un_solo_diagnostico.py --local
-FECHA: 2026-10-14 11:23:55 UTC
+FECHA: 2026-10-14 12:15:51 UTC
 CODIGO_SALIDA: 0
 
 STDOUT:
@@ -24,10 +24,10 @@ OK    GOB-003   6 pedidos  diferenciales descartados 4/4  -> queda: Infarto hipo
         complemento «¿Cómo eran sus reglas antes del embarazo? ¿Tenía dolores de cabeza o problemas de la vista?» -> Tuvo el parto a término; el recién nacido obtuvo un Apgar de 9 al minuto y de 10 a los 5 minutos. Media hora después del parto le administraron líquidos y sangre por la vena. Antes del embarazo tenía reglas regulares; nunca tuvo cefalea persistente ni problemas de la vista.
         complemento «Solicito una prolactina sérica» -> Prolactina baja para el puerperio.
 OK    GOB-004   6 pedidos  diferenciales descartados 4/4  -> queda: Tricomoniasis vulvovaginal
-OK    MED-008   7 pedidos  diferenciales descartados 3/3  -> queda: Enfermedad de Lyme con eritema migrans
+OK    MED-007   7 pedidos  diferenciales descartados 3/3  -> queda: Enfermedad de Lyme con eritema migrans
         complemento «Solicito un hemograma y perfil hepático» -> Leucocitos y plaquetas normales; transaminasas normales.
-OK    MED-009   3 pedidos  diferenciales descartados 4/4  -> queda: Carcinoma basocelular
-OK    PED-007   4 pedidos  diferenciales descartados 4/4  -> queda: Enfermedad de Legg-Calvé-Perthes
+OK    MED-008   3 pedidos  diferenciales descartados 4/4  -> queda: Carcinoma basocelular
+OK    PED-009   4 pedidos  diferenciales descartados 4/4  -> queda: Enfermedad de Legg-Calvé-Perthes
 OK    PED-010   4 pedidos  diferenciales descartados 4/4  -> queda: Síndrome de McCune-Albright
 
 RESUMEN: 13 de 13 casos llegan a un solo diagnóstico sin problemas

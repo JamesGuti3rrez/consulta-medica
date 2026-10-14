@@ -1,6 +1,6 @@
 DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica
 COMANDO: backend\.venv\Scripts\python.exe pruebas/20_sinonimos_diagnostico/mostrar_sinonimos.py
-FECHA: 2026-10-14 11:23:57 UTC
+FECHA: 2026-10-14 12:15:52 UTC
 CODIGO_SALIDA: 0
 
 STDOUT:
@@ -22,11 +22,11 @@ GOB-003  Infarto hipofisario posparto (síndrome de Sheehan)
          también: Síndrome de Sheehan; Infarto hipofisario; Necrosis hipofisaria posparto; Hipopituitarismo posparto
 GOB-004  Tricomoniasis vulvovaginal
          también: Tricomoniasis; Vaginitis por Trichomonas; Infección por Trichomonas vaginalis
-MED-008  Enfermedad de Lyme con eritema migrans
+MED-007  Enfermedad de Lyme con eritema migrans
          también: Enfermedad de Lyme; Borreliosis de Lyme; Lyme con eritema migrans
-MED-009  Carcinoma basocelular
+MED-008  Carcinoma basocelular
          también: Carcinoma de células basales; Basalioma; Epitelioma basocelular
-PED-007  Enfermedad de Legg-Calvé-Perthes
+PED-009  Enfermedad de Legg-Calvé-Perthes
          también: Enfermedad de Perthes; Legg-Calvé-Perthes; Osteonecrosis idiopática de la cabeza femoral
 PED-010  Síndrome de McCune-Albright
          también: McCune-Albright; Síndrome de McCune-Albright-Sternberg; Displasia fibrosa poliostótica con pubertad precoz

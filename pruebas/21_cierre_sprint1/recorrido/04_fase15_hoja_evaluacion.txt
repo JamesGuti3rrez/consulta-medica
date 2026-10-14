@@ -1,11 +1,11 @@
 DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica
-COMANDO: node pruebas/15_integracion_motor_clinico/probar_evaluacion.cjs parcial 21_cierre_sprint1/recorrido/capturas
-FECHA: 2026-10-14 11:25:11 UTC
+COMANDO: node pruebas/15_integracion_motor_clinico/probar_evaluacion.cjs parcial pruebas/21_cierre_sprint1/recorrido/capturas
+FECHA: 2026-10-14 12:16:51 UTC
 CODIGO_SALIDA: 0
 
 STDOUT:
-turno 1: ¿Puede contarme sobre inicio y evolucion? -> paciente; evidencia ["MED-008.sintoma.evolucion"]; alertas []
-turno 2: Mi tratamiento es administrar doxiciclina. -> medico_asistente; evidencia ["MED-008.sintoma.evolucion"]; alertas ["case_contraindication"]
+turno 1: ¿Puede contarme sobre inicio y evolucion? -> paciente; evidencia ["MED-007.sintoma.evolucion"]; alertas []
+turno 2: Mi tratamiento es administrar doxiciclina. -> medico_asistente; evidencia ["MED-007.sintoma.evolucion"]; alertas ["case_contraindication"]
 alerta en pantalla: La propuesta coincide con una contraindicación del caso. Verifícala antes de continuar.
 evaluación devuelta por /finish: {"score":15.79,"earned_weight":3,"total_weight":19,"completed_questions":1,"total_questions":5,"errors":{"negligencia":1,"anamnesis_incompleta":1,"razonamiento_clinico":2}}
 hoja en pantalla:

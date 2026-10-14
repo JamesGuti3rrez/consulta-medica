@@ -1,5 +1,5 @@
 Recorrido completo del sprint 1: flujo de datos MedQA → casos curados → frontend → simulador
-Fecha: 2026-10-14 11:26:32 UTC
+Fecha: 2026-10-14 12:18:02 UTC
 
 [OK] Fase 1: descarga y verificación SHA-256 de MedQA (código 0)
 [OK] Fase 1: listado de data/raw/medqa y huellas esperadas (código 0)

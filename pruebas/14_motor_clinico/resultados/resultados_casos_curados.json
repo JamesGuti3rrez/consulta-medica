@@ -1062,7 +1062,7 @@
     ]
   },
   {
-    "case_id": "MED-008",
+    "case_id": "MED-007",
     "specialty": "medicina_interna",
     "source_dataset": "MedQA",
     "status": "curado",
@@ -1090,10 +1090,10 @@
         "intent": "ask_patient",
         "agent": "paciente",
         "expected_evidence_ids": [
-          "MED-008.sintoma.evolucion"
+          "MED-007.sintoma.evolucion"
         ],
         "evidence_ids": [
-          "MED-008.sintoma.evolucion"
+          "MED-007.sintoma.evolucion"
         ],
         "safety_alerts": []
       },
@@ -1102,10 +1102,10 @@
         "intent": "ask_patient",
         "agent": "paciente",
         "expected_evidence_ids": [
-          "MED-008.medicacion.tratamiento_previo"
+          "MED-007.medicacion.tratamiento_previo"
         ],
         "evidence_ids": [
-          "MED-008.medicacion.tratamiento_previo"
+          "MED-007.medicacion.tratamiento_previo"
         ],
         "safety_alerts": []
       },
@@ -1114,10 +1114,10 @@
         "intent": "ask_patient",
         "agent": "paciente",
         "expected_evidence_ids": [
-          "MED-008.antecedente.antecedentes"
+          "MED-007.antecedente.antecedentes"
         ],
         "evidence_ids": [
-          "MED-008.antecedente.antecedentes"
+          "MED-007.antecedente.antecedentes"
         ],
         "safety_alerts": []
       },
@@ -1126,10 +1126,10 @@
         "intent": "ask_patient",
         "agent": "paciente",
         "expected_evidence_ids": [
-          "MED-008.antecedente.alergias"
+          "MED-007.antecedente.alergias"
         ],
         "evidence_ids": [
-          "MED-008.antecedente.alergias"
+          "MED-007.antecedente.alergias"
         ],
         "safety_alerts": []
       },
@@ -1138,10 +1138,10 @@
         "intent": "ask_patient",
         "agent": "paciente",
         "expected_evidence_ids": [
-          "MED-008.anamnesis.exposicion"
+          "MED-007.anamnesis.exposicion"
         ],
         "evidence_ids": [
-          "MED-008.anamnesis.exposicion"
+          "MED-007.anamnesis.exposicion"
         ],
         "safety_alerts": []
       },
@@ -1150,10 +1150,10 @@
         "intent": "examine",
         "agent": "medico_asistente",
         "expected_evidence_ids": [
-          "MED-008.examen.exploracion_fisica"
+          "MED-007.examen.exploracion_fisica"
         ],
         "evidence_ids": [
-          "MED-008.examen.exploracion_fisica"
+          "MED-007.examen.exploracion_fisica"
         ],
         "safety_alerts": []
       },
@@ -1162,17 +1162,17 @@
         "intent": "request_lab",
         "agent": "laboratorio",
         "expected_evidence_ids": [
-          "MED-008.lab.hemograma_bioquimica"
+          "MED-007.lab.hemograma_bioquimica"
         ],
         "evidence_ids": [
-          "MED-008.lab.hemograma_bioquimica"
+          "MED-007.lab.hemograma_bioquimica"
         ],
         "safety_alerts": []
       }
     ]
   },
   {
-    "case_id": "MED-009",
+    "case_id": "MED-008",
     "specialty": "medicina_interna",
     "source_dataset": "MedQA",
     "status": "curado",
@@ -1198,10 +1198,10 @@
         "intent": "examine",
         "agent": "medico_asistente",
         "expected_evidence_ids": [
-          "MED-009.examen.exploracion_fisica"
+          "MED-008.examen.exploracion_fisica"
         ],
         "evidence_ids": [
-          "MED-009.examen.exploracion_fisica"
+          "MED-008.examen.exploracion_fisica"
         ],
         "safety_alerts": []
       },
@@ -1210,10 +1210,10 @@
         "intent": "ask_patient",
         "agent": "paciente",
         "expected_evidence_ids": [
-          "MED-009.sintoma.evolucion"
+          "MED-008.sintoma.evolucion"
         ],
         "evidence_ids": [
-          "MED-009.sintoma.evolucion"
+          "MED-008.sintoma.evolucion"
         ],
         "safety_alerts": []
       },
@@ -1222,17 +1222,17 @@
         "intent": "ask_patient",
         "agent": "paciente",
         "expected_evidence_ids": [
-          "MED-009.anamnesis.exposicion_solar"
+          "MED-008.anamnesis.exposicion_solar"
         ],
         "evidence_ids": [
-          "MED-009.anamnesis.exposicion_solar"
+          "MED-008.anamnesis.exposicion_solar"
         ],
         "safety_alerts": []
       }
     ]
   },
   {
-    "case_id": "PED-007",
+    "case_id": "PED-009",
     "specialty": "pediatria",
     "source_dataset": "MedQA",
     "status": "curado",
@@ -1258,10 +1258,10 @@
         "intent": "ask_patient",
         "agent": "paciente",
         "expected_evidence_ids": [
-          "PED-007.sintoma.dolor"
+          "PED-009.sintoma.dolor"
         ],
         "evidence_ids": [
-          "PED-007.sintoma.dolor"
+          "PED-009.sintoma.dolor"
         ],
         "safety_alerts": []
       },
@@ -1270,10 +1270,10 @@
         "intent": "ask_patient",
         "agent": "paciente",
         "expected_evidence_ids": [
-          "PED-007.antecedente.antecedentes"
+          "PED-009.antecedente.antecedentes"
         ],
         "evidence_ids": [
-          "PED-007.antecedente.antecedentes"
+          "PED-009.antecedente.antecedentes"
         ],
         "safety_alerts": []
       },
@@ -1282,10 +1282,10 @@
         "intent": "examine",
         "agent": "medico_asistente",
         "expected_evidence_ids": [
-          "PED-007.examen.exploracion_fisica"
+          "PED-009.examen.exploracion_fisica"
         ],
         "evidence_ids": [
-          "PED-007.examen.exploracion_fisica"
+          "PED-009.examen.exploracion_fisica"
         ],
         "safety_alerts": []
       },
@@ -1294,10 +1294,10 @@
         "intent": "request_radiology",
         "agent": "radiologia",
         "expected_evidence_ids": [
-          "PED-007.imagen.radiografia"
+          "PED-009.imagen.radiografia"
         ],
         "evidence_ids": [
-          "PED-007.imagen.radiografia"
+          "PED-009.imagen.radiografia"
         ],
         "safety_alerts": []
       }

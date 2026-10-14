@@ -1,13 +1,13 @@
 DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica
-COMANDO: node pruebas/17_otro_caso/probar_otro_caso.cjs 21_cierre_sprint1/recorrido/capturas
-FECHA: 2026-10-14 11:26:24 UTC
+COMANDO: node pruebas/17_otro_caso/probar_otro_caso.cjs pruebas/21_cierre_sprint1/recorrido/capturas
+FECHA: 2026-10-14 12:17:57 UTC
 CODIGO_SALIDA: 0
 
 STDOUT:
 ronda 1: pediatria | paciente en la ficha: Valeria Torres | mensajes del chat al empezar: 4 | URL: ?especialidad=pediatria
 ronda 2: pediatria | paciente en la ficha: Mateo Quispe | mensajes del chat al empezar: 4 | URL: ?especialidad=pediatria
 ronda 3: pediatria | paciente en la ficha: Valeria Torres | mensajes del chat al empezar: 4 | URL: ?especialidad=pediatria
-ronda 4: medicina_interna | paciente en la ficha: Patricia Vargas | mensajes del chat al empezar: 4 | URL: ?caso=MED-008
+ronda 4: medicina_interna | paciente en la ficha: Patricia Vargas | mensajes del chat al empezar: 4 | URL: ?caso=MED-007
 ronda 5: medicina_interna | paciente en la ficha: Alberto Núñez | mensajes del chat al empezar: 4 | URL: ?especialidad=medicina_interna
 
 RESUMEN

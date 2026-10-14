@@ -1,6 +1,6 @@
 DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica\backend
 COMANDO: .\.venv\Scripts\python.exe -m case_preparation adapters extract --dataset medqa
-FECHA: 2026-10-14 11:23:28 UTC
+FECHA: 2026-10-14 12:15:38 UTC
 CODIGO_SALIDA: 0
 
 STDOUT:
@@ -36,7 +36,7 @@ STDOUT:
     "medicina_interna": 2022,
     "pediatria": 848
   },
-  "generated_at": "2026-10-14T11:23:28.030390+00:00"
+  "generated_at": "2026-10-14T12:15:38.847890+00:00"
 }
 
 

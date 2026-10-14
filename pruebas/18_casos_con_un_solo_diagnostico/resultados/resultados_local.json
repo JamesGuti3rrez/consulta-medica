@@ -844,7 +844,7 @@
     "problems": []
   },
   {
-    "case_id": "MED-008",
+    "case_id": "MED-007",
     "diagnosis": "Enfermedad de Lyme con eritema migrans",
     "differentials": [
       "Celulitis bacteriana",
@@ -857,7 +857,7 @@
         "message": "Pregúntele desde cuándo empezó y cómo ha evolucionado",
         "agent": "paciente",
         "evidence_ids": [
-          "MED-008.sintoma.evolucion"
+          "MED-007.sintoma.evolucion"
         ],
         "response": "Tres días antes de consultar notó en la espalda una lesión pequeña, algo elevada, parecida a una picadura de araña o de insecto, que consideró una costra. Dos días antes de acudir tuvo fiebre de 39,4 °C, con una sensación de ardor cada vez más intensa en la zona. Un familiar revisó la picadura y vio que el bulto se había convertido en una erupción circular. El día anterior se sintió agotada, pero completó una jornada laboral normal. Hoy despertó muy enferma, con dolores articulares punzantes, fiebre alta y sed excesiva.",
         "leaks": [],
@@ -867,7 +867,7 @@
         "message": "¿Ha tomado algún medicamento?",
         "agent": "paciente",
         "evidence_ids": [
-          "MED-008.medicacion.tratamiento_previo"
+          "MED-007.medicacion.tratamiento_previo"
         ],
         "response": "Tomó ibuprofeno de venta libre por el dolor intenso para poder dormir.",
         "leaks": [],
@@ -877,7 +877,7 @@
         "message": "Pregúntele por sus antecedentes de enfermedades",
         "agent": "paciente",
         "evidence_ids": [
-          "MED-008.antecedente.antecedentes"
+          "MED-007.antecedente.antecedentes"
         ],
         "response": "Sus antecedentes médicos y quirúrgicos no son relevantes, salvo una anafilaxia al tomar una tetraciclina.",
         "leaks": [],
@@ -887,7 +887,7 @@
         "message": "¿Tiene alergias?",
         "agent": "paciente",
         "evidence_ids": [
-          "MED-008.antecedente.alergias"
+          "MED-007.antecedente.alergias"
         ],
         "response": "Tuvo anafilaxia al tomar una tetraciclina y recalca que es alérgica a las tetraciclinas. Niega alergias alimentarias o por inhalación.",
         "leaks": [],
@@ -897,7 +897,7 @@
         "message": "¿Ha hecho alguna actividad al aire libre o algún viaje?",
         "agent": "paciente",
         "evidence_ids": [
-          "MED-008.anamnesis.exposicion"
+          "MED-007.anamnesis.exposicion"
         ],
         "response": "Recuerda una caminata por el bosque 3 semanas antes, pero niega haber encontrado una garrapata u otro ectoparásito en su cuerpo.",
         "leaks": [],
@@ -907,7 +907,7 @@
         "message": "Voy a examinar a la paciente",
         "agent": "medico_asistente",
         "evidence_ids": [
-          "MED-008.examen.exploracion_fisica"
+          "MED-007.examen.exploracion_fisica"
         ],
         "response": "Erupción roja, circular y grande, con aspecto en diana (17 × 19 cm de diámetro), en la espalda. El resto de la exploración física no muestra hallazgos.",
         "leaks": [],
@@ -917,7 +917,7 @@
         "message": "Solicito un hemograma y perfil hepático",
         "agent": "laboratorio",
         "evidence_ids": [
-          "MED-008.lab.hemograma_bioquimica"
+          "MED-007.lab.hemograma_bioquimica"
         ],
         "response": "Leucocitos y plaquetas normales; transaminasas normales.",
         "leaks": [],
@@ -929,7 +929,7 @@
     "problems": []
   },
   {
-    "case_id": "MED-009",
+    "case_id": "MED-008",
     "diagnosis": "Carcinoma basocelular",
     "differentials": [
       "Carcinoma escamocelular",
@@ -943,7 +943,7 @@
         "message": "Voy a examinar al paciente",
         "agent": "medico_asistente",
         "evidence_ids": [
-          "MED-009.examen.exploracion_fisica"
+          "MED-008.examen.exploracion_fisica"
         ],
         "response": "En el párpado hay una pápula de 0,5 cm, rosada y de aspecto perlado, con bordes enrollados y telangiectasias en la superficie.",
         "leaks": [],
@@ -953,7 +953,7 @@
         "message": "¿Desde cuándo tiene esa lesión?",
         "agent": "paciente",
         "evidence_ids": [
-          "MED-009.sintoma.evolucion"
+          "MED-008.sintoma.evolucion"
         ],
         "response": "Notó la lesión por primera vez hace unos 6 meses y desde entonces ha crecido ligeramente.",
         "leaks": [],
@@ -963,7 +963,7 @@
         "message": "¿Ha trabajado al sol? ¿Usa protector solar?",
         "agent": "paciente",
         "evidence_ids": [
-          "MED-009.anamnesis.exposicion_solar"
+          "MED-008.anamnesis.exposicion_solar"
         ],
         "response": "Trabajó como vendedor puerta a puerta, pasó mucho tiempo al aire libre y no usaba protector solar. Tiene piel clara y cabello rubio.",
         "leaks": [],
@@ -973,7 +973,7 @@
     "problems": []
   },
   {
-    "case_id": "PED-007",
+    "case_id": "PED-009",
     "diagnosis": "Enfermedad de Legg-Calvé-Perthes",
     "differentials": [
       "Artritis séptica",
@@ -987,7 +987,7 @@
         "message": "¿Dónde le duele?",
         "agent": "paciente",
         "evidence_ids": [
-          "PED-007.sintoma.dolor"
+          "PED-009.sintoma.dolor"
         ],
         "response": "Al preguntarle, el niño dice que le duele la rodilla izquierda.",
         "leaks": [],
@@ -997,7 +997,7 @@
         "message": "Pregúntele por sus antecedentes y su desarrollo",
         "agent": "paciente",
         "evidence_ids": [
-          "PED-007.antecedente.antecedentes"
+          "PED-009.antecedente.antecedentes"
         ],
         "response": "Está bien nutrido y cumple todos los hitos del desarrollo.",
         "leaks": [],
@@ -1007,7 +1007,7 @@
         "message": "Voy a examinar al niño",
         "agent": "medico_asistente",
         "evidence_ids": [
-          "PED-007.examen.exploracion_fisica"
+          "PED-009.examen.exploracion_fisica"
         ],
         "response": "La rodilla tiene rango de movimiento completo; la movilización pasiva provoca dolor en la cadera izquierda.",
         "leaks": [],
@@ -1017,7 +1017,7 @@
         "message": "Pido una radiografía de cadera",
         "agent": "radiologia",
         "evidence_ids": [
-          "PED-007.imagen.radiografia"
+          "PED-009.imagen.radiografia"
         ],
         "response": "Cabeza femoral izquierda aplanada.",
         "leaks": [],
