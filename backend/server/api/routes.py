@@ -17,8 +17,11 @@ SPECIALTIES = tuple(load_schema()["properties"]["specialty"]["enum"])
 
 
 @router.get("/caso")
-def get_case(especialidad: str | None = None, caso: str | None = None):
+def get_case(especialidad: str | None = None, caso: str | None = None, excluir: str | None = None):
     """Un caso curado al azar; con ?especialidad=…, solo de esa especialidad (la elige el estudiante).
+
+    ?excluir=A,B lista los casos que el estudiante ya vio, empezando por el actual («Probar otro caso»).
+    Si ya los vio todos, solo se evita el actual, para no repetir el mismo paciente seguido.
 
     ?caso=EME-103 devuelve ese caso: solo para pruebas (docs/guia_de_pruebas). Entrega la misma vista
     pública que el azar, sin protected.
@@ -35,6 +38,13 @@ def get_case(especialidad: str | None = None, caso: str | None = None):
         cases = [case for case in cases if case["specialty"] == especialidad]
     if not cases:
         raise HTTPException(status_code=503, detail="No hay casos curados disponibles.")
+    seen = [case_id.strip() for case_id in (excluir or "").split(",") if case_id.strip()]
+    if seen:
+        cases = (
+            [case for case in cases if case["case_id"] not in seen]
+            or [case for case in cases if case["case_id"] != seen[0]]
+            or cases
+        )
     return to_student_case(secrets.choice(cases))
 
 

@@ -84,3 +84,18 @@ def test_case_can_be_chosen_by_id_for_testing():
     assert "protected" not in body and "on_request" not in body
     assert client.get("/api/caso", params={"caso": "../EME-103"}).status_code == 404
     assert client.get("/api/caso", params={"caso": "EME-999"}).status_code == 404
+
+
+def test_another_case_of_the_same_specialty_skips_the_ones_already_seen():
+    # «Probar otro caso»: misma especialidad, otro paciente.
+    for _ in range(10):
+        body = client.get("/api/caso", params={"especialidad": "emergencias", "excluir": "EME-101,EME-102"}).json()
+        assert body["specialty"] == "emergencias"
+        assert body["case_id"] not in {"EME-101", "EME-102"}
+
+
+def test_when_every_case_was_seen_it_only_avoids_the_current_one():
+    # Pediatría tiene dos casos: vistos los dos, se repite el otro, nunca el que acaba de terminar.
+    for _ in range(10):
+        body = client.get("/api/caso", params={"especialidad": "pediatria", "excluir": "PED-007,PED-010"}).json()
+        assert body["case_id"] == "PED-010"
