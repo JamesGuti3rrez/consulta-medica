@@ -716,6 +716,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     const field = $(role);
     if (field) field.textContent = text;
   };
+  const SAVED_MESSAGES = {
+    guardado: 'Consulta guardada en «Mis simulaciones».',
+    sin_sesion: 'Esta consulta no se guardó: inicia sesión para guardar tus próximas consultas en «Mis simulaciones».',
+    sesion_invalida: 'Tu sesión venció: vuelve a iniciar sesión para guardar tus próximas consultas.',
+    no_configurado: 'El guardado de consultas no está disponible en este servidor.',
+    error: 'No se pudo guardar esta consulta. La evaluación sigue siendo válida.',
+  };
+  const accessToken = async () => {
+    try {
+      const client = await window.auth?.ready;
+      const { data } = client ? await client.auth.getSession() : { data: {} };
+      return data?.session?.access_token || null;
+    } catch {
+      return null;
+    }
+  };
   const openEvaluation = () => {
     if (!evaluationPanel) return;
     evaluationPanel.hidden = false;
@@ -810,14 +826,28 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
     renderHypotheses();
     let evaluation = null;
+    let attempt = null;
     if (aiSessionId) {
-      const response = await fetch(`/api/ai/sessions/${encodeURIComponent(aiSessionId)}/finish`, { method: 'POST' })
-        .catch(() => null);
+      // Con la sesión iniciada se envía su token: el servidor lo comprueba y guarda la consulta en
+      // «Mis simulaciones». Sin sesión la consulta termina igual, pero no se guarda.
+      const headers = { 'Content-Type': 'application/json' };
+      const token = await accessToken();
+      if (token) headers.Authorization = `Bearer ${token}`;
+      const response = await fetch(`/api/ai/sessions/${encodeURIComponent(aiSessionId)}/finish`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          diagnosis,
+          hypotheses: hypotheses.map(({ name, discarded, reason }) => ({ name, discarded, reason: reason || '' })),
+        }),
+      }).catch(() => null);
       const finished = response?.ok ? await response.json().catch(() => null) : null;
       evaluation = finished?.evaluation || null;
+      attempt = finished?.attempt || null;
     }
     show(diagnosisPanel, false);
     showEvaluation(evaluation, diagnosis);
+    setField('evaluation-saved', SAVED_MESSAGES[attempt?.saved ? 'guardado' : attempt?.reason] || '');
     // El botón de diagnóstico pasa a reabrir la hoja si el estudiante la cierra.
     if (diagnosisButton) {
       diagnosisButton.disabled = false;
