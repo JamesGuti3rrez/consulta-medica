@@ -108,7 +108,7 @@
         "owner": "paciente",
         "mode": "al_preguntar",
         "requires": [
-          "antecedentes_gineco_obstetricos"
+          "antecedentes_personales"
         ]
       }
     }
