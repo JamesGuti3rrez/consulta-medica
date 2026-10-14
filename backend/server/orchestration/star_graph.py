@@ -97,6 +97,11 @@ class StarGraphOrchestrator:
                 retrieved=retrieved,
                 conversation_tail=state.get("conversation_tail", []),
             )
+            # Laboratorio y radiología sin resultado: si el estudiante no nombró ningún examen, se le pregunta
+            # cuál quiere en vez de afirmar que no se hizo (podría existir con otro nombre).
+            if (role in (AgentRole.LABORATORIO, AgentRole.RADIOLOGIA) and not retrieved
+                    and not self.disclosure_policy.names_specific_exam(state["student_message"])):
+                context["pedido_generico"] = True
             reply = self.agents[role].respond(
                 student_message=message_for_agent,
                 context=context,

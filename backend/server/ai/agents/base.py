@@ -74,6 +74,8 @@ class BaseAgent(ABC):
     def prompt_filename(self) -> str: ...
 
     # Qué hacer cuando la pregunta no tiene dato en el caso; cada agente puede definir la suya.
+    # Respuesta a un pedido genérico (sin nombrar examen); solo la usan laboratorio y radiología.
+    generic_request_reply: str | None = None
     missing_data_rule = (
         "Si no hay evidencia recuperada suficiente para responder, indícalo de forma breve y no inventes datos."
     )
@@ -128,6 +130,11 @@ class BaseAgent(ABC):
         ]
 
     def respond(self, *, student_message: str, context: dict[str, Any], temperature: float = 0.0) -> AgentReply:
+        # Pedido genérico sin resultado (lo marca el orquestador): frase fija que pregunta qué examen, sin LLM.
+        if context.get("pedido_generico") and self.generic_request_reply:
+            return AgentReply(role=self.role, text=self.generic_request_reply, provider="reglas", model="reglas",
+                              evidence_ids=[], input_tokens=0, output_tokens=0, fallback_used=False,
+                              grounding_retry_used=False, grounding_fallback_used=False)
         messages = self._messages(student_message=student_message, context=context)
         first = self.gateway.generate(messages, temperature=temperature)
 
