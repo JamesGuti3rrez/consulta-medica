@@ -49,3 +49,12 @@ obtenidos y conteo de omisiones por tipo de error) y el simulador llena la «Hoj
 de `simulacion.html`. Las hipótesis y el diagnóstico de la hoja salen de lo que registró el estudiante;
 el puntaje no califica el diagnóstico escrito. El botón «Realizar Diagnóstico» pasa a «Ver hoja de
 evaluación» para reabrirla. Evidencia: `pruebas/15_integracion_motor_clinico/`.
+
+## Mis simulaciones
+
+Con la sesión iniciada, el simulador envía el token de Supabase al iniciar y al finalizar la consulta; el
+servidor guarda el intento (puntaje del motor clínico, diagnóstico, hipótesis y duración) solo si la
+consulta la empezó ese mismo alumno. La hoja de evaluación avisa si se guardó o por qué no. «Mis
+simulaciones», en el menú de perfil (`public/js/perfil.js`), lista los intentos del alumno leyendo
+`intentos` con el cliente de Supabase; RLS solo le entrega los suyos. Evidencia:
+`pruebas/16_historial_simulaciones/`.
