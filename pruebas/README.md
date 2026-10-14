@@ -31,6 +31,7 @@ Todas las capturas están en **vista de escritorio/PC (1440 px de ancho)**; ning
 | 20. Sinónimos del diagnóstico | [20_sinonimos_diagnostico/](20_sinonimos_diagnostico/README.md) | Cada caso acepta al menos tres formas de nombrar su diagnóstico (52 en total, antes 21), base para calificar el diagnóstico escrito | OK |
 | 21. Cierre del sprint 1 | [21_cierre_sprint1/](21_cierre_sprint1/README.md) | Qué pedía el sprint, qué se entregó y dónde está la prueba de cada componente; recorrido completo con un comando | ver README |
 | 22. Pedidos genéricos | [22_pedidos_genericos/](22_pedidos_genericos/README.md) | Ante un pedido sin nombre de examen («análisis de sangre»), el laboratorio y radiología preguntan cuál en lugar de afirmar que no se realizó | OK (intento 2) |
+| 23. Numeración de los casos | [23_numeracion_casos/](23_numeracion_casos/README.md) | Casos agrupados por especialidad (EME 001-002, GOB 003-004, CIR 005-006, MED 007-008, PED 009-010) con equivalencias para la evidencia anterior | OK (intento 2) |
 
 ## Convención de cada fase
 
