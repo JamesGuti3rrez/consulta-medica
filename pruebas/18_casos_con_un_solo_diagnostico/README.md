@@ -94,7 +94,7 @@ y la recuperación es directa del caso. [probar_vercel.py](probar_vercel.py) pid
 por el equipo y muestra lo que lee el estudiante:
 
 ```powershell
-backend\.venv\Scripts\python.exe pruebas8_casos_con_un_solo_diagnostico\probar_vercel.py
+backend\.venv\Scripts\python.exe pruebas\18_casos_con_un_solo_diagnostico\probar_vercel.py
 ```
 
 Resultado: 7 de 7 llegan completos (por ejemplo, CIR-005: «Factor VIII: actividad disminuida. Factor IX:
