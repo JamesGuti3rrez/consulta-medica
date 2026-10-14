@@ -290,6 +290,14 @@
     "medlineplus_atelectasis": {
       "title": "MedlinePlus Medical Encyclopedia: Atelectasis",
       "url": "https://medlineplus.gov/ency/article/000065.htm"
+    },
+    "medlineplus_eeg": {
+      "title": "MedlinePlus Medical Encyclopedia: EEG",
+      "url": "https://medlineplus.gov/ency/article/003931.htm"
+    },
+    "medlineplus_thyroid_storm": {
+      "title": "MedlinePlus Medical Encyclopedia: Thyroid storm",
+      "url": "https://medlineplus.gov/ency/article/000400.htm"
     }
   },
   "clinical_review": {
@@ -833,6 +841,34 @@
           "requires": [
             "exploracion_fisica"
           ]
+        },
+        {
+          "key": "funcion_tiroidea",
+          "category": "laboratorio",
+          "label": "Función tiroidea",
+          "text": "TSH y tiroxina libre dentro del rango normal.",
+          "owner": "laboratorio",
+          "requires": [
+            "funcion_tiroidea"
+          ],
+          "complemento": {
+            "fuente": "medlineplus_thyroid_storm",
+            "motivo": "Toma propranolol por hipertiroidismo: la tormenta tiroidea solo se descarta con la función tiroidea."
+          }
+        },
+        {
+          "key": "electroencefalograma",
+          "category": "estudio",
+          "label": "Electroencefalograma",
+          "text": "Sin actividad epileptiforme; enlentecimiento difuso propio de una encefalopatía.",
+          "owner": "laboratorio",
+          "requires": [
+            "electroencefalograma"
+          ],
+          "complemento": {
+            "fuente": "medlineplus_eeg",
+            "motivo": "Tiene epilepsia y está obnubilado: el estado epiléptico no convulsivo se descarta con el EEG."
+          }
         }
       ],
       "key_questions": [
@@ -862,6 +898,15 @@
           "weight": 4,
           "critical": true,
           "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "topic": "Función tiroidea normal pese al antecedente de hipertiroidismo",
+          "evidence": [
+            "funcion_tiroidea"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "razonamiento_clinico"
         }
       ],
       "notes": [
@@ -874,6 +919,12 @@
         ],
         "Hipertermia maligna perioperatoria": [
           "antecedentes"
+        ],
+        "Tormenta tiroidea": [
+          "funcion_tiroidea"
+        ],
+        "Estado epiléptico": [
+          "electroencefalograma"
         ]
       }
     },

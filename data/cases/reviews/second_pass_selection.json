@@ -65,6 +65,14 @@
     "medlineplus_atelectasis": {
       "title": "MedlinePlus Medical Encyclopedia: Atelectasis",
       "url": "https://medlineplus.gov/ency/article/000065.htm"
+    },
+    "medlineplus_eeg": {
+      "title": "MedlinePlus Medical Encyclopedia: EEG",
+      "url": "https://medlineplus.gov/ency/article/003931.htm"
+    },
+    "medlineplus_thyroid_storm": {
+      "title": "MedlinePlus Medical Encyclopedia: Thyroid storm",
+      "url": "https://medlineplus.gov/ency/article/000400.htm"
     }
   },
   "cases": [
