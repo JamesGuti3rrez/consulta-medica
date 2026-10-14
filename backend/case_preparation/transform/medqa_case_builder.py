@@ -171,6 +171,7 @@ def _build_case(candidate: dict[str, Any], index: int) -> dict[str, Any]:
     unknown = set(discard) - {item["name"] for item in normalized_differentials[:4]}
     if unknown:
         raise ValueError(f"El caso {case_id} descarta diferenciales que no tiene: {sorted(unknown)}")
+    diagnosis_name = _as_text(candidate.get("clinical_diagnosis")) or answer_text
     allergies = candidate.get("allergies") if distribution.get("allergies_in_public", True) else None
     treatment_reference = candidate.get("treatment_reference") or {
         "summary": (
@@ -216,10 +217,12 @@ def _build_case(candidate: dict[str, Any], index: int) -> dict[str, Any]:
         "on_request": on_request,
         "protected": {
             "diagnosis": {
-                "name": _as_text(candidate.get("clinical_diagnosis")) or answer_text,
-                "synonyms": [
-                    _as_text(candidate.get("clinical_diagnosis")) or answer_text
-                ],
+                "name": diagnosis_name,
+                # Formas aceptadas de nombrar el diagnóstico (diagnosis_synonyms del archivo de revisión), para
+                # poder comparar el diagnóstico que escribe el estudiante. El nombre va primero.
+                "synonyms": list(dict.fromkeys(
+                    [diagnosis_name, *(_as_text(item) for item in candidate.get("diagnosis_synonyms", []))]
+                )),
             },
             "differentials": [
                 {

@@ -219,3 +219,19 @@ def test_team_complements_must_cite_a_registered_clinical_source():
     without_reason = {"key": "factores", "complemento": {"fuente": "cdc_hemophilia"}}
     with pytest.raises(ValueError, match="motivo"):
         check_complements("CIR-005", {"public": [], "on_request": [without_reason]}, sources)
+
+
+def test_build_case_adds_reviewed_diagnosis_synonyms_after_the_name():
+    candidate = {
+        "candidate_id": "medqa-00004",
+        "question": "A 57-year-old man presents with a sudden severe headache. Which is the most likely diagnosis?",
+        "options": ["A. Migraine", "B. Subarachnoid hemorrhage"],
+        "answer": "B",
+        "answer_text": "Subarachnoid hemorrhage",
+        "specialty": "emergencias",
+        "clinical_diagnosis": "Hemorragia subaracnoidea",
+        "diagnosis_synonyms": ["HSA", "Hemorragia subaracnoidea", "Sangrado subaracnoideo"],
+        "distribution": DISTRIBUTION,
+    }
+    diagnosis = _build_case(candidate, 1)["protected"]["diagnosis"]
+    assert diagnosis["synonyms"] == ["Hemorragia subaracnoidea", "HSA", "Sangrado subaracnoideo"]
