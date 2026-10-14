@@ -24,6 +24,7 @@ Todas las capturas están en **vista de escritorio/PC (1440 px de ancho)**; ning
 | 13. Guiones por paciente | [13_guiones_por_paciente/](13_guiones_por_paciente/README.md) | Los 13 casos recorridos con su guion (qué preguntar y qué no) con el modelo real: 114 de 114 pedidos correctos | OK (intento 2) |
 | 14. Motor clínico | [14_motor_clinico/](14_motor_clinico/README.md) | Trabajo de la rama `julio`: con los 13 casos curados, acceso por rol, alertas de contraindicación, signos vitales conservados y evaluación final | OK |
 | 15. Integración del motor clínico | [15_integracion_motor_clinico/](15_integracion_motor_clinico/README.md) | El motor en `main`, conectado a la API, a las sesiones y a la hoja de evaluación del simulador | OK (intento 3) |
+| 16. Historial de simulaciones | [16_historial_simulaciones/](16_historial_simulaciones/README.md) | Cada consulta de un alumno con sesión iniciada se guarda en Supabase y aparece en «Mis simulaciones»; los invitados no guardan y nadie puede quedarse con la consulta de otro | OK (intento 2) |
 
 ## Convención de cada fase
 
@@ -60,4 +61,4 @@ dependencia del proyecto: si no está disponible, ejecute `npx playwright@1.63.0
 ## Alcance
 
 Las fases 1 a 5 cubren el flujo de datos; las siguientes, el diálogo clínico (7, 9, 12 y 13), la
-persistencia de sesiones en Supabase (11) y el motor clínico con la evaluación del estudiante (14 y 15).
+persistencia de sesiones en Supabase (11) el motor clínico con la evaluación del estudiante (14 y 15) y el historial de simulaciones (16).
