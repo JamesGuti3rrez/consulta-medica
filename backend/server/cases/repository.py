@@ -34,11 +34,21 @@ class CaseValidationError(ValueError):
 
 
 class CanonicalCaseRepository:
-    """Lee los casos curados de una carpeta. Solo entrega casos válidos con status=curado."""
+    """Lee casos válidos de una carpeta y entrega solo los estados habilitados explícitamente."""
 
-    def __init__(self, cases_dir: Path | str = CURATED_CASES_DIR, schema_path: Path | str | None = None):
+    def __init__(
+        self,
+        cases_dir: Path | str = CURATED_CASES_DIR,
+        schema_path: Path | str | None = None,
+        *,
+        accepted_statuses: tuple[str, ...] = ("curado",),
+    ):
+        invalid_statuses = set(accepted_statuses) - {"curado", "validado"}
+        if invalid_statuses:
+            raise ValueError(f"Estados de caso no permitidos: {sorted(invalid_statuses)}")
         self.cases_dir = Path(cases_dir)
         self.schema_path = schema_path
+        self.accepted_statuses = frozenset(accepted_statuses)
 
     def list_curated(self) -> list[str]:
         result: list[str] = []
@@ -47,7 +57,7 @@ class CanonicalCaseRepository:
                 case = self._load(path)
             except (CaseValidationError, ValueError):
                 continue
-            if case.get("status") == "curado":
+            if case.get("status") in self.accepted_statuses:
                 result.append(str(case["case_id"]))
         return result
 
@@ -58,7 +68,7 @@ class CanonicalCaseRepository:
         if not path.exists():
             raise CaseNotFound(case_id)
         case = self._load(path)
-        if case.get("status") != "curado":
+        if case.get("status") not in self.accepted_statuses:
             raise CaseNotAvailable(case_id)
         return copy.deepcopy(case)
 
