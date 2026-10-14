@@ -4,8 +4,10 @@
 //
 // Uso (con el servidor en marcha):
 //   node pruebas/_herramientas/capturar_frontend.cjs <carpeta_salida>
-// Carga casos hasta haber mostrado el primero de cada especialidad (EME-001, GOB-003, CIR-005,
-// PED-007, MED-008). Así cada ejecución captura los mismos casos y con los mismos nombres de archivo.
+// Muestra el primero de cada especialidad (EME-001, GOB-003, CIR-005, PED-007, MED-008), abriendo cada uno
+// con ?caso= (parámetro de pruebas del simulador). Así cada ejecución captura los mismos casos y con los
+// mismos nombres de archivo. Cada carga abre la página de nuevo: desde la presentación narrada (fase 9),
+// el botón «Iniciar simulación» queda ocupado y luego se oculta tras el primer caso.
 // Variables: BASE_URL (por defecto http://localhost:3000). Usa `playwright`, dependencia de desarrollo
 // del proyecto (`npm install`); el navegador se instala una vez con `npx playwright install chromium`.
 const fs = require('node:fs');
@@ -59,16 +61,24 @@ function protectedTexts(caseId) {
   say(`GET /api/status → ${JSON.stringify(status)}`);
   await page.screenshot({ path: path.join(outDir, '01_simulador_catalogo_disponible.png') });
 
-  say(`Casos a mostrar (primero de cada especialidad): ${targets.join(', ')}`);
-  const seen = new Map();
-  for (let attempt = 1; attempt <= 200 && seen.size < targets.length; attempt += 1) {
+  // Abre la página, pulsa «Iniciar simulación» y espera a que la ficha muestre al paciente.
+  const loadCase = async (target, query) => {
+    await target.goto(`${BASE_URL}/simulacion.html${query}`, { waitUntil: 'networkidle' });
+    await target.waitForFunction(() => !document.querySelector('[data-role="start-simulation"]').disabled);
     const [response] = await Promise.all([
-      page.waitForResponse(r => r.url().endsWith('/api/caso')),
-      start.click(),
+      target.waitForResponse(r => r.url().includes('/api/caso')),
+      target.locator('[data-role="start-simulation"]').click(),
     ]);
     const body = await response.json();
-    await page.waitForFunction(alias => document.querySelector('[data-role="record-name"]').textContent === alias, body.patient.alias);
-    if (!targets.includes(body.case_id) || seen.has(body.case_id)) continue;
+    await target.waitForFunction(alias => document.querySelector('[data-role="record-name"]').textContent === alias, body.patient.alias);
+    return { response, body };
+  };
+
+  say(`Casos a mostrar (primero de cada especialidad): ${targets.join(', ')}`);
+  const seen = new Map();
+  for (const [position, caseId] of targets.entries()) {
+    const attempt = position + 1;
+    const { body } = await loadCase(page, `?caso=${encodeURIComponent(caseId)}`);
 
     const screenText = await page.locator('body').innerText();
     const shown = await page.locator('[data-role="record-name"]').innerText();
@@ -90,16 +100,8 @@ function protectedTexts(caseId) {
 
   // Caso por especialidad: la especialidad viaja en la URL del simulador.
   const specialtyPage = await browser.newPage({ viewport: VIEWPORT, deviceScaleFactor: 1 });
-  await specialtyPage.goto(`${BASE_URL}/simulacion.html?especialidad=pediatria`, { waitUntil: 'networkidle' });
-  const specialtyStart = specialtyPage.locator('[data-role="start-simulation"]');
-  await specialtyPage.waitForFunction(() => !document.querySelector('[data-role="start-simulation"]').disabled);
   for (let attempt = 1; attempt <= 5; attempt += 1) {
-    const [response] = await Promise.all([
-      specialtyPage.waitForResponse(r => r.url().includes('/api/caso')),
-      specialtyStart.click(),
-    ]);
-    const body = await response.json();
-    await specialtyPage.waitForFunction(alias => document.querySelector('[data-role="record-name"]').textContent === alias, body.patient.alias);
+    const { response, body } = await loadCase(specialtyPage, '?especialidad=pediatria');
     const ok = body.specialty === 'pediatria' && response.url().endsWith('?especialidad=pediatria');
     if (!ok) failures += 1;
     say(`[${ok ? 'OK' : 'FALLA'}] ?especialidad=pediatria, carga ${attempt}: ${body.case_id} (${body.specialty})`);
