@@ -157,9 +157,11 @@ class MultiAgentSessionService:
     def finish(self, session_id: str) -> dict:
         session = self.store.get(session_id)
         self._ensure_clinical_state(session)
+        case = self.repository.get_conversation_case(session["case_id"])
         session["evaluation"] = self.evaluation_engine.evaluate(
             case_id=session["case_id"],
             evidence_ids=session.get("requested_evidence_ids", []),
+            initial_evidence_ids=self.disclosure_policy.initial_evidence_ids(case),
         )
         session["phase"] = SessionPhase.FINALIZADA.value
         session["active_agent"] = AgentRole.ORCHESTRATOR.value

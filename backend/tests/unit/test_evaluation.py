@@ -46,3 +46,20 @@ def test_evaluation_scores_requested_evidence_and_returns_only_aggregated_errors
         },
     }
     assert "Contenido clínico protegido" not in str(report)
+
+
+def test_evidence_given_at_the_start_does_not_count_as_an_omission():
+    # kq1 solo pide el motivo de consulta, que el doctor lee al presentar el caso:
+    # el estudiante no puede pedirlo, así que no se puntúa ni se cuenta como error.
+    engine = ClinicalEvaluationEngine(CaseRepository())
+
+    report = engine.evaluate(
+        case_id="MED-900",
+        evidence_ids=["MED-900.anamnesis.inicio_dolor"],
+        initial_evidence_ids=["MED-900.anamnesis.alergias"],
+    )
+
+    assert report["score"] == 100.0
+    assert report["completed_questions"] == 1
+    assert report["total_questions"] == 1
+    assert sum(report["errors"].values()) == 0
