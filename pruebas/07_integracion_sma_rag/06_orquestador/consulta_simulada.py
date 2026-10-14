@@ -1,7 +1,7 @@
 """Consulta simulada contra la API del sistema multiagente (/api/ai), sin clave de LLM.
 
 1. Caso de prueba MED-900 (backend/tests/fixtures/cases): tiene datos en on_request para los cinco roles.
-2. EME-001, MED-008 y CIR-005 del catálogo curado, con el índice LightRAG construido por
+2. EME-001, MED-007 y CIR-005 del catálogo curado, con el índice LightRAG construido por
    `case_preparation index` (volver a indexar si cambian los casos).
 
 Uso, desde backend/:  .venv\\Scripts\\python.exe ..\\pruebas\\07_integracion_sma_rag\\06_orquestador\\consulta_simulada.py
@@ -38,7 +38,7 @@ GUIONES = {
         "Solicito un hemograma",
         "¿Cuál es el diagnóstico?",
     ],
-    "MED-008": [
+    "MED-007": [
         "¿Desde cuándo tiene la lesión?",
         "¿Es alérgica a algún medicamento?",
         "¿Ha estado en el bosque o en el campo?",
@@ -72,5 +72,5 @@ consulta("MED-900")
 ai.CASES_DIR = ai.CURATED_CASES_DIR
 ai.settings = replace(ai.settings, rag_embedded_enabled=True)
 ai.get_service.cache_clear()
-for case_id in ("EME-001", "MED-008", "CIR-005"):
+for case_id in ("EME-001", "MED-007", "CIR-005"):
     consulta(case_id)

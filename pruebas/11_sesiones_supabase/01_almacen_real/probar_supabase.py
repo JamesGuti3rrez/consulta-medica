@@ -49,13 +49,13 @@ check("el servidor (clave secreta) accede a sma_eventos", r.status_code == 200, 
 r = httpx.get(f"{REST}/sma_sesiones", params={"select": "*"}, headers={"apikey": settings.supabase_publishable_key}, timeout=20)
 check("el navegador (clave publicable) no puede leer las sesiones", r.status_code in (401, 403) or r.json() == [], f"HTTP {r.status_code}, {r.text[:60]}")
 
-print("\n2. Consulta completa con una instancia nueva en cada petición (caso MED-008, sin LLM)")
+print("\n2. Consulta completa con una instancia nueva en cada petición (caso MED-007, sin LLM)")
 ai_module.settings = replace(settings, rag_embedded_enabled=False, rag_service_url="")
 ai_module.build_gateway = lambda: LLMGateway([LocalDevelopmentProvider()])
 client = TestClient(app)
 
 nueva_instancia()
-inicio = client.post("/api/ai/sessions", json={"case_id": "MED-008"})
+inicio = client.post("/api/ai/sessions", json={"case_id": "MED-007"})
 sid = inicio.json().get("session_id", "")
 check("instancia A crea la consulta", inicio.status_code == 200, f"session_id {sid}")
 
@@ -72,7 +72,7 @@ check("instancia C responde otra pregunta", resp.status_code == 200, f"agente {d
 nueva_instancia()
 estado = client.get(f"/api/ai/sessions/{sid}").json()
 check("instancia D ve los datos revelados por B y C",
-      "MED-008.antecedente.alergias" in estado.get("revealed_evidence_ids", []),
+      "MED-007.antecedente.alergias" in estado.get("revealed_evidence_ids", []),
       f"{len(estado.get('revealed_evidence_ids', []))} datos revelados")
 fin = client.post(f"/api/ai/sessions/{sid}/finish")
 check("instancia D cierra la consulta", fin.status_code == 200 and fin.json().get("phase") == "finalizada")

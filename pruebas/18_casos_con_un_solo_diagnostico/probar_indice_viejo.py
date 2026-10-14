@@ -29,7 +29,7 @@ PEDIDOS = [
     ("CIR-005", "Pido el dosaje del factor VIII y del factor IX"),
     ("EME-002", "Solicito una tomografía de cráneo sin contraste"),
     ("GOB-003", "Solicito una prolactina sérica"),
-    ("MED-008", "Solicito un hemograma y perfil hepático"),
+    ("MED-007", "Solicito un hemograma y perfil hepático"),
 ]
 
 old = ROOT / "data" / "indexes" / "lightrag" / sys.argv[1]

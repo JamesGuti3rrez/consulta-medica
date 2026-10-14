@@ -157,7 +157,7 @@ CHANGES = {
         },
         "key_questions": [key_question("Prolactina baja para el puerperio", ["prolactina"], weight=4, critical=True)],
     },
-    "MED-008": {
+    "MED-007": {
         "on_request": [
             lab("hemograma_bioquimica", "Hemograma y perfil hepático",
                 "Leucocitos y plaquetas normales; transaminasas normales.", ["hemograma"], "cdc_ehrlichiosis",

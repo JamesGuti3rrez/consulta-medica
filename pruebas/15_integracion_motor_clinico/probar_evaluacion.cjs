@@ -4,11 +4,11 @@
 // micrófono: SpeechRecognition se sustituye por uno que «dice» las frases del guion en orden.
 // Uso (con el servidor en http://localhost:3000, o en la URL de BASE_URL, por ejemplo el sitio de Vercel):
 //   node pruebas/15_integracion_motor_clinico/probar_evaluacion.cjs [completo|parcial] [carpeta]
-// «completo» pide todos los datos clave de MED-008; «parcial» omite varios para ver errores en la hoja.
+// «completo» pide todos los datos clave de MED-007; «parcial» omite varios para ver errores en la hoja.
 const path = require('path');
 const { chromium } = require('playwright');
 
-const CASO = 'MED-008';
+const CASO = 'MED-007';
 const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
 const GUIONES = {
   completo: [

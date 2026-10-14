@@ -73,7 +73,7 @@ const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
   await page.screenshot({ path: shot('2_tercera_ronda') });
 
   // 2. Desde un caso de prueba (?caso=): sigue con su especialidad y la URL deja de mostrar el código.
-  await page.goto(`${BASE_URL}/simulacion.html?caso=MED-008`, { waitUntil: 'networkidle' });
+  await page.goto(`${BASE_URL}/simulacion.html?caso=MED-007`, { waitUntil: 'networkidle' });
   await page.waitForFunction(() => !document.querySelector('[data-role="start-simulation"]').disabled);
   const deprueba = page.waitForResponse(r => r.url().includes('/api/caso'));
   await page.getByRole('button', { name: /Iniciar simulaci/ }).click();

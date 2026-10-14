@@ -17,7 +17,7 @@ PEDIDOS = [
     ("EME-001", "Pido un electroencefalograma", "EME-001.estudio.electroencefalograma"),
     ("EME-002", "Solicito una tomografía de cráneo sin contraste", "EME-002.imagen.tomografia_craneo"),
     ("GOB-003", "Solicito una prolactina sérica", "GOB-003.lab.prolactina"),
-    ("MED-008", "Solicito un hemograma y perfil hepático", "MED-008.lab.hemograma_bioquimica"),
+    ("MED-007", "Solicito un hemograma y perfil hepático", "MED-007.lab.hemograma_bioquimica"),
 ]
 
 client = httpx.Client(timeout=60)

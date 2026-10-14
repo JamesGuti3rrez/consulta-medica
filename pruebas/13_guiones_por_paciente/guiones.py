@@ -134,7 +134,7 @@ GUIONES = {
         ],
         "nota": "Lo decisivo: cuello uterino en fresa y pH vaginal de 5,8.",
     },
-    "MED-008": {
+    "MED-007": {
         "preguntar": [
             ("Pregúntele desde cuándo empezó y cómo ha evolucionado", "paciente", ["sintoma.evolucion"]),
             ("¿Ha tomado algún medicamento?", "paciente", ["medicacion.tratamiento_previo"]),
@@ -150,7 +150,7 @@ GUIONES = {
         ],
         "nota": "La pregunta de alergias es crítica: el tratamiento habitual de este cuadro es justo el fármaco al que es alérgica.",
     },
-    "MED-009": {
+    "MED-008": {
         "preguntar": [
             ("Voy a examinar al paciente", "medico_asistente", ["examen.exploracion_fisica"]),
             ("¿Desde cuándo tiene esa lesión?", "paciente", ["sintoma.evolucion"]),
@@ -162,7 +162,7 @@ GUIONES = {
         ],
         "nota": "Sin la exploración no hay pista: la lesión del párpado solo aparece al examinar.",
     },
-    "PED-007": {
+    "PED-009": {
         "preguntar": [
             ("¿Dónde le duele?", "paciente", ["sintoma.dolor"]),
             ("Pregúntele por sus antecedentes y su desarrollo", "paciente", ["antecedente.antecedentes"]),
@@ -254,7 +254,7 @@ POR_QUE = {
         "Voy a realizar el examen ginecológico": "Ver el aspecto de la vulva, del cuello uterino y del flujo, que es distinto en cada infección.",
         "Mido el pH vaginal": "Separa las causas de flujo: un pH alto (mayor de 4,5) apunta a unas infecciones y uno normal, a otras.",
     },
-    "MED-008": {
+    "MED-007": {
         "Pregúntele desde cuándo empezó y cómo ha evolucionado": "Cómo cambió la lesión de la espalda: una picadura que crece en forma de anillo es muy orientadora.",
         "¿Ha tomado algún medicamento?": "Saber qué tomó y si eso pudo cambiar los síntomas, como la fiebre.",
         "Pregúntele por sus antecedentes de enfermedades": "Busca enfermedades previas y reacciones a medicamentos.",
@@ -263,12 +263,12 @@ POR_QUE = {
         "Voy a examinar a la paciente": "Ver la lesión: su tamaño y su forma orientan el diagnóstico.",
         "Solicito un hemograma y perfil hepático": "Otras infecciones por garrapatas bajan glóbulos blancos y plaquetas y alteran el hígado; si todo es normal, apoyan la enfermedad de la lesión en diana.",
     },
-    "MED-009": {
+    "MED-008": {
         "Voy a examinar al paciente": "En un control sin molestias, la exploración completa es la única forma de encontrar lesiones que el paciente no nota.",
         "¿Desde cuándo tiene esa lesión?": "El tiempo de evolución y si crece ayudan a separar lesiones benignas de malignas.",
         "¿Ha trabajado al sol? ¿Usa protector solar?": "El sol sin protección y la piel clara son factores de riesgo de cáncer de piel.",
     },
-    "PED-007": {
+    "PED-009": {
         "¿Dónde le duele?": "Localizar el dolor. En los niños, un problema de la cadera muchas veces se siente en la rodilla.",
         "Pregúntele por sus antecedentes y su desarrollo": "Descarta enfermedades previas y problemas de crecimiento.",
         "Voy a examinar al niño": "Mover la rodilla y la cadera muestra de dónde viene realmente el dolor.",

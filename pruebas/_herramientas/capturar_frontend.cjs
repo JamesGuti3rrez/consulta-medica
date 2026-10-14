@@ -4,7 +4,7 @@
 //
 // Uso (con el servidor en marcha):
 //   node pruebas/_herramientas/capturar_frontend.cjs <carpeta_salida>
-// Muestra el primero de cada especialidad (EME-001, GOB-003, CIR-005, PED-007, MED-008), abriendo cada uno
+// Muestra el primero de cada especialidad (EME-001, GOB-003, CIR-005, PED-009, MED-007), abriendo cada uno
 // con ?caso= (parámetro de pruebas del simulador). Así cada ejecución captura los mismos casos y con los
 // mismos nombres de archivo. Cada carga abre la página de nuevo: desde la presentación narrada (fase 9),
 // el botón «Iniciar simulación» queda ocupado y luego se oculta tras el primer caso.

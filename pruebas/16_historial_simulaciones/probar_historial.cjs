@@ -8,7 +8,7 @@ const path = require('path');
 const { chromium } = require('playwright');
 
 const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
-const CASO = 'MED-008';
+const CASO = 'MED-007';
 const COMPLETO = [
   '¿Puede contarme sobre inicio y evolucion?',
   '¿Puede contarme sobre medicacion?',
