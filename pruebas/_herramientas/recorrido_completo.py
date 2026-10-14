@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
-"""Comprobación final del recorrido completo de datos y regeneración de las evidencias.
+"""Comprobación final del recorrido completo del sprint 1 y regeneración de las evidencias.
 
-Ejecuta, en orden, las cuatro fases (descarga → transformación → validación → frontend) y guarda
-cada salida como .txt y como PNG en vista de escritorio/PC dentro de pruebas/. Se detiene en la
-primera fase que falle.
+Ejecuta, en orden, las cuatro fases del flujo de datos (descarga → transformación → validación →
+frontend) y luego las comprobaciones del simulador que se pueden repetir sin costo: motor clínico (14),
+hoja de evaluación (15), otro caso (17), un solo diagnóstico (18), aviso de privacidad (19) y sinónimos
+(20). Las fases 1 a 4 regeneran su evidencia en su carpeta; las demás guardan su salida en
+pruebas/21_cierre_sprint1/recorrido/. Se detiene en la primera que falle.
+
+Todo corre sin Groq (proveedor local determinístico) y sin crear cuentas: la fase 16 (historial con un
+alumno temporal en Supabase) se repite aparte con su propio README.
 
 Uso (desde la raíz del repositorio):
   backend/.venv/Scripts/python.exe pruebas/_herramientas/recorrido_completo.py
@@ -76,7 +81,7 @@ def wait_for_server(url: str, timeout: float = 30) -> bool:
 
 def finish() -> None:
     lines = [
-        "Recorrido completo del flujo de datos MedQA → casos curados → frontend",
+        "Recorrido completo del sprint 1: flujo de datos MedQA → casos curados → frontend → simulador",
         f"Fecha: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')}",
         "",
     ]
@@ -95,6 +100,8 @@ def finish() -> None:
 
 
 def main() -> None:
+    # Sin trazas a LangSmith: no hacen falta para comprobar nada y, sin cuota, llenan la salida de avisos.
+    os.environ["LANGSMITH_TRACING"] = "false"
     venv_py = ".\\.venv\\Scripts\\python.exe" if os.name == "nt" else "./.venv/bin/python"
     root_py = f"backend\\{venv_py[2:]}" if os.name == "nt" else "backend/.venv/bin/python"
 
@@ -129,7 +136,9 @@ def main() -> None:
              f"{venv_py} -m pytest -v -p no:cacheprovider",
              "03_validacion/ejecucion/02_pytest_backend.png", BACKEND)
 
-    # Fase 4: conexión con el frontend.
+    fases_del_simulador(venv_py, root_py)
+
+    # Fase 4: conexión con el frontend; con el mismo servidor, las pruebas del simulador en el navegador.
     if not playwright_available():
         print("Falta playwright. Ejecute: npm install && npx playwright install chromium")
         results.append(("Fase 4", "playwright no disponible", 1))
@@ -139,6 +148,8 @@ def main() -> None:
         cwd=BACKEND,
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
+        # Sin Groq: respuestas determinísticas, sin costo ni cuota.
+        env={**os.environ, "GROQ_API_KEYS": ""},
     )
     try:
         if not wait_for_server(f"http://localhost:{PORT}/api/status"):
@@ -148,11 +159,38 @@ def main() -> None:
         ejecutar("Fase 4", "carga de un caso por especialidad en /simulacion.html (1440 px)",
                  "node pruebas/_herramientas/capturar_frontend.cjs pruebas/04_frontend/capturas",
                  "04_frontend/ejecucion/01_capturar_frontend.png")
+        ejecutar("Fase 15", "hoja de evaluación y alerta de seguridad en el navegador",
+                 f"node pruebas/15_integracion_motor_clinico/probar_evaluacion.cjs parcial {CIERRE}/capturas",
+                 f"{CIERRE}/04_fase15_hoja_evaluacion.png")
+        ejecutar("Fase 17", "probar otro caso y cerrar el simulador",
+                 f"node pruebas/17_otro_caso/probar_otro_caso.cjs {CIERRE}/capturas",
+                 f"{CIERRE}/05_fase17_otro_caso.png")
+        ejecutar("Fase 19", "aviso de privacidad y aceptación al crear cuenta",
+                 f"node pruebas/19_aviso_privacidad/probar_aviso.cjs {CIERRE}/capturas",
+                 f"{CIERRE}/06_fase19_aviso_privacidad.png")
     finally:
         server.terminate()
         server.wait(timeout=10)
 
     finish()
+
+
+# Salidas de las fases posteriores al flujo de datos (no pisan la evidencia original de cada fase).
+CIERRE = "21_cierre_sprint1/recorrido"
+
+
+def fases_del_simulador(venv_py: str, root_py: str) -> None:
+    """Comprobaciones sin servidor: motor clínico, un solo diagnóstico y sinónimos."""
+    (PRUEBAS / CIERRE / "capturas").mkdir(parents=True, exist_ok=True)
+    ejecutar("Fase 14", "motor clínico con los 13 casos curados (API, roles, alertas y evaluación)",
+             f"{venv_py} ../pruebas/14_motor_clinico/probar_casos_curated.py",
+             f"{CIERRE}/01_fase14_motor_clinico.png", BACKEND)
+    ejecutar("Fase 18", "cada caso llega a un solo diagnóstico (modo local)",
+             f"{venv_py} ../pruebas/18_casos_con_un_solo_diagnostico/bateria_un_solo_diagnostico.py --local",
+             f"{CIERRE}/02_fase18_un_solo_diagnostico.png", BACKEND)
+    ejecutar("Fase 20", "sinónimos del diagnóstico por caso",
+             f"{root_py} pruebas/20_sinonimos_diagnostico/mostrar_sinonimos.py",
+             f"{CIERRE}/03_fase20_sinonimos.png")
 
 
 if __name__ == "__main__":
