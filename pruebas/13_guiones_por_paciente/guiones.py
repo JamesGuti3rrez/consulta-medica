@@ -56,10 +56,12 @@ GUIONES = {
             ("Pregúntele por sus antecedentes de enfermedades", "paciente", ["antecedente.antecedentes"]),
             ("¿Qué medicamentos toma?", "paciente", ["medicacion.tratamiento_habitual"]),
             ("Voy a examinar al paciente", "medico_asistente", ["examen.exploracion_fisica"]),
+            ("Solicito función tiroidea", "laboratorio", ["lab.funcion_tiroidea"]),
+            ("Pido un electroencefalograma", "laboratorio", ["estudio.electroencefalograma"]),
         ],
         "no_preguntar": [
             ("¿Tiene alergias?", "El caso no registra alergias: debe responder que no."),
-            ("Solicito un hemograma", "El caso no tiene exámenes de laboratorio."),
+            ("Solicito un hemograma", "El caso no trae hemograma: solo función tiroidea y electroencefalograma."),
             ("Le doy paracetamol para la fiebre", "No sustituye al enfriamiento activo inmediato."),
         ],
         "nota": "El paciente llega confundido (Glasgow 10). En la simulación igual responde: tómese como la información que dan sus compañeros.",
@@ -68,33 +70,37 @@ GUIONES = {
         "preguntar": [
             ("¿Tiene alguna enfermedad?", "paciente", ["antecedente.antecedentes"]),
             ("Voy a realizar la exploración física", "medico_asistente", ["examen.exploracion_fisica"]),
+            ("Solicito una tomografía de cráneo sin contraste", "radiologia", ["imagen.tomografia_craneo"]),
         ],
         "no_preguntar": [
             ("¿Ha tenido fiebre antes de hoy?", "El caso no lo describe: debe responder que no."),
-            ("Pido una tomografía de cráneo", "Sería lo indicado, pero el caso de origen no trae el resultado."),
+            ("Pido una resonancia magnética", "El caso no tiene ese estudio: la tomografía basta."),
         ],
-        "nota": "Caso corto: el diagnóstico sale del inicio súbito de la cefalea y de la rigidez de nuca en la exploración.",
+        "nota": "Caso corto: el diagnóstico sale del inicio súbito de la cefalea y de la rigidez de nuca; la tomografía (complemento del equipo) lo confirma y descarta un hematoma.",
     },
     "CIR-005": {
         "preguntar": [
             ("¿Alguien en su familia tiene problemas de sangrado?", "paciente", ["antecedente.antecedentes_familiares"]),
             ("Solicito pruebas de coagulación", "laboratorio", ["lab.coagulacion_preoperatoria", "lab.coagulacion_posoperatoria"]),
+            ("Pido el dosaje del factor VIII y del factor IX", "laboratorio", ["lab.factores_coagulacion"]),
         ],
         "no_preguntar": [
             ("¿Toma algún medicamento?", "El caso no lo registra: debe responder que no."),
             ("Pido una tomografía de abdomen", "El caso no tiene ese estudio."),
         ],
-        "nota": "La clave es comparar la coagulación antes y después: solo el tiempo de tromboplastina parcial sale prolongado.",
+        "nota": "La clave es comparar la coagulación antes y después: solo el tiempo de tromboplastina parcial sale prolongado. El dosaje de factores (complemento del equipo) distingue hemofilia A de B.",
     },
     "CIR-006": {
         "preguntar": [
             ("¿Qué enfermedades tiene?", "paciente", ["antecedente.antecedentes"]),
             ("¿Fuma?", "paciente", ["anamnesis.habitos"]),
             ("Voy a examinar a la paciente y auscultar los pulmones", "medico_asistente", ["examen.exploracion_fisica"]),
+            ("Pido una radiografía de tórax", "radiologia", ["imagen.radiografia_torax"]),
+            ("Solicito un hemograma", "laboratorio", ["lab.hemograma"]),
         ],
         "no_preguntar": [
             ("¿Le duele la herida?", "No lo describe; la exploración muestra que cicatriza bien."),
-            ("Pido una radiografía de tórax", "Sería útil, pero el caso de origen no trae el resultado."),
+            ("Pido una tomografía de abdomen", "El caso no tiene ese estudio: la herida y el abdomen están bien."),
         ],
         "nota": "Fiebre, taquicardia y crepitantes en la base derecha al quinto día de la cirugía.",
     },
@@ -103,6 +109,9 @@ GUIONES = {
             ("¿Cómo fue el parto?", "paciente", ["antecedente.evolucion_parto"]),
             ("Voy a tomar los signos vitales", "medico_asistente", ["vital.signos_vitales"]),
             ("Voy a realizar la exploración física", "medico_asistente", ["examen.exploracion_fisica"]),
+            ("¿Tiene algún otro síntoma?", "paciente", ["sintoma.estado_de_animo"]),
+            ("¿Cómo eran sus reglas antes del embarazo?", "paciente", ["antecedente.evolucion_parto", "antecedente.antecedentes_menstruales"]),
+            ("Solicito una prolactina sérica", "laboratorio", ["lab.prolactina"]),
         ],
         "no_preguntar": [
             ("¿Tiene fiebre?", "El caso no lo describe: debe responder que no."),
@@ -133,6 +142,7 @@ GUIONES = {
             ("¿Tiene alergias?", "paciente", ["antecedente.alergias"]),
             ("¿Ha hecho alguna actividad al aire libre o algún viaje?", "paciente", ["anamnesis.exposicion"]),
             ("Voy a examinar a la paciente", "medico_asistente", ["examen.exploracion_fisica"]),
+            ("Solicito un hemograma y perfil hepático", "laboratorio", ["lab.hemograma_bioquimica"]),
         ],
         "no_preguntar": [
             ("¿Tiene tos?", "El caso no tiene ese síntoma: debe responder que no."),
@@ -208,24 +218,33 @@ POR_QUE = {
         "Pregúntele por sus antecedentes de enfermedades": "Sus enfermedades (epilepsia, esquizofrenia, tiroides) pueden causar por sí mismas fiebre alta y confusión, o tratarse con fármacos que las provocan.",
         "¿Qué medicamentos toma?": "Algunos fármacos, como los antipsicóticos, pueden causar fiebre muy alta con rigidez; otros cambian el pulso o la temperatura.",
         "Voy a examinar al paciente": "El tono muscular separa las causas de fiebre muy alta con confusión: rigidez en unas, músculos flojos en otras. El sudor y la suciedad orientan al esfuerzo físico al calor.",
+        "Solicito función tiroidea": "Toma propranolol por hipertiroidismo: hay que saber si la tiroides está descontrolada antes de culpar al calor.",
+        "Pido un electroencefalograma": "Tiene epilepsia y está confuso: el electroencefalograma muestra si sigue teniendo crisis sin convulsionar.",
     },
     "EME-002": {
         "¿Tiene alguna enfermedad?": "La hipertensión es un factor de riesgo de sangrado dentro de la cabeza.",
         "Voy a realizar la exploración física": "El nivel de conciencia y la rigidez de nuca orientan: tras una cefalea súbita, la rigidez sugiere sangre o infección alrededor del cerebro.",
+        "Solicito una tomografía de cráneo sin contraste": "Muestra dónde está la sangre: alrededor del cerebro o dentro de él.",
     },
     "CIR-005": {
         "¿Alguien en su familia tiene problemas de sangrado?": "Un trastorno de sangrado en la familia orienta a una enfermedad hereditaria de la coagulación.",
         "Solicito pruebas de coagulación": "Comparar antes y después de la cirugía: si las plaquetas y el tiempo de protrombina son normales y solo se alarga el tiempo de tromboplastina parcial, el defecto está en una parte concreta de la coagulación.",
+        "Pido el dosaje del factor VIII y del factor IX": "Las dos hemofilias alargan el mismo tiempo de coagulación; solo medir los factores dice cuál falta.",
     },
     "CIR-006": {
         "¿Qué enfermedades tiene?": "La diabetes, la hipertensión y la angina aumentan el riesgo de complicaciones después de una cirugía.",
         "¿Fuma?": "El tabaco aumenta el riesgo de complicaciones pulmonares tras operarse.",
         "Voy a examinar a la paciente y auscultar los pulmones": "Busca de dónde viene la fiebre: pulmones (crepitantes), herida quirúrgica y abdomen.",
+        "Pido una radiografía de tórax": "Confirma si los crepitantes son una neumonía (el foco de la infección) o un pulmón colapsado.",
+        "Solicito un hemograma": "Los glóbulos blancos altos apoyan una infección.",
     },
     "GOB-003": {
         "¿Cómo fue el parto?": "Saber si hubo un sangrado importante: una hemorragia grande en el parto puede dañar glándulas que necesitan mucho riego.",
         "Voy a tomar los signos vitales": "Muestran si hubo shock por el sangrado: presión baja y pulso rápido.",
         "Voy a realizar la exploración física": "Busca signos de shock y la causa del sangrado, como un útero que no se contrae.",
+        "¿Tiene algún otro síntoma?": "Ver el ánimo: la tristeza del posparto no explica que no salga leche.",
+        "¿Cómo eran sus reglas antes del embarazo?": "Reglas normales y sin cefalea ni problemas de la vista antes del parto van en contra de un tumor de la hipófisis previo.",
+        "Solicito una prolactina sérica": "La prolactina es la hormona de la leche: si está baja tras el parto, la hipófisis está dañada.",
     },
     "GOB-004": {
         "¿Tiene algún otro síntoma?": "El dolor al tener relaciones o al orinar orienta a una infección genital.",
@@ -242,6 +261,7 @@ POR_QUE = {
         "¿Tiene alergias?": "Es crítica en este caso: el tratamiento habitual de este cuadro puede ser un fármaco al que la paciente es alérgica.",
         "¿Ha hecho alguna actividad al aire libre o algún viaje?": "Una salida al campo o al bosque expone a picaduras de garrapatas y otros insectos.",
         "Voy a examinar a la paciente": "Ver la lesión: su tamaño y su forma orientan el diagnóstico.",
+        "Solicito un hemograma y perfil hepático": "Otras infecciones por garrapatas bajan glóbulos blancos y plaquetas y alteran el hígado; si todo es normal, apoyan la enfermedad de la lesión en diana.",
     },
     "MED-009": {
         "Voy a examinar al paciente": "En un control sin molestias, la exploración completa es la única forma de encontrar lesiones que el paciente no nota.",
