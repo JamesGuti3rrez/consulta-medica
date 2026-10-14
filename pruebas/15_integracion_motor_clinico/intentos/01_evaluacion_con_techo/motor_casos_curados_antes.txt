@@ -1,0 +1,48 @@
+DIRECTORIO: C:\Users\Usuario\AppData\Local\Temp\claude\c--Users-Usuario-Documents-consulta-medica\07dd223a-b8fa-4c86-868a-5395bcae0eac\scratchpad\julio_original\backend
+COMANDO: C:\Users\Usuario\Documents\consulta-medica\backend\.venv\Scripts\python.exe ..\pruebas\14_motor_clinico\probar_casos_curated.py
+FECHA: 2026-10-14 05:31:56 UTC
+CODIGO_SALIDA: 0
+
+STDOUT:
+Casos curados encontrados: 13
+  cirugia_general: 2
+  emergencias: 5
+  ginecologia_obstetricia: 2
+  medicina_interna: 2
+  pediatria: 2
+Proveedor LLM: local-development; recuperador: deterministic-case-fallback
+Probando CIR-005 (cirugia_general) ...
+Probando CIR-006 (cirugia_general) ...
+Probando EME-001 (emergencias) ...
+Probando EME-002 (emergencias) ...
+Probando EME-101 (emergencias) ...
+Probando EME-102 (emergencias) ...
+Probando EME-103 (emergencias) ...
+Probando GOB-003 (ginecologia_obstetricia) ...
+Probando GOB-004 (ginecologia_obstetricia) ...
+Probando MED-008 (medicina_interna) ...
+Probando MED-009 (medicina_interna) ...
+Probando PED-007 (pediatria) ...
+Probando PED-010 (pediatria) ...
+
+RESULTADOS
+CASO       ESPECIALIDAD                   TURNOS  PUNTAJE   EVALUACIÓN ALERTAS
+CIR-005    cirugia_general                     2   81.25%          3/4 -
+CIR-006    cirugia_general                     3   78.57%          3/4 -
+EME-001    emergencias                         3   81.25%          3/4 -
+EME-002    emergencias                         2   72.73%          2/3 -
+EME-101    emergencias                        14  100.00%          6/6 -
+EME-102    emergencias                        14  100.00%          6/6 -
+EME-103    emergencias                        14  100.00%          6/6 case_contraindication
+GOB-003    ginecologia_obstetricia             3   82.35%          3/4 -
+GOB-004    ginecologia_obstetricia             6   80.00%          3/4 -
+MED-008    medicina_interna                    6   84.21%          4/5 case_contraindication
+MED-009    medicina_interna                    3   80.00%          3/4 -
+PED-007    pediatria                           4   80.00%          3/4 -
+PED-010    pediatria                           4   86.36%          5/6 -
+
+Detalle guardado en: C:\Users\Usuario\AppData\Local\Temp\claude\c--Users-Usuario-Documents-consulta-medica\07dd223a-b8fa-4c86-868a-5395bcae0eac\scratchpad\julio_original\backend\resultados_casos_curados.json
+
+
+STDERR:
+

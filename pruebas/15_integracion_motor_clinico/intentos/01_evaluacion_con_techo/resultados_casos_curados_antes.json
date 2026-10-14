@@ -1,0 +1,1268 @@
+[
+  {
+    "case_id": "CIR-005",
+    "specialty": "cirugia_general",
+    "source_dataset": "MedQA",
+    "status": "curado",
+    "verified_turns": 2,
+    "all_roles_and_evidence_correct": true,
+    "treatment_safety_alerts": [],
+    "vitals_preserved": true,
+    "evaluation": {
+      "score": 81.25,
+      "earned_weight": 13,
+      "total_weight": 16,
+      "completed_questions": 3,
+      "total_questions": 4,
+      "errors": {
+        "negligencia": 0,
+        "anamnesis_incompleta": 0,
+        "razonamiento_clinico": 1
+      }
+    },
+    "turns": [
+      {
+        "message": "¿Puede contarme sobre antecedentes familiares?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "CIR-005.antecedente.antecedentes_familiares"
+        ],
+        "evidence_ids": [
+          "CIR-005.antecedente.antecedentes_familiares"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Solicito un examen de laboratorio: coagulacion.",
+        "intent": "request_lab",
+        "agent": "laboratorio",
+        "expected_evidence_ids": [
+          "CIR-005.lab.coagulacion_preoperatoria",
+          "CIR-005.lab.coagulacion_posoperatoria"
+        ],
+        "evidence_ids": [
+          "CIR-005.lab.coagulacion_preoperatoria",
+          "CIR-005.lab.coagulacion_posoperatoria"
+        ],
+        "safety_alerts": []
+      }
+    ]
+  },
+  {
+    "case_id": "CIR-006",
+    "specialty": "cirugia_general",
+    "source_dataset": "MedQA",
+    "status": "curado",
+    "verified_turns": 3,
+    "all_roles_and_evidence_correct": true,
+    "treatment_safety_alerts": [],
+    "vitals_preserved": true,
+    "evaluation": {
+      "score": 78.57,
+      "earned_weight": 11,
+      "total_weight": 14,
+      "completed_questions": 3,
+      "total_questions": 4,
+      "errors": {
+        "negligencia": 0,
+        "anamnesis_incompleta": 0,
+        "razonamiento_clinico": 1
+      }
+    },
+    "turns": [
+      {
+        "message": "¿Puede contarme sobre antecedentes personales?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "CIR-006.antecedente.antecedentes"
+        ],
+        "evidence_ids": [
+          "CIR-006.antecedente.antecedentes"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "¿Puede contarme sobre habitos?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "CIR-006.anamnesis.habitos"
+        ],
+        "evidence_ids": [
+          "CIR-006.anamnesis.habitos"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Voy a realizar la exploración física para revisar exploracion fisica.",
+        "intent": "examine",
+        "agent": "medico_asistente",
+        "expected_evidence_ids": [
+          "CIR-006.examen.exploracion_fisica"
+        ],
+        "evidence_ids": [
+          "CIR-006.examen.exploracion_fisica"
+        ],
+        "safety_alerts": []
+      }
+    ]
+  },
+  {
+    "case_id": "EME-001",
+    "specialty": "emergencias",
+    "source_dataset": "MedQA",
+    "status": "curado",
+    "verified_turns": 3,
+    "all_roles_and_evidence_correct": true,
+    "treatment_safety_alerts": [],
+    "vitals_preserved": true,
+    "evaluation": {
+      "score": 81.25,
+      "earned_weight": 13,
+      "total_weight": 16,
+      "completed_questions": 3,
+      "total_questions": 4,
+      "errors": {
+        "negligencia": 0,
+        "anamnesis_incompleta": 0,
+        "razonamiento_clinico": 1
+      }
+    },
+    "turns": [
+      {
+        "message": "¿Puede contarme sobre antecedentes personales?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "EME-001.antecedente.antecedentes"
+        ],
+        "evidence_ids": [
+          "EME-001.antecedente.antecedentes"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "¿Puede contarme sobre medicacion?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "EME-001.medicacion.tratamiento_habitual"
+        ],
+        "evidence_ids": [
+          "EME-001.medicacion.tratamiento_habitual"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Voy a realizar la exploración física para revisar exploracion fisica.",
+        "intent": "examine",
+        "agent": "medico_asistente",
+        "expected_evidence_ids": [
+          "EME-001.examen.exploracion_fisica"
+        ],
+        "evidence_ids": [
+          "EME-001.examen.exploracion_fisica"
+        ],
+        "safety_alerts": []
+      }
+    ]
+  },
+  {
+    "case_id": "EME-002",
+    "specialty": "emergencias",
+    "source_dataset": "MedQA",
+    "status": "curado",
+    "verified_turns": 2,
+    "all_roles_and_evidence_correct": true,
+    "treatment_safety_alerts": [],
+    "vitals_preserved": true,
+    "evaluation": {
+      "score": 72.73,
+      "earned_weight": 8,
+      "total_weight": 11,
+      "completed_questions": 2,
+      "total_questions": 3,
+      "errors": {
+        "negligencia": 0,
+        "anamnesis_incompleta": 0,
+        "razonamiento_clinico": 1
+      }
+    },
+    "turns": [
+      {
+        "message": "¿Puede contarme sobre antecedentes personales?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "EME-002.antecedente.antecedentes"
+        ],
+        "evidence_ids": [
+          "EME-002.antecedente.antecedentes"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Voy a realizar la exploración física para revisar exploracion fisica.",
+        "intent": "examine",
+        "agent": "medico_asistente",
+        "expected_evidence_ids": [
+          "EME-002.examen.exploracion_fisica"
+        ],
+        "evidence_ids": [
+          "EME-002.examen.exploracion_fisica"
+        ],
+        "safety_alerts": []
+      }
+    ]
+  },
+  {
+    "case_id": "EME-101",
+    "specialty": "emergencias",
+    "source_dataset": "sintetico",
+    "status": "curado",
+    "verified_turns": 14,
+    "all_roles_and_evidence_correct": true,
+    "treatment_safety_alerts": [],
+    "vitals_preserved": true,
+    "evaluation": {
+      "score": 100.0,
+      "earned_weight": 25,
+      "total_weight": 25,
+      "completed_questions": 6,
+      "total_questions": 6,
+      "errors": {
+        "negligencia": 0,
+        "anamnesis_incompleta": 0,
+        "razonamiento_clinico": 0
+      }
+    },
+    "turns": [
+      {
+        "message": "¿Puede contarme sobre caracteristicas sintoma?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "EME-101.anamnesis.caracteristicas_dolor"
+        ],
+        "evidence_ids": [
+          "EME-101.anamnesis.caracteristicas_dolor"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "¿Puede contarme sobre inicio y evolucion?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "EME-101.anamnesis.inicio_evolucion"
+        ],
+        "evidence_ids": [
+          "EME-101.anamnesis.inicio_evolucion"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "¿Puede contarme sobre sintomas asociados?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "EME-101.sintoma.sintomas_acompanantes"
+        ],
+        "evidence_ids": [
+          "EME-101.sintoma.sintomas_acompanantes"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "¿Puede contarme sobre antecedentes personales?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "EME-101.antecedente.antecedentes"
+        ],
+        "evidence_ids": [
+          "EME-101.antecedente.antecedentes"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "¿Puede contarme sobre antecedentes familiares?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "EME-101.antecedente.antecedentes",
+          "EME-101.antecedente.antecedentes_familiares"
+        ],
+        "evidence_ids": [
+          "EME-101.antecedente.antecedentes",
+          "EME-101.antecedente.antecedentes_familiares"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "¿Puede contarme sobre medicacion?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "EME-101.medicacion.tratamiento_habitual"
+        ],
+        "evidence_ids": [
+          "EME-101.medicacion.tratamiento_habitual"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "¿Puede contarme sobre alergias?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "EME-101.antecedente.alergias"
+        ],
+        "evidence_ids": [
+          "EME-101.antecedente.alergias"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "¿Puede contarme sobre habitos?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "EME-101.antecedente.habitos"
+        ],
+        "evidence_ids": [
+          "EME-101.antecedente.habitos"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Voy a realizar la exploración física para revisar exploracion fisica.",
+        "intent": "examine",
+        "agent": "medico_asistente",
+        "expected_evidence_ids": [
+          "EME-101.examen.exploracion_fisica"
+        ],
+        "evidence_ids": [
+          "EME-101.examen.exploracion_fisica"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Solicito un examen de laboratorio: electrocardiograma.",
+        "intent": "request_lab",
+        "agent": "laboratorio",
+        "expected_evidence_ids": [
+          "EME-101.estudio.electrocardiograma"
+        ],
+        "evidence_ids": [
+          "EME-101.estudio.electrocardiograma"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Solicito un examen de laboratorio: troponina.",
+        "intent": "request_lab",
+        "agent": "laboratorio",
+        "expected_evidence_ids": [
+          "EME-101.lab.troponina"
+        ],
+        "evidence_ids": [
+          "EME-101.lab.troponina"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Solicito un examen de laboratorio: dimero d.",
+        "intent": "request_lab",
+        "agent": "laboratorio",
+        "expected_evidence_ids": [
+          "EME-101.lab.dimero_d"
+        ],
+        "evidence_ids": [
+          "EME-101.lab.dimero_d"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Solicito una imagen para revisar radiografia torax.",
+        "intent": "request_radiology",
+        "agent": "radiologia",
+        "expected_evidence_ids": [
+          "EME-101.imagen.radiografia_torax"
+        ],
+        "evidence_ids": [
+          "EME-101.imagen.radiografia_torax"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Solicito una imagen para revisar angiotomografia torax.",
+        "intent": "request_radiology",
+        "agent": "radiologia",
+        "expected_evidence_ids": [
+          "EME-101.imagen.angiotomografia_torax"
+        ],
+        "evidence_ids": [
+          "EME-101.imagen.angiotomografia_torax"
+        ],
+        "safety_alerts": []
+      }
+    ]
+  },
+  {
+    "case_id": "EME-102",
+    "specialty": "emergencias",
+    "source_dataset": "sintetico",
+    "status": "curado",
+    "verified_turns": 14,
+    "all_roles_and_evidence_correct": true,
+    "treatment_safety_alerts": [],
+    "vitals_preserved": true,
+    "evaluation": {
+      "score": 100.0,
+      "earned_weight": 26,
+      "total_weight": 26,
+      "completed_questions": 6,
+      "total_questions": 6,
+      "errors": {
+        "negligencia": 0,
+        "anamnesis_incompleta": 0,
+        "razonamiento_clinico": 0
+      }
+    },
+    "turns": [
+      {
+        "message": "¿Puede contarme sobre caracteristicas sintoma?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "EME-102.anamnesis.caracteristicas_dolor"
+        ],
+        "evidence_ids": [
+          "EME-102.anamnesis.caracteristicas_dolor"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "¿Puede contarme sobre inicio y evolucion?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "EME-102.anamnesis.inicio_evolucion"
+        ],
+        "evidence_ids": [
+          "EME-102.anamnesis.inicio_evolucion"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "¿Puede contarme sobre sintomas asociados?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "EME-102.sintoma.sintomas_acompanantes"
+        ],
+        "evidence_ids": [
+          "EME-102.sintoma.sintomas_acompanantes"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "¿Puede contarme sobre antecedentes personales?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "EME-102.antecedente.antecedentes"
+        ],
+        "evidence_ids": [
+          "EME-102.antecedente.antecedentes"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "¿Puede contarme sobre antecedentes familiares?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "EME-102.antecedente.antecedentes",
+          "EME-102.antecedente.antecedentes_familiares"
+        ],
+        "evidence_ids": [
+          "EME-102.antecedente.antecedentes",
+          "EME-102.antecedente.antecedentes_familiares"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "¿Puede contarme sobre medicacion?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "EME-102.medicacion.tratamiento_habitual"
+        ],
+        "evidence_ids": [
+          "EME-102.medicacion.tratamiento_habitual"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "¿Puede contarme sobre alergias?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "EME-102.antecedente.alergias"
+        ],
+        "evidence_ids": [
+          "EME-102.antecedente.alergias"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "¿Puede contarme sobre habitos?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "EME-102.antecedente.habitos"
+        ],
+        "evidence_ids": [
+          "EME-102.antecedente.habitos"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Voy a realizar la exploración física para revisar exploracion fisica.",
+        "intent": "examine",
+        "agent": "medico_asistente",
+        "expected_evidence_ids": [
+          "EME-102.examen.exploracion_fisica"
+        ],
+        "evidence_ids": [
+          "EME-102.examen.exploracion_fisica"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Solicito un examen de laboratorio: electrocardiograma.",
+        "intent": "request_lab",
+        "agent": "laboratorio",
+        "expected_evidence_ids": [
+          "EME-102.estudio.electrocardiograma"
+        ],
+        "evidence_ids": [
+          "EME-102.estudio.electrocardiograma"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Solicito un examen de laboratorio: troponina.",
+        "intent": "request_lab",
+        "agent": "laboratorio",
+        "expected_evidence_ids": [
+          "EME-102.lab.troponina"
+        ],
+        "evidence_ids": [
+          "EME-102.lab.troponina"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Solicito un examen de laboratorio: dimero d.",
+        "intent": "request_lab",
+        "agent": "laboratorio",
+        "expected_evidence_ids": [
+          "EME-102.lab.dimero_d"
+        ],
+        "evidence_ids": [
+          "EME-102.lab.dimero_d"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Solicito una imagen para revisar radiografia torax.",
+        "intent": "request_radiology",
+        "agent": "radiologia",
+        "expected_evidence_ids": [
+          "EME-102.imagen.radiografia_torax"
+        ],
+        "evidence_ids": [
+          "EME-102.imagen.radiografia_torax"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Solicito una imagen para revisar angiotomografia torax.",
+        "intent": "request_radiology",
+        "agent": "radiologia",
+        "expected_evidence_ids": [
+          "EME-102.imagen.angiotomografia_torax"
+        ],
+        "evidence_ids": [
+          "EME-102.imagen.angiotomografia_torax"
+        ],
+        "safety_alerts": []
+      }
+    ]
+  },
+  {
+    "case_id": "EME-103",
+    "specialty": "emergencias",
+    "source_dataset": "sintetico",
+    "status": "curado",
+    "verified_turns": 14,
+    "all_roles_and_evidence_correct": true,
+    "treatment_safety_alerts": [
+      "case_contraindication"
+    ],
+    "vitals_preserved": true,
+    "evaluation": {
+      "score": 100.0,
+      "earned_weight": 26,
+      "total_weight": 26,
+      "completed_questions": 6,
+      "total_questions": 6,
+      "errors": {
+        "negligencia": 0,
+        "anamnesis_incompleta": 0,
+        "razonamiento_clinico": 0
+      }
+    },
+    "turns": [
+      {
+        "message": "¿Puede contarme sobre caracteristicas sintoma?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "EME-103.anamnesis.caracteristicas_dolor"
+        ],
+        "evidence_ids": [
+          "EME-103.anamnesis.caracteristicas_dolor"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "¿Puede contarme sobre inicio y evolucion?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "EME-103.anamnesis.inicio_evolucion"
+        ],
+        "evidence_ids": [
+          "EME-103.anamnesis.inicio_evolucion"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "¿Puede contarme sobre sintomas asociados?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "EME-103.sintoma.sintomas_acompanantes"
+        ],
+        "evidence_ids": [
+          "EME-103.sintoma.sintomas_acompanantes"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "¿Puede contarme sobre antecedentes personales?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "EME-103.antecedente.antecedentes"
+        ],
+        "evidence_ids": [
+          "EME-103.antecedente.antecedentes"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "¿Puede contarme sobre antecedentes familiares?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "EME-103.antecedente.antecedentes",
+          "EME-103.antecedente.antecedentes_familiares"
+        ],
+        "evidence_ids": [
+          "EME-103.antecedente.antecedentes",
+          "EME-103.antecedente.antecedentes_familiares"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "¿Puede contarme sobre medicacion?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "EME-103.medicacion.tratamiento_habitual"
+        ],
+        "evidence_ids": [
+          "EME-103.medicacion.tratamiento_habitual"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "¿Puede contarme sobre alergias?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "EME-103.antecedente.alergias"
+        ],
+        "evidence_ids": [
+          "EME-103.antecedente.alergias"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "¿Puede contarme sobre habitos?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "EME-103.antecedente.habitos"
+        ],
+        "evidence_ids": [
+          "EME-103.antecedente.habitos"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Voy a realizar la exploración física para revisar exploracion fisica.",
+        "intent": "examine",
+        "agent": "medico_asistente",
+        "expected_evidence_ids": [
+          "EME-103.examen.exploracion_fisica"
+        ],
+        "evidence_ids": [
+          "EME-103.examen.exploracion_fisica"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Solicito un examen de laboratorio: electrocardiograma.",
+        "intent": "request_lab",
+        "agent": "laboratorio",
+        "expected_evidence_ids": [
+          "EME-103.estudio.electrocardiograma"
+        ],
+        "evidence_ids": [
+          "EME-103.estudio.electrocardiograma"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Solicito un examen de laboratorio: troponina.",
+        "intent": "request_lab",
+        "agent": "laboratorio",
+        "expected_evidence_ids": [
+          "EME-103.lab.troponina"
+        ],
+        "evidence_ids": [
+          "EME-103.lab.troponina"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Solicito un examen de laboratorio: dimero d.",
+        "intent": "request_lab",
+        "agent": "laboratorio",
+        "expected_evidence_ids": [
+          "EME-103.lab.dimero_d"
+        ],
+        "evidence_ids": [
+          "EME-103.lab.dimero_d"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Solicito una imagen para revisar radiografia torax.",
+        "intent": "request_radiology",
+        "agent": "radiologia",
+        "expected_evidence_ids": [
+          "EME-103.imagen.radiografia_torax"
+        ],
+        "evidence_ids": [
+          "EME-103.imagen.radiografia_torax"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Solicito una imagen para revisar angiotomografia torax.",
+        "intent": "request_radiology",
+        "agent": "radiologia",
+        "expected_evidence_ids": [
+          "EME-103.imagen.angiotomografia_torax"
+        ],
+        "evidence_ids": [
+          "EME-103.imagen.angiotomografia_torax"
+        ],
+        "safety_alerts": []
+      }
+    ]
+  },
+  {
+    "case_id": "GOB-003",
+    "specialty": "ginecologia_obstetricia",
+    "source_dataset": "MedQA",
+    "status": "curado",
+    "verified_turns": 3,
+    "all_roles_and_evidence_correct": true,
+    "treatment_safety_alerts": [],
+    "vitals_preserved": true,
+    "evaluation": {
+      "score": 82.35,
+      "earned_weight": 14,
+      "total_weight": 17,
+      "completed_questions": 3,
+      "total_questions": 4,
+      "errors": {
+        "negligencia": 0,
+        "anamnesis_incompleta": 0,
+        "razonamiento_clinico": 1
+      }
+    },
+    "turns": [
+      {
+        "message": "¿Puede contarme sobre antecedentes gineco obstetricos?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "GOB-003.antecedente.evolucion_parto"
+        ],
+        "evidence_ids": [
+          "GOB-003.antecedente.evolucion_parto"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Voy a realizar la exploración física para revisar signos vitales.",
+        "intent": "examine",
+        "agent": "medico_asistente",
+        "expected_evidence_ids": [
+          "GOB-003.vital.signos_vitales",
+          "GOB-003.examen.exploracion_fisica"
+        ],
+        "evidence_ids": [
+          "GOB-003.vital.signos_vitales",
+          "GOB-003.examen.exploracion_fisica"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Voy a realizar la exploración física para revisar exploracion fisica.",
+        "intent": "examine",
+        "agent": "medico_asistente",
+        "expected_evidence_ids": [
+          "GOB-003.examen.exploracion_fisica"
+        ],
+        "evidence_ids": [
+          "GOB-003.examen.exploracion_fisica"
+        ],
+        "safety_alerts": []
+      }
+    ]
+  },
+  {
+    "case_id": "GOB-004",
+    "specialty": "ginecologia_obstetricia",
+    "source_dataset": "MedQA",
+    "status": "curado",
+    "verified_turns": 6,
+    "all_roles_and_evidence_correct": true,
+    "treatment_safety_alerts": [],
+    "vitals_preserved": true,
+    "evaluation": {
+      "score": 80.0,
+      "earned_weight": 12,
+      "total_weight": 15,
+      "completed_questions": 3,
+      "total_questions": 4,
+      "errors": {
+        "negligencia": 0,
+        "anamnesis_incompleta": 0,
+        "razonamiento_clinico": 1
+      }
+    },
+    "turns": [
+      {
+        "message": "¿Puede contarme sobre sintomas asociados?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "GOB-004.sintoma.sintomas_asociados"
+        ],
+        "evidence_ids": [
+          "GOB-004.sintoma.sintomas_asociados"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "¿Puede contarme sobre antecedentes personales?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "GOB-004.antecedente.antecedentes"
+        ],
+        "evidence_ids": [
+          "GOB-004.antecedente.antecedentes"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "¿Puede contarme sobre medicacion?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "GOB-004.medicacion.tratamiento_habitual"
+        ],
+        "evidence_ids": [
+          "GOB-004.medicacion.tratamiento_habitual"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "¿Puede contarme sobre habitos?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "GOB-004.anamnesis.vida_sexual"
+        ],
+        "evidence_ids": [
+          "GOB-004.anamnesis.vida_sexual"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Voy a realizar la exploración física para revisar exploracion fisica.",
+        "intent": "examine",
+        "agent": "medico_asistente",
+        "expected_evidence_ids": [
+          "GOB-004.examen.exploracion_fisica"
+        ],
+        "evidence_ids": [
+          "GOB-004.examen.exploracion_fisica"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Solicito un examen de laboratorio: ph vaginal.",
+        "intent": "request_lab",
+        "agent": "laboratorio",
+        "expected_evidence_ids": [
+          "GOB-004.lab.ph_vaginal"
+        ],
+        "evidence_ids": [
+          "GOB-004.lab.ph_vaginal"
+        ],
+        "safety_alerts": []
+      }
+    ]
+  },
+  {
+    "case_id": "MED-008",
+    "specialty": "medicina_interna",
+    "source_dataset": "MedQA",
+    "status": "curado",
+    "verified_turns": 6,
+    "all_roles_and_evidence_correct": true,
+    "treatment_safety_alerts": [
+      "case_contraindication"
+    ],
+    "vitals_preserved": true,
+    "evaluation": {
+      "score": 84.21,
+      "earned_weight": 16,
+      "total_weight": 19,
+      "completed_questions": 4,
+      "total_questions": 5,
+      "errors": {
+        "negligencia": 0,
+        "anamnesis_incompleta": 0,
+        "razonamiento_clinico": 1
+      }
+    },
+    "turns": [
+      {
+        "message": "¿Puede contarme sobre inicio y evolucion?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "MED-008.sintoma.evolucion"
+        ],
+        "evidence_ids": [
+          "MED-008.sintoma.evolucion"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "¿Puede contarme sobre medicacion?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "MED-008.medicacion.tratamiento_previo"
+        ],
+        "evidence_ids": [
+          "MED-008.medicacion.tratamiento_previo"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "¿Puede contarme sobre antecedentes personales?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "MED-008.antecedente.antecedentes"
+        ],
+        "evidence_ids": [
+          "MED-008.antecedente.antecedentes"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "¿Puede contarme sobre alergias?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "MED-008.antecedente.alergias"
+        ],
+        "evidence_ids": [
+          "MED-008.antecedente.alergias"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "¿Puede contarme sobre habitos?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "MED-008.anamnesis.exposicion"
+        ],
+        "evidence_ids": [
+          "MED-008.anamnesis.exposicion"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Voy a realizar la exploración física para revisar exploracion fisica.",
+        "intent": "examine",
+        "agent": "medico_asistente",
+        "expected_evidence_ids": [
+          "MED-008.examen.exploracion_fisica"
+        ],
+        "evidence_ids": [
+          "MED-008.examen.exploracion_fisica"
+        ],
+        "safety_alerts": []
+      }
+    ]
+  },
+  {
+    "case_id": "MED-009",
+    "specialty": "medicina_interna",
+    "source_dataset": "MedQA",
+    "status": "curado",
+    "verified_turns": 3,
+    "all_roles_and_evidence_correct": true,
+    "treatment_safety_alerts": [],
+    "vitals_preserved": true,
+    "evaluation": {
+      "score": 80.0,
+      "earned_weight": 12,
+      "total_weight": 15,
+      "completed_questions": 3,
+      "total_questions": 4,
+      "errors": {
+        "negligencia": 0,
+        "anamnesis_incompleta": 0,
+        "razonamiento_clinico": 1
+      }
+    },
+    "turns": [
+      {
+        "message": "Voy a realizar la exploración física para revisar exploracion fisica.",
+        "intent": "examine",
+        "agent": "medico_asistente",
+        "expected_evidence_ids": [
+          "MED-009.examen.exploracion_fisica"
+        ],
+        "evidence_ids": [
+          "MED-009.examen.exploracion_fisica"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "¿Puede contarme sobre inicio y evolucion?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "MED-009.sintoma.evolucion"
+        ],
+        "evidence_ids": [
+          "MED-009.sintoma.evolucion"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "¿Puede contarme sobre habitos?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "MED-009.anamnesis.exposicion_solar"
+        ],
+        "evidence_ids": [
+          "MED-009.anamnesis.exposicion_solar"
+        ],
+        "safety_alerts": []
+      }
+    ]
+  },
+  {
+    "case_id": "PED-007",
+    "specialty": "pediatria",
+    "source_dataset": "MedQA",
+    "status": "curado",
+    "verified_turns": 4,
+    "all_roles_and_evidence_correct": true,
+    "treatment_safety_alerts": [],
+    "vitals_preserved": true,
+    "evaluation": {
+      "score": 80.0,
+      "earned_weight": 12,
+      "total_weight": 15,
+      "completed_questions": 3,
+      "total_questions": 4,
+      "errors": {
+        "negligencia": 0,
+        "anamnesis_incompleta": 0,
+        "razonamiento_clinico": 1
+      }
+    },
+    "turns": [
+      {
+        "message": "¿Puede contarme sobre caracteristicas sintoma?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "PED-007.sintoma.dolor"
+        ],
+        "evidence_ids": [
+          "PED-007.sintoma.dolor"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "¿Puede contarme sobre antecedentes personales?",
+        "intent": "ask_patient",
+        "agent": "paciente",
+        "expected_evidence_ids": [
+          "PED-007.antecedente.antecedentes"
+        ],
+        "evidence_ids": [
+          "PED-007.antecedente.antecedentes"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Voy a realizar la exploración física para revisar exploracion fisica.",
+        "intent": "examine",
+        "agent": "medico_asistente",
+        "expected_evidence_ids": [
+          "PED-007.examen.exploracion_fisica"
+        ],
+        "evidence_ids": [
+          "PED-007.examen.exploracion_fisica"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Solicito una imagen para revisar radiografia.",
+        "intent": "request_radiology",
+        "agent": "radiologia",
+        "expected_evidence_ids": [
+          "PED-007.imagen.radiografia"
+        ],
+        "evidence_ids": [
+          "PED-007.imagen.radiografia"
+        ],
+        "safety_alerts": []
+      }
+    ]
+  },
+  {
+    "case_id": "PED-010",
+    "specialty": "pediatria",
+    "source_dataset": "MedQA",
+    "status": "curado",
+    "verified_turns": 4,
+    "all_roles_and_evidence_correct": true,
+    "treatment_safety_alerts": [],
+    "vitals_preserved": true,
+    "evaluation": {
+      "score": 86.36,
+      "earned_weight": 19,
+      "total_weight": 22,
+      "completed_questions": 5,
+      "total_questions": 6,
+      "errors": {
+        "negligencia": 0,
+        "anamnesis_incompleta": 0,
+        "razonamiento_clinico": 1
+      }
+    },
+    "turns": [
+      {
+        "message": "Voy a realizar la exploración física para revisar exploracion fisica.",
+        "intent": "examine",
+        "agent": "medico_asistente",
+        "expected_evidence_ids": [
+          "PED-010.examen.desarrollo_mamario",
+          "PED-010.examen.manchas_piel"
+        ],
+        "evidence_ids": [
+          "PED-010.examen.desarrollo_mamario",
+          "PED-010.examen.manchas_piel"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Solicito un examen de laboratorio: funcion tiroidea.",
+        "intent": "request_lab",
+        "agent": "laboratorio",
+        "expected_evidence_ids": [
+          "PED-010.lab.funcion_tiroidea"
+        ],
+        "evidence_ids": [
+          "PED-010.lab.funcion_tiroidea"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Solicito una imagen para revisar imagen osea.",
+        "intent": "request_radiology",
+        "agent": "radiologia",
+        "expected_evidence_ids": [
+          "PED-010.imagen.imagen_osea"
+        ],
+        "evidence_ids": [
+          "PED-010.imagen.imagen_osea"
+        ],
+        "safety_alerts": []
+      },
+      {
+        "message": "Solicito una imagen para revisar edad osea.",
+        "intent": "request_radiology",
+        "agent": "radiologia",
+        "expected_evidence_ids": [
+          "PED-010.imagen.imagen_osea",
+          "PED-010.imagen.edad_osea"
+        ],
+        "evidence_ids": [
+          "PED-010.imagen.imagen_osea",
+          "PED-010.imagen.edad_osea"
+        ],
+        "safety_alerts": []
+      }
+    ]
+  }
+]
