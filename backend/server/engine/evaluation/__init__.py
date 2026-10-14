@@ -1,5 +1,4 @@
-"""Evaluación: puntaje y clasificación de errores a partir de protected.evaluation y la traza de la sesión."""
-"""Evaluación determinística basada en la evidencia registrada durante la sesión."""
+"""Evaluación: puntaje y clasificación de errores a partir de protected.evaluation y la evidencia de la sesión."""
 
 from .service import ClinicalEvaluationEngine
 
