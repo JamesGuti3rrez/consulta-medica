@@ -45,6 +45,8 @@ def test_five_agents_in_one_star_session_with_traceable_evidence():
     start = client.post("/api/ai/sessions", json={"case_id": "MED-900"})
     assert start.status_code == 200
     sid = start.json()["session_id"]
+    assert start.json()["avatar_state"]["vitals"]
+    assert start.json()["avatar_state"]["complications"] == []
 
     patient = _send(sid, "¿Desde cuándo comenzó el dolor y cómo lo describiría?")
     assert patient["agent"] == "paciente"
@@ -87,6 +89,8 @@ def test_five_agents_in_one_star_session_with_traceable_evidence():
     finish = client.post(f"/api/ai/sessions/{sid}/finish")
     assert finish.status_code == 200
     assert finish.json()["phase"] == "finalizada"
+    assert finish.json()["evaluation"]["total_questions"] > 0
+    assert finish.json()["avatar_state"]["complications"] == []
 
 
 def test_session_survives_across_instances_with_supabase_store(monkeypatch):
