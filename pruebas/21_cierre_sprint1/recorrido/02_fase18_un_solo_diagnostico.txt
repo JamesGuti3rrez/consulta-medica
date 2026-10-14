@@ -1,0 +1,38 @@
+DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica\backend
+COMANDO: .\.venv\Scripts\python.exe ../pruebas/18_casos_con_un_solo_diagnostico/bateria_un_solo_diagnostico.py --local
+FECHA: 2026-10-14 11:23:55 UTC
+CODIGO_SALIDA: 0
+
+STDOUT:
+Modelo: local | casos: 13
+
+OK    CIR-005   3 pedidos  diferenciales descartados 4/4  -> queda: Hemofilia A
+        complemento «Pido el dosaje del factor VIII y del factor IX» -> Actividad del factor VIII disminuida; actividad del factor IX normal.
+OK    CIR-006   5 pedidos  diferenciales descartados 4/4  -> queda: Sepsis posoperatoria
+        complemento «Pido una radiografía de tórax» -> Consolidación en la base pulmonar derecha con broncograma aéreo, compatible con neumonía; sin colapso lobar ni desplazamiento de cisuras.
+        complemento «Solicito un hemograma» -> Leucocitosis con neutrofilia.
+OK    EME-001   5 pedidos  diferenciales descartados 4/4  -> queda: Golpe de calor por esfuerzo
+        complemento «Solicito función tiroidea» -> TSH y tiroxina libre dentro del rango normal.
+        complemento «Pido un electroencefalograma» -> Sin actividad epileptiforme; enlentecimiento difuso propio de una encefalopatía.
+OK    EME-002   3 pedidos  diferenciales descartados 4/4  -> queda: Hemorragia subaracnoidea
+        complemento «Solicito una tomografía de cráneo sin contraste» -> Sangre en el espacio subaracnoideo de las cisternas basales y los surcos, sin hematoma intraparenquimatoso.
+OK    EME-101  14 pedidos  diferenciales descartados 3/3  -> queda: Infarto agudo de miocardio con elevación del ST
+OK    EME-102  14 pedidos  diferenciales descartados 3/3  -> queda: Tromboembolia pulmonar aguda
+OK    EME-103  14 pedidos  diferenciales descartados 3/3  -> queda: Disección aórtica aguda tipo A
+OK    GOB-003   6 pedidos  diferenciales descartados 4/4  -> queda: Infarto hipofisario posparto (síndrome de Sheehan)
+        complemento «¿Cómo está de ánimo? ¿Se ha sentido triste?» -> Se siente con ánimo para cuidar al bebé y quiere amamantar; niega tristeza, llanto o ansiedad.
+        complemento «¿Cómo eran sus reglas antes del embarazo? ¿Tenía dolores de cabeza o problemas de la vista?» -> Tuvo el parto a término; el recién nacido obtuvo un Apgar de 9 al minuto y de 10 a los 5 minutos. Media hora después del parto le administraron líquidos y sangre por la vena. Antes del embarazo tenía reglas regulares; nunca tuvo cefalea persistente ni problemas de la vista.
+        complemento «Solicito una prolactina sérica» -> Prolactina baja para el puerperio.
+OK    GOB-004   6 pedidos  diferenciales descartados 4/4  -> queda: Tricomoniasis vulvovaginal
+OK    MED-008   7 pedidos  diferenciales descartados 3/3  -> queda: Enfermedad de Lyme con eritema migrans
+        complemento «Solicito un hemograma y perfil hepático» -> Leucocitos y plaquetas normales; transaminasas normales.
+OK    MED-009   3 pedidos  diferenciales descartados 4/4  -> queda: Carcinoma basocelular
+OK    PED-007   4 pedidos  diferenciales descartados 4/4  -> queda: Enfermedad de Legg-Calvé-Perthes
+OK    PED-010   4 pedidos  diferenciales descartados 4/4  -> queda: Síndrome de McCune-Albright
+
+RESUMEN: 13 de 13 casos llegan a un solo diagnóstico sin problemas
+Detalle: pruebas\18_casos_con_un_solo_diagnostico\resultados\resultados_local.json
+
+
+STDERR:
+

@@ -1,0 +1,48 @@
+DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica\backend
+COMANDO: .\.venv\Scripts\python.exe ../pruebas/14_motor_clinico/probar_casos_curated.py
+FECHA: 2026-10-14 11:23:49 UTC
+CODIGO_SALIDA: 0
+
+STDOUT:
+Casos curados encontrados: 13
+  cirugia_general: 2
+  emergencias: 5
+  ginecologia_obstetricia: 2
+  medicina_interna: 2
+  pediatria: 2
+Proveedor LLM: local-development; recuperador: deterministic-case-fallback
+Probando CIR-005 (cirugia_general) ...
+Probando CIR-006 (cirugia_general) ...
+Probando EME-001 (emergencias) ...
+Probando EME-002 (emergencias) ...
+Probando EME-101 (emergencias) ...
+Probando EME-102 (emergencias) ...
+Probando EME-103 (emergencias) ...
+Probando GOB-003 (ginecologia_obstetricia) ...
+Probando GOB-004 (ginecologia_obstetricia) ...
+Probando MED-008 (medicina_interna) ...
+Probando MED-009 (medicina_interna) ...
+Probando PED-007 (pediatria) ...
+Probando PED-010 (pediatria) ...
+
+RESULTADOS
+CASO       ESPECIALIDAD                   TURNOS  PUNTAJE   EVALUACIÓN ALERTAS
+CIR-005    cirugia_general                     3  100.00%          4/4 -
+CIR-006    cirugia_general                     5  100.00%          4/4 -
+EME-001    emergencias                         5  100.00%          4/4 -
+EME-002    emergencias                         3  100.00%          3/3 -
+EME-101    emergencias                        14  100.00%          6/6 -
+EME-102    emergencias                        14  100.00%          6/6 -
+EME-103    emergencias                        14  100.00%          6/6 case_contraindication
+GOB-003    ginecologia_obstetricia             5  100.00%          4/4 -
+GOB-004    ginecologia_obstetricia             6  100.00%          3/3 -
+MED-008    medicina_interna                    7  100.00%          5/5 case_contraindication
+MED-009    medicina_interna                    3  100.00%          3/3 -
+PED-007    pediatria                           4  100.00%          3/3 -
+PED-010    pediatria                           4  100.00%          5/5 -
+
+Detalle guardado en: C:\Users\Usuario\Documents\consulta-medica\pruebas\14_motor_clinico\resultados\resultados_casos_curados.json
+
+
+STDERR:
+

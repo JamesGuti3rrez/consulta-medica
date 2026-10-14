@@ -1,0 +1,19 @@
+DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica
+COMANDO: node pruebas/_herramientas/capturar_frontend.cjs pruebas/04_frontend/capturas
+FECHA: 2026-10-14 11:20:46 UTC
+CODIGO_SALIDA: 1
+
+STDOUT:
+URL: http://localhost:3100/simulacion.html · ventana 1440x1100 (escritorio)
+GET /api/status → {"caseConfigured":true,"simulationReady":false,"availableCases":13,"casesBySpecialty":{"medicina_interna":2,"pediatria":2,"ginecologia_obstetricia":2,"cirugia_general":2,"emergencias":5}}
+Casos a mostrar (primero de cada especialidad): EME-001, GOB-003, CIR-005, PED-007, MED-008
+[OK] intento 1: GOB-003 (ginecologia_obstetricia) · ficha "Lucía Paredes", 24 años · claves API ["allergies_recorded","case_id","chief_complaint","items","patient","specialty"] · textos protegidos visibles: 0 · captura 03_ficha_GOB-003.png
+
+
+STDERR:
+page.waitForResponse: Timeout 30000ms exceeded while waiting for event "response"
+    at C:\Users\Usuario\Documents\consulta-medica\pruebas\_herramientas\capturar_frontend.cjs:66:12 {
+  log: [],
+  name: 'TimeoutError'
+}
+

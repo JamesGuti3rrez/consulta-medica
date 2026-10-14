@@ -1,0 +1,38 @@
+DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica
+COMANDO: backend\.venv\Scripts\python.exe pruebas/20_sinonimos_diagnostico/mostrar_sinonimos.py
+FECHA: 2026-10-14 11:23:57 UTC
+CODIGO_SALIDA: 0
+
+STDOUT:
+CIR-005  Hemofilia A
+         también: Hemofilia clásica; Deficiencia de factor VIII; Déficit de factor VIII
+CIR-006  Sepsis posoperatoria
+         también: Sepsis; Sepsis de origen pulmonar; Sepsis por neumonía posoperatoria
+EME-001  Golpe de calor por esfuerzo
+         también: Golpe de calor; Golpe de calor por ejercicio; Hipertermia por esfuerzo
+EME-002  Hemorragia subaracnoidea
+         también: HSA; Hemorragia subaracnoidea aneurismática; Sangrado subaracnoideo
+EME-101  Infarto agudo de miocardio con elevación del ST
+         también: Infarto agudo de miocardio; IAMCEST; Síndrome coronario agudo con elevación del ST; Infarto de cara inferior
+EME-102  Tromboembolia pulmonar aguda
+         también: Tromboembolismo pulmonar; Tromboembolia pulmonar; Embolia pulmonar
+EME-103  Disección aórtica aguda tipo A
+         también: Disección aórtica aguda; Disección de aorta; Disección aórtica; Síndrome aórtico agudo
+GOB-003  Infarto hipofisario posparto (síndrome de Sheehan)
+         también: Síndrome de Sheehan; Infarto hipofisario; Necrosis hipofisaria posparto; Hipopituitarismo posparto
+GOB-004  Tricomoniasis vulvovaginal
+         también: Tricomoniasis; Vaginitis por Trichomonas; Infección por Trichomonas vaginalis
+MED-008  Enfermedad de Lyme con eritema migrans
+         también: Enfermedad de Lyme; Borreliosis de Lyme; Lyme con eritema migrans
+MED-009  Carcinoma basocelular
+         también: Carcinoma de células basales; Basalioma; Epitelioma basocelular
+PED-007  Enfermedad de Legg-Calvé-Perthes
+         también: Enfermedad de Perthes; Legg-Calvé-Perthes; Osteonecrosis idiopática de la cabeza femoral
+PED-010  Síndrome de McCune-Albright
+         también: McCune-Albright; Síndrome de McCune-Albright-Sternberg; Displasia fibrosa poliostótica con pubertad precoz
+
+52 formas de nombrar el diagnóstico en 13 casos (antes: 21; los 10 de MedQA solo tenían su nombre)
+
+
+STDERR:
+
