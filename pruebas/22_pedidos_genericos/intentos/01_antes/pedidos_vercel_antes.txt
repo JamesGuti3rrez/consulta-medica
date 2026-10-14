@@ -1,0 +1,38 @@
+DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica
+COMANDO: backend\.venv\Scripts\python.exe pruebas\22_pedidos_genericos\probar_pedidos.py
+FECHA: 2026-10-14 11:45:10 UTC
+CODIGO_SALIDA: 0
+
+STDOUT:
+Sitio: https://consulta-medica-three.vercel.app | modelo: groq-pool
+
+FALLA [CIR-005] genérico: el caso SÍ tiene pruebas de coagulación
+      «¿Qué resultados tienen los análisis de sangre de antes de la operación?» -> laboratorio
+      Ese examen no se realizó en este paciente.
+      esperado: pregunta | obtenido: no se realizó
+
+FALLA [CIR-005] genérico
+      «Pido unos exámenes de laboratorio» -> laboratorio
+      Ese examen no se realizó en este paciente.
+      esperado: pregunta | obtenido: no se realizó
+
+FALLA [EME-002] genérico de imagen: el caso SÍ tiene tomografía
+      «Quiero un estudio de imagen» -> radiologia
+      Ese estudio no se realizó en este paciente.
+      esperado: pregunta | obtenido: no se realizó
+
+OK    [CIR-005] examen concreto que existe
+      «Solicito pruebas de coagulación» -> laboratorio
+      Tiempo de sangrado normal, tiempo de protrombina normal, INR de 1,0 y recuento de plaquetas normal. Tiempo de tromboplastina parcial prolongado.
+      esperado: resultado | obtenido: resultado
+
+OK    [CIR-005] examen concreto que el caso no tiene
+      «Pido un hemograma» -> laboratorio
+      Ese examen no se realizó en este paciente.
+      esperado: no se realizó | obtenido: no se realizó
+
+RESUMEN: 2 de 5 pedidos reciben la respuesta correcta
+
+
+STDERR:
+

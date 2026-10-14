@@ -1,0 +1,38 @@
+DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica
+COMANDO: backend\.venv\Scripts\python.exe pruebas\22_pedidos_genericos\probar_pedidos.py http://localhost:3000
+FECHA: 2026-10-14 11:47:16 UTC
+CODIGO_SALIDA: 0
+
+STDOUT:
+Sitio: http://localhost:3000 | modelo: groq-pool
+
+OK    [CIR-005] genérico: el caso SÍ tiene pruebas de coagulación
+      «¿Qué resultados tienen los análisis de sangre de antes de la operación?» -> laboratorio
+      ¿Qué examen en concreto desea solicitar? Indíqueme su nombre, por ejemplo hemograma o pruebas de coagulación.
+      esperado: pregunta | obtenido: pregunta
+
+OK    [CIR-005] genérico
+      «Pido unos exámenes de laboratorio» -> laboratorio
+      ¿Qué examen en concreto desea solicitar? Indíqueme su nombre, por ejemplo hemograma o pruebas de coagulación.
+      esperado: pregunta | obtenido: pregunta
+
+OK    [EME-002] genérico de imagen: el caso SÍ tiene tomografía
+      «Quiero un estudio de imagen» -> radiologia
+      ¿Qué estudio de imagen desea solicitar? Indíqueme cuál, por ejemplo una radiografía o una tomografía y de qué zona.
+      esperado: pregunta | obtenido: pregunta
+
+OK    [CIR-005] examen concreto que existe
+      «Solicito pruebas de coagulación» -> laboratorio
+      Pruebas de coagulación preoperatorias: tiempo de sangrado normal, tiempo de protrombina normal, INR 1,0 y recuento de plaquetas normal. Pruebas de coagulación posoperator
+      esperado: resultado | obtenido: resultado
+
+OK    [CIR-005] examen concreto que el caso no tiene
+      «Pido un hemograma» -> laboratorio
+      Ese examen no se realizó en este paciente.
+      esperado: no se realizó | obtenido: no se realizó
+
+RESUMEN: 5 de 5 pedidos reciben la respuesta correcta
+
+
+STDERR:
+
