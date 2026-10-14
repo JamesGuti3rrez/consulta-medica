@@ -32,7 +32,7 @@ Se descartaron:
 
 | Commit | Cambio |
 | --- | --- |
-| `pruebas/23_numeracion_casos/renumerar_casos.py` | Aplica la renumeración con marcadores intermedios (MED-008 pasa a ser otro caso), ordena el lote por número y mueve los archivos con `git mv` para conservar su historial |
+| `0eace5b` | [renumerar_casos.py](renumerar_casos.py): aplica la renumeración con marcadores intermedios (MED-008 pasa a ser otro caso), ordena el lote por número y mueve los archivos con `git mv` para conservar su historial |
 | `a8e3231` | Datos regenerados con `curation` (casos curados y validados, selección final e índices de revisión) y pruebas con los códigos nuevos |
 | `7fc24a4` | Decisión 0002 y documento de traspaso con los códigos nuevos |
 | `43d08ce` | Scripts de prueba de las fases 7, 11, 13, 15, 16, 17 y 18, y captura del frontend, con los códigos nuevos |
