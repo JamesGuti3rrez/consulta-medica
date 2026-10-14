@@ -26,6 +26,7 @@ Todas las capturas están en **vista de escritorio/PC (1440 px de ancho)**; ning
 | 15. Integración del motor clínico | [15_integracion_motor_clinico/](15_integracion_motor_clinico/README.md) | El motor en `main`, conectado a la API, a las sesiones y a la hoja de evaluación del simulador | OK (intento 3) |
 | 16. Historial de simulaciones | [16_historial_simulaciones/](16_historial_simulaciones/README.md) | Cada consulta de un alumno con sesión iniciada se guarda en Supabase y aparece en «Mis simulaciones»; los invitados no guardan y nadie puede quedarse con la consulta de otro | OK (intento 2) |
 | 17. Probar otro caso o cerrar | [17_otro_caso/](17_otro_caso/README.md) | La hoja de evaluación abre otro paciente de la misma especialidad sin repetir el anterior, o vuelve a la portada | OK |
+| 18. Un solo diagnóstico por caso | [18_casos_con_un_solo_diagnostico/](18_casos_con_un_solo_diagnostico/README.md) | Con el guion de cada paciente queda en pie solo el diagnóstico en los 13 casos (antes, 7): datos que agregó el equipo con fuente clínica (decisión 0002) y regla R15 para todo caso curado | OK (intento 3) |
 
 ## Convención de cada fase
 
