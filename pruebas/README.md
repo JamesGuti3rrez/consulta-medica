@@ -28,6 +28,7 @@ Todas las capturas están en **vista de escritorio/PC (1440 px de ancho)**; ning
 | 17. Probar otro caso o cerrar | [17_otro_caso/](17_otro_caso/README.md) | La hoja de evaluación abre otro paciente de la misma especialidad sin repetir el anterior, o vuelve a la portada | OK |
 | 18. Un solo diagnóstico por caso | [18_casos_con_un_solo_diagnostico/](18_casos_con_un_solo_diagnostico/README.md) | Con el guion de cada paciente queda en pie solo el diagnóstico en los 13 casos (antes, 7): datos que agregó el equipo con fuente clínica (decisión 0002) y regla R15 para todo caso curado | OK (intento 3) |
 | 19. Aviso de privacidad | [19_aviso_privacidad/](19_aviso_privacidad/README.md) | Aviso según la Ley 29733 enlazado desde la portada y «Mis simulaciones»; crear cuenta exige aceptarlo y guarda versión y fecha | OK (intento 2) |
+| 20. Sinónimos del diagnóstico | [20_sinonimos_diagnostico/](20_sinonimos_diagnostico/README.md) | Cada caso acepta al menos tres formas de nombrar su diagnóstico (52 en total, antes 21), base para calificar el diagnóstico escrito | OK |
 
 ## Convención de cada fase
 
