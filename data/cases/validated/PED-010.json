@@ -107,7 +107,10 @@
     "diagnosis": {
       "name": "Síndrome de McCune-Albright",
       "synonyms": [
-        "Síndrome de McCune-Albright"
+        "Síndrome de McCune-Albright",
+        "McCune-Albright",
+        "Síndrome de McCune-Albright-Sternberg",
+        "Displasia fibrosa poliostótica con pubertad precoz"
       ]
     },
     "differentials": [

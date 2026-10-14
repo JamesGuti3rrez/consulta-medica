@@ -130,7 +130,10 @@
     "diagnosis": {
       "name": "Enfermedad de Lyme con eritema migrans",
       "synonyms": [
-        "Enfermedad de Lyme con eritema migrans"
+        "Enfermedad de Lyme con eritema migrans",
+        "Enfermedad de Lyme",
+        "Borreliosis de Lyme",
+        "Lyme con eritema migrans"
       ]
     },
     "differentials": [

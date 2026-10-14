@@ -473,7 +473,12 @@
           "Confirmar antecedentes alérgicos antes de cualquier antibiótico.",
           "Usar guías locales actualizadas para pauta y duración."
         ]
-      }
+      },
+      "diagnosis_synonyms": [
+        "Enfermedad de Lyme",
+        "Borreliosis de Lyme",
+        "Lyme con eritema migrans"
+      ]
     },
     "MED-009": {
       "clinical_differentials": [
@@ -506,7 +511,12 @@
           "No retrasar la valoración especializada de una lesión palpebral que crece.",
           "Evitar tratamiento destructivo sin confirmación diagnóstica."
         ]
-      }
+      },
+      "diagnosis_synonyms": [
+        "Carcinoma de células basales",
+        "Basalioma",
+        "Epitelioma basocelular"
+      ]
     },
     "PED-007": {
       "clinical_differentials": [
@@ -540,7 +550,12 @@
           "Valorar por ortopedia pediátrica.",
           "Reevaluar con urgencia si aparece fiebre, dolor intenso o incapacidad para apoyar."
         ]
-      }
+      },
+      "diagnosis_synonyms": [
+        "Enfermedad de Perthes",
+        "Legg-Calvé-Perthes",
+        "Osteonecrosis idiopática de la cabeza femoral"
+      ]
     },
     "PED-010": {
       "clinical_differentials": [
@@ -576,7 +591,12 @@
           "Aclarar y confirmar la función tiroidea; no asumir que la paciente tiene simultáneamente hipotiroidismo e hipertiroidismo.",
           "Coordinar seguimiento por endocrinología pediátrica y ortopedia según extensión ósea y manifestaciones."
         ]
-      }
+      },
+      "diagnosis_synonyms": [
+        "McCune-Albright",
+        "Síndrome de McCune-Albright-Sternberg",
+        "Displasia fibrosa poliostótica con pubertad precoz"
+      ]
     },
     "GOB-003": {
       "clinical_differentials": [
@@ -609,7 +629,13 @@
           "Priorizar estabilización y control obstétrico de la hemorragia.",
           "No inferir ni iniciar reemplazo hormonal sin evaluación urgente del eje, incluido cortisol."
         ]
-      }
+      },
+      "diagnosis_synonyms": [
+        "Síndrome de Sheehan",
+        "Infarto hipofisario",
+        "Necrosis hipofisaria posparto",
+        "Hipopituitarismo posparto"
+      ]
     },
     "GOB-004": {
       "clinical_differentials": [
@@ -646,7 +672,12 @@
           "Tratar simultáneamente a las parejas sexuales y evitar relaciones hasta completar tratamiento y resolver síntomas.",
           "Ofrecer pruebas para otras ITS y repetir prueba de tricomoniasis aproximadamente a los 3 meses."
         ]
-      }
+      },
+      "diagnosis_synonyms": [
+        "Tricomoniasis",
+        "Vaginitis por Trichomonas",
+        "Infección por Trichomonas vaginalis"
+      ]
     },
     "CIR-005": {
       "clinical_differentials": [
@@ -681,7 +712,12 @@
           "No retrasar consulta de hematología ante sangrado quirúrgico persistente.",
           "Confirmar actividad de factor VIII/IX y descartar inhibidor antes de etiquetar hemofilia A."
         ]
-      }
+      },
+      "diagnosis_synonyms": [
+        "Hemofilia clásica",
+        "Deficiencia de factor VIII",
+        "Déficit de factor VIII"
+      ]
     },
     "CIR-006": {
       "clinical_differentials": [
@@ -716,7 +752,12 @@
           "No retrasar tratamiento de sepsis probable para completar pruebas no esenciales.",
           "Investigar foco pulmonar y valorar diagnósticos alternativos graves, especialmente embolia pulmonar."
         ]
-      }
+      },
+      "diagnosis_synonyms": [
+        "Sepsis",
+        "Sepsis de origen pulmonar",
+        "Sepsis por neumonía posoperatoria"
+      ]
     },
     "EME-001": {
       "clinical_differentials": [
@@ -752,7 +793,12 @@
           "No usar antipiréticos como sustituto del enfriamiento.",
           "Vigilar rabdomiólisis, lesión renal/hepática, alteraciones electrolíticas y coagulopatía."
         ]
-      }
+      },
+      "diagnosis_synonyms": [
+        "Golpe de calor",
+        "Golpe de calor por ejercicio",
+        "Hipertermia por esfuerzo"
+      ]
     },
     "EME-002": {
       "clinical_differentials": [
@@ -785,7 +831,12 @@
           "No demorar TC craneal y valoración neurológica/neuroquirúrgica urgente.",
           "No declarar hemorragia confirmada solo por la clave de respuesta MedQA."
         ]
-      }
+      },
+      "diagnosis_synonyms": [
+        "HSA",
+        "Hemorragia subaracnoidea aneurismática",
+        "Sangrado subaracnoideo"
+      ]
     }
   },
   "legacy_cases_to_reject": {

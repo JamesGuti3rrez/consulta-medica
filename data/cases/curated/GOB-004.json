@@ -118,7 +118,10 @@
     "diagnosis": {
       "name": "Tricomoniasis vulvovaginal",
       "synonyms": [
-        "Tricomoniasis vulvovaginal"
+        "Tricomoniasis vulvovaginal",
+        "Tricomoniasis",
+        "Vaginitis por Trichomonas",
+        "Infección por Trichomonas vaginalis"
       ]
     },
     "differentials": [

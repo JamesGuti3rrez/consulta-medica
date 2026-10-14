@@ -92,7 +92,10 @@
     "diagnosis": {
       "name": "Enfermedad de Legg-Calvé-Perthes",
       "synonyms": [
-        "Enfermedad de Legg-Calvé-Perthes"
+        "Enfermedad de Legg-Calvé-Perthes",
+        "Enfermedad de Perthes",
+        "Legg-Calvé-Perthes",
+        "Osteonecrosis idiopática de la cabeza femoral"
       ]
     },
     "differentials": [

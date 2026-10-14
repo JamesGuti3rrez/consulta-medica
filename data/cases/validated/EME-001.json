@@ -104,7 +104,10 @@
     "diagnosis": {
       "name": "Golpe de calor por esfuerzo",
       "synonyms": [
-        "Golpe de calor por esfuerzo"
+        "Golpe de calor por esfuerzo",
+        "Golpe de calor",
+        "Golpe de calor por ejercicio",
+        "Hipertermia por esfuerzo"
       ]
     },
     "differentials": [

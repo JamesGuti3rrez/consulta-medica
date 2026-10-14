@@ -84,7 +84,10 @@
     "diagnosis": {
       "name": "Hemorragia subaracnoidea",
       "synonyms": [
-        "Hemorragia subaracnoidea"
+        "Hemorragia subaracnoidea",
+        "HSA",
+        "Hemorragia subaracnoidea aneurismática",
+        "Sangrado subaracnoideo"
       ]
     },
     "differentials": [

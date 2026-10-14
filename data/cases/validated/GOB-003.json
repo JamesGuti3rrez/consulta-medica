@@ -117,7 +117,11 @@
     "diagnosis": {
       "name": "Infarto hipofisario posparto (síndrome de Sheehan)",
       "synonyms": [
-        "Infarto hipofisario posparto (síndrome de Sheehan)"
+        "Infarto hipofisario posparto (síndrome de Sheehan)",
+        "Síndrome de Sheehan",
+        "Infarto hipofisario",
+        "Necrosis hipofisaria posparto",
+        "Hipopituitarismo posparto"
       ]
     },
     "differentials": [

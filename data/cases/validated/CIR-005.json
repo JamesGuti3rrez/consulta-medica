@@ -93,7 +93,10 @@
     "diagnosis": {
       "name": "Hemofilia A",
       "synonyms": [
-        "Hemofilia A"
+        "Hemofilia A",
+        "Hemofilia clásica",
+        "Deficiencia de factor VIII",
+        "Déficit de factor VIII"
       ]
     },
     "differentials": [

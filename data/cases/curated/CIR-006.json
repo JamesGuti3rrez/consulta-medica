@@ -110,7 +110,10 @@
     "diagnosis": {
       "name": "Sepsis posoperatoria",
       "synonyms": [
-        "Sepsis posoperatoria"
+        "Sepsis posoperatoria",
+        "Sepsis",
+        "Sepsis de origen pulmonar",
+        "Sepsis por neumonía posoperatoria"
       ]
     },
     "differentials": [

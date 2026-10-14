@@ -182,3 +182,11 @@ def test_items_with_value_and_unit_instead_of_text(case):
     })
     assert check_case_warnings(case) == check_case_warnings(_load("curated", "MED-008"))
     assert to_student_case(case)["items"][-1] == {"label": "Frecuencia cardiaca", "text": "74 /min"}
+
+
+def test_curated_diagnoses_have_synonyms_to_grade_the_written_diagnosis():
+    # Para comparar el diagnóstico que escribe el estudiante, cada caso acepta varias formas de nombrarlo.
+    for path in sorted((CASES_DIR / "curated").glob("*.json")):
+        case = json.loads(path.read_text(encoding="utf-8"))
+        synonyms = case["protected"]["diagnosis"]["synonyms"]
+        assert len(set(synonyms)) >= 3, (case["case_id"], synonyms)

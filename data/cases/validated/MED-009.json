@@ -78,7 +78,10 @@
     "diagnosis": {
       "name": "Carcinoma basocelular",
       "synonyms": [
-        "Carcinoma basocelular"
+        "Carcinoma basocelular",
+        "Carcinoma de células basales",
+        "Basalioma",
+        "Epitelioma basocelular"
       ]
     },
     "differentials": [
