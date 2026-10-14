@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resultados del motor clínico</title>
+  <style>
+    :root { color-scheme: light; font-family: "Segoe UI", Arial, sans-serif; color: #172033; background: #f3f6fb; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 32px; }
+    main { max-width: 1600px; margin: 0 auto; }
+    header { margin-bottom: 24px; }
+    h1 { margin: 0 0 8px; font-size: clamp(1.7rem, 3vw, 2.5rem); }
+    h2 { margin: 0; font-size: 1.25rem; }
+    p { color: #65728a; }
+    .muted { margin: 0; font-size: .9rem; }
+    .panel { background: white; border: 1px solid #dfe6f0; border-radius: 14px; margin: 18px 0; padding: 20px; box-shadow: 0 5px 20px #1d35570a; }
+    .section-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+    .badge { background: #e8efff; color: #244f9c; border-radius: 99px; padding: 6px 12px; font-size: .85rem; white-space: nowrap; }
+    .table-wrap { overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid #e9edf4; vertical-align: top; }
+    th { background: #f7f9fc; color: #49566d; font-weight: 650; white-space: nowrap; }
+    tbody tr:hover { background: #f8faff; }
+    td:first-child { font-weight: 700; white-space: nowrap; }
+    .empty { color: #7b8799; text-align: center; padding: 24px; }
+    code { background: #f0f3f8; padding: 2px 5px; border-radius: 4px; }
+    @media (max-width: 700px) { body { padding: 14px; } .panel { padding: 14px; } }
+    @media print { body { background: white; padding: 0; } .panel { box-shadow: none; break-inside: avoid; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Resultados del motor clínico</h1>
+      <p class="muted">Generado: 2026-10-14 00:18:42 Hora est. Pacífico, Sudamérica</p>
+      <p class="muted">Las tablas reflejan los JSON disponibles en <code>pruebas/14_motor_clinico/resultados/</code>.</p>
+    </header>
+    <section class="panel">
+      <div class="section-heading"><div><h2>Resumen por especialidad y corrida</h2></div></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Conjunto</th><th>Especialidad</th><th>Casos</th><th>Turnos</th><th>Puntaje promedio</th><th>Preguntas completadas</th></tr></thead>
+          <tbody><tr><td>Casos curados</td><td>Cirugía general</td><td>2</td><td>5</td><td>100.00%</td><td>6/6</td></tr>
+<tr><td>Casos curados</td><td>Emergencias</td><td>5</td><td>47</td><td>100.00%</td><td>23/23</td></tr>
+<tr><td>Casos curados</td><td>Ginecología y obstetricia</td><td>2</td><td>9</td><td>100.00%</td><td>6/6</td></tr>
+<tr><td>Casos curados</td><td>Medicina interna</td><td>2</td><td>9</td><td>100.00%</td><td>7/7</td></tr>
+<tr><td>Casos curados</td><td>Pediatría</td><td>2</td><td>8</td><td>100.00%</td><td>8/8</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+    
+            <section class="panel" id="curated">
+              <div class="section-heading">
+                <div>
+                  <h2>Casos curados</h2>
+                  <p>resultados_casos_curados.json</p>
+                </div>
+                <span class="badge">13 casos</span>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead><tr>
+                    <th>Caso</th><th>Especialidad</th><th>Fuente</th><th>Estado</th>
+                    <th>Turnos</th><th>Puntaje</th><th>Preguntas</th><th>Errores</th>
+                    <th>Alertas</th><th>Roles/evidencia</th><th>Signos vitales</th>
+                  </tr></thead>
+                  <tbody><tr><td>CIR-005</td><td>Cirugía general</td><td>MedQA</td><td>curado</td><td>2</td><td>100.00%</td><td>3/3</td><td>Negligencia: 0 · Anamnesis incompleta: 0 · Razonamiento clínico: 0</td><td>—</td><td>Correcto</td><td>Correcto</td></tr>
+<tr><td>CIR-006</td><td>Cirugía general</td><td>MedQA</td><td>curado</td><td>3</td><td>100.00%</td><td>3/3</td><td>Negligencia: 0 · Anamnesis incompleta: 0 · Razonamiento clínico: 0</td><td>—</td><td>Correcto</td><td>Correcto</td></tr>
+<tr><td>EME-001</td><td>Emergencias</td><td>MedQA</td><td>curado</td><td>3</td><td>100.00%</td><td>3/3</td><td>Negligencia: 0 · Anamnesis incompleta: 0 · Razonamiento clínico: 0</td><td>—</td><td>Correcto</td><td>Correcto</td></tr>
+<tr><td>EME-002</td><td>Emergencias</td><td>MedQA</td><td>curado</td><td>2</td><td>100.00%</td><td>2/2</td><td>Negligencia: 0 · Anamnesis incompleta: 0 · Razonamiento clínico: 0</td><td>—</td><td>Correcto</td><td>Correcto</td></tr>
+<tr><td>EME-101</td><td>Emergencias</td><td>sintetico</td><td>curado</td><td>14</td><td>100.00%</td><td>6/6</td><td>Negligencia: 0 · Anamnesis incompleta: 0 · Razonamiento clínico: 0</td><td>—</td><td>Correcto</td><td>Correcto</td></tr>
+<tr><td>EME-102</td><td>Emergencias</td><td>sintetico</td><td>curado</td><td>14</td><td>100.00%</td><td>6/6</td><td>Negligencia: 0 · Anamnesis incompleta: 0 · Razonamiento clínico: 0</td><td>—</td><td>Correcto</td><td>Correcto</td></tr>
+<tr><td>EME-103</td><td>Emergencias</td><td>sintetico</td><td>curado</td><td>14</td><td>100.00%</td><td>6/6</td><td>Negligencia: 0 · Anamnesis incompleta: 0 · Razonamiento clínico: 0</td><td>case_contraindication</td><td>Correcto</td><td>Correcto</td></tr>
+<tr><td>GOB-003</td><td>Ginecología y obstetricia</td><td>MedQA</td><td>curado</td><td>3</td><td>100.00%</td><td>3/3</td><td>Negligencia: 0 · Anamnesis incompleta: 0 · Razonamiento clínico: 0</td><td>—</td><td>Correcto</td><td>Correcto</td></tr>
+<tr><td>GOB-004</td><td>Ginecología y obstetricia</td><td>MedQA</td><td>curado</td><td>6</td><td>100.00%</td><td>3/3</td><td>Negligencia: 0 · Anamnesis incompleta: 0 · Razonamiento clínico: 0</td><td>—</td><td>Correcto</td><td>Correcto</td></tr>
+<tr><td>MED-008</td><td>Medicina interna</td><td>MedQA</td><td>curado</td><td>6</td><td>100.00%</td><td>4/4</td><td>Negligencia: 0 · Anamnesis incompleta: 0 · Razonamiento clínico: 0</td><td>case_contraindication</td><td>Correcto</td><td>Correcto</td></tr>
+<tr><td>MED-009</td><td>Medicina interna</td><td>MedQA</td><td>curado</td><td>3</td><td>100.00%</td><td>3/3</td><td>Negligencia: 0 · Anamnesis incompleta: 0 · Razonamiento clínico: 0</td><td>—</td><td>Correcto</td><td>Correcto</td></tr>
+<tr><td>PED-007</td><td>Pediatría</td><td>MedQA</td><td>curado</td><td>4</td><td>100.00%</td><td>3/3</td><td>Negligencia: 0 · Anamnesis incompleta: 0 · Razonamiento clínico: 0</td><td>—</td><td>Correcto</td><td>Correcto</td></tr>
+<tr><td>PED-010</td><td>Pediatría</td><td>MedQA</td><td>curado</td><td>4</td><td>100.00%</td><td>5/5</td><td>Negligencia: 0 · Anamnesis incompleta: 0 · Razonamiento clínico: 0</td><td>—</td><td>Correcto</td><td>Correcto</td></tr></tbody>
+                </table>
+              </div>
+            </section>
+            
+            <section class="panel" id="validated">
+              <div class="section-heading">
+                <div>
+                  <h2>Casos validados</h2>
+                  <p>resultados_casos_validados.json</p>
+                </div>
+                <span class="badge">0 casos</span>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead><tr>
+                    <th>Caso</th><th>Especialidad</th><th>Fuente</th><th>Estado</th>
+                    <th>Turnos</th><th>Puntaje</th><th>Preguntas</th><th>Errores</th>
+                    <th>Alertas</th><th>Roles/evidencia</th><th>Signos vitales</th>
+                  </tr></thead>
+                  <tbody><tr><td colspan="11" class="empty">No existe <code>resultados_casos_validados.json</code>; ejecuta la prueba correspondiente.</td></tr></tbody>
+                </table>
+              </div>
+            </section>
+            
+            <section class="panel" id="clinical">
+              <div class="section-heading">
+                <div>
+                  <h2>Prueba clínica anterior</h2>
+                  <p>resultados_motor_clinico.json</p>
+                </div>
+                <span class="badge">0 casos</span>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead><tr>
+                    <th>Caso</th><th>Especialidad</th><th>Fuente</th><th>Estado</th>
+                    <th>Turnos</th><th>Puntaje</th><th>Preguntas</th><th>Errores</th>
+                    <th>Alertas</th><th>Roles/evidencia</th><th>Signos vitales</th>
+                  </tr></thead>
+                  <tbody><tr><td colspan="11" class="empty">No existe <code>resultados_motor_clinico.json</code>; ejecuta la prueba correspondiente.</td></tr></tbody>
+                </table>
+              </div>
+            </section>
+            
+  </main>
+</body>
+</html>
