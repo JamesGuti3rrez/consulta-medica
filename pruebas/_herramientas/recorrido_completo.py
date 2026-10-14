@@ -160,13 +160,13 @@ def main() -> None:
                  "node pruebas/_herramientas/capturar_frontend.cjs pruebas/04_frontend/capturas",
                  "04_frontend/ejecucion/01_capturar_frontend.png")
         ejecutar("Fase 15", "hoja de evaluación y alerta de seguridad en el navegador",
-                 f"node pruebas/15_integracion_motor_clinico/probar_evaluacion.cjs parcial {CIERRE}/capturas",
+                 f"node pruebas/15_integracion_motor_clinico/probar_evaluacion.cjs parcial pruebas/{CIERRE}/capturas",
                  f"{CIERRE}/04_fase15_hoja_evaluacion.png")
         ejecutar("Fase 17", "probar otro caso y cerrar el simulador",
-                 f"node pruebas/17_otro_caso/probar_otro_caso.cjs {CIERRE}/capturas",
+                 f"node pruebas/17_otro_caso/probar_otro_caso.cjs pruebas/{CIERRE}/capturas",
                  f"{CIERRE}/05_fase17_otro_caso.png")
         ejecutar("Fase 19", "aviso de privacidad y aceptación al crear cuenta",
-                 f"node pruebas/19_aviso_privacidad/probar_aviso.cjs {CIERRE}/capturas",
+                 f"node pruebas/19_aviso_privacidad/probar_aviso.cjs pruebas/{CIERRE}/capturas",
                  f"{CIERRE}/06_fase19_aviso_privacidad.png")
     finally:
         server.terminate()
