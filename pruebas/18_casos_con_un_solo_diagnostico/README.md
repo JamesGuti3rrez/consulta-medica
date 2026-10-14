@@ -111,6 +111,24 @@ Con eso, la paciente responde completo: «Me siento con ánimo para cuidar al be
 siento triste...» y «Tenía reglas regulares antes del embarazo. Nunca tuve cefalea persistente ni problemas
 de la vista».
 
+### Intento 3: el índice local del RAG no tenía los datos nuevos
+
+La batería usa la recuperación directa del caso, igual que el sitio publicado. Pero en un equipo con el
+índice LightRAG construido (`data/indexes/lightrag/`), el servidor busca los datos en ese índice, que se
+había armado antes de completar los casos. Al pedir el dosaje de factores en CIR-005, el laboratorio
+respondía «No hay evidencia adicional autorizada».
+
+Corrección: reconstruir el índice después de cambiar los casos, desde `backend/`:
+
+```powershell
+.\.venv\Scripts\python.exe -m case_preparation index
+```
+
+Con el índice nuevo (13 casos, 103 documentos), CIR-005, EME-002 y GOB-003 devuelven su dato nuevo. El
+índice no se sube a GitHub (solo `data/indexes/.gitkeep`): Vercel no lo usa y lee los datos directo del
+caso, así que el sitio publicado no tiene este problema. Cada integrante que use el RAG en su equipo debe
+reconstruir su índice.
+
 ## Observaciones
 
 - Si el estudiante pregunta de forma muy general («¿algún otro síntoma?»), el modelo puede resumir de más.
