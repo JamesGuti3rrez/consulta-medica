@@ -25,6 +25,7 @@ Todas las capturas están en **vista de escritorio/PC (1440 px de ancho)**; ning
 | 14. Motor clínico | [14_motor_clinico/](14_motor_clinico/README.md) | Trabajo de la rama `julio`: con los 13 casos curados, acceso por rol, alertas de contraindicación, signos vitales conservados y evaluación final | OK |
 | 15. Integración del motor clínico | [15_integracion_motor_clinico/](15_integracion_motor_clinico/README.md) | El motor en `main`, conectado a la API, a las sesiones y a la hoja de evaluación del simulador | OK (intento 3) |
 | 16. Historial de simulaciones | [16_historial_simulaciones/](16_historial_simulaciones/README.md) | Cada consulta de un alumno con sesión iniciada se guarda en Supabase y aparece en «Mis simulaciones»; los invitados no guardan y nadie puede quedarse con la consulta de otro | OK (intento 2) |
+| 17. Probar otro caso o cerrar | [17_otro_caso/](17_otro_caso/README.md) | La hoja de evaluación abre otro paciente de la misma especialidad sin repetir el anterior, o vuelve a la portada | OK |
 
 ## Convención de cada fase
 
