@@ -1,0 +1,34 @@
+DIRECTORIO: C:\Users\Usuario\AppData\Local\Temp\claude\c--Users-Usuario-Documents-consulta-medica\07dd223a-b8fa-4c86-868a-5395bcae0eac\scratchpad\antes\backend
+COMANDO: C:\Users\Usuario\Documents\consulta-medica\backend\.venv\Scripts\python.exe ..\pruebas\18_casos_con_un_solo_diagnostico\bateria_un_solo_diagnostico.py --local
+FECHA: 2026-10-14 09:22:02 UTC
+CODIGO_SALIDA: 1
+
+STDOUT:
+Modelo: local | casos: 13
+
+FALLA CIR-005   2 pedidos  en pie: ['Hemofilia B']
+        - diferenciales en pie al final: ['Hemofilia B']
+FALLA CIR-006   3 pedidos  en pie: ['Neumonía posoperatoria', 'Atelectasia u otra causa de hipoxemia']
+        - diferenciales en pie al final: ['Neumonía posoperatoria', 'Atelectasia u otra causa de hipoxemia']
+FALLA EME-001   3 pedidos  en pie: ['Tormenta tiroidea', 'Estado epiléptico']
+        - diferenciales en pie al final: ['Tormenta tiroidea', 'Estado epiléptico']
+FALLA EME-002   2 pedidos  en pie: ['Hemorragia intracerebral']
+        - diferenciales en pie al final: ['Hemorragia intracerebral']
+OK    EME-101  14 pedidos  diferenciales descartados 3/3  -> queda: Infarto agudo de miocardio con elevación del ST
+OK    EME-102  14 pedidos  diferenciales descartados 3/3  -> queda: Tromboembolia pulmonar aguda
+OK    EME-103  14 pedidos  diferenciales descartados 3/3  -> queda: Disección aórtica aguda tipo A
+FALLA GOB-003   3 pedidos  en pie: ['Hemorragia posparto por atonía uterina', 'Hipopituitarismo posparto (síndrome de Sheehan)', 'Retención de restos placentarios']
+        - diferenciales en pie al final: ['Hemorragia posparto por atonía uterina', 'Hipopituitarismo posparto (síndrome de Sheehan)', 'Retención de restos placentarios']
+OK    GOB-004   6 pedidos  diferenciales descartados 4/4  -> queda: Tricomoniasis vulvovaginal
+FALLA MED-008   6 pedidos  en pie: ['Otras infecciones transmitidas por garrapatas']
+        - diferenciales en pie al final: ['Otras infecciones transmitidas por garrapatas']
+OK    MED-009   3 pedidos  diferenciales descartados 4/4  -> queda: Carcinoma basocelular
+OK    PED-007   4 pedidos  diferenciales descartados 4/4  -> queda: Enfermedad de Legg-Calvé-Perthes
+OK    PED-010   4 pedidos  diferenciales descartados 4/4  -> queda: Síndrome de McCune-Albright
+
+RESUMEN: 7 de 13 casos llegan a un solo diagnóstico sin problemas
+Detalle: pruebas\18_casos_con_un_solo_diagnostico\resultados\resultados_local.json
+
+
+STDERR:
+

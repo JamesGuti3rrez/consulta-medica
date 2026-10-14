@@ -1,0 +1,1085 @@
+[
+  {
+    "case_id": "CIR-005",
+    "diagnosis": "Hemofilia A",
+    "differentials": [
+      "Hemofilia B",
+      "Enfermedad de von Willebrand",
+      "Inhibidor adquirido de factor VIII",
+      "Coagulopatía perioperatoria adquirida"
+    ],
+    "standing": [],
+    "turns": [
+      {
+        "message": "¿Alguien en su familia tiene problemas de sangrado?",
+        "agent": "paciente",
+        "evidence_ids": [
+          "CIR-005.antecedente.antecedentes_familiares"
+        ],
+        "response": "Sí, en mi familia hay antecedentes de un trastorno hemorrágico, pero no sé precisar cuál.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Solicito pruebas de coagulación",
+        "agent": "laboratorio",
+        "evidence_ids": [
+          "CIR-005.lab.coagulacion_preoperatoria",
+          "CIR-005.lab.coagulacion_posoperatoria"
+        ],
+        "response": "Tiempo de sangrado normal, tiempo de protrombina normal, INR de 1,0 y recuento de plaquetas normal. Tiempo de tromboplastina parcial prolongado.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Pido el dosaje del factor VIII y del factor IX",
+        "agent": "laboratorio",
+        "evidence_ids": [
+          "CIR-005.lab.factores_coagulacion"
+        ],
+        "response": "El factor VIII está disminuido; el factor IX es normal.",
+        "leaks": [],
+        "complements": [
+          "lab.factores_coagulacion"
+        ]
+      }
+    ],
+    "problems": []
+  },
+  {
+    "case_id": "CIR-006",
+    "diagnosis": "Sepsis posoperatoria",
+    "differentials": [
+      "Síndrome de respuesta inflamatoria sistémica no infeccioso",
+      "Embolia pulmonar posoperatoria",
+      "Atelectasia u otra causa de hipoxemia",
+      "Delirio posoperatorio por causa metabólica o farmacológica"
+    ],
+    "standing": [],
+    "turns": [
+      {
+        "message": "¿Qué enfermedades tiene?",
+        "agent": "paciente",
+        "evidence_ids": [
+          "CIR-006.antecedente.antecedentes"
+        ],
+        "response": "Tengo diabetes tipo 2 desde hace 20 años, hipertensión esencial desde hace 15 años y angina de esfuerzo desde hace 6 años.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "¿Fuma?",
+        "agent": "paciente",
+        "evidence_ids": [
+          "CIR-006.anamnesis.habitos"
+        ],
+        "response": "Sí, fumo. Tengo un historial de tabaquismo de 30 paquetes-año.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Voy a examinar a la paciente y auscultar los pulmones",
+        "agent": "medico_asistente",
+        "evidence_ids": [
+          "CIR-006.examen.exploracion_fisica"
+        ],
+        "response": "Auscultación torácica: crepitantes gruesos en la base pulmonar derecha. La herida quirúrgica cicatriza bien; el abdomen está blando y no doloroso.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Pido una radiografía de tórax",
+        "agent": "radiologia",
+        "evidence_ids": [
+          "CIR-006.imagen.radiografia_torax"
+        ],
+        "response": "Consolidación en la base pulmonar derecha con broncograma aéreo, compatible con neumonía; sin colapso lobar ni desplazamiento de cisuras.",
+        "leaks": [],
+        "complements": [
+          "imagen.radiografia_torax"
+        ]
+      },
+      {
+        "message": "Solicito un hemograma",
+        "agent": "laboratorio",
+        "evidence_ids": [
+          "CIR-006.lab.hemograma"
+        ],
+        "response": "Leucocitosis con neutrofilia.",
+        "leaks": [],
+        "complements": [
+          "lab.hemograma"
+        ]
+      }
+    ],
+    "problems": []
+  },
+  {
+    "case_id": "EME-001",
+    "diagnosis": "Golpe de calor por esfuerzo",
+    "differentials": [
+      "Síndrome neuroléptico maligno",
+      "Tormenta tiroidea",
+      "Estado epiléptico",
+      "Hipertermia maligna perioperatoria"
+    ],
+    "standing": [],
+    "turns": [
+      {
+        "message": "Pregúntele por sus antecedentes de enfermedades",
+        "agent": "paciente",
+        "evidence_ids": [
+          "EME-001.antecedente.antecedentes"
+        ],
+        "response": "Sí, tengo antecedentes de anestesia para una apendicectomía, esquizofrenia bien controlada, epilepsia, ansiedad e hipertiroidismo.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "¿Qué medicamentos toma?",
+        "agent": "paciente",
+        "evidence_ids": [
+          "EME-001.medicacion.tratamiento_habitual"
+        ],
+        "response": "Tomo haloperidol, fenitoína y propranolol.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Voy a examinar al paciente",
+        "agent": "medico_asistente",
+        "evidence_ids": [
+          "EME-001.examen.exploracion_fisica"
+        ],
+        "response": "Paciente con alteración del estado mental y escala de coma de Glasgow de 10. Tono muscular mínimo; responde de forma incoherente a las preguntas. Está cubierto de sudor y suciedad.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Solicito función tiroidea",
+        "agent": "laboratorio",
+        "evidence_ids": [
+          "EME-001.lab.funcion_tiroidea"
+        ],
+        "response": "TSH y tiroxina libre dentro del rango normal.",
+        "leaks": [],
+        "complements": [
+          "lab.funcion_tiroidea"
+        ]
+      },
+      {
+        "message": "Pido un electroencefalograma",
+        "agent": "laboratorio",
+        "evidence_ids": [
+          "EME-001.estudio.electroencefalograma"
+        ],
+        "response": "Sin actividad epileptiforme; enlentecimiento difuso propio de una encefalopatía.",
+        "leaks": [],
+        "complements": [
+          "estudio.electroencefalograma"
+        ]
+      }
+    ],
+    "problems": []
+  },
+  {
+    "case_id": "EME-002",
+    "diagnosis": "Hemorragia subaracnoidea",
+    "differentials": [
+      "Meningitis o meningoencefalitis",
+      "Hemorragia intracerebral",
+      "Trombosis venosa cerebral",
+      "Crisis epiléptica"
+    ],
+    "standing": [],
+    "turns": [
+      {
+        "message": "¿Tiene alguna enfermedad?",
+        "agent": "paciente",
+        "evidence_ids": [
+          "EME-002.antecedente.antecedentes"
+        ],
+        "response": "Sí, tengo hipertensión arterial.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Voy a realizar la exploración física",
+        "agent": "medico_asistente",
+        "evidence_ids": [
+          "EME-002.examen.exploracion_fisica"
+        ],
+        "response": "Ante estímulos dolorosos abre los ojos y gime, y señala el punto donde se le aplica el estímulo. Presenta rigidez de nuca.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Solicito una tomografía de cráneo sin contraste",
+        "agent": "radiologia",
+        "evidence_ids": [
+          "EME-002.imagen.tomografia_craneo"
+        ],
+        "response": "Sangre en el espacio subaracnoideo de las cisternas basales y los surcos, sin hematoma intraparenquimatoso.",
+        "leaks": [],
+        "complements": [
+          "imagen.tomografia_craneo"
+        ]
+      }
+    ],
+    "problems": []
+  },
+  {
+    "case_id": "EME-101",
+    "diagnosis": "Infarto agudo de miocardio con elevación del ST",
+    "differentials": [
+      "Tromboembolia pulmonar aguda",
+      "Disección aórtica aguda tipo A",
+      "Pericarditis aguda"
+    ],
+    "standing": [],
+    "turns": [
+      {
+        "message": "¿Cómo es el dolor? Descríbalo, por favor",
+        "agent": "paciente",
+        "evidence_ids": [
+          "EME-101.anamnesis.caracteristicas_dolor"
+        ],
+        "response": "Es un dolor opresivo, como un peso en el centro del pecho, que se va al brazo izquierdo y a la mandíbula. No cambia al respirar, al moverse ni al inclinarse hacia adelante. Lo califico con 8 de 10.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Pregúntele cuándo empezó y cómo ha evolucionado",
+        "agent": "paciente",
+        "evidence_ids": [
+          "EME-101.anamnesis.inicio_evolucion"
+        ],
+        "response": "Empecé hace unas 2 horas subiendo las escaleras de mi casa cargando bolsas. No se me quitó al sentarme. La semana pasada tuve molestias parecidas al caminar rápido, que se me pasaban en pocos minutos al descansar.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "¿Tiene algún otro síntoma?",
+        "agent": "paciente",
+        "evidence_ids": [
+          "EME-101.sintoma.sintomas_acompanantes"
+        ],
+        "response": "Sí, he tenido sudor frío, náuseas y un poco de falta de aire desde que empezó el dolor. No he tenido tos, fiebre ni desmayos.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Pregúntele por sus antecedentes de enfermedades",
+        "agent": "paciente",
+        "evidence_ids": [
+          "EME-101.antecedente.antecedentes"
+        ],
+        "response": "Sí, tengo antecedentes de diabetes tipo 2 desde hace 8 años y hipertensión arterial. También me dijeron que tengo colesterol alto, pero no lo he tratado. No he sido operado y no he estado en cama en las últimas semanas.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "¿Toma algún medicamento?",
+        "agent": "paciente",
+        "evidence_ids": [
+          "EME-101.medicacion.tratamiento_habitual"
+        ],
+        "response": "Sí, estoy tomando metformina 850 mg dos veces al día y enalapril 10 mg al día.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "¿Tiene alergias?",
+        "agent": "paciente",
+        "evidence_ids": [
+          "EME-101.antecedente.alergias"
+        ],
+        "response": "No, no tengo alergias conocidas a medicamentos.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "¿Fuma? ¿Ha hecho algún viaje reciente?",
+        "agent": "paciente",
+        "evidence_ids": [
+          "EME-101.antecedente.habitos"
+        ],
+        "response": "Sí, fumo una cajetilla al día desde hace 30 años. No he hecho viajes largos recientemente.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "¿Alguien en su familia ha tenido problemas del corazón?",
+        "agent": "paciente",
+        "evidence_ids": [
+          "EME-101.antecedente.antecedentes_familiares"
+        ],
+        "response": "Sí, mi padre murió de un ataque al corazón cuando tenía 60 años.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Voy a realizar la exploración física completa",
+        "agent": "medico_asistente",
+        "evidence_ids": [
+          "EME-101.examen.exploracion_fisica"
+        ],
+        "response": "Paciente pálido y sudoroso. Ruidos cardiacos rítmicos, sin soplos ni roce. Pulmones con murmullo vesicular normal, sin crepitantes. Pulsos radiales simétricos; presión arterial 146/90 mmHg en el brazo derecho y 148/92 mmHg en el izquierdo. Piernas sin edema y pantorrillas no dolorosas.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Pido un electrocardiograma de 12 derivaciones",
+        "agent": "laboratorio",
+        "evidence_ids": [
+          "EME-101.estudio.electrocardiograma"
+        ],
+        "response": "Ritmo sinusal a 96/min. Elevación del segmento ST de 3 mm en II, III y aVF, con descenso del ST en I y aVL.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Solicito troponina",
+        "agent": "laboratorio",
+        "evidence_ids": [
+          "EME-101.lab.troponina"
+        ],
+        "response": "Troponina I ultrasensible: 2850 ng/L (valor de referencia < 26 ng/L); por encima del rango normal.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Solicito dímero D",
+        "agent": "laboratorio",
+        "evidence_ids": [
+          "EME-101.lab.dimero_d"
+        ],
+        "response": "Dímero D: 420 ng/mL (valor de referencia < 500 ng/mL); dentro del rango normal.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Pido una radiografía de tórax",
+        "agent": "radiologia",
+        "evidence_ids": [
+          "EME-101.imagen.radiografia_torax"
+        ],
+        "response": "Silueta cardiaca y mediastino de tamaño normal. Campos pulmonares sin infiltrados ni derrame. Sin neumotórax.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Solicito una angiotomografía de tórax",
+        "agent": "radiologia",
+        "evidence_ids": [
+          "EME-101.imagen.angiotomografia_torax"
+        ],
+        "response": "Arterias pulmonares sin defectos de llenado. Aorta de calibre normal, sin colgajo intimal.",
+        "leaks": [],
+        "complements": []
+      }
+    ],
+    "problems": []
+  },
+  {
+    "case_id": "EME-102",
+    "diagnosis": "Tromboembolia pulmonar aguda",
+    "differentials": [
+      "Infarto agudo de miocardio con elevación del ST",
+      "Disección aórtica aguda tipo A",
+      "Pericarditis aguda"
+    ],
+    "standing": [],
+    "turns": [
+      {
+        "message": "¿Cómo es el dolor? Descríbalo, por favor",
+        "agent": "paciente",
+        "evidence_ids": [
+          "EME-102.anamnesis.caracteristicas_dolor"
+        ],
+        "response": "Es un dolor punzante en el lado derecho del pecho. Empeora cuando respiro hondo o toso. No se irradia al brazo ni a la espalda, y no cambia al inclinarme hacia adelante. Lo califico con 6 de 10.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Pregúntele cuándo empezó y cómo ha evolucionado",
+        "agent": "paciente",
+        "evidence_ids": [
+          "EME-102.anamnesis.inicio_evolucion"
+        ],
+        "response": "Empezó de golpe hace unas 2 horas, cuando me levanté de la cama para ir al baño. Desde entonces el dolor no se ha ido y me cuesta respirar, incluso cuando estoy sentado.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "¿Tiene algún otro síntoma?",
+        "agent": "paciente",
+        "evidence_ids": [
+          "EME-102.sintoma.sintomas_acompanantes"
+        ],
+        "response": "Sí, me falta aire desde que empezó, tengo tos seca y esta mañana escupí una flema con hilos de sangre. No he tenido fiebre ni sudor frío.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Pregúntele por sus antecedentes de enfermedades",
+        "agent": "paciente",
+        "evidence_ids": [
+          "EME-102.antecedente.antecedentes"
+        ],
+        "response": "Sí, tengo antecedentes. Tengo cáncer de próstata que estoy tratando con terapia hormonal desde hace un año y también tengo hipertensión arterial. No tengo diabetes.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "¿Toma algún medicamento?",
+        "agent": "paciente",
+        "evidence_ids": [
+          "EME-102.medicacion.tratamiento_habitual"
+        ],
+        "response": "Sí, me dan leuprolida cada 3 meses y losartán 50 mg al día.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "¿Tiene alergias?",
+        "agent": "paciente",
+        "evidence_ids": [
+          "EME-102.antecedente.alergias"
+        ],
+        "response": "Sí, soy alérgico a la penicilina. Cuando me la han dado antes, me salieron ronchas en todo el cuerpo.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "¿Fuma? ¿Ha hecho algún viaje reciente?",
+        "agent": "paciente",
+        "evidence_ids": [
+          "EME-102.antecedente.habitos"
+        ],
+        "response": "No fumo. Hace cinco días regresé de un viaje en bus de 20 horas desde Cusco y casi no me levanté del asiento.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "¿Alguien en su familia ha tenido problemas del corazón?",
+        "agent": "paciente",
+        "evidence_ids": [
+          "EME-102.antecedente.antecedentes_familiares"
+        ],
+        "response": "No, no sé de enfermedades del corazón en mi familia.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Voy a realizar la exploración física completa",
+        "agent": "medico_asistente",
+        "evidence_ids": [
+          "EME-102.examen.exploracion_fisica"
+        ],
+        "response": "Paciente ansioso, respira rápido. Ruidos cardiacos rítmicos y rápidos, sin soplos ni roce; el segundo ruido pulmonar está aumentado. Pulmones con murmullo vesicular conservado, sin crepitantes. Pulsos simétricos y presión arterial igual en ambos brazos. Pantorrilla derecha hinchada, 3 cm más gruesa que la izquierda, caliente y dolorosa a la palpación.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Pido un electrocardiograma de 12 derivaciones",
+        "agent": "laboratorio",
+        "evidence_ids": [
+          "EME-102.estudio.electrocardiograma"
+        ],
+        "response": "Taquicardia sinusal a 112/min. Onda S profunda en I, onda Q y onda T negativa en III, y ondas T negativas de V1 a V3. Sin elevación del segmento ST.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Solicito troponina",
+        "agent": "laboratorio",
+        "evidence_ids": [
+          "EME-102.lab.troponina"
+        ],
+        "response": "Troponina I ultrasensible: 38 ng/L (valor de referencia < 26 ng/L); por encima del rango normal.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Solicito dímero D",
+        "agent": "laboratorio",
+        "evidence_ids": [
+          "EME-102.lab.dimero_d"
+        ],
+        "response": "Dímero D: 3200 ng/mL (valor de referencia < 500 ng/mL); por encima del rango normal.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Pido una radiografía de tórax",
+        "agent": "radiologia",
+        "evidence_ids": [
+          "EME-102.imagen.radiografia_torax"
+        ],
+        "response": "Sin infiltrados ni derrame pleural importante. Silueta cardiaca y mediastino de tamaño normal.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Solicito una angiotomografía de tórax",
+        "agent": "radiologia",
+        "evidence_ids": [
+          "EME-102.imagen.angiotomografia_torax"
+        ],
+        "response": "Defectos de llenado en la arteria pulmonar principal derecha que se extienden a las ramas lobares media e inferior. Relación entre ventrículo derecho e izquierdo de 1,1. Aorta de calibre normal, sin colgajo intimal.",
+        "leaks": [],
+        "complements": []
+      }
+    ],
+    "problems": []
+  },
+  {
+    "case_id": "EME-103",
+    "diagnosis": "Disección aórtica aguda tipo A",
+    "differentials": [
+      "Infarto agudo de miocardio con elevación del ST",
+      "Tromboembolia pulmonar aguda",
+      "Pericarditis aguda"
+    ],
+    "standing": [],
+    "turns": [
+      {
+        "message": "¿Cómo es el dolor? Descríbalo, por favor",
+        "agent": "paciente",
+        "evidence_ids": [
+          "EME-103.anamnesis.caracteristicas_dolor"
+        ],
+        "response": "Es el peor dolor de mi vida, como si algo se me desgarrara por dentro. Empezó en el centro del pecho y ahora lo siento entre los omóplatos. No cambia al respirar ni al inclinarme hacia adelante. Lo califico con 10 de 10.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Pregúntele cuándo empezó y cómo ha evolucionado",
+        "agent": "paciente",
+        "evidence_ids": [
+          "EME-103.anamnesis.inicio_evolucion"
+        ],
+        "response": "Empezó de golpe hace unas 2 horas, mientras cargaba un costal en el mercado. Desde entonces el dolor se ha ido corriendo hacia la espalda.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "¿Tiene algún otro síntoma?",
+        "agent": "paciente",
+        "evidence_ids": [
+          "EME-103.sintoma.sintomas_acompanantes"
+        ],
+        "response": "Sí, al principio sentí que me iba a desmayar y estuve mareado unos minutos. También tuve sudor frío. No tengo tos ni fiebre.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Pregúntele por sus antecedentes de enfermedades",
+        "agent": "paciente",
+        "evidence_ids": [
+          "EME-103.antecedente.antecedentes"
+        ],
+        "response": "Sí, llevo hipertensión arterial desde hace 15 años y está mal controlada. No me han operado.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "¿Toma algún medicamento?",
+        "agent": "paciente",
+        "evidence_ids": [
+          "EME-103.medicacion.tratamiento_habitual"
+        ],
+        "response": "No, no estoy tomando nada. Dejé el amlodipino 10 mg al día hace 4 meses.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "¿Tiene alergias?",
+        "agent": "paciente",
+        "evidence_ids": [
+          "EME-103.antecedente.alergias"
+        ],
+        "response": "No, no tengo alergias conocidas a medicamentos.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "¿Fuma? ¿Ha hecho algún viaje reciente?",
+        "agent": "paciente",
+        "evidence_ids": [
+          "EME-103.antecedente.habitos"
+        ],
+        "response": "Sí, fumo 10 cigarrillos al día. No he hecho viajes recientes.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "¿Alguien en su familia ha tenido problemas del corazón?",
+        "agent": "paciente",
+        "evidence_ids": [
+          "EME-103.antecedente.antecedentes_familiares"
+        ],
+        "response": "No, no recuerdo que haya tenido problemas del corazón en mi familia.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Voy a realizar la exploración física completa",
+        "agent": "medico_asistente",
+        "evidence_ids": [
+          "EME-103.examen.exploracion_fisica"
+        ],
+        "response": "Paciente sudoroso y muy angustiado por el dolor. Presión arterial 174/98 mmHg en el brazo derecho y 132/80 mmHg en el izquierdo; pulso radial izquierdo más débil que el derecho. Soplo diastólico suave en el borde esternal izquierdo. Pulmones sin crepitantes. Piernas sin edema y pantorrillas no dolorosas.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Pido un electrocardiograma de 12 derivaciones",
+        "agent": "laboratorio",
+        "evidence_ids": [
+          "EME-103.estudio.electrocardiograma"
+        ],
+        "response": "Ritmo sinusal a 104/min con signos de crecimiento del ventrículo izquierdo. Sin elevación ni descenso del segmento ST.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Solicito troponina",
+        "agent": "laboratorio",
+        "evidence_ids": [
+          "EME-103.lab.troponina"
+        ],
+        "response": "Troponina I ultrasensible: 18 ng/L (valor de referencia < 26 ng/L); dentro del rango normal.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Solicito dímero D",
+        "agent": "laboratorio",
+        "evidence_ids": [
+          "EME-103.lab.dimero_d"
+        ],
+        "response": "Dímero D: 2400 ng/mL (valor de referencia < 500 ng/mL); por encima del rango normal.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Pido una radiografía de tórax",
+        "agent": "radiologia",
+        "evidence_ids": [
+          "EME-103.imagen.radiografia_torax"
+        ],
+        "response": "Mediastino ensanchado, de 8,5 cm a la altura del botón aórtico, con contorno aórtico irregular. Campos pulmonares sin infiltrados.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Solicito una angiotomografía de tórax",
+        "agent": "radiologia",
+        "evidence_ids": [
+          "EME-103.imagen.angiotomografia_torax"
+        ],
+        "response": "Colgajo intimal que se origina en la aorta ascendente, 2 cm por encima de la válvula aórtica, y se extiende por el arco hasta la aorta descendente, con una luz verdadera y una luz falsa. Arterias pulmonares sin defectos de llenado.",
+        "leaks": [],
+        "complements": []
+      }
+    ],
+    "problems": []
+  },
+  {
+    "case_id": "GOB-003",
+    "diagnosis": "Infarto hipofisario posparto (síndrome de Sheehan)",
+    "differentials": [
+      "Retención de restos placentarios",
+      "Tristeza puerperal",
+      "Tumor hipofisario",
+      "Hipofisitis posparto"
+    ],
+    "standing": [],
+    "turns": [
+      {
+        "message": "¿Cómo fue el parto?",
+        "agent": "paciente",
+        "evidence_ids": [
+          "GOB-003.antecedente.evolucion_parto",
+          "GOB-003.antecedente.antecedentes_menstruales"
+        ],
+        "response": "El parto fue a término. El recién nacido obtuvo un Apgar de 9 al minuto y de 10 a los 5 minutos. Media hora después del parto le administraron líquidos y sangre por la vena.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Voy a tomar los signos vitales",
+        "agent": "medico_asistente",
+        "evidence_ids": [
+          "GOB-003.vital.signos_vitales"
+        ],
+        "response": "A los 30 minutos del parto: presión arterial de 80/60 mmHg y pulso de 124/min. Tras 4 unidades de líquidos intravenosos y 4 unidades de sangre total, los signos vitales se estabilizaron.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Voy a realizar la exploración física",
+        "agent": "medico_asistente",
+        "evidence_ids": [
+          "GOB-003.examen.exploracion_fisica"
+        ],
+        "response": "Exploración registrada a los 30 minutos del parto: extremidades distales frías y húmedas; útero blando (atónico).",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "¿Cómo está de ánimo? ¿Se ha sentido triste?",
+        "agent": "paciente",
+        "evidence_ids": [
+          "GOB-003.sintoma.estado_de_animo"
+        ],
+        "response": "Me siento con ánimo para cuidar al bebé y quiero amamantar. No me siento triste, ni lloro ni ansío.",
+        "leaks": [],
+        "complements": [
+          "sintoma.estado_de_animo"
+        ]
+      },
+      {
+        "message": "¿Cómo eran sus reglas antes del embarazo? ¿Tenía dolores de cabeza o problemas de la vista?",
+        "agent": "paciente",
+        "evidence_ids": [
+          "GOB-003.antecedente.evolucion_parto",
+          "GOB-003.antecedente.antecedentes_menstruales"
+        ],
+        "response": "Tenía reglas regulares antes del embarazo. Nunca tuve cefalea persistente ni problemas de la vista.",
+        "leaks": [],
+        "complements": [
+          "antecedente.antecedentes_menstruales"
+        ]
+      },
+      {
+        "message": "Solicito una prolactina sérica",
+        "agent": "laboratorio",
+        "evidence_ids": [
+          "GOB-003.lab.prolactina"
+        ],
+        "response": "Prolactina baja para el puerperio.",
+        "leaks": [],
+        "complements": [
+          "lab.prolactina"
+        ]
+      }
+    ],
+    "problems": []
+  },
+  {
+    "case_id": "GOB-004",
+    "diagnosis": "Tricomoniasis vulvovaginal",
+    "differentials": [
+      "Enfermedad pélvica inflamatoria",
+      "Cervicitis por gonorrea o clamidia",
+      "Vaginosis bacteriana",
+      "Candidiasis vulvovaginal"
+    ],
+    "standing": [],
+    "turns": [
+      {
+        "message": "¿Tiene algún otro síntoma?",
+        "agent": "paciente",
+        "evidence_ids": [
+          "GOB-004.sintoma.sintomas_asociados"
+        ],
+        "response": "Sí, me duele durante las relaciones sexuales y, a veces, después de orinar.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Pregúntele por sus antecedentes de enfermedades",
+        "agent": "paciente",
+        "evidence_ids": [
+          "GOB-004.antecedente.antecedentes"
+        ],
+        "response": "No, no tengo antecedentes de enfermedades.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "¿Toma algún medicamento?",
+        "agent": "paciente",
+        "evidence_ids": [
+          "GOB-004.medicacion.tratamiento_habitual"
+        ],
+        "response": "Sí, tomo anticonceptivos orales y un multivitamínico a diario.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "¿Cuántas parejas sexuales ha tenido? ¿Usa preservativo?",
+        "agent": "paciente",
+        "evidence_ids": [
+          "GOB-004.anamnesis.vida_sexual"
+        ],
+        "response": "He tenido dos parejas sexuales masculinas y uso preservativo de forma irregular.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Voy a realizar el examen ginecológico",
+        "agent": "medico_asistente",
+        "evidence_ids": [
+          "GOB-004.examen.exploracion_fisica"
+        ],
+        "response": "Eritema vulvovaginal y cuello uterino en fresa, doloroso a la movilización, con escaso flujo verde-amarillento maloliente.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Mido el pH vaginal",
+        "agent": "laboratorio",
+        "evidence_ids": [
+          "GOB-004.lab.ph_vaginal"
+        ],
+        "response": "El pH vaginal medido es 5,8.",
+        "leaks": [],
+        "complements": []
+      }
+    ],
+    "problems": []
+  },
+  {
+    "case_id": "MED-008",
+    "diagnosis": "Enfermedad de Lyme con eritema migrans",
+    "differentials": [
+      "Celulitis bacteriana",
+      "Reacción local a picadura",
+      "Otras infecciones transmitidas por garrapatas"
+    ],
+    "standing": [],
+    "turns": [
+      {
+        "message": "Pregúntele desde cuándo empezó y cómo ha evolucionado",
+        "agent": "paciente",
+        "evidence_ids": [
+          "MED-008.sintoma.evolucion"
+        ],
+        "response": "Empecé hace tres días con una pequeña lesión en la espalda, parecida a una picadura. Dos días antes tuve fiebre de 39,4 °C y ardor cada vez más intenso en la zona. El bulto se convirtió en una erupción circular. El día anterior me sentí agotada, pero trabajé. Hoy me desperté muy enferma, con dolores articulares punzantes, fiebre alta y sed excesiva.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "¿Ha tomado algún medicamento?",
+        "agent": "paciente",
+        "evidence_ids": [
+          "MED-008.medicacion.tratamiento_previo"
+        ],
+        "response": "Sí, tomé ibuprofeno de venta libre para el dolor intenso y poder dormir.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Pregúntele por sus antecedentes de enfermedades",
+        "agent": "paciente",
+        "evidence_ids": [
+          "MED-008.antecedente.antecedentes"
+        ],
+        "response": "No, salvo una anafilaxia al tomar una tetraciclina.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "¿Tiene alergias?",
+        "agent": "paciente",
+        "evidence_ids": [
+          "MED-008.antecedente.alergias"
+        ],
+        "response": "Sí, soy alérgica a las tetraciclinas. No tengo alergias alimentarias ni por inhalación.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "¿Ha hecho alguna actividad al aire libre o algún viaje?",
+        "agent": "paciente",
+        "evidence_ids": [
+          "MED-008.anamnesis.exposicion"
+        ],
+        "response": "Sí, hace tres semanas fui a caminar por el bosque. No he viajado a ningún otro lugar.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Voy a examinar a la paciente",
+        "agent": "medico_asistente",
+        "evidence_ids": [
+          "MED-008.examen.exploracion_fisica"
+        ],
+        "response": "Erupción roja, circular y grande, con aspecto en diana (17 × 19 cm de diámetro), en la espalda. El resto de la exploración física no muestra hallazgos.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Solicito un hemograma y perfil hepático",
+        "agent": "laboratorio",
+        "evidence_ids": [
+          "MED-008.lab.hemograma_bioquimica"
+        ],
+        "response": "Leucocitos y plaquetas normales; transaminasas normales.",
+        "leaks": [],
+        "complements": [
+          "lab.hemograma_bioquimica"
+        ]
+      }
+    ],
+    "problems": []
+  },
+  {
+    "case_id": "MED-009",
+    "diagnosis": "Carcinoma basocelular",
+    "differentials": [
+      "Carcinoma escamocelular",
+      "Carcinoma sebáceo palpebral",
+      "Queratoacantoma",
+      "Chalazión persistente"
+    ],
+    "standing": [],
+    "turns": [
+      {
+        "message": "Voy a examinar al paciente",
+        "agent": "medico_asistente",
+        "evidence_ids": [
+          "MED-009.examen.exploracion_fisica"
+        ],
+        "response": "En el párpado hay una pápula de 0,5 cm, rosada y de aspecto perlado, con bordes enrollados y telangiectasias en la superficie.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "¿Desde cuándo tiene esa lesión?",
+        "agent": "paciente",
+        "evidence_ids": [
+          "MED-009.sintoma.evolucion"
+        ],
+        "response": "Hace unos 6 meses.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "¿Ha trabajado al sol? ¿Usa protector solar?",
+        "agent": "paciente",
+        "evidence_ids": [
+          "MED-009.anamnesis.exposicion_solar"
+        ],
+        "response": "Sí, trabajé como vendedor puerta a puerta, pasé mucho tiempo al aire libre y no usaba protector solar.",
+        "leaks": [],
+        "complements": []
+      }
+    ],
+    "problems": []
+  },
+  {
+    "case_id": "PED-007",
+    "diagnosis": "Enfermedad de Legg-Calvé-Perthes",
+    "differentials": [
+      "Artritis séptica",
+      "Epifisiólisis de la cabeza femoral",
+      "Osteomielitis",
+      "Artritis idiopática juvenil"
+    ],
+    "standing": [],
+    "turns": [
+      {
+        "message": "¿Dónde le duele?",
+        "agent": "paciente",
+        "evidence_ids": [
+          "PED-007.sintoma.dolor"
+        ],
+        "response": "Me duele la rodilla izquierda.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Pregúntele por sus antecedentes y su desarrollo",
+        "agent": "paciente",
+        "evidence_ids": [
+          "PED-007.antecedente.antecedentes"
+        ],
+        "response": "Estoy bien nutrido y cumplo todos los hitos del desarrollo.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Voy a examinar al niño",
+        "agent": "medico_asistente",
+        "evidence_ids": [
+          "PED-007.examen.exploracion_fisica"
+        ],
+        "response": "La rodilla tiene rango de movimiento completo; la movilización pasiva provoca dolor en la cadera izquierda.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Pido una radiografía de cadera",
+        "agent": "radiologia",
+        "evidence_ids": [
+          "PED-007.imagen.radiografia"
+        ],
+        "response": "La radiografía muestra una cabeza femoral izquierda aplanada.",
+        "leaks": [],
+        "complements": []
+      }
+    ],
+    "problems": []
+  },
+  {
+    "case_id": "PED-010",
+    "diagnosis": "Síndrome de McCune-Albright",
+    "differentials": [
+      "Neurofibromatosis tipo 1",
+      "Síndrome de Peutz-Jeghers",
+      "Displasia fibrosa ósea no sindrómica",
+      "Otras causas de pubertad precoz periférica"
+    ],
+    "standing": [],
+    "turns": [
+      {
+        "message": "Voy a examinar a la niña",
+        "agent": "medico_asistente",
+        "evidence_ids": [
+          "PED-010.examen.desarrollo_mamario",
+          "PED-010.examen.manchas_piel"
+        ],
+        "response": "Se encuentra desarrollo mamario. Se encuentran manchas café con leche en la piel.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Solicito función tiroidea",
+        "agent": "laboratorio",
+        "evidence_ids": [
+          "PED-010.lab.funcion_tiroidea"
+        ],
+        "response": "La fuente describe a la vez hipotiroidismo e hipertiroidismo, sin más detalle.",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Pido una radiografía de los huesos",
+        "agent": "radiologia",
+        "evidence_ids": [
+          "PED-010.imagen.imagen_osea"
+        ],
+        "response": "Muestra crecimiento fibroso del hueso (displasia fibrosa).",
+        "leaks": [],
+        "complements": []
+      },
+      {
+        "message": "Solicito la edad ósea",
+        "agent": "radiologia",
+        "evidence_ids": [
+          "PED-010.imagen.imagen_osea",
+          "PED-010.imagen.edad_osea"
+        ],
+        "response": "La edad ósea se interpreta como de 9 años.",
+        "leaks": [],
+        "complements": []
+      }
+    ],
+    "problems": []
+  }
+]
