@@ -95,7 +95,7 @@ def get_service() -> MultiAgentSessionService:
     if settings.rag_service_url:
         retriever = HttpRetriever(settings.rag_service_url, token=settings.rag_http_token)
     elif settings.rag_embedded_enabled:
-        embedded = EmbeddedRAGRetriever(settings.rag_index_dir, settings.rag_log_path)
+        embedded = EmbeddedRAGRetriever(settings.rag_index_dir, settings.rag_log_path, repository=repository)
         retriever = embedded if embedded.ready else CaseEvidenceRetriever(repository)
     else:
         retriever = CaseEvidenceRetriever(repository)
