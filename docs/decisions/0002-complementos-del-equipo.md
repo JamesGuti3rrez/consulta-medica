@@ -10,7 +10,7 @@ Las preguntas de MedQA piden el diagnóstico «más probable»: el enunciado tra
 pero no siempre lo que excluye las otras opciones. En el simulador eso deja al estudiante con dos o más
 diagnósticos posibles aunque pida todos los datos del caso. Al revisar los 13 casos curados, 10 de los 48
 diagnósticos diferenciales no tenían ningún dato que los descartara, en 6 casos (CIR-005, CIR-006,
-EME-001, EME-002, GOB-003 y MED-008).
+EME-001, EME-002, GOB-003 y MED-007).
 
 Además, en dos casos la lista de diferenciales tenía errores propios, no de falta de datos:
 

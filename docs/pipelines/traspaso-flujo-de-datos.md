@@ -42,7 +42,7 @@ del contrato de indexado del RAG (Julio) y la regla R14 los comprueba. El repart
 conserva en `protected` para verificar que no se pierda ni se invente ningún dato.
 
 Para quien implemente el diálogo: en EME-001, EME-002 y CIR-006 el paciente no puede contestar y en
-PED-007 y PED-010 es un menor; el rol `paciente` representa al acompañante o a la historia clínica.
+PED-009 y PED-010 es un menor; el rol `paciente` representa al acompañante o a la historia clínica.
 
 ## Idea de funcionamiento recogida (pendiente de decidir)
 
