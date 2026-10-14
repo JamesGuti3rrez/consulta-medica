@@ -20,7 +20,7 @@ puede descartar hipótesis.
 
 | Regla | Qué exige | Por qué |
 | --- | --- | --- |
-| R15 | Cada diferencial cita al menos un dato que lo descarta. | Si una hipótesis no se puede descartar, el caso no sirve para practicar el descarte. En MedQA solo 29 de 39 lo tenían. |
+| R15 | Cada diferencial cita al menos un dato que lo descarta. | Si una hipótesis no se puede descartar, el caso no sirve para practicar el descarte. Desde la decisión 0002 se aplica también a todo caso de MedQA curado (antes, 10 de 48 diferenciales no tenían descarte; ver `pruebas/18_casos_con_un_solo_diagnostico/`). |
 | R16 | Los datos que descartan están en `on_request`. | Si fueran visibles desde el inicio, el estudiante descartaría sin preguntar. |
 | R17 | `source.item_id` tiene la forma `familia/diagnostico`. | Para agrupar la familia. |
 | R18 | Los casos de una familia comparten el motivo de consulta y cada uno tiene como diferenciales los diagnósticos de los demás. | Es la definición de la familia. |
