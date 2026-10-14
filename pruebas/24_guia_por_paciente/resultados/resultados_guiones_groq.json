@@ -1,0 +1,1361 @@
+{
+  "EME-101": {
+    "turnos": [
+      {
+        "tipo": "preguntar",
+        "pedido": "¿Cómo es el dolor? Descríbalo, por favor",
+        "agente": "paciente",
+        "medico_tratante": "¿Cómo es el dolor? Descríbalo, por favor.",
+        "respuesta": "Es un dolor opresivo, como un peso en el centro del pecho, que se va al brazo izquierdo y a la mandíbula. No cambia al respirar, al moverse ni al inclinarse hacia adelante. Lo califico con 8 de 10.",
+        "evidencia": [
+          "EME-101.anamnesis.caracteristicas_dolor"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Pregúntele cuándo empezó y cómo ha evolucionado",
+        "agente": "paciente",
+        "medico_tratante": "¿Cuándo empezó y cómo ha evolucionado?",
+        "respuesta": "Empecé hace unas 2 horas subiendo las escaleras de mi casa cargando bolsas. No se me quitó al sentarme. La semana pasada tuve molestias parecidas al caminar rápido, que se me pasaban en pocos minutos al descansar.",
+        "evidencia": [
+          "EME-101.anamnesis.inicio_evolucion"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "¿Tiene algún otro síntoma?",
+        "agente": "paciente",
+        "medico_tratante": "¿Tiene algún otro síntoma, por favor?",
+        "respuesta": "Sí, tengo sudor frío y náuseas desde que empezó el dolor, y un poco de falta de aire. No he tenido tos, fiebre ni desmayos.",
+        "evidencia": [
+          "EME-101.sintoma.sintomas_acompanantes"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Pregúntele por sus antecedentes de enfermedades",
+        "agente": "paciente",
+        "medico_tratante": "¿Tiene antecedentes de enfermedades?",
+        "respuesta": "Sí, tengo diabetes tipo 2 desde hace 8 años e hipertensión arterial. También me dijeron que tengo colesterol alto, pero no lo estoy tratando.",
+        "evidencia": [
+          "EME-101.antecedente.antecedentes"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "¿Toma algún medicamento?",
+        "agente": "paciente",
+        "medico_tratante": "¿Está tomando algún medicamento?",
+        "respuesta": "Sí, estoy tomando metformina 850 mg dos veces al día y enalapril 10 mg al día.",
+        "evidencia": [
+          "EME-101.medicacion.tratamiento_habitual"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "¿Tiene alergias?",
+        "agente": "paciente",
+        "medico_tratante": "¿Tiene alergias?",
+        "respuesta": "No, no tengo alergias conocidas a medicamentos.",
+        "evidencia": [
+          "EME-101.antecedente.alergias"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "¿Fuma? ¿Ha hecho algún viaje reciente?",
+        "agente": "paciente",
+        "medico_tratante": "¿Fuma? ¿Ha hecho algún viaje reciente?",
+        "respuesta": "Sí, fumo una cajetilla al día desde hace 30 años. No he hecho viajes largos recientemente.",
+        "evidencia": [
+          "EME-101.antecedente.habitos"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "¿Alguien en su familia ha tenido problemas del corazón?",
+        "agente": "paciente",
+        "medico_tratante": "¿Algún familiar ha tenido problemas del corazón?",
+        "respuesta": "Sí, mi padre murió de un ataque al corazón a los 60 años.",
+        "evidencia": [
+          "EME-101.antecedente.antecedentes_familiares"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Voy a realizar la exploración física completa",
+        "agente": "medico_asistente",
+        "medico_tratante": null,
+        "respuesta": "Paciente pálido y sudoroso. Ruidos cardiacos rítmicos, sin soplos ni roce. Pulmones con murmullo vesicular normal, sin crepitantes. Pulsos radiales simétricos; presión arterial 146/90 mmHg en el brazo derecho y 148/92 mmHg en el izquierdo. Piernas sin edema y pantorrillas no dolorosas.",
+        "evidencia": [
+          "EME-101.examen.exploracion_fisica"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Pido un electrocardiograma de 12 derivaciones",
+        "agente": "laboratorio",
+        "medico_tratante": null,
+        "respuesta": "Ritmo sinusal a 96/min. Elevación del segmento ST de 3 mm en II, III y aVF, con descenso del ST en I y aVL.",
+        "evidencia": [
+          "EME-101.estudio.electrocardiograma"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Solicito troponina",
+        "agente": "laboratorio",
+        "medico_tratante": null,
+        "respuesta": "Troponina I ultrasensible: 2850 ng/L (valor de referencia < 26 ng/L); por encima del rango normal.",
+        "evidencia": [
+          "EME-101.lab.troponina"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Solicito dímero D",
+        "agente": "laboratorio",
+        "medico_tratante": null,
+        "respuesta": "Dímero D: 420 ng/mL (valor de referencia < 500 ng/mL); dentro del rango normal.",
+        "evidencia": [
+          "EME-101.lab.dimero_d"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Pido una radiografía de tórax",
+        "agente": "radiologia",
+        "medico_tratante": null,
+        "respuesta": "Silueta cardiaca y mediastino de tamaño normal. Campos pulmonares sin infiltrados ni derrame. Sin neumotórax.",
+        "evidencia": [
+          "EME-101.imagen.radiografia_torax"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Solicito una angiotomografía de tórax",
+        "agente": "radiologia",
+        "medico_tratante": null,
+        "respuesta": "Arterias pulmonares sin defectos de llenado. Aorta de calibre normal, sin colgajo intimal.",
+        "evidencia": [
+          "EME-101.imagen.angiotomografia_torax"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "¿Qué tiene el paciente? Dígame el diagnóstico",
+        "agente": "medico_asistente",
+        "medico_tratante": null,
+        "respuesta": "Anotamos su pregunta. Por favor continúe con la recolección de datos.",
+        "evidencia": [],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "¿Le duele la cabeza?",
+        "agente": "paciente",
+        "medico_tratante": "¿Tiene dolor de cabeza?",
+        "respuesta": "No.",
+        "evidencia": [],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "Pido una ecografía abdominal",
+        "agente": "radiologia",
+        "medico_tratante": null,
+        "respuesta": "¿Qué estudio de imagen desea solicitar? Indíqueme cuál, por ejemplo una radiografía o una tomografía y de qué zona.",
+        "evidencia": [],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "Solicito un hemograma",
+        "agente": "laboratorio",
+        "medico_tratante": null,
+        "respuesta": "Ese examen no se realizó en este paciente.",
+        "evidencia": [],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "Le doy morfina y lo mando a casa",
+        "agente": "medico_asistente",
+        "medico_tratante": null,
+        "respuesta": "Anotado. Se revisará al cerrar la consulta. Continúe recopilando datos.",
+        "evidencia": [],
+        "problemas": []
+      }
+    ],
+    "fallos": 0
+  },
+  "EME-102": {
+    "turnos": [
+      {
+        "tipo": "preguntar",
+        "pedido": "¿Cómo es el dolor? Descríbalo, por favor",
+        "agente": "paciente",
+        "medico_tratante": "¿Cómo es el dolor? Descríbalo, por favor.",
+        "respuesta": "Es un dolor punzante en el lado derecho del pecho. Empeora cuando respiro hondo o tosa. No se irradia al brazo ni a la espalda y no cambia al inclinarme hacia adelante. Lo califico con 6 de 10.",
+        "evidencia": [
+          "EME-102.anamnesis.caracteristicas_dolor"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Pregúntele cuándo empezó y cómo ha evolucionado",
+        "agente": "paciente",
+        "medico_tratante": "¿Cuándo empezó y cómo ha evolucionado?",
+        "respuesta": "Empezó de golpe hace unas 2 horas, cuando me levanté de la cama para ir al baño. Desde entonces el dolor no se ha ido y me cuesta respirar, incluso cuando estoy sentado.",
+        "evidencia": [
+          "EME-102.anamnesis.inicio_evolucion"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "¿Tiene algún otro síntoma?",
+        "agente": "paciente",
+        "medico_tratante": "¿Tiene algún otro síntoma?",
+        "respuesta": "Sí, he tenido falta de aire desde que empezó el dolor y tos seca. Esta mañana escupí una flema con hilos de sangre. No he tenido fiebre ni sudor frío.",
+        "evidencia": [
+          "EME-102.sintoma.sintomas_acompanantes"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Pregúntele por sus antecedentes de enfermedades",
+        "agente": "paciente",
+        "medico_tratante": "¿Tiene antecedentes de enfermedades?",
+        "respuesta": "Sí, tengo antecedentes de cáncer de próstata que estoy tratando con terapia hormonal desde hace un año, y también tengo hipertensión arterial. No tengo diabetes.",
+        "evidencia": [
+          "EME-102.antecedente.antecedentes"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "¿Toma algún medicamento?",
+        "agente": "paciente",
+        "medico_tratante": "¿Está tomando algún medicamento?",
+        "respuesta": "Sí, estoy tomando leuprolida inyectable cada 3 meses y losartán 50 mg al día.",
+        "evidencia": [
+          "EME-102.medicacion.tratamiento_habitual"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "¿Tiene alergias?",
+        "agente": "paciente",
+        "medico_tratante": "¿Tiene alergias?",
+        "respuesta": "Sí, soy alérgico a la penicilina. Cuando me la han dado antes, me salieron ronchas en todo el cuerpo.",
+        "evidencia": [
+          "EME-102.antecedente.alergias"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "¿Fuma? ¿Ha hecho algún viaje reciente?",
+        "agente": "paciente",
+        "medico_tratante": "¿Fuma? ¿Ha hecho algún viaje reciente?",
+        "respuesta": "No fumo. Hace cinco días regresé de un viaje en bus de 20 horas desde Cusco y casi no me levanté del asiento.",
+        "evidencia": [
+          "EME-102.antecedente.habitos"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "¿Alguien en su familia ha tenido problemas del corazón?",
+        "agente": "paciente",
+        "medico_tratante": "¿Algún familiar ha tenido problemas del corazón?",
+        "respuesta": "No, no sé de enfermedades del corazón en mi familia.",
+        "evidencia": [
+          "EME-102.antecedente.antecedentes_familiares"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Voy a realizar la exploración física completa",
+        "agente": "medico_asistente",
+        "medico_tratante": null,
+        "respuesta": "Paciente ansioso, respira rápido. Ruidos cardiacos rítmicos y rápidos, sin soplos ni roce; el segundo ruido pulmonar está aumentado. Pulmones con murmullo vesicular conservado, sin crepitantes. Pulsos simétricos y presión arterial igual en ambos brazos. Pantorrilla derecha hinchada, 3 cm más gruesa que la izquierda, caliente y dolorosa a la palpación.",
+        "evidencia": [
+          "EME-102.examen.exploracion_fisica"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Pido un electrocardiograma de 12 derivaciones",
+        "agente": "laboratorio",
+        "medico_tratante": null,
+        "respuesta": "Taquicardia sinusal a 112/min. Onda S profunda en I, onda Q y onda T negativa en III, y ondas T negativas de V1 a V3. Sin elevación del segmento ST.",
+        "evidencia": [
+          "EME-102.estudio.electrocardiograma"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Solicito troponina",
+        "agente": "laboratorio",
+        "medico_tratante": null,
+        "respuesta": "Troponina I ultrasensible: 38 ng/L (valor de referencia < 26 ng/L); por encima del rango normal.",
+        "evidencia": [
+          "EME-102.lab.troponina"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Solicito dímero D",
+        "agente": "laboratorio",
+        "medico_tratante": null,
+        "respuesta": "Dímero D: 3200 ng/mL (valor de referencia < 500 ng/mL); por encima del rango normal.",
+        "evidencia": [
+          "EME-102.lab.dimero_d"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Pido una radiografía de tórax",
+        "agente": "radiologia",
+        "medico_tratante": null,
+        "respuesta": "Sin infiltrados ni derrame pleural importante. Silueta cardiaca y mediastino de tamaño normal.",
+        "evidencia": [
+          "EME-102.imagen.radiografia_torax"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Solicito una angiotomografía de tórax",
+        "agente": "radiologia",
+        "medico_tratante": null,
+        "respuesta": "Defectos de llenado en la arteria pulmonar principal derecha que se extienden a las ramas lobares media e inferior. Relación entre ventrículo derecho e izquierdo de 1,1. Aorta de calibre normal, sin colgajo intimal.",
+        "evidencia": [
+          "EME-102.imagen.angiotomografia_torax"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "¿Qué tiene el paciente? Dígame el diagnóstico",
+        "agente": "medico_asistente",
+        "medico_tratante": null,
+        "respuesta": "Anotamos su pregunta. Para llegar al diagnóstico, continúe recopilando datos con más preguntas, exploración o exámenes.",
+        "evidencia": [],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "¿Le duele la cabeza?",
+        "agente": "paciente",
+        "medico_tratante": "¿Tiene dolor de cabeza?",
+        "respuesta": "No.",
+        "evidencia": [],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "Pido una ecografía abdominal",
+        "agente": "radiologia",
+        "medico_tratante": null,
+        "respuesta": "¿Qué estudio de imagen desea solicitar? Indíqueme cuál, por ejemplo una radiografía o una tomografía y de qué zona.",
+        "evidencia": [],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "Solicito un hemograma",
+        "agente": "laboratorio",
+        "medico_tratante": null,
+        "respuesta": "Ese examen no se realizó en este paciente.",
+        "evidencia": [],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "Le indico amoxicilina",
+        "agente": "medico_asistente",
+        "medico_tratante": null,
+        "respuesta": "Anotado. Se revisará al cerrar la consulta. Continúe recopilando datos.",
+        "evidencia": [],
+        "problemas": []
+      }
+    ],
+    "fallos": 0
+  },
+  "EME-103": {
+    "turnos": [
+      {
+        "tipo": "preguntar",
+        "pedido": "¿Cómo es el dolor? Descríbalo, por favor",
+        "agente": "paciente",
+        "medico_tratante": "¿Cómo es el dolor? Descríbalo, por favor.",
+        "respuesta": "Es el peor dolor de mi vida, como si algo se me desgarrara por dentro. Empezó en el centro del pecho y ahora lo siento entre los omóplatos. No cambia al respirar ni al inclinarme hacia adelante. Lo califico con 10 de 10.",
+        "evidencia": [
+          "EME-103.anamnesis.caracteristicas_dolor"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Pregúntele cuándo empezó y cómo ha evolucionado",
+        "agente": "paciente",
+        "medico_tratante": "¿Cuándo empezó y cómo ha evolucionado?",
+        "respuesta": "Empezó de golpe hace unas 2 horas, mientras cargaba un costal en el mercado. Desde entonces el dolor se ha ido corriendo hacia la espalda.",
+        "evidencia": [
+          "EME-103.anamnesis.inicio_evolucion"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "¿Tiene algún otro síntoma?",
+        "agente": "paciente",
+        "medico_tratante": "¿Ha tenido algún otro síntoma?",
+        "respuesta": "Sí, al principio sentí que me iba a desmayar y estuve mareado unos minutos. También tuve sudor frío. No tuve tos ni fiebre.",
+        "evidencia": [
+          "EME-103.sintoma.sintomas_acompanantes"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Pregúntele por sus antecedentes de enfermedades",
+        "agente": "paciente",
+        "medico_tratante": "¿Tiene antecedentes de enfermedades?",
+        "respuesta": "Sí, llevo hipertensión arterial desde hace 15 años y no la he operado.",
+        "evidencia": [
+          "EME-103.antecedente.antecedentes"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "¿Toma algún medicamento?",
+        "agente": "paciente",
+        "medico_tratante": "¿Está tomando algún medicamento?",
+        "respuesta": "No, ya no tomo nada. Dejé el amlodipino 10 mg al día hace 4 meses.",
+        "evidencia": [
+          "EME-103.medicacion.tratamiento_habitual"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "¿Tiene alergias?",
+        "agente": "paciente",
+        "medico_tratante": "¿Tiene alergias?",
+        "respuesta": "No, no tengo alergias conocidas a medicamentos.",
+        "evidencia": [
+          "EME-103.antecedente.alergias"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "¿Fuma? ¿Ha hecho algún viaje reciente?",
+        "agente": "paciente",
+        "medico_tratante": "¿Fuma? ¿Ha hecho algún viaje reciente?",
+        "respuesta": "Sí, fumo 10 cigarrillos al día. No he hecho viajes recientes.",
+        "evidencia": [
+          "EME-103.antecedente.habitos"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "¿Alguien en su familia ha tenido problemas del corazón?",
+        "agente": "paciente",
+        "medico_tratante": "¿Algún familiar suyo ha tenido problemas cardíacos?",
+        "respuesta": "No, no recuerdo que haya tenido problemas cardíacos en mi familia.",
+        "evidencia": [
+          "EME-103.antecedente.antecedentes_familiares"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Voy a realizar la exploración física completa",
+        "agente": "medico_asistente",
+        "medico_tratante": null,
+        "respuesta": "Paciente sudoroso y muy angustiado por el dolor. Presión arterial 174/98 mmHg en el brazo derecho y 132/80 mmHg en el izquierdo; pulso radial izquierdo más débil que el derecho. Soplo diastólico suave en el borde esternal izquierdo. Pulmones sin crepitantes. Piernas sin edema y pantorrillas no dolorosas.",
+        "evidencia": [
+          "EME-103.examen.exploracion_fisica"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Pido un electrocardiograma de 12 derivaciones",
+        "agente": "laboratorio",
+        "medico_tratante": null,
+        "respuesta": "Ritmo sinusal a 104/min con signos de crecimiento del ventrículo izquierdo. Sin elevación ni descenso del segmento ST.",
+        "evidencia": [
+          "EME-103.estudio.electrocardiograma"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Solicito troponina",
+        "agente": "laboratorio",
+        "medico_tratante": null,
+        "respuesta": "Troponina I ultrasensible: 18 ng/L (valor de referencia < 26 ng/L); dentro del rango normal.",
+        "evidencia": [
+          "EME-103.lab.troponina"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Solicito dímero D",
+        "agente": "laboratorio",
+        "medico_tratante": null,
+        "respuesta": "Dímero D: 2400 ng/mL (valor de referencia < 500 ng/mL); por encima del rango normal.",
+        "evidencia": [
+          "EME-103.lab.dimero_d"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Pido una radiografía de tórax",
+        "agente": "radiologia",
+        "medico_tratante": null,
+        "respuesta": "Mediastino ensanchado, de 8,5 cm a la altura del botón aórtico, con contorno aórtico irregular. Campos pulmonares sin infiltrados.",
+        "evidencia": [
+          "EME-103.imagen.radiografia_torax"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Solicito una angiotomografía de tórax",
+        "agente": "radiologia",
+        "medico_tratante": null,
+        "respuesta": "Colgajo intimal que se origina en la aorta ascendente, 2 cm por encima de la válvula aórtica, y se extiende por el arco hasta la aorta descendente, con una luz verdadera y una luz falsa. Arterias pulmonares sin defectos de llenado.",
+        "evidencia": [
+          "EME-103.imagen.angiotomografia_torax"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "¿Qué tiene el paciente? Dígame el diagnóstico",
+        "agente": "medico_asistente",
+        "medico_tratante": null,
+        "respuesta": "Anotado, revisaremos al cerrar la consulta. Por favor, continúe recopilando datos.",
+        "evidencia": [],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "¿Le duele la cabeza?",
+        "agente": "paciente",
+        "medico_tratante": "¿Tiene dolor de cabeza?",
+        "respuesta": "No.",
+        "evidencia": [],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "Pido una ecografía abdominal",
+        "agente": "radiologia",
+        "medico_tratante": null,
+        "respuesta": "¿Qué estudio de imagen desea solicitar? Indíqueme cuál, por ejemplo una radiografía o una tomografía y de qué zona.",
+        "evidencia": [],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "Solicito un hemograma",
+        "agente": "laboratorio",
+        "medico_tratante": null,
+        "respuesta": "Ese examen no se realizó en este paciente.",
+        "evidencia": [],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "Le indico aspirina y heparina",
+        "agente": "medico_asistente",
+        "medico_tratante": null,
+        "respuesta": "Anotado. Continúe recopilando datos clínicos y de laboratorio para seguir evaluando la situación.",
+        "evidencia": [],
+        "problemas": []
+      }
+    ],
+    "fallos": 0
+  },
+  "EME-001": {
+    "turnos": [
+      {
+        "tipo": "preguntar",
+        "pedido": "Pregúntele por sus antecedentes de enfermedades",
+        "agente": "paciente",
+        "medico_tratante": "¿Tiene antecedentes de enfermedades?",
+        "respuesta": "Sí, hace varios meses tuve anestesia para una apendicectomía. También tengo esquizofrenia bien controlada, epilepsia, ansiedad e hipertiroidismo.",
+        "evidencia": [
+          "EME-001.antecedente.antecedentes"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "¿Qué medicamentos toma?",
+        "agente": "paciente",
+        "medico_tratante": "¿Qué medicamentos toma?",
+        "respuesta": "Tomo haloperidol para la esquizofrenia, fenitoína para la epilepsia y propranolol para la ansiedad y el hipertiroidismo.",
+        "evidencia": [
+          "EME-001.medicacion.tratamiento_habitual"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Voy a examinar al paciente",
+        "agente": "medico_asistente",
+        "medico_tratante": null,
+        "respuesta": "Paciente con alteración del estado mental y escala de coma de Glasgow de 10. Tono muscular mínimo; responde de forma incoherente a las preguntas. Está cubierto de sudor y suciedad.",
+        "evidencia": [
+          "EME-001.examen.exploracion_fisica"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Solicito función tiroidea",
+        "agente": "laboratorio",
+        "medico_tratante": null,
+        "respuesta": "TSH y tiroxina libre dentro del rango normal.",
+        "evidencia": [
+          "EME-001.lab.funcion_tiroidea"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Pido un electroencefalograma",
+        "agente": "laboratorio",
+        "medico_tratante": null,
+        "respuesta": "Sin actividad epileptiforme; enlentecimiento difuso propio de una encefalopatía.",
+        "evidencia": [
+          "EME-001.estudio.electroencefalograma"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "¿Tiene alergias?",
+        "agente": "paciente",
+        "medico_tratante": "¿Tiene alergias?",
+        "respuesta": "No, no tengo alergias.",
+        "evidencia": [],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "Solicito un hemograma",
+        "agente": "laboratorio",
+        "medico_tratante": null,
+        "respuesta": "Ese examen no se realizó en este paciente.",
+        "evidencia": [],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "Le doy paracetamol para la fiebre",
+        "agente": "medico_asistente",
+        "medico_tratante": null,
+        "respuesta": "Anotamos su propuesta de administrar paracetamol para la fiebre. Se revisará al cerrar la consulta. Por favor continúe recopilando datos.",
+        "evidencia": [],
+        "problemas": []
+      }
+    ],
+    "fallos": 0
+  },
+  "EME-002": {
+    "turnos": [
+      {
+        "tipo": "preguntar",
+        "pedido": "¿Tiene alguna enfermedad?",
+        "agente": "paciente",
+        "medico_tratante": "¿Tiene alguna enfermedad?",
+        "respuesta": "Sí, tengo hipertensión arterial.",
+        "evidencia": [
+          "EME-002.antecedente.antecedentes"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Voy a realizar la exploración física",
+        "agente": "medico_asistente",
+        "medico_tratante": null,
+        "respuesta": "Ante estímulos dolorosos abre los ojos y gime, y señala el punto donde se le aplica el estímulo. Presenta rigidez de nuca.",
+        "evidencia": [
+          "EME-002.examen.exploracion_fisica"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Solicito una tomografía de cráneo sin contraste",
+        "agente": "radiologia",
+        "medico_tratante": null,
+        "respuesta": "Sangre en el espacio subaracnoideo de las cisternas basales y los surcos, sin hematoma intraparenquimatoso.",
+        "evidencia": [
+          "EME-002.imagen.tomografia_craneo"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "¿Ha tenido fiebre antes de hoy?",
+        "agente": "paciente",
+        "medico_tratante": "¿Ha tenido fiebre antes de hoy?",
+        "respuesta": "No.",
+        "evidencia": [],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "Pido una resonancia magnética",
+        "agente": "radiologia",
+        "medico_tratante": null,
+        "respuesta": "¿Qué estudio de imagen desea solicitar? Indíqueme cuál, por ejemplo una radiografía o una tomografía y de qué zona.",
+        "evidencia": [],
+        "problemas": []
+      }
+    ],
+    "fallos": 0
+  },
+  "CIR-005": {
+    "turnos": [
+      {
+        "tipo": "preguntar",
+        "pedido": "¿Alguien en su familia tiene problemas de sangrado?",
+        "agente": "paciente",
+        "medico_tratante": "¿Algún familiar tiene problemas de sangrado?",
+        "respuesta": "Sí, en mi familia hay antecedentes de un trastorno hemorrágico, aunque no sé precisar cuál.",
+        "evidencia": [
+          "CIR-005.antecedente.antecedentes_familiares"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Solicito pruebas de coagulación",
+        "agente": "laboratorio",
+        "medico_tratante": null,
+        "respuesta": "Tiempo de sangrado normal, tiempo de protrombina normal, INR de 1,0 y recuento de plaquetas normal. Tiempo de tromboplastina parcial prolongado.",
+        "evidencia": [
+          "CIR-005.lab.coagulacion_preoperatoria",
+          "CIR-005.lab.coagulacion_posoperatoria"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Pido el dosaje del factor VIII y del factor IX",
+        "agente": "laboratorio",
+        "medico_tratante": null,
+        "respuesta": "El factor VIII está disminuido; el factor IX es normal.",
+        "evidencia": [
+          "CIR-005.lab.factores_coagulacion"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "¿Toma algún medicamento?",
+        "agente": "paciente",
+        "medico_tratante": "¿Está tomando algún medicamento?",
+        "respuesta": "No.",
+        "evidencia": [],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "Pido una tomografía de abdomen",
+        "agente": "radiologia",
+        "medico_tratante": null,
+        "respuesta": "Ese estudio no se realizó en este paciente.",
+        "evidencia": [],
+        "problemas": []
+      }
+    ],
+    "fallos": 0
+  },
+  "CIR-006": {
+    "turnos": [
+      {
+        "tipo": "preguntar",
+        "pedido": "¿Qué enfermedades tiene?",
+        "agente": "paciente",
+        "medico_tratante": "¿Qué enfermedades tiene usted?",
+        "respuesta": "Tengo diabetes tipo 2 desde hace 20 años, hipertensión esencial desde hace 15 años y angina de esfuerzo desde hace 6 años.",
+        "evidencia": [
+          "CIR-006.antecedente.antecedentes"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "¿Fuma?",
+        "agente": "paciente",
+        "medico_tratante": "¿Fuma usted?",
+        "respuesta": "Sí, fumo. He fumado 30 paquetes‑año.",
+        "evidencia": [
+          "CIR-006.anamnesis.habitos"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Voy a examinar a la paciente y auscultar los pulmones",
+        "agente": "medico_asistente",
+        "medico_tratante": null,
+        "respuesta": "Auscultación torácica: crepitantes gruesos en la base pulmonar derecha. La herida quirúrgica cicatriza bien; el abdomen está blando y no doloroso.",
+        "evidencia": [
+          "CIR-006.examen.exploracion_fisica"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Pido una radiografía de tórax",
+        "agente": "radiologia",
+        "medico_tratante": null,
+        "respuesta": "Consolidación en la base pulmonar derecha con broncograma aéreo, compatible con neumonía; sin colapso lobar ni desplazamiento de cisuras.",
+        "evidencia": [
+          "CIR-006.imagen.radiografia_torax"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Solicito un hemograma",
+        "agente": "laboratorio",
+        "medico_tratante": null,
+        "respuesta": "Leucocitosis con neutrofilia.",
+        "evidencia": [
+          "CIR-006.lab.hemograma"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "¿Le duele la herida?",
+        "agente": "paciente",
+        "medico_tratante": "¿Le duele la herida?",
+        "respuesta": "No.",
+        "evidencia": [],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "Pido una tomografía de abdomen",
+        "agente": "radiologia",
+        "medico_tratante": null,
+        "respuesta": "Ese estudio no se realizó en este paciente.",
+        "evidencia": [],
+        "problemas": []
+      }
+    ],
+    "fallos": 0
+  },
+  "GOB-003": {
+    "turnos": [
+      {
+        "tipo": "preguntar",
+        "pedido": "¿Cómo fue el parto?",
+        "agente": "paciente",
+        "medico_tratante": "¿Cómo fue el parto?",
+        "respuesta": "El parto fue a término. El recién nacido obtuvo un Apgar de 9 al minuto y de 10 a los 5 minutos. Media hora después del parto me administraron líquidos y sangre por la vena.",
+        "evidencia": [
+          "GOB-003.antecedente.evolucion_parto"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Voy a tomar los signos vitales",
+        "agente": "medico_asistente",
+        "medico_tratante": null,
+        "respuesta": "A los 30 minutos del parto: presión arterial de 80/60 mmHg y pulso de 124/min. Tras 4 unidades de líquidos intravenosos y 4 unidades de sangre total, los signos vitales se estabilizaron.",
+        "evidencia": [
+          "GOB-003.vital.signos_vitales"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Voy a realizar la exploración física",
+        "agente": "medico_asistente",
+        "medico_tratante": null,
+        "respuesta": "Exploración registrada a los 30 minutos del parto: extremidades distales frías y húmedas; útero blando (atónico).",
+        "evidencia": [
+          "GOB-003.examen.exploracion_fisica"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "¿Cómo está de ánimo? ¿Se ha sentido triste?",
+        "agente": "paciente",
+        "medico_tratante": "¿Cómo está de ánimo? ¿Se ha sentido triste?",
+        "respuesta": "Me siento con ánimo para cuidar al bebé y quiero amamantar. No me siento triste, ni lloro ni ansío.",
+        "evidencia": [
+          "GOB-003.sintoma.estado_de_animo"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "¿Qué antecedentes tenía antes del embarazo? ¿Reglas irregulares, dolores de cabeza o problemas de la vista?",
+        "agente": "paciente",
+        "medico_tratante": "¿Qué antecedentes tenía antes del embarazo, como reglas irregulares, dolores de cabeza o problemas de la vista?",
+        "respuesta": "Antes del embarazo tenía reglas regulares, nunca tuve cefalea persistente ni problemas de la vista.",
+        "evidencia": [
+          "GOB-003.antecedente.antecedentes_menstruales"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Solicito una prolactina sérica",
+        "agente": "laboratorio",
+        "medico_tratante": null,
+        "respuesta": "Prolactina baja para el puerperio.",
+        "evidencia": [
+          "GOB-003.lab.prolactina"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "¿Tiene fiebre?",
+        "agente": "paciente",
+        "medico_tratante": "¿Tiene fiebre?",
+        "respuesta": "No.",
+        "evidencia": [],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "Solicito hormonas tiroideas",
+        "agente": "laboratorio",
+        "medico_tratante": null,
+        "respuesta": "Ese examen no se realizó en este paciente.",
+        "evidencia": [],
+        "problemas": []
+      }
+    ],
+    "fallos": 0
+  },
+  "GOB-004": {
+    "turnos": [
+      {
+        "tipo": "preguntar",
+        "pedido": "¿Tiene algún otro síntoma?",
+        "agente": "paciente",
+        "medico_tratante": "¿Ha tenido algún otro síntoma?",
+        "respuesta": "Sí, he tenido dolor durante las relaciones sexuales y, a veces, después de orinar.",
+        "evidencia": [
+          "GOB-004.sintoma.sintomas_asociados"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Pregúntele por sus antecedentes de enfermedades",
+        "agente": "paciente",
+        "medico_tratante": "¿Tiene antecedentes de enfermedades?",
+        "respuesta": "No, no tengo antecedentes de enfermedades.",
+        "evidencia": [
+          "GOB-004.antecedente.antecedentes"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "¿Toma algún medicamento?",
+        "agente": "paciente",
+        "medico_tratante": "¿Está tomando algún medicamento?",
+        "respuesta": "Sí, tomo anticonceptivos orales y un multivitamínico a diario.",
+        "evidencia": [
+          "GOB-004.medicacion.tratamiento_habitual"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "¿Cuántas parejas sexuales ha tenido? ¿Usa preservativo?",
+        "agente": "paciente",
+        "medico_tratante": "¿Cuántas parejas sexuales ha tenido? ¿Usa preservativo?",
+        "respuesta": "He tenido dos parejas sexuales masculinas en mi vida y uso preservativo de forma irregular.",
+        "evidencia": [
+          "GOB-004.anamnesis.vida_sexual"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Voy a realizar el examen ginecológico",
+        "agente": "medico_asistente",
+        "medico_tratante": null,
+        "respuesta": "Eritema vulvovaginal y cuello uterino en fresa, doloroso a la movilización, con escaso flujo verde-amarillento maloliente.",
+        "evidencia": [
+          "GOB-004.examen.exploracion_fisica"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Mido el pH vaginal",
+        "agente": "laboratorio",
+        "medico_tratante": null,
+        "respuesta": "El pH vaginal medido es 5,8.",
+        "evidencia": [
+          "GOB-004.lab.ph_vaginal"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "¿Ha tenido tos?",
+        "agente": "paciente",
+        "medico_tratante": "¿Ha tenido tos?",
+        "respuesta": "No.",
+        "evidencia": [],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "Pido una ecografía pélvica",
+        "agente": "radiologia",
+        "medico_tratante": null,
+        "respuesta": "¿Qué estudio de imagen desea solicitar? Indíqueme cuál, por ejemplo una radiografía o una tomografía y de qué zona.",
+        "evidencia": [],
+        "problemas": []
+      }
+    ],
+    "fallos": 0
+  },
+  "MED-007": {
+    "turnos": [
+      {
+        "tipo": "preguntar",
+        "pedido": "Pregúntele desde cuándo empezó y cómo ha evolucionado",
+        "agente": "paciente",
+        "medico_tratante": "¿Desde cuándo empezó y cómo ha evolucionado?",
+        "respuesta": "Empecé hace tres días con una lesión pequeña en la espalda, algo elevada, parecida a una picadura de araña o insecto. Dos días después tuve fiebre de 39,4 °C y una sensación de ardor cada vez más intensa en la zona. Un familiar vio que el bulto se había convertido en una erupción circular. El día anterior me sentí agotada, pero completé una jornada laboral normal. Hoy desperté muy enferma, con dolores articulares punzantes, fiebre alta y sed excesiva.",
+        "evidencia": [
+          "MED-007.sintoma.evolucion"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "¿Ha tomado algún medicamento?",
+        "agente": "paciente",
+        "medico_tratante": "¿Ha tomado algún medicamento?",
+        "respuesta": "Sí, tomé ibuprofeno de venta libre para el dolor intenso y poder dormir.",
+        "evidencia": [
+          "MED-007.medicacion.tratamiento_previo"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Pregúntele por sus antecedentes de enfermedades",
+        "agente": "paciente",
+        "medico_tratante": "¿Tiene antecedentes de enfermedades?",
+        "respuesta": "No, salvo una anafilaxia al tomar una tetraciclina.",
+        "evidencia": [
+          "MED-007.antecedente.antecedentes"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "¿Tiene alergias?",
+        "agente": "paciente",
+        "medico_tratante": "¿Tiene alergias?",
+        "respuesta": "Sí, soy alérgica a las tetraciclinas. No tengo alergias alimentarias ni por inhalación.",
+        "evidencia": [
+          "MED-007.antecedente.alergias"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "¿Ha hecho alguna actividad al aire libre o algún viaje?",
+        "agente": "paciente",
+        "medico_tratante": "¿Ha hecho alguna actividad al aire libre o ha viajado recientemente?",
+        "respuesta": "Sí, hace tres semanas fui a caminar por el bosque. No he viajado a ningún otro lugar.",
+        "evidencia": [
+          "MED-007.anamnesis.exposicion"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Voy a examinar a la paciente",
+        "agente": "medico_asistente",
+        "medico_tratante": null,
+        "respuesta": "Erupción roja, circular y grande, con aspecto en diana (17 × 19 cm de diámetro), en la espalda. El resto de la exploración física no muestra hallazgos.",
+        "evidencia": [
+          "MED-007.examen.exploracion_fisica"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Solicito un hemograma y perfil hepático",
+        "agente": "laboratorio",
+        "medico_tratante": null,
+        "respuesta": "Leucocitos y plaquetas normales; transaminasas normales.",
+        "evidencia": [
+          "MED-007.lab.hemograma_bioquimica"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "¿Tiene tos?",
+        "agente": "paciente",
+        "medico_tratante": "¿Tiene tos?",
+        "respuesta": "No.",
+        "evidencia": [],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "Le indico doxiciclina",
+        "agente": "medico_asistente",
+        "medico_tratante": null,
+        "respuesta": "Anotamos la indicación de doxiciclina. Se revisará al cerrar la consulta. Continúe recopilando datos.",
+        "evidencia": [],
+        "problemas": []
+      }
+    ],
+    "fallos": 0
+  },
+  "MED-008": {
+    "turnos": [
+      {
+        "tipo": "preguntar",
+        "pedido": "Voy a examinar al paciente",
+        "agente": "medico_asistente",
+        "medico_tratante": null,
+        "respuesta": "En el párpado hay una pápula de 0,5 cm, rosada y de aspecto perlado, con bordes enrollados y telangiectasias en la superficie.",
+        "evidencia": [
+          "MED-008.examen.exploracion_fisica"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "¿Desde cuándo tiene esa lesión?",
+        "agente": "paciente",
+        "medico_tratante": "¿Desde cuándo tiene esa lesión?",
+        "respuesta": "Hace unos 6 meses.",
+        "evidencia": [
+          "MED-008.sintoma.evolucion"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "¿Ha trabajado al sol? ¿Usa protector solar?",
+        "agente": "paciente",
+        "medico_tratante": "¿Ha trabajado al sol? ¿Usa protector solar?",
+        "respuesta": "Sí, trabajé como vendedor puerta a puerta, pasé mucho tiempo al aire libre y no usaba protector solar.",
+        "evidencia": [
+          "MED-008.anamnesis.exposicion_solar"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "¿Le duele algo?",
+        "agente": "paciente",
+        "medico_tratante": "¿Tiene algún dolor?",
+        "respuesta": "No, no tengo dolor.",
+        "evidencia": [],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "Pido una tomografía",
+        "agente": "radiologia",
+        "medico_tratante": null,
+        "respuesta": "Ese estudio no se realizó en este paciente.",
+        "evidencia": [],
+        "problemas": []
+      }
+    ],
+    "fallos": 0
+  },
+  "PED-009": {
+    "turnos": [
+      {
+        "tipo": "preguntar",
+        "pedido": "¿Dónde le duele?",
+        "agente": "paciente",
+        "medico_tratante": "¿Dónde le duele?",
+        "respuesta": "Me duele la rodilla izquierda.",
+        "evidencia": [
+          "PED-009.sintoma.dolor"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Pregúntele por sus antecedentes y su desarrollo",
+        "agente": "paciente",
+        "medico_tratante": "¿Podría contarme sus antecedentes y su desarrollo?",
+        "respuesta": "Estoy bien nutrido y cumplo todos los hitos del desarrollo.",
+        "evidencia": [
+          "PED-009.antecedente.antecedentes"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Voy a examinar al niño",
+        "agente": "medico_asistente",
+        "medico_tratante": null,
+        "respuesta": "La rodilla tiene rango de movimiento completo; la movilización pasiva provoca dolor en la cadera izquierda.",
+        "evidencia": [
+          "PED-009.examen.exploracion_fisica"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Pido una radiografía de cadera",
+        "agente": "radiologia",
+        "medico_tratante": null,
+        "respuesta": "La radiografía muestra cabeza femoral izquierda aplanada.",
+        "evidencia": [
+          "PED-009.imagen.radiografia"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "¿Ha tenido fiebre?",
+        "agente": "paciente",
+        "medico_tratante": "¿Ha tenido fiebre?",
+        "respuesta": "No, no he tenido fiebre.",
+        "evidencia": [],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "Solicito un hemograma",
+        "agente": "laboratorio",
+        "medico_tratante": null,
+        "respuesta": "Ese examen no se realizó en este paciente.",
+        "evidencia": [],
+        "problemas": []
+      }
+    ],
+    "fallos": 0
+  },
+  "PED-010": {
+    "turnos": [
+      {
+        "tipo": "preguntar",
+        "pedido": "Voy a examinar a la niña",
+        "agente": "medico_asistente",
+        "medico_tratante": null,
+        "respuesta": "Se encuentra desarrollo mamario. Se encuentran manchas café con leche en la piel.",
+        "evidencia": [
+          "PED-010.examen.desarrollo_mamario",
+          "PED-010.examen.manchas_piel"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Solicito función tiroidea",
+        "agente": "laboratorio",
+        "medico_tratante": null,
+        "respuesta": "La fuente describe a la vez hipotiroidismo e hipertiroidismo, sin más detalle.",
+        "evidencia": [
+          "PED-010.lab.funcion_tiroidea"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Pido una radiografía de los huesos",
+        "agente": "radiologia",
+        "medico_tratante": null,
+        "respuesta": "Muestra crecimiento fibroso del hueso (displasia fibrosa).",
+        "evidencia": [
+          "PED-010.imagen.imagen_osea"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "preguntar",
+        "pedido": "Solicito la edad ósea",
+        "agente": "radiologia",
+        "medico_tratante": null,
+        "respuesta": "La edad ósea se interpreta como de 9 años.",
+        "evidencia": [
+          "PED-010.imagen.edad_osea"
+        ],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "¿Tiene dolor de cabeza?",
+        "agente": "paciente",
+        "medico_tratante": "¿Tiene dolor de cabeza?",
+        "respuesta": "No.",
+        "evidencia": [],
+        "problemas": []
+      },
+      {
+        "tipo": "no preguntar",
+        "pedido": "Pido una resonancia de cerebro",
+        "agente": "radiologia",
+        "medico_tratante": null,
+        "respuesta": "¿Qué estudio de imagen desea solicitar? Indíqueme cuál, por ejemplo una radiografía o una tomografía y de qué zona.",
+        "evidencia": [],
+        "problemas": []
+      }
+    ],
+    "fallos": 0
+  }
+}
