@@ -1,0 +1,23 @@
+DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica
+COMANDO: node pruebas/17_otro_caso/probar_otro_caso.cjs pruebas/17_otro_caso/vercel
+FECHA: 2026-10-14 07:08:53 UTC
+CODIGO_SALIDA: 0
+
+STDOUT:
+ronda 1: pediatria | paciente en la ficha: Valeria Torres | mensajes del chat al empezar: 4 | URL: ?especialidad=pediatria
+ronda 2: pediatria | paciente en la ficha: Mateo Quispe | mensajes del chat al empezar: 4 | URL: ?especialidad=pediatria
+ronda 3: pediatria | paciente en la ficha: Valeria Torres | mensajes del chat al empezar: 4 | URL: ?especialidad=pediatria
+ronda 4: medicina_interna | paciente en la ficha: Patricia Vargas | mensajes del chat al empezar: 4 | URL: ?caso=MED-008
+ronda 5: medicina_interna | paciente en la ficha: Alberto Núñez | mensajes del chat al empezar: 4 | URL: ?especialidad=medicina_interna
+
+RESUMEN
+pediatría, misma especialidad en las 3 rondas: true
+pediatría, la ronda 2 es otro paciente: true
+pediatría, la ronda 3 no repite al de la ronda 2: true
+desde caso de prueba, otro paciente de la misma especialidad: true
+«Cerrar simulador» lleva a: /index.html
+errores: []
+
+
+STDERR:
+

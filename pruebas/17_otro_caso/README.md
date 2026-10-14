@@ -53,6 +53,19 @@ node pruebas/17_otro_caso/probar_otro_caso.cjs
 
 Las fotos (`.png`) se guardan en el equipo y no se suben a GitHub.
 
+## Prueba en Vercel (producción)
+
+Tras el push del commit `62afe63`, la misma prueba en `https://consulta-medica-three.vercel.app`:
+
+```powershell
+$env:BASE_URL = 'https://consulta-medica-three.vercel.app'
+node pruebas/17_otro_caso/probar_otro_caso.cjs pruebas/17_otro_caso/vercel
+```
+
+Pediatría alternó Valeria Torres, Mateo Quispe y Valeria Torres; desde `?caso=MED-008` (Patricia Vargas)
+siguió Alberto Núñez; «Cerrar simulador» llevó a `/index.html`; sin errores de consola. Evidencia:
+`vercel/03_otro_caso_vercel.txt`, `_terminal.png` y las capturas `vercel/*.png`.
+
 ## Observaciones
 
 - Las especialidades con dos casos (todas menos emergencias, que tiene cinco) alternan entre sus dos
