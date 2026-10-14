@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from uuid import uuid4
 
-from server.domain import AgentRole, SessionPhase
+from server.domain import AgentRole, Intent, SessionPhase
 from server.orchestration.store import InMemorySessionStore
 
 
@@ -21,6 +21,9 @@ class MultiAgentSessionService:
         store: InMemorySessionStore,
         local_tracer,
         langsmith_observer,
+        state_machine,
+        safety_engine,
+        evaluation_engine,
     ):
         self.graph = graph
         self.repository = repository
@@ -28,6 +31,9 @@ class MultiAgentSessionService:
         self.store = store
         self.local_tracer = local_tracer
         self.langsmith_observer = langsmith_observer
+        self.state_machine = state_machine
+        self.safety_engine = safety_engine
+        self.evaluation_engine = evaluation_engine
 
     def start(self, case_id: str) -> dict:
         case = self.repository.get_conversation_case(case_id)
@@ -37,6 +43,9 @@ class MultiAgentSessionService:
             "phase": SessionPhase.PRESENTACION.value,
             "active_agent": AgentRole.MEDICO_ASISTENTE.value,
             "revealed_evidence_ids": self.disclosure_policy.initial_evidence_ids(case),
+            "requested_evidence_ids": [],
+            "avatar_state": self.state_machine.initial_avatar_state(case),
+            "evaluation": None,
             "history": [],
             "started_at": _now(),
             "updated_at": _now(),
@@ -61,6 +70,7 @@ class MultiAgentSessionService:
         session = self.store.get(session_id)
         if session["phase"] == SessionPhase.FINALIZADA.value:
             raise ValueError("La sesión ya finalizó.")
+        self._ensure_clinical_state(session)
 
         graph_state = {
             "session_id": session_id,
@@ -74,11 +84,28 @@ class MultiAgentSessionService:
         session["phase"] = result["phase"]
         session["active_agent"] = result["active_agent"]
         session["updated_at"] = _now()
+        intent = Intent(result["route_intent"])
+        safety_alerts = self.safety_engine.evaluate_treatment(
+            case_id=session["case_id"],
+            message=student_message,
+            intent=intent,
+        )
         session["revealed_evidence_ids"] = list(
             dict.fromkeys([
                 *session["revealed_evidence_ids"],
                 *result.get("retrieved_evidence_ids", []),
             ])
+        )
+        session["requested_evidence_ids"] = list(
+            dict.fromkeys([
+                *session["requested_evidence_ids"],
+                *result.get("retrieved_evidence_ids", []),
+            ])
+        )
+        session["avatar_state"] = self.state_machine.update_avatar_state(
+            session["avatar_state"],
+            SessionPhase(session["phase"]),
+            safety_alerts,
         )
         session["history"].append({"role": "student", "text": student_message})
         if result.get("doctor_question"):
@@ -105,6 +132,7 @@ class MultiAgentSessionService:
             "evidence_ids": result.get("retrieved_evidence_ids", []),
             "blocked": result.get("blocked", False),
             "block_reason": result.get("block_reason"),
+            "safety_alerts": [alert["code"] for alert in safety_alerts],
         }
         self.store.event(session_id, event)
         self.local_tracer.record({"session_id": session_id, **event})
@@ -123,12 +151,22 @@ class MultiAgentSessionService:
             "model": result.get("model"),
             "evidence_ids": result.get("retrieved_evidence_ids", []),
             "blocked": result.get("blocked", False),
+            "safety_alerts": safety_alerts,
         }
 
     def finish(self, session_id: str) -> dict:
         session = self.store.get(session_id)
+        self._ensure_clinical_state(session)
+        session["evaluation"] = self.evaluation_engine.evaluate(
+            case_id=session["case_id"],
+            evidence_ids=session.get("requested_evidence_ids", []),
+        )
         session["phase"] = SessionPhase.FINALIZADA.value
         session["active_agent"] = AgentRole.ORCHESTRATOR.value
+        session["avatar_state"] = self.state_machine.update_avatar_state(
+            session["avatar_state"],
+            SessionPhase.FINALIZADA,
+        )
         session["updated_at"] = _now()
         session["finished_at"] = _now()
         self.store.save(session)
@@ -138,10 +176,28 @@ class MultiAgentSessionService:
     def events(self, session_id: str) -> list[dict]:
         return self.store.events(session_id)
 
+    def _ensure_clinical_state(self, session: dict) -> None:
+        if "avatar_state" in session and "requested_evidence_ids" in session:
+            return
+        case = self.repository.get_conversation_case(session["case_id"])
+        if "avatar_state" not in session:
+            session["avatar_state"] = self.state_machine.initial_avatar_state(case)
+        if "requested_evidence_ids" not in session:
+            initial_evidence = set(self.disclosure_policy.initial_evidence_ids(case))
+            session["requested_evidence_ids"] = [
+                evidence_id
+                for evidence_id in session["revealed_evidence_ids"]
+                if evidence_id not in initial_evidence
+            ]
+
     @staticmethod
     def _public(state: dict) -> dict:
         keys = {
             "session_id", "case_id", "phase", "active_agent", "revealed_evidence_ids",
             "started_at", "updated_at", "finished_at",
         }
-        return {key: state[key] for key in keys}
+        public = {key: state[key] for key in keys}
+        for key in ("avatar_state", "evaluation"):
+            if key in state:
+                public[key] = state[key]
+        return public
