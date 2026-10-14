@@ -17,7 +17,9 @@ from server.cases.catalog import CURATED_CASES_DIR
 from server.config import settings
 from server.engine.disclosure.context import ContextAssembler
 from server.engine.disclosure.policy import DisclosurePolicy
+from server.engine.evaluation import ClinicalEvaluationEngine
 from server.engine.safety.protected_lexicon import ProtectedLexiconService
+from server.engine.safety import ClinicalSafetyEngine
 from server.engine.state_machine.service import ClinicalStateMachine
 from server.guardrails import OutputGuard
 from server.orchestration import (
@@ -77,6 +79,7 @@ def get_service() -> MultiAgentSessionService:
         retriever = CaseEvidenceRetriever(repository)
     gateway = build_gateway()
     disclosure = DisclosurePolicy()
+    state_machine = ClinicalStateMachine()
     graph = StarGraphOrchestrator(
         router=DecisionRouter(),
         agents=build_agents(gateway),
@@ -84,7 +87,7 @@ def get_service() -> MultiAgentSessionService:
         retriever=retriever,
         disclosure_policy=disclosure,
         context_assembler=ContextAssembler(),
-        state_machine=ClinicalStateMachine(),
+        state_machine=state_machine,
         output_guard=OutputGuard(),
         protected_lexicon=ProtectedLexiconService(repository),
         reformulator=QuestionReformulator(gateway, PROMPTS_DIR),
@@ -101,6 +104,9 @@ def get_service() -> MultiAgentSessionService:
             api_key=settings.langsmith_api_key,
             project=settings.langsmith_project,
         ),
+        state_machine=state_machine,
+        safety_engine=ClinicalSafetyEngine(repository),
+        evaluation_engine=ClinicalEvaluationEngine(repository),
     )
 
 
