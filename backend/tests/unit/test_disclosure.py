@@ -60,3 +60,12 @@ def test_curated_case_reveals_exam_only_when_examining():
                                 student_message="Voy a examinar al paciente")
     assert asked.allowed_evidence_ids == []
     assert examined.allowed_evidence_ids == ["EME-001.examen.exploracion_fisica"]
+
+
+def test_team_exam_topics_match_how_students_ask_for_them():
+    from server.engine.disclosure.policy import DisclosurePolicy, _normalize
+
+    matches = DisclosurePolicy._requirement_matches
+    assert matches("factores_coagulacion", _normalize("Pido el dosaje del factor VIII y del factor IX"))
+    assert matches("prolactina", _normalize("Solicito una prolactina sérica"))
+    assert matches("electroencefalograma", _normalize("Pido un EEG"))

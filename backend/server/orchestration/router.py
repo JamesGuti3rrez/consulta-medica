@@ -19,6 +19,8 @@ class DecisionRouter:
         "laboratorio", "analisis", "hemograma", "troponina", "glucosa", "sangre", "orina",
         "coagulacion", "coagulograma", "ttpa", "tiempo de protrombina", "ph vaginal", "tiroides", "tiroidea", "tsh",
         "electrocardiograma", "ecg", "electro", "dimero", "enzimas cardiacas",
+        # Exámenes que agregó el equipo para decidir entre diagnósticos parecidos (decisión 0002).
+        "factor viii", "factor ix", "factores de coagulacion", "prolactina", "eeg",
     }
     RADIOLOGY = {"radiografia", "ecografia", "tomografia", "resonancia", "imagen", "rayos x", "tac", "edad osea"}
     SPECIALIST = {"especialista", "interconsulta", "neurologia", "cardiologia", "cirugia", "ginecologia"}

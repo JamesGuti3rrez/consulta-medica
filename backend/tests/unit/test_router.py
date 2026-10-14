@@ -33,3 +33,11 @@ def test_taking_vital_signs_is_an_examination():
     router = DecisionRouter()
     assert router.route("Voy a tomar los signos vitales").intent == Intent.EXAMINE
     assert router.route("¿Tiene la presión alta?").target == AgentRole.PACIENTE
+
+
+def test_exams_added_by_the_team_reach_their_agent():
+    # Decisión 0002: exámenes que deciden entre diagnósticos parecidos.
+    router = DecisionRouter()
+    assert router.route("Pido el dosaje del factor VIII y del factor IX").target == AgentRole.LABORATORIO
+    assert router.route("Solicito una prolactina sérica").target == AgentRole.LABORATORIO
+    assert router.route("Pido un electroencefalograma").target == AgentRole.LABORATORIO
