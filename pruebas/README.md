@@ -29,6 +29,7 @@ Todas las capturas están en **vista de escritorio/PC (1440 px de ancho)**; ning
 | 18. Un solo diagnóstico por caso | [18_casos_con_un_solo_diagnostico/](18_casos_con_un_solo_diagnostico/README.md) | Con el guion de cada paciente queda en pie solo el diagnóstico en los 13 casos (antes, 7): datos que agregó el equipo con fuente clínica (decisión 0002) y regla R15 para todo caso curado | OK (intento 3) |
 | 19. Aviso de privacidad | [19_aviso_privacidad/](19_aviso_privacidad/README.md) | Aviso según la Ley 29733 enlazado desde la portada y «Mis simulaciones»; crear cuenta exige aceptarlo y guarda versión y fecha | OK (intento 2) |
 | 20. Sinónimos del diagnóstico | [20_sinonimos_diagnostico/](20_sinonimos_diagnostico/README.md) | Cada caso acepta al menos tres formas de nombrar su diagnóstico (52 en total, antes 21), base para calificar el diagnóstico escrito | OK |
+| 21. Cierre del sprint 1 | [21_cierre_sprint1/](21_cierre_sprint1/README.md) | Qué pedía el sprint, qué se entregó y dónde está la prueba de cada componente; recorrido completo con un comando | ver README |
 
 ## Convención de cada fase
 
@@ -50,13 +51,17 @@ Desde la raíz del repositorio, con `backend/.venv` instalado (`npm run setup`):
 backend\.venv\Scripts\python.exe pruebas\_herramientas\recorrido_completo.py
 ```
 
-El script ejecuta las fases en orden, se detiene en la primera que falle y vuelve a generar cada `.txt`
-y `.png` de esta carpeta. La fase 4 levanta el servidor en el puerto 3100 y usa Playwright, que no es
-dependencia del proyecto: si no está disponible, ejecute `npx playwright@1.63.0 install chromium`.
+El script ejecuta las fases del flujo de datos (1 a 4) y las comprobaciones del simulador que se pueden
+repetir sin costo (14, 15, 17, 18, 19 y 20), se detiene en la primera que falle y deja un resumen en
+`05_recorrido_completo/resumen_recorrido.txt`. Las fases 1 a 4 regeneran su `.txt` en su carpeta; las demás
+escriben en `21_cierre_sprint1/recorrido/`. Corre sin Groq, sin trazas a LangSmith y sin crear cuentas: la
+fase 16, que necesita un alumno temporal en Supabase, se repite aparte con su README. El servidor de prueba
+usa el puerto 3100 y las pruebas del navegador usan Playwright: si no está disponible, ejecute
+`npx playwright@1.63.0 install chromium`.
 
 ## Herramientas
 
-- [_herramientas/recorrido_completo.py](_herramientas/recorrido_completo.py): orquesta las cuatro fases.
+- [_herramientas/recorrido_completo.py](_herramientas/recorrido_completo.py): repite el flujo de datos y las comprobaciones del simulador del sprint 1.
 - [_herramientas/captura_terminal.ps1](_herramientas/captura_terminal.ps1): ejecuta un comando en una ventana real de PowerShell (1440 px de ancho, alto de pantalla completa) y la fotografía página por página, uniendo las páginas en una sola imagen con toda la salida (`-ConservarPaginas` guarda además cada página suelta). Su primer intento, que solo captaba el final, está en `_herramientas/intentos/`.
 - [_herramientas/evidencia.py](_herramientas/evidencia.py): ejecuta un comando y guarda su salida como `.txt` y `.png`; también captura código y archivos JSON.
 - [_herramientas/capturar_frontend.cjs](_herramientas/capturar_frontend.cjs): abre `/simulacion.html`, carga casos y comprueba que no se vea información protegida.
