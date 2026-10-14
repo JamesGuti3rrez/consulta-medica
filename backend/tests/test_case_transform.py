@@ -200,3 +200,21 @@ def test_curation_changes_only_status_and_curation_provenance():
     assert curated["provenance"]["created_by"] == original_provenance["created_by"]
     assert curated["provenance"]["created_at"] == original_provenance["created_at"]
     assert curated["provenance"]["validated_at"] == original_provenance["validated_at"]
+
+
+def test_team_complements_must_cite_a_registered_clinical_source():
+    # Decisión 0002: cada dato agregado por el equipo cita una fuente de clinical_sources.
+    import pytest
+
+    from case_preparation.transform.medqa_final_review import check_complements
+
+    sources = {"cdc_hemophilia": {"title": "CDC", "url": "https://www.cdc.gov/hemophilia/"}}
+    complement = {"key": "factores", "complemento": {"fuente": "cdc_hemophilia", "motivo": "Descarta hemofilia B."}}
+    check_complements("CIR-005", {"public": [], "on_request": [complement]}, sources)
+
+    unknown = {"key": "factores", "complemento": {"fuente": "fuente_inventada", "motivo": "x"}}
+    with pytest.raises(ValueError, match="fuente_inventada"):
+        check_complements("CIR-005", {"public": [], "on_request": [unknown]}, sources)
+    without_reason = {"key": "factores", "complemento": {"fuente": "cdc_hemophilia"}}
+    with pytest.raises(ValueError, match="motivo"):
+        check_complements("CIR-005", {"public": [], "on_request": [without_reason]}, sources)

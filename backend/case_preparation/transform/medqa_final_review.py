@@ -257,6 +257,18 @@ def _invalidate_legacy_curations() -> None:
             index_path.unlink()
 
 
+def check_complements(case_id: str, distribution: dict[str, Any], sources: dict[str, Any]) -> None:
+    """Decisión 0002: cada dato que agrega el equipo cita una fuente clínica registrada y su motivo."""
+    for entry in [*distribution["public"], *distribution["on_request"]]:
+        complement = entry.get("complemento")
+        if complement is None:
+            continue
+        if complement.get("fuente") not in sources:
+            raise ValueError(f"{case_id}.{entry['key']}: el complemento cita una fuente no registrada: {complement.get('fuente')!r}")
+        if not complement.get("motivo"):
+            raise ValueError(f"{case_id}.{entry['key']}: el complemento no explica su motivo")
+
+
 def build_reviewed_cases() -> dict[str, Any]:
     sources = _load_selected_sources(CANDIDATES_PATH)
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -270,6 +282,7 @@ def build_reviewed_cases() -> dict[str, Any]:
         candidate.update({key: value for key, value in selection.items() if key != "rationale"})
         candidate.update(CLINICAL_OVERRIDES[selection["case_id"]])
         candidate["distribution"] = DISTRIBUTION[selection["case_id"]]
+        check_complements(selection["case_id"], candidate["distribution"], CLINICAL_SOURCES)
         translation = SPANISH_SOURCE_TEXT[selection["candidate_id"]]
         if len(translation["options"]) != len(candidate["options"]):
             raise ValueError(f"La traducción de opciones no coincide con la fuente para {selection['case_id']}.")
