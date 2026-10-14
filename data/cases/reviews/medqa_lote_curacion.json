@@ -302,6 +302,10 @@
     "medlineplus_postpartum_depression": {
       "title": "MedlinePlus Medical Encyclopedia: Postpartum depression",
       "url": "https://medlineplus.gov/ency/article/007215.htm"
+    },
+    "cdc_ehrlichiosis": {
+      "title": "CDC: Clinical signs and symptoms of ehrlichiosis",
+      "url": "https://www.cdc.gov/ehrlichiosis/hcp/clinical-signs/index.html"
     }
   },
   "clinical_review": {
@@ -1719,6 +1723,20 @@
           "requires": [
             "exploracion_fisica"
           ]
+        },
+        {
+          "key": "hemograma_bioquimica",
+          "category": "laboratorio",
+          "label": "Hemograma y perfil hepático",
+          "text": "Leucocitos y plaquetas normales; transaminasas normales.",
+          "owner": "laboratorio",
+          "requires": [
+            "hemograma"
+          ],
+          "complemento": {
+            "fuente": "cdc_ehrlichiosis",
+            "motivo": "Ehrlichiosis y anaplasmosis suelen bajar leucocitos y plaquetas y elevar las transaminasas."
+          }
         }
       ],
       "key_questions": [
@@ -1757,6 +1775,15 @@
           "weight": 3,
           "critical": false,
           "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "topic": "Hemograma y perfil hepático normales",
+          "evidence": [
+            "hemograma_bioquimica"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "razonamiento_clinico"
         }
       ],
       "contraindications": [
@@ -1780,6 +1807,10 @@
         "Reacción local a picadura": [
           "exploracion_fisica",
           "signos_vitales"
+        ],
+        "Otras infecciones transmitidas por garrapatas": [
+          "hemograma_bioquimica",
+          "exploracion_fisica"
         ]
       }
     },

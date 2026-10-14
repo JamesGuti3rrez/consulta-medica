@@ -77,6 +77,10 @@
     "medlineplus_postpartum_depression": {
       "title": "MedlinePlus Medical Encyclopedia: Postpartum depression",
       "url": "https://medlineplus.gov/ency/article/007215.htm"
+    },
+    "cdc_ehrlichiosis": {
+      "title": "CDC: Clinical signs and symptoms of ehrlichiosis",
+      "url": "https://www.cdc.gov/ehrlichiosis/hcp/clinical-signs/index.html"
     }
   },
   "cases": [

@@ -111,6 +111,19 @@
           "exploracion_fisica"
         ]
       }
+    },
+    {
+      "evidence_id": "MED-008.lab.hemograma_bioquimica",
+      "category": "laboratorio",
+      "label": "Hemograma y perfil hepático",
+      "text": "Leucocitos y plaquetas normales; transaminasas normales.",
+      "reveal_policy": {
+        "owner": "laboratorio",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "hemograma"
+        ]
+      }
     }
   ],
   "protected": {
@@ -139,7 +152,10 @@
       {
         "name": "Otras infecciones transmitidas por garrapatas",
         "must_not_miss": true,
-        "discard_evidence_ids": []
+        "discard_evidence_ids": [
+          "MED-008.lab.hemograma_bioquimica",
+          "MED-008.examen.exploracion_fisica"
+        ]
       }
     ],
     "treatment_reference": {
@@ -209,6 +225,16 @@
           "weight": 3,
           "critical": false,
           "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq6",
+          "topic": "Hemograma y perfil hepático normales",
+          "evidence_ids": [
+            "MED-008.lab.hemograma_bioquimica"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "razonamiento_clinico"
         }
       ],
       "tests": {
