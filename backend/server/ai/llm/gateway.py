@@ -28,6 +28,12 @@ class LLMGateway:
         self._lock = threading.Lock()
 
     def generate(self, messages: list[dict[str, str]], *, temperature: float = 0.0) -> LLMResult:
+        return self._generate(messages, temperature=temperature)
+
+    def generate_json(self, messages: list[dict[str, str]], *, temperature: float = 0.0) -> LLMResult:
+        return self._generate(messages, temperature=temperature, json_mode=True)
+
+    def _generate(self, messages, *, temperature=0.0, json_mode=False):
         errors: list[str] = []
         ordered = self._ordered_available()
         if not ordered:
@@ -35,7 +41,8 @@ class LLMGateway:
 
         for index, provider in enumerate(ordered):
             try:
-                result = provider.generate(messages, temperature=temperature)
+                generate = getattr(provider, "generate_json", provider.generate) if json_mode else provider.generate
+                result = generate(messages, temperature=temperature)
                 if index > 0:
                     result = LLMResult(**{**result.__dict__, "fallback_used": True})
                 self._advance(provider.name)

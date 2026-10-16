@@ -11,8 +11,8 @@ const venvPython = process.platform === 'win32'
   ? join(backendDir, '.venv', 'Scripts', 'python.exe')
   : join(backendDir, '.venv', 'bin', 'python');
 
-function run(command, args) {
-  const result = spawnSync(command, args, { stdio: 'inherit', cwd: backendDir });
+function run(command, args, env = process.env) {
+  const result = spawnSync(command, args, { stdio: 'inherit', cwd: backendDir, env });
   if (result.error) {
     console.error(`No se pudo ejecutar "${command}": ${result.error.message}`);
     process.exit(1);
@@ -43,6 +43,28 @@ if (task === 'setup') {
 
   const extrasSpec = extraGroups.length > 0 ? `[${extraGroups.join(',')}]` : '';
   run(venvPython, ['-m', 'pip', 'install', '-e', `.${extrasSpec}`]);
+} else if (task === 'import-cases') {
+  if (!existsSync(venvPython)) {
+    console.error('Falta el entorno de Python. Ejecuta primero: npm run setup');
+    process.exit(1);
+  }
+  run(venvPython, ['scripts/import_cases.py', ...process.argv.slice(3)]);
+} else if (task === 'test-cases') {
+  if (!existsSync(venvPython)) {
+    console.error('Falta el entorno de Python. Ejecuta: npm run setup -- --extras dev');
+    process.exit(1);
+  }
+  run(venvPython, ['-m', 'pytest', '-q',
+    'tests/unit/test_supabase_cases.py', 'tests/test_case_catalog_api.py', 'tests/integration/test_api_sma.py',
+    'tests/unit/test_patient_completion.py', 'tests/unit/test_synthetic_facts_store.py',
+    'tests/integration/test_synthetic_patient.py', 'tests/unit/test_grounding.py',
+    'tests/integration/test_generic_exam_request.py', 'tests/unit/test_router.py',
+    'tests/unit/test_history_json.py',
+    'tests/unit/test_disclosure.py', ...process.argv.slice(3)], {
+    ...process.env, CASE_STORE: 'local', SESSION_STORE: 'memoria',
+    LANGSMITH_TRACING: 'false', LANGCHAIN_TRACING_V2: 'false',
+    SYNTHETIC_CASE_DATA: 'false',
+  });
 } else if (task === 'start') {
   if (!existsSync(venvPython)) {
     console.error('Falta el entorno de Python. Ejecuta primero: node backend/scripts/python.mjs setup --extras pipeline,dev');
@@ -52,6 +74,6 @@ if (task === 'setup') {
   console.log(`Consulta Médica disponible en http://localhost:${port}`);
   run(venvPython, ['-m', 'uvicorn', 'server.main:app', '--port', port]);
 } else {
-  console.error('Uso: node backend/scripts/python.mjs setup [--extras pipeline,dev]|start');
+  console.error('Uso: node backend/scripts/python.mjs setup [--extras pipeline,dev]|start|import-cases|test-cases');
   process.exit(1);
 }

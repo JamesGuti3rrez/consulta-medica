@@ -88,3 +88,21 @@ def test_tells_a_named_exam_from_a_generic_request():
     for generic in ("¿Qué resultados tienen los análisis de sangre de antes de la operación?",
                     "Pido unos exámenes de laboratorio", "Quiero un estudio de imagen", "Mándele unos análisis"):
         assert not names(generic), generic
+
+
+def test_natural_medication_question_retrieves_existing_hypertension_treatment():
+    case = CanonicalCaseRepository().get_conversation_case("EME-103")
+    decision = DisclosurePolicy().authorize(
+        case=case, role=AgentRole.PACIENTE, intent=Intent.ASK_PATIENT,
+        student_message="qué está tomando para controlar su hipertensión y en qué año le dio esta enfermedad",
+    )
+    assert "EME-103.medicacion.tratamiento_habitual" in decision.allowed_evidence_ids
+
+
+def test_missing_medication_does_not_authorize_unrelated_lesion_history():
+    case = CanonicalCaseRepository().get_conversation_case("MED-008")
+    decision = DisclosurePolicy().authorize(
+        case=case, role=AgentRole.PACIENTE, intent=Intent.ASK_PATIENT,
+        student_message="qué está tomando para controlar su hipertensión y en qué año le dio esta enfermedad",
+    )
+    assert decision.allowed_evidence_ids == []

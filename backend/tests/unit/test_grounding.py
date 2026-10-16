@@ -103,12 +103,12 @@ def test_invented_symptom_is_corrected_once():
     assert reply.grounding_retry_used is True
 
 
-def test_patient_says_no_when_model_keeps_inventing():
+def test_patient_uses_authorized_evidence_when_model_keeps_inventing():
     from server.ai.agents.paciente import PacienteAgent
 
     gateway = SequenceGateway(["Me siento mareado.", "Sigo muy mareado."])
     reply = PacienteAgent(gateway).respond(student_message="¿Cómo se siente?", context={**_context(), "role": "paciente"})
-    assert reply.text == "No."
+    assert reply.text == _context()["retrieved_evidence"][0]["text"]
     assert reply.grounding_fallback_used is True
 
 
@@ -161,3 +161,76 @@ def test_first_reply_is_kept_if_the_correction_still_omits():
     gateway = SequenceGateway(["No, ya no tomo nada.", "No tomo nada."])
     reply = PacienteAgent(gateway).respond(student_message="¿Toma algún medicamento?", context=_medication_context())
     assert reply.text == "No, ya no tomo nada."
+
+
+def _hypertension_context():
+    from server.cases import CanonicalCaseRepository
+    from server.domain import AgentRole
+    from server.engine.disclosure.context import ContextAssembler
+    from server.engine.disclosure.policy import DisclosurePolicy
+
+    case = CanonicalCaseRepository().get_conversation_case("MED-008")
+    return ContextAssembler().build(
+        case=case, role=AgentRole.PACIENTE,
+        revealed_evidence_ids=DisclosurePolicy.initial_evidence_ids(case), retrieved=[],
+    )
+
+
+def test_hypertension_question_with_missing_drug_and_year_is_not_denied():
+    from server.ai.agents.paciente import PacienteAgent
+
+    gateway = SequenceGateway(["No."])
+    reply = PacienteAgent(gateway).respond(
+        student_message="¿Qué está tomando para controlar su hipertensión y en qué año le dio esta enfermedad?",
+        context=_hypertension_context(),
+    )
+    assert reply.text == "No recuerdo con precisión ese dato."
+    assert reply.grounding_fallback_used is True
+    assert reply.evidence_ids == []
+    assert "hipertensión" in gateway.calls[0][1]["content"].lower()
+    assert reply.input_tokens == 10
+    assert reply.output_tokens == 5
+
+
+def test_known_history_and_unknown_details_are_preserved():
+    from server.ai.agents.paciente import PacienteAgent
+
+    text = "Tengo la hipertensión controlada, pero no recuerdo el nombre de la pastilla ni el año del diagnóstico."
+    reply = PacienteAgent(SequenceGateway([text])).respond(
+        student_message="¿Qué está tomando y desde cuándo tiene hipertensión?",
+        context=_hypertension_context(),
+    )
+    assert reply.text == text
+    assert reply.grounding_fallback_used is False
+
+
+def test_repeated_invention_without_evidence_does_not_become_clinical_denial():
+    from server.ai.agents.paciente import PacienteAgent
+
+    reply = PacienteAgent(SequenceGateway(["Estoy mareado.", "Sigo mareado."])).respond(
+        student_message="¿Cómo se siente?", context=_hypertension_context(),
+    )
+    assert reply.text == "No recuerdo con precisión ese dato."
+    assert reply.grounding_retry_used is True
+    assert reply.grounding_fallback_used is True
+
+
+def test_explicit_negative_evidence_still_allows_no():
+    from server.ai.agents.paciente import PacienteAgent
+
+    context = {**_hypertension_context(), "retrieved_evidence": [{
+        "evidence_id": "MED-008.anamnesis.tabaco", "text": "No fuma.", "score": 1,
+    }]}
+    reply = PacienteAgent(SequenceGateway(["No."])).respond(student_message="¿Fuma?", context=context)
+    assert reply.text == "No."
+    assert not reply.grounding_fallback_used
+
+
+def test_public_negative_answer_is_not_replaced_for_yes_no_question():
+    from server.ai.agents.paciente import PacienteAgent
+
+    # La ficha pública dice expresamente que no tiene molestias actuales.
+    reply = PacienteAgent(SequenceGateway(["No."])).respond(
+        student_message="¿Tiene molestias en este momento?", context=_hypertension_context(),
+    )
+    assert reply.text == "No."

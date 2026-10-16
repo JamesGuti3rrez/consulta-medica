@@ -1,5 +1,11 @@
 # Secretos locales
 .env
+.env.*
+!.env.example
+
+# Registros de consultas generados al ejecutar el backend
+backend/logs/*
+!backend/logs/.gitkeep
 
 # Entornos y dependencias locales
 .venv/

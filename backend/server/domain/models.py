@@ -84,3 +84,8 @@ class TurnGraphState(TypedDict, total=False):
     retrieved_evidence_ids: list[str]
     blocked: bool
     block_reason: str | None
+    scope_rejected: bool
+    synthetic_generated_ids: list[str]
+    synthetic_reused_ids: list[str]
+    data_source: str
+    synthetic_rejection_reason: str | None

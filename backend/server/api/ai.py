@@ -9,11 +9,13 @@ from pydantic import BaseModel, Field
 
 from server.ai.agents.base import PROMPTS_DIR
 from server.ai.agents.reformulador import QuestionReformulator
+from server.ai.agents.history_composer import HistoryComposer
 from server.ai.agents.registry import build_agents
 from server.ai.llm.factory import build_gateway
 from server.ai.llm.gateway import LLMUnavailable
-from server.cases import CanonicalCaseRepository, CaseNotAvailable, CaseNotFound
+from server.cases import CaseNotAvailable, CaseNotFound
 from server.cases.catalog import CURATED_CASES_DIR
+from server.cases.source import build_case_repository
 from server.config import settings
 from server.engine.disclosure.context import ContextAssembler
 from server.engine.disclosure.policy import DisclosurePolicy
@@ -32,6 +34,8 @@ from server.orchestration import (
     SupabaseSessionStore,
 )
 from server.persistence import AttemptStoreError, SupabaseAttempts, build_attempt
+from server.persistence.synthetic_facts import SupabaseSyntheticFacts
+from server.orchestration.patient_completion import PatientHistoryCompletion
 from server.rag.embedded import EmbeddedRAGRetriever
 from server.rag.retriever import CaseEvidenceRetriever, HttpRetriever
 from server.tracing import LangSmithObserver, LocalTraceLogger
@@ -91,10 +95,13 @@ def get_attempts() -> SupabaseAttempts | None:
 
 @lru_cache
 def get_service() -> MultiAgentSessionService:
-    repository = CanonicalCaseRepository(CASES_DIR)
-    if settings.rag_service_url:
+    repository = build_case_repository(CASES_DIR, config=settings)
+    if settings.case_store == "supabase":
+        # La evidencia procede del caso remoto actual, nunca de un indice local antiguo.
+        retriever = CaseEvidenceRetriever(repository)
+    elif settings.rag_service_url:
         retriever = HttpRetriever(settings.rag_service_url, token=settings.rag_http_token)
-    elif settings.rag_embedded_enabled:
+    elif settings.rag_embedded_enabled and settings.case_store == "local":
         embedded = EmbeddedRAGRetriever(settings.rag_index_dir, settings.rag_log_path, repository=repository)
         retriever = embedded if embedded.ready else CaseEvidenceRetriever(repository)
     else:
@@ -102,6 +109,13 @@ def get_service() -> MultiAgentSessionService:
     gateway = build_gateway()
     disclosure = DisclosurePolicy()
     state_machine = ClinicalStateMachine()
+    completion = None
+    if settings.synthetic_case_data and settings.case_store == "supabase" and settings.groq_api_keys:
+        completion = PatientHistoryCompletion(
+            HistoryComposer(gateway),
+            SupabaseSyntheticFacts(settings.supabase_url, settings.supabase_secret_key),
+            OutputGuard(),
+        )
     graph = StarGraphOrchestrator(
         router=DecisionRouter(),
         agents=build_agents(gateway),
@@ -114,6 +128,7 @@ def get_service() -> MultiAgentSessionService:
         protected_lexicon=ProtectedLexiconService(repository),
         reformulator=QuestionReformulator(gateway, PROMPTS_DIR),
         temperature=settings.llm_temperature,
+        patient_completion=completion,
     )
     return MultiAgentSessionService(
         graph=graph,
@@ -141,10 +156,13 @@ def status():
         "decision_router": "deterministic",
         "disclosure_policy": "reveal-policy-minimum-privilege",
         "llm_mode": settings.llm_mode,
+        "case_store": settings.case_store,
+        "synthetic_case_data": service.graph.patient_completion is not None,
         "rag_connected": isinstance(service.graph.retriever, (HttpRetriever, EmbeddedRAGRetriever)),
         "retrieval_mode": (
             "http-rag" if isinstance(service.graph.retriever, HttpRetriever)
             else "embedded-lightrag" if isinstance(service.graph.retriever, EmbeddedRAGRetriever)
+            else "supabase-case-evidence" if settings.case_store == "supabase"
             else "deterministic-case-fallback"
         ),
         "session_store": settings.session_store,

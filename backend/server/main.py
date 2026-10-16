@@ -5,10 +5,12 @@ from pathlib import Path
 
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import JSONResponse
 
 from .api.ai import router as ai_router
 from .api.routes import router as api_router
 from .rag.router import router as rag_router
+from .cases.supabase import CaseStoreError
 
 PUBLIC_DIR = Path(__file__).resolve().parents[2] / "frontend" / "public"
 
@@ -27,6 +29,13 @@ app = FastAPI(
     openapi_url="/api/openapi.json",
     redoc_url=None,
 )
+
+
+@app.exception_handler(CaseStoreError)
+async def case_store_unavailable(request: Request, exc: CaseStoreError):
+    return JSONResponse(status_code=503, content={
+        "detail": "No se pudieron consultar los casos en Supabase. Comprueba la conexión y la importación."
+    })
 
 
 @app.middleware("http")

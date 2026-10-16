@@ -28,7 +28,9 @@ class DecisionRouter:
                  "el diagnostico", "que tiene el paciente", "cual es la enfermedad"}
     EXAMINE = {"examen fisico", "examinar", "examino", "exploracion", "exploro", "explorar", "neurologico",
                "ausculto", "auscultar", "palpo", "palpar", "examen ginecologico",
-               "signos vitales", "tomo la presion", "tomar la presion", "mido la presion"}
+               "signos vitales", "tomo la presion", "tomar la presion", "mido la presion",
+               "examenes fisicos", "examenes fisico", "examen fisicos", "evaluacion fisica",
+               "revision fisica", "revisar al paciente"}
     HYPOTHESIS = {"mi hipotesis", "hipotesis es", "considero que", "sospecho"}
     DIAGNOSIS = {"mi diagnostico", "diagnostico final", "diagnostico es"}
     # Propuestas del estudiante en primera persona. No basta «tratamiento» o «receta»: «¿Está en
@@ -37,6 +39,11 @@ class DecisionRouter:
                  "prescribo", "indicaria", "le indico", "administro", "le administro", "le doy", "le daria",
                  "le pongo", "inicio tratamiento", "iniciaria"}
     FINISH = {"finalizar consulta", "terminar consulta", "cerrar consulta", "finalizar sesion"}
+
+    @staticmethod
+    def generic_exam_request(message: str) -> bool:
+        """Un pedido de pruebas sin tipo se aclara con el médico, no con el paciente."""
+        return bool(re.search(r"\b(?:examen(?:es)?|pruebas|estudios medicos)\b", _normalize(message)))
 
     def route(self, message: str) -> RouteDecision:
         text = _normalize(message)
@@ -57,6 +64,9 @@ class DecisionRouter:
             return RouteDecision(Intent.REQUEST_SPECIALIST, AgentRole.ESPECIALISTA, 0.92, "solicitud de especialista")
         if any(term in text for term in self.EXAMINE):
             return RouteDecision(Intent.EXAMINE, AgentRole.MEDICO_ASISTENTE, 0.9, "solicitud de examen físico")
+        if self.generic_exam_request(message):
+            return RouteDecision(Intent.ASK_ASSISTANT, AgentRole.MEDICO_ASISTENTE, 0.9,
+                                 "solicitud de exámenes sin especificar el tipo")
         if any(term in text for term in self.ASSISTANT):
             return RouteDecision(Intent.ASK_ASSISTANT, AgentRole.MEDICO_ASISTENTE, 0.9, "consulta al asistente")
         return RouteDecision(Intent.ASK_PATIENT, AgentRole.PACIENTE, 0.75, "pregunta clínica dirigida al paciente por defecto")
