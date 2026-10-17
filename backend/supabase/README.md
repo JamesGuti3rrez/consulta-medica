@@ -6,6 +6,8 @@ Base de datos transaccional del sistema (Supabase / PostgreSQL).
 - Uso actual: cuentas de usuario (`perfiles`), sesiones del simulador (`sma_sesiones`, `sma_eventos`) e intentos.
   `intentos` guarda cada consulta que termina un alumno con la sesión iniciada; solo el servidor la escribe
   (`server/persistence/attempts.py`) y el navegador solo lee los del propio alumno («Mis simulaciones»).
+  Se activa con `HISTORIAL_ALUMNOS=true` una vez aplicada la migración 0001; con `false` (por defecto) el menú
+  no ofrece «Mis simulaciones» y `/finish` responde `attempt.reason = "desactivado"` sin escribir en Supabase.
   Evidencia: `pruebas/16_historial_simulaciones/`.
 - RAG: `rag_evidencias` guarda embeddings y texto de evidencia conversacional para pgvector; `buscar_evidencias_rag` recupera evidencia filtrando por caso, rol e IDs ya autorizados. El backend carga solo `public` y `on_request` desde casos curados locales, nunca `protected`. El servidor usa `SUPABASE_SECRET_KEY`; la clave no debe llegar al navegador.
 - Datos personales de estudiantes: requieren aviso de privacidad y consentimiento (Ley 29733). El aviso está en

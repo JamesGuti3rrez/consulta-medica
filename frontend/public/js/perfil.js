@@ -185,8 +185,14 @@
     history.list.replaceChildren(...data.map(historyItem));
   }
 
-  document.querySelectorAll('[data-role="open-history"]').forEach((button) => {
+  // El menú solo ofrece «Mis simulaciones» si el servidor guarda el historial.
+  const historyButtons = [...document.querySelectorAll('[data-role="open-history"]')];
+  historyButtons.forEach((button) => {
+    button.hidden = true;
     button.addEventListener('click', openHistory);
+  });
+  window.auth.historyEnabled.then((enabled) => {
+    historyButtons.forEach((button) => { button.hidden = !enabled; });
   });
 
   window.auth.ready.then(async (client) => {

@@ -88,7 +88,9 @@ class FinishRequest(BaseModel):
 
 @lru_cache
 def get_attempts() -> SupabaseAttempts | None:
-    """Guardado de intentos; None si el servidor no tiene configurado Supabase."""
+    """Guardado de intentos; None si el historial está desactivado o el servidor no tiene configurado Supabase."""
+    if not settings.history_enabled:
+        return None
     if not (settings.supabase_url and settings.supabase_publishable_key and settings.supabase_secret_key):
         return None
     return SupabaseAttempts(settings.supabase_url, settings.supabase_publishable_key, settings.supabase_secret_key)
@@ -257,10 +259,13 @@ def _save_attempt(service: MultiAgentSessionService, session: dict, payload: Fin
     """
     if session.get("attempt_id"):
         return {"saved": True, "id": session["attempt_id"]}
+    attempts = get_attempts()
+    if attempts is None and not settings.history_enabled:
+        # Sin historial no hay nada que guardar ni que avisar, tenga o no sesión el alumno.
+        return {"saved": False, "reason": "desactivado"}
     token = _bearer(authorization)
     if not token:
         return {"saved": False, "reason": "sin_sesion"}
-    attempts = get_attempts()
     if attempts is None:
         return {"saved": False, "reason": "no_configurado"}
     owner_id = service.owner_of(session["session_id"])

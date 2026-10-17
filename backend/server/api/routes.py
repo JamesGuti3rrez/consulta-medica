@@ -70,6 +70,7 @@ def get_public_config():
         "auth": True,
         "supabaseUrl": settings.supabase_url,
         "supabaseKey": settings.supabase_publishable_key,
+        "history": settings.history_enabled,
     }
 
 
