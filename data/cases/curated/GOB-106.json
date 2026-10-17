@@ -1,0 +1,353 @@
+{
+  "schema_version": "1.1.0",
+  "case_id": "GOB-106",
+  "title": "Mariela Torres: Noté cambios en mi flujo vaginal y molestias en",
+  "specialty": "ginecologia_obstetricia",
+  "language": "es",
+  "status": "curado",
+  "source": {
+    "dataset": "sintetico",
+    "item_id": "flujo_vaginal_adulta/tricomoniasis_vaginal",
+    "license": "CC BY 4.0",
+    "method": "generado_ia"
+  },
+  "public": {
+    "patient": {
+      "alias": "Mariela Torres",
+      "age_years": 30,
+      "sex": "femenino"
+    },
+    "chief_complaint": {
+      "evidence_id": "GOB-106.motivo.queja_principal",
+      "category": "motivo",
+      "label": "Motivo de consulta",
+      "text": "Noté cambios en mi flujo vaginal y molestias en la zona genital."
+    },
+    "items": [
+      {
+        "evidence_id": "GOB-106.anamnesis.contexto_atencion",
+        "category": "anamnesis",
+        "label": "Contexto de atención",
+        "text": "Acude a valoración médica por estas molestias."
+      }
+    ],
+    "allergies_recorded": false
+  },
+  "on_request": [
+    {
+      "evidence_id": "GOB-106.anamnesis.inicio_evolucion",
+      "category": "anamnesis",
+      "label": "Inicio y evolución",
+      "text": "Desde hace una semana tengo flujo abundante y ardor; comenzó varias semanas después de una relación sin preservativo.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "inicio_y_evolucion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "GOB-106.anamnesis.caracteristicas",
+      "category": "anamnesis",
+      "label": "Características de las molestias",
+      "text": "El flujo es amarillo verdoso y algo espumoso, con olor fuerte; siento picazón y ardor al orinar.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "caracteristicas_sintoma"
+        ]
+      }
+    },
+    {
+      "evidence_id": "GOB-106.sintoma.sintomas",
+      "category": "sintoma",
+      "label": "Síntomas asociados",
+      "text": "Molestia superficial en las relaciones. No tengo fiebre, dolor pélvico profundo ni sangrado abundante.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "sintomas_asociados"
+        ]
+      }
+    },
+    {
+      "evidence_id": "GOB-106.antecedente.antecedentes",
+      "category": "antecedente",
+      "label": "Antecedentes personales",
+      "text": "Sin enfermedades crónicas ni alergias conocidas.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "antecedentes_personales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "GOB-106.medicacion.medicacion",
+      "category": "medicacion",
+      "label": "Medicación habitual",
+      "text": "No tomo medicación habitual ni he recibido tratamiento para estos síntomas.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "medicacion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "GOB-106.antecedente.alergias",
+      "category": "antecedente",
+      "label": "Alergias",
+      "text": "No refiere alergias conocidas.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "alergias"
+        ]
+      }
+    },
+    {
+      "evidence_id": "GOB-106.anamnesis.habitos",
+      "category": "anamnesis",
+      "label": "Hábitos y entorno",
+      "text": "No realizo duchas vaginales. No fumo.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "GOB-106.anamnesis.impacto_funcional",
+      "category": "anamnesis",
+      "label": "Impacto en las actividades diarias",
+      "text": "El ardor y el flujo me incomodan al caminar y he evitado las relaciones.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "GOB-106.antecedente.historia_ginecologica",
+      "category": "antecedente",
+      "label": "Historia ginecológica y obstétrica",
+      "text": "Última regla hace dos semanas, no embarazada. Pareja nueva desde hace dos meses; uso inconsistente de preservativo.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "antecedentes_gineco_obstetricos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "GOB-106.vital.signos_vitales",
+      "category": "signo_vital",
+      "label": "Signos vitales",
+      "text": "Presión arterial 110/70 mmHg; pulso 82/min; frecuencia respiratoria 16/min; temperatura 36,7 °C; saturación 99 % al aire ambiente.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "signos_vitales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "GOB-106.examen.exploracion_fisica",
+      "category": "examen_fisico",
+      "label": "Exploración física",
+      "text": "Con consentimiento y acompañante clínico: secreción amarillo verdosa espumosa y eritema vaginal; pequeñas áreas puntiformes rojizas en el cuello uterino. Sin dolor anexial ni a la movilización cervical.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "exploracion_fisica"
+        ]
+      }
+    },
+    {
+      "evidence_id": "GOB-106.lab.ph_vaginal",
+      "category": "laboratorio",
+      "label": "pH vaginal",
+      "text": "pH vaginal 5,8.",
+      "reveal_policy": {
+        "owner": "laboratorio",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "ph_vaginal"
+        ]
+      }
+    },
+    {
+      "evidence_id": "GOB-106.lab.microscopia_vaginal",
+      "category": "laboratorio",
+      "label": "Microscopía de secreción vaginal",
+      "text": "Preparación salina fresca: organismos flagelados móviles y abundantes leucocitos; sin pseudohifas ni células clave.",
+      "reveal_policy": {
+        "owner": "laboratorio",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "microscopia_vaginal"
+        ]
+      }
+    },
+    {
+      "evidence_id": "GOB-106.lab.prueba_molecular_vaginal",
+      "category": "laboratorio",
+      "label": "Prueba molecular en muestra vaginal",
+      "text": "Amplificación de ácidos nucleicos: T. vaginalis detectado.",
+      "reveal_policy": {
+        "owner": "laboratorio",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "prueba_molecular_vaginal"
+        ]
+      }
+    }
+  ],
+  "protected": {
+    "diagnosis": {
+      "name": "Tricomoniasis vaginal",
+      "synonyms": [
+        "Vaginitis por Trichomonas vaginalis",
+        "Infección vaginal por tricomonas",
+        "Vulvovaginitis por T. vaginalis"
+      ]
+    },
+    "differentials": [
+      {
+        "name": "Candidiasis vulvovaginal",
+        "must_not_miss": false,
+        "discard_evidence_ids": [
+          "GOB-106.lab.microscopia_vaginal",
+          "GOB-106.lab.prueba_molecular_vaginal"
+        ]
+      },
+      {
+        "name": "Vaginosis bacteriana",
+        "must_not_miss": false,
+        "discard_evidence_ids": [
+          "GOB-106.lab.microscopia_vaginal",
+          "GOB-106.lab.prueba_molecular_vaginal"
+        ]
+      }
+    ],
+    "treatment_reference": {
+      "summary": "Tratamiento con nitroimidazol según protocolo, incluyendo manejo simultáneo de parejas sexuales y prevención de reinfección.",
+      "key_actions": [
+        "Tratar a la paciente y gestionar tratamiento de parejas.",
+        "Evitar relaciones hasta que todas las personas implicadas hayan completado el tratamiento y resuelto los síntomas.",
+        "Ofrecer pruebas de otras infecciones de transmisión sexual y repetir la prueba aproximadamente a los tres meses."
+      ]
+    },
+    "contraindications": [],
+    "evaluation": {
+      "key_questions": [
+        {
+          "id": "kq1",
+          "topic": "Inicio y evolución de las molestias",
+          "evidence_ids": [
+            "GOB-106.anamnesis.inicio_evolucion"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq2",
+          "topic": "Características y síntomas asociados",
+          "evidence_ids": [
+            "GOB-106.anamnesis.caracteristicas",
+            "GOB-106.sintoma.sintomas"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq3",
+          "topic": "Antecedentes y medicación habitual",
+          "evidence_ids": [
+            "GOB-106.antecedente.antecedentes",
+            "GOB-106.medicacion.medicacion"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq4",
+          "topic": "Alergias antes de proponer tratamiento",
+          "evidence_ids": [
+            "GOB-106.antecedente.alergias"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq5",
+          "topic": "Valoración de gravedad con signos vitales y exploración",
+          "evidence_ids": [
+            "GOB-106.vital.signos_vitales",
+            "GOB-106.examen.exploracion_fisica"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq6",
+          "topic": "Datos que permiten distinguir los diagnósticos de la familia",
+          "evidence_ids": [
+            "GOB-106.lab.microscopia_vaginal",
+            "GOB-106.lab.prueba_molecular_vaginal"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "id": "kq7",
+          "topic": "Historia ginecológica y obstétrica",
+          "evidence_ids": [
+            "GOB-106.antecedente.historia_ginecologica"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        }
+      ],
+      "tests": {
+        "recommended": [
+          "ph_vaginal",
+          "microscopia_vaginal",
+          "prueba_molecular_vaginal"
+        ],
+        "optional": [],
+        "unnecessary": []
+      }
+    }
+  },
+  "provenance": {
+    "created_by": "Codex / case_preparation.familias.ampliacion",
+    "created_at": "2026-10-16",
+    "validator_version": "1.1.0",
+    "validated_at": "2026-10-16",
+    "curated_by": "Validación automática para simulación; revisión clínica humana pendiente",
+    "curated_at": "2026-10-16",
+    "rejection_reason": null
+  }
+}

@@ -1,0 +1,305 @@
+{
+  "schema_version": "1.1.0",
+  "case_id": "PED-101",
+  "title": "Mateo Sánchez: Tiene tos y dificultad para respirar que me preo",
+  "specialty": "pediatria",
+  "language": "es",
+  "status": "curado",
+  "source": {
+    "dataset": "sintetico",
+    "item_id": "tos_y_dificultad_respiratoria_pediatrica/exacerbacion_asmatica",
+    "license": "CC BY 4.0",
+    "method": "generado_ia"
+  },
+  "public": {
+    "patient": {
+      "alias": "Mateo Sánchez",
+      "age_years": 10,
+      "sex": "masculino"
+    },
+    "chief_complaint": {
+      "evidence_id": "PED-101.motivo.queja_principal",
+      "category": "motivo",
+      "label": "Motivo de consulta",
+      "text": "Tiene tos y dificultad para respirar que me preocupan."
+    },
+    "items": [
+      {
+        "evidence_id": "PED-101.anamnesis.contexto_atencion",
+        "category": "anamnesis",
+        "label": "Contexto de atención",
+        "text": "Acude acompañado por su madre a valoración pediátrica."
+      }
+    ],
+    "allergies_recorded": false
+  },
+  "on_request": [
+    {
+      "evidence_id": "PED-101.anamnesis.inicio_evolucion",
+      "category": "anamnesis",
+      "label": "Inicio y evolución",
+      "text": "La madre cuenta que la tos empezó anoche y hoy le cuesta respirar después de jugar cerca de polvo; no tiene catarro ni fiebre.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "inicio_y_evolucion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-101.anamnesis.caracteristicas",
+      "category": "anamnesis",
+      "label": "Características de las molestias",
+      "text": "El niño siente el pecho apretado y hace silbidos, sobre todo al sacar el aire. Puede hablar en frases completas.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "caracteristicas_sintoma"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-101.sintoma.sintomas",
+      "category": "sintoma",
+      "label": "Síntomas asociados",
+      "text": "Sin fiebre, dolor de un solo lado, atragantamiento ni coloración azulada.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "sintomas_asociados"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-101.antecedente.antecedentes",
+      "category": "antecedente",
+      "label": "Antecedentes personales",
+      "text": "Tiene episodios de silbidos desde los cinco años y rinitis alérgica. Ha mejorado con inhaladores anteriormente, nunca necesitó cuidados intensivos.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "antecedentes_personales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-101.medicacion.medicacion",
+      "category": "medicacion",
+      "label": "Medicación habitual",
+      "text": "Usa un corticoide inhalado de mantenimiento, pero olvidó varias dosis esta semana; su inhalador de rescate se acabó ayer.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "medicacion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-101.antecedente.alergias",
+      "category": "antecedente",
+      "label": "Alergias",
+      "text": "No refiere alergias conocidas.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "alergias"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-101.anamnesis.habitos",
+      "category": "anamnesis",
+      "label": "Hábitos y entorno",
+      "text": "No hay fumadores en casa. En la escuela estuvo expuesto a polvo de una obra.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-101.anamnesis.impacto_funcional",
+      "category": "anamnesis",
+      "label": "Impacto en las actividades diarias",
+      "text": "Dejó de jugar al fútbol y durmió mal por la tos.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-101.vital.signos_vitales",
+      "category": "signo_vital",
+      "label": "Signos vitales",
+      "text": "Peso 32 kg; presión arterial 108/68 mmHg; pulso 112/min; frecuencia respiratoria 28/min; temperatura 36,8 °C; saturación 94 % al aire ambiente.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "signos_vitales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-101.examen.exploracion_fisica",
+      "category": "examen_fisico",
+      "label": "Exploración física",
+      "text": "Alerta, habla en frases completas. Tiraje subcostal leve y espiración prolongada; sibilancias espiratorias bilaterales difusas, sin crepitantes focales ni estridor.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "exploracion_fisica"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-101.lab.flujo_espiratorio",
+      "category": "laboratorio",
+      "label": "Flujo espiratorio máximo",
+      "text": "Medición inicial: 62 % de su mejor valor personal. Tras broncodilatador supervisado: 81 %, con menor trabajo respiratorio.",
+      "reveal_policy": {
+        "owner": "laboratorio",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "flujo_espiratorio"
+        ]
+      }
+    }
+  ],
+  "protected": {
+    "diagnosis": {
+      "name": "Exacerbación asmática pediátrica",
+      "synonyms": [
+        "Crisis asmática infantil",
+        "Agudización asmática infantil",
+        "Exacerbación de asma en la infancia"
+      ]
+    },
+    "differentials": [
+      {
+        "name": "Bronquiolitis aguda",
+        "must_not_miss": true,
+        "discard_evidence_ids": [
+          "PED-101.examen.exploracion_fisica",
+          "PED-101.lab.flujo_espiratorio",
+          "PED-101.antecedente.antecedentes"
+        ]
+      },
+      {
+        "name": "Neumonía adquirida en la comunidad pediátrica",
+        "must_not_miss": true,
+        "discard_evidence_ids": [
+          "PED-101.examen.exploracion_fisica",
+          "PED-101.lab.flujo_espiratorio",
+          "PED-101.antecedente.antecedentes"
+        ]
+      }
+    ],
+    "treatment_reference": {
+      "summary": "Broncodilatador inhalado con cámara y reevaluación de respuesta; valorar corticoide sistémico y oxígeno según gravedad.",
+      "key_actions": [
+        "Valorar trabajo respiratorio, oxigenación y respuesta durante la primera hora.",
+        "Revisar técnica inhalatoria, adherencia y disponibilidad del tratamiento de mantenimiento.",
+        "Dar un plan escrito de acción y criterios de retorno urgente; no pedir radiografía ni antibióticos de rutina."
+      ]
+    },
+    "contraindications": [],
+    "evaluation": {
+      "key_questions": [
+        {
+          "id": "kq1",
+          "topic": "Inicio y evolución de las molestias",
+          "evidence_ids": [
+            "PED-101.anamnesis.inicio_evolucion"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq2",
+          "topic": "Características y síntomas asociados",
+          "evidence_ids": [
+            "PED-101.anamnesis.caracteristicas",
+            "PED-101.sintoma.sintomas"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq3",
+          "topic": "Antecedentes y medicación habitual",
+          "evidence_ids": [
+            "PED-101.antecedente.antecedentes",
+            "PED-101.medicacion.medicacion"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq4",
+          "topic": "Alergias antes de proponer tratamiento",
+          "evidence_ids": [
+            "PED-101.antecedente.alergias"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq5",
+          "topic": "Valoración de gravedad con signos vitales y exploración",
+          "evidence_ids": [
+            "PED-101.vital.signos_vitales",
+            "PED-101.examen.exploracion_fisica"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq6",
+          "topic": "Datos que permiten distinguir los diagnósticos de la familia",
+          "evidence_ids": [
+            "PED-101.examen.exploracion_fisica",
+            "PED-101.lab.flujo_espiratorio",
+            "PED-101.antecedente.antecedentes"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        }
+      ],
+      "tests": {
+        "recommended": [
+          "flujo_espiratorio"
+        ],
+        "optional": [],
+        "unnecessary": []
+      }
+    }
+  },
+  "provenance": {
+    "created_by": "Codex / case_preparation.familias.ampliacion",
+    "created_at": "2026-10-16",
+    "validator_version": "1.1.0",
+    "validated_at": "2026-10-16",
+    "curated_by": "Validación automática para simulación; revisión clínica humana pendiente",
+    "curated_at": "2026-10-16",
+    "rejection_reason": null
+  }
+}

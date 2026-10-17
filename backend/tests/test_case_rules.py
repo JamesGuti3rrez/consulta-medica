@@ -28,7 +28,7 @@ def case() -> dict:
 def test_all_curated_cases_pass_rules():
     cases = [json.loads(path.read_text(encoding="utf-8")) for path in sorted((CASES_DIR / "curated").glob("*.json"))]
     assert sum(case["source"]["dataset"] == "MedQA" for case in cases) == 10
-    assert sum(case["source"]["dataset"] == "sintetico" for case in cases) == 3
+    assert sum(case["source"]["dataset"] == "sintetico" for case in cases) == 33
     assert {case["case_id"]: check_case_rules(case) for case in cases} == {case["case_id"]: [] for case in cases}
     assert check_batch_rules(cases) == []
 

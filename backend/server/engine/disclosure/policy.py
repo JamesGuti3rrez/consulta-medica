@@ -53,6 +53,25 @@ ALIASES: dict[str, tuple[str, ...]] = {
     "dimero_d": ("dimero d", "dimero"),
     "radiografia_torax": ("radiografia", "rayos x", "placa de torax"),
     "angiotomografia_torax": ("angiotomografia", "angiotac", "tomografia"),
+    # Estudios de las diez familias incorporadas en octubre de 2026.
+    "flujo_espiratorio": ("flujo espiratorio", "flujometria", "peak flow"),
+    "gasometria": ("gasometria arterial", "gases arteriales"),
+    "ecocardiografia": ("ecocardiograma", "ecocardiografia"),
+    "estudio_lcr": ("liquido cefalorraquideo", "lcr"),
+    "angiografia_cerebral": ("angiotomografia cerebral", "angiografia cerebral", "angiotac cerebral"),
+    "ecografia_abdominal": ("ecografia abdominal", "ecografia del abdomen"),
+    "tomografia_abdominal": ("tomografia abdominal", "tac abdominal", "tomografia del abdomen"),
+    "uroanalisis": ("analisis de orina", "examen de orina", "uroanalisis"),
+    "funcion_renal": ("funcion renal", "creatinina"),
+    "electrolitos": ("electrolitos", "ionograma"),
+    "glucosa": ("glucosa", "glucemia", "glicemia"),
+    "ferritina": ("ferritina", "perfil de hierro"),
+    "hemoglobina_glicosilada": ("hemoglobina glicosilada", "hemoglobina glucosilada", "hemoglobina glicada", "hba1c"),
+    "prueba_molecular_esputo": ("prueba molecular de esputo", "pcr de esputo"),
+    "beta_hcg": ("beta hcg", "bhcg", "gonadotropina corionica"),
+    "ecografia_pelvica": ("ecografia pelvica", "ecografia transvaginal", "ecografia obstetrica"),
+    "microscopia_vaginal": ("microscopia vaginal", "exudado vaginal", "secrecion vaginal"),
+    "prueba_molecular_vaginal": ("prueba molecular vaginal", "pcr vaginal"),
     # Temas propios del caso de prueba original (CARD-001).
     "inicio_dolor": ("desde cuando", "cuando comenzo", "inicio", "duracion", "como lo describiria", "dolor"),
     "fotofobia": ("fotofobia", "luz", "molesta la luz"),
@@ -92,6 +111,10 @@ EXAM_TOPICS = (
     "coagulacion", "ph_vaginal", "funcion_tiroidea", "imagen_osea", "radiografia", "factores_coagulacion",
     "prolactina", "electroencefalograma", "electrocardiograma", "troponina", "dimero_d", "radiografia_torax",
     "angiotomografia_torax", "hemograma", "tomografia",
+    "flujo_espiratorio", "gasometria", "ecocardiografia", "estudio_lcr", "angiografia_cerebral",
+    "ecografia_abdominal", "tomografia_abdominal", "uroanalisis", "funcion_renal", "electrolitos",
+    "glucosa", "ferritina", "hemoglobina_glicosilada", "prueba_molecular_esputo", "beta_hcg",
+    "ecografia_pelvica", "microscopia_vaginal", "prueba_molecular_vaginal",
 )
 # Alias que no nombran un examen concreto: no bastan para decir que «ese examen no se realizó».
 GENERIC_EXAM_TERMS = frozenset({"analisis de sangre"})

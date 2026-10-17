@@ -1,0 +1,305 @@
+{
+  "schema_version": "1.1.0",
+  "case_id": "PED-105",
+  "title": "Gabriel Rivas: Tiene dolor abdominal y vómitos que han interrum",
+  "specialty": "pediatria",
+  "language": "es",
+  "status": "curado",
+  "source": {
+    "dataset": "sintetico",
+    "item_id": "dolor_abdominal_y_vomitos_pediatrico/invaginacion_ileocolica",
+    "license": "CC BY 4.0",
+    "method": "generado_ia"
+  },
+  "public": {
+    "patient": {
+      "alias": "Gabriel Rivas",
+      "age_years": 2,
+      "sex": "masculino"
+    },
+    "chief_complaint": {
+      "evidence_id": "PED-105.motivo.queja_principal",
+      "category": "motivo",
+      "label": "Motivo de consulta",
+      "text": "Tiene dolor abdominal y vómitos que han interrumpido sus actividades."
+    },
+    "items": [
+      {
+        "evidence_id": "PED-105.anamnesis.contexto_atencion",
+        "category": "anamnesis",
+        "label": "Contexto de atención",
+        "text": "Acude acompañado por su madre a valoración pediátrica."
+      }
+    ],
+    "allergies_recorded": false
+  },
+  "on_request": [
+    {
+      "evidence_id": "PED-105.anamnesis.inicio_evolucion",
+      "category": "anamnesis",
+      "label": "Inicio y evolución",
+      "text": "La madre dice que empezó hace ocho horas con ataques de llanto intenso cada quince o veinte minutos y después vomitó cuatro veces.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "inicio_y_evolucion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-105.anamnesis.caracteristicas",
+      "category": "anamnesis",
+      "label": "Características de las molestias",
+      "text": "Durante cada episodio se encoge y lleva las piernas al abdomen; entre episodios se calma y parece cansado. El último vómito fue verdoso.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "caracteristicas_sintoma"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-105.sintoma.sintomas",
+      "category": "sintoma",
+      "label": "Síntomas asociados",
+      "text": "Se pone pálido durante el dolor. No ha tenido diarrea abundante; la última deposición fue escasa y con moco, sin sangre visible.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "sintomas_asociados"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-105.antecedente.antecedentes",
+      "category": "antecedente",
+      "label": "Antecedentes personales",
+      "text": "Antes sano, sin operaciones abdominales. Tuvo un resfriado hace una semana.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "antecedentes_personales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-105.medicacion.medicacion",
+      "category": "medicacion",
+      "label": "Medicación habitual",
+      "text": "No toma medicación habitual ni ha recibido laxantes.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "medicacion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-105.antecedente.alergias",
+      "category": "antecedente",
+      "label": "Alergias",
+      "text": "No refiere alergias conocidas.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "alergias"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-105.anamnesis.habitos",
+      "category": "anamnesis",
+      "label": "Hábitos y entorno",
+      "text": "Come alimentos familiares y toma agua. Sin viajes ni contactos con diarrea.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-105.anamnesis.impacto_funcional",
+      "category": "anamnesis",
+      "label": "Impacto en las actividades diarias",
+      "text": "Ha dejado de jugar y rechaza los alimentos desde esta mañana.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-105.vital.signos_vitales",
+      "category": "signo_vital",
+      "label": "Signos vitales",
+      "text": "Peso 12 kg; presión arterial 94/60 mmHg; pulso 128/min; frecuencia respiratoria 28/min; temperatura 37,2 °C; saturación 99 % al aire ambiente.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "signos_vitales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-105.examen.exploracion_fisica",
+      "category": "examen_fisico",
+      "label": "Exploración física",
+      "text": "Somnoliento entre episodios pero despierta al estímulo, perfusión conservada. Abdomen con discreta distensión y masa alargada palpable en cuadrante superior derecho, sin rigidez generalizada.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "exploracion_fisica"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-105.imagen.ecografia_abdominal",
+      "category": "imagen",
+      "label": "Ecografía abdominal",
+      "text": "Imagen en diana con asas concéntricas en hemiabdomen derecho y patrón de pseudorriñón longitudinal; el íleon terminal se introduce en el colon. Flujo Doppler conservado, sin perforación ni líquido libre importante.",
+      "reveal_policy": {
+        "owner": "radiologia",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "ecografia_abdominal"
+        ]
+      }
+    }
+  ],
+  "protected": {
+    "diagnosis": {
+      "name": "Invaginación intestinal ileocólica",
+      "synonyms": [
+        "Intususcepción ileocólica",
+        "Invaginación ileocólica",
+        "Intususcepción intestinal ileocólica"
+      ]
+    },
+    "differentials": [
+      {
+        "name": "Gastroenteritis aguda viral",
+        "must_not_miss": false,
+        "discard_evidence_ids": [
+          "PED-105.anamnesis.caracteristicas",
+          "PED-105.examen.exploracion_fisica",
+          "PED-105.imagen.ecografia_abdominal"
+        ]
+      },
+      {
+        "name": "Apendicitis aguda pediátrica",
+        "must_not_miss": true,
+        "discard_evidence_ids": [
+          "PED-105.anamnesis.caracteristicas",
+          "PED-105.examen.exploracion_fisica",
+          "PED-105.imagen.ecografia_abdominal"
+        ]
+      }
+    ],
+    "treatment_reference": {
+      "summary": "Evaluación urgente conjunta con cirugía pediátrica y radiología para reducción con enema si no hay contraindicación.",
+      "key_actions": [
+        "Ayuno, acceso venoso, analgesia y reposición de líquidos según necesidad.",
+        "Coordinar reducción neumática o hidrostática en un centro preparado, tras descartar perforación o peritonitis.",
+        "Recurrir a cirugía si está inestable, tiene complicaciones o fracasa la reducción; vigilar recurrencias."
+      ]
+    },
+    "contraindications": [],
+    "evaluation": {
+      "key_questions": [
+        {
+          "id": "kq1",
+          "topic": "Inicio y evolución de las molestias",
+          "evidence_ids": [
+            "PED-105.anamnesis.inicio_evolucion"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq2",
+          "topic": "Características y síntomas asociados",
+          "evidence_ids": [
+            "PED-105.anamnesis.caracteristicas",
+            "PED-105.sintoma.sintomas"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq3",
+          "topic": "Antecedentes y medicación habitual",
+          "evidence_ids": [
+            "PED-105.antecedente.antecedentes",
+            "PED-105.medicacion.medicacion"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq4",
+          "topic": "Alergias antes de proponer tratamiento",
+          "evidence_ids": [
+            "PED-105.antecedente.alergias"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq5",
+          "topic": "Valoración de gravedad con signos vitales y exploración",
+          "evidence_ids": [
+            "PED-105.vital.signos_vitales",
+            "PED-105.examen.exploracion_fisica"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq6",
+          "topic": "Datos que permiten distinguir los diagnósticos de la familia",
+          "evidence_ids": [
+            "PED-105.anamnesis.caracteristicas",
+            "PED-105.examen.exploracion_fisica",
+            "PED-105.imagen.ecografia_abdominal"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        }
+      ],
+      "tests": {
+        "recommended": [
+          "ecografia_abdominal"
+        ],
+        "optional": [],
+        "unnecessary": []
+      }
+    }
+  },
+  "provenance": {
+    "created_by": "Codex / case_preparation.familias.ampliacion",
+    "created_at": "2026-10-16",
+    "validator_version": "1.1.0",
+    "validated_at": "2026-10-16",
+    "curated_by": "Validación automática para simulación; revisión clínica humana pendiente",
+    "curated_at": "2026-10-16",
+    "rejection_reason": null
+  }
+}

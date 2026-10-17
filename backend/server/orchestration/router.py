@@ -21,8 +21,15 @@ class DecisionRouter:
         "electrocardiograma", "ecg", "electro", "dimero", "enzimas cardiacas",
         # Exámenes que agregó el equipo para decidir entre diagnósticos parecidos (decisión 0002).
         "factor viii", "factor ix", "factores de coagulacion", "prolactina", "eeg",
+        # Estudios de la ampliación de casos sintéticos (octubre de 2026).
+        "flujo espiratorio", "flujometria", "peak flow", "gasometria", "liquido cefalorraquideo", "lcr",
+        "funcion renal", "creatinina", "uroanalisis", "electrolitos", "ionograma", "ferritina",
+        "hemoglobina glicosilada", "hemoglobina glucosilada", "hemoglobina glicada", "hba1c",
+        "beta hcg", "bhcg", "microscopia vaginal", "exudado vaginal", "secrecion vaginal",
+        "prueba molecular vaginal", "prueba molecular de esputo", "baciloscopia",
     }
-    RADIOLOGY = {"radiografia", "ecografia", "tomografia", "resonancia", "imagen", "rayos x", "tac", "edad osea"}
+    RADIOLOGY = {"radiografia", "ecografia", "tomografia", "resonancia", "imagen", "rayos x", "tac", "edad osea",
+                 "ecocardiografia", "ecocardiograma", "angiografia cerebral"}
     SPECIALIST = {"especialista", "interconsulta", "neurologia", "cardiologia", "cirugia", "ginecologia"}
     ASSISTANT = {"resumen", "que sabemos", "presentacion", "historia clinica", "estado del caso",
                  "el diagnostico", "que tiene el paciente", "cual es la enfermedad"}

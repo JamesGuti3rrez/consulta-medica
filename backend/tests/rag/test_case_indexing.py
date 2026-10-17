@@ -347,7 +347,7 @@ def test_real_curated_catalog_can_be_prepared_for_rag():
     cases = load_curated_cases()
     documents = build_case_documents(cases)
 
-    assert len(cases) == 13
+    assert len(cases) == 43
     assert documents
     assert {doc.case_id for doc in documents if doc.case_id} == {case["case_id"] for case in cases}
     assert all(doc.role != "protected" for doc in documents)

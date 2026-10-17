@@ -60,6 +60,7 @@ if (task === 'setup') {
     'tests/integration/test_synthetic_patient.py', 'tests/unit/test_grounding.py',
     'tests/integration/test_generic_exam_request.py', 'tests/unit/test_router.py',
     'tests/unit/test_history_json.py',
+    'tests/test_ampliacion_casos.py',
     'tests/unit/test_disclosure.py', ...process.argv.slice(3)], {
     ...process.env, CASE_STORE: 'local', SESSION_STORE: 'memoria',
     LANGSMITH_TRACING: 'false', LANGCHAIN_TRACING_V2: 'false',

@@ -1,0 +1,1554 @@
+[
+  {
+    "id": "disnea_aguda_adulto",
+    "specialty": "emergencias",
+    "complaint": "Me falta el aire y me cuesta realizar mis actividades.",
+    "sources": [
+      "https://ginasthma.org/reports/",
+      "https://www.nice.org.uk/guidance/ng115/chapter/Recommendations",
+      "https://www.nice.org.uk/guidance/cg187/chapter/Recommendations"
+    ],
+    "cases": [
+      {
+        "id": "EME-104",
+        "name": "Renato Salazar",
+        "age": 29,
+        "sex": "masculino",
+        "diagnosis": "Exacerbación asmática",
+        "synonyms": [
+          "Crisis asmática",
+          "Crisis de asma",
+          "Agudización asmática"
+        ],
+        "slug": "exacerbacion_asmatica",
+        "urgent": true,
+        "course": "La dificultad respiratoria empezó hace 8 horas después de limpiar un depósito con mucho polvo. Ha tenido episodios parecidos y mejora parcialmente con su inhalador.",
+        "features": "Siente opresión en el pecho y escucha silbidos al respirar; no describe dolor localizado ni empeoramiento al acostarse.",
+        "symptoms": "Tiene tos seca. No ha tenido fiebre, hinchazón de piernas ni expectoración con sangre.",
+        "history": "Tiene asma desde la adolescencia. No ha requerido ventilación mecánica y no refiere enfermedad cardíaca.",
+        "medication": "Usa un inhalador de salbutamol cuando tiene molestias; dejó de usar su inhalador preventivo hace 2 meses.",
+        "habits": "No fuma. Estuvo barriendo un depósito sin protección frente al polvo.",
+        "function": "Desde esta mañana necesita detenerse al caminar por la falta de aire; normalmente trabaja y camina sin limitaciones.",
+        "vitals": "Presión arterial 122/76 mmHg; pulso 108/min; frecuencia respiratoria 28/min; temperatura 36,8 °C; saturación 93 % al aire ambiente.",
+        "exam": "Está alerta y puede hablar en frases. Presenta espiración prolongada y sibilancias difusas; no hay crepitantes focales ni edema de piernas.",
+        "studies": [
+          {
+            "key": "flujo_espiratorio",
+            "label": "Flujo espiratorio máximo",
+            "text": "Antes del broncodilatador, el flujo máximo es 55 % de su mejor valor personal; después del tratamiento inicial mejora a 76 %.",
+            "ask": "Solicito una medición del flujo espiratorio máximo",
+            "owner": "laboratorio"
+          }
+        ],
+        "decisive": [
+          "exploracion_fisica",
+          "flujo_espiratorio"
+        ],
+        "treatment": "Evaluación inmediata de gravedad y respuesta al broncodilatador inhalado; oxígeno y corticoide sistémico según valoración clínica y protocolo.",
+        "actions": [
+          "Reevaluar trabajo respiratorio, saturación y flujo máximo.",
+          "Restablecer un plan de tratamiento que incluya controlador inhalado.",
+          "Revisar técnica inhalatoria y signos de alarma."
+        ]
+      },
+      {
+        "id": "EME-105",
+        "name": "Ernesto Huamán",
+        "age": 69,
+        "sex": "masculino",
+        "diagnosis": "Exacerbación aguda de EPOC",
+        "synonyms": [
+          "Agudización de enfermedad pulmonar obstructiva crónica",
+          "Agudización de EPOC",
+          "Exacerbación de enfermedad pulmonar obstructiva crónica"
+        ],
+        "slug": "exacerbacion_epoc",
+        "urgent": true,
+        "course": "Desde hace 3 días respira peor de lo habitual; aumentó la tos y la cantidad de flema, que ahora es amarillenta.",
+        "features": "Se fatiga al caminar unos metros y respira con los labios fruncidos. No tiene dolor súbito en el pecho ni necesita incorporarse al dormir.",
+        "symptoms": "La flema es más espesa y abundante. No refiere dolor en una pierna ni hinchazón reciente de ambos tobillos.",
+        "history": "Tiene enfermedad pulmonar obstructiva crónica documentada por una espirometría previa con relación FEV1/FVC de 0,56 tras broncodilatador. No usa oxígeno domiciliario.",
+        "medication": "Usa tiotropio diariamente y salbutamol de rescate. No toma diuréticos.",
+        "habits": "Fumó durante 40 años y dejó de hacerlo hace 3 años; no ha realizado viajes largos recientes.",
+        "function": "Antes podía caminar dos cuadras; ahora debe detenerse para ir al baño.",
+        "vitals": "Presión arterial 134/82 mmHg; pulso 104/min; frecuencia respiratoria 26/min; temperatura 37,7 °C; saturación 88 % al aire ambiente.",
+        "exam": "Presenta espiración prolongada, roncus y sibilancias bilaterales. No hay crepitantes basales húmedos, ingurgitación yugular ni edema periférico.",
+        "studies": [
+          {
+            "key": "gasometria",
+            "label": "Gasometría arterial",
+            "text": "pH 7,36; PaCO2 48 mmHg; PaO2 58 mmHg; bicarbonato 26 mmol/L.",
+            "ask": "Solicito una gasometría arterial",
+            "owner": "laboratorio"
+          },
+          {
+            "key": "radiografia_torax",
+            "label": "Radiografía de tórax",
+            "text": "Pulmones hiperinsuflados; no hay consolidación focal, derrame pleural ni congestión vascular.",
+            "ask": "Solicito una radiografía de tórax",
+            "owner": "radiologia"
+          }
+        ],
+        "decisive": [
+          "antecedentes",
+          "radiografia_torax"
+        ],
+        "treatment": "Oxigenoterapia controlada y broncodilatadores de acción corta; valorar corticoide sistémico, antibiótico y soporte ventilatorio según gravedad y criterios clínicos.",
+        "actions": [
+          "Titular oxígeno y vigilar la gasometría.",
+          "Valorar el aumento de disnea, volumen y purulencia del esputo.",
+          "Reevaluar necesidad de hospitalización y soporte respiratorio."
+        ]
+      },
+      {
+        "id": "EME-106",
+        "name": "Marta Cárdenas",
+        "age": 74,
+        "sex": "femenino",
+        "diagnosis": "Edema agudo de pulmón cardiogénico",
+        "synonyms": [
+          "Edema pulmonar cardiogénico agudo",
+          "Edema pulmonar cardiogénico",
+          "Edema pulmonar agudo de origen cardiaco"
+        ],
+        "slug": "edema_pulmonar",
+        "urgent": true,
+        "course": "La falta de aire empeoró rápidamente durante la noche. Desde hace 5 días aumenta la hinchazón de ambos tobillos.",
+        "features": "No puede acostarse y necesita sentarse para respirar. No refiere silbidos habituales ni dolor pleurítico.",
+        "symptoms": "Tiene tos con expectoración espumosa y dificultad para dormir acostada; no ha tenido fiebre ni flema purulenta.",
+        "history": "Tiene insuficiencia cardíaca con fracción de eyección reducida y antecedentes de hipertensión. No tiene enfermedad obstructiva respiratoria conocida.",
+        "medication": "Usa enalapril y carvedilol. Dejó la furosemida hace 5 días porque se le terminó.",
+        "habits": "No fuma; durante la última semana aumentó el consumo de alimentos muy salados.",
+        "function": "Habitualmente camina dentro de casa sin ayuda; ahora le falta el aire incluso al vestirse.",
+        "vitals": "Presión arterial 182/104 mmHg; pulso 116/min; frecuencia respiratoria 32/min; temperatura 36,7 °C; saturación 86 % al aire ambiente.",
+        "exam": "Está sentada, con uso de musculatura accesoria; tiene crepitantes bilaterales, ingurgitación yugular y edema con fóvea en ambas piernas.",
+        "studies": [
+          {
+            "key": "radiografia_torax",
+            "label": "Radiografía de tórax",
+            "text": "Opacidades alveolares bilaterales perihiliares, líneas septales y pequeños derrames pleurales; silueta cardíaca aumentada.",
+            "ask": "Solicito una radiografía de tórax",
+            "owner": "radiologia"
+          },
+          {
+            "key": "ecocardiografia",
+            "label": "Ecocardiografía",
+            "text": "Fracción de eyección del ventrículo izquierdo 30 %, sin derrame pericárdico significativo.",
+            "ask": "Solicito una ecocardiografía",
+            "owner": "radiologia"
+          }
+        ],
+        "decisive": [
+          "exploracion_fisica",
+          "radiografia_torax"
+        ],
+        "treatment": "Estabilización respiratoria urgente, diurético intravenoso y tratamiento de la hipertensión según evaluación; valorar ventilación no invasiva y buscar el desencadenante.",
+        "actions": [
+          "Vigilar saturación, presión arterial y diuresis.",
+          "Valorar oxígeno y soporte ventilatorio por la hipoxemia.",
+          "Revisar el abandono del diurético y otros desencadenantes."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cefalea_adulto",
+    "specialty": "emergencias",
+    "complaint": "Tengo un dolor de cabeza intenso que me impide seguir con mis actividades.",
+    "sources": [
+      "https://www.nice.org.uk/guidance/cg150/chapter/Recommendations",
+      "https://www.nice.org.uk/guidance/ng240/chapter/Recommendations",
+      "https://www.nice.org.uk/guidance/ng228/chapter/Recommendations"
+    ],
+    "cases": [
+      {
+        "id": "EME-107",
+        "name": "Valeria Medina",
+        "age": 32,
+        "sex": "femenino",
+        "diagnosis": "Migraña sin aura",
+        "synonyms": [
+          "Crisis de migraña sin aura",
+          "Migraña común",
+          "Cefalea migrañosa sin aura"
+        ],
+        "slug": "migrana",
+        "urgent": false,
+        "course": "El dolor aumentó gradualmente durante 2 horas y lleva 10 horas. Ha tenido episodios similares desde los 20 años; no es el primero ni el peor de su vida.",
+        "features": "Es pulsátil, predomina en la mitad derecha de la cabeza y empeora con la actividad; no apareció de forma explosiva.",
+        "symptoms": "Tiene náuseas y le molestan la luz y los ruidos. No tiene fiebre, rigidez de cuello, pérdida de conciencia ni debilidad focal.",
+        "history": "No está embarazada, no ha sufrido traumatismos ni tiene inmunosupresión. Su madre tenía episodios de dolor de cabeza parecidos.",
+        "medication": "Tomó paracetamol con alivio parcial; no consume analgésicos a diario ni usa anticoagulantes.",
+        "habits": "Durmió pocas horas durante los últimos días y omitió el desayuno.",
+        "function": "Durante el episodio prefiere una habitación oscura; entre episodios realiza sus actividades con normalidad.",
+        "vitals": "Presión arterial 118/72 mmHg; pulso 78/min; frecuencia respiratoria 16/min; temperatura 36,6 °C; saturación 99 %.",
+        "exam": "Está alerta y orientada. Exploración neurológica sin déficit, fondo de ojo sin edema de papila y cuello sin rigidez.",
+        "studies": [],
+        "decisive": [
+          "inicio_evolucion",
+          "sintomas",
+          "exploracion_fisica"
+        ],
+        "treatment": "Tratamiento sintomático del episodio conforme a antecedentes y contraindicaciones; revisar frecuencia de crisis y posible necesidad de prevención.",
+        "actions": [
+          "Confirmar ausencia de signos de alarma.",
+          "Valorar analgesia, tratamiento específico y antiemético según evaluación.",
+          "Revisar sueño, desencadenantes y uso excesivo de medicación."
+        ]
+      },
+      {
+        "id": "EME-108",
+        "name": "Jorge Paredes",
+        "age": 25,
+        "sex": "masculino",
+        "diagnosis": "Meningitis bacteriana aguda",
+        "synonyms": [
+          "Meningitis aguda de etiología bacteriana",
+          "Meningitis bacteriana",
+          "Infección meníngea bacteriana aguda"
+        ],
+        "slug": "meningitis_bacteriana",
+        "urgent": true,
+        "course": "Desde ayer presenta fiebre y dolor de cabeza progresivo. Hoy le cuesta mover el cuello y su familia lo nota más somnoliento.",
+        "features": "El dolor es generalizado y empeora con los movimientos de la cabeza; no comenzó de manera súbita ni tiene episodios previos iguales.",
+        "symptoms": "Tiene vómitos y molestia con la luz. No ha presentado debilidad de una extremidad ni un traumatismo reciente.",
+        "history": "No tiene enfermedades crónicas conocidas ni antecedentes de crisis convulsivas.",
+        "medication": "Tomó paracetamol; no ha recibido antibióticos antes de la evaluación.",
+        "habits": "Vive con compañeros de estudio; no ha realizado viajes recientes.",
+        "function": "No ha podido asistir a clases y requiere que su familia lo acompañe por la somnolencia.",
+        "vitals": "Presión arterial 110/68 mmHg; pulso 112/min; frecuencia respiratoria 22/min; temperatura 39,2 °C; saturación 97 %.",
+        "exam": "Está somnoliento pero obedece órdenes; presenta rigidez de nuca, sin déficit neurológico focal ni signos de compromiso ventilatorio.",
+        "studies": [
+          {
+            "key": "estudio_lcr",
+            "label": "Estudio del líquido cefalorraquídeo",
+            "text": "LCR turbio: 1800 leucocitos/µL con 90 % de neutrófilos, proteínas 180 mg/dL y glucosa 24 mg/dL con glucemia simultánea de 100 mg/dL; tinción con diplococos grampositivos.",
+            "ask": "Solicito estudio del líquido cefalorraquídeo",
+            "owner": "laboratorio"
+          }
+        ],
+        "decisive": [
+          "signos_vitales",
+          "exploracion_fisica",
+          "estudio_lcr"
+        ],
+        "treatment": "Antibióticos intravenosos urgentes y atención hospitalaria; hemocultivos y punción lumbar cuando sea seguro, sin retrasar el tratamiento por las pruebas.",
+        "actions": [
+          "Evaluar estado hemodinámico y neurológico.",
+          "Obtener muestras oportunamente sin retrasar antibióticos.",
+          "Valorar tratamiento adyuvante según protocolo y vigilancia estrecha."
+        ]
+      },
+      {
+        "id": "EME-109",
+        "name": "Rosa Aguilar",
+        "age": 52,
+        "sex": "femenino",
+        "diagnosis": "Hemorragia subaracnoidea aneurismática",
+        "synonyms": [
+          "Sangrado subaracnoideo de origen aneurismático",
+          "HSA aneurismática",
+          "Hemorragia subaracnoidea por rotura aneurismática"
+        ],
+        "slug": "hemorragia_subaracnoidea",
+        "urgent": true,
+        "course": "Hace 90 minutos apareció de forma instantánea el peor dolor de cabeza de su vida mientras cargaba una caja.",
+        "features": "El dolor alcanzó su máxima intensidad en segundos. Nunca había tenido un episodio parecido.",
+        "symptoms": "Presenta vómitos y dolor cervical. No ha tenido fiebre ni una enfermedad respiratoria previa.",
+        "history": "Tiene hipertensión arterial; no ha sufrido traumatismos craneales recientes.",
+        "medication": "Usa amlodipino de forma irregular; no toma anticoagulantes.",
+        "habits": "Fuma aproximadamente 10 cigarrillos al día.",
+        "function": "Tuvo que interrumpir de inmediato la actividad y acudir acompañada; antes era independiente.",
+        "vitals": "Presión arterial 178/100 mmHg; pulso 92/min; frecuencia respiratoria 20/min; temperatura 36,8 °C; saturación 98 %.",
+        "exam": "Está alerta, muy dolorida y con rigidez cervical leve; no presenta paresia ni alteración del lenguaje.",
+        "studies": [
+          {
+            "key": "tomografia",
+            "label": "Tomografía cerebral sin contraste",
+            "text": "Sangre hiperdensa en cisternas basales y cisuras silvianas, sin masa expansiva.",
+            "ask": "Solicito una tomografía cerebral",
+            "owner": "radiologia"
+          },
+          {
+            "key": "angiografia_cerebral",
+            "label": "Angiotomografía cerebral",
+            "text": "Aneurisma sacular de 6 mm en la arteria comunicante anterior.",
+            "ask": "Solicito una angiotomografía cerebral",
+            "owner": "radiologia"
+          }
+        ],
+        "decisive": [
+          "inicio_evolucion",
+          "tomografia"
+        ],
+        "treatment": "Atención neurovascular urgente, vigilancia hospitalaria y prevención de resangrado y complicaciones según protocolo especializado.",
+        "actions": [
+          "Priorizar neuroimagen urgente.",
+          "Coordinar valoración neuroquirúrgica o neurointervencionista.",
+          "Controlar el estado neurológico y la presión arterial bajo monitorización."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "dolor_abdominal_quirurgico",
+    "specialty": "cirugia_general",
+    "complaint": "Tengo dolor abdominal y náuseas que no me dejan hacer mis actividades.",
+    "sources": [
+      "https://www.wses.org.uk/scientific-resources/guidelines",
+      "https://www.nice.org.uk/guidance/cg188/chapter/Recommendations",
+      "https://www.niddk.nih.gov/health-information/urologic-diseases/kidney-stones/diagnosis"
+    ],
+    "cases": [
+      {
+        "id": "CIR-101",
+        "name": "Diego Campos",
+        "age": 24,
+        "sex": "masculino",
+        "diagnosis": "Apendicitis aguda",
+        "synonyms": [
+          "Inflamación aguda del apéndice",
+            "Apendicitis",
+            "Apendicitis aguda no perforada"
+        ],
+        "slug": "apendicitis",
+        "urgent": true,
+        "course": "El dolor empezó hace 18 horas alrededor del ombligo y después se localizó en la parte inferior derecha.",
+        "features": "Es continuo y empeora al caminar y toser; no se irradia hacia la espalda ni hacia la ingle.",
+        "symptoms": "Tiene falta de apetito, náuseas y un vómito. No tiene diarrea ni molestias al orinar.",
+        "history": "No tiene operaciones abdominales previas ni enfermedades conocidas.",
+        "medication": "No usa medicación habitual; tomó paracetamol con poco alivio.",
+        "habits": "No fuma y realiza actividad física recreativa.",
+        "function": "Dejó de trabajar por el dolor y evita moverse; normalmente es independiente.",
+        "vitals": "Presión arterial 116/74 mmHg; pulso 98/min; frecuencia respiratoria 18/min; temperatura 38,1 °C; saturación 99 %.",
+        "exam": "Presenta dolor localizado y defensa en fosa ilíaca derecha. No hay dolor en el hipocondrio derecho ni puñopercusión lumbar dolorosa.",
+        "studies": [
+          {
+            "key": "hemograma",
+            "label": "Hemograma",
+            "text": "Leucocitos 14500/µL con predominio neutrofílico; hemoglobina 14,2 g/dL.",
+            "ask": "Solicito un hemograma",
+            "owner": "laboratorio"
+          },
+          {
+            "key": "ecografia_abdominal",
+            "label": "Ecografía abdominal",
+            "text": "Estructura tubular de fondo ciego, no compresible, de 9 mm en fosa ilíaca derecha, con cambios inflamatorios de la grasa adyacente; sin dilatación de la vía biliar.",
+            "ask": "Solicito una ecografía abdominal",
+            "owner": "radiologia"
+          }
+        ],
+        "decisive": [
+          "inicio_evolucion",
+          "ecografia_abdominal"
+        ],
+        "treatment": "Valoración quirúrgica urgente y manejo según el grado de inflamación y la presencia de complicaciones.",
+        "actions": [
+          "Mantener hidratación y analgesia adecuadas.",
+          "Valorar antibióticos perioperatorios según protocolo.",
+          "Definir tratamiento con el equipo quirúrgico."
+        ]
+      },
+      {
+        "id": "CIR-102",
+        "name": "Silvia Ríos",
+        "age": 46,
+        "sex": "femenino",
+        "diagnosis": "Colecistitis aguda litiásica",
+        "synonyms": [
+          "Inflamación aguda de vesícula por cálculos",
+          "Colecistitis litiásica",
+          "Colecistitis calculosa aguda"
+        ],
+        "slug": "colecistitis",
+        "urgent": true,
+        "course": "El dolor comenzó hace 12 horas después de una comida abundante y no se ha resuelto, a diferencia de episodios previos breves.",
+        "features": "Predomina debajo de las costillas derechas y se irradia hacia la escápula derecha. No empezó alrededor del ombligo ni migra a la ingle.",
+        "symptoms": "Tiene náuseas, dos vómitos y sensación febril; no presenta color amarillo de piel ni ardor al orinar.",
+        "history": "Tuvo episodios similares más cortos después de comidas grasas; no tiene cirugías abdominales previas.",
+        "medication": "No usa medicación de forma habitual.",
+        "habits": "Suele consumir comidas con abundante grasa y no fuma.",
+        "function": "El dolor no le permite cocinar ni trabajar con normalidad desde esta mañana.",
+        "vitals": "Presión arterial 124/78 mmHg; pulso 100/min; frecuencia respiratoria 20/min; temperatura 38,2 °C; saturación 98 %.",
+        "exam": "Dolor y detención de la inspiración a la palpación del hipocondrio derecho; sin defensa en fosa ilíaca derecha ni dolor lumbar.",
+        "studies": [
+          {
+            "key": "hemograma",
+            "label": "Hemograma",
+            "text": "Leucocitos 13800/µL con neutrofilia.",
+            "ask": "Solicito un hemograma",
+            "owner": "laboratorio"
+          },
+          {
+            "key": "ecografia_abdominal",
+            "label": "Ecografía abdominal",
+            "text": "Vesícula distendida con cálculos, pared de 5 mm y líquido perivesicular; vía biliar principal no dilatada.",
+            "ask": "Solicito una ecografía abdominal",
+            "owner": "radiologia"
+          }
+        ],
+        "decisive": [
+          "exploracion_fisica",
+          "ecografia_abdominal"
+        ],
+        "treatment": "Atención hospitalaria, analgesia, hidratación, antibióticos según evaluación y valoración de cirugía temprana.",
+        "actions": [
+          "Valorar gravedad y complicaciones.",
+          "Consultar al equipo quirúrgico para definir el momento de intervención.",
+          "Vigilar signos de infección sistémica u obstrucción biliar."
+        ]
+      },
+      {
+        "id": "CIR-103",
+        "name": "Marco Palomino",
+        "age": 38,
+        "sex": "masculino",
+        "diagnosis": "Ureterolitiasis",
+        "synonyms": [
+          "Litiasis ureteral",
+            "Cólico ureteral por cálculo",
+            "Cálculo ureteral sintomático"
+        ],
+        "slug": "ureterolitiasis",
+        "urgent": false,
+        "course": "Hace 4 horas apareció dolor intenso en el costado izquierdo, con episodios de aumento y disminución de intensidad.",
+        "features": "Se irradia hacia la ingle; no encuentra una posición cómoda. No tiene dolor fijo en la parte superior derecha ni en la fosa ilíaca derecha.",
+        "symptoms": "Tiene náuseas y notó color rojizo al orinar. No tiene fiebre, escalofríos ni dificultad para iniciar la micción.",
+        "history": "Tuvo un episodio similar hace 3 años; tiene ambos riñones y no refiere enfermedad renal crónica.",
+        "medication": "No toma medicación habitual ni anticoagulantes.",
+        "habits": "Trabaja varias horas al aire libre y suele beber poca agua.",
+        "function": "No puede continuar trabajando durante los episodios de dolor; fuera de ellos es independiente.",
+        "vitals": "Presión arterial 138/84 mmHg; pulso 94/min; frecuencia respiratoria 20/min; temperatura 36,7 °C; saturación 99 %.",
+        "exam": "Está inquieto, con dolor a la puñopercusión lumbar izquierda; abdomen sin defensa ni signos de irritación peritoneal.",
+        "studies": [
+          {
+            "key": "uroanalisis",
+            "label": "Análisis de orina",
+            "text": "40 eritrocitos por campo; 0 a 2 leucocitos por campo; nitritos negativos.",
+            "ask": "Solicito un análisis de orina",
+            "owner": "laboratorio"
+          },
+          {
+            "key": "funcion_renal",
+            "label": "Función renal",
+            "text": "Creatinina 0,9 mg/dL; no hay deterioro renal agudo.",
+            "ask": "Solicito función renal",
+            "owner": "laboratorio"
+          },
+          {
+            "key": "tomografia_abdominal",
+            "label": "Tomografía abdominal sin contraste",
+            "text": "Cálculo de 4 mm en uréter distal izquierdo con dilatación proximal leve; sin cambios inflamatorios apendiculares ni vesiculares.",
+            "ask": "Solicito una tomografía abdominal",
+            "owner": "radiologia"
+          }
+        ],
+        "decisive": [
+          "caracteristicas",
+          "tomografia_abdominal"
+        ],
+        "treatment": "Analgesia y valoración de manejo expectante con seguimiento según tamaño, localización y evolución; descartar infección u obstrucción de alto riesgo.",
+        "actions": [
+          "Confirmar ausencia de fiebre, deterioro renal y riñón único.",
+          "Reevaluar control del dolor y tolerancia oral.",
+          "Definir seguimiento y signos que requieren atención urgente."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "distension_y_vomitos_adulto",
+    "specialty": "cirugia_general",
+    "complaint": "Tengo el abdomen hinchado, dolor y vómitos, y no estoy evacuando normalmente.",
+    "sources": [
+      "https://www.wses.org.uk/scientific-resources/guidelines"
+    ],
+    "cases": [
+      {
+        "id": "CIR-104",
+        "name": "Alicia Benavides",
+        "age": 57,
+        "sex": "femenino",
+        "diagnosis": "Obstrucción intestinal por adherencias",
+        "synonyms": [
+          "Obstrucción de intestino delgado por bridas",
+            "Oclusión intestinal adhesiva",
+            "Obstrucción intestinal por bridas"
+        ],
+        "slug": "obstruccion_adherencias",
+        "urgent": true,
+        "course": "Desde hace 24 horas tiene dolor intermitente, luego distensión y vómitos. No elimina gases desde la noche anterior.",
+        "features": "El dolor aparece en oleadas y predomina en el centro del abdomen; los vómitos son verdosos.",
+        "symptoms": "No tiene diarrea, fiebre persistente ni sangre en las deposiciones.",
+        "history": "Fue operada por una urgencia abdominal hace 12 años y por una hernia hace 5 años.",
+        "medication": "Solo usa paracetamol ocasional; no ha tomado opioides recientemente.",
+        "habits": "Antes de este episodio evacuaba diariamente y caminaba sin dificultad.",
+        "function": "No puede comer ni realizar tareas domésticas desde ayer por los vómitos y el dolor.",
+        "vitals": "Presión arterial 110/70 mmHg; pulso 102/min; frecuencia respiratoria 20/min; temperatura 37,1 °C; saturación 98 %.",
+        "exam": "Abdomen distendido, ruidos de tono alto y cicatrices quirúrgicas; no hay hernias externas ni signos de irritación peritoneal.",
+        "studies": [
+          {
+            "key": "electrolitos",
+            "label": "Electrolitos y función renal",
+            "text": "Sodio 137 mmol/L; potasio 3,6 mmol/L; creatinina 1,1 mg/dL.",
+            "ask": "Solicito electrolitos",
+            "owner": "laboratorio"
+          },
+          {
+            "key": "tomografia_abdominal",
+            "label": "Tomografía abdominal con contraste",
+            "text": "Asas de intestino delgado dilatadas con un punto de transición próximo a una cicatriz quirúrgica y colon distal colapsado; sin aire libre ni signos de isquemia.",
+            "ask": "Solicito una tomografía abdominal",
+            "owner": "radiologia"
+          }
+        ],
+        "decisive": [
+          "antecedentes",
+          "tomografia_abdominal"
+        ],
+        "treatment": "Valoración quirúrgica urgente, reposición de líquidos y corrección de alteraciones; descompresión según situación y vigilancia de isquemia o perforación.",
+        "actions": [
+          "Evaluar perfusión, diuresis y estado de hidratación.",
+          "Definir observación o intervención con cirugía.",
+          "Buscar dolor continuo intenso, irritación peritoneal o deterioro sistémico."
+        ]
+      },
+      {
+        "id": "CIR-105",
+        "name": "Óscar Velásquez",
+        "age": 63,
+        "sex": "masculino",
+        "diagnosis": "Íleo paralítico posoperatorio",
+        "synonyms": [
+          "Íleo adinámico posquirúrgico",
+          "Íleo adinámico posoperatorio",
+          "Íleo funcional posoperatorio"
+        ],
+        "slug": "ileo_posoperatorio",
+        "urgent": false,
+        "course": "Tres días después de una cirugía ortopédica comenzó con distensión progresiva, náuseas y escasa eliminación de gases.",
+        "features": "Tiene malestar abdominal difuso más que dolor en oleadas; vomitó una vez.",
+        "symptoms": "No tiene fiebre, dolor abdominal localizado intenso ni sangre en las deposiciones.",
+        "history": "No tiene cirugías abdominales previas ni episodios anteriores de bloqueo del tránsito.",
+        "medication": "Recibió morfina en el posoperatorio y ha comido poco desde la intervención.",
+        "habits": "Antes de la operación evacuaba con normalidad; ahora permanece la mayor parte del día en cama por la recuperación.",
+        "function": "Necesita ayuda para movilizarse por la operación; el abdomen hinchado dificulta la alimentación.",
+        "vitals": "Presión arterial 126/76 mmHg; pulso 88/min; frecuencia respiratoria 18/min; temperatura 36,8 °C; saturación 97 %.",
+        "exam": "Abdomen distendido, blando y con ruidos intestinales muy disminuidos; no hay defensa ni dolor focal.",
+        "studies": [
+          {
+            "key": "electrolitos",
+            "label": "Electrolitos",
+            "text": "Potasio 2,9 mmol/L; sodio 138 mmol/L.",
+            "ask": "Solicito electrolitos",
+            "owner": "laboratorio"
+          },
+          {
+            "key": "tomografia_abdominal",
+            "label": "Tomografía abdominal",
+            "text": "Dilatación difusa de intestino delgado y colon, con gas hasta el recto y sin punto de transición ni torsión mesentérica.",
+            "ask": "Solicito una tomografía abdominal",
+            "owner": "radiologia"
+          }
+        ],
+        "decisive": [
+          "medicacion",
+          "tomografia_abdominal"
+        ],
+        "treatment": "Corregir causas reversibles, revisar opioides, reponer electrolitos y favorecer recuperación de la motilidad según valoración clínica.",
+        "actions": [
+          "Corregir la hipopotasemia con monitorización apropiada.",
+          "Revisar analgesia y fármacos que enlentecen el tránsito.",
+          "Vigilar evolución y reconsiderar otras causas si aparece deterioro."
+        ]
+      },
+      {
+        "id": "CIR-106",
+        "name": "Héctor Espinoza",
+        "age": 76,
+        "sex": "masculino",
+        "diagnosis": "Vólvulo de sigmoides",
+        "synonyms": [
+          "Torsión obstructiva del colon sigmoide",
+          "Vólvulo sigmoideo",
+          "Torsión del colon sigmoide"
+        ],
+        "slug": "volvulo_sigmoides",
+        "urgent": true,
+        "course": "Desde hace 36 horas presenta distensión marcada y ausencia de deposiciones y gases; los vómitos aparecieron después.",
+        "features": "El dolor es abdominal bajo y se acompaña de un aumento importante del volumen del abdomen.",
+        "symptoms": "No tiene diarrea ni sangrado digestivo. No refiere dolor abdominal constante de intensidad creciente.",
+        "history": "Tiene estreñimiento crónico y episodios previos de distensión que cedieron espontáneamente. No fue operado del abdomen.",
+        "medication": "Usa laxantes de manera intermitente; no toma opioides.",
+        "habits": "Es poco activo y habitualmente evacua cada varios días.",
+        "function": "La distensión actual no le permite comer ni caminar con comodidad.",
+        "vitals": "Presión arterial 120/74 mmHg; pulso 98/min; frecuencia respiratoria 20/min; temperatura 37,0 °C; saturación 97 %.",
+        "exam": "Abdomen muy distendido y timpánico, sin defensa ni signos peritoneales; el recto está vacío al tacto.",
+        "studies": [
+          {
+            "key": "tomografia_abdominal",
+            "label": "Tomografía abdominal",
+            "text": "Gran dilatación del sigmoide con estrechamiento en pico y giro del mesenterio; no hay aire libre ni signos radiológicos de isquemia.",
+            "ask": "Solicito una tomografía abdominal",
+            "owner": "radiologia"
+          }
+        ],
+        "decisive": [
+          "antecedentes",
+          "tomografia_abdominal"
+        ],
+        "treatment": "Valoración quirúrgica urgente; considerar descompresión endoscópica si no hay isquemia ni perforación y planificar el manejo definitivo.",
+        "actions": [
+          "Evaluar signos de isquemia, perforación y compromiso sistémico.",
+          "Coordinar manejo endoscópico o quirúrgico según gravedad.",
+          "Prevenir recurrencias mediante un plan definitivo especializado."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cansancio_persistente_adulto",
+    "specialty": "medicina_interna",
+    "complaint": "Llevo varias semanas con cansancio que limita mi rendimiento habitual.",
+    "sources": [
+      "https://www.nice.org.uk/guidance/ng145/chapter/Recommendations",
+      "https://www.niddk.nih.gov/health-information/diabetes/overview/tests-diagnosis",
+      "https://www.nhlbi.nih.gov/health/anemia/iron-deficiency-anemia"
+    ],
+    "cases": [
+      {
+        "id": "MED-101",
+        "name": "Lucía Robles",
+        "age": 43,
+        "sex": "femenino",
+        "diagnosis": "Hipotiroidismo primario manifiesto",
+        "synonyms": [
+          "Hipofunción tiroidea primaria manifiesta",
+            "Hipotiroidismo primario",
+            "Hipotiroidismo clínico primario"
+        ],
+        "slug": "hipotiroidismo",
+        "urgent": false,
+        "course": "El cansancio ha aumentado lentamente durante 4 meses; también nota que piensa más despacio.",
+        "features": "Se siente agotada incluso después de descansar y tolera peor el frío que las personas de su entorno.",
+        "symptoms": "Tiene estreñimiento, piel más seca y aumento de peso leve. No refiere sed intensa, mucha frecuencia al orinar ni sangrado.",
+        "history": "No tiene enfermedades crónicas diagnosticadas, cirugías cervicales ni antecedentes de radioterapia.",
+        "medication": "No toma medicación habitual, litio ni suplementos con biotina.",
+        "habits": "Mantiene una alimentación variada y no ha cambiado sustancialmente su actividad física antes del inicio del cansancio.",
+        "function": "Le cuesta terminar su jornada de trabajo, aunque sigue siendo independiente para las actividades diarias.",
+        "vitals": "Presión arterial 112/72 mmHg; pulso 56/min; frecuencia respiratoria 16/min; temperatura 36,2 °C; saturación 99 %.",
+        "exam": "Piel seca, facies discretamente abotagada y relajación lenta de reflejos osteotendinosos; no hay palidez marcada ni signos de deshidratación.",
+        "studies": [
+          {
+            "key": "funcion_tiroidea",
+            "label": "Función tiroidea",
+            "text": "TSH 24 mUI/L y T4 libre 0,5 ng/dL, por debajo del intervalo de referencia del laboratorio.",
+            "ask": "Solicito función tiroidea",
+            "owner": "laboratorio"
+          },
+          {
+            "key": "hemograma",
+            "label": "Hemograma",
+            "text": "Hemoglobina 12,8 g/dL y volumen corpuscular medio 88 fL.",
+            "ask": "Solicito hemograma",
+            "owner": "laboratorio"
+          },
+          {
+            "key": "glucosa",
+            "label": "Glucosa en ayunas",
+            "text": "Glucosa 92 mg/dL en ayunas.",
+            "ask": "Solicito glucosa en ayunas",
+            "owner": "laboratorio"
+          }
+        ],
+        "decisive": [
+          "sintomas",
+          "funcion_tiroidea"
+        ],
+        "treatment": "Iniciar sustitución hormonal individualizada tras valoración clínica y programar controles bioquímicos y de síntomas.",
+        "actions": [
+          "Revisar factores que modifican la elección de dosis inicial.",
+          "Explicar cómo tomar el tratamiento y las interacciones relevantes.",
+          "Planificar seguimiento de la función tiroidea."
+        ]
+      },
+      {
+        "id": "MED-102",
+        "name": "Adriana Valdivia",
+        "age": 35,
+        "sex": "femenino",
+        "diagnosis": "Anemia ferropénica",
+        "synonyms": [
+          "Anemia por deficiencia de hierro",
+            "Anemia por déficit de hierro",
+            "Anemia microcítica por déficit de hierro"
+        ],
+        "slug": "anemia_ferropenica",
+        "urgent": false,
+        "course": "El cansancio y la menor tolerancia al esfuerzo comenzaron hace 3 meses y han ido aumentando.",
+        "features": "Se agita al subir escaleras; no tiene dificultad para respirar en reposo ni intolerancia al frío.",
+        "symptoms": "Presenta menstruaciones muy abundantes y prolongadas. No tiene heces negras, sed excesiva ni aumento de la frecuencia urinaria.",
+        "history": "No tiene enfermedad renal, cirugía digestiva ni antecedentes de trastornos hemorrágicos conocidos.",
+        "medication": "No toma anticoagulantes ni suplementos de hierro.",
+        "habits": "Come poca carne y legumbres; no ha cambiado su actividad física voluntariamente.",
+        "function": "Debe descansar al subir escaleras, pero se baña, se viste y camina por casa sin ayuda.",
+        "vitals": "Presión arterial 110/70 mmHg; pulso 96/min; frecuencia respiratoria 18/min; temperatura 36,7 °C; saturación 99 %.",
+        "exam": "Palidez conjuntival y ungueal, sin ictericia, edema ni hallazgos de insuficiencia respiratoria.",
+        "studies": [
+          {
+            "key": "hemograma",
+            "label": "Hemograma",
+            "text": "Hemoglobina 8,7 g/dL; volumen corpuscular medio 68 fL; amplitud de distribución eritrocitaria aumentada.",
+            "ask": "Solicito hemograma",
+            "owner": "laboratorio"
+          },
+          {
+            "key": "ferritina",
+            "label": "Ferritina y perfil de hierro",
+            "text": "Ferritina 5 ng/mL y saturación de transferrina 7 %.",
+            "ask": "Solicito ferritina",
+            "owner": "laboratorio"
+          },
+          {
+            "key": "funcion_tiroidea",
+            "label": "Función tiroidea",
+            "text": "TSH 2,1 mUI/L y T4 libre 1,1 ng/dL, dentro del intervalo de referencia.",
+            "ask": "Solicito función tiroidea",
+            "owner": "laboratorio"
+          }
+        ],
+        "decisive": [
+          "hemograma",
+          "ferritina"
+        ],
+        "treatment": "Reposición de hierro y estudio de la causa de la pérdida, con evaluación ginecológica de las menstruaciones abundantes.",
+        "actions": [
+          "Valorar estabilidad clínica y repercusión de la anemia.",
+          "Investigar y tratar la fuente de pérdida.",
+          "Comprobar respuesta hematológica y recuperación de reservas."
+        ]
+      },
+      {
+        "id": "MED-103",
+        "name": "Eduardo Soria",
+        "age": 51,
+        "sex": "masculino",
+        "diagnosis": "Diabetes mellitus tipo 2",
+        "synonyms": [
+          "Diabetes de tipo 2",
+          "Diabetes tipo 2",
+          "DM2"
+        ],
+        "slug": "diabetes_tipo_dos",
+        "urgent": false,
+        "course": "El cansancio empezó hace 2 meses; en las últimas semanas se levanta varias veces por la noche para ir al baño.",
+        "features": "Tiene mucha sed y necesita beber con frecuencia. No nota intolerancia al frío ni estreñimiento.",
+        "symptoms": "Ha perdido peso sin proponérselo. No tiene dolor abdominal, vómitos, respiración profunda ni alteración de conciencia.",
+        "history": "Tiene sobrepeso desde hace años y su padre tenía una enfermedad tratada por elevación persistente del azúcar.",
+        "medication": "No toma corticoides ni medicación para controlar el azúcar.",
+        "habits": "Tiene trabajo sedentario y suele consumir bebidas azucaradas.",
+        "function": "El cansancio y las interrupciones del sueño reducen su rendimiento laboral, pero conserva autonomía.",
+        "vitals": "Presión arterial 136/84 mmHg; pulso 82/min; frecuencia respiratoria 16/min; temperatura 36,6 °C; saturación 98 %.",
+        "exam": "Está alerta, con sobrepeso y acantosis en la región posterior del cuello; sin palidez marcada ni signos de deshidratación grave.",
+        "studies": [
+          {
+            "key": "glucosa",
+            "label": "Glucosa en ayunas",
+            "text": "Glucosa en ayunas de 176 mg/dL y 182 mg/dL en una segunda muestra.",
+            "ask": "Solicito glucosa en ayunas",
+            "owner": "laboratorio"
+          },
+          {
+            "key": "hemoglobina_glicosilada",
+            "label": "Hemoglobina glicosilada",
+            "text": "HbA1c de 8,2 %.",
+            "ask": "Solicito hemoglobina glicosilada",
+            "owner": "laboratorio"
+          },
+          {
+            "key": "hemograma",
+            "label": "Hemograma",
+            "text": "Hemoglobina 14,5 g/dL; volumen corpuscular medio 90 fL.",
+            "ask": "Solicito hemograma",
+            "owner": "laboratorio"
+          }
+        ],
+        "decisive": [
+          "sintomas",
+          "glucosa",
+          "hemoglobina_glicosilada"
+        ],
+        "treatment": "Plan individualizado de control glucémico, alimentación y actividad física; evaluar comorbilidades y seleccionar tratamiento farmacológico según perfil clínico.",
+        "actions": [
+          "Descartar signos de descompensación aguda.",
+          "Evaluar función renal y riesgo cardiovascular al planificar el manejo.",
+          "Organizar educación, seguimiento y detección de complicaciones."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "tos_adulto",
+    "specialty": "medicina_interna",
+    "complaint": "Tengo tos y malestar que están afectando mis actividades habituales.",
+    "sources": [
+      "https://www.nice.org.uk/guidance/ng250/chapter/Recommendations",
+      "https://www.nice.org.uk/guidance/ng120/chapter/Recommendations",
+      "https://www.who.int/publications-detail-redirect/9789240089501"
+    ],
+    "cases": [
+      {
+        "id": "MED-104",
+        "name": "Carmen Lazo",
+        "age": 62,
+        "sex": "femenino",
+        "diagnosis": "Neumonía adquirida en la comunidad",
+        "synonyms": [
+          "Infección neumónica comunitaria",
+          "Neumonía comunitaria",
+          "Neumonía extrahospitalaria"
+        ],
+        "slug": "neumonia_comunitaria",
+        "urgent": true,
+        "course": "La tos empezó hace 4 días y en los últimos 2 días se añadió fiebre y mayor dificultad para respirar.",
+        "features": "Expectora flema amarillenta y siente dolor en el costado derecho al inspirar profundamente.",
+        "symptoms": "Tiene escalofríos y falta de apetito; no tiene sudoración nocturna de semanas ni pérdida importante de peso previa.",
+        "history": "No tiene inmunosupresión ni hospitalizaciones recientes. No refiere contacto domiciliario con personas con tos prolongada.",
+        "medication": "Tomó paracetamol; no ha recibido antibióticos para este episodio.",
+        "habits": "No fuma y vive con su familia.",
+        "function": "No ha podido trabajar y se fatiga al caminar por la casa.",
+        "vitals": "Presión arterial 116/70 mmHg; pulso 106/min; frecuencia respiratoria 25/min; temperatura 38,8 °C; saturación 93 % al aire ambiente.",
+        "exam": "Tiene crepitantes focales y aumento de la transmisión de la voz en la base derecha; está orientada y no tiene rigidez de nuca.",
+        "studies": [
+          {
+            "key": "radiografia_torax",
+            "label": "Radiografía de tórax",
+            "text": "Consolidación en el lóbulo inferior derecho; sin cavidades apicales.",
+            "ask": "Solicito radiografía de tórax",
+            "owner": "radiologia"
+          },
+          {
+            "key": "hemograma",
+            "label": "Hemograma",
+            "text": "Leucocitos 15700/µL con neutrofilia.",
+            "ask": "Solicito hemograma",
+            "owner": "laboratorio"
+          }
+        ],
+        "decisive": [
+          "inicio_evolucion",
+          "radiografia_torax"
+        ],
+        "treatment": "Antibiótico y decisión del lugar de atención según gravedad, comorbilidades y tolerancia oral; soporte respiratorio según necesidad.",
+        "actions": [
+          "Evaluar gravedad y riesgo de deterioro.",
+          "Elegir antibiótico conforme a contexto clínico y guía local.",
+          "Planificar reevaluación y respuesta al tratamiento."
+        ]
+      },
+      {
+        "id": "MED-105",
+        "name": "Fernando Castillo",
+        "age": 28,
+        "sex": "masculino",
+        "diagnosis": "Bronquitis aguda",
+        "synonyms": [
+          "Inflamación bronquial aguda de probable origen viral",
+          "Bronquitis aguda no complicada",
+          "Inflamación bronquial aguda"
+        ],
+        "slug": "bronquitis_aguda",
+        "urgent": false,
+        "course": "La tos comenzó hace 6 días después de congestión nasal y dolor de garganta; la congestión ya está mejorando.",
+        "features": "La tos es predominante y ocasionalmente produce poca flema clara. No presenta dolor focal al respirar.",
+        "symptoms": "No tiene fiebre persistente, falta de aire en reposo, pérdida de peso ni sudoración nocturna.",
+        "history": "No tiene enfermedad respiratoria crónica, cardiopatía ni inmunosupresión.",
+        "medication": "No ha recibido antibióticos; utiliza medidas caseras para aliviar la tos.",
+        "habits": "No fuma ni tiene exposición laboral habitual a polvos.",
+        "function": "Puede realizar sus actividades básicas; la tos interrumpe algunas conversaciones y el sueño.",
+        "vitals": "Presión arterial 118/74 mmHg; pulso 76/min; frecuencia respiratoria 16/min; temperatura 36,9 °C; saturación 99 %.",
+        "exam": "Buen estado general y ventilación bilateral, con roncus que cambian después de toser; sin crepitantes focales, tiraje ni signos de consolidación.",
+        "studies": [],
+        "decisive": [
+          "inicio_evolucion",
+          "signos_vitales",
+          "exploracion_fisica"
+        ],
+        "treatment": "Manejo sintomático, explicación de la evolución esperada y vigilancia de signos de alarma; no indicar antibióticos rutinariamente en un adulto estable sin criterios de infección bacteriana.",
+        "actions": [
+          "Descartar signos de gravedad u otro diagnóstico.",
+          "Explicar que la tos puede persistir varias semanas.",
+          "Reevaluar si aparece deterioro o la evolución no es la esperada."
+        ]
+      },
+      {
+        "id": "MED-106",
+        "name": "Víctor Alarcón",
+        "age": 41,
+        "sex": "masculino",
+        "diagnosis": "Tuberculosis pulmonar",
+        "synonyms": [
+          "Enfermedad tuberculosa pulmonar",
+          "TB pulmonar",
+          "Tuberculosis respiratoria"
+        ],
+        "slug": "tuberculosis_pulmonar",
+        "urgent": true,
+        "course": "Tiene tos desde hace 6 semanas; en el último mes ha perdido peso y la ropa le queda más suelta.",
+        "features": "La tos produce poca flema; en dos ocasiones observó vetas de sangre. No comenzó después de un catarro breve.",
+        "symptoms": "Refiere sudoración nocturna, febrícula vespertina y falta de apetito.",
+        "history": "Un conviviente recibió tratamiento prolongado por una infección respiratoria durante el año anterior.",
+        "medication": "No ha recibido tratamiento específico ni antibióticos para esta tos.",
+        "habits": "Vive en una vivienda con poca ventilación y comparte dormitorio con un familiar.",
+        "function": "Se cansa al trabajar y ha faltado varias veces durante las últimas semanas.",
+        "vitals": "Presión arterial 114/72 mmHg; pulso 94/min; frecuencia respiratoria 20/min; temperatura 37,8 °C; saturación 96 %.",
+        "exam": "Está adelgazado y presenta crepitantes en el vértice derecho, sin dificultad respiratoria grave.",
+        "studies": [
+          {
+            "key": "radiografia_torax",
+            "label": "Radiografía de tórax",
+            "text": "Opacidad cavitada en el lóbulo superior derecho y lesiones satélite.",
+            "ask": "Solicito radiografía de tórax",
+            "owner": "radiologia"
+          },
+          {
+            "key": "prueba_molecular_esputo",
+            "label": "Prueba molecular de esputo",
+            "text": "Se detecta ADN del complejo M. tuberculosis; no se detecta resistencia a rifampicina en la prueba inicial.",
+            "ask": "Solicito prueba molecular de esputo",
+            "owner": "laboratorio"
+          }
+        ],
+        "decisive": [
+          "inicio_evolucion",
+          "prueba_molecular_esputo"
+        ],
+        "treatment": "Atención por el programa específico, medidas de control de transmisión y tratamiento combinado según pruebas de sensibilidad y protocolo vigente.",
+        "actions": [
+          "Aplicar medidas de control de transmisión respiratoria.",
+          "Evaluar contactos y comorbilidades pertinentes.",
+          "Coordinar seguimiento y apoyo a la adherencia."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sangrado_gestacion_temprana",
+    "specialty": "ginecologia_obstetricia",
+    "complaint": "Tengo sangrado vaginal y molestias en el abdomen durante las primeras semanas de embarazo.",
+    "sources": [
+      "https://www.nice.org.uk/guidance/NG126/chapter/diagnosis-of-viable-intrauterine-pregnancy-and-of-tubal-ectopic-pregnancy"
+    ],
+    "cases": [
+      {
+        "id": "GOB-101",
+        "name": "Paola Ventura",
+        "age": 29,
+        "sex": "femenino",
+        "diagnosis": "Embarazo ectópico tubárico",
+        "synonyms": [
+          "Gestación ectópica tubárica",
+          "Gestación tubárica extrauterina",
+          "Embarazo tubárico"
+        ],
+        "slug": "embarazo_ectopico",
+        "urgent": true,
+        "course": "Desde ayer tengo un manchado oscuro; hace seis horas empezó un dolor en el lado derecho del vientre. Mi última regla fue hace siete semanas.",
+        "features": "El dolor es constante, de 6 sobre 10, abajo a la derecha. El sangrado es escaso, sin coágulos ni tejido.",
+        "symptoms": "Tengo náuseas leves. No me he desmayado, no tengo dolor en el hombro ni fiebre.",
+        "history": "Hace tres años recibí tratamiento por una infección de transmisión sexual. No me han operado y no tengo enfermedades crónicas.",
+        "gynecology": "Es mi primer embarazo. La prueba casera fue positiva hace diez días; todavía no había tenido una ecografía. Ciclos previamente regulares.",
+        "medication": "Solo ácido fólico desde la prueba positiva.",
+        "habits": "No fumo ni consumo alcohol. Vivo con mi pareja.",
+        "function": "El dolor me obligó a dejar el trabajo y venir acompañada.",
+        "vitals": "Presión arterial 112/70 mmHg; pulso 92/min; frecuencia respiratoria 18/min; temperatura 36,8 °C; saturación 98 % al aire ambiente.",
+        "exam": "Consciente, perfusión conservada. Dolor a la palpación en fosa ilíaca derecha, sin rigidez ni rebote. Con consentimiento y acompañante clínico: sangrado escaso, orificio cervical cerrado, dolor anexial derecho.",
+        "studies": [
+          {
+            "key": "beta_hcg",
+            "label": "Beta-hCG sérica cuantitativa",
+            "text": "Beta-hCG 4.200 UI/L.",
+            "ask": "Solicito beta hCG cuantitativa",
+            "owner": "laboratorio"
+          },
+          {
+            "key": "hemograma",
+            "label": "Hemograma",
+            "text": "Hemoglobina 12,2 g/dL; leucocitos 8.900/µL; plaquetas 245.000/µL.",
+            "ask": "Solicito un hemograma",
+            "owner": "laboratorio"
+          },
+          {
+            "key": "ecografia_pelvica",
+            "label": "Ecografía pélvica transvaginal",
+            "text": "Cavidad uterina vacía. Separado del ovario derecho se observa un saco con vesícula vitelina en la región tubárica; líquido libre escaso, sin gran hemoperitoneo.",
+            "ask": "Solicito ecografía pélvica transvaginal",
+            "owner": "radiologia"
+          }
+        ],
+        "decisive": [
+          "ecografia_pelvica",
+          "exploracion_fisica"
+        ],
+        "treatment": "Valoración ginecológica urgente y selección del manejo según estabilidad, imagen, posibilidad de seguimiento y preferencias informadas.",
+        "actions": [
+          "Vigilar estado hemodinámico y acceso venoso; no retrasar la valoración especializada.",
+          "Discutir tratamiento médico o quirúrgico según criterios y contraindicaciones; confirmar grupo y Rh.",
+          "Explicar señales de rotura y asegurar seguimiento de beta-hCG hasta resolución."
+        ]
+      },
+      {
+        "id": "GOB-102",
+        "name": "Camila Bustamante",
+        "age": 26,
+        "sex": "femenino",
+        "diagnosis": "Amenaza de aborto",
+        "synonyms": [
+          "Amenaza de pérdida gestacional",
+          "Amenaza de aborto espontáneo",
+          "Sangrado en gestación intrauterina viable"
+        ],
+        "slug": "amenaza_aborto",
+        "urgent": false,
+        "course": "Hace doce horas apareció un manchado rojo y cólicos leves. Mi última menstruación fue hace ocho semanas.",
+        "features": "Cólico central bajo de 2 sobre 10, intermitente. Mancha una toalla en varias horas, sin coágulos ni expulsión de tejido.",
+        "symptoms": "Sigo con náuseas matutinas. No tengo fiebre, mareos ni dolor de un solo lado.",
+        "history": "No tengo enfermedades crónicas ni operaciones.",
+        "gynecology": "Primer embarazo, deseado. Ciclos regulares antes de esta gestación. No he tenido pérdidas anteriores.",
+        "medication": "Ácido fólico diario; no he tomado otros medicamentos.",
+        "habits": "No fumo ni bebo alcohol. Trabajo sentada y vivo con mi pareja.",
+        "function": "Puedo caminar y comer, pero estoy preocupada por el manchado.",
+        "vitals": "Presión arterial 110/68 mmHg; pulso 78/min; frecuencia respiratoria 16/min; temperatura 36,7 °C; saturación 99 % al aire ambiente.",
+        "exam": "Buen estado general. Abdomen blando, sin irritación peritoneal. Con consentimiento y acompañante clínico: escaso sangrado proveniente del cuello, orificio cerrado, sin tejido visible ni dolor anexial.",
+        "studies": [
+          {
+            "key": "hemograma",
+            "label": "Hemograma",
+            "text": "Hemoglobina 12,6 g/dL; leucocitos 7.800/µL; plaquetas 230.000/µL.",
+            "ask": "Solicito un hemograma",
+            "owner": "laboratorio"
+          },
+          {
+            "key": "ecografia_pelvica",
+            "label": "Ecografía pélvica transvaginal",
+            "text": "Saco gestacional intrauterino con embrión de longitud cráneo-rabadilla 16 mm y actividad cardiaca de 160/min. Anexos sin masas ni líquido libre significativo.",
+            "ask": "Solicito ecografía pélvica transvaginal",
+            "owner": "radiologia"
+          }
+        ],
+        "decisive": [
+          "ecografia_pelvica",
+          "exploracion_fisica"
+        ],
+        "treatment": "Acompañamiento, evaluación obstétrica y seguimiento de una gestación intrauterina viable con sangrado; indicar reevaluación si empeora.",
+        "actions": [
+          "Explicar los hallazgos y las señales de alarma de sangrado abundante, síncope o dolor intenso.",
+          "Comprobar grupo y Rh y aplicar el protocolo local cuando corresponda.",
+          "No indicar reposo absoluto ni progesterona de rutina en esta paciente sin pérdidas previas."
+        ]
+      },
+      {
+        "id": "GOB-103",
+        "name": "Diana Quispe",
+        "age": 34,
+        "sex": "femenino",
+        "diagnosis": "Aborto diferido",
+        "synonyms": [
+          "Pérdida gestacional retenida",
+          "Aborto retenido",
+          "Aborto espontáneo diferido"
+        ],
+        "slug": "aborto_diferido",
+        "urgent": false,
+        "course": "Hace dos días empezó un manchado marrón y molestias leves. Mi última regla fue hace diez semanas. Hace nueve días me hicieron un primer estudio y me citaron para repetirlo.",
+        "features": "Molestia central baja de 2 sobre 10; el manchado es escaso, sin tejido ni coágulos grandes.",
+        "symptoms": "Las náuseas disminuyeron durante la última semana. No tengo fiebre, mal olor, mareos ni desmayo.",
+        "history": "Sin enfermedades crónicas ni cirugía uterina.",
+        "gynecology": "Segundo embarazo; un parto vaginal previo sin complicaciones. En la revisión de hace nueve días no se vio latido y me explicaron que había que confirmarlo.",
+        "medication": "Ácido fólico; no he usado medicamentos para interrumpir la gestación.",
+        "habits": "No fumo ni tomo alcohol. Tengo apoyo familiar.",
+        "function": "Sigo haciendo tareas ligeras; la incertidumbre me ha generado tristeza y preocupación.",
+        "vitals": "Presión arterial 114/72 mmHg; pulso 80/min; frecuencia respiratoria 16/min; temperatura 36,6 °C; saturación 99 % al aire ambiente.",
+        "exam": "Estable, sin palidez importante. Abdomen blando sin rebote. Con consentimiento y acompañante clínico: escaso manchado, cuello cerrado y ausencia de secreción purulenta o dolor anexial.",
+        "studies": [
+          {
+            "key": "hemograma",
+            "label": "Hemograma",
+            "text": "Hemoglobina 12,1 g/dL; leucocitos 7.600/µL; plaquetas 240.000/µL.",
+            "ask": "Solicito un hemograma",
+            "owner": "laboratorio"
+          },
+          {
+            "key": "ecografia_pelvica",
+            "label": "Ecografía pélvica transvaginal de control",
+            "text": "Estudio actual: saco intrauterino y embrión con longitud cráneo-rabadilla de 9 mm sin actividad cardiaca. Comparación con estudio transvaginal de nueve días antes: embrión de 8 mm sin actividad cardiaca; los hallazgos persistentes fueron corroborados por un segundo especialista. Sin masas anexiales.",
+            "ask": "Solicito ecografía pélvica transvaginal",
+            "owner": "radiologia"
+          }
+        ],
+        "decisive": [
+          "ecografia_pelvica",
+          "exploracion_fisica"
+        ],
+        "treatment": "Comunicar con sensibilidad la confirmación de no viabilidad y ofrecer manejo expectante, médico o quirúrgico según preferencias y situación clínica.",
+        "actions": [
+          "Confirmar los criterios ecográficos y el intervalo entre estudios antes de intervenir.",
+          "Valorar sangrado, infección, grupo y Rh, con medidas según protocolo local.",
+          "Acordar seguimiento, señales de alarma y apoyo emocional sin atribuir culpa a la paciente."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "flujo_vaginal_adulta",
+    "specialty": "ginecologia_obstetricia",
+    "complaint": "Noté cambios en mi flujo vaginal y molestias en la zona genital.",
+    "sources": [
+      "https://www.cdc.gov/std/treatment-guidelines/candidiasis.htm",
+      "https://www.cdc.gov/std/treatment-guidelines/BV.htm",
+      "https://www.cdc.gov/std/treatment-guidelines/trichomoniasis.htm"
+    ],
+    "cases": [
+      {
+        "id": "GOB-104",
+        "name": "Natalia Ponce",
+        "age": 27,
+        "sex": "femenino",
+        "diagnosis": "Candidiasis vulvovaginal",
+        "synonyms": [
+          "Vulvovaginitis candidiásica",
+          "Vaginitis candidiásica",
+          "Vaginitis por Candida"
+        ],
+        "slug": "candidiasis_vulvovaginal",
+        "urgent": false,
+        "course": "Desde hace cuatro días tengo mucha picazón y un flujo distinto. Terminé amoxicilina por una infección dental hace una semana.",
+        "features": "El flujo es blanco, espeso y grumoso, sin olor fuerte. La picazón es externa y me arde cuando la orina toca la piel.",
+        "symptoms": "Sin fiebre, dolor en la parte baja del abdomen ni dolor profundo durante las relaciones.",
+        "history": "No tengo diabetes ni inmunosupresión. No me ocurre de manera repetida.",
+        "gynecology": "Última menstruación hace doce días; no estoy embarazada. Una pareja estable, uso preservativo.",
+        "medication": "No tomo medicación habitual; finalicé el antibiótico dental.",
+        "habits": "No uso duchas vaginales. No he aplicado cremas para esta molestia.",
+        "function": "La picazón dificulta el sueño y me resulta incómodo sentarme.",
+        "vitals": "Presión arterial 112/70 mmHg; pulso 76/min; frecuencia respiratoria 16/min; temperatura 36,6 °C; saturación 99 % al aire ambiente.",
+        "exam": "Exploración genital con consentimiento y acompañante clínico: eritema vulvar, excoriaciones leves y flujo blanco adherente, grumoso. Sin dolor a la movilización cervical ni dolor anexial.",
+        "studies": [
+          {
+            "key": "ph_vaginal",
+            "label": "pH vaginal",
+            "text": "pH del contenido vaginal 4,2.",
+            "ask": "Solicito pH vaginal",
+            "owner": "laboratorio"
+          },
+          {
+            "key": "microscopia_vaginal",
+            "label": "Microscopía de secreción vaginal",
+            "text": "Preparación con KOH: levaduras gemantes y pseudohifas. Sin células clave ni microorganismos flagelados móviles; prueba de aminas negativa.",
+            "ask": "Solicito microscopía vaginal",
+            "owner": "laboratorio"
+          }
+        ],
+        "decisive": [
+          "ph_vaginal",
+          "microscopia_vaginal"
+        ],
+        "treatment": "Tratar el episodio no complicado con un azol tópico y reevaluar si persiste o recurre.",
+        "actions": [
+          "Confirmar síntomas y microscopía antes de tratar.",
+          "Evitar irritantes y automedicación repetida sin reevaluación.",
+          "No tratar de rutina a la pareja asintomática; considerar embarazo y comorbilidades al elegir el fármaco."
+        ]
+      },
+      {
+        "id": "GOB-105",
+        "name": "Patricia Zamora",
+        "age": 33,
+        "sex": "femenino",
+        "diagnosis": "Vaginosis bacteriana",
+        "synonyms": [
+          "Disbiosis vaginal bacteriana",
+          "Vaginosis por disbiosis bacteriana",
+          "Alteración bacteriana de la microbiota vaginal"
+        ],
+        "slug": "vaginosis_bacteriana",
+        "urgent": false,
+        "course": "Desde hace seis días noto más flujo y un olor fuerte, especialmente después de las relaciones.",
+        "features": "El flujo es fino, homogéneo, blanco grisáceo; casi no tengo picazón ni ardor.",
+        "symptoms": "Sin fiebre, dolor abdominal, sangrado o molestias al orinar.",
+        "history": "No tengo enfermedades crónicas ni episodios frecuentes de este problema.",
+        "gynecology": "Menstruación hace diez días, no embarazada. Pareja estable, uso irregular de preservativo.",
+        "medication": "No uso medicación habitual ni antibióticos recientes.",
+        "habits": "He utilizado duchas vaginales perfumadas durante el último mes.",
+        "function": "El olor me incomoda en el trabajo y me preocupa, pero mantengo mis actividades.",
+        "vitals": "Presión arterial 116/72 mmHg; pulso 74/min; frecuencia respiratoria 16/min; temperatura 36,5 °C; saturación 99 % al aire ambiente.",
+        "exam": "Con consentimiento y acompañante clínico: flujo fino grisáceo que recubre las paredes vaginales, sin inflamación vulvar intensa. Cuello sin lesiones, sin dolor a la movilización cervical ni dolor anexial.",
+        "studies": [
+          {
+            "key": "ph_vaginal",
+            "label": "pH vaginal",
+            "text": "pH vaginal 5,5.",
+            "ask": "Solicito pH vaginal",
+            "owner": "laboratorio"
+          },
+          {
+            "key": "microscopia_vaginal",
+            "label": "Microscopía de secreción vaginal",
+            "text": "Células epiteliales con bordes cubiertos por bacterias en más del 20 % de la muestra; prueba de aminas positiva con KOH. No se observan pseudohifas ni organismos flagelados móviles.",
+            "ask": "Solicito microscopía vaginal",
+            "owner": "laboratorio"
+          },
+          {
+            "key": "prueba_molecular_vaginal",
+            "label": "Prueba molecular en muestra vaginal",
+            "text": "Prueba de amplificación de ácidos nucleicos para T. vaginalis: negativa.",
+            "ask": "Solicito prueba molecular vaginal",
+            "owner": "laboratorio"
+          }
+        ],
+        "decisive": [
+          "ph_vaginal",
+          "microscopia_vaginal",
+          "prueba_molecular_vaginal"
+        ],
+        "treatment": "Tratamiento de la paciente sintomática con metronidazol o alternativa indicada según tolerancia y protocolo vigente.",
+        "actions": [
+          "Documentar los criterios clínicos y de microscopía.",
+          "Suspender las duchas vaginales y ofrecer evaluación de otras infecciones según riesgo.",
+          "Reevaluar si persiste o recurre; consultar recomendaciones vigentes para manejo de parejas en recurrencias."
+        ]
+      },
+      {
+        "id": "GOB-106",
+        "name": "Mariela Torres",
+        "age": 30,
+        "sex": "femenino",
+        "diagnosis": "Tricomoniasis vaginal",
+        "synonyms": [
+          "Vaginitis por Trichomonas vaginalis",
+          "Infección vaginal por tricomonas",
+          "Vulvovaginitis por T. vaginalis"
+        ],
+        "slug": "tricomoniasis_vaginal",
+        "urgent": false,
+        "course": "Desde hace una semana tengo flujo abundante y ardor; comenzó varias semanas después de una relación sin preservativo.",
+        "features": "El flujo es amarillo verdoso y algo espumoso, con olor fuerte; siento picazón y ardor al orinar.",
+        "symptoms": "Molestia superficial en las relaciones. No tengo fiebre, dolor pélvico profundo ni sangrado abundante.",
+        "history": "Sin enfermedades crónicas ni alergias conocidas.",
+        "gynecology": "Última regla hace dos semanas, no embarazada. Pareja nueva desde hace dos meses; uso inconsistente de preservativo.",
+        "medication": "No tomo medicación habitual ni he recibido tratamiento para estos síntomas.",
+        "habits": "No realizo duchas vaginales. No fumo.",
+        "function": "El ardor y el flujo me incomodan al caminar y he evitado las relaciones.",
+        "vitals": "Presión arterial 110/70 mmHg; pulso 82/min; frecuencia respiratoria 16/min; temperatura 36,7 °C; saturación 99 % al aire ambiente.",
+        "exam": "Con consentimiento y acompañante clínico: secreción amarillo verdosa espumosa y eritema vaginal; pequeñas áreas puntiformes rojizas en el cuello uterino. Sin dolor anexial ni a la movilización cervical.",
+        "studies": [
+          {
+            "key": "ph_vaginal",
+            "label": "pH vaginal",
+            "text": "pH vaginal 5,8.",
+            "ask": "Solicito pH vaginal",
+            "owner": "laboratorio"
+          },
+          {
+            "key": "microscopia_vaginal",
+            "label": "Microscopía de secreción vaginal",
+            "text": "Preparación salina fresca: organismos flagelados móviles y abundantes leucocitos; sin pseudohifas ni células clave.",
+            "ask": "Solicito microscopía vaginal",
+            "owner": "laboratorio"
+          },
+          {
+            "key": "prueba_molecular_vaginal",
+            "label": "Prueba molecular en muestra vaginal",
+            "text": "Amplificación de ácidos nucleicos: T. vaginalis detectado.",
+            "ask": "Solicito prueba molecular vaginal",
+            "owner": "laboratorio"
+          }
+        ],
+        "decisive": [
+          "microscopia_vaginal",
+          "prueba_molecular_vaginal"
+        ],
+        "treatment": "Tratamiento con nitroimidazol según protocolo, incluyendo manejo simultáneo de parejas sexuales y prevención de reinfección.",
+        "actions": [
+          "Tratar a la paciente y gestionar tratamiento de parejas.",
+          "Evitar relaciones hasta que todas las personas implicadas hayan completado el tratamiento y resuelto los síntomas.",
+          "Ofrecer pruebas de otras infecciones de transmisión sexual y repetir la prueba aproximadamente a los tres meses."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "tos_y_dificultad_respiratoria_pediatrica",
+    "specialty": "pediatria",
+    "complaint": "Tiene tos y dificultad para respirar que me preocupan.",
+    "sources": [
+      "https://ginasthma.org/reports/",
+      "https://www.nice.org.uk/guidance/ng9/chapter/Recommendations",
+      "https://www.nice.org.uk/guidance/ng250/chapter/Recommendations"
+    ],
+    "cases": [
+      {
+        "id": "PED-101",
+        "name": "Mateo Sánchez",
+        "age": 10,
+        "sex": "masculino",
+        "diagnosis": "Exacerbación asmática pediátrica",
+        "synonyms": [
+          "Crisis asmática infantil",
+          "Agudización asmática infantil",
+          "Exacerbación de asma en la infancia"
+        ],
+        "slug": "exacerbacion_asmatica",
+        "urgent": true,
+        "course": "La madre cuenta que la tos empezó anoche y hoy le cuesta respirar después de jugar cerca de polvo; no tiene catarro ni fiebre.",
+        "features": "El niño siente el pecho apretado y hace silbidos, sobre todo al sacar el aire. Puede hablar en frases completas.",
+        "symptoms": "Sin fiebre, dolor de un solo lado, atragantamiento ni coloración azulada.",
+        "history": "Tiene episodios de silbidos desde los cinco años y rinitis alérgica. Ha mejorado con inhaladores anteriormente, nunca necesitó cuidados intensivos.",
+        "medication": "Usa un corticoide inhalado de mantenimiento, pero olvidó varias dosis esta semana; su inhalador de rescate se acabó ayer.",
+        "habits": "No hay fumadores en casa. En la escuela estuvo expuesto a polvo de una obra.",
+        "function": "Dejó de jugar al fútbol y durmió mal por la tos.",
+        "vitals": "Peso 32 kg; presión arterial 108/68 mmHg; pulso 112/min; frecuencia respiratoria 28/min; temperatura 36,8 °C; saturación 94 % al aire ambiente.",
+        "exam": "Alerta, habla en frases completas. Tiraje subcostal leve y espiración prolongada; sibilancias espiratorias bilaterales difusas, sin crepitantes focales ni estridor.",
+        "studies": [
+          {
+            "key": "flujo_espiratorio",
+            "label": "Flujo espiratorio máximo",
+            "text": "Medición inicial: 62 % de su mejor valor personal. Tras broncodilatador supervisado: 81 %, con menor trabajo respiratorio.",
+            "ask": "Solicito medición de flujo espiratorio máximo",
+            "owner": "laboratorio"
+          }
+        ],
+        "decisive": [
+          "exploracion_fisica",
+          "flujo_espiratorio",
+          "antecedentes"
+        ],
+        "treatment": "Broncodilatador inhalado con cámara y reevaluación de respuesta; valorar corticoide sistémico y oxígeno según gravedad.",
+        "actions": [
+          "Valorar trabajo respiratorio, oxigenación y respuesta durante la primera hora.",
+          "Revisar técnica inhalatoria, adherencia y disponibilidad del tratamiento de mantenimiento.",
+          "Dar un plan escrito de acción y criterios de retorno urgente; no pedir radiografía ni antibióticos de rutina."
+        ]
+      },
+      {
+        "id": "PED-102",
+        "name": "Emma Valdez",
+        "age": 0,
+        "sex": "femenino",
+        "diagnosis": "Bronquiolitis aguda",
+        "synonyms": [
+          "Primer episodio de bronquiolitis",
+          "Bronquiolitis del lactante",
+          "Bronquiolitis viral aguda"
+        ],
+        "slug": "bronquiolitis",
+        "urgent": true,
+        "course": "La madre refiere que tiene cuatro meses. Empezó con mocos hace tres días; desde ayer tiene tos y respira más rápido.",
+        "features": "Es la primera vez que presenta ruido en el pecho. Las tomas son más cortas por la dificultad para respirar.",
+        "symptoms": "Toma aproximadamente dos tercios de lo habitual y ha mojado cuatro pañales en el último día. Sin pausas respiratorias, coloración azul ni vómitos persistentes.",
+        "history": "Nació a término, sin cardiopatía ni enfermedad pulmonar previa. Vacunación correspondiente a su edad.",
+        "medication": "No recibe medicación habitual ni inhaladores.",
+        "habits": "Su hermano tuvo un resfriado la semana pasada; no hay humo de tabaco en casa. Lactancia materna.",
+        "function": "Necesita pausas frecuentes para mamar y duerme menos por la congestión.",
+        "vitals": "Peso 6,2 kg; pulso 148/min; frecuencia respiratoria 54/min; temperatura 37,6 °C; saturación 94 % persistente al aire ambiente.",
+        "exam": "Alerta y reactiva, mucosas húmedas. Congestión nasal, tiraje subcostal leve, crepitantes finos y sibilancias bilaterales. Sin focalidad pulmonar ni estridor; perfusión conservada.",
+        "studies": [],
+        "decisive": [
+          "inicio_evolucion",
+          "antecedentes",
+          "exploracion_fisica",
+          "signos_vitales"
+        ],
+        "treatment": "Manejo de soporte basado en estado respiratorio, hidratación y capacidad de alimentación, con observación y reevaluación.",
+        "actions": [
+          "Valorar hidratación, ingesta, apnea y esfuerzo respiratorio; limpiar secreciones nasales si dificultan la alimentación.",
+          "Ofrecer tomas pequeñas frecuentes y apoyo hídrico si no logra alimentarse.",
+          "No usar rutinariamente broncodilatadores, corticoides, antibióticos o radiografía; indicar oxígeno e ingreso según umbrales, comorbilidades y evolución."
+        ]
+      },
+      {
+        "id": "PED-103",
+        "name": "Bruno Mendoza",
+        "age": 5,
+        "sex": "masculino",
+        "diagnosis": "Neumonía adquirida en la comunidad pediátrica",
+        "synonyms": [
+          "Neumonía infantil de la comunidad",
+          "Neumonía comunitaria en niño",
+          "Neumonía pediátrica extrahospitalaria"
+        ],
+        "slug": "neumonia_pediatrica",
+        "urgent": true,
+        "course": "La madre cuenta que empezó con fiebre y tos hace tres días; hoy respira más rápido y se muestra decaído.",
+        "features": "La tos es frecuente y le duele el lado derecho del pecho al respirar hondo. No tuvo silbidos previos.",
+        "symptoms": "Poco apetito, fiebre alta y cansancio. Bebe menos, sin vómitos ni atragantamiento.",
+        "history": "Previamente sano, vacunas al día, sin episodios recurrentes de sibilancias ni hospitalizaciones.",
+        "medication": "La madre le dio paracetamol; no ha recibido antibióticos ni inhaladores.",
+        "habits": "Asiste a inicial; varios compañeros tuvieron infecciones respiratorias. Sin fumadores en casa.",
+        "function": "No quiere jugar, camina poco y necesita descanso frecuente.",
+        "vitals": "Peso 19 kg; presión arterial 98/62 mmHg; pulso 132/min; frecuencia respiratoria 42/min; temperatura 39,3 °C; saturación 91 % al aire ambiente.",
+        "exam": "Decaído pero responde, tiraje subcostal moderado. Crepitantes y menor entrada de aire en base derecha; sin sibilancias difusas. Relleno capilar de dos segundos.",
+        "studies": [
+          {
+            "key": "radiografia_torax",
+            "label": "Radiografía de tórax",
+            "text": "Consolidación alveolar en lóbulo inferior derecho con broncograma aéreo, sin derrame pleural. Estudio realizado durante valoración hospitalaria por hipoxemia.",
+            "ask": "Solicito radiografía de tórax",
+            "owner": "radiologia"
+          }
+        ],
+        "decisive": [
+          "signos_vitales",
+          "exploracion_fisica",
+          "radiografia_torax"
+        ],
+        "treatment": "Derivación e ingreso para oxigenoterapia y antibiótico según protocolo pediátrico, por hipoxemia y dificultad respiratoria.",
+        "actions": [
+          "Administrar oxígeno y monitorizar saturación y esfuerzo respiratorio.",
+          "Valorar hidratación y administrar antibiótico adecuado al contexto y gravedad.",
+          "Reevaluar respuesta y buscar complicaciones si no mejora; explicar el plan a la familia."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "dolor_abdominal_y_vomitos_pediatrico",
+    "specialty": "pediatria",
+    "complaint": "Tiene dolor abdominal y vómitos que han interrumpido sus actividades.",
+    "sources": [
+      "https://www.rch.org.au/clinicalguide/guideline_index/Abdominal_pain/",
+      "https://www.rch.org.au/clinicalguide/guideline_index/intussusception/",
+      "https://www.nice.org.uk/guidance/cg84/chapter/Recommendations"
+    ],
+    "cases": [
+      {
+        "id": "PED-104",
+        "name": "Valentina Chávez",
+        "age": 7,
+        "sex": "femenino",
+        "diagnosis": "Gastroenteritis aguda viral",
+        "synonyms": [
+          "Gastroenteritis de probable origen viral",
+          "Gastroenteritis viral infantil",
+          "Diarrea aguda de probable etiología viral"
+        ],
+        "slug": "gastroenteritis_viral",
+        "urgent": false,
+        "course": "La madre explica que comenzó hace dieciocho horas con vómitos y después diarrea; ayer su hermano tuvo síntomas parecidos.",
+        "features": "Dolor en retortijones por todo el abdomen que mejora después de evacuar. Ha vomitado tres veces, sin bilis ni sangre.",
+        "symptoms": "Seis deposiciones acuosas sin sangre, sed y menos apetito. No tiene dolor continuo localizado ni fiebre alta.",
+        "history": "Sana, sin operaciones, enfermedades intestinales ni pérdida de peso previa.",
+        "medication": "No usa medicación habitual. No recibió antibióticos ni antidiarreicos.",
+        "habits": "Asiste al colegio y vive con su familia. No viajó ni comió alimentos de procedencia incierta.",
+        "function": "Hoy no fue al colegio. Puede beber a pequeños sorbos, pero juega menos.",
+        "vitals": "Peso 23 kg; presión arterial 102/64 mmHg; pulso 104/min; frecuencia respiratoria 22/min; temperatura 37,4 °C; saturación 99 % al aire ambiente.",
+        "exam": "Alerta, ojos sin hundimiento, boca algo seca y lágrimas presentes. Relleno capilar menor de dos segundos. Abdomen blando, dolor difuso leve, ruidos aumentados, sin defensa, rebote o masa.",
+        "studies": [],
+        "decisive": [
+          "sintomas",
+          "antecedentes",
+          "exploracion_fisica"
+        ],
+        "treatment": "Rehidratación oral fraccionada y alimentación habitual según tolerancia; reevaluar hidratación y evolución.",
+        "actions": [
+          "Ofrecer solución de rehidratación oral en cantidades pequeñas frecuentes y reponer pérdidas.",
+          "Enseñar higiene de manos y señales de alarma: sangre, vómitos biliosos, dolor localizado, letargo o incapacidad para beber.",
+          "No indicar antibióticos, antidiarreicos ni estudios de imagen de rutina en este cuadro sin complicaciones."
+        ]
+      },
+      {
+        "id": "PED-105",
+        "name": "Gabriel Rivas",
+        "age": 2,
+        "sex": "masculino",
+        "diagnosis": "Invaginación intestinal ileocólica",
+        "synonyms": [
+          "Intususcepción ileocólica",
+          "Invaginación ileocólica",
+          "Intususcepción intestinal ileocólica"
+        ],
+        "slug": "invaginacion_ileocolica",
+        "urgent": true,
+        "course": "La madre dice que empezó hace ocho horas con ataques de llanto intenso cada quince o veinte minutos y después vomitó cuatro veces.",
+        "features": "Durante cada episodio se encoge y lleva las piernas al abdomen; entre episodios se calma y parece cansado. El último vómito fue verdoso.",
+        "symptoms": "Se pone pálido durante el dolor. No ha tenido diarrea abundante; la última deposición fue escasa y con moco, sin sangre visible.",
+        "history": "Antes sano, sin operaciones abdominales. Tuvo un resfriado hace una semana.",
+        "medication": "No toma medicación habitual ni ha recibido laxantes.",
+        "habits": "Come alimentos familiares y toma agua. Sin viajes ni contactos con diarrea.",
+        "function": "Ha dejado de jugar y rechaza los alimentos desde esta mañana.",
+        "vitals": "Peso 12 kg; presión arterial 94/60 mmHg; pulso 128/min; frecuencia respiratoria 28/min; temperatura 37,2 °C; saturación 99 % al aire ambiente.",
+        "exam": "Somnoliento entre episodios pero despierta al estímulo, perfusión conservada. Abdomen con discreta distensión y masa alargada palpable en cuadrante superior derecho, sin rigidez generalizada.",
+        "studies": [
+          {
+            "key": "ecografia_abdominal",
+            "label": "Ecografía abdominal",
+            "text": "Imagen en diana con asas concéntricas en hemiabdomen derecho y patrón de pseudorriñón longitudinal; el íleon terminal se introduce en el colon. Flujo Doppler conservado, sin perforación ni líquido libre importante.",
+            "ask": "Solicito ecografía abdominal",
+            "owner": "radiologia"
+          }
+        ],
+        "decisive": [
+          "caracteristicas",
+          "exploracion_fisica",
+          "ecografia_abdominal"
+        ],
+        "treatment": "Evaluación urgente conjunta con cirugía pediátrica y radiología para reducción con enema si no hay contraindicación.",
+        "actions": [
+          "Ayuno, acceso venoso, analgesia y reposición de líquidos según necesidad.",
+          "Coordinar reducción neumática o hidrostática en un centro preparado, tras descartar perforación o peritonitis.",
+          "Recurrir a cirugía si está inestable, tiene complicaciones o fracasa la reducción; vigilar recurrencias."
+        ]
+      },
+      {
+        "id": "PED-106",
+        "name": "Isabela León",
+        "age": 12,
+        "sex": "femenino",
+        "diagnosis": "Apendicitis aguda pediátrica",
+        "synonyms": [
+          "Apendicitis infantil",
+          "Apendicitis aguda en niña",
+          "Inflamación apendicular aguda pediátrica"
+        ],
+        "slug": "apendicitis_pediatrica",
+        "urgent": true,
+        "course": "La niña cuenta que el dolor comenzó alrededor del ombligo hace veinticuatro horas y hoy se desplazó a la parte inferior derecha; los vómitos aparecieron después del dolor.",
+        "features": "Ahora es continuo, de 7 sobre 10, empeora al caminar, toser o saltar. Ha vomitado dos veces, sin bilis.",
+        "symptoms": "Pérdida de apetito y fiebre baja. Sin diarrea, ardor al orinar ni sangre en las heces.",
+        "history": "Previamente sana y sin operaciones. No ha tenido dolores similares.",
+        "gynecology": "No ha presentado todavía su primera menstruación. La historia sensible se aborda con privacidad y de acuerdo con su edad.",
+        "medication": "No usa medicación habitual; su madre le dio una dosis de paracetamol.",
+        "habits": "Alimentación habitual, sin viajes ni contactos con diarrea. Vive con sus padres.",
+        "function": "Faltó al colegio y camina encorvada para evitar el dolor.",
+        "vitals": "Peso 42 kg; presión arterial 108/66 mmHg; pulso 108/min; frecuencia respiratoria 22/min; temperatura 38,1 °C; saturación 99 % al aire ambiente.",
+        "exam": "Dolor y defensa local en fosa ilíaca derecha, dolor a la percusión y al movimiento; sin masa ni distensión marcada. No presenta rigidez abdominal generalizada.",
+        "studies": [
+          {
+            "key": "hemograma",
+            "label": "Hemograma",
+            "text": "Leucocitos 13.600/µL, neutrófilos 83 %; hemoglobina 12,4 g/dL; plaquetas 285.000/µL.",
+            "ask": "Solicito un hemograma",
+            "owner": "laboratorio"
+          },
+          {
+            "key": "ecografia_abdominal",
+            "label": "Ecografía abdominal",
+            "text": "Estructura tubular de fondo ciego que nace del ciego, no compresible, de 8 mm de diámetro, con hiperemia y grasa adyacente hiperecogénica; sin absceso. Ovarios de aspecto conservado.",
+            "ask": "Solicito ecografía abdominal",
+            "owner": "radiologia"
+          }
+        ],
+        "decisive": [
+          "inicio_evolucion",
+          "exploracion_fisica",
+          "ecografia_abdominal"
+        ],
+        "treatment": "Valoración urgente por cirugía pediátrica para tratamiento y prevención de complicaciones.",
+        "actions": [
+          "Mantener ayuno, acceso venoso, analgesia e hidratación según estado clínico.",
+          "Administrar antibióticos preoperatorios según protocolo y coordinar la resolución quirúrgica.",
+          "Preferir ecografía como imagen inicial; no retrasar la atención ante deterioro o peritonitis."
+        ]
+      }
+    ]
+  }
+]

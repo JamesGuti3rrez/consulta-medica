@@ -1,0 +1,302 @@
+{
+  "schema_version": "1.1.0",
+  "case_id": "CIR-106",
+  "title": "Héctor Espinoza: Tengo el abdomen hinchado, dolor y vómitos, y no",
+  "specialty": "cirugia_general",
+  "language": "es",
+  "status": "curado",
+  "source": {
+    "dataset": "sintetico",
+    "item_id": "distension_y_vomitos_adulto/volvulo_sigmoides",
+    "license": "CC BY 4.0",
+    "method": "generado_ia"
+  },
+  "public": {
+    "patient": {
+      "alias": "Héctor Espinoza",
+      "age_years": 76,
+      "sex": "masculino"
+    },
+    "chief_complaint": {
+      "evidence_id": "CIR-106.motivo.queja_principal",
+      "category": "motivo",
+      "label": "Motivo de consulta",
+      "text": "Tengo el abdomen hinchado, dolor y vómitos, y no estoy evacuando normalmente."
+    },
+    "items": [
+      {
+        "evidence_id": "CIR-106.anamnesis.contexto_atencion",
+        "category": "anamnesis",
+        "label": "Contexto de atención",
+        "text": "Acude a valoración médica por estas molestias."
+      }
+    ],
+    "allergies_recorded": false
+  },
+  "on_request": [
+    {
+      "evidence_id": "CIR-106.anamnesis.inicio_evolucion",
+      "category": "anamnesis",
+      "label": "Inicio y evolución",
+      "text": "Desde hace 36 horas presenta distensión marcada y ausencia de deposiciones y gases; los vómitos aparecieron después.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "inicio_y_evolucion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "CIR-106.anamnesis.caracteristicas",
+      "category": "anamnesis",
+      "label": "Características de las molestias",
+      "text": "El dolor es abdominal bajo y se acompaña de un aumento importante del volumen del abdomen.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "caracteristicas_sintoma"
+        ]
+      }
+    },
+    {
+      "evidence_id": "CIR-106.sintoma.sintomas",
+      "category": "sintoma",
+      "label": "Síntomas asociados",
+      "text": "No tiene diarrea ni sangrado digestivo. No refiere dolor abdominal constante de intensidad creciente.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "sintomas_asociados"
+        ]
+      }
+    },
+    {
+      "evidence_id": "CIR-106.antecedente.antecedentes",
+      "category": "antecedente",
+      "label": "Antecedentes personales",
+      "text": "Tiene estreñimiento crónico y episodios previos de distensión que cedieron espontáneamente. No fue operado del abdomen.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "antecedentes_personales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "CIR-106.medicacion.medicacion",
+      "category": "medicacion",
+      "label": "Medicación habitual",
+      "text": "Usa laxantes de manera intermitente; no toma opioides.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "medicacion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "CIR-106.antecedente.alergias",
+      "category": "antecedente",
+      "label": "Alergias",
+      "text": "No refiere alergias conocidas.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "alergias"
+        ]
+      }
+    },
+    {
+      "evidence_id": "CIR-106.anamnesis.habitos",
+      "category": "anamnesis",
+      "label": "Hábitos y entorno",
+      "text": "Es poco activo y habitualmente evacua cada varios días.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "CIR-106.anamnesis.impacto_funcional",
+      "category": "anamnesis",
+      "label": "Impacto en las actividades diarias",
+      "text": "La distensión actual no le permite comer ni caminar con comodidad.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "CIR-106.vital.signos_vitales",
+      "category": "signo_vital",
+      "label": "Signos vitales",
+      "text": "Presión arterial 120/74 mmHg; pulso 98/min; frecuencia respiratoria 20/min; temperatura 37,0 °C; saturación 97 %.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "signos_vitales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "CIR-106.examen.exploracion_fisica",
+      "category": "examen_fisico",
+      "label": "Exploración física",
+      "text": "Abdomen muy distendido y timpánico, sin defensa ni signos peritoneales; el recto está vacío al tacto.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "exploracion_fisica"
+        ]
+      }
+    },
+    {
+      "evidence_id": "CIR-106.imagen.tomografia_abdominal",
+      "category": "imagen",
+      "label": "Tomografía abdominal",
+      "text": "Gran dilatación del sigmoide con estrechamiento en pico y giro del mesenterio; no hay aire libre ni signos radiológicos de isquemia.",
+      "reveal_policy": {
+        "owner": "radiologia",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "tomografia_abdominal"
+        ]
+      }
+    }
+  ],
+  "protected": {
+    "diagnosis": {
+      "name": "Vólvulo de sigmoides",
+      "synonyms": [
+        "Torsión obstructiva del colon sigmoide",
+        "Vólvulo sigmoideo",
+        "Torsión del colon sigmoide"
+      ]
+    },
+    "differentials": [
+      {
+        "name": "Obstrucción intestinal por adherencias",
+        "must_not_miss": true,
+        "discard_evidence_ids": [
+          "CIR-106.antecedente.antecedentes",
+          "CIR-106.imagen.tomografia_abdominal"
+        ]
+      },
+      {
+        "name": "Íleo paralítico posoperatorio",
+        "must_not_miss": false,
+        "discard_evidence_ids": [
+          "CIR-106.antecedente.antecedentes",
+          "CIR-106.imagen.tomografia_abdominal"
+        ]
+      }
+    ],
+    "treatment_reference": {
+      "summary": "Valoración quirúrgica urgente; considerar descompresión endoscópica si no hay isquemia ni perforación y planificar el manejo definitivo.",
+      "key_actions": [
+        "Evaluar signos de isquemia, perforación y compromiso sistémico.",
+        "Coordinar manejo endoscópico o quirúrgico según gravedad.",
+        "Prevenir recurrencias mediante un plan definitivo especializado."
+      ]
+    },
+    "contraindications": [],
+    "evaluation": {
+      "key_questions": [
+        {
+          "id": "kq1",
+          "topic": "Inicio y evolución de las molestias",
+          "evidence_ids": [
+            "CIR-106.anamnesis.inicio_evolucion"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq2",
+          "topic": "Características y síntomas asociados",
+          "evidence_ids": [
+            "CIR-106.anamnesis.caracteristicas",
+            "CIR-106.sintoma.sintomas"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq3",
+          "topic": "Antecedentes y medicación habitual",
+          "evidence_ids": [
+            "CIR-106.antecedente.antecedentes",
+            "CIR-106.medicacion.medicacion"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq4",
+          "topic": "Alergias antes de proponer tratamiento",
+          "evidence_ids": [
+            "CIR-106.antecedente.alergias"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq5",
+          "topic": "Valoración de gravedad con signos vitales y exploración",
+          "evidence_ids": [
+            "CIR-106.vital.signos_vitales",
+            "CIR-106.examen.exploracion_fisica"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq6",
+          "topic": "Datos que permiten distinguir los diagnósticos de la familia",
+          "evidence_ids": [
+            "CIR-106.antecedente.antecedentes",
+            "CIR-106.imagen.tomografia_abdominal"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        }
+      ],
+      "tests": {
+        "recommended": [
+          "tomografia_abdominal"
+        ],
+        "optional": [],
+        "unnecessary": []
+      }
+    }
+  },
+  "provenance": {
+    "created_by": "Codex / case_preparation.familias.ampliacion",
+    "created_at": "2026-10-16",
+    "validator_version": "1.1.0",
+    "validated_at": "2026-10-16",
+    "curated_by": "Validación automática para simulación; revisión clínica humana pendiente",
+    "curated_at": "2026-10-16",
+    "rejection_reason": null
+  }
+}

@@ -1,0 +1,302 @@
+{
+  "schema_version": "1.1.0",
+  "case_id": "EME-104",
+  "title": "Renato Salazar: Me falta el aire y me cuesta realizar mis activi",
+  "specialty": "emergencias",
+  "language": "es",
+  "status": "curado",
+  "source": {
+    "dataset": "sintetico",
+    "item_id": "disnea_aguda_adulto/exacerbacion_asmatica",
+    "license": "CC BY 4.0",
+    "method": "generado_ia"
+  },
+  "public": {
+    "patient": {
+      "alias": "Renato Salazar",
+      "age_years": 29,
+      "sex": "masculino"
+    },
+    "chief_complaint": {
+      "evidence_id": "EME-104.motivo.queja_principal",
+      "category": "motivo",
+      "label": "Motivo de consulta",
+      "text": "Me falta el aire y me cuesta realizar mis actividades."
+    },
+    "items": [
+      {
+        "evidence_id": "EME-104.anamnesis.contexto_atencion",
+        "category": "anamnesis",
+        "label": "Contexto de atención",
+        "text": "Acude a valoración médica por estas molestias."
+      }
+    ],
+    "allergies_recorded": false
+  },
+  "on_request": [
+    {
+      "evidence_id": "EME-104.anamnesis.inicio_evolucion",
+      "category": "anamnesis",
+      "label": "Inicio y evolución",
+      "text": "La dificultad respiratoria empezó hace 8 horas después de limpiar un depósito con mucho polvo. Ha tenido episodios parecidos y mejora parcialmente con su inhalador.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "inicio_y_evolucion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-104.anamnesis.caracteristicas",
+      "category": "anamnesis",
+      "label": "Características de las molestias",
+      "text": "Siente opresión en el pecho y escucha silbidos al respirar; no describe dolor localizado ni empeoramiento al acostarse.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "caracteristicas_sintoma"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-104.sintoma.sintomas",
+      "category": "sintoma",
+      "label": "Síntomas asociados",
+      "text": "Tiene tos seca. No ha tenido fiebre, hinchazón de piernas ni expectoración con sangre.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "sintomas_asociados"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-104.antecedente.antecedentes",
+      "category": "antecedente",
+      "label": "Antecedentes personales",
+      "text": "Tiene asma desde la adolescencia. No ha requerido ventilación mecánica y no refiere enfermedad cardíaca.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "antecedentes_personales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-104.medicacion.medicacion",
+      "category": "medicacion",
+      "label": "Medicación habitual",
+      "text": "Usa un inhalador de salbutamol cuando tiene molestias; dejó de usar su inhalador preventivo hace 2 meses.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "medicacion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-104.antecedente.alergias",
+      "category": "antecedente",
+      "label": "Alergias",
+      "text": "No refiere alergias conocidas.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "alergias"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-104.anamnesis.habitos",
+      "category": "anamnesis",
+      "label": "Hábitos y entorno",
+      "text": "No fuma. Estuvo barriendo un depósito sin protección frente al polvo.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-104.anamnesis.impacto_funcional",
+      "category": "anamnesis",
+      "label": "Impacto en las actividades diarias",
+      "text": "Desde esta mañana necesita detenerse al caminar por la falta de aire; normalmente trabaja y camina sin limitaciones.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-104.vital.signos_vitales",
+      "category": "signo_vital",
+      "label": "Signos vitales",
+      "text": "Presión arterial 122/76 mmHg; pulso 108/min; frecuencia respiratoria 28/min; temperatura 36,8 °C; saturación 93 % al aire ambiente.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "signos_vitales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-104.examen.exploracion_fisica",
+      "category": "examen_fisico",
+      "label": "Exploración física",
+      "text": "Está alerta y puede hablar en frases. Presenta espiración prolongada y sibilancias difusas; no hay crepitantes focales ni edema de piernas.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "exploracion_fisica"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-104.lab.flujo_espiratorio",
+      "category": "laboratorio",
+      "label": "Flujo espiratorio máximo",
+      "text": "Antes del broncodilatador, el flujo máximo es 55 % de su mejor valor personal; después del tratamiento inicial mejora a 76 %.",
+      "reveal_policy": {
+        "owner": "laboratorio",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "flujo_espiratorio"
+        ]
+      }
+    }
+  ],
+  "protected": {
+    "diagnosis": {
+      "name": "Exacerbación asmática",
+      "synonyms": [
+        "Crisis asmática",
+        "Crisis de asma",
+        "Agudización asmática"
+      ]
+    },
+    "differentials": [
+      {
+        "name": "Exacerbación aguda de EPOC",
+        "must_not_miss": true,
+        "discard_evidence_ids": [
+          "EME-104.examen.exploracion_fisica",
+          "EME-104.lab.flujo_espiratorio"
+        ]
+      },
+      {
+        "name": "Edema agudo de pulmón cardiogénico",
+        "must_not_miss": true,
+        "discard_evidence_ids": [
+          "EME-104.examen.exploracion_fisica",
+          "EME-104.lab.flujo_espiratorio"
+        ]
+      }
+    ],
+    "treatment_reference": {
+      "summary": "Evaluación inmediata de gravedad y respuesta al broncodilatador inhalado; oxígeno y corticoide sistémico según valoración clínica y protocolo.",
+      "key_actions": [
+        "Reevaluar trabajo respiratorio, saturación y flujo máximo.",
+        "Restablecer un plan de tratamiento que incluya controlador inhalado.",
+        "Revisar técnica inhalatoria y signos de alarma."
+      ]
+    },
+    "contraindications": [],
+    "evaluation": {
+      "key_questions": [
+        {
+          "id": "kq1",
+          "topic": "Inicio y evolución de las molestias",
+          "evidence_ids": [
+            "EME-104.anamnesis.inicio_evolucion"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq2",
+          "topic": "Características y síntomas asociados",
+          "evidence_ids": [
+            "EME-104.anamnesis.caracteristicas",
+            "EME-104.sintoma.sintomas"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq3",
+          "topic": "Antecedentes y medicación habitual",
+          "evidence_ids": [
+            "EME-104.antecedente.antecedentes",
+            "EME-104.medicacion.medicacion"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq4",
+          "topic": "Alergias antes de proponer tratamiento",
+          "evidence_ids": [
+            "EME-104.antecedente.alergias"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq5",
+          "topic": "Valoración de gravedad con signos vitales y exploración",
+          "evidence_ids": [
+            "EME-104.vital.signos_vitales",
+            "EME-104.examen.exploracion_fisica"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq6",
+          "topic": "Datos que permiten distinguir los diagnósticos de la familia",
+          "evidence_ids": [
+            "EME-104.examen.exploracion_fisica",
+            "EME-104.lab.flujo_espiratorio"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        }
+      ],
+      "tests": {
+        "recommended": [
+          "flujo_espiratorio"
+        ],
+        "optional": [],
+        "unnecessary": []
+      }
+    }
+  },
+  "provenance": {
+    "created_by": "Codex / case_preparation.familias.ampliacion",
+    "created_at": "2026-10-16",
+    "validator_version": "1.1.0",
+    "validated_at": "2026-10-16",
+    "curated_by": "Validación automática para simulación; revisión clínica humana pendiente",
+    "curated_at": "2026-10-16",
+    "rejection_reason": null
+  }
+}

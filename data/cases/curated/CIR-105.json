@@ -1,0 +1,316 @@
+{
+  "schema_version": "1.1.0",
+  "case_id": "CIR-105",
+  "title": "Óscar Velásquez: Tengo el abdomen hinchado, dolor y vómitos, y no",
+  "specialty": "cirugia_general",
+  "language": "es",
+  "status": "curado",
+  "source": {
+    "dataset": "sintetico",
+    "item_id": "distension_y_vomitos_adulto/ileo_posoperatorio",
+    "license": "CC BY 4.0",
+    "method": "generado_ia"
+  },
+  "public": {
+    "patient": {
+      "alias": "Óscar Velásquez",
+      "age_years": 63,
+      "sex": "masculino"
+    },
+    "chief_complaint": {
+      "evidence_id": "CIR-105.motivo.queja_principal",
+      "category": "motivo",
+      "label": "Motivo de consulta",
+      "text": "Tengo el abdomen hinchado, dolor y vómitos, y no estoy evacuando normalmente."
+    },
+    "items": [
+      {
+        "evidence_id": "CIR-105.anamnesis.contexto_atencion",
+        "category": "anamnesis",
+        "label": "Contexto de atención",
+        "text": "Acude a valoración médica por estas molestias."
+      }
+    ],
+    "allergies_recorded": false
+  },
+  "on_request": [
+    {
+      "evidence_id": "CIR-105.anamnesis.inicio_evolucion",
+      "category": "anamnesis",
+      "label": "Inicio y evolución",
+      "text": "Tres días después de una cirugía ortopédica comenzó con distensión progresiva, náuseas y escasa eliminación de gases.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "inicio_y_evolucion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "CIR-105.anamnesis.caracteristicas",
+      "category": "anamnesis",
+      "label": "Características de las molestias",
+      "text": "Tiene malestar abdominal difuso más que dolor en oleadas; vomitó una vez.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "caracteristicas_sintoma"
+        ]
+      }
+    },
+    {
+      "evidence_id": "CIR-105.sintoma.sintomas",
+      "category": "sintoma",
+      "label": "Síntomas asociados",
+      "text": "No tiene fiebre, dolor abdominal localizado intenso ni sangre en las deposiciones.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "sintomas_asociados"
+        ]
+      }
+    },
+    {
+      "evidence_id": "CIR-105.antecedente.antecedentes",
+      "category": "antecedente",
+      "label": "Antecedentes personales",
+      "text": "No tiene cirugías abdominales previas ni episodios anteriores de bloqueo del tránsito.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "antecedentes_personales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "CIR-105.medicacion.medicacion",
+      "category": "medicacion",
+      "label": "Medicación habitual",
+      "text": "Recibió morfina en el posoperatorio y ha comido poco desde la intervención.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "medicacion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "CIR-105.antecedente.alergias",
+      "category": "antecedente",
+      "label": "Alergias",
+      "text": "No refiere alergias conocidas.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "alergias"
+        ]
+      }
+    },
+    {
+      "evidence_id": "CIR-105.anamnesis.habitos",
+      "category": "anamnesis",
+      "label": "Hábitos y entorno",
+      "text": "Antes de la operación evacuaba con normalidad; ahora permanece la mayor parte del día en cama por la recuperación.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "CIR-105.anamnesis.impacto_funcional",
+      "category": "anamnesis",
+      "label": "Impacto en las actividades diarias",
+      "text": "Necesita ayuda para movilizarse por la operación; el abdomen hinchado dificulta la alimentación.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "CIR-105.vital.signos_vitales",
+      "category": "signo_vital",
+      "label": "Signos vitales",
+      "text": "Presión arterial 126/76 mmHg; pulso 88/min; frecuencia respiratoria 18/min; temperatura 36,8 °C; saturación 97 %.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "signos_vitales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "CIR-105.examen.exploracion_fisica",
+      "category": "examen_fisico",
+      "label": "Exploración física",
+      "text": "Abdomen distendido, blando y con ruidos intestinales muy disminuidos; no hay defensa ni dolor focal.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "exploracion_fisica"
+        ]
+      }
+    },
+    {
+      "evidence_id": "CIR-105.lab.electrolitos",
+      "category": "laboratorio",
+      "label": "Electrolitos",
+      "text": "Potasio 2,9 mmol/L; sodio 138 mmol/L.",
+      "reveal_policy": {
+        "owner": "laboratorio",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "electrolitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "CIR-105.imagen.tomografia_abdominal",
+      "category": "imagen",
+      "label": "Tomografía abdominal",
+      "text": "Dilatación difusa de intestino delgado y colon, con gas hasta el recto y sin punto de transición ni torsión mesentérica.",
+      "reveal_policy": {
+        "owner": "radiologia",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "tomografia_abdominal"
+        ]
+      }
+    }
+  ],
+  "protected": {
+    "diagnosis": {
+      "name": "Íleo paralítico posoperatorio",
+      "synonyms": [
+        "Íleo adinámico posquirúrgico",
+        "Íleo adinámico posoperatorio",
+        "Íleo funcional posoperatorio"
+      ]
+    },
+    "differentials": [
+      {
+        "name": "Obstrucción intestinal por adherencias",
+        "must_not_miss": true,
+        "discard_evidence_ids": [
+          "CIR-105.medicacion.medicacion",
+          "CIR-105.imagen.tomografia_abdominal"
+        ]
+      },
+      {
+        "name": "Vólvulo de sigmoides",
+        "must_not_miss": true,
+        "discard_evidence_ids": [
+          "CIR-105.medicacion.medicacion",
+          "CIR-105.imagen.tomografia_abdominal"
+        ]
+      }
+    ],
+    "treatment_reference": {
+      "summary": "Corregir causas reversibles, revisar opioides, reponer electrolitos y favorecer recuperación de la motilidad según valoración clínica.",
+      "key_actions": [
+        "Corregir la hipopotasemia con monitorización apropiada.",
+        "Revisar analgesia y fármacos que enlentecen el tránsito.",
+        "Vigilar evolución y reconsiderar otras causas si aparece deterioro."
+      ]
+    },
+    "contraindications": [],
+    "evaluation": {
+      "key_questions": [
+        {
+          "id": "kq1",
+          "topic": "Inicio y evolución de las molestias",
+          "evidence_ids": [
+            "CIR-105.anamnesis.inicio_evolucion"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq2",
+          "topic": "Características y síntomas asociados",
+          "evidence_ids": [
+            "CIR-105.anamnesis.caracteristicas",
+            "CIR-105.sintoma.sintomas"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq3",
+          "topic": "Antecedentes y medicación habitual",
+          "evidence_ids": [
+            "CIR-105.antecedente.antecedentes",
+            "CIR-105.medicacion.medicacion"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq4",
+          "topic": "Alergias antes de proponer tratamiento",
+          "evidence_ids": [
+            "CIR-105.antecedente.alergias"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq5",
+          "topic": "Valoración de gravedad con signos vitales y exploración",
+          "evidence_ids": [
+            "CIR-105.vital.signos_vitales",
+            "CIR-105.examen.exploracion_fisica"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq6",
+          "topic": "Datos que permiten distinguir los diagnósticos de la familia",
+          "evidence_ids": [
+            "CIR-105.medicacion.medicacion",
+            "CIR-105.imagen.tomografia_abdominal"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        }
+      ],
+      "tests": {
+        "recommended": [
+          "electrolitos",
+          "tomografia_abdominal"
+        ],
+        "optional": [],
+        "unnecessary": []
+      }
+    }
+  },
+  "provenance": {
+    "created_by": "Codex / case_preparation.familias.ampliacion",
+    "created_at": "2026-10-16",
+    "validator_version": "1.1.0",
+    "validated_at": "2026-10-16",
+    "curated_by": "Validación automática para simulación; revisión clínica humana pendiente",
+    "curated_at": "2026-10-16",
+    "rejection_reason": null
+  }
+}
