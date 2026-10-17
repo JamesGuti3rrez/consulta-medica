@@ -6,7 +6,8 @@ from collections import Counter
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import JSONResponse
 
-from ..cases.catalog import load_curated_cases, to_student_case
+from ..cases.catalog import to_student_case
+from ..cases.source import load_configured_cases as load_curated_cases
 from ..cases.validator import load_schema
 from ..config import settings
 
@@ -54,6 +55,7 @@ def get_status():
     by_specialty = Counter(case["specialty"] for case in cases)
     return {
         "caseConfigured": bool(cases),
+        "caseStore": settings.case_store,
         "availableCases": len(cases),
         "casesBySpecialty": {specialty: by_specialty.get(specialty, 0) for specialty in SPECIALTIES},
     }

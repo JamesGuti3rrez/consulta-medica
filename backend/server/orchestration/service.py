@@ -117,6 +117,8 @@ class MultiAgentSessionService:
 
         event = {
             "type": "turn",
+            "student_message": student_message,
+            "response_text": result["response_text"],
             "case_id": session["case_id"],
             "phase": session["phase"],
             "intent": result.get("route_intent"),
@@ -134,6 +136,10 @@ class MultiAgentSessionService:
             "evidence_ids": result.get("retrieved_evidence_ids", []),
             "blocked": result.get("blocked", False),
             "block_reason": result.get("block_reason"),
+            "synthetic_generated_ids": result.get("synthetic_generated_ids", []),
+            "synthetic_reused_ids": result.get("synthetic_reused_ids", []),
+            "data_source": result.get("data_source", "curado"),
+            "synthetic_rejection_reason": result.get("synthetic_rejection_reason"),
             "safety_alerts": [alert["code"] for alert in safety_alerts],
         }
         self.store.event(session_id, event)
@@ -148,6 +154,9 @@ class MultiAgentSessionService:
             "intent": result.get("route_intent"),
             "agent": result["active_agent"],
             "response": result["response_text"],
+            "synthetic_generated_ids": result.get("synthetic_generated_ids", []),
+            "synthetic_reused_ids": result.get("synthetic_reused_ids", []),
+            "data_source": result.get("data_source", "curado"),
             "doctor_question": result.get("doctor_question"),
             "provider": result.get("provider"),
             "model": result.get("model"),

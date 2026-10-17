@@ -41,3 +41,30 @@ def test_exams_added_by_the_team_reach_their_agent():
     assert router.route("Pido el dosaje del factor VIII y del factor IX").target == AgentRole.LABORATORIO
     assert router.route("Solicito una prolactina sérica").target == AgentRole.LABORATORIO
     assert router.route("Pido un electroencefalograma").target == AgentRole.LABORATORIO
+
+
+def test_plural_physical_exams_reach_assistant_instead_of_patient():
+    router = DecisionRouter()
+    for message in (
+        "bueno pasemos con los exámenes físicos que tiene que tomar el paciente para empezar a ver cómo está actualmente",
+        "Pasemos a los exámenes físicos", "Hagamos una evaluación física", "Voy a revisar al paciente",
+    ):
+        decision = router.route(message)
+        assert decision.target == AgentRole.MEDICO_ASISTENTE
+        assert decision.intent == Intent.EXAMINE
+
+
+def test_unspecified_medical_exams_are_clarified_by_the_assistant():
+    router = DecisionRouter()
+    for message in ("pasamos por los exámenes médicos", "Quiero solicitar exámenes", "Hagamos unas pruebas",
+                    "Solicito un examen médico"):
+        decision = router.route(message)
+        assert decision.target == AgentRole.MEDICO_ASISTENTE
+        assert decision.intent == Intent.ASK_ASSISTANT
+
+
+def test_specific_exam_agents_take_precedence_over_generic_exam_words():
+    router = DecisionRouter()
+    assert router.route("Hagamos exámenes de laboratorio").target == AgentRole.LABORATORIO
+    assert router.route("Solicito un examen de imagen").target == AgentRole.RADIOLOGIA
+    assert router.route("Pido pruebas de coagulación").target == AgentRole.LABORATORIO

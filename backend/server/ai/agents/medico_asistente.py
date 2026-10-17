@@ -5,6 +5,9 @@ from server.domain import AgentRole
 class MedicoAsistenteAgent(BaseAgent):
     role = AgentRole.MEDICO_ASISTENTE
     prompt_filename = "medico_asistente.md"
+    generic_request_reply = (
+        "¿Desea realizar la exploración física o solicitar un examen de laboratorio o de imagen? Indique cuál."
+    )
     # Hipótesis, diagnósticos y tratamientos del estudiante: se registran sin confirmarlos ni corregirlos
     # (la evaluación es del motor de evaluación, no del agente), y sin pistas que adelanten datos.
     missing_data_rule = (

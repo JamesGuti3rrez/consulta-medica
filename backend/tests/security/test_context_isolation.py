@@ -23,3 +23,18 @@ def test_context_never_contains_protected_section_or_diagnosis():
     assert "treatment_reference" not in payload
     assert "differentials" not in payload
     assert "migraña sin signos de alarma" not in payload
+
+
+def test_patient_can_reference_a_previously_revealed_exam_without_unseen_findings():
+    case = CanonicalCaseRepository().get_conversation_case("MED-008")
+    assembler = ContextAssembler()
+    before = assembler.build(case=case, role=AgentRole.PACIENTE,
+                             revealed_evidence_ids=[], retrieved=[])
+    assert before["revealed_evidence"] == []
+    after = assembler.build(case=case, role=AgentRole.PACIENTE,
+                            revealed_evidence_ids=["MED-008.examen.exploracion_fisica"], retrieved=[])
+    assert [item["evidence_id"] for item in after["revealed_evidence"]] == ["MED-008.examen.exploracion_fisica"]
+    assert "pápula" in after["revealed_evidence"][0]["text"]
+    payload = json.dumps(after, ensure_ascii=False).casefold()
+    assert "carcinoma" not in payload and "protected" not in payload
+    assert "exposicion_solar" not in payload

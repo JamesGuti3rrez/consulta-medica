@@ -23,11 +23,22 @@ class GroqProvider:
         self.timeout = timeout
 
     def generate(self, messages: list[dict[str, str]], *, temperature: float = 0.0) -> LLMResult:
+        return self._generate(messages, temperature=temperature)
+
+    def generate_json(self, messages: list[dict[str, str]], *, temperature: float = 0.0) -> LLMResult:
+        return self._generate(messages, temperature=temperature, json_mode=True)
+
+    def _generate(self, messages, *, temperature=0.0, json_mode=False):
+        payload = {"model": self.model, "messages": messages, "temperature": temperature}
+        if json_mode:
+            payload.update(response_format={"type": "json_object"}, max_completion_tokens=4096)
+            if self.model.startswith("openai/gpt-oss-"):
+                payload["reasoning_effort"] = "low"
         try:
             response = httpx.post(
                 f"{self.base_url}/chat/completions",
                 headers={"Authorization": f"Bearer {self.api_key}", "Content-Type": "application/json"},
-                json={"model": self.model, "messages": messages, "temperature": temperature},
+                json=payload,
                 timeout=self.timeout,
             )
         except httpx.HTTPError as exc:
@@ -43,9 +54,12 @@ class GroqProvider:
             )
 
         data = response.json()
+        text = data["choices"][0]["message"].get("content")
+        if not isinstance(text, str) or not text.strip():
+            raise ProviderError(f"{self.name}: respuesta vacía del modelo.", retryable=True)
         usage = data.get("usage") or {}
         return LLMResult(
-            text=data["choices"][0]["message"]["content"],
+            text=text,
             provider=self.name,
             model=self.model,
             input_tokens=int(usage.get("prompt_tokens") or 0),

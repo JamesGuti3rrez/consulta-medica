@@ -8,6 +8,8 @@
     },
     "scripts": {
         "setup": "node backend/scripts/python.mjs setup",
+        "import:cases": "node backend/scripts/python.mjs import-cases --activate",
+        "test:cases": "node backend/scripts/python.mjs test-cases",
         "prestart": "npm run build",
         "start": "node backend/scripts/python.mjs start",
         "build": "npm run build:images && npm run build:css",
