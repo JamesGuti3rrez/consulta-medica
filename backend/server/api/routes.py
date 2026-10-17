@@ -54,7 +54,6 @@ def get_status():
     by_specialty = Counter(case["specialty"] for case in cases)
     return {
         "caseConfigured": bool(cases),
-        "simulationReady": False,
         "availableCases": len(cases),
         "casesBySpecialty": {specialty: by_specialty.get(specialty, 0) for specialty in SPECIALTIES},
     }

@@ -7,14 +7,13 @@ from server.main import app
 client = TestClient(app)
 
 
-def test_status_reports_curated_catalog_without_claiming_full_simulation_ready():
+def test_status_reports_curated_catalog():
     response = client.get("/api/status")
 
     assert response.status_code == 200
     body = response.json()
-    assert {key: body[key] for key in ("caseConfigured", "simulationReady", "availableCases")} == {
+    assert {key: body[key] for key in ("caseConfigured", "availableCases")} == {
         "caseConfigured": True,
-        "simulationReady": False,
         "availableCases": 13,  # 10 de MedQA y 3 de la familia sintética de dolor torácico
     }
 

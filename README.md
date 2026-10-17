@@ -1,8 +1,8 @@
 # Consulta Médica Virtual
 
-Prototipo de consulta médica virtual con un catálogo versionado de diez casos curados para
-demostración. El simulador muestra una ficha pública de un caso; la conversación clínica interactiva
-y el guardado de intentos aún no están implementados.
+Prototipo de consulta médica virtual con un catálogo versionado de trece casos curados para
+demostración. El estudiante entrevista al paciente y pide exámenes mediante un sistema multiagente
+(`/api/ai`); al cerrar la consulta recibe una evaluación y, si inició sesión, el intento se guarda.
 
 ## Estructura
 
