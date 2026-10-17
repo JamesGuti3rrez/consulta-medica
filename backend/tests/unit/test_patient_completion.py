@@ -185,6 +185,20 @@ def test_case_question_without_synthetic_keys_uses_normal_patient_agent(clinical
     assert not service.store.writes
 
 
+@pytest.mark.parametrize("question, expected", [
+    ("¿Por qué vino a consulta?", []),
+    ("¿Cuándo vino al hospital?", []),
+    ("¿Vino acompañada?", []),
+    ("¿Toma vino?", ["alcohol"]),
+    ("¿Cuántas copas de vino bebe?", ["alcohol"]),
+    ("¿Fuma o toma alcohol?", ["tabaco", "alcohol"]),
+])
+def test_vino_as_the_verb_venir_is_not_the_alcohol_topic(question, expected):
+    from server.engine.disclosure.synthetic_scope import candidate_topics
+
+    assert candidate_topics(question) == expected
+
+
 def test_keys_outside_the_question_topics_are_dropped_not_generated(clinical):
     service, gateway = make_service([{"alcance": "caso", "claves": ["motivo_consulta", "tabaco"]}])
     result = run(service, clinical, question="Buenos días, ¿qué lo trae a consulta?")
