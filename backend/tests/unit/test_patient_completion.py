@@ -177,6 +177,21 @@ def test_existing_curated_answer_uses_normal_patient_agent(clinical):
     assert not service.store.writes
 
 
+def test_case_question_without_synthetic_keys_uses_normal_patient_agent(clinical):
+    # Así responde el modelo real al motivo de consulta: es del caso, pero no pide ningún dato sintético.
+    service, _ = make_service([{"alcance": "caso", "claves": []}])
+    result = run(service, clinical, question="Buenos días, ¿qué lo trae a consulta?")
+    assert result.reply is None and not result.validation_rejected
+    assert not service.store.writes
+
+
+def test_keys_outside_the_question_topics_are_dropped_not_generated(clinical):
+    service, gateway = make_service([{"alcance": "caso", "claves": ["motivo_consulta", "tabaco"]}])
+    result = run(service, clinical, question="Buenos días, ¿qué lo trae a consulta?")
+    assert result.reply is None and not result.validation_rejected
+    assert len(gateway.calls) == 1 and not service.store.writes
+
+
 def test_revision_rejection_or_changed_case_cannot_be_reused(clinical):
     service, _ = make_service([{"alcance": "caso", "claves": KEYS}, proposal(), VERDICT])
     run(service, clinical)
