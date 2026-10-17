@@ -38,6 +38,7 @@ from server.persistence.synthetic_facts import SupabaseSyntheticFacts
 from server.orchestration.patient_completion import PatientHistoryCompletion
 from server.rag.embedded import EmbeddedRAGRetriever
 from server.rag.retriever import CaseEvidenceRetriever, HttpRetriever
+from server.rag.supabase import SupabasePgvectorRetriever, SupabaseRAGError
 from server.tracing import LangSmithObserver, LocalTraceLogger
 
 router = APIRouter(prefix="/api/ai", tags=["ai-sma"])
@@ -87,7 +88,9 @@ class FinishRequest(BaseModel):
 
 @lru_cache
 def get_attempts() -> SupabaseAttempts | None:
-    """Guardado de intentos; None si el servidor no tiene configurado Supabase."""
+    """Guardado de intentos; None si el historial está desactivado o el servidor no tiene configurado Supabase."""
+    if not settings.history_enabled:
+        return None
     if not (settings.supabase_url and settings.supabase_publishable_key and settings.supabase_secret_key):
         return None
     return SupabaseAttempts(settings.supabase_url, settings.supabase_publishable_key, settings.supabase_secret_key)
@@ -96,11 +99,18 @@ def get_attempts() -> SupabaseAttempts | None:
 @lru_cache
 def get_service() -> MultiAgentSessionService:
     repository = build_case_repository(CASES_DIR, config=settings)
-    if settings.case_store == "supabase":
+    if settings.rag_backend == "supabase_pgvector":
+        retriever = SupabasePgvectorRetriever(settings.supabase_url, settings.supabase_secret_key)
+    elif settings.case_store == "supabase":
         # La evidencia procede del caso remoto actual, nunca de un indice local antiguo.
         retriever = CaseEvidenceRetriever(repository)
     elif settings.rag_service_url:
         retriever = HttpRetriever(settings.rag_service_url, token=settings.rag_http_token)
+    elif settings.rag_backend != "local":
+        raise ValueError(
+            f"RAG_BACKEND no reconocido: {settings.rag_backend!r} "
+            "(use local o supabase_pgvector)."
+        )
     elif settings.rag_embedded_enabled and settings.case_store == "local":
         embedded = EmbeddedRAGRetriever(settings.rag_index_dir, settings.rag_log_path, repository=repository)
         retriever = embedded if embedded.ready else CaseEvidenceRetriever(repository)
@@ -158,9 +168,13 @@ def status():
         "llm_mode": settings.llm_mode,
         "case_store": settings.case_store,
         "synthetic_case_data": service.graph.patient_completion is not None,
-        "rag_connected": isinstance(service.graph.retriever, (HttpRetriever, EmbeddedRAGRetriever)),
+        "rag_connected": isinstance(
+            service.graph.retriever,
+            (HttpRetriever, EmbeddedRAGRetriever, SupabasePgvectorRetriever),
+        ),
         "retrieval_mode": (
             "http-rag" if isinstance(service.graph.retriever, HttpRetriever)
+            else "supabase-pgvector" if isinstance(service.graph.retriever, SupabasePgvectorRetriever)
             else "embedded-lightrag" if isinstance(service.graph.retriever, EmbeddedRAGRetriever)
             else "supabase-case-evidence" if settings.case_store == "supabase"
             else "deterministic-case-fallback"
@@ -204,6 +218,12 @@ def message(session_id: str, payload: MessageRequest):
         # Claves rechazadas o servicio caído: se registra el motivo y el estudiante recibe un aviso claro.
         print(f"[llm] {exc}")
         raise HTTPException(status_code=503, detail=LLM_UNAVAILABLE_DETAIL) from exc
+    except SupabaseRAGError as exc:
+        print(f"[rag] {exc}")
+        raise HTTPException(
+            status_code=503,
+            detail="El servicio de recuperación de evidencia no está disponible. Inténtalo de nuevo.",
+        ) from exc
     except ValueError as exc:
         raise HTTPException(status_code=409, detail=str(exc)) from exc
 
@@ -239,10 +259,13 @@ def _save_attempt(service: MultiAgentSessionService, session: dict, payload: Fin
     """
     if session.get("attempt_id"):
         return {"saved": True, "id": session["attempt_id"]}
+    attempts = get_attempts()
+    if attempts is None and not settings.history_enabled:
+        # Sin historial no hay nada que guardar ni que avisar, tenga o no sesión el alumno.
+        return {"saved": False, "reason": "desactivado"}
     token = _bearer(authorization)
     if not token:
         return {"saved": False, "reason": "sin_sesion"}
-    attempts = get_attempts()
     if attempts is None:
         return {"saved": False, "reason": "no_configurado"}
     owner_id = service.owner_of(session["session_id"])

@@ -55,7 +55,6 @@ def get_status():
     by_specialty = Counter(case["specialty"] for case in cases)
     return {
         "caseConfigured": bool(cases),
-        "simulationReady": False,
         "caseStore": settings.case_store,
         "availableCases": len(cases),
         "casesBySpecialty": {specialty: by_specialty.get(specialty, 0) for specialty in SPECIALTIES},
@@ -71,6 +70,7 @@ def get_public_config():
         "auth": True,
         "supabaseUrl": settings.supabase_url,
         "supabaseKey": settings.supabase_publishable_key,
+        "history": settings.history_enabled,
     }
 
 

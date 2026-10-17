@@ -244,3 +244,18 @@ def test_only_the_student_who_started_the_consultation_can_save_it(monkeypatch):
     assert fake.attempts == []
     # El dueño no sale en la respuesta pública de la sesión.
     assert "owner_id" not in stolen.json()
+
+
+def test_without_history_a_signed_in_student_finishes_without_saving_or_warnings(monkeypatch):
+    # HISTORIAL_ALUMNOS=false: ni se verifica el token ni se escribe en Supabase; la hoja no muestra aviso.
+    monkeypatch.setattr(ai_module, "settings", replace(ai_module.settings, history_enabled=False))
+    ai_module.get_attempts.cache_clear()
+    headers = {"Authorization": "Bearer token-alumno"}
+    sid = client.post("/api/ai/sessions", json={"case_id": "MED-900"}, headers=headers).json()["session_id"]
+    _send(sid, "¿Tiene alergias a algún medicamento?")
+    finish = client.post(f"/api/ai/sessions/{sid}/finish", headers=headers)
+    ai_module.get_attempts.cache_clear()
+
+    assert finish.status_code == 200
+    assert finish.json()["attempt"] == {"saved": False, "reason": "desactivado"}
+    assert finish.json()["evaluation"]

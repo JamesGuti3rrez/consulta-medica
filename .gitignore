@@ -60,3 +60,6 @@ desktop.ini
 pruebas/**/*.png
 pruebas/**/*.jpg
 pruebas/**/*.jpeg
+
+.vercel
+.env.local

@@ -43,8 +43,20 @@ def outside_clinical_scope(message: str) -> bool:
     )
 
 
+# «Vino» del verbo venir («¿Por qué vino a consulta?») no es la bebida: sin esto, el selector recibía el tema
+# alcohol para el motivo de consulta y a veces lo rechazaba como fuera de alcance.
+VERB_VINO = re.compile(
+    r"\b(?:(?<=por que )|(?<=cuando )|(?<=como )|(?<=se ))vino\b"
+    r"|\bvino(?=\s+(?:a|al|aqui|aca|hoy|ayer|por|para|del?|con|solo|sola|acompanad\w*|en|caminando)\b)"
+)
+
+
+def _topic_text(raw: str) -> str:
+    return VERB_VINO.sub("llego", _normalize(raw)) + " "
+
+
 def candidate_topics(question: str) -> list[str]:
-    text = _normalize(question) + " "
+    text = _topic_text(question)
     return [key for key, words in TOPICS.items() if any(word in text for word in words)]
 
 
@@ -72,7 +84,7 @@ def canonical_topic_exists(case: dict, topic: str) -> bool:
     items = [*case["public"].get("items", []), *case.get("on_request", [])]
     for item in items:
         category = item.get("category")
-        text = _normalize(str(item.get("text", "")) + " " + str(item.get("label", "")))
+        text = _topic_text(str(item.get("text", "")) + " " + str(item.get("label", "")))
         if topic == "medicacion_habitual" and category == "medicacion":
             return True
         if topic == "inicio_antecedentes":

@@ -1,5 +1,9 @@
 # Consulta Médica Virtual
 
+Prototipo de consulta médica virtual con un catálogo versionado de trece casos curados para
+demostración. El estudiante entrevista al paciente y pide exámenes mediante un sistema multiagente
+(`/api/ai`); al cerrar la consulta recibe una evaluación y, si inició sesión, el intento se guarda.
+
 Los casos también pueden almacenarse en Supabase. Tras crear las tablas de
 `backend/supabase/migrations/0003_casos_curados.sql`, ejecuta desde la raíz
 `npm run setup`, `npm run import:cases` y `npm start`. La importación valida
@@ -7,10 +11,6 @@ los casos, evita sobrescribir registros existentes y activa `CASE_STORE=supabase
 en `.env` solo después de verificar la carga. En ese modo, tanto el catálogo
 como el simulador consultan la base de datos. Los pasos completos y las
 comprobaciones están en [backend/supabase/README.md](backend/supabase/README.md).
-
-Prototipo de consulta médica virtual con un catálogo versionado de diez casos curados para
-demostración. El simulador muestra una ficha pública de un caso; la conversación clínica interactiva
-y el guardado de intentos aún no están implementados.
 
 ## Estructura
 

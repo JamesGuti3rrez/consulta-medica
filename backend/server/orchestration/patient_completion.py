@@ -89,12 +89,16 @@ class PatientHistoryCompletion:
                 return finish(OUT_OF_SCOPE_REPLY, scope=True)
             if selection.get("alcance") == "social":
                 return finish("No entendí bien lo último, doctor. ¿Me lo puede repetir?", source="conversacional")
-            if selection.get("alcance") == "curado":
+            keys = selection.get("claves")
+            if selection.get("alcance") == "caso" and isinstance(keys, list):
+                # Una clave fuera de las permitidas nunca se genera: se descarta. Si no queda ninguna, la
+                # pregunta es del caso pero no pide un dato sintético (p. ej. el motivo de consulta).
+                keys = list(dict.fromkeys(key for key in keys if key in candidates))
+            if selection.get("alcance") == "curado" or (selection.get("alcance") == "caso" and keys == []):
                 result = finish()
                 # Registrar llamadas del selector aunque se responda con el agente normal.
                 result.selector_usage = (input_tokens, output_tokens)
                 return result
-            keys = selection.get("claves")
             if (selection.get("alcance") != "caso" or not isinstance(keys, list)
                     or not 1 <= len(keys) <= 3 or any(not isinstance(k, str) for k in keys)
                     or len(set(keys)) != len(keys) or not set(keys).issubset(candidates)):

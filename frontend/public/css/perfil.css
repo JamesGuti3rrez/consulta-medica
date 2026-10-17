@@ -4,7 +4,8 @@
 /* Estas piezas se muestran u ocultan con el atributo hidden aunque tengan clases de display */
 [data-role="auth-guest"][hidden],
 [data-role="auth-user"][hidden],
-[data-role="profile-menu"][hidden] {
+[data-role="profile-menu"][hidden],
+[data-role="open-history"][hidden] {
   display: none !important;
 }
 

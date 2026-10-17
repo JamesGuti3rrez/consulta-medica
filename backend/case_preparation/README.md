@@ -11,13 +11,14 @@ Está fuera de `server/` porque se ejecuta una sola vez por caso, antes del uso 
 | Transformar | `transform/medqa_case_builder.py` | candidato → caso con el formato de `schemas/caso.schema.json` |
 | Validar | `quality_gates/` | caso → aceptado (`data/cases/validated/`) o rechazado |
 | Curar | `transform/medqa_final_review.py` | `validated/` → `curated/`, con registro en `data/cases/reviews/` |
-| Indexar | `indexing/` | `curated/` → `data/indexes/` (pendiente; corresponde al RAG) |
+| Indexar | `indexing/` | `curated/` → índice LightRAG local o tabla pgvector de Supabase |
 
 Reglas:
 
 - La validación (esquema y reglas cruzadas R01–R13) vive en `server/cases/`; `quality_gates/` la **reutiliza**, no la copia.
 - Los datos de curación del lote (selección, traducción, revisión y ajustes de cada caso) están en `data/cases/reviews/medqa_lote_curacion.json`, no en el código.
 - La IA (si se usa en un adaptador) solo propone; las reglas fijas aceptan o rechazan.
+- `python -m case_preparation index-supabase` vuelve a validar los casos curados e inserta/actualiza en Supabase solo documentos `public` y `on_request`. Requiere `SUPABASE_URL`, `SUPABASE_SECRET_KEY` y la tabla `rag_evidencias`.
 - Qué NO va aquí: casos, datasets, resultados de corridas (todo eso va en `data/`).
 
 Flujo que produce los casos de la demo:

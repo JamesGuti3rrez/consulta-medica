@@ -1,3 +1,4 @@
+import pytest
 from fastapi.testclient import TestClient
 
 from server import api
@@ -7,14 +8,13 @@ from server.main import app
 client = TestClient(app)
 
 
-def test_status_reports_curated_catalog_without_claiming_full_simulation_ready():
+def test_status_reports_curated_catalog():
     response = client.get("/api/status")
 
     assert response.status_code == 200
     body = response.json()
-    assert {key: body[key] for key in ("caseConfigured", "simulationReady", "availableCases")} == {
+    assert {key: body[key] for key in ("caseConfigured", "availableCases")} == {
         "caseConfigured": True,
-        "simulationReady": False,
         "availableCases": 43,  # 10 de MedQA y 33 sintéticos
     }
 
@@ -100,3 +100,17 @@ def test_when_every_case_was_seen_it_only_avoids_the_current_one():
     for _ in range(10):
         body = client.get("/api/caso", params={"especialidad": "pediatria", "excluir": seen}).json()
         assert body["case_id"] in set(seen.split(",")) - {"PED-009"}
+
+
+@pytest.mark.parametrize("enabled", [False, True])
+def test_config_tells_the_browser_whether_student_history_is_on(monkeypatch, enabled):
+    from dataclasses import replace
+
+    from server.api import routes
+
+    monkeypatch.setattr(routes, "settings", replace(
+        routes.settings, supabase_url="https://proyecto.supabase.co",
+        supabase_publishable_key="sb_publishable_prueba", history_enabled=enabled,
+    ))
+    body = client.get("/api/config").json()
+    assert body["auth"] is True and body["history"] is enabled

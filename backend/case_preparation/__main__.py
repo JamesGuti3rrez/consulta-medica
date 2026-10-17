@@ -43,6 +43,11 @@ def main() -> int:
     index_parser.add_argument("--cases-dir", type=Path, default=None)
     index_parser.add_argument("--knowledge-dir", type=Path, default=None)
     index_parser.add_argument("--output-dir", type=Path, default=None)
+    supabase_parser = subparsers.add_parser(
+        "index-supabase",
+        help="Carga en Supabase pgvector la evidencia validada de los casos curados",
+    )
+    supabase_parser.add_argument("--cases-dir", type=Path, default=None)
 
     args = parser.parse_args()
     if args.command == "sources" and args.source_command == "fetch":
@@ -86,6 +91,48 @@ def main() -> int:
                     "documents_fingerprint": documents_fingerprint(documents),
                     "index_fingerprint": destination.name,
                     "index_dir": str(destination),
+                },
+                ensure_ascii=False,
+                indent=2,
+            )
+        )
+        return 0
+
+    if args.command == "index-supabase":
+        from server.ai.embeddings import get_embedding_provider
+        from server.config import settings
+        from server.rag.supabase import index_documents_in_supabase
+
+        repo_root = Path(__file__).resolve().parents[2]
+        cases_dir = args.cases_dir or repo_root / "data" / "cases" / "curated"
+        cases = [
+            json.loads(path.read_text(encoding="utf-8"))
+            for path in sorted(cases_dir.glob("*.json"))
+        ]
+        if not cases:
+            raise IndexingError(f"No hay casos curados en {cases_dir}.")
+        rejected = {
+            result.case_id: result.errors
+            for result in map(evaluate_case, cases)
+            if not result.accepted
+        }
+        batch_errors = evaluate_batch(cases)
+        if rejected or batch_errors:
+            raise IndexingError(f"Casos que no pasan las Quality Gates: {rejected or batch_errors}")
+        documents = build_case_documents(cases)
+        count = index_documents_in_supabase(
+            settings.supabase_url,
+            settings.supabase_secret_key,
+            documents,
+        )
+        print(
+            json.dumps(
+                {
+                    "cases": len(cases),
+                    "documents": count,
+                    "documents_fingerprint": documents_fingerprint(documents),
+                    "embedding": get_embedding_provider().metadata.as_dict(),
+                    "status": "upserted",
                 },
                 ensure_ascii=False,
                 indent=2,
