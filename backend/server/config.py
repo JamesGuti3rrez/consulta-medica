@@ -34,6 +34,7 @@ class Settings:
     llm_timeout_seconds: float
     provider_cooldown_seconds: float
     rag_service_url: str
+    rag_backend: str
     rag_embedded_enabled: bool
     rag_index_dir: Path
     rag_log_path: Path
@@ -66,6 +67,7 @@ settings = Settings(
     llm_timeout_seconds=float(os.getenv("AI_LLM_TIMEOUT_SECONDS", "30")),
     provider_cooldown_seconds=float(os.getenv("AI_PROVIDER_COOLDOWN_SECONDS", "60")),
     rag_service_url=os.getenv("RAG_SERVICE_URL", "").strip().rstrip("/"),
+    rag_backend=os.getenv("RAG_BACKEND", "local").strip().lower(),
     rag_embedded_enabled=_flag("RAG_EMBEDDED", "true"),
     rag_index_dir=(ROOT_DIR / os.getenv("RAG_INDEX_DIR", "data/indexes/lightrag")).resolve(),
     rag_log_path=(ROOT_DIR / os.getenv("RAG_LOG_PATH", "backend/logs/rag_retrieval.jsonl")).resolve(),

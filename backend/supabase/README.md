@@ -7,7 +7,7 @@ Base de datos transaccional del sistema (Supabase / PostgreSQL).
   `intentos` guarda cada consulta que termina un alumno con la sesión iniciada; solo el servidor la escribe
   (`server/persistence/attempts.py`) y el navegador solo lee los del propio alumno («Mis simulaciones»).
   Evidencia: `pruebas/16_historial_simulaciones/`.
-- Pendiente de decisión: si el índice vectorial del RAG vivirá aquí (pgvector, sugerido por el docente) o en otro almacén. Si se adopta, entrará como una migración nueva, no editando la 0001.
+- RAG: `rag_evidencias` guarda embeddings y texto de evidencia conversacional para pgvector; `buscar_evidencias_rag` recupera evidencia filtrando por caso, rol e IDs ya autorizados. El backend carga solo `public` y `on_request` desde casos curados locales, nunca `protected`. El servidor usa `SUPABASE_SECRET_KEY`; la clave no debe llegar al navegador.
 - Datos personales de estudiantes: requieren aviso de privacidad y consentimiento (Ley 29733). El aviso está en
   `frontend/public/privacidad.html` y se acepta al crear la cuenta (`privacidad_version` y
   `privacidad_aceptada_en` en los datos del usuario). Evidencia: `pruebas/19_aviso_privacidad/`.
