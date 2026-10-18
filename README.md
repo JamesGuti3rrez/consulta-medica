@@ -1,6 +1,6 @@
 # Consulta Médica Virtual
 
-Prototipo de consulta médica virtual con un catálogo versionado de trece casos curados para
+Prototipo de consulta médica virtual con un catálogo versionado de 43 casos curados para
 demostración. El estudiante entrevista al paciente y pide exámenes mediante un sistema multiagente
 (`/api/ai`); al cerrar la consulta recibe una evaluación y, si inició sesión, el intento se guarda.
 
@@ -92,3 +92,9 @@ ejecutar `npm run build:css` cuando cambien las clases Tailwind.
 - Para preparar las tablas de acceso, ejecuta `backend/supabase/migrations/0001_perfiles_e_intentos.sql`; para guardar las consultas del simulador, `0002_sesiones_sma.sql`
   en el SQL Editor de tu proyecto Supabase.
 - La documentación interactiva de la API está disponible en `http://localhost:3000/api/docs`.
+
+## Panel docente
+
+Los profesores y administrativos pueden importar JSON o Excel, consultar el catálogo por especialidad
+y revisar las evidencias de Supabase pgvector en `/docente.html`.
+Activación, formatos y permisos: [guía del panel docente](docs/development/panel_docente.md).

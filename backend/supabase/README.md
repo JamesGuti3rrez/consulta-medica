@@ -1,5 +1,8 @@
 # backend/supabase/
 
+Panel docente: aplicar `migrations/0004_panel_docente.sql` para publicar casos y evidencias en una
+transacción. Roles y funcionamiento: [guía del panel](../../docs/development/panel_docente.md).
+
 Base de datos transaccional del sistema (Supabase / PostgreSQL).
 
 - `migrations/`: migraciones SQL numeradas y en orden (`NNNN_descripcion.sql`). `0001_perfiles_e_intentos.sql` se conserva sin cambios; `0002_sesiones_sma.sql` crea las sesiones y los eventos del simulador (`SESSION_STORE=supabase`).

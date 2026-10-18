@@ -41,5 +41,24 @@
     return messages[error?.code] || 'No se pudo completar. Revisa tu conexión y vuelve a intentarlo.';
   };
 
-  window.auth = { ready, historyEnabled: ready.then(() => historyEnabled), displayName, errorMessage };
+  // Toda operación docente presenta el token de la sesión; el servidor verifica el rol.
+  const api = async (path, options = {}) => {
+    const client = await ready;
+    const { data } = client ? await client.auth.getSession() : { data: {} };
+    const token = data.session?.access_token;
+    if (!token) throw new Error('Inicia sesión para continuar.');
+    const response = await fetch(path, { ...options, headers: { ...options.headers, Authorization: `Bearer ${token}` } });
+    if (!response.ok) {
+      const body = await response.json().catch(() => ({}));
+      const detail = body.detail;
+      const message = typeof detail === 'string' ? detail
+        : detail?.errores?.map(item => `${item.case_id}: ${item.message}`).join('\n');
+      const error = new Error(message || 'No se pudo completar la operación. Inténtalo nuevamente.');
+      error.status = response.status;
+      throw error;
+    }
+    return response;
+  };
+  const profile = async () => (await api('/api/docente/sesion')).json();
+  window.auth = { ready, historyEnabled: ready.then(() => historyEnabled), displayName, errorMessage, api, profile };
 })();

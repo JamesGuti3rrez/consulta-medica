@@ -61,11 +61,25 @@ if (task === 'setup') {
     'tests/integration/test_generic_exam_request.py', 'tests/unit/test_router.py',
     'tests/unit/test_history_json.py',
     'tests/test_ampliacion_casos.py',
+    'tests/integration/test_teaching_api.py',
     'tests/unit/test_disclosure.py', ...process.argv.slice(3)], {
     ...process.env, CASE_STORE: 'local', SESSION_STORE: 'memoria',
+    RAG_BACKEND: 'local', RAG_EMBEDDING_BACKEND: 'local_hash', RAG_SERVICE_URL: '',
     LANGSMITH_TRACING: 'false', LANGCHAIN_TRACING_V2: 'false',
     SYNTHETIC_CASE_DATA: 'false',
   });
+} else if (task === 'user-role') {
+  if (!existsSync(venvPython)) {
+    console.error('Falta el entorno de Python. Ejecuta primero: npm run setup');
+    process.exit(1);
+  }
+  run(venvPython, ['scripts/set_user_role.py', ...process.argv.slice(3)]);
+} else if (task === 'sync-rag') {
+  if (!existsSync(venvPython)) {
+    console.error('Falta el entorno de Python. Ejecuta primero: npm run setup');
+    process.exit(1);
+  }
+  run(venvPython, ['scripts/sync_rag.py', ...process.argv.slice(3)]);
 } else if (task === 'start') {
   if (!existsSync(venvPython)) {
     console.error('Falta el entorno de Python. Ejecuta primero: node backend/scripts/python.mjs setup --extras pipeline,dev');
@@ -75,6 +89,6 @@ if (task === 'setup') {
   console.log(`Consulta Médica disponible en http://localhost:${port}`);
   run(venvPython, ['-m', 'uvicorn', 'server.main:app', '--port', port]);
 } else {
-  console.error('Uso: node backend/scripts/python.mjs setup [--extras pipeline,dev]|start|import-cases|test-cases');
+  console.error('Uso: node backend/scripts/python.mjs setup [--extras pipeline,dev]|start|import-cases|test-cases|user-role|sync-rag');
   process.exit(1);
 }

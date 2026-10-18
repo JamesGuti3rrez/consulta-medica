@@ -18,6 +18,26 @@
     const signedIn = Boolean(user);
     if (guest) guest.hidden = signedIn;
     if (account) account.hidden = !signedIn;
+    const existingLink = document.querySelector('[data-role="teacher-panel"]');
+    if (existingLink) existingLink.hidden = true;
+    if (signedIn) window.setTimeout(async () => {
+      try {
+        const profile = await window.auth.profile();
+        if (!profile.panel_docente || profile.id !== user.id || !menu) return;
+        let link = document.querySelector('[data-role="teacher-panel"]');
+        if (!link) {
+          link = document.createElement('a');
+          link.dataset.role = 'teacher-panel';
+          link.className = 'menu-item';
+          link.href = 'docente.html';
+          link.textContent = 'Panel docente';
+          menu.querySelector('[data-role="logout"]')?.parentElement.before(link);
+        }
+        link.hidden = false;
+      } catch {
+        // El enlace se ofrece solo tras verificar permisos en el servidor.
+      }
+    }, 0);
     if (!signedIn) {
       closeMenu();
       return;

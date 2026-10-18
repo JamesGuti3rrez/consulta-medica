@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Espacio docente | Consulta Médica Virtual</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>try { document.documentElement.dataset.theme = localStorage.getItem('tema-docente') === 'dark' ? 'dark' : 'light'; } catch {}</script>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/docente.css">
+  <script src="vendor/supabase.js" defer></script>
+  <script src="js/auth.js" defer></script>
+  <script src="js/docente.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#workspace">Saltar al contenido</a>
+  <header class="topbar">
+    <a class="brand" href="index.html"><img class="brand-mark" src="assets/favicon.svg" alt="" width="40" height="40"><span>Consulta Médica<small>APRENDER HACIENDO</small></span><span class="brand-context">Espacio docente</span></a>
+    <div class="account"><a class="simulator-link" href="index.html">Ir al simulador <svg class="icon" aria-hidden="true"><use href="assets/docente-icons.svg#arrow"/></svg></a><button id="toggle-panel-theme" class="panel-theme-toggle" type="button" aria-label="Cambiar a vista oscura" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="assets/docente-icons.svg#sun"/></svg><span>Claro</span></button><div class="account-person"><span id="account-avatar" class="account-avatar" aria-hidden="true">D</span><div><span id="account-name"></span><small id="account-role">Docente</small></div></div><button id="logout" class="quiet" hidden><svg class="icon" aria-hidden="true"><use href="assets/docente-icons.svg#logout"/></svg><span>Cerrar sesión</span></button></div>
+  </header>
+  <main>
+    <section id="access" class="access" aria-live="polite">
+      <span class="eyebrow">ESPACIO DOCENTE</span>
+      <h1 id="access-title">Comprobando tu acceso…</h1>
+      <p id="access-message">Estamos verificando tu sesión.</p>
+      <a id="login-link" class="button primary" href="index.html?cuenta=login" hidden>Iniciar sesión</a>
+    </section>
+    <div id="workspace" hidden>
+      <div class="page-breadcrumb"><span>Docencia</span><span aria-hidden="true">/</span><strong>Banco de casos</strong><time id="panel-date"></time></div>
+      <section class="page-heading" aria-labelledby="workspace-title">
+        <div class="hero-copy"><span class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span> TU ESPACIO DE ENSEÑANZA</span><h1 id="workspace-title">Dale vida a la<br>próxima consulta<span>.</span></h1><p>Transforma tu conocimiento en casos clínicos.<br class="desktop-break"> Diseña, explora y acompaña cada aprendizaje.</p><div class="hero-actions"><button id="open-upload" class="button primary"><svg class="icon" aria-hidden="true"><use href="assets/docente-icons.svg#upload"/></svg>Importar casos</button><a class="hero-link" href="#catalog-section">Explorar catálogo <svg class="icon" aria-hidden="true"><use href="assets/docente-icons.svg#arrow"/></svg></a></div></div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div><span class="art-dot dot-one"></span><span class="art-dot dot-two"></span>
+          <svg class="art-connections" viewBox="0 0 460 275" fill="none"><path d="M103 77h78q20 0 20 20v26M303 67h-41q-24 0-24 24v32M238 158v31q0 21 23 21h44" stroke="currentColor" stroke-width="1.5" stroke-dasharray="5 6"/><circle cx="201" cy="123" r="4" fill="currentColor"/><circle cx="238" cy="123" r="4" fill="currentColor"/><circle cx="305" cy="210" r="4" fill="currentColor"/></svg>
+          <div class="art-card art-history"><span class="art-icon"><svg class="icon"><use href="assets/docente-icons.svg#cases"/></svg></span><div><strong>Historia clínica</strong><small>El punto de partida</small></div><span class="art-check">✓</span></div>
+          <div class="art-card art-evidence"><span class="art-icon violet"><svg class="icon"><use href="assets/docente-icons.svg#network"/></svg></span><div><strong>Evidencias</strong><small>Datos que dan contexto</small></div></div>
+          <div class="art-patient"><span class="patient-symbol"><svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="15" r="7"/><path d="M11 40v-5a13 13 0 0 1 26 0v5M17 31h14m-7-7v14"/></svg></span><div><strong>Paciente virtual</strong><small>Una experiencia para aprender</small></div><span class="patient-signal"><i></i><i></i><i></i><i></i><i></i></span></div>
+          <span class="art-caption"><svg class="icon"><use href="assets/docente-icons.svg#spark"/></svg> Del conocimiento a la práctica</span>
+        </div>
+      </section>
+      <p id="notice" class="notice" role="status" hidden></p>
+      <section class="overview" aria-label="Resumen del catálogo">
+        <article class="metric metric-teal"><div class="metric-top"><span>Casos en tu catálogo</span><span class="metric-icon"><svg class="icon" aria-hidden="true"><use href="assets/docente-icons.svg#cases"/></svg></span></div><strong id="total-cases">—</strong><small><span class="metric-dot" aria-hidden="true"></span>Disponibles para practicar</small></article>
+        <article class="metric metric-violet"><div class="metric-top"><span>Especialidades</span><span class="metric-icon"><svg class="icon" aria-hidden="true"><use href="assets/docente-icons.svg#layers"/></svg></span></div><strong id="total-specialties">—</strong><small>Cinco formas de explorar la medicina</small></article>
+        <article class="metric metric-accent"><div class="metric-top"><span>Recuperación del simulador</span><span class="metric-icon"><svg class="icon" aria-hidden="true"><use href="assets/docente-icons.svg#network"/></svg></span></div><strong id="rag-mode" class="metric-text">—</strong><small id="rag-mode-note">Las evidencias se consultan en Supabase</small></article>
+      </section>
+      <section class="catalog-sync-bar" aria-labelledby="catalog-sync-title"><span class="catalog-sync-icon"><svg class="icon" aria-hidden="true"><use href="assets/docente-icons.svg#network"/></svg></span><div><h2 id="catalog-sync-title">Todo tu catálogo, al día</h2><p>Actualiza las evidencias de todos los casos y especialidades en una sola acción.</p></div><button id="sync-all-evidence" class="button secondary"><svg class="icon" aria-hidden="true"><use href="assets/docente-icons.svg#refresh"/></svg>Actualizar todas las evidencias</button></section>
+      <p id="sync-all-status" class="notice" role="status" aria-live="polite" hidden></p>
+      <section id="upload-section" class="panel upload-panel" data-stage="select" hidden aria-labelledby="upload-title">
+        <div class="panel-heading"><div class="heading-with-icon"><span class="heading-icon"><svg class="icon" aria-hidden="true"><use href="assets/docente-icons.svg#upload"/></svg></span><div><span class="eyebrow">CREA NUEVAS EXPERIENCIAS</span><h2 id="upload-title">De tu documento al catálogo</h2></div></div><button id="close-upload" class="quiet">Cerrar</button></div>
+        <ol class="upload-steps" aria-label="Pasos de importación"><li data-step="select"><span>1</span>Selecciona tu archivo</li><li data-step="review"><span>2</span>Revisa los casos</li><li data-step="publish"><span>3</span>Publica y comparte</li></ol>
+        <p>Usa JSON con el formato del proyecto o un Excel <strong>.xlsx</strong> con las hojas de la plantilla. Hasta 100 casos y 4 MB por archivo.</p>
+        <div class="template-links"><button class="text-button template-excel" data-template="xlsx"><span class="format-symbol" aria-hidden="true">X</span>Plantilla Excel<svg class="icon" aria-hidden="true"><use href="assets/docente-icons.svg#download"/></svg></button><button class="text-button template-json" data-template="json"><span class="format-symbol" aria-hidden="true">{ }</span>Ejemplo JSON<svg class="icon" aria-hidden="true"><use href="assets/docente-icons.svg#download"/></svg></button></div>
+        <form id="upload-form">
+          <label class="dropzone" for="case-file"><span class="upload-cloud" aria-hidden="true"><svg class="icon"><use href="assets/docente-icons.svg#upload"/></svg></span><strong>Arrastra tu archivo aquí o selecciónalo</strong><span>Excel .xlsx o JSON · Hasta 4 MB</span><input id="case-file" type="file" accept=".json,.xlsx" required></label>
+          <button id="validate-button" class="button primary" type="submit">Leer y validar archivo</button>
+        </form>
+        <div id="upload-status" class="notice" role="status" hidden></div>
+        <div id="preview" hidden><h3>Revisa los casos antes de publicarlos</h3><div id="preview-list" class="preview-list"></div>
+          <p>Al publicar confirmas que revisaste el contenido clínico. Se guardará en el catálogo y se indexarán sus evidencias. Los IDs con otro contenido no se sobrescriben.</p>
+          <button id="publish-button" class="button primary">Publicar en Supabase</button>
+        </div>
+      </section>
+      <section id="catalog-section" class="catalog-layout" aria-label="Catálogo de casos">
+        <aside class="specialties"><span class="eyebrow">EXPLORA POR ESPECIALIDAD</span><div id="specialty-filters"></div><div class="sidebar-note"><span class="sidebar-note-icon"><svg class="icon" aria-hidden="true"><use href="assets/docente-icons.svg#spark"/></svg></span><strong>Cada pregunta abre un camino</strong><p>Revisa las evidencias que ayudan a descubrir la historia de cada paciente.</p><span>Aprendizaje con contexto <span aria-hidden="true">↗</span></span></div></aside>
+        <div id="catalog-panel" class="panel catalog-panel" aria-busy="true">
+          <div class="panel-heading"><div class="heading-with-icon"><span class="heading-icon catalog-heading-icon"><svg class="icon" aria-hidden="true"><use href="assets/docente-icons.svg#cases"/></svg></span><div><h2 id="catalog-title">Todos los casos</h2><p id="catalog-count"></p></div></div><button id="refresh" class="quiet">Actualizar</button></div>
+          <label class="search-label" for="case-search"><span class="sr-only">Buscar caso</span><span class="search-field"><svg class="icon" aria-hidden="true"><use href="assets/docente-icons.svg#search"/></svg><input id="case-search" type="search" placeholder="Busca por paciente, código o diagnóstico…" autocomplete="off"><kbd aria-hidden="true">⌕</kbd></span></label>
+          <div class="table-scroll"><table><thead><tr><th scope="col">Caso / paciente</th><th scope="col">Especialidad</th><th scope="col">Evidencias</th><th scope="col"><span class="sr-only">Acciones</span></th></tr></thead><tbody id="case-list"></tbody></table></div>
+          <p id="empty-catalog" class="empty" hidden>No hay casos que coincidan con tu búsqueda.</p>
+        </div>
+      </section>
+      <footer class="workspace-footer"><span><svg class="icon" aria-hidden="true"><use href="assets/docente-icons.svg#shield"/></svg>Un espacio para enseñar, explorar y aprender.</span><span>Consulta Médica · Docencia</span></footer>
+    </div>
+  </main>
+  <dialog id="case-dialog">
+    <div class="dialog-top"><div><span id="detail-code" class="eyebrow"></span><h2 id="detail-title">Detalle del caso</h2></div><button id="close-detail" class="quiet" aria-label="Cerrar detalle">Cerrar ✕</button></div>
+    <p id="detail-status" role="status"></p>
+    <div id="detail-content" hidden>
+      <p id="detail-patient" class="muted"></p>
+      <div class="tabs" role="tablist" aria-label="Información del caso">
+        <button id="tab-summary" role="tab" aria-selected="true" aria-controls="pane-summary" data-pane="summary">Ficha del caso</button>
+        <button id="tab-evidence" role="tab" aria-selected="false" aria-controls="pane-evidence" data-pane="evidence" tabindex="-1">Evidencias RAG</button>
+        <button id="tab-additional" role="tab" aria-selected="false" aria-controls="pane-additional" data-pane="additional" tabindex="-1">Datos adicionales</button>
+      </div>
+      <section id="pane-summary" role="tabpanel" aria-labelledby="tab-summary"><div id="case-summary"></div></section>
+      <section id="pane-evidence" role="tabpanel" aria-labelledby="tab-evidence" hidden>
+        <div class="section-row"><div><h3>Índice de evidencias</h3><p id="evidence-summary"></p></div><button id="sync-evidence" class="button secondary">Sincronizar evidencias</button></div>
+        <p id="evidence-health" class="notice"></p><div id="evidence-types" class="chips"></div>
+        <label class="search-label" for="owner-filter"><span>Filtrar por agente</span><select id="owner-filter"><option value="">Todos los agentes</option><option value="public">Presentación pública</option><option value="paciente">Paciente</option><option value="medico_asistente">Médico asistente</option><option value="laboratorio">Laboratorio</option><option value="radiologia">Radiología</option></select></label>
+        <div id="evidence-list" class="evidence-list"></div>
+        <form id="probe-form" class="probe"><h3>Comprueba una recuperación</h3><p>Escribe una pregunta como estudiante para ver el agente, los permisos y las evidencias devueltas por pgvector.</p><label for="probe-question" class="sr-only">Pregunta de prueba</label><div class="probe-row"><input id="probe-question" required minlength="2" maxlength="2000" placeholder="Por ejemplo: solicito un hemograma"><button class="button secondary" type="submit">Probar RAG</button></div></form>
+        <div id="probe-result" class="probe-result" aria-live="polite"></div>
+      </section>
+      <section id="pane-additional" role="tabpanel" aria-labelledby="tab-additional" hidden><h3>Información generada durante las consultas</h3><p>Estos datos están separados del caso curado. «Pendiente» indica revisión automática; no equivale a aprobación docente.</p><div id="additional-list" class="evidence-list"></div></section>
+    </div>
+  </dialog>
+</body>
+</html>
+

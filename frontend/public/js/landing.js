@@ -150,6 +150,12 @@ loginForm?.addEventListener('submit', async (event) => {
   loginForm.reset();
   loginForm.querySelector('[data-role="auth-feedback"]').hidden = true;
   hideDialog();
+  try {
+    const profile = await window.auth.profile();
+    if (profile.panel_docente) window.location.assign('docente.html');
+  } catch {
+    // El inicio de sesión sigue disponible aunque el panel no responda.
+  }
 });
 
 signupForm?.addEventListener('submit', async (event) => {

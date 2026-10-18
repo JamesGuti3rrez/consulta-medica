@@ -9,6 +9,8 @@
     "scripts": {
         "setup": "node backend/scripts/python.mjs setup",
         "import:cases": "node backend/scripts/python.mjs import-cases --activate",
+        "role:user": "node backend/scripts/python.mjs user-role",
+        "rag:sync": "node backend/scripts/python.mjs sync-rag",
         "test:cases": "node backend/scripts/python.mjs test-cases",
         "prestart": "npm run build",
         "start": "node backend/scripts/python.mjs start",
