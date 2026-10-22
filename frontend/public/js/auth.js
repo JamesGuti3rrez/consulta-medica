@@ -1,7 +1,9 @@
 // Sesión con Supabase Auth, compartida por las páginas.
 // Requiere vendor/supabase.js antes de este archivo. Expone window.auth.ready: una promesa con el
-// cliente de Supabase, o null si el servidor no tiene configurado el inicio de sesión.
+// cliente de Supabase, o null si el servidor no tiene configurado el inicio de sesión; y
+// window.auth.historyEnabled: una promesa que dice si el servidor guarda «Mis simulaciones».
 (() => {
+  let historyEnabled = false;
   const ready = (async () => {
     if (!window.supabase) return null;
     try {
@@ -9,6 +11,7 @@
       if (!response.ok) return null;
       const config = await response.json();
       if (!config.auth) return null;
+      historyEnabled = config.history === true;
       return window.supabase.createClient(config.supabaseUrl, config.supabaseKey);
     } catch (error) {
       console.warn('No se pudo preparar el inicio de sesión:', error.message);
@@ -38,5 +41,24 @@
     return messages[error?.code] || 'No se pudo completar. Revisa tu conexión y vuelve a intentarlo.';
   };
 
-  window.auth = { ready, displayName, errorMessage };
+  // Toda operación docente presenta el token de la sesión; el servidor verifica el rol.
+  const api = async (path, options = {}) => {
+    const client = await ready;
+    const { data } = client ? await client.auth.getSession() : { data: {} };
+    const token = data.session?.access_token;
+    if (!token) throw new Error('Inicia sesión para continuar.');
+    const response = await fetch(path, { ...options, headers: { ...options.headers, Authorization: `Bearer ${token}` } });
+    if (!response.ok) {
+      const body = await response.json().catch(() => ({}));
+      const detail = body.detail;
+      const message = typeof detail === 'string' ? detail
+        : detail?.errores?.map(item => `${item.case_id}: ${item.message}`).join('\n');
+      const error = new Error(message || 'No se pudo completar la operación. Inténtalo nuevamente.');
+      error.status = response.status;
+      throw error;
+    }
+    return response;
+  };
+  const profile = async () => (await api('/api/docente/sesion')).json();
+  window.auth = { ready, historyEnabled: ready.then(() => historyEnabled), displayName, errorMessage, api, profile };
 })();

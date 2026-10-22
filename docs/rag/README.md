@@ -82,6 +82,41 @@ python -m pytest -q
 python -m case_preparation index
 ```
 
+### Usar pgvector en Supabase
+
+La opción `RAG_BACKEND=supabase_pgvector` hace que los turnos del SMA consulten la función
+`public.buscar_evidencias_rag` de Supabase en lugar del índice embebido. La tabla
+`public.rag_evidencias` y esa función deben estar creadas según el SQL acordado, con acceso exclusivo
+para `service_role`.
+
+El índice se carga a partir de los casos JSON curados versionados en `data/cases/curated/` (no se
+descargan casos desde la base). Primero configura en `.env`:
+
+```env
+SUPABASE_URL=https://<proyecto>.supabase.co
+SUPABASE_SECRET_KEY=<clave-secreta-del-servidor>
+RAG_BACKEND=supabase_pgvector
+RAG_EMBEDDING_BACKEND=sentence_transformers
+RAG_EMBEDDING_MODEL=sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+```
+
+Instala el extra semántico y carga los documentos desde `backend/`:
+
+```powershell
+python -m pip install -e ".[semantic,dev]"
+python -m case_preparation index-supabase
+```
+
+El indexador aplica las Quality Gates y prepara exclusivamente evidencia `public` y `on_request`;
+`protected` no se inserta. La carga usa upsert por `(case_id, evidence_id)`, así que se puede repetir
+para actualizar los textos y vectores. El mismo modelo de embeddings y las mismas dimensiones deben
+usarse al indexar y al buscar. `local_hash` puede servir para una prueba de conectividad, pero no es
+una configuración de recuperación semántica de calidad.
+
+Al iniciar el backend, `/api/ai/status` debe informar `"retrieval_mode": "supabase-pgvector"`.
+Si la RPC o la tabla no existen, el SMA devolverá el error de Supabase: no cambia silenciosamente al
+fallback local en este modo.
+
 Para activar embeddings semánticos locales:
 
 ```powershell

@@ -1,0 +1,353 @@
+{
+  "schema_version": "1.1.0",
+  "case_id": "GOB-101",
+  "title": "Paola Ventura: Tengo sangrado vaginal y molestias en el abdomen",
+  "specialty": "ginecologia_obstetricia",
+  "language": "es",
+  "status": "curado",
+  "source": {
+    "dataset": "sintetico",
+    "item_id": "sangrado_gestacion_temprana/embarazo_ectopico",
+    "license": "CC BY 4.0",
+    "method": "generado_ia"
+  },
+  "public": {
+    "patient": {
+      "alias": "Paola Ventura",
+      "age_years": 29,
+      "sex": "femenino"
+    },
+    "chief_complaint": {
+      "evidence_id": "GOB-101.motivo.queja_principal",
+      "category": "motivo",
+      "label": "Motivo de consulta",
+      "text": "Tengo sangrado vaginal y molestias en el abdomen durante las primeras semanas de embarazo."
+    },
+    "items": [
+      {
+        "evidence_id": "GOB-101.anamnesis.contexto_atencion",
+        "category": "anamnesis",
+        "label": "Contexto de atención",
+        "text": "Acude a valoración médica por estas molestias."
+      }
+    ],
+    "allergies_recorded": false
+  },
+  "on_request": [
+    {
+      "evidence_id": "GOB-101.anamnesis.inicio_evolucion",
+      "category": "anamnesis",
+      "label": "Inicio y evolución",
+      "text": "Desde ayer tengo un manchado oscuro; hace seis horas empezó un dolor en el lado derecho del vientre. Mi última regla fue hace siete semanas.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "inicio_y_evolucion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "GOB-101.anamnesis.caracteristicas",
+      "category": "anamnesis",
+      "label": "Características de las molestias",
+      "text": "El dolor es constante, de 6 sobre 10, abajo a la derecha. El sangrado es escaso, sin coágulos ni tejido.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "caracteristicas_sintoma"
+        ]
+      }
+    },
+    {
+      "evidence_id": "GOB-101.sintoma.sintomas",
+      "category": "sintoma",
+      "label": "Síntomas asociados",
+      "text": "Tengo náuseas leves. No me he desmayado, no tengo dolor en el hombro ni fiebre.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "sintomas_asociados"
+        ]
+      }
+    },
+    {
+      "evidence_id": "GOB-101.antecedente.antecedentes",
+      "category": "antecedente",
+      "label": "Antecedentes personales",
+      "text": "Hace tres años recibí tratamiento por una infección de transmisión sexual. No me han operado y no tengo enfermedades crónicas.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "antecedentes_personales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "GOB-101.medicacion.medicacion",
+      "category": "medicacion",
+      "label": "Medicación habitual",
+      "text": "Solo ácido fólico desde la prueba positiva.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "medicacion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "GOB-101.antecedente.alergias",
+      "category": "antecedente",
+      "label": "Alergias",
+      "text": "No refiere alergias conocidas.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "alergias"
+        ]
+      }
+    },
+    {
+      "evidence_id": "GOB-101.anamnesis.habitos",
+      "category": "anamnesis",
+      "label": "Hábitos y entorno",
+      "text": "No fumo ni consumo alcohol. Vivo con mi pareja.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "GOB-101.anamnesis.impacto_funcional",
+      "category": "anamnesis",
+      "label": "Impacto en las actividades diarias",
+      "text": "El dolor me obligó a dejar el trabajo y venir acompañada.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "GOB-101.antecedente.historia_ginecologica",
+      "category": "antecedente",
+      "label": "Historia ginecológica y obstétrica",
+      "text": "Es mi primer embarazo. La prueba casera fue positiva hace diez días; todavía no había tenido una ecografía. Ciclos previamente regulares.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "antecedentes_gineco_obstetricos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "GOB-101.vital.signos_vitales",
+      "category": "signo_vital",
+      "label": "Signos vitales",
+      "text": "Presión arterial 112/70 mmHg; pulso 92/min; frecuencia respiratoria 18/min; temperatura 36,8 °C; saturación 98 % al aire ambiente.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "signos_vitales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "GOB-101.examen.exploracion_fisica",
+      "category": "examen_fisico",
+      "label": "Exploración física",
+      "text": "Consciente, perfusión conservada. Dolor a la palpación en fosa ilíaca derecha, sin rigidez ni rebote. Con consentimiento y acompañante clínico: sangrado escaso, orificio cervical cerrado, dolor anexial derecho.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "exploracion_fisica"
+        ]
+      }
+    },
+    {
+      "evidence_id": "GOB-101.lab.beta_hcg",
+      "category": "laboratorio",
+      "label": "Beta-hCG sérica cuantitativa",
+      "text": "Beta-hCG 4.200 UI/L.",
+      "reveal_policy": {
+        "owner": "laboratorio",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "beta_hcg"
+        ]
+      }
+    },
+    {
+      "evidence_id": "GOB-101.lab.hemograma",
+      "category": "laboratorio",
+      "label": "Hemograma",
+      "text": "Hemoglobina 12,2 g/dL; leucocitos 8.900/µL; plaquetas 245.000/µL.",
+      "reveal_policy": {
+        "owner": "laboratorio",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "hemograma"
+        ]
+      }
+    },
+    {
+      "evidence_id": "GOB-101.imagen.ecografia_pelvica",
+      "category": "imagen",
+      "label": "Ecografía pélvica transvaginal",
+      "text": "Cavidad uterina vacía. Separado del ovario derecho se observa un saco con vesícula vitelina en la región tubárica; líquido libre escaso, sin gran hemoperitoneo.",
+      "reveal_policy": {
+        "owner": "radiologia",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "ecografia_pelvica"
+        ]
+      }
+    }
+  ],
+  "protected": {
+    "diagnosis": {
+      "name": "Embarazo ectópico tubárico",
+      "synonyms": [
+        "Gestación ectópica tubárica",
+        "Gestación tubárica extrauterina",
+        "Embarazo tubárico"
+      ]
+    },
+    "differentials": [
+      {
+        "name": "Amenaza de aborto",
+        "must_not_miss": false,
+        "discard_evidence_ids": [
+          "GOB-101.imagen.ecografia_pelvica",
+          "GOB-101.examen.exploracion_fisica"
+        ]
+      },
+      {
+        "name": "Aborto diferido",
+        "must_not_miss": false,
+        "discard_evidence_ids": [
+          "GOB-101.imagen.ecografia_pelvica",
+          "GOB-101.examen.exploracion_fisica"
+        ]
+      }
+    ],
+    "treatment_reference": {
+      "summary": "Valoración ginecológica urgente y selección del manejo según estabilidad, imagen, posibilidad de seguimiento y preferencias informadas.",
+      "key_actions": [
+        "Vigilar estado hemodinámico y acceso venoso; no retrasar la valoración especializada.",
+        "Discutir tratamiento médico o quirúrgico según criterios y contraindicaciones; confirmar grupo y Rh.",
+        "Explicar señales de rotura y asegurar seguimiento de beta-hCG hasta resolución."
+      ]
+    },
+    "contraindications": [],
+    "evaluation": {
+      "key_questions": [
+        {
+          "id": "kq1",
+          "topic": "Inicio y evolución de las molestias",
+          "evidence_ids": [
+            "GOB-101.anamnesis.inicio_evolucion"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq2",
+          "topic": "Características y síntomas asociados",
+          "evidence_ids": [
+            "GOB-101.anamnesis.caracteristicas",
+            "GOB-101.sintoma.sintomas"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq3",
+          "topic": "Antecedentes y medicación habitual",
+          "evidence_ids": [
+            "GOB-101.antecedente.antecedentes",
+            "GOB-101.medicacion.medicacion"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq4",
+          "topic": "Alergias antes de proponer tratamiento",
+          "evidence_ids": [
+            "GOB-101.antecedente.alergias"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq5",
+          "topic": "Valoración de gravedad con signos vitales y exploración",
+          "evidence_ids": [
+            "GOB-101.vital.signos_vitales",
+            "GOB-101.examen.exploracion_fisica"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq6",
+          "topic": "Datos que permiten distinguir los diagnósticos de la familia",
+          "evidence_ids": [
+            "GOB-101.imagen.ecografia_pelvica",
+            "GOB-101.examen.exploracion_fisica"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "id": "kq7",
+          "topic": "Historia ginecológica y obstétrica",
+          "evidence_ids": [
+            "GOB-101.antecedente.historia_ginecologica"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        }
+      ],
+      "tests": {
+        "recommended": [
+          "beta_hcg",
+          "hemograma",
+          "ecografia_pelvica"
+        ],
+        "optional": [],
+        "unnecessary": []
+      }
+    }
+  },
+  "provenance": {
+    "created_by": "Codex / case_preparation.familias.ampliacion",
+    "created_at": "2026-10-16",
+    "validator_version": "1.1.0",
+    "validated_at": "2026-10-16",
+    "curated_by": "Validación automática para simulación; revisión clínica humana pendiente",
+    "curated_at": "2026-10-16",
+    "rejection_reason": null
+  }
+}

@@ -1,0 +1,293 @@
+{
+  "schema_version": "1.1.0",
+  "case_id": "PED-104",
+  "title": "Valentina Chávez: Tiene dolor abdominal y vómitos que han interrum",
+  "specialty": "pediatria",
+  "language": "es",
+  "status": "curado",
+  "source": {
+    "dataset": "sintetico",
+    "item_id": "dolor_abdominal_y_vomitos_pediatrico/gastroenteritis_viral",
+    "license": "CC BY 4.0",
+    "method": "generado_ia"
+  },
+  "public": {
+    "patient": {
+      "alias": "Valentina Chávez",
+      "age_years": 7,
+      "sex": "femenino"
+    },
+    "chief_complaint": {
+      "evidence_id": "PED-104.motivo.queja_principal",
+      "category": "motivo",
+      "label": "Motivo de consulta",
+      "text": "Tiene dolor abdominal y vómitos que han interrumpido sus actividades."
+    },
+    "items": [
+      {
+        "evidence_id": "PED-104.anamnesis.contexto_atencion",
+        "category": "anamnesis",
+        "label": "Contexto de atención",
+        "text": "Acude acompañado por su madre a valoración pediátrica."
+      }
+    ],
+    "allergies_recorded": false
+  },
+  "on_request": [
+    {
+      "evidence_id": "PED-104.anamnesis.inicio_evolucion",
+      "category": "anamnesis",
+      "label": "Inicio y evolución",
+      "text": "La madre explica que comenzó hace dieciocho horas con vómitos y después diarrea; ayer su hermano tuvo síntomas parecidos.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "inicio_y_evolucion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-104.anamnesis.caracteristicas",
+      "category": "anamnesis",
+      "label": "Características de las molestias",
+      "text": "Dolor en retortijones por todo el abdomen que mejora después de evacuar. Ha vomitado tres veces, sin bilis ni sangre.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "caracteristicas_sintoma"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-104.sintoma.sintomas",
+      "category": "sintoma",
+      "label": "Síntomas asociados",
+      "text": "Seis deposiciones acuosas sin sangre, sed y menos apetito. No tiene dolor continuo localizado ni fiebre alta.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "sintomas_asociados"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-104.antecedente.antecedentes",
+      "category": "antecedente",
+      "label": "Antecedentes personales",
+      "text": "Sana, sin operaciones, enfermedades intestinales ni pérdida de peso previa.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "antecedentes_personales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-104.medicacion.medicacion",
+      "category": "medicacion",
+      "label": "Medicación habitual",
+      "text": "No usa medicación habitual. No recibió antibióticos ni antidiarreicos.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "medicacion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-104.antecedente.alergias",
+      "category": "antecedente",
+      "label": "Alergias",
+      "text": "No refiere alergias conocidas.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "alergias"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-104.anamnesis.habitos",
+      "category": "anamnesis",
+      "label": "Hábitos y entorno",
+      "text": "Asiste al colegio y vive con su familia. No viajó ni comió alimentos de procedencia incierta.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-104.anamnesis.impacto_funcional",
+      "category": "anamnesis",
+      "label": "Impacto en las actividades diarias",
+      "text": "Hoy no fue al colegio. Puede beber a pequeños sorbos, pero juega menos.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-104.vital.signos_vitales",
+      "category": "signo_vital",
+      "label": "Signos vitales",
+      "text": "Peso 23 kg; presión arterial 102/64 mmHg; pulso 104/min; frecuencia respiratoria 22/min; temperatura 37,4 °C; saturación 99 % al aire ambiente.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "signos_vitales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-104.examen.exploracion_fisica",
+      "category": "examen_fisico",
+      "label": "Exploración física",
+      "text": "Alerta, ojos sin hundimiento, boca algo seca y lágrimas presentes. Relleno capilar menor de dos segundos. Abdomen blando, dolor difuso leve, ruidos aumentados, sin defensa, rebote o masa.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "exploracion_fisica"
+        ]
+      }
+    }
+  ],
+  "protected": {
+    "diagnosis": {
+      "name": "Gastroenteritis aguda viral",
+      "synonyms": [
+        "Gastroenteritis de probable origen viral",
+        "Gastroenteritis viral infantil",
+        "Diarrea aguda de probable etiología viral"
+      ]
+    },
+    "differentials": [
+      {
+        "name": "Invaginación intestinal ileocólica",
+        "must_not_miss": true,
+        "discard_evidence_ids": [
+          "PED-104.sintoma.sintomas",
+          "PED-104.antecedente.antecedentes",
+          "PED-104.examen.exploracion_fisica"
+        ]
+      },
+      {
+        "name": "Apendicitis aguda pediátrica",
+        "must_not_miss": true,
+        "discard_evidence_ids": [
+          "PED-104.sintoma.sintomas",
+          "PED-104.antecedente.antecedentes",
+          "PED-104.examen.exploracion_fisica"
+        ]
+      }
+    ],
+    "treatment_reference": {
+      "summary": "Rehidratación oral fraccionada y alimentación habitual según tolerancia; reevaluar hidratación y evolución.",
+      "key_actions": [
+        "Ofrecer solución de rehidratación oral en cantidades pequeñas frecuentes y reponer pérdidas.",
+        "Enseñar higiene de manos y señales de alarma: sangre, vómitos biliosos, dolor localizado, letargo o incapacidad para beber.",
+        "No indicar antibióticos, antidiarreicos ni estudios de imagen de rutina en este cuadro sin complicaciones."
+      ]
+    },
+    "contraindications": [],
+    "evaluation": {
+      "key_questions": [
+        {
+          "id": "kq1",
+          "topic": "Inicio y evolución de las molestias",
+          "evidence_ids": [
+            "PED-104.anamnesis.inicio_evolucion"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq2",
+          "topic": "Características y síntomas asociados",
+          "evidence_ids": [
+            "PED-104.anamnesis.caracteristicas",
+            "PED-104.sintoma.sintomas"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq3",
+          "topic": "Antecedentes y medicación habitual",
+          "evidence_ids": [
+            "PED-104.antecedente.antecedentes",
+            "PED-104.medicacion.medicacion"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq4",
+          "topic": "Alergias antes de proponer tratamiento",
+          "evidence_ids": [
+            "PED-104.antecedente.alergias"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq5",
+          "topic": "Valoración de gravedad con signos vitales y exploración",
+          "evidence_ids": [
+            "PED-104.vital.signos_vitales",
+            "PED-104.examen.exploracion_fisica"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq6",
+          "topic": "Datos que permiten distinguir los diagnósticos de la familia",
+          "evidence_ids": [
+            "PED-104.sintoma.sintomas",
+            "PED-104.antecedente.antecedentes",
+            "PED-104.examen.exploracion_fisica"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        }
+      ],
+      "tests": {
+        "recommended": [
+          "signos_vitales",
+          "exploracion_fisica"
+        ],
+        "optional": [],
+        "unnecessary": []
+      }
+    }
+  },
+  "provenance": {
+    "created_by": "Codex / case_preparation.familias.ampliacion",
+    "created_at": "2026-10-16",
+    "validator_version": "1.1.0",
+    "validated_at": "2026-10-16",
+    "curated_by": "Validación automática para simulación; revisión clínica humana pendiente",
+    "curated_at": "2026-10-16",
+    "rejection_reason": null
+  }
+}

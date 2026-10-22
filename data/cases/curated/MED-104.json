@@ -1,0 +1,316 @@
+{
+  "schema_version": "1.1.0",
+  "case_id": "MED-104",
+  "title": "Carmen Lazo: Tengo tos y malestar que están afectando mis act",
+  "specialty": "medicina_interna",
+  "language": "es",
+  "status": "curado",
+  "source": {
+    "dataset": "sintetico",
+    "item_id": "tos_adulto/neumonia_comunitaria",
+    "license": "CC BY 4.0",
+    "method": "generado_ia"
+  },
+  "public": {
+    "patient": {
+      "alias": "Carmen Lazo",
+      "age_years": 62,
+      "sex": "femenino"
+    },
+    "chief_complaint": {
+      "evidence_id": "MED-104.motivo.queja_principal",
+      "category": "motivo",
+      "label": "Motivo de consulta",
+      "text": "Tengo tos y malestar que están afectando mis actividades habituales."
+    },
+    "items": [
+      {
+        "evidence_id": "MED-104.anamnesis.contexto_atencion",
+        "category": "anamnesis",
+        "label": "Contexto de atención",
+        "text": "Acude a valoración médica por estas molestias."
+      }
+    ],
+    "allergies_recorded": false
+  },
+  "on_request": [
+    {
+      "evidence_id": "MED-104.anamnesis.inicio_evolucion",
+      "category": "anamnesis",
+      "label": "Inicio y evolución",
+      "text": "La tos empezó hace 4 días y en los últimos 2 días se añadió fiebre y mayor dificultad para respirar.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "inicio_y_evolucion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-104.anamnesis.caracteristicas",
+      "category": "anamnesis",
+      "label": "Características de las molestias",
+      "text": "Expectora flema amarillenta y siente dolor en el costado derecho al inspirar profundamente.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "caracteristicas_sintoma"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-104.sintoma.sintomas",
+      "category": "sintoma",
+      "label": "Síntomas asociados",
+      "text": "Tiene escalofríos y falta de apetito; no tiene sudoración nocturna de semanas ni pérdida importante de peso previa.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "sintomas_asociados"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-104.antecedente.antecedentes",
+      "category": "antecedente",
+      "label": "Antecedentes personales",
+      "text": "No tiene inmunosupresión ni hospitalizaciones recientes. No refiere contacto domiciliario con personas con tos prolongada.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "antecedentes_personales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-104.medicacion.medicacion",
+      "category": "medicacion",
+      "label": "Medicación habitual",
+      "text": "Tomó paracetamol; no ha recibido antibióticos para este episodio.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "medicacion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-104.antecedente.alergias",
+      "category": "antecedente",
+      "label": "Alergias",
+      "text": "No refiere alergias conocidas.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "alergias"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-104.anamnesis.habitos",
+      "category": "anamnesis",
+      "label": "Hábitos y entorno",
+      "text": "No fuma y vive con su familia.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-104.anamnesis.impacto_funcional",
+      "category": "anamnesis",
+      "label": "Impacto en las actividades diarias",
+      "text": "No ha podido trabajar y se fatiga al caminar por la casa.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-104.vital.signos_vitales",
+      "category": "signo_vital",
+      "label": "Signos vitales",
+      "text": "Presión arterial 116/70 mmHg; pulso 106/min; frecuencia respiratoria 25/min; temperatura 38,8 °C; saturación 93 % al aire ambiente.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "signos_vitales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-104.examen.exploracion_fisica",
+      "category": "examen_fisico",
+      "label": "Exploración física",
+      "text": "Tiene crepitantes focales y aumento de la transmisión de la voz en la base derecha; está orientada y no tiene rigidez de nuca.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "exploracion_fisica"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-104.imagen.radiografia_torax",
+      "category": "imagen",
+      "label": "Radiografía de tórax",
+      "text": "Consolidación en el lóbulo inferior derecho; sin cavidades apicales.",
+      "reveal_policy": {
+        "owner": "radiologia",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "radiografia_torax"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-104.lab.hemograma",
+      "category": "laboratorio",
+      "label": "Hemograma",
+      "text": "Leucocitos 15700/µL con neutrofilia.",
+      "reveal_policy": {
+        "owner": "laboratorio",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "hemograma"
+        ]
+      }
+    }
+  ],
+  "protected": {
+    "diagnosis": {
+      "name": "Neumonía adquirida en la comunidad",
+      "synonyms": [
+        "Infección neumónica comunitaria",
+        "Neumonía comunitaria",
+        "Neumonía extrahospitalaria"
+      ]
+    },
+    "differentials": [
+      {
+        "name": "Bronquitis aguda",
+        "must_not_miss": false,
+        "discard_evidence_ids": [
+          "MED-104.anamnesis.inicio_evolucion",
+          "MED-104.imagen.radiografia_torax"
+        ]
+      },
+      {
+        "name": "Tuberculosis pulmonar",
+        "must_not_miss": true,
+        "discard_evidence_ids": [
+          "MED-104.anamnesis.inicio_evolucion",
+          "MED-104.imagen.radiografia_torax"
+        ]
+      }
+    ],
+    "treatment_reference": {
+      "summary": "Antibiótico y decisión del lugar de atención según gravedad, comorbilidades y tolerancia oral; soporte respiratorio según necesidad.",
+      "key_actions": [
+        "Evaluar gravedad y riesgo de deterioro.",
+        "Elegir antibiótico conforme a contexto clínico y guía local.",
+        "Planificar reevaluación y respuesta al tratamiento."
+      ]
+    },
+    "contraindications": [],
+    "evaluation": {
+      "key_questions": [
+        {
+          "id": "kq1",
+          "topic": "Inicio y evolución de las molestias",
+          "evidence_ids": [
+            "MED-104.anamnesis.inicio_evolucion"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq2",
+          "topic": "Características y síntomas asociados",
+          "evidence_ids": [
+            "MED-104.anamnesis.caracteristicas",
+            "MED-104.sintoma.sintomas"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq3",
+          "topic": "Antecedentes y medicación habitual",
+          "evidence_ids": [
+            "MED-104.antecedente.antecedentes",
+            "MED-104.medicacion.medicacion"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq4",
+          "topic": "Alergias antes de proponer tratamiento",
+          "evidence_ids": [
+            "MED-104.antecedente.alergias"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq5",
+          "topic": "Valoración de gravedad con signos vitales y exploración",
+          "evidence_ids": [
+            "MED-104.vital.signos_vitales",
+            "MED-104.examen.exploracion_fisica"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq6",
+          "topic": "Datos que permiten distinguir los diagnósticos de la familia",
+          "evidence_ids": [
+            "MED-104.anamnesis.inicio_evolucion",
+            "MED-104.imagen.radiografia_torax"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        }
+      ],
+      "tests": {
+        "recommended": [
+          "radiografia_torax",
+          "hemograma"
+        ],
+        "optional": [],
+        "unnecessary": []
+      }
+    }
+  },
+  "provenance": {
+    "created_by": "Codex / case_preparation.familias.ampliacion",
+    "created_at": "2026-10-16",
+    "validator_version": "1.1.0",
+    "validated_at": "2026-10-16",
+    "curated_by": "Validación automática para simulación; revisión clínica humana pendiente",
+    "curated_at": "2026-10-16",
+    "rejection_reason": null
+  }
+}

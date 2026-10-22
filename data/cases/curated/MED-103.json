@@ -1,0 +1,333 @@
+{
+  "schema_version": "1.1.0",
+  "case_id": "MED-103",
+  "title": "Eduardo Soria: Llevo varias semanas con cansancio que limita mi",
+  "specialty": "medicina_interna",
+  "language": "es",
+  "status": "curado",
+  "source": {
+    "dataset": "sintetico",
+    "item_id": "cansancio_persistente_adulto/diabetes_tipo_dos",
+    "license": "CC BY 4.0",
+    "method": "generado_ia"
+  },
+  "public": {
+    "patient": {
+      "alias": "Eduardo Soria",
+      "age_years": 51,
+      "sex": "masculino"
+    },
+    "chief_complaint": {
+      "evidence_id": "MED-103.motivo.queja_principal",
+      "category": "motivo",
+      "label": "Motivo de consulta",
+      "text": "Llevo varias semanas con cansancio que limita mi rendimiento habitual."
+    },
+    "items": [
+      {
+        "evidence_id": "MED-103.anamnesis.contexto_atencion",
+        "category": "anamnesis",
+        "label": "Contexto de atención",
+        "text": "Acude a valoración médica por estas molestias."
+      }
+    ],
+    "allergies_recorded": false
+  },
+  "on_request": [
+    {
+      "evidence_id": "MED-103.anamnesis.inicio_evolucion",
+      "category": "anamnesis",
+      "label": "Inicio y evolución",
+      "text": "El cansancio empezó hace 2 meses; en las últimas semanas se levanta varias veces por la noche para ir al baño.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "inicio_y_evolucion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-103.anamnesis.caracteristicas",
+      "category": "anamnesis",
+      "label": "Características de las molestias",
+      "text": "Tiene mucha sed y necesita beber con frecuencia. No nota intolerancia al frío ni estreñimiento.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "caracteristicas_sintoma"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-103.sintoma.sintomas",
+      "category": "sintoma",
+      "label": "Síntomas asociados",
+      "text": "Ha perdido peso sin proponérselo. No tiene dolor abdominal, vómitos, respiración profunda ni alteración de conciencia.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "sintomas_asociados"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-103.antecedente.antecedentes",
+      "category": "antecedente",
+      "label": "Antecedentes personales",
+      "text": "Tiene sobrepeso desde hace años y su padre tenía una enfermedad tratada por elevación persistente del azúcar.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "antecedentes_personales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-103.medicacion.medicacion",
+      "category": "medicacion",
+      "label": "Medicación habitual",
+      "text": "No toma corticoides ni medicación para controlar el azúcar.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "medicacion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-103.antecedente.alergias",
+      "category": "antecedente",
+      "label": "Alergias",
+      "text": "No refiere alergias conocidas.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "alergias"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-103.anamnesis.habitos",
+      "category": "anamnesis",
+      "label": "Hábitos y entorno",
+      "text": "Tiene trabajo sedentario y suele consumir bebidas azucaradas.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-103.anamnesis.impacto_funcional",
+      "category": "anamnesis",
+      "label": "Impacto en las actividades diarias",
+      "text": "El cansancio y las interrupciones del sueño reducen su rendimiento laboral, pero conserva autonomía.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-103.vital.signos_vitales",
+      "category": "signo_vital",
+      "label": "Signos vitales",
+      "text": "Presión arterial 136/84 mmHg; pulso 82/min; frecuencia respiratoria 16/min; temperatura 36,6 °C; saturación 98 %.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "signos_vitales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-103.examen.exploracion_fisica",
+      "category": "examen_fisico",
+      "label": "Exploración física",
+      "text": "Está alerta, con sobrepeso y acantosis en la región posterior del cuello; sin palidez marcada ni signos de deshidratación grave.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "exploracion_fisica"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-103.lab.glucosa",
+      "category": "laboratorio",
+      "label": "Glucosa en ayunas",
+      "text": "Glucosa en ayunas de 176 mg/dL y 182 mg/dL en una segunda muestra.",
+      "reveal_policy": {
+        "owner": "laboratorio",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "glucosa"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-103.lab.hemoglobina_glicosilada",
+      "category": "laboratorio",
+      "label": "Hemoglobina glicosilada",
+      "text": "HbA1c de 8,2 %.",
+      "reveal_policy": {
+        "owner": "laboratorio",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "hemoglobina_glicosilada"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-103.lab.hemograma",
+      "category": "laboratorio",
+      "label": "Hemograma",
+      "text": "Hemoglobina 14,5 g/dL; volumen corpuscular medio 90 fL.",
+      "reveal_policy": {
+        "owner": "laboratorio",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "hemograma"
+        ]
+      }
+    }
+  ],
+  "protected": {
+    "diagnosis": {
+      "name": "Diabetes mellitus tipo 2",
+      "synonyms": [
+        "Diabetes de tipo 2",
+        "Diabetes tipo 2",
+        "DM2"
+      ]
+    },
+    "differentials": [
+      {
+        "name": "Hipotiroidismo primario manifiesto",
+        "must_not_miss": false,
+        "discard_evidence_ids": [
+          "MED-103.sintoma.sintomas",
+          "MED-103.lab.glucosa",
+          "MED-103.lab.hemoglobina_glicosilada"
+        ]
+      },
+      {
+        "name": "Anemia ferropénica",
+        "must_not_miss": false,
+        "discard_evidence_ids": [
+          "MED-103.sintoma.sintomas",
+          "MED-103.lab.glucosa",
+          "MED-103.lab.hemoglobina_glicosilada"
+        ]
+      }
+    ],
+    "treatment_reference": {
+      "summary": "Plan individualizado de control glucémico, alimentación y actividad física; evaluar comorbilidades y seleccionar tratamiento farmacológico según perfil clínico.",
+      "key_actions": [
+        "Descartar signos de descompensación aguda.",
+        "Evaluar función renal y riesgo cardiovascular al planificar el manejo.",
+        "Organizar educación, seguimiento y detección de complicaciones."
+      ]
+    },
+    "contraindications": [],
+    "evaluation": {
+      "key_questions": [
+        {
+          "id": "kq1",
+          "topic": "Inicio y evolución de las molestias",
+          "evidence_ids": [
+            "MED-103.anamnesis.inicio_evolucion"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq2",
+          "topic": "Características y síntomas asociados",
+          "evidence_ids": [
+            "MED-103.anamnesis.caracteristicas",
+            "MED-103.sintoma.sintomas"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq3",
+          "topic": "Antecedentes y medicación habitual",
+          "evidence_ids": [
+            "MED-103.antecedente.antecedentes",
+            "MED-103.medicacion.medicacion"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq4",
+          "topic": "Alergias antes de proponer tratamiento",
+          "evidence_ids": [
+            "MED-103.antecedente.alergias"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq5",
+          "topic": "Valoración de gravedad con signos vitales y exploración",
+          "evidence_ids": [
+            "MED-103.vital.signos_vitales",
+            "MED-103.examen.exploracion_fisica"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq6",
+          "topic": "Datos que permiten distinguir los diagnósticos de la familia",
+          "evidence_ids": [
+            "MED-103.sintoma.sintomas",
+            "MED-103.lab.glucosa",
+            "MED-103.lab.hemoglobina_glicosilada"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        }
+      ],
+      "tests": {
+        "recommended": [
+          "glucosa",
+          "hemoglobina_glicosilada",
+          "hemograma"
+        ],
+        "optional": [],
+        "unnecessary": []
+      }
+    }
+  },
+  "provenance": {
+    "created_by": "Codex / case_preparation.familias.ampliacion",
+    "created_at": "2026-10-16",
+    "validator_version": "1.1.0",
+    "validated_at": "2026-10-16",
+    "curated_by": "Validación automática para simulación; revisión clínica humana pendiente",
+    "curated_at": "2026-10-16",
+    "rejection_reason": null
+  }
+}

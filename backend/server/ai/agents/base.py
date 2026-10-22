@@ -79,6 +79,7 @@ class BaseAgent(ABC):
     missing_data_rule = (
         "Si no hay evidencia recuperada suficiente para responder, indícalo de forma breve y no inventes datos."
     )
+    missing_data_reply = "No hay evidencia adicional autorizada para esta solicitud."
 
     @property
     def system_prompt(self) -> str:
@@ -174,8 +175,8 @@ class BaseAgent(ABC):
         else:
             result_text = first.text
 
-        # Síntomas que el caso no tiene: se pide una corrección; si el modelo insiste, el paciente
-        # responde que no y los demás agentes responden solo con la evidencia autorizada.
+        # Síntomas sin respaldo: se pide una corrección; si el modelo insiste,
+        # se usa evidencia autorizada o se reconoce que falta el dato.
         invented = invented_symptoms(result_text, context)
         if invented and not grounding_fallback_used:
             grounding_retry_used = True
@@ -199,7 +200,8 @@ class BaseAgent(ABC):
                 if kept:
                     result_text = " ".join(kept)
                 else:
-                    result_text = "No." if self.role == AgentRole.PACIENTE else self._deterministic_evidence_fallback(context)
+                    result_text = (self._deterministic_evidence_fallback(context)
+                                   if self._has_retrieved_evidence(context) else self.missing_data_reply)
             else:
                 result_text = retry.text
 

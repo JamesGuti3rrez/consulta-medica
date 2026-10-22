@@ -1,0 +1,342 @@
+{
+  "schema_version": "1.1.0",
+  "case_id": "PED-106",
+  "title": "Isabela León: Tiene dolor abdominal y vómitos que han interrum",
+  "specialty": "pediatria",
+  "language": "es",
+  "status": "curado",
+  "source": {
+    "dataset": "sintetico",
+    "item_id": "dolor_abdominal_y_vomitos_pediatrico/apendicitis_pediatrica",
+    "license": "CC BY 4.0",
+    "method": "generado_ia"
+  },
+  "public": {
+    "patient": {
+      "alias": "Isabela León",
+      "age_years": 12,
+      "sex": "femenino"
+    },
+    "chief_complaint": {
+      "evidence_id": "PED-106.motivo.queja_principal",
+      "category": "motivo",
+      "label": "Motivo de consulta",
+      "text": "Tiene dolor abdominal y vómitos que han interrumpido sus actividades."
+    },
+    "items": [
+      {
+        "evidence_id": "PED-106.anamnesis.contexto_atencion",
+        "category": "anamnesis",
+        "label": "Contexto de atención",
+        "text": "Acude acompañado por su madre a valoración pediátrica."
+      }
+    ],
+    "allergies_recorded": false
+  },
+  "on_request": [
+    {
+      "evidence_id": "PED-106.anamnesis.inicio_evolucion",
+      "category": "anamnesis",
+      "label": "Inicio y evolución",
+      "text": "La niña cuenta que el dolor comenzó alrededor del ombligo hace veinticuatro horas y hoy se desplazó a la parte inferior derecha; los vómitos aparecieron después del dolor.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "inicio_y_evolucion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-106.anamnesis.caracteristicas",
+      "category": "anamnesis",
+      "label": "Características de las molestias",
+      "text": "Ahora es continuo, de 7 sobre 10, empeora al caminar, toser o saltar. Ha vomitado dos veces, sin bilis.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "caracteristicas_sintoma"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-106.sintoma.sintomas",
+      "category": "sintoma",
+      "label": "Síntomas asociados",
+      "text": "Pérdida de apetito y fiebre baja. Sin diarrea, ardor al orinar ni sangre en las heces.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "sintomas_asociados"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-106.antecedente.antecedentes",
+      "category": "antecedente",
+      "label": "Antecedentes personales",
+      "text": "Previamente sana y sin operaciones. No ha tenido dolores similares.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "antecedentes_personales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-106.medicacion.medicacion",
+      "category": "medicacion",
+      "label": "Medicación habitual",
+      "text": "No usa medicación habitual; su madre le dio una dosis de paracetamol.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "medicacion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-106.antecedente.alergias",
+      "category": "antecedente",
+      "label": "Alergias",
+      "text": "No refiere alergias conocidas.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "alergias"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-106.anamnesis.habitos",
+      "category": "anamnesis",
+      "label": "Hábitos y entorno",
+      "text": "Alimentación habitual, sin viajes ni contactos con diarrea. Vive con sus padres.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-106.anamnesis.impacto_funcional",
+      "category": "anamnesis",
+      "label": "Impacto en las actividades diarias",
+      "text": "Faltó al colegio y camina encorvada para evitar el dolor.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-106.antecedente.historia_ginecologica",
+      "category": "antecedente",
+      "label": "Historia ginecológica y obstétrica",
+      "text": "No ha presentado todavía su primera menstruación. La historia sensible se aborda con privacidad y de acuerdo con su edad.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "antecedentes_gineco_obstetricos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-106.vital.signos_vitales",
+      "category": "signo_vital",
+      "label": "Signos vitales",
+      "text": "Peso 42 kg; presión arterial 108/66 mmHg; pulso 108/min; frecuencia respiratoria 22/min; temperatura 38,1 °C; saturación 99 % al aire ambiente.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "signos_vitales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-106.examen.exploracion_fisica",
+      "category": "examen_fisico",
+      "label": "Exploración física",
+      "text": "Dolor y defensa local en fosa ilíaca derecha, dolor a la percusión y al movimiento; sin masa ni distensión marcada. No presenta rigidez abdominal generalizada.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "exploracion_fisica"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-106.lab.hemograma",
+      "category": "laboratorio",
+      "label": "Hemograma",
+      "text": "Leucocitos 13.600/µL, neutrófilos 83 %; hemoglobina 12,4 g/dL; plaquetas 285.000/µL.",
+      "reveal_policy": {
+        "owner": "laboratorio",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "hemograma"
+        ]
+      }
+    },
+    {
+      "evidence_id": "PED-106.imagen.ecografia_abdominal",
+      "category": "imagen",
+      "label": "Ecografía abdominal",
+      "text": "Estructura tubular de fondo ciego que nace del ciego, no compresible, de 8 mm de diámetro, con hiperemia y grasa adyacente hiperecogénica; sin absceso. Ovarios de aspecto conservado.",
+      "reveal_policy": {
+        "owner": "radiologia",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "ecografia_abdominal"
+        ]
+      }
+    }
+  ],
+  "protected": {
+    "diagnosis": {
+      "name": "Apendicitis aguda pediátrica",
+      "synonyms": [
+        "Apendicitis infantil",
+        "Apendicitis aguda en niña",
+        "Inflamación apendicular aguda pediátrica"
+      ]
+    },
+    "differentials": [
+      {
+        "name": "Gastroenteritis aguda viral",
+        "must_not_miss": false,
+        "discard_evidence_ids": [
+          "PED-106.anamnesis.inicio_evolucion",
+          "PED-106.examen.exploracion_fisica",
+          "PED-106.imagen.ecografia_abdominal"
+        ]
+      },
+      {
+        "name": "Invaginación intestinal ileocólica",
+        "must_not_miss": true,
+        "discard_evidence_ids": [
+          "PED-106.anamnesis.inicio_evolucion",
+          "PED-106.examen.exploracion_fisica",
+          "PED-106.imagen.ecografia_abdominal"
+        ]
+      }
+    ],
+    "treatment_reference": {
+      "summary": "Valoración urgente por cirugía pediátrica para tratamiento y prevención de complicaciones.",
+      "key_actions": [
+        "Mantener ayuno, acceso venoso, analgesia e hidratación según estado clínico.",
+        "Administrar antibióticos preoperatorios según protocolo y coordinar la resolución quirúrgica.",
+        "Preferir ecografía como imagen inicial; no retrasar la atención ante deterioro o peritonitis."
+      ]
+    },
+    "contraindications": [],
+    "evaluation": {
+      "key_questions": [
+        {
+          "id": "kq1",
+          "topic": "Inicio y evolución de las molestias",
+          "evidence_ids": [
+            "PED-106.anamnesis.inicio_evolucion"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq2",
+          "topic": "Características y síntomas asociados",
+          "evidence_ids": [
+            "PED-106.anamnesis.caracteristicas",
+            "PED-106.sintoma.sintomas"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq3",
+          "topic": "Antecedentes y medicación habitual",
+          "evidence_ids": [
+            "PED-106.antecedente.antecedentes",
+            "PED-106.medicacion.medicacion"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq4",
+          "topic": "Alergias antes de proponer tratamiento",
+          "evidence_ids": [
+            "PED-106.antecedente.alergias"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq5",
+          "topic": "Valoración de gravedad con signos vitales y exploración",
+          "evidence_ids": [
+            "PED-106.vital.signos_vitales",
+            "PED-106.examen.exploracion_fisica"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq6",
+          "topic": "Datos que permiten distinguir los diagnósticos de la familia",
+          "evidence_ids": [
+            "PED-106.anamnesis.inicio_evolucion",
+            "PED-106.examen.exploracion_fisica",
+            "PED-106.imagen.ecografia_abdominal"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        },
+        {
+          "id": "kq7",
+          "topic": "Historia ginecológica y obstétrica",
+          "evidence_ids": [
+            "PED-106.antecedente.historia_ginecologica"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        }
+      ],
+      "tests": {
+        "recommended": [
+          "hemograma",
+          "ecografia_abdominal"
+        ],
+        "optional": [],
+        "unnecessary": []
+      }
+    }
+  },
+  "provenance": {
+    "created_by": "Codex / case_preparation.familias.ampliacion",
+    "created_at": "2026-10-16",
+    "validator_version": "1.1.0",
+    "validated_at": "2026-10-16",
+    "curated_by": "Validación automática para simulación; revisión clínica humana pendiente",
+    "curated_at": "2026-10-16",
+    "rejection_reason": null
+  }
+}

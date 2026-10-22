@@ -9,8 +9,8 @@ from server.rag.port import RetrievedEvidence
 class ContextAssembler:
     """Construye el único objeto clínico que puede entrar a un agente/LLM.
 
-    No recibe ni conoce `protected`. El médico asistente puede resumir evidencia ya
-    revelada al estudiante, pero no obtiene evidencia nueva por esa vía.
+    No recibe ni conoce `protected`. El médico asistente y el paciente pueden referirse
+    a información ya revelada al estudiante, sin obtener datos nuevos por esa vía.
     """
 
     def build(
@@ -32,7 +32,7 @@ class ContextAssembler:
                 public_items.append(self._compact(item))
 
         previously_revealed: list[dict[str, Any]] = []
-        if role == AgentRole.MEDICO_ASISTENTE:
+        if role in (AgentRole.MEDICO_ASISTENTE, AgentRole.PACIENTE):
             for item in case.get("on_request", []):
                 if item["evidence_id"] in visible:
                     previously_revealed.append(self._compact(item))

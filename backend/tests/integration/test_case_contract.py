@@ -20,7 +20,7 @@ def test_canonical_case_is_curated_and_schema_valid():
 def test_repository_serves_the_curated_catalog_without_protected():
     repo = CanonicalCaseRepository()
     case_ids = repo.list_curated()
-    assert len(case_ids) == 13
+    assert len(case_ids) == 43
     for case_id in case_ids:
         assert "protected" not in repo.get_conversation_case(case_id)
 

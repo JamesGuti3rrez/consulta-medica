@@ -1,5 +1,8 @@
 # Familias de casos sintéticos
 
+Ampliación del 16 de octubre de 2026: **30 casos nuevos** en diez familias, **43 casos totales**.
+Inventario, fuentes y carga en Supabase: [AMPLIACION_2026_10_16.md](AMPLIACION_2026_10_16.md).
+
 Casos diseñados para comprobar que el simulador funciona de punta a punta: que revela el dato correcto
 ante la pregunta correcta, que no deja escapar el diagnóstico y que no inventa síntomas. Se agrupan en
 **familias**: varios pacientes llegan con el mismo motivo de consulta y lo que separa sus diagnósticos

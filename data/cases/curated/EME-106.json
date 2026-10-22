@@ -1,0 +1,316 @@
+{
+  "schema_version": "1.1.0",
+  "case_id": "EME-106",
+  "title": "Marta Cárdenas: Me falta el aire y me cuesta realizar mis activi",
+  "specialty": "emergencias",
+  "language": "es",
+  "status": "curado",
+  "source": {
+    "dataset": "sintetico",
+    "item_id": "disnea_aguda_adulto/edema_pulmonar",
+    "license": "CC BY 4.0",
+    "method": "generado_ia"
+  },
+  "public": {
+    "patient": {
+      "alias": "Marta Cárdenas",
+      "age_years": 74,
+      "sex": "femenino"
+    },
+    "chief_complaint": {
+      "evidence_id": "EME-106.motivo.queja_principal",
+      "category": "motivo",
+      "label": "Motivo de consulta",
+      "text": "Me falta el aire y me cuesta realizar mis actividades."
+    },
+    "items": [
+      {
+        "evidence_id": "EME-106.anamnesis.contexto_atencion",
+        "category": "anamnesis",
+        "label": "Contexto de atención",
+        "text": "Acude a valoración médica por estas molestias."
+      }
+    ],
+    "allergies_recorded": false
+  },
+  "on_request": [
+    {
+      "evidence_id": "EME-106.anamnesis.inicio_evolucion",
+      "category": "anamnesis",
+      "label": "Inicio y evolución",
+      "text": "La falta de aire empeoró rápidamente durante la noche. Desde hace 5 días aumenta la hinchazón de ambos tobillos.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "inicio_y_evolucion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-106.anamnesis.caracteristicas",
+      "category": "anamnesis",
+      "label": "Características de las molestias",
+      "text": "No puede acostarse y necesita sentarse para respirar. No refiere silbidos habituales ni dolor pleurítico.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "caracteristicas_sintoma"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-106.sintoma.sintomas",
+      "category": "sintoma",
+      "label": "Síntomas asociados",
+      "text": "Tiene tos con expectoración espumosa y dificultad para dormir acostada; no ha tenido fiebre ni flema purulenta.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "sintomas_asociados"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-106.antecedente.antecedentes",
+      "category": "antecedente",
+      "label": "Antecedentes personales",
+      "text": "Tiene insuficiencia cardíaca con fracción de eyección reducida y antecedentes de hipertensión. No tiene enfermedad obstructiva respiratoria conocida.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "antecedentes_personales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-106.medicacion.medicacion",
+      "category": "medicacion",
+      "label": "Medicación habitual",
+      "text": "Usa enalapril y carvedilol. Dejó la furosemida hace 5 días porque se le terminó.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "medicacion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-106.antecedente.alergias",
+      "category": "antecedente",
+      "label": "Alergias",
+      "text": "No refiere alergias conocidas.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "alergias"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-106.anamnesis.habitos",
+      "category": "anamnesis",
+      "label": "Hábitos y entorno",
+      "text": "No fuma; durante la última semana aumentó el consumo de alimentos muy salados.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-106.anamnesis.impacto_funcional",
+      "category": "anamnesis",
+      "label": "Impacto en las actividades diarias",
+      "text": "Habitualmente camina dentro de casa sin ayuda; ahora le falta el aire incluso al vestirse.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-106.vital.signos_vitales",
+      "category": "signo_vital",
+      "label": "Signos vitales",
+      "text": "Presión arterial 182/104 mmHg; pulso 116/min; frecuencia respiratoria 32/min; temperatura 36,7 °C; saturación 86 % al aire ambiente.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "signos_vitales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-106.examen.exploracion_fisica",
+      "category": "examen_fisico",
+      "label": "Exploración física",
+      "text": "Está sentada, con uso de musculatura accesoria; tiene crepitantes bilaterales, ingurgitación yugular y edema con fóvea en ambas piernas.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "exploracion_fisica"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-106.imagen.radiografia_torax",
+      "category": "imagen",
+      "label": "Radiografía de tórax",
+      "text": "Opacidades alveolares bilaterales perihiliares, líneas septales y pequeños derrames pleurales; silueta cardíaca aumentada.",
+      "reveal_policy": {
+        "owner": "radiologia",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "radiografia_torax"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-106.imagen.ecocardiografia",
+      "category": "imagen",
+      "label": "Ecocardiografía",
+      "text": "Fracción de eyección del ventrículo izquierdo 30 %, sin derrame pericárdico significativo.",
+      "reveal_policy": {
+        "owner": "radiologia",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "ecocardiografia"
+        ]
+      }
+    }
+  ],
+  "protected": {
+    "diagnosis": {
+      "name": "Edema agudo de pulmón cardiogénico",
+      "synonyms": [
+        "Edema pulmonar cardiogénico agudo",
+        "Edema pulmonar cardiogénico",
+        "Edema pulmonar agudo de origen cardiaco"
+      ]
+    },
+    "differentials": [
+      {
+        "name": "Exacerbación asmática",
+        "must_not_miss": true,
+        "discard_evidence_ids": [
+          "EME-106.examen.exploracion_fisica",
+          "EME-106.imagen.radiografia_torax"
+        ]
+      },
+      {
+        "name": "Exacerbación aguda de EPOC",
+        "must_not_miss": true,
+        "discard_evidence_ids": [
+          "EME-106.examen.exploracion_fisica",
+          "EME-106.imagen.radiografia_torax"
+        ]
+      }
+    ],
+    "treatment_reference": {
+      "summary": "Estabilización respiratoria urgente, diurético intravenoso y tratamiento de la hipertensión según evaluación; valorar ventilación no invasiva y buscar el desencadenante.",
+      "key_actions": [
+        "Vigilar saturación, presión arterial y diuresis.",
+        "Valorar oxígeno y soporte ventilatorio por la hipoxemia.",
+        "Revisar el abandono del diurético y otros desencadenantes."
+      ]
+    },
+    "contraindications": [],
+    "evaluation": {
+      "key_questions": [
+        {
+          "id": "kq1",
+          "topic": "Inicio y evolución de las molestias",
+          "evidence_ids": [
+            "EME-106.anamnesis.inicio_evolucion"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq2",
+          "topic": "Características y síntomas asociados",
+          "evidence_ids": [
+            "EME-106.anamnesis.caracteristicas",
+            "EME-106.sintoma.sintomas"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq3",
+          "topic": "Antecedentes y medicación habitual",
+          "evidence_ids": [
+            "EME-106.antecedente.antecedentes",
+            "EME-106.medicacion.medicacion"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq4",
+          "topic": "Alergias antes de proponer tratamiento",
+          "evidence_ids": [
+            "EME-106.antecedente.alergias"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq5",
+          "topic": "Valoración de gravedad con signos vitales y exploración",
+          "evidence_ids": [
+            "EME-106.vital.signos_vitales",
+            "EME-106.examen.exploracion_fisica"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq6",
+          "topic": "Datos que permiten distinguir los diagnósticos de la familia",
+          "evidence_ids": [
+            "EME-106.examen.exploracion_fisica",
+            "EME-106.imagen.radiografia_torax"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        }
+      ],
+      "tests": {
+        "recommended": [
+          "radiografia_torax",
+          "ecocardiografia"
+        ],
+        "optional": [],
+        "unnecessary": []
+      }
+    }
+  },
+  "provenance": {
+    "created_by": "Codex / case_preparation.familias.ampliacion",
+    "created_at": "2026-10-16",
+    "validator_version": "1.1.0",
+    "validated_at": "2026-10-16",
+    "curated_by": "Validación automática para simulación; revisión clínica humana pendiente",
+    "curated_at": "2026-10-16",
+    "rejection_reason": null
+  }
+}

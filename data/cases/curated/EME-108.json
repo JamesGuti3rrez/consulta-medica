@@ -1,0 +1,305 @@
+{
+  "schema_version": "1.1.0",
+  "case_id": "EME-108",
+  "title": "Jorge Paredes: Tengo un dolor de cabeza intenso que me impide s",
+  "specialty": "emergencias",
+  "language": "es",
+  "status": "curado",
+  "source": {
+    "dataset": "sintetico",
+    "item_id": "cefalea_adulto/meningitis_bacteriana",
+    "license": "CC BY 4.0",
+    "method": "generado_ia"
+  },
+  "public": {
+    "patient": {
+      "alias": "Jorge Paredes",
+      "age_years": 25,
+      "sex": "masculino"
+    },
+    "chief_complaint": {
+      "evidence_id": "EME-108.motivo.queja_principal",
+      "category": "motivo",
+      "label": "Motivo de consulta",
+      "text": "Tengo un dolor de cabeza intenso que me impide seguir con mis actividades."
+    },
+    "items": [
+      {
+        "evidence_id": "EME-108.anamnesis.contexto_atencion",
+        "category": "anamnesis",
+        "label": "Contexto de atención",
+        "text": "Acude a valoración médica por estas molestias."
+      }
+    ],
+    "allergies_recorded": false
+  },
+  "on_request": [
+    {
+      "evidence_id": "EME-108.anamnesis.inicio_evolucion",
+      "category": "anamnesis",
+      "label": "Inicio y evolución",
+      "text": "Desde ayer presenta fiebre y dolor de cabeza progresivo. Hoy le cuesta mover el cuello y su familia lo nota más somnoliento.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "inicio_y_evolucion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-108.anamnesis.caracteristicas",
+      "category": "anamnesis",
+      "label": "Características de las molestias",
+      "text": "El dolor es generalizado y empeora con los movimientos de la cabeza; no comenzó de manera súbita ni tiene episodios previos iguales.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "caracteristicas_sintoma"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-108.sintoma.sintomas",
+      "category": "sintoma",
+      "label": "Síntomas asociados",
+      "text": "Tiene vómitos y molestia con la luz. No ha presentado debilidad de una extremidad ni un traumatismo reciente.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "sintomas_asociados"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-108.antecedente.antecedentes",
+      "category": "antecedente",
+      "label": "Antecedentes personales",
+      "text": "No tiene enfermedades crónicas conocidas ni antecedentes de crisis convulsivas.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "antecedentes_personales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-108.medicacion.medicacion",
+      "category": "medicacion",
+      "label": "Medicación habitual",
+      "text": "Tomó paracetamol; no ha recibido antibióticos antes de la evaluación.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "medicacion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-108.antecedente.alergias",
+      "category": "antecedente",
+      "label": "Alergias",
+      "text": "No refiere alergias conocidas.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "alergias"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-108.anamnesis.habitos",
+      "category": "anamnesis",
+      "label": "Hábitos y entorno",
+      "text": "Vive con compañeros de estudio; no ha realizado viajes recientes.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-108.anamnesis.impacto_funcional",
+      "category": "anamnesis",
+      "label": "Impacto en las actividades diarias",
+      "text": "No ha podido asistir a clases y requiere que su familia lo acompañe por la somnolencia.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-108.vital.signos_vitales",
+      "category": "signo_vital",
+      "label": "Signos vitales",
+      "text": "Presión arterial 110/68 mmHg; pulso 112/min; frecuencia respiratoria 22/min; temperatura 39,2 °C; saturación 97 %.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "signos_vitales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-108.examen.exploracion_fisica",
+      "category": "examen_fisico",
+      "label": "Exploración física",
+      "text": "Está somnoliento pero obedece órdenes; presenta rigidez de nuca, sin déficit neurológico focal ni signos de compromiso ventilatorio.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "exploracion_fisica"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-108.lab.estudio_lcr",
+      "category": "laboratorio",
+      "label": "Estudio del líquido cefalorraquídeo",
+      "text": "LCR turbio: 1800 leucocitos/µL con 90 % de neutrófilos, proteínas 180 mg/dL y glucosa 24 mg/dL con glucemia simultánea de 100 mg/dL; tinción con diplococos grampositivos.",
+      "reveal_policy": {
+        "owner": "laboratorio",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "estudio_lcr"
+        ]
+      }
+    }
+  ],
+  "protected": {
+    "diagnosis": {
+      "name": "Meningitis bacteriana aguda",
+      "synonyms": [
+        "Meningitis aguda de etiología bacteriana",
+        "Meningitis bacteriana",
+        "Infección meníngea bacteriana aguda"
+      ]
+    },
+    "differentials": [
+      {
+        "name": "Migraña sin aura",
+        "must_not_miss": false,
+        "discard_evidence_ids": [
+          "EME-108.vital.signos_vitales",
+          "EME-108.examen.exploracion_fisica",
+          "EME-108.lab.estudio_lcr"
+        ]
+      },
+      {
+        "name": "Hemorragia subaracnoidea aneurismática",
+        "must_not_miss": true,
+        "discard_evidence_ids": [
+          "EME-108.vital.signos_vitales",
+          "EME-108.examen.exploracion_fisica",
+          "EME-108.lab.estudio_lcr"
+        ]
+      }
+    ],
+    "treatment_reference": {
+      "summary": "Antibióticos intravenosos urgentes y atención hospitalaria; hemocultivos y punción lumbar cuando sea seguro, sin retrasar el tratamiento por las pruebas.",
+      "key_actions": [
+        "Evaluar estado hemodinámico y neurológico.",
+        "Obtener muestras oportunamente sin retrasar antibióticos.",
+        "Valorar tratamiento adyuvante según protocolo y vigilancia estrecha."
+      ]
+    },
+    "contraindications": [],
+    "evaluation": {
+      "key_questions": [
+        {
+          "id": "kq1",
+          "topic": "Inicio y evolución de las molestias",
+          "evidence_ids": [
+            "EME-108.anamnesis.inicio_evolucion"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq2",
+          "topic": "Características y síntomas asociados",
+          "evidence_ids": [
+            "EME-108.anamnesis.caracteristicas",
+            "EME-108.sintoma.sintomas"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq3",
+          "topic": "Antecedentes y medicación habitual",
+          "evidence_ids": [
+            "EME-108.antecedente.antecedentes",
+            "EME-108.medicacion.medicacion"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq4",
+          "topic": "Alergias antes de proponer tratamiento",
+          "evidence_ids": [
+            "EME-108.antecedente.alergias"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq5",
+          "topic": "Valoración de gravedad con signos vitales y exploración",
+          "evidence_ids": [
+            "EME-108.vital.signos_vitales",
+            "EME-108.examen.exploracion_fisica"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq6",
+          "topic": "Datos que permiten distinguir los diagnósticos de la familia",
+          "evidence_ids": [
+            "EME-108.vital.signos_vitales",
+            "EME-108.examen.exploracion_fisica",
+            "EME-108.lab.estudio_lcr"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        }
+      ],
+      "tests": {
+        "recommended": [
+          "estudio_lcr"
+        ],
+        "optional": [],
+        "unnecessary": []
+      }
+    }
+  },
+  "provenance": {
+    "created_by": "Codex / case_preparation.familias.ampliacion",
+    "created_at": "2026-10-16",
+    "validator_version": "1.1.0",
+    "validated_at": "2026-10-16",
+    "curated_by": "Validación automática para simulación; revisión clínica humana pendiente",
+    "curated_at": "2026-10-16",
+    "rejection_reason": null
+  }
+}

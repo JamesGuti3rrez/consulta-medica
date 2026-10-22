@@ -34,6 +34,7 @@ class Settings:
     llm_timeout_seconds: float
     provider_cooldown_seconds: float
     rag_service_url: str
+    rag_backend: str
     rag_embedded_enabled: bool
     rag_index_dir: Path
     rag_log_path: Path
@@ -43,6 +44,9 @@ class Settings:
     langsmith_project: str
     trace_path: Path
     session_store: str
+    case_store: str = "local"
+    synthetic_case_data: bool = False
+    history_enabled: bool = False
 
     @property
     def auth_enabled(self) -> bool:
@@ -64,6 +68,7 @@ settings = Settings(
     llm_timeout_seconds=float(os.getenv("AI_LLM_TIMEOUT_SECONDS", "30")),
     provider_cooldown_seconds=float(os.getenv("AI_PROVIDER_COOLDOWN_SECONDS", "60")),
     rag_service_url=os.getenv("RAG_SERVICE_URL", "").strip().rstrip("/"),
+    rag_backend=os.getenv("RAG_BACKEND", "local").strip().lower(),
     rag_embedded_enabled=_flag("RAG_EMBEDDED", "true"),
     rag_index_dir=(ROOT_DIR / os.getenv("RAG_INDEX_DIR", "data/indexes/lightrag")).resolve(),
     rag_log_path=(ROOT_DIR / os.getenv("RAG_LOG_PATH", "backend/logs/rag_retrieval.jsonl")).resolve(),
@@ -74,4 +79,8 @@ settings = Settings(
     trace_path=(ROOT_DIR / os.getenv("AI_TRACE_PATH", "backend/logs/ai_traces.jsonl")).resolve(),
     # memoria (desarrollo y pruebas) o supabase (despliegue con varias instancias, como Vercel).
     session_store=os.getenv("SESSION_STORE", "memoria").strip().lower(),
+    case_store=os.getenv("CASE_STORE", "local").strip().lower(),
+    synthetic_case_data=_flag("SYNTHETIC_CASE_DATA", "false"),
+    # Guardar las consultas de los alumnos con sesión en «Mis simulaciones»; requiere la migración 0001.
+    history_enabled=_flag("HISTORIAL_ALUMNOS", "false"),
 )

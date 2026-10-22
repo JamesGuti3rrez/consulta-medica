@@ -1,3 +1,4 @@
+import pytest
 from fastapi.testclient import TestClient
 
 from server import api
@@ -7,15 +8,14 @@ from server.main import app
 client = TestClient(app)
 
 
-def test_status_reports_curated_catalog_without_claiming_full_simulation_ready():
+def test_status_reports_curated_catalog():
     response = client.get("/api/status")
 
     assert response.status_code == 200
     body = response.json()
-    assert {key: body[key] for key in ("caseConfigured", "simulationReady", "availableCases")} == {
+    assert {key: body[key] for key in ("caseConfigured", "availableCases")} == {
         "caseConfigured": True,
-        "simulationReady": False,
-        "availableCases": 13,  # 10 de MedQA y 3 de la familia sintética de dolor torácico
+        "availableCases": 43,  # 10 de MedQA y 33 sintéticos
     }
 
 
@@ -68,11 +68,11 @@ def test_case_endpoint_rejects_unknown_specialty():
 def test_status_reports_cases_by_specialty():
     counts = client.get("/api/status").json()["casesBySpecialty"]
     assert counts == {
-        "medicina_interna": 2,
-        "pediatria": 2,
-        "ginecologia_obstetricia": 2,
-        "cirugia_general": 2,
-        "emergencias": 5,  # EME-001, EME-002 y la familia EME-101 a EME-103
+        "medicina_interna": 8,
+        "pediatria": 8,
+        "ginecologia_obstetricia": 8,
+        "cirugia_general": 8,
+        "emergencias": 11,
     }
 
 
@@ -95,7 +95,22 @@ def test_another_case_of_the_same_specialty_skips_the_ones_already_seen():
 
 
 def test_when_every_case_was_seen_it_only_avoids_the_current_one():
-    # Pediatría tiene dos casos: vistos los dos, se repite el otro, nunca el que acaba de terminar.
+    # Vistos todos los de pediatría, se permite repetir cualquiera salvo el actual (primero).
+    seen = "PED-009,PED-010,PED-101,PED-102,PED-103,PED-104,PED-105,PED-106"
     for _ in range(10):
-        body = client.get("/api/caso", params={"especialidad": "pediatria", "excluir": "PED-009,PED-010"}).json()
-        assert body["case_id"] == "PED-010"
+        body = client.get("/api/caso", params={"especialidad": "pediatria", "excluir": seen}).json()
+        assert body["case_id"] in set(seen.split(",")) - {"PED-009"}
+
+
+@pytest.mark.parametrize("enabled", [False, True])
+def test_config_tells_the_browser_whether_student_history_is_on(monkeypatch, enabled):
+    from dataclasses import replace
+
+    from server.api import routes
+
+    monkeypatch.setattr(routes, "settings", replace(
+        routes.settings, supabase_url="https://proyecto.supabase.co",
+        supabase_publishable_key="sb_publishable_prueba", history_enabled=enabled,
+    ))
+    body = client.get("/api/config").json()
+    assert body["auth"] is True and body["history"] is enabled

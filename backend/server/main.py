@@ -5,10 +5,14 @@ from pathlib import Path
 
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import JSONResponse
 
 from .api.ai import router as ai_router
 from .api.routes import router as api_router
+from .api.teaching import router as teaching_router
 from .rag.router import router as rag_router
+from .cases.supabase import CaseStoreError
+from .persistence.teaching import TeachingStoreError
 
 PUBLIC_DIR = Path(__file__).resolve().parents[2] / "frontend" / "public"
 
@@ -29,6 +33,18 @@ app = FastAPI(
 )
 
 
+@app.exception_handler(TeachingStoreError)
+async def teaching_store_unavailable(request: Request, exc: TeachingStoreError):
+    return JSONResponse(status_code=503, content={"detail": str(exc)})
+
+
+@app.exception_handler(CaseStoreError)
+async def case_store_unavailable(request: Request, exc: CaseStoreError):
+    return JSONResponse(status_code=503, content={
+        "detail": "No se pudieron consultar los casos en Supabase. Comprueba la conexión y la importación."
+    })
+
+
 @app.middleware("http")
 async def security_headers(request: Request, call_next):
     response = await call_next(request)
@@ -46,6 +62,7 @@ async def security_headers(request: Request, call_next):
 # que termina con la respuesta 404 para cualquier otra ruta /api/.
 app.include_router(ai_router)
 app.include_router(rag_router)
+app.include_router(teaching_router)
 app.include_router(api_router)
 
 # Todo lo demás son los archivos del frontend. En Vercel los sirve su CDN desde public/ (lo copia el

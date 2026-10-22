@@ -1,0 +1,293 @@
+{
+  "schema_version": "1.1.0",
+  "case_id": "EME-107",
+  "title": "Valeria Medina: Tengo un dolor de cabeza intenso que me impide s",
+  "specialty": "emergencias",
+  "language": "es",
+  "status": "curado",
+  "source": {
+    "dataset": "sintetico",
+    "item_id": "cefalea_adulto/migrana",
+    "license": "CC BY 4.0",
+    "method": "generado_ia"
+  },
+  "public": {
+    "patient": {
+      "alias": "Valeria Medina",
+      "age_years": 32,
+      "sex": "femenino"
+    },
+    "chief_complaint": {
+      "evidence_id": "EME-107.motivo.queja_principal",
+      "category": "motivo",
+      "label": "Motivo de consulta",
+      "text": "Tengo un dolor de cabeza intenso que me impide seguir con mis actividades."
+    },
+    "items": [
+      {
+        "evidence_id": "EME-107.anamnesis.contexto_atencion",
+        "category": "anamnesis",
+        "label": "Contexto de atención",
+        "text": "Acude a valoración médica por estas molestias."
+      }
+    ],
+    "allergies_recorded": false
+  },
+  "on_request": [
+    {
+      "evidence_id": "EME-107.anamnesis.inicio_evolucion",
+      "category": "anamnesis",
+      "label": "Inicio y evolución",
+      "text": "El dolor aumentó gradualmente durante 2 horas y lleva 10 horas. Ha tenido episodios similares desde los 20 años; no es el primero ni el peor de su vida.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "inicio_y_evolucion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-107.anamnesis.caracteristicas",
+      "category": "anamnesis",
+      "label": "Características de las molestias",
+      "text": "Es pulsátil, predomina en la mitad derecha de la cabeza y empeora con la actividad; no apareció de forma explosiva.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "caracteristicas_sintoma"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-107.sintoma.sintomas",
+      "category": "sintoma",
+      "label": "Síntomas asociados",
+      "text": "Tiene náuseas y le molestan la luz y los ruidos. No tiene fiebre, rigidez de cuello, pérdida de conciencia ni debilidad focal.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "sintomas_asociados"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-107.antecedente.antecedentes",
+      "category": "antecedente",
+      "label": "Antecedentes personales",
+      "text": "No está embarazada, no ha sufrido traumatismos ni tiene inmunosupresión. Su madre tenía episodios de dolor de cabeza parecidos.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "antecedentes_personales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-107.medicacion.medicacion",
+      "category": "medicacion",
+      "label": "Medicación habitual",
+      "text": "Tomó paracetamol con alivio parcial; no consume analgésicos a diario ni usa anticoagulantes.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "medicacion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-107.antecedente.alergias",
+      "category": "antecedente",
+      "label": "Alergias",
+      "text": "No refiere alergias conocidas.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "alergias"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-107.anamnesis.habitos",
+      "category": "anamnesis",
+      "label": "Hábitos y entorno",
+      "text": "Durmió pocas horas durante los últimos días y omitió el desayuno.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-107.anamnesis.impacto_funcional",
+      "category": "anamnesis",
+      "label": "Impacto en las actividades diarias",
+      "text": "Durante el episodio prefiere una habitación oscura; entre episodios realiza sus actividades con normalidad.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-107.vital.signos_vitales",
+      "category": "signo_vital",
+      "label": "Signos vitales",
+      "text": "Presión arterial 118/72 mmHg; pulso 78/min; frecuencia respiratoria 16/min; temperatura 36,6 °C; saturación 99 %.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "signos_vitales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EME-107.examen.exploracion_fisica",
+      "category": "examen_fisico",
+      "label": "Exploración física",
+      "text": "Está alerta y orientada. Exploración neurológica sin déficit, fondo de ojo sin edema de papila y cuello sin rigidez.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "exploracion_fisica"
+        ]
+      }
+    }
+  ],
+  "protected": {
+    "diagnosis": {
+      "name": "Migraña sin aura",
+      "synonyms": [
+        "Crisis de migraña sin aura",
+        "Migraña común",
+        "Cefalea migrañosa sin aura"
+      ]
+    },
+    "differentials": [
+      {
+        "name": "Meningitis bacteriana aguda",
+        "must_not_miss": true,
+        "discard_evidence_ids": [
+          "EME-107.anamnesis.inicio_evolucion",
+          "EME-107.sintoma.sintomas",
+          "EME-107.examen.exploracion_fisica"
+        ]
+      },
+      {
+        "name": "Hemorragia subaracnoidea aneurismática",
+        "must_not_miss": true,
+        "discard_evidence_ids": [
+          "EME-107.anamnesis.inicio_evolucion",
+          "EME-107.sintoma.sintomas",
+          "EME-107.examen.exploracion_fisica"
+        ]
+      }
+    ],
+    "treatment_reference": {
+      "summary": "Tratamiento sintomático del episodio conforme a antecedentes y contraindicaciones; revisar frecuencia de crisis y posible necesidad de prevención.",
+      "key_actions": [
+        "Confirmar ausencia de signos de alarma.",
+        "Valorar analgesia, tratamiento específico y antiemético según evaluación.",
+        "Revisar sueño, desencadenantes y uso excesivo de medicación."
+      ]
+    },
+    "contraindications": [],
+    "evaluation": {
+      "key_questions": [
+        {
+          "id": "kq1",
+          "topic": "Inicio y evolución de las molestias",
+          "evidence_ids": [
+            "EME-107.anamnesis.inicio_evolucion"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq2",
+          "topic": "Características y síntomas asociados",
+          "evidence_ids": [
+            "EME-107.anamnesis.caracteristicas",
+            "EME-107.sintoma.sintomas"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq3",
+          "topic": "Antecedentes y medicación habitual",
+          "evidence_ids": [
+            "EME-107.antecedente.antecedentes",
+            "EME-107.medicacion.medicacion"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq4",
+          "topic": "Alergias antes de proponer tratamiento",
+          "evidence_ids": [
+            "EME-107.antecedente.alergias"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq5",
+          "topic": "Valoración de gravedad con signos vitales y exploración",
+          "evidence_ids": [
+            "EME-107.vital.signos_vitales",
+            "EME-107.examen.exploracion_fisica"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq6",
+          "topic": "Datos que permiten distinguir los diagnósticos de la familia",
+          "evidence_ids": [
+            "EME-107.anamnesis.inicio_evolucion",
+            "EME-107.sintoma.sintomas",
+            "EME-107.examen.exploracion_fisica"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        }
+      ],
+      "tests": {
+        "recommended": [
+          "signos_vitales",
+          "exploracion_fisica"
+        ],
+        "optional": [],
+        "unnecessary": []
+      }
+    }
+  },
+  "provenance": {
+    "created_by": "Codex / case_preparation.familias.ampliacion",
+    "created_at": "2026-10-16",
+    "validator_version": "1.1.0",
+    "validated_at": "2026-10-16",
+    "curated_by": "Validación automática para simulación; revisión clínica humana pendiente",
+    "curated_at": "2026-10-16",
+    "rejection_reason": null
+  }
+}

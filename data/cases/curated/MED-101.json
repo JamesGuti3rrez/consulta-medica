@@ -1,0 +1,330 @@
+{
+  "schema_version": "1.1.0",
+  "case_id": "MED-101",
+  "title": "Lucía Robles: Llevo varias semanas con cansancio que limita mi",
+  "specialty": "medicina_interna",
+  "language": "es",
+  "status": "curado",
+  "source": {
+    "dataset": "sintetico",
+    "item_id": "cansancio_persistente_adulto/hipotiroidismo",
+    "license": "CC BY 4.0",
+    "method": "generado_ia"
+  },
+  "public": {
+    "patient": {
+      "alias": "Lucía Robles",
+      "age_years": 43,
+      "sex": "femenino"
+    },
+    "chief_complaint": {
+      "evidence_id": "MED-101.motivo.queja_principal",
+      "category": "motivo",
+      "label": "Motivo de consulta",
+      "text": "Llevo varias semanas con cansancio que limita mi rendimiento habitual."
+    },
+    "items": [
+      {
+        "evidence_id": "MED-101.anamnesis.contexto_atencion",
+        "category": "anamnesis",
+        "label": "Contexto de atención",
+        "text": "Acude a valoración médica por estas molestias."
+      }
+    ],
+    "allergies_recorded": false
+  },
+  "on_request": [
+    {
+      "evidence_id": "MED-101.anamnesis.inicio_evolucion",
+      "category": "anamnesis",
+      "label": "Inicio y evolución",
+      "text": "El cansancio ha aumentado lentamente durante 4 meses; también nota que piensa más despacio.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "inicio_y_evolucion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-101.anamnesis.caracteristicas",
+      "category": "anamnesis",
+      "label": "Características de las molestias",
+      "text": "Se siente agotada incluso después de descansar y tolera peor el frío que las personas de su entorno.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "caracteristicas_sintoma"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-101.sintoma.sintomas",
+      "category": "sintoma",
+      "label": "Síntomas asociados",
+      "text": "Tiene estreñimiento, piel más seca y aumento de peso leve. No refiere sed intensa, mucha frecuencia al orinar ni sangrado.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "sintomas_asociados"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-101.antecedente.antecedentes",
+      "category": "antecedente",
+      "label": "Antecedentes personales",
+      "text": "No tiene enfermedades crónicas diagnosticadas, cirugías cervicales ni antecedentes de radioterapia.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "antecedentes_personales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-101.medicacion.medicacion",
+      "category": "medicacion",
+      "label": "Medicación habitual",
+      "text": "No toma medicación habitual, litio ni suplementos con biotina.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "medicacion"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-101.antecedente.alergias",
+      "category": "antecedente",
+      "label": "Alergias",
+      "text": "No refiere alergias conocidas.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "alergias"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-101.anamnesis.habitos",
+      "category": "anamnesis",
+      "label": "Hábitos y entorno",
+      "text": "Mantiene una alimentación variada y no ha cambiado sustancialmente su actividad física antes del inicio del cansancio.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-101.anamnesis.impacto_funcional",
+      "category": "anamnesis",
+      "label": "Impacto en las actividades diarias",
+      "text": "Le cuesta terminar su jornada de trabajo, aunque sigue siendo independiente para las actividades diarias.",
+      "reveal_policy": {
+        "owner": "paciente",
+        "mode": "al_preguntar",
+        "requires": [
+          "habitos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-101.vital.signos_vitales",
+      "category": "signo_vital",
+      "label": "Signos vitales",
+      "text": "Presión arterial 112/72 mmHg; pulso 56/min; frecuencia respiratoria 16/min; temperatura 36,2 °C; saturación 99 %.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "signos_vitales"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-101.examen.exploracion_fisica",
+      "category": "examen_fisico",
+      "label": "Exploración física",
+      "text": "Piel seca, facies discretamente abotagada y relajación lenta de reflejos osteotendinosos; no hay palidez marcada ni signos de deshidratación.",
+      "reveal_policy": {
+        "owner": "medico_asistente",
+        "mode": "al_examinar",
+        "requires": [
+          "exploracion_fisica"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-101.lab.funcion_tiroidea",
+      "category": "laboratorio",
+      "label": "Función tiroidea",
+      "text": "TSH 24 mUI/L y T4 libre 0,5 ng/dL, por debajo del intervalo de referencia del laboratorio.",
+      "reveal_policy": {
+        "owner": "laboratorio",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "funcion_tiroidea"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-101.lab.hemograma",
+      "category": "laboratorio",
+      "label": "Hemograma",
+      "text": "Hemoglobina 12,8 g/dL y volumen corpuscular medio 88 fL.",
+      "reveal_policy": {
+        "owner": "laboratorio",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "hemograma"
+        ]
+      }
+    },
+    {
+      "evidence_id": "MED-101.lab.glucosa",
+      "category": "laboratorio",
+      "label": "Glucosa en ayunas",
+      "text": "Glucosa 92 mg/dL en ayunas.",
+      "reveal_policy": {
+        "owner": "laboratorio",
+        "mode": "al_solicitar_examen",
+        "requires": [
+          "glucosa"
+        ]
+      }
+    }
+  ],
+  "protected": {
+    "diagnosis": {
+      "name": "Hipotiroidismo primario manifiesto",
+      "synonyms": [
+        "Hipofunción tiroidea primaria manifiesta",
+        "Hipotiroidismo primario",
+        "Hipotiroidismo clínico primario"
+      ]
+    },
+    "differentials": [
+      {
+        "name": "Anemia ferropénica",
+        "must_not_miss": false,
+        "discard_evidence_ids": [
+          "MED-101.sintoma.sintomas",
+          "MED-101.lab.funcion_tiroidea"
+        ]
+      },
+      {
+        "name": "Diabetes mellitus tipo 2",
+        "must_not_miss": false,
+        "discard_evidence_ids": [
+          "MED-101.sintoma.sintomas",
+          "MED-101.lab.funcion_tiroidea"
+        ]
+      }
+    ],
+    "treatment_reference": {
+      "summary": "Iniciar sustitución hormonal individualizada tras valoración clínica y programar controles bioquímicos y de síntomas.",
+      "key_actions": [
+        "Revisar factores que modifican la elección de dosis inicial.",
+        "Explicar cómo tomar el tratamiento y las interacciones relevantes.",
+        "Planificar seguimiento de la función tiroidea."
+      ]
+    },
+    "contraindications": [],
+    "evaluation": {
+      "key_questions": [
+        {
+          "id": "kq1",
+          "topic": "Inicio y evolución de las molestias",
+          "evidence_ids": [
+            "MED-101.anamnesis.inicio_evolucion"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq2",
+          "topic": "Características y síntomas asociados",
+          "evidence_ids": [
+            "MED-101.anamnesis.caracteristicas",
+            "MED-101.sintoma.sintomas"
+          ],
+          "weight": 4,
+          "critical": true,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq3",
+          "topic": "Antecedentes y medicación habitual",
+          "evidence_ids": [
+            "MED-101.antecedente.antecedentes",
+            "MED-101.medicacion.medicacion"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "anamnesis_incompleta"
+        },
+        {
+          "id": "kq4",
+          "topic": "Alergias antes de proponer tratamiento",
+          "evidence_ids": [
+            "MED-101.antecedente.alergias"
+          ],
+          "weight": 3,
+          "critical": false,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq5",
+          "topic": "Valoración de gravedad con signos vitales y exploración",
+          "evidence_ids": [
+            "MED-101.vital.signos_vitales",
+            "MED-101.examen.exploracion_fisica"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "negligencia"
+        },
+        {
+          "id": "kq6",
+          "topic": "Datos que permiten distinguir los diagnósticos de la familia",
+          "evidence_ids": [
+            "MED-101.sintoma.sintomas",
+            "MED-101.lab.funcion_tiroidea"
+          ],
+          "weight": 5,
+          "critical": true,
+          "error_if_missing": "razonamiento_clinico"
+        }
+      ],
+      "tests": {
+        "recommended": [
+          "funcion_tiroidea",
+          "hemograma",
+          "glucosa"
+        ],
+        "optional": [],
+        "unnecessary": []
+      }
+    }
+  },
+  "provenance": {
+    "created_by": "Codex / case_preparation.familias.ampliacion",
+    "created_at": "2026-10-16",
+    "validator_version": "1.1.0",
+    "validated_at": "2026-10-16",
+    "curated_by": "Validación automática para simulación; revisión clínica humana pendiente",
+    "curated_at": "2026-10-16",
+    "rejection_reason": null
+  }
+}
