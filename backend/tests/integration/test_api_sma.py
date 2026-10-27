@@ -8,6 +8,7 @@ import server.api.ai as ai_module
 from server.ai.llm.gateway import LLMGateway
 from server.ai.llm.providers import LocalDevelopmentProvider
 from server.api.ai import STORE, get_service
+from server.auth import SupabaseAuth
 from server.main import app
 
 client = TestClient(app)
@@ -24,14 +25,27 @@ def fixture_cases(monkeypatch):
     monkeypatch.setattr(ai_module, "settings", replace(ai_module.settings, rag_embedded_enabled=False, rag_service_url=""))
     # Sin LLM real aunque el .env tenga claves: la prueba no gasta cuota y su resultado no varía.
     monkeypatch.setattr(ai_module, "build_gateway", lambda: LLMGateway([LocalDevelopmentProvider()]))
+    # Sin Supabase Auth salvo en las pruebas que lo simulan: ninguna prueba sale a la red.
+    monkeypatch.setattr(ai_module, "get_session_auth", lambda: None)
     STORE.clear()
     get_service.cache_clear()
     yield
     get_service.cache_clear()
 
 
-def _send(sid: str, message: str):
-    response = client.post(f"/api/ai/sessions/{sid}/message", json={"message": message})
+def _creds(start, **headers) -> dict:
+    """Credencial para continuar la consulta (TA-017): la de capacidad del invitado y el token del alumno."""
+    token = start.json().get("session_token")
+    return {**headers, **({"X-Session-Token": token} if token else {})}
+
+
+def _auth(monkeypatch, fake) -> None:
+    monkeypatch.setattr(ai_module, "get_session_auth",
+                        lambda: SupabaseAuth("https://proyecto.supabase.co", "sb_publishable_prueba", client=fake.client()))
+
+
+def _send(sid: str, message: str, headers: dict):
+    response = client.post(f"/api/ai/sessions/{sid}/message", json={"message": message}, headers=headers)
     assert response.status_code == 200, response.text
     return response.json()
 
@@ -44,37 +58,37 @@ def test_five_agents_in_one_star_session_with_traceable_evidence():
 
     start = client.post("/api/ai/sessions", json={"case_id": "MED-900"})
     assert start.status_code == 200
-    sid = start.json()["session_id"]
+    sid, creds = start.json()["session_id"], _creds(start)
     assert start.json()["avatar_state"]["vitals"]
     assert start.json()["avatar_state"]["complications"] == []
 
-    patient = _send(sid, "¿Desde cuándo comenzó el dolor y cómo lo describiría?")
+    patient = _send(sid, "¿Desde cuándo comenzó el dolor y cómo lo describiría?", creds)
     assert patient["agent"] == "paciente"
     assert patient["evidence_ids"] == ["MED-900.anamnesis.inicio_dolor"]
     # Al paciente le habla el médico tratante con la pregunta reformulada.
     assert patient["doctor_question"]
 
-    ordered = _send(sid, "Pregúntale si tiene alergias")
+    ordered = _send(sid, "Pregúntale si tiene alergias", creds)
     assert ordered["agent"] == "paciente"
     assert ordered["doctor_question"] == "¿Tiene alergias?"
     assert ordered["evidence_ids"] == ["MED-900.anamnesis.alergias"]
 
-    lab = _send(sid, "Solicito un hemograma y análisis de sangre")
+    lab = _send(sid, "Solicito un hemograma y análisis de sangre", creds)
     assert lab["agent"] == "laboratorio"
     assert lab["evidence_ids"] == ["MED-900.laboratorio.hemograma"]
 
-    radiology = _send(sid, "Solicito una tomografía cerebral")
+    radiology = _send(sid, "Solicito una tomografía cerebral", creds)
     assert radiology["agent"] == "radiologia"
     assert radiology["evidence_ids"] == ["MED-900.imagen.tomografia_craneo"]
 
-    specialist = _send(sid, "Solicito interconsulta con neurología")
+    specialist = _send(sid, "Solicito interconsulta con neurología", creds)
     assert specialist["agent"] == "especialista"
     assert specialist["evidence_ids"] == ["MED-900.estudio.interconsulta_neurologia"]
 
-    assistant = _send(sid, "Dame un resumen de lo que sabemos del caso")
+    assistant = _send(sid, "Dame un resumen de lo que sabemos del caso", creds)
     assert assistant["agent"] == "medico_asistente"
 
-    events = client.get(f"/api/ai/sessions/{sid}/events")
+    events = client.get(f"/api/ai/sessions/{sid}/events", headers=creds)
     assert events.status_code == 200
     turns = [event for event in events.json() if event.get("type") == "turn"]
     assert [turn["agent"] for turn in turns] == [
@@ -82,11 +96,11 @@ def test_five_agents_in_one_star_session_with_traceable_evidence():
     ]
     assert all("evidence_ids" in turn for turn in turns)
 
-    state = client.get(f"/api/ai/sessions/{sid}").json()
+    state = client.get(f"/api/ai/sessions/{sid}", headers=creds).json()
     assert "MED-900.laboratorio.hemograma" in state["revealed_evidence_ids"]
     assert "MED-900.imagen.tomografia_craneo" in state["revealed_evidence_ids"]
 
-    finish = client.post(f"/api/ai/sessions/{sid}/finish")
+    finish = client.post(f"/api/ai/sessions/{sid}/finish", headers=creds)
     assert finish.status_code == 200
     assert finish.json()["phase"] == "finalizada"
     assert finish.json()["evaluation"]["total_questions"] > 0
@@ -107,15 +121,15 @@ def test_session_survives_across_instances_with_supabase_store(monkeypatch):
     new_instance()
     start = client.post("/api/ai/sessions", json={"case_id": "MED-900"})
     assert start.status_code == 200, start.text
-    sid = start.json()["session_id"]
+    sid, creds = start.json()["session_id"], _creds(start)
 
     new_instance()
-    reply = _send(sid, "Pregúntele cuándo empezó el dolor")
+    reply = _send(sid, "Pregúntele cuándo empezó el dolor", creds)
     assert reply["evidence_ids"] == ["MED-900.anamnesis.inicio_dolor"]
 
     new_instance()
-    assert client.post(f"/api/ai/sessions/{sid}/finish").status_code == 200
-    types = [event["type"] for event in client.get(f"/api/ai/sessions/{sid}/events").json()]
+    assert client.post(f"/api/ai/sessions/{sid}/finish", headers=creds).status_code == 200
+    types = [event["type"] for event in client.get(f"/api/ai/sessions/{sid}/events", headers=creds).json()]
     assert types == ["session_started", "turn", "session_finished"]
     assert fake.sessions[sid]["phase"] == "finalizada"
 
@@ -145,8 +159,9 @@ def test_llm_unavailable_returns_503_with_clear_message(monkeypatch):
 
     monkeypatch.setattr(ai_module, "build_gateway", lambda: LLMGateway([Rejected()]))
     get_service.cache_clear()
-    sid = client.post("/api/ai/sessions", json={"case_id": "MED-900"}).json()["session_id"]
-    response = client.post(f"/api/ai/sessions/{sid}/message", json={"message": "¿Desde cuándo comenzó el dolor?"})
+    start = client.post("/api/ai/sessions", json={"case_id": "MED-900"})
+    response = client.post(f"/api/ai/sessions/{start.json()['session_id']}/message",
+                           json={"message": "¿Desde cuándo comenzó el dolor?"}, headers=_creds(start))
     assert response.status_code == 503
     assert "no puede responder" in response.json()["detail"]
     assert "Invalid API Key" not in response.text
@@ -158,10 +173,13 @@ def _finished_session(monkeypatch, fake, start_token=None, **kwargs):
     attempts = SupabaseAttempts("https://proyecto.supabase.co", "sb_publishable_prueba", "sb_secret_prueba",
                                 client=fake.client())
     monkeypatch.setattr(ai_module, "get_attempts", lambda: attempts)
+    _auth(monkeypatch, fake)
     headers = {"Authorization": f"Bearer {start_token}"} if start_token else {}
-    sid = client.post("/api/ai/sessions", json={"case_id": "MED-900"}, headers=headers).json()["session_id"]
-    _send(sid, "¿Tiene alergias a algún medicamento?")
-    return sid, client.post(f"/api/ai/sessions/{sid}/finish", **kwargs)
+    start = client.post("/api/ai/sessions", json={"case_id": "MED-900"}, headers=headers)
+    sid = start.json()["session_id"]
+    _send(sid, "¿Tiene alergias a algún medicamento?", _creds(start, **headers))
+    finish_headers = {**_creds(start), **kwargs.pop("headers", {})}
+    return sid, client.post(f"/api/ai/sessions/{sid}/finish", headers=finish_headers, **kwargs)
 
 
 def test_finish_saves_the_attempt_only_for_a_signed_in_student(monkeypatch):
@@ -201,7 +219,9 @@ def test_finish_without_session_or_with_a_forged_token_saves_nothing(monkeypatch
     fake.users["token-alumno"] = "0b8f3c1e-5d4a-4f6b-9a1e-2c3d4e5f6a7b"
     _, forged = _finished_session(monkeypatch, fake, start_token="token-alumno",
                                   headers={"Authorization": "Bearer token-inventado"})
-    assert forged.json()["attempt"] == {"saved": False, "reason": "sesion_invalida"}
+    # TA-017: un token que Supabase rechaza no puede operar sobre la consulta (antes: 200 sin guardar).
+    assert forged.status_code == 401
+    assert "evaluation" not in forged.json()
     assert fake.attempts == []
 
 
@@ -217,6 +237,9 @@ def test_finish_still_returns_the_evaluation_if_supabase_fails(monkeypatch):
     attempts = SupabaseAttempts("https://proyecto.supabase.co", "sb_publishable_prueba", "sb_secret_prueba",
                                 client=fake.client())
     monkeypatch.setattr(ai_module, "get_attempts", lambda: attempts)
+    auth_fake = FakeSupabase()
+    auth_fake.users["token-alumno"] = "0b8f3c1e-5d4a-4f6b-9a1e-2c3d4e5f6a7b"
+    _auth(monkeypatch, auth_fake)
     sid = client.post("/api/ai/sessions", json={"case_id": "MED-900"},
                       headers={"Authorization": "Bearer token-alumno"}).json()["session_id"]
     fake.fail_with = 500
@@ -236,7 +259,9 @@ def test_only_the_student_who_started_the_consultation_can_save_it(monkeypatch):
     # Otro alumno con el id de la consulta no puede quedarse con el resultado.
     _, stolen = _finished_session(monkeypatch, fake, start_token="token-alumno",
                                   headers={"Authorization": "Bearer token-otro"})
-    assert stolen.json()["attempt"] == {"saved": False, "reason": "otro_usuario"}
+    # TA-017: la consulta ajena responde 404, como si no existiera (antes: 200 sin guardar).
+    assert stolen.status_code == 404
+    assert "evaluation" not in stolen.json()
 
     # Una consulta empezada sin sesión no se guarda aunque se cierre con sesión.
     _, guest_started = _finished_session(monkeypatch, fake, headers={"Authorization": "Bearer token-alumno"})
@@ -247,12 +272,18 @@ def test_only_the_student_who_started_the_consultation_can_save_it(monkeypatch):
 
 
 def test_without_history_a_signed_in_student_finishes_without_saving_or_warnings(monkeypatch):
-    # HISTORIAL_ALUMNOS=false: ni se verifica el token ni se escribe en Supabase; la hoja no muestra aviso.
+    # HISTORIAL_ALUMNOS=false: no se escribe en Supabase y la hoja no muestra aviso. El token del alumno sí
+    # se verifica: es lo que le da acceso a su consulta (TA-017).
+    from tests.fakes_supabase import FakeSupabase
+
     monkeypatch.setattr(ai_module, "settings", replace(ai_module.settings, history_enabled=False))
     ai_module.get_attempts.cache_clear()
+    fake = FakeSupabase()
+    fake.users["token-alumno"] = "0b8f3c1e-5d4a-4f6b-9a1e-2c3d4e5f6a7b"
+    _auth(monkeypatch, fake)
     headers = {"Authorization": "Bearer token-alumno"}
     sid = client.post("/api/ai/sessions", json={"case_id": "MED-900"}, headers=headers).json()["session_id"]
-    _send(sid, "¿Tiene alergias a algún medicamento?")
+    _send(sid, "¿Tiene alergias a algún medicamento?", headers)
     finish = client.post(f"/api/ai/sessions/{sid}/finish", headers=headers)
     ai_module.get_attempts.cache_clear()
 

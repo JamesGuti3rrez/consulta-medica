@@ -196,7 +196,8 @@ def test_remote_catalog_api_and_session_use_same_repository(case, monkeypatch):
         response = client.post("/api/ai/sessions", json={"case_id": "MED-900"})
         assert response.status_code == 200
         sid = response.json()["session_id"]
-        response = client.post(f"/api/ai/sessions/{sid}/message", json={"message": "Desde cuando comenzo el dolor?"})
+        response = client.post(f"/api/ai/sessions/{sid}/message", json={"message": "Desde cuando comenzo el dolor?"},
+                               headers={"X-Session-Token": response.json()["session_token"]})
         assert response.status_code == 200
         assert ai.get_service().repository is repo
     finally:
