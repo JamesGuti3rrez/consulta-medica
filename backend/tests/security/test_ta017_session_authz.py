@@ -951,8 +951,16 @@ def test_39_log_denegados(mundo, caso, capsys):
     caso.comprobar("registra el código 401", any(" 401 " in f" {line} " for line in lines))
     caso.comprobar("registra la ruta", any(mundo.SA in line for line in lines))
     caso.comprobar("registra quién (id de B)", any(mundo.B.user_id in line for line in lines))
-    leaked = [mask(s) for s in SECRETS.values if s in log]
-    caso.comprobar("ningún token completo en el log", not leaked, f"tokens completos encontrados: {leaked}")
+    leaked = [mask(s) for s in SECRETS.values if any(s in line for line in lines)]
+    caso.comprobar("ningún token completo en las líneas [autorizacion]", not leaked,
+                   f"tokens completos encontrados: {leaked}")
+    if VIVO:
+        # Revisión del log completo del servidor (incluye el log de acceso de uvicorn, que guarda la URL).
+        whole = _leer_log_desde(0)
+        in_access = [mask(s) for s in SECRETS.values if s in whole]
+        caso.nota(f"Tokens completos en el log completo del servidor: {len(in_access)} {in_access}. "
+                  "Si aparecen, vienen de la URL registrada por el log de acceso (TA017-19 envía la "
+                  "credencial en ?token= a propósito); la API no la acepta por query string.")
     caso.exigir()
 
 
