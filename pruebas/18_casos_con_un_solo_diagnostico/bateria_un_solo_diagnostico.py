@@ -73,7 +73,9 @@ def run_case(client: TestClient, case: dict, pause: float, complements: set[str]
     revealed = set(DisclosurePolicy.initial_evidence_ids(case))
     turns, problems = [], []
     for message, agent, expected in GUIONES[case_id]["preguntar"]:
-        reply = client.post(f"/api/ai/sessions/{session['session_id']}/message", json={"message": message})
+        # TA-017: la consulta de invitado se continúa con su credencial de capacidad.
+        reply = client.post(f"/api/ai/sessions/{session['session_id']}/message", json={"message": message},
+                            headers={"X-Session-Token": session["session_token"]})
         if reply.status_code != 200:
             problems.append(f"«{message}»: HTTP {reply.status_code}")
             continue
