@@ -2,9 +2,13 @@
 
 from __future__ import annotations
 
+import hashlib
+import hmac
+import re
+import secrets
 from functools import lru_cache
 
-from fastapi import APIRouter, Header, HTTPException
+from fastapi import APIRouter, Depends, Header, HTTPException, Request
 from pydantic import BaseModel, Field
 
 from server.ai.agents.base import PROMPTS_DIR
@@ -13,6 +17,7 @@ from server.ai.agents.history_composer import HistoryComposer
 from server.ai.agents.registry import build_agents
 from server.ai.llm.factory import build_gateway
 from server.ai.llm.gateway import LLMUnavailable
+from server.auth import SupabaseAuth
 from server.cases import CaseNotAvailable, CaseNotFound
 from server.cases.catalog import CURATED_CASES_DIR
 from server.cases.source import build_case_repository
@@ -63,6 +68,10 @@ def _store_unavailable(exc: SessionStoreError) -> HTTPException:
 
 
 LLM_UNAVAILABLE_DETAIL = "El simulador no puede responder en este momento. Inténtalo de nuevo en unos minutos."
+SESSION_NOT_FOUND = "Sesión no encontrada."
+UNAUTHORIZED_DETAIL = "Inicia sesión o vuelve a empezar la consulta para continuar."
+# Credencial de capacidad de las consultas de invitado: secrets.token_urlsafe(32), 256 bits en base64url.
+SESSION_TOKEN_FORMAT = re.compile(r"[A-Za-z0-9_-]{43}")
 
 
 class StartRequest(BaseModel):
@@ -94,6 +103,14 @@ def get_attempts() -> SupabaseAttempts | None:
     if not (settings.supabase_url and settings.supabase_publishable_key and settings.supabase_secret_key):
         return None
     return SupabaseAttempts(settings.supabase_url, settings.supabase_publishable_key, settings.supabase_secret_key)
+
+
+@lru_cache
+def get_session_auth() -> SupabaseAuth | None:
+    """Verificación del token del alumno con Supabase Auth; None si el servidor no tiene Supabase."""
+    if not settings.auth_enabled:
+        return None
+    return SupabaseAuth(settings.supabase_url, settings.supabase_publishable_key)
 
 
 @lru_cache
@@ -187,31 +204,75 @@ def status():
 
 
 @router.post("/sessions")
-def start(payload: StartRequest, authorization: str | None = Header(default=None)):
+def start(payload: StartRequest, request: Request, authorization: str | None = Header(default=None)):
+    owner_id = _start_owner(request, authorization)
+    # Sin alumno identificado, la consulta se protege con una credencial de capacidad de 256 bits que solo
+    # recibe quien la crea; el servidor guarda únicamente su hash.
+    session_token = None if owner_id else secrets.token_urlsafe(32)
     try:
-        return get_service().start(payload.case_id, owner_id=_student_id(authorization))
+        result = get_service().start(payload.case_id, owner_id=owner_id,
+                                     access_token_hash=_token_hash(session_token) if session_token else None)
     except (CaseNotFound, CaseNotAvailable) as exc:
         raise HTTPException(status_code=404, detail="Caso no encontrado o no disponible.") from exc
     except SessionStoreError as exc:
         raise _store_unavailable(exc) from exc
+    if session_token:
+        result["session_token"] = session_token
+    return result
 
 
-@router.get("/sessions/{session_id}")
+def authorize_session(
+    session_id: str,
+    request: Request,
+    authorization: str | None = Header(default=None),
+    x_session_token: str | None = Header(default=None),
+) -> str | None:
+    """Política de TA-017 para toda operación sobre una sesión; devuelve el id del alumno, si lo hay.
+
+    - Sin credencial, o con una malformada o que Supabase rechaza: 401, antes de buscar la sesión.
+    - Sesión de un alumno: solo su propio token (Authorization: Bearer) la abre.
+    - Sesión de invitado: solo la credencial de capacidad que recibió al crearla (X-Session-Token).
+    - Sesión ajena o inexistente: el mismo 404, para no revelar qué sesiones existen.
+    """
+    token = _bearer_token(request, authorization)
+    if x_session_token is not None and not SESSION_TOKEN_FORMAT.fullmatch(x_session_token):
+        raise _deny(request, 401, "credencial_malformada", f"capacidad={_mask(x_session_token)}")
+    if token is None and x_session_token is None:
+        raise _deny(request, 401, "sin_credencial", "anonimo")
+    user_id = _verified_user(request, token) if token else None
+    who = f"usuario={user_id}" if user_id else f"capacidad={_mask(x_session_token)}"
+    try:
+        owner_id, token_hash = get_service().access_of(session_id)
+    except SessionNotFound as exc:
+        raise _deny(request, 404, "inexistente", who) from exc
+    except SessionStoreError as exc:
+        raise _store_unavailable(exc) from exc
+    if owner_id:
+        allowed = user_id == owner_id
+    else:
+        allowed = bool(token_hash and x_session_token
+                       and hmac.compare_digest(token_hash, _token_hash(x_session_token)))
+    if not allowed:
+        raise _deny(request, 404, "ajena", who)
+    return user_id
+
+
+@router.get("/sessions/{session_id}", dependencies=[Depends(authorize_session)])
 def get_session(session_id: str):
     try:
         return get_service().get(session_id)
     except SessionNotFound as exc:
-        raise HTTPException(status_code=404, detail="Sesión no encontrada.") from exc
+        raise HTTPException(status_code=404, detail=SESSION_NOT_FOUND) from exc
     except SessionStoreError as exc:
         raise _store_unavailable(exc) from exc
 
 
-@router.post("/sessions/{session_id}/message")
+@router.post("/sessions/{session_id}/message", dependencies=[Depends(authorize_session)])
 def message(session_id: str, payload: MessageRequest):
     try:
         return get_service().message(session_id, payload.message)
     except SessionNotFound as exc:
-        raise HTTPException(status_code=404, detail="Sesión no encontrada.") from exc
+        raise HTTPException(status_code=404, detail=SESSION_NOT_FOUND) from exc
     except SessionStoreError as exc:
         raise _store_unavailable(exc) from exc
     except LLMUnavailable as exc:
@@ -228,17 +289,17 @@ def message(session_id: str, payload: MessageRequest):
         raise HTTPException(status_code=409, detail=str(exc)) from exc
 
 
-@router.get("/sessions/{session_id}/events")
+@router.get("/sessions/{session_id}/events", dependencies=[Depends(authorize_session)])
 def events(session_id: str):
     try:
         return get_service().events(session_id)
     except SessionNotFound as exc:
-        raise HTTPException(status_code=404, detail="Sesión no encontrada.") from exc
+        raise HTTPException(status_code=404, detail=SESSION_NOT_FOUND) from exc
     except SessionStoreError as exc:
         raise _store_unavailable(exc) from exc
 
 
-@router.post("/sessions/{session_id}/finish")
+@router.post("/sessions/{session_id}/finish", dependencies=[Depends(authorize_session)])
 def finish(session_id: str, payload: FinishRequest | None = None, authorization: str | None = Header(default=None)):
     try:
         service = get_service()
@@ -246,7 +307,7 @@ def finish(session_id: str, payload: FinishRequest | None = None, authorization:
         result["attempt"] = _save_attempt(service, result, payload or FinishRequest(), authorization)
         return result
     except SessionNotFound as exc:
-        raise HTTPException(status_code=404, detail="Sesión no encontrada.") from exc
+        raise HTTPException(status_code=404, detail=SESSION_NOT_FOUND) from exc
     except SessionStoreError as exc:
         raise _store_unavailable(exc) from exc
 
@@ -297,17 +358,57 @@ def _bearer(authorization: str | None) -> str:
     return (authorization or "").removeprefix("Bearer ").strip()
 
 
-def _student_id(authorization: str | None) -> str | None:
-    """Id del alumno con sesión iniciada al empezar la consulta; None si es invitado o el token no vale.
+def _token_hash(session_token: str) -> str:
+    return hashlib.sha256(session_token.encode("utf-8")).hexdigest()
 
-    Iniciar la consulta nunca falla por esto: si Supabase no responde, la consulta sigue sin dueño.
+
+def _mask(secret: str | None) -> str:
+    """Para los registros: nunca se escribe una credencial completa."""
+    if not secret:
+        return "ninguna"
+    return f"{secret[:6]}…{secret[-4:]}" if len(secret) > 12 else "…"
+
+
+def _deny(request: Request, status: int, reason: str, who: str) -> HTTPException:
+    print(f"[autorizacion] {status} {request.method} {request.url.path} {who} motivo={reason}")
+    return HTTPException(status_code=status, detail=SESSION_NOT_FOUND if status == 404 else UNAUTHORIZED_DETAIL)
+
+
+def _bearer_token(request: Request, authorization: str | None) -> str | None:
+    """Token de Supabase de la cabecera Authorization; 401 si llega con otro esquema o vacía."""
+    if authorization is None:
+        return None
+    scheme, _, token = authorization.partition(" ")
+    if scheme.casefold() != "bearer" or not token.strip() or len(token) > 8192:
+        raise _deny(request, 401, "esquema_invalido", f"autorizacion={_mask(authorization)}")
+    return token.strip()
+
+
+def _verified_user(request: Request, token: str) -> str:
+    auth = get_session_auth()
+    if auth is None:
+        raise _deny(request, 401, "auth_no_configurada", f"token={_mask(token)}")
+    try:
+        return auth.verify(token).id
+    except HTTPException as exc:
+        if exc.status_code == 401:
+            raise _deny(request, 401, "token_rechazado", f"token={_mask(token)}") from exc
+        raise
+
+
+def _start_owner(request: Request, authorization: str | None) -> str | None:
+    """Alumno que inicia la consulta; None si es invitado.
+
+    Un token rechazado por Supabase es un 401. Si Supabase no responde, la consulta empieza como de invitado,
+    con su credencial de capacidad, en lugar de fallar.
     """
-    token = _bearer(authorization)
-    attempts = get_attempts() if token else None
-    if attempts is None:
+    token = _bearer_token(request, authorization)
+    if token is None or get_session_auth() is None:
         return None
     try:
-        return attempts.user_id(token)
-    except AttemptStoreError as exc:
-        print(f"[intentos] {exc}")
+        return _verified_user(request, token)
+    except HTTPException as exc:
+        if exc.status_code == 401:
+            raise
+        print("[autorizacion] Supabase Auth no respondió al iniciar: la consulta empieza como de invitado")
         return None

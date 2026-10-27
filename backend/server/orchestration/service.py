@@ -35,7 +35,7 @@ class MultiAgentSessionService:
         self.safety_engine = safety_engine
         self.evaluation_engine = evaluation_engine
 
-    def start(self, case_id: str, owner_id: str | None = None) -> dict:
+    def start(self, case_id: str, owner_id: str | None = None, access_token_hash: str | None = None) -> dict:
         case = self.repository.get_conversation_case(case_id)
         state = {
             "session_id": str(uuid4()),
@@ -48,6 +48,8 @@ class MultiAgentSessionService:
             "evaluation": None,
             # Alumno con sesión iniciada que empezó la consulta: solo él puede guardarla. No es público.
             "owner_id": owner_id,
+            # Consulta de invitado: hash SHA-256 de su credencial de capacidad (TA-017). Tampoco es público.
+            "access_token_hash": access_token_hash,
             "history": [],
             "started_at": _now(),
             "updated_at": _now(),
@@ -191,6 +193,11 @@ class MultiAgentSessionService:
 
     def owner_of(self, session_id: str) -> str | None:
         return self.store.get(session_id).get("owner_id")
+
+    def access_of(self, session_id: str) -> tuple[str | None, str | None]:
+        """Dueño registrado y hash de la credencial de invitado, para autorizar cada operación."""
+        state = self.store.get(session_id)
+        return state.get("owner_id"), state.get("access_token_hash")
 
     def attach_attempt(self, session_id: str, attempt_id: str) -> None:
         """Recuerda el intento guardado del alumno para no guardarlo dos veces."""
