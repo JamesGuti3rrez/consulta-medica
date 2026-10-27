@@ -536,8 +536,9 @@ def test_18_credencial_alterada(mundo, caso):
               "incorrectos) responden 401 sin consultar la sesión.")
     token = mundo.token_SN1 or ""
     altered = _alterar(token) if token else "credencial-ausente"
-    SECRETS.add(altered)
-    response = mundo.call("GET", f"/api/ai/sessions/{mundo.SN2}", {SESSION_HEADER: _alterar(mundo.token_SN2 or "x" * 43)})
+    altered_sn2 = _alterar(mundo.token_SN2 or "x" * 43)
+    SECRETS.add(altered, altered_sn2)
+    response = mundo.call("GET", f"/api/ai/sessions/{mundo.SN2}", {SESSION_HEADER: altered_sn2})
     caso.paso(mundo.anon2.nombre + " (credencial alterada)", response, {NOT_FOUND}, "leer SN2 con su credencial alterada")
     response = mundo.call("GET", f"/api/ai/sessions/{mundo.SN1}", {SESSION_HEADER: altered})
     caso.paso(mundo.anon1.nombre + " (credencial alterada)", response, {NOT_FOUND}, "leer SN1 con la credencial alterada")
