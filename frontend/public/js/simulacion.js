@@ -100,6 +100,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   let finalTranscript = '';
   let studentPreview = null;
   let aiSessionId = null;
+  // Credencial de capacidad de una consulta de invitado: solo vive en memoria y se envía en cada petición.
+  let aiSessionToken = null;
   let hypotheses = [];
   let discardingIndex = null;
   let consultationClosed = false;
@@ -349,10 +351,23 @@ document.addEventListener('DOMContentLoaded', async () => {
         headers,
         body: JSON.stringify({ case_id: caseId }),
       });
-      return response.ok ? (await response.json()).session_id : null;
+      if (!response.ok) return null;
+      const body = await response.json();
+      aiSessionToken = body.session_token || null;
+      return body.session_id;
     } catch {
       return null;
     }
+  };
+
+  // Cada petición sobre la consulta lleva la sesión del alumno o la credencial del invitado: el servidor
+  // solo atiende a quien la empezó.
+  const conversationHeaders = async () => {
+    const headers = { 'Content-Type': 'application/json' };
+    const token = await accessToken();
+    if (token) headers.Authorization = `Bearer ${token}`;
+    if (aiSessionToken) headers['X-Session-Token'] = aiSessionToken;
+    return headers;
   };
 
   const startSimulation = async ({ another = false } = {}) => {
@@ -440,7 +455,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
       const response = await fetch(`/api/ai/sessions/${encodeURIComponent(aiSessionId)}/message`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: await conversationHeaders(),
         body: JSON.stringify({ message: question }),
       });
       if (!response.ok) {
@@ -865,12 +880,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (aiSessionId) {
       // Con la sesión iniciada se envía su token: el servidor lo comprueba y guarda la consulta en
       // «Mis simulaciones». Sin sesión la consulta termina igual, pero no se guarda.
-      const headers = { 'Content-Type': 'application/json' };
-      const token = await accessToken();
-      if (token) headers.Authorization = `Bearer ${token}`;
       const response = await fetch(`/api/ai/sessions/${encodeURIComponent(aiSessionId)}/finish`, {
         method: 'POST',
-        headers,
+        headers: await conversationHeaders(),
         body: JSON.stringify({
           diagnosis,
           hypotheses: hypotheses.map(({ name, discarded, reason }) => ({ name, discarded, reason: reason || '' })),
@@ -908,6 +920,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     hideEvaluation();
     aiSessionId = null;
+    aiSessionToken = null;
     isRunning = false;
     [saveDiagnosis, diagnosisMic, hypothesisInput, hypothesisMic, addHypothesisButton].forEach(element => {
       if (element) element.disabled = false;
