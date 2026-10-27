@@ -1,0 +1,17 @@
+{
+  "id": "TA017-40",
+  "nombre": "stream_no_existe",
+  "titulo": "Stream SSE/websocket (no aplica)",
+  "criterio": "CA1",
+  "resultado_esperado": "No hay stream de eventos: 404/405 al intentar conectar, con o sin credencial",
+  "resultado": "FALLA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_antes",
+  "commit": "0ef9e0e",
+  "fecha": "2026-10-27 02:53:52 UTC",
+  "pasos": [],
+  "comprobaciones": [],
+  "notas": [],
+  "error": "Falló la preparación: E   httpcore.ConnectError: [Errno 11001] getaddrinfo failed\n\nThe above exception was the direct cause of the following exception:\nE   httpx.ConnectError: [Errno 11001] getaddrinfo failed"
+}

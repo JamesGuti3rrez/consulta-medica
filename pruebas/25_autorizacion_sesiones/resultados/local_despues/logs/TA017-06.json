@@ -1,0 +1,57 @@
+{
+  "id": "TA017-06",
+  "nombre": "A_cierra_SA",
+  "titulo": "A cierra SA",
+  "criterio": "CA1, CA4",
+  "resultado_esperado": "200, fase finalizada y evaluación",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_despues",
+  "commit": "c752abe",
+  "fecha": "2026-10-27 03:23:00 UTC",
+  "pasos": [
+    {
+      "descripcion": "cerrar SA",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/9ef3442c-0439-46c6-8142-dfea701a5c5b/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…v27c",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "diagnosis": "Diagnóstico de A",
+        "hypotheses": [
+          {
+            "name": "Hipótesis de A",
+            "discarded": false
+          }
+        ]
+      },
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"case_id\":\"MED-900\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\",\"MED-900.anamnesis.inicio_dolor\",\"MED-900.laboratorio.hemograma\",\"MED-900.medicacion.paracetamol\",\"MED-900.anamnesis.alergias\"],\"started_at\":\"2026-10-27T03:22:28.975757+00:00\",\"updated_at\":\"2026-10-27T03:23:00.832797+00:00\",\"active_agent\":\"orchestrator\",\"finished_at\":\"2026-10-27T03:23:00.832817+00:00\",\"phase\":\"finalizada\",\"session_id\":\"9ef3442c-0439-46c6-8142-dfea701a5c5b\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":{\"score\":64.29,\"earned_weight\":9,\"total_weight\":14,\"completed_questions\":2,\"total_questions\":3,\"errors\":{\"negligencia\":1,\"anamnesis_incompleta\":0,\"razonamiento_clinico\":0}},\"attempt\":{\"saved\":true,\"id\":\"intento-1\"}}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "fase finalizada",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "trae evaluación",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

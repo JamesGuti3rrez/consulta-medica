@@ -1,0 +1,148 @@
+{
+  "id": "TA017-20",
+  "nombre": "credencial_otra_sesion",
+  "titulo": "Credencial de SN1 usada en otra sesión",
+  "criterio": "CA3",
+  "resultado_esperado": "404 en SN2; crear sesión con ella da una sesión nueva con credencial propia",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_despues",
+  "commit": "c752abe",
+  "fecha": "2026-10-27 03:22:51 UTC",
+  "pasos": [
+    {
+      "descripcion": "leer sesión de SN2",
+      "identidad": "Anónimo 1 + credencial de capacidad",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/130cd413-0d2d-4cbc-8405-a7b7cb8d7f90",
+      "cabeceras": {
+        "x-session-token": "puUeak…mvhA"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "enviar mensaje de SN2",
+      "identidad": "Anónimo 1 + credencial de capacidad",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/130cd413-0d2d-4cbc-8405-a7b7cb8d7f90/message",
+      "cabeceras": {
+        "x-session-token": "puUeak…mvhA",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "listar eventos de SN2",
+      "identidad": "Anónimo 1 + credencial de capacidad",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/130cd413-0d2d-4cbc-8405-a7b7cb8d7f90/events",
+      "cabeceras": {
+        "x-session-token": "puUeak…mvhA"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "cerrar sesión de SN2",
+      "identidad": "Anónimo 1 + credencial de capacidad",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/130cd413-0d2d-4cbc-8405-a7b7cb8d7f90/finish",
+      "cabeceras": {
+        "x-session-token": "puUeak…mvhA",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "diagnosis": "intento ajeno",
+        "hypotheses": []
+      },
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "crear sesión presentando la credencial de SN1",
+      "identidad": "Anónimo 1 + credencial de SN1",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions",
+      "cabeceras": {
+        "x-session-token": "puUeak…mvhA",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "case_id": "MED-900"
+      },
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"case_id\":\"MED-900\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"],\"started_at\":\"2026-10-27T03:22:51.387073+00:00\",\"updated_at\":\"2026-10-27T03:22:51.387093+00:00\",\"active_agent\":\"medico_asistente\",\"finished_at\":null,\"phase\":\"presentacion\",\"session_id\":\"20829ad3-be63-4c39-88d5-5d4f5deb347a\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null,\"session_token\":\"0qK8-U…rkYs\"}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "leer la sesión nueva con la credencial de SN1",
+      "identidad": "Anónimo 1 + credencial de SN1",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/20829ad3-be63-4c39-88d5-5d4f5deb347a",
+      "cabeceras": {
+        "x-session-token": "puUeak…mvhA"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "la sesión nueva tiene credencial propia",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

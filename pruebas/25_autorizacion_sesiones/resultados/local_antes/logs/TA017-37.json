@@ -1,0 +1,250 @@
+{
+  "id": "TA017-37",
+  "nombre": "errores_sin_detalles",
+  "titulo": "Errores sin detalles internos",
+  "criterio": "CA2, CA4",
+  "resultado_esperado": "Ningún error con stack trace, SQL, rutas internas, claves ni ids de otros usuarios",
+  "resultado": "FALLA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_antes",
+  "commit": "0ef9e0e",
+  "fecha": "2026-10-27 02:53:14 UTC",
+  "pasos": [
+    {
+      "descripcion": "GET /api/ai/sessions/943e4bfe-35dc-484c-b400-c233560db151",
+      "identidad": "Sin credencial",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/943e4bfe-35dc-484c-b400-c233560db151",
+      "cabeceras": {},
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\",\"MED-900.anamnesis.inicio_dolor\",\"MED-900.laboratorio.hemograma\",\"MED-900.medicacion.paracetamol\",\"MED-900.anamnesis.alergias\"],\"session_id\":\"943e4bfe-35dc-484c-b400-c233560db151\",\"active_agent\":\"orchestrator\",\"updated_at\":\"2026-10-27T02:53:03.839716+00:00\",\"finished_at\":\"2026-10-27T02:53:03.839739+00:00\",\"phase\":\"finalizada\",\"started_at\":\"2026-10-27T02:52:37.006068+00:00\",\"case_id\":\"MED-900\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":{\"score\":64.29,\"earned_weight\":9,\"total_weight\":14,\"completed_questions\":2,\"total_questions\":3,\"errors\":{\"negligencia\":1,\"anamnesis_incompleta\":0,\"razonamiento_clinico\":0}},\"attempt_id\":\"intento-1\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "GET /api/ai/sessions/943e4bfe-35dc-484c-b400-c233560db151",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/943e4bfe-35dc-484c-b400-c233560db151",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…jAJA"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\",\"MED-900.anamnesis.inicio_dolor\",\"MED-900.laboratorio.hemograma\",\"MED-900.medicacion.paracetamol\",\"MED-900.anamnesis.alergias\"],\"session_id\":\"943e4bfe-35dc-484c-b400-c233560db151\",\"active_agent\":\"orchestrator\",\"updated_at\":\"2026-10-27T02:53:03.839716+00:00\",\"finished_at\":\"2026-10-27T02:53:03.839739+00:00\",\"phase\":\"finalizada\",\"started_at\":\"2026-10-27T02:52:37.006068+00:00\",\"case_id\":\"MED-900\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":{\"score\":64.29,\"earned_weight\":9,\"total_weight\":14,\"completed_questions\":2,\"total_questions\":3,\"errors\":{\"negligencia\":1,\"anamnesis_incompleta\":0,\"razonamiento_clinico\":0}},\"attempt_id\":\"intento-1\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "POST /api/ai/sessions/943e4bfe-35dc-484c-b400-c233560db151/message",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/943e4bfe-35dc-484c-b400-c233560db151/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…jAJA",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 409,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"La sesión ya finalizó.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "POST /api/ai/sessions/943e4bfe-35dc-484c-b400-c233560db151/message",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/943e4bfe-35dc-484c-b400-c233560db151/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…33Ms",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 409,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"La sesión ya finalizó.\"}",
+      "codigo_esperado": [
+        409
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "POST /api/ai/sessions/943e4bfe-35dc-484c-b400-c233560db151/message",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/943e4bfe-35dc-484c-b400-c233560db151/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…33Ms",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "a"
+      },
+      "codigo_recibido": 422,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":[{\"type\":\"string_too_short\",\"loc\":[\"body\",\"message\"],\"msg\":\"String should have at least 2 characters\",\"input\":\"a\",\"ctx\":{\"min_length\":2}}]}",
+      "codigo_esperado": [
+        401,
+        404,
+        409,
+        422
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "GET /api/ai/sessions/1'%20OR%20'1'%3D'1",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/1'%20OR%20'1'%3D'1",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…33Ms"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        400,
+        401,
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "GET /api/ai/sessions/943e4bfe-35dc-484c-b400-c233560db151",
+      "identidad": "Bearer abc",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/943e4bfe-35dc-484c-b400-c233560db151",
+      "cabeceras": {
+        "authorization": "Bearer abc"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\",\"MED-900.anamnesis.inicio_dolor\",\"MED-900.laboratorio.hemograma\",\"MED-900.medicacion.paracetamol\",\"MED-900.anamnesis.alergias\"],\"session_id\":\"943e4bfe-35dc-484c-b400-c233560db151\",\"active_agent\":\"orchestrator\",\"updated_at\":\"2026-10-27T02:53:03.839716+00:00\",\"finished_at\":\"2026-10-27T02:53:03.839739+00:00\",\"phase\":\"finalizada\",\"started_at\":\"2026-10-27T02:52:37.006068+00:00\",\"case_id\":\"MED-900\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":{\"score\":64.29,\"earned_weight\":9,\"total_weight\":14,\"completed_questions\":2,\"total_questions\":3,\"errors\":{\"negligencia\":1,\"anamnesis_incompleta\":0,\"razonamiento_clinico\":0}},\"attempt_id\":\"intento-1\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "GET /api/ai/sessions/317eb9f6-b3b4-4587-95c4-1048f558b0cb",
+      "identidad": "Credencial malformada",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/317eb9f6-b3b4-4587-95c4-1048f558b0cb",
+      "cabeceras": {
+        "x-session-token": "abc"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\",\"MED-900.medicacion.paracetamol\",\"MED-900.anamnesis.alergias\"],\"session_id\":\"317eb9f6-b3b4-4587-95c4-1048f558b0cb\",\"active_agent\":\"orchestrator\",\"updated_at\":\"2026-10-27T02:53:09.355021+00:00\",\"finished_at\":\"2026-10-27T02:53:09.355048+00:00\",\"phase\":\"finalizada\",\"started_at\":\"2026-10-27T02:52:37.054440+00:00\",\"case_id\":\"MED-900\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":{\"score\":28.57,\"earned_weight\":4,\"total_weight\":14,\"completed_questions\":1,\"total_questions\":3,\"errors\":{\"negligencia\":1,\"anamnesis_incompleta\":1,\"razonamiento_clinico\":0}}}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "POST /api/ai/sessions",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…33Ms",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "case_id": "NO-EXISTE"
+      },
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Caso no encontrado o no disponible.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "GET /api/ai/sessions/943e4bfe-35dc-484c-b400-c233560db151: sin detalles internos",
+      "resultado": "PASA",
+      "detalle": "encontrado: []"
+    },
+    {
+      "descripcion": "GET /api/ai/sessions/943e4bfe-35dc-484c-b400-c233560db151: sin detalles internos",
+      "resultado": "PASA",
+      "detalle": "encontrado: []"
+    },
+    {
+      "descripcion": "POST /api/ai/sessions/943e4bfe-35dc-484c-b400-c233560db151/messag: sin detalles internos",
+      "resultado": "PASA",
+      "detalle": "encontrado: []"
+    },
+    {
+      "descripcion": "POST /api/ai/sessions/943e4bfe-35dc-484c-b400-c233560db151/messag: sin detalles internos",
+      "resultado": "PASA",
+      "detalle": "encontrado: []"
+    },
+    {
+      "descripcion": "POST /api/ai/sessions/943e4bfe-35dc-484c-b400-c233560db151/messag: sin detalles internos",
+      "resultado": "PASA",
+      "detalle": "encontrado: []"
+    },
+    {
+      "descripcion": "GET /api/ai/sessions/1'%20OR%20'1'%3D'1: sin detalles internos",
+      "resultado": "PASA",
+      "detalle": "encontrado: []"
+    },
+    {
+      "descripcion": "GET /api/ai/sessions/943e4bfe-35dc-484c-b400-c233560db151: sin detalles internos",
+      "resultado": "PASA",
+      "detalle": "encontrado: []"
+    },
+    {
+      "descripcion": "GET /api/ai/sessions/317eb9f6-b3b4-4587-95c4-1048f558b0cb: sin detalles internos",
+      "resultado": "PASA",
+      "detalle": "encontrado: []"
+    },
+    {
+      "descripcion": "POST /api/ai/sessions: sin detalles internos",
+      "resultado": "PASA",
+      "detalle": "encontrado: []"
+    }
+  ],
+  "notas": [],
+  "error": "E   AssertionError: TA017-37: paso 1 (GET http://testserver/api/ai/sessions/943e4bfe-35dc-484c-b400-c233560db151): 200 no está en [401] | paso 2 (GET http://testserver/api/ai/sessions/943e4bfe-35dc-484c-b400-c233560db151): 200 no está en [404] | paso 3 (POST http://testserver/api/ai/sessions/943e4bfe-35dc-484c-b400-c233560db151/message): 409 no está en [404] | paso 7 (GET http://testserver/api/ai/sessions/943e4bfe-35dc-484c-b400-c233560db151): 200 no está en [401] | paso 8 (GET http://testserver/api/ai/sessions/317eb9f6-b3b4-4587-95c4-1048f558b0cb): 200 no está en [401]"
+}

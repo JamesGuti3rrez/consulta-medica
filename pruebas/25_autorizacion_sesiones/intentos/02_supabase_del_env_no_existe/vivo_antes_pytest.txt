@@ -1,0 +1,58 @@
+﻿FASE: vivo_antes
+MODO: vivo
+SERVIDOR: http://127.0.0.1:3100
+DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica\backend
+COMANDO: .venv\Scripts\python.exe -m pytest tests/security/test_ta017_session_authz.py -v --tb=no -rN -p no:cacheprovider
+COMMIT: 0ef9e0e
+FECHA: 2026-10-27 02:53:46 UTC
+CODIGO_SALIDA: 1
+
+============================= test session starts =============================
+platform win32 -- Python 3.14.4, pytest-8.3.4, pluggy-1.6.0 -- C:\Users\Usuario\Documents\consulta-medica\backend\.venv\Scripts\python.exe
+rootdir: C:\Users\Usuario\Documents\consulta-medica\backend
+configfile: pyproject.toml
+plugins: anyio-4.15.1, langsmith-0.14.7
+collecting ... collected 40 items
+
+tests/security/test_ta017_session_authz.py::test_01_a_crea_sesion ERROR  [  2%]
+tests/security/test_ta017_session_authz.py::test_02_a_lee_sa ERROR       [  5%]
+tests/security/test_ta017_session_authz.py::test_03_a_envia_mensaje ERROR [  7%]
+tests/security/test_ta017_session_authz.py::test_04_a_lista_eventos ERROR [ 10%]
+tests/security/test_ta017_session_authz.py::test_05_registrar_evento_no_existe ERROR [ 12%]
+tests/security/test_ta017_session_authz.py::test_07_anonimo_recibe_credencial ERROR [ 15%]
+tests/security/test_ta017_session_authz.py::test_08_anonimo_opera_su_sesion ERROR [ 17%]
+tests/security/test_ta017_session_authz.py::test_09_no_hay_rutas_adicionales ERROR [ 20%]
+tests/security/test_ta017_session_authz.py::test_10_b_sobre_sa ERROR     [ 22%]
+tests/security/test_ta017_session_authz.py::test_11_sin_fugas ERROR      [ 25%]
+tests/security/test_ta017_session_authz.py::test_12_sa_intacta ERROR     [ 27%]
+tests/security/test_ta017_session_authz.py::test_13_b_no_cierra ERROR    [ 30%]
+tests/security/test_ta017_session_authz.py::test_14_no_enumeracion ERROR [ 32%]
+tests/security/test_ta017_session_authz.py::test_15_anonimo2_sobre_sn1 ERROR [ 35%]
+tests/security/test_ta017_session_authz.py::test_16_anonimo1_sobre_sa ERROR [ 37%]
+tests/security/test_ta017_session_authz.py::test_17_registrado_sobre_anonima ERROR [ 40%]
+tests/security/test_ta017_session_authz.py::test_18_credencial_alterada ERROR [ 42%]
+tests/security/test_ta017_session_authz.py::test_19_credencial_en_query ERROR [ 45%]
+tests/security/test_ta017_session_authz.py::test_20_credencial_otra_sesion ERROR [ 47%]
+tests/security/test_ta017_session_authz.py::test_21_sin_credencial ERROR [ 50%]
+tests/security/test_ta017_session_authz.py::test_22_token_malformado ERROR [ 52%]
+tests/security/test_ta017_session_authz.py::test_23_firma_alterada ERROR [ 55%]
+tests/security/test_ta017_session_authz.py::test_24_jwt_vencido ERROR    [ 57%]
+tests/security/test_ta017_session_authz.py::test_25_esquema_incorrecto ERROR [ 60%]
+tests/security/test_ta017_session_authz.py::test_26_solo_anon_key ERROR  [ 62%]
+tests/security/test_ta017_session_authz.py::test_27_session_id_en_cuerpo ERROR [ 65%]
+tests/security/test_ta017_session_authz.py::test_28_owner_en_cuerpo ERROR [ 67%]
+tests/security/test_ta017_session_authz.py::test_29_ids_raros ERROR      [ 70%]
+tests/security/test_ta017_session_authz.py::test_06_a_cierra_sa ERROR    [ 72%]
+tests/security/test_ta017_session_authz.py::test_30_mensaje_cerrada ERROR [ 75%]
+tests/security/test_ta017_session_authz.py::test_31_evento_cerrada ERROR [ 77%]
+tests/security/test_ta017_session_authz.py::test_32_cerrar_dos_veces ERROR [ 80%]
+tests/security/test_ta017_session_authz.py::test_33_b_sobre_cerrada ERROR [ 82%]
+tests/security/test_ta017_session_authz.py::test_34_rls_lectura ERROR    [ 85%]
+tests/security/test_ta017_session_authz.py::test_35_rls_escritura ERROR  [ 87%]
+tests/security/test_ta017_session_authz.py::test_36_rls_anon ERROR       [ 90%]
+tests/security/test_ta017_session_authz.py::test_37_errores_limpios ERROR [ 92%]
+tests/security/test_ta017_session_authz.py::test_38_cors ERROR           [ 95%]
+tests/security/test_ta017_session_authz.py::test_39_log_denegados ERROR  [ 97%]
+tests/security/test_ta017_session_authz.py::test_40_stream ERROR         [100%]
+
+============================= 40 errors in 4.77s ==============================

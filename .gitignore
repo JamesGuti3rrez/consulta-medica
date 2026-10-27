@@ -63,3 +63,6 @@ pruebas/**/*.jpeg
 
 .vercel
 .env.local
+
+# TA-017, intento 3: evidencia con una credencial alterada sin enmascarar; solo en el equipo
+pruebas/25_autorizacion_sesiones/intentos/03_credencial_alterada_sin_enmascarar/resultados_local_despues/

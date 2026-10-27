@@ -1,0 +1,155 @@
+{
+  "id": "TA017-18",
+  "nombre": "credencial_alterada",
+  "titulo": "Credencial de SN1 alterada o malformada",
+  "criterio": "CA3, CA4",
+  "resultado_esperado": "Alterada en un carácter: 404 (decisión de la política); malformada: 401",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_despues",
+  "commit": "c752abe",
+  "fecha": "2026-10-27 03:22:51 UTC",
+  "pasos": [
+    {
+      "descripcion": "leer SN2 con su credencial alterada",
+      "identidad": "Anónimo 2 (credencial alterada)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/130cd413-0d2d-4cbc-8405-a7b7cb8d7f90",
+      "cabeceras": {
+        "x-session-token": "jsjZay…tkMg"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "leer SN1 con la credencial alterada",
+      "identidad": "Anónimo 1 (credencial alterada)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/761c324e-f3b4-4bbd-add9-e1ac7f5b2e5f",
+      "cabeceras": {
+        "x-session-token": "puUeak…mvhA"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "leer SN2 con credencial muy corta",
+      "identidad": "credencial muy corta",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/130cd413-0d2d-4cbc-8405-a7b7cb8d7f90",
+      "cabeceras": {
+        "x-session-token": "abc"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "leer SN2 con credencial muy larga",
+      "identidad": "credencial muy larga",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/130cd413-0d2d-4cbc-8405-a7b7cb8d7f90",
+      "cabeceras": {
+        "x-session-token": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "leer SN2 con credencial con espacios",
+      "identidad": "credencial con espacios",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/130cd413-0d2d-4cbc-8405-a7b7cb8d7f90",
+      "cabeceras": {
+        "x-session-token": "abc def ghi jkl mno pqr stu"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "leer SN2 con credencial caracteres no permitidos",
+      "identidad": "credencial caracteres no permitidos",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/130cd413-0d2d-4cbc-8405-a7b7cb8d7f90",
+      "cabeceras": {
+        "x-session-token": "<script>alert(1)</script>aaaaaaaaaaaaaaaaaaaa"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "credencial muy corta: sin datos de SN2",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "credencial muy larga: sin datos de SN2",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "credencial con espacios: sin datos de SN2",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "credencial caracteres no permitidos: sin datos de SN2",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [
+    "Decisión: una credencial bien formada pero que no corresponde a la sesión responde 404, igual que una sesión inexistente, para no ofrecer un oráculo. Las malformadas (largo o alfabeto incorrectos) responden 401 sin consultar la sesión."
+  ],
+  "error": ""
+}

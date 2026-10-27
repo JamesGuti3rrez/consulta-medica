@@ -1,0 +1,71 @@
+{
+  "id": "TA017-13",
+  "nombre": "B_cierra_SA",
+  "titulo": "B intenta cerrar SA",
+  "criterio": "CA1, CA2",
+  "resultado_esperado": "404 y SA sigue abierta",
+  "resultado": "FALLA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_antes",
+  "commit": "0ef9e0e",
+  "fecha": "2026-10-27 02:53:04 UTC",
+  "pasos": [
+    {
+      "descripcion": "cerrar SA",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/943e4bfe-35dc-484c-b400-c233560db151/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…jAJA",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "diagnosis": "cerrado por B",
+        "hypotheses": []
+      },
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\",\"MED-900.anamnesis.inicio_dolor\",\"MED-900.laboratorio.hemograma\",\"MED-900.medicacion.paracetamol\",\"MED-900.anamnesis.alergias\"],\"session_id\":\"943e4bfe-35dc-484c-b400-c233560db151\",\"active_agent\":\"orchestrator\",\"updated_at\":\"2026-10-27T02:53:03.839716+00:00\",\"finished_at\":\"2026-10-27T02:53:03.839739+00:00\",\"phase\":\"finalizada\",\"started_at\":\"2026-10-27T02:52:37.006068+00:00\",\"case_id\":\"MED-900\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":{\"score\":64.29,\"earned_weight\":9,\"total_weight\":14,\"completed_questions\":2,\"total_questions\":3,\"errors\":{\"negligencia\":1,\"anamnesis_incompleta\":0,\"razonamiento_clinico\":0}},\"attempt\":{\"saved\":false,\"reason\":\"otro_usuario\"}}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "A comprueba SA",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/943e4bfe-35dc-484c-b400-c233560db151",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…33Ms"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\",\"MED-900.anamnesis.inicio_dolor\",\"MED-900.laboratorio.hemograma\",\"MED-900.medicacion.paracetamol\",\"MED-900.anamnesis.alergias\"],\"session_id\":\"943e4bfe-35dc-484c-b400-c233560db151\",\"active_agent\":\"orchestrator\",\"updated_at\":\"2026-10-27T02:53:03.839716+00:00\",\"finished_at\":\"2026-10-27T02:53:03.839739+00:00\",\"phase\":\"finalizada\",\"started_at\":\"2026-10-27T02:52:37.006068+00:00\",\"case_id\":\"MED-900\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":{\"score\":64.29,\"earned_weight\":9,\"total_weight\":14,\"completed_questions\":2,\"total_questions\":3,\"errors\":{\"negligencia\":1,\"anamnesis_incompleta\":0,\"razonamiento_clinico\":0}}}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "sin datos de SA",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "SA sigue abierta",
+      "resultado": "FALLA",
+      "detalle": "fase: finalizada"
+    }
+  ],
+  "notas": [],
+  "error": "E   AssertionError: TA017-13: paso 1 (POST http://testserver/api/ai/sessions/943e4bfe-35dc-484c-b400-c233560db151/finish): 200 no está en [404] | comprobación: sin datos de SA | comprobación: SA sigue abierta fase: finalizada"
+}

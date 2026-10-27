@@ -1,0 +1,61 @@
+{
+  "base_url": "http://localhost:3000",
+  "caso": "MED-007",
+  "fecha": "2026-10-27T03:26:59.789Z",
+  "peticiones": [
+    {
+      "metodo": "POST",
+      "ruta": "/api/ai/sessions",
+      "codigo": 200,
+      "cabecera_x_session_token": "(ninguna)",
+      "cabecera_authorization": "(ninguna)",
+      "session_token_recibido": "goDEZT…J4EA"
+    },
+    {
+      "metodo": "POST",
+      "ruta": "/api/ai/sessions/e3c1faf4-7d33-4620-b186-875fff3a5f01/message",
+      "codigo": 200,
+      "cabecera_x_session_token": "goDEZT…J4EA",
+      "cabecera_authorization": "(ninguna)"
+    },
+    {
+      "metodo": "POST",
+      "ruta": "/api/ai/sessions/e3c1faf4-7d33-4620-b186-875fff3a5f01/finish",
+      "codigo": 200,
+      "cabecera_x_session_token": "goDEZT…J4EA",
+      "cabecera_authorization": "(ninguna)"
+    }
+  ],
+  "otro_navegador": [
+    {
+      "prueba": "abrir la URL de la sesión",
+      "codigo": 401,
+      "cuerpo": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}"
+    },
+    {
+      "prueba": "GET sin credencial",
+      "codigo": 401,
+      "cuerpo": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}"
+    },
+    {
+      "prueba": "GET con una credencial bien formada que no es la suya",
+      "codigo": 404,
+      "cuerpo": "{\"detail\":\"Sesión no encontrada.\"}"
+    },
+    {
+      "prueba": "GET /events con esa credencial",
+      "codigo": 404,
+      "cuerpo": "{\"detail\":\"Sesión no encontrada.\"}"
+    },
+    {
+      "prueba": "POST /message con esa credencial",
+      "codigo": 404,
+      "cuerpo": "{\"detail\":\"Sesión no encontrada.\"}"
+    }
+  ],
+  "url_propia_en_pestana": {
+    "codigo": 401,
+    "cuerpo": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}"
+  },
+  "errores_de_la_pagina": []
+}
