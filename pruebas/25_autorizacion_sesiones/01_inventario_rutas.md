@@ -1,11 +1,11 @@
-# TA-017 - Inventario de rutas de sesión
+# TA-011 - Inventario de rutas de sesión
 
 Fase 0 (reconocimiento). Se revisaron `backend/server/api/ai.py` completo, el servicio de sesiones
 (`backend/server/orchestration/service.py`), los dos almacenes (`store.py` en memoria y `supabase_store.py`),
 la autenticación (`backend/server/auth.py`), las demás rutas de la API (`api/routes.py`, `api/teaching.py`,
 `rag/router.py`) y las migraciones de Supabase (`backend/supabase/migrations/0001` a `0004`).
 
-Para confirmar que no hay más rutas con `session_id`, TA017-09 lee `/api/openapi.json` y compara la lista con
+Para confirmar que no hay más rutas con `session_id`, TA011-09 lee `/api/openapi.json` y compara la lista con
 este inventario. Resultado: coincide en todas las fases.
 
 ## Rutas que reciben un `session_id` (todas en `/api/ai`)
@@ -22,10 +22,10 @@ este inventario. Resultado: coincide en todas las fases.
 
 | Operación pedida | Estado en el código | Caso que lo comprueba |
 | --- | --- | --- |
-| Registrar eventos desde el cliente | No existe. Los eventos los escribe solo el servidor al iniciar, en cada mensaje y al cerrar | TA017-05, TA017-31 (`POST .../events` responde 405) |
-| Hipótesis, exámenes, evaluación o reporte en rutas propias | No existen. Las hipótesis y el diagnóstico van en el cuerpo de `finish`; los exámenes se piden con `message` | TA017-09 |
-| Reanudación | No existe ruta propia: reanudar es leer con `GET /sessions/{id}` | TA017-09 |
-| Stream SSE o websocket | No existe | TA017-40 (404 al conectar, con o sin credencial) |
+| Registrar eventos desde el cliente | No existe. Los eventos los escribe solo el servidor al iniciar, en cada mensaje y al cerrar | TA011-05, TA011-31 (`POST .../events` responde 405) |
+| Hipótesis, exámenes, evaluación o reporte en rutas propias | No existen. Las hipótesis y el diagnóstico van en el cuerpo de `finish`; los exámenes se piden con `message` | TA011-09 |
+| Reanudación | No existe ruta propia: reanudar es leer con `GET /sessions/{id}` | TA011-09 |
+| Stream SSE o websocket | No existe | TA011-40 (404 al conectar, con o sin credencial) |
 
 ## Rutas que no son sesiones del simulador
 
@@ -41,7 +41,7 @@ este inventario. Resultado: coincide en todas las fases.
 - **Invitado:** antes no tenía ninguna identidad; la sesión quedaba con `owner_id = null` y abierta para
   cualquiera. Después tiene `access_token_hash` = SHA-256 de su credencial de capacidad, también en `state`
   (`service.py:52`) y también fuera de la respuesta pública.
-- El id de sesión es un UUID versión 4 (`uuid4()`), no secuencial (TA017-01).
+- El id de sesión es un UUID versión 4 (`uuid4()`), no secuencial (TA011-01).
 
 ## Capa de datos (Supabase)
 
@@ -53,7 +53,7 @@ este inventario. Resultado: coincide en todas las fases.
 | `perfiles` | Activado (`0001`) | `select` y `update` solo del propio | El alumno ve y edita solo el suyo |
 
 El frontend no consulta `sma_sesiones` ni `sma_eventos` directamente: todo pasa por `/api/ai`. Los casos
-TA017-34 a 36 lo comprueban contra Supabase real en el modo vivo.
+TA011-34 a 36 lo comprueban contra Supabase real en el modo vivo.
 
 ## Dependencias TA-004 y EN-011
 
