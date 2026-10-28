@@ -1,0 +1,22 @@
+﻿COMANDO: python -m pytest tests/unit/test_report_builder.py -q
+COMMIT: 9814695
+FECHA: 2026-10-28 07:20:21 UTC
+CODIGO_SALIDA: 1
+
+..........F                                                              [100%]
+================================== FAILURES ===================================
+________________________ test_dato_con_valor_y_unidad _________________________
+
+    def test_dato_con_valor_y_unidad():
+        # Signos vitales con value y unit en lugar de text (el esquema lo permite): el reporte los muestra legibles.
+        report = build_report(_session(), copy.deepcopy(CASE), [])
+        by_id = {item["evidence_id"]: item["text"] for item in report["revealed_evidence"]}
+>       assert by_id["MED-900.vital.frecuencia_cardiaca"] == "74 /min"
+E       AssertionError: assert '' == '74 /min'
+E         
+E         - 74 /min
+
+tests\unit\test_report_builder.py:150: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_report_builder.py::test_dato_con_valor_y_unidad - Asse...
+1 failed, 10 passed in 0.15s

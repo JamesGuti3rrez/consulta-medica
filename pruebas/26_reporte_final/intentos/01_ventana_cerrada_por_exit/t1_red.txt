@@ -1,0 +1,20 @@
+﻿COMANDO: python -m pytest tests/unit/test_report_builder.py -q
+COMMIT: a4bf22d
+FECHA: 2026-10-28 07:06:07 UTC
+CODIGO_SALIDA: 2
+
+
+=================================== ERRORS ====================================
+_____________ ERROR collecting tests/unit/test_report_builder.py ______________
+ImportError while importing test module 'C:\Users\Usuario\Documents\consulta-medica\backend\tests\unit\test_report_builder.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Python314\Lib\importlib\__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\unit\test_report_builder.py:7: in <module>
+    from server.report import build_report
+E   ModuleNotFoundError: No module named 'server.report'
+=========================== short test summary info ===========================
+ERROR tests/unit/test_report_builder.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 0.34s

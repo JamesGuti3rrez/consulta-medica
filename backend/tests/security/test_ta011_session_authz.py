@@ -420,6 +420,8 @@ def test_09_no_hay_rutas_adicionales(mundo, caso):
     expected = sorted([
         "GET /api/ai/sessions/{session_id}", "POST /api/ai/sessions/{session_id}/message",
         "GET /api/ai/sessions/{session_id}/events", "POST /api/ai/sessions/{session_id}/finish",
+        # HU-006: el reporte final, con la misma autorización.
+        "GET /api/ai/sessions/{session_id}/report",
     ])
     caso.comprobar("rutas con {session_id} = inventario", with_id == expected, f"encontradas: {with_id}")
     caso.nota("Rutas con session_id: " + ", ".join(with_id))

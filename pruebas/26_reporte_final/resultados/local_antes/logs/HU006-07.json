@@ -1,0 +1,67 @@
+{
+  "id": "HU006-07",
+  "nombre": "ajeno_igual_a_inexistente",
+  "titulo": "Reporte ajeno igual a inexistente",
+  "criterio": "CA2",
+  "resultado_esperado": "Mismo código y mismo cuerpo",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_antes",
+  "commit": "a17cb62",
+  "fecha": "2026-10-28 07:21:21 UTC",
+  "pasos": [
+    {
+      "descripcion": "reporte de SA (ajena)",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/9edb7876-a241-4752-a71a-a37f520e8405/report",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…SqzE"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"error\":\"Ruta de API no encontrada\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "reporte de un UUID inexistente",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/465ca59f-5169-4e87-8ee3-19c607bb2796/report",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…SqzE"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"error\":\"Ruta de API no encontrada\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "mismo código",
+      "resultado": "PASA",
+      "detalle": "404 vs 404"
+    },
+    {
+      "descripcion": "mismo cuerpo",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

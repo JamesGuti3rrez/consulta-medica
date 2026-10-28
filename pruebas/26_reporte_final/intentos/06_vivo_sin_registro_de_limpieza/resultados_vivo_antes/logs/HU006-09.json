@@ -1,0 +1,60 @@
+{
+  "id": "HU006-09",
+  "nombre": "propuesta_y_referencia",
+  "titulo": "Propuesta del alumno y diagnóstico de referencia",
+  "criterio": "CA3",
+  "resultado_esperado": "Diagnóstico e hipótesis del primer cierre; referencia del caso",
+  "resultado": "FALLA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_antes",
+  "commit": "a17cb62",
+  "fecha": "2026-10-28 07:44:52 UTC",
+  "pasos": [
+    {
+      "descripcion": "cerrar SA otra vez con otro diagnóstico",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/eea8e10e-b702-41c2-b928-4883a97248ac/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…Ayrw",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "diagnosis": "Cambio después del cierre",
+        "hypotheses": []
+      },
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"phase\":\"finalizada\",\"finished_at\":\"2026-10-28T07:44:42.130597+00:00\",\"case_id\":\"EME-001\",\"active_agent\":\"orchestrator\",\"revealed_evidence_ids\":[\"EME-001.motivo.queja_principal\",\"EME-001.vital.signos_vitales\"],\"updated_at\":\"2026-10-28T07:44:42.130589+00:00\",\"session_id\":\"eea8e10e-b702-41c2-b928-4883a97248ac\",\"started_at\":\"2026-10-28T07:44:24.255162+00:00\",\"avatar_state\":{\"alerts\":[],\"vitals\":[{\"text\":\"Temperatura 41,1 °C, presión arterial 109/62 mmHg, pulso 170/min, frecuencia respiratoria 23/min y saturación de oxígeno 95 % al aire ambiente.\",\"label\":\"Signos vitales\",\"evidence_id\":\"EME-001.vital.signos_vitales\"}],\"gesture\":\"idle\",\"complications\":[]},\"evaluation\":{\"score\":0.0,\"errors\":{\"negligencia\":0,\"anamnesis_incompleta\":2,\"razonamiento_clinico\":2},\"total_weight\":16,\"earned_weight\":0,\"total_questions\":4,\"completed_questions\":0},\"attempt\":{\"saved\":false,\"reason\":\"desactivado\"}}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "reporte de SA",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/eea8e10e-b702-41c2-b928-4883a97248ac/report",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…Ayrw"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"error\":\"Ruta de API no encontrada\"}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "FALLA"
+    }
+  ],
+  "comprobaciones": [],
+  "notas": [],
+  "error": "E   KeyError: 'diagnosis'"
+}

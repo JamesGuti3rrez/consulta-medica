@@ -1,0 +1,55 @@
+{
+  "id": "HU006-17",
+  "nombre": "log_reporte_ajeno",
+  "titulo": "Intento ajeno sobre /report en el log",
+  "criterio": "CA2",
+  "resultado_esperado": "Línea [autorizacion] 404 GET .../report con quién y motivo",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_despues",
+  "commit": "a17cb62",
+  "fecha": "2026-10-28 07:21:40 UTC",
+  "pasos": [
+    {
+      "descripcion": "reporte de SA",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/8b98e879-4ae5-4540-899b-79fc2d0db41f/report",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…CghU"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "una línea [autorizacion] del intento",
+      "resultado": "PASA",
+      "detalle": "líneas: 1"
+    },
+    {
+      "descripcion": "código 404 y motivo",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "quién (id de B)",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [
+    "[autorizacion] 404 GET /api/ai/sessions/8b98e879-4ae5-4540-899b-79fc2d0db41f/report usuario=f9ba082a-e0c2-4c1d-a4b7-5602605e24be motivo=ajena"
+  ],
+  "error": ""
+}

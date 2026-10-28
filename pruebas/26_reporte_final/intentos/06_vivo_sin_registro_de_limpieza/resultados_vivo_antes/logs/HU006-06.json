@@ -1,0 +1,63 @@
+{
+  "id": "HU006-06",
+  "nombre": "sin_credencial_401",
+  "titulo": "Sin credencial no hay reporte",
+  "criterio": "CA2",
+  "resultado_esperado": "401 en SA y SN1",
+  "resultado": "FALLA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_antes",
+  "commit": "a17cb62",
+  "fecha": "2026-10-28 07:44:51 UTC",
+  "pasos": [
+    {
+      "descripcion": "reporte de SA",
+      "identidad": "sin credencial",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/eea8e10e-b702-41c2-b928-4883a97248ac/report",
+      "cabeceras": {},
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"error\":\"Ruta de API no encontrada\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "reporte de SN1",
+      "identidad": "sin credencial",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/78de686a-dc5f-4bfe-822e-c3f9f72333fa/report",
+      "cabeceras": {},
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"error\":\"Ruta de API no encontrada\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "FALLA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "SA: sin datos",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "SN1: sin datos",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": "E   AssertionError: HU006-06: paso 1 (GET http://127.0.0.1:3100/api/ai/sessions/eea8e10e-b702-41c2-b928-4883a97248ac/report): 404 no está en [401] | paso 2 (GET http://127.0.0.1:3100/api/ai/sessions/78de686a-dc5f-4bfe-822e-c3f9f72333fa/report): 404 no está en [401]"
+}

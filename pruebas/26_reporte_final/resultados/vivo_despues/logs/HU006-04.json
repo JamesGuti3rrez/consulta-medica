@@ -1,0 +1,43 @@
+{
+  "id": "HU006-04",
+  "nombre": "B_sobre_reporte_A",
+  "titulo": "B no obtiene el reporte de A",
+  "criterio": "CA2",
+  "resultado_esperado": "404 sin datos del reporte de A",
+  "resultado": "PASA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_despues",
+  "commit": "0a55582",
+  "fecha": "2026-10-28 07:51:58 UTC",
+  "pasos": [
+    {
+      "descripcion": "reporte de SA",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/70fb67dc-39dc-435e-a801-92e791ebcd6b/report",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…A2Ew"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "sin datos de A",
+      "resultado": "PASA",
+      "detalle": "encontrados: []"
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

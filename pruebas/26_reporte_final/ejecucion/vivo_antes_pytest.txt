@@ -1,0 +1,35 @@
+﻿FASE: vivo_antes
+MODO: vivo
+SERVIDOR: http://127.0.0.1:3100
+DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica\.wt_antes\backend
+COMANDO: .venv\Scripts\python.exe -m pytest tests/security/test_hu006_report.py -v --tb=no -rN -p no:cacheprovider
+COMMIT: 0a55582
+FECHA: 2026-10-28 07:46:50 UTC
+CODIGO_SALIDA: 1
+
+============================= test session starts =============================
+platform win32 -- Python 3.14.4, pytest-8.3.4, pluggy-1.6.0 -- C:\Users\Usuario\Documents\consulta-medica\.wt_antes\backend\.venv\Scripts\python.exe
+rootdir: C:\Users\Usuario\Documents\consulta-medica\.wt_antes\backend
+configfile: pyproject.toml
+plugins: anyio-4.15.1, langsmith-0.14.7
+collecting ... collected 17 items
+
+tests/security/test_hu006_report.py::test_01_a_obtiene_reporte FAILED    [  5%]
+tests/security/test_hu006_report.py::test_02_invitado_obtiene_reporte FAILED [ 11%]
+tests/security/test_hu006_report.py::test_03_consulta_abierta FAILED     [ 17%]
+tests/security/test_hu006_report.py::test_04_b_sobre_reporte PASSED      [ 23%]
+tests/security/test_hu006_report.py::test_05_invitado2_sobre_sn1 PASSED  [ 29%]
+tests/security/test_hu006_report.py::test_06_sin_credencial FAILED       [ 35%]
+tests/security/test_hu006_report.py::test_07_ajeno_igual_inexistente PASSED [ 41%]
+tests/security/test_hu006_report.py::test_08_reporte_estable FAILED      [ 47%]
+tests/security/test_hu006_report.py::test_09_propuesta FAILED            [ 52%]
+tests/security/test_hu006_report.py::test_10_puntaje FAILED              [ 58%]
+tests/security/test_hu006_report.py::test_11_por_que FAILED              [ 64%]
+tests/security/test_hu006_report.py::test_12_examenes FAILED             [ 70%]
+tests/security/test_hu006_report.py::test_13_tratamiento FAILED          [ 76%]
+tests/security/test_hu006_report.py::test_14_evidencia FAILED            [ 82%]
+tests/security/test_hu006_report.py::test_15_sin_fuentes_ajenas FAILED   [ 88%]
+tests/security/test_hu006_report.py::test_16_errores FAILED              [ 94%]
+tests/security/test_hu006_report.py::test_17_log FAILED                  [100%]
+
+======================== 14 failed, 3 passed in 50.35s ========================

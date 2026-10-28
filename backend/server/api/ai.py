@@ -33,6 +33,7 @@ from server.orchestration import (
     DecisionRouter,
     InMemorySessionStore,
     MultiAgentSessionService,
+    SessionNotFinished,
     SessionNotFound,
     SessionStoreError,
     StarGraphOrchestrator,
@@ -69,6 +70,7 @@ def _store_unavailable(exc: SessionStoreError) -> HTTPException:
 
 LLM_UNAVAILABLE_DETAIL = "El simulador no puede responder en este momento. Inténtalo de nuevo en unos minutos."
 SESSION_NOT_FOUND = "Sesión no encontrada."
+REPORT_NOT_READY = "El reporte estará disponible al terminar la consulta."
 UNAUTHORIZED_DETAIL = "Inicia sesión o vuelve a empezar la consulta para continuar."
 # Credencial de capacidad de las consultas de invitado: secrets.token_urlsafe(32), 256 bits en base64url.
 SESSION_TOKEN_FORMAT = re.compile(r"[A-Za-z0-9_-]{43}")
@@ -303,9 +305,25 @@ def events(session_id: str):
 def finish(session_id: str, payload: FinishRequest | None = None, authorization: str | None = Header(default=None)):
     try:
         service = get_service()
-        result = service.finish(session_id)
-        result["attempt"] = _save_attempt(service, result, payload or FinishRequest(), authorization)
+        payload = payload or FinishRequest()
+        result = service.finish(session_id, diagnosis=payload.diagnosis,
+                                hypotheses=[item.model_dump() for item in payload.hypotheses])
+        result["attempt"] = _save_attempt(service, result, payload, authorization)
+        result["report"] = service.report(session_id)
         return result
+    except SessionNotFound as exc:
+        raise HTTPException(status_code=404, detail=SESSION_NOT_FOUND) from exc
+    except SessionStoreError as exc:
+        raise _store_unavailable(exc) from exc
+
+
+@router.get("/sessions/{session_id}/report", dependencies=[Depends(authorize_session)])
+def report(session_id: str):
+    """Reporte final (HU-006): solo para el dueño, que ya validó authorize_session, y solo con la consulta cerrada."""
+    try:
+        return get_service().report(session_id)
+    except SessionNotFinished as exc:
+        raise HTTPException(status_code=409, detail=REPORT_NOT_READY) from exc
     except SessionNotFound as exc:
         raise HTTPException(status_code=404, detail=SESSION_NOT_FOUND) from exc
     except SessionStoreError as exc:

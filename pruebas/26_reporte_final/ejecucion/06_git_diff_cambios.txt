@@ -1,0 +1,714 @@
+COMANDO: git diff a7844bd 33f80aa -- backend/server frontend/public
+FECHA: 2026-10-28 07:57:32 UTC
+BASE: rama ta-011-autorizacion-sesiones (a7844bd)
+COMMITS DE CODIGO DE PRODUCCION:
+  c5fafb5 HU-006: el simulador pinta el reporte del servidor como texto
+  fc76495 HU-006: secciones del reporte en la hoja de evaluacion
+  0a1d735 HU-006: el reporte muestra los datos con valor y unidad, como los signos vitales
+  169c005 HU-006: ruta GET /report solo para el dueno y despues del cierre
+  8f1d254 HU-006: el reporte se arma dentro del motor de evaluacion
+  c835f86 HU-006: la funcion build_report arma el reporte solo con datos del caso y la sesion
+
+ backend/server/api/ai.py                    |  22 +++-
+ backend/server/engine/evaluation/report.py  | 165 ++++++++++++++++++++++++++++
+ backend/server/engine/evaluation/service.py |   8 ++
+ backend/server/orchestration/__init__.py    |   4 +-
+ backend/server/orchestration/service.py     |  16 ++-
+ frontend/public/css/simulacion.css          |  94 +++++++++++++++-
+ frontend/public/js/simulacion.js            | 119 ++++++++++++--------
+ frontend/public/simulacion.html             |  45 +++++++-
+ 8 files changed, 421 insertions(+), 52 deletions(-)
+
+diff --git a/backend/server/api/ai.py b/backend/server/api/ai.py
+index d84cb70..ed4253b 100644
+--- a/backend/server/api/ai.py
++++ b/backend/server/api/ai.py
+@@ -33,6 +33,7 @@ from server.orchestration import (
+     DecisionRouter,
+     InMemorySessionStore,
+     MultiAgentSessionService,
++    SessionNotFinished,
+     SessionNotFound,
+     SessionStoreError,
+     StarGraphOrchestrator,
+@@ -69,6 +70,7 @@ def _store_unavailable(exc: SessionStoreError) -> HTTPException:
+ 
+ LLM_UNAVAILABLE_DETAIL = "El simulador no puede responder en este momento. Inténtalo de nuevo en unos minutos."
+ SESSION_NOT_FOUND = "Sesión no encontrada."
++REPORT_NOT_READY = "El reporte estará disponible al terminar la consulta."
+ UNAUTHORIZED_DETAIL = "Inicia sesión o vuelve a empezar la consulta para continuar."
+ # Credencial de capacidad de las consultas de invitado: secrets.token_urlsafe(32), 256 bits en base64url.
+ SESSION_TOKEN_FORMAT = re.compile(r"[A-Za-z0-9_-]{43}")
+@@ -303,8 +305,11 @@ def events(session_id: str):
+ def finish(session_id: str, payload: FinishRequest | None = None, authorization: str | None = Header(default=None)):
+     try:
+         service = get_service()
+-        result = service.finish(session_id)
+-        result["attempt"] = _save_attempt(service, result, payload or FinishRequest(), authorization)
++        payload = payload or FinishRequest()
++        result = service.finish(session_id, diagnosis=payload.diagnosis,
++                                hypotheses=[item.model_dump() for item in payload.hypotheses])
++        result["attempt"] = _save_attempt(service, result, payload, authorization)
++        result["report"] = service.report(session_id)
+         return result
+     except SessionNotFound as exc:
+         raise HTTPException(status_code=404, detail=SESSION_NOT_FOUND) from exc
+@@ -312,6 +317,19 @@ def finish(session_id: str, payload: FinishRequest | None = None, authorization:
+         raise _store_unavailable(exc) from exc
+ 
+ 
++@router.get("/sessions/{session_id}/report", dependencies=[Depends(authorize_session)])
++def report(session_id: str):
++    """Reporte final (HU-006): solo para el dueño, que ya validó authorize_session, y solo con la consulta cerrada."""
++    try:
++        return get_service().report(session_id)
++    except SessionNotFinished as exc:
++        raise HTTPException(status_code=409, detail=REPORT_NOT_READY) from exc
++    except SessionNotFound as exc:
++        raise HTTPException(status_code=404, detail=SESSION_NOT_FOUND) from exc
++    except SessionStoreError as exc:
++        raise _store_unavailable(exc) from exc
++
++
+ def _save_attempt(service: MultiAgentSessionService, session: dict, payload: FinishRequest,
+                   authorization: str | None) -> dict:
+     """Guarda la consulta en el historial del alumno, solo si tiene la sesión iniciada.
+diff --git a/backend/server/engine/evaluation/report.py b/backend/server/engine/evaluation/report.py
+new file mode 100644
+index 0000000..92b0d9c
+--- /dev/null
++++ b/backend/server/engine/evaluation/report.py
+@@ -0,0 +1,165 @@
++"""Reporte final de una consulta cerrada (HU-006).
++
++Se arma solo con el caso de la consulta y con la propia sesión: no consulta el RAG ni el modelo de lenguaje, y
++descarta cualquier evidencia cuyo id no pertenezca al caso.
++"""
++from __future__ import annotations
++
++from typing import Any
++
++from server.engine.disclosure.policy import DisclosurePolicy
++
++ERROR_NAMES = {
++    "negligencia": "Negligencia",
++    "anamnesis_incompleta": "Anamnesis incompleta",
++    "razonamiento_clinico": "Razonamiento clínico",
++}
++# Por qué importaba un dato que faltó, según su tipo de omisión. Frases fijas: no se escribe texto clínico nuevo.
++WHY = {
++    "negligencia": "Dato de seguridad: se pregunta antes de indicar un tratamiento.",
++    "anamnesis_incompleta": "Forma parte de una historia clínica completa.",
++    "razonamiento_clinico": "Orienta o confirma el diagnóstico del caso.",
++}
++# Las mismas recomendaciones que mostraba la hoja de evaluación (frontend/public/js/simulacion.js).
++RECOMMENDATIONS = {
++    "negligencia": "Antes de indicar un tratamiento, verifica alergias, antecedentes y los estudios críticos del caso.",
++    "anamnesis_incompleta": "Completa la anamnesis: inicio y evolución, antecedentes, medicación, alergias y hábitos.",
++    "razonamiento_clinico": "Pide la exploración y los exámenes que confirmen o descarten cada una de tus hipótesis.",
++}
++SAFETY_RECOMMENDATION = ("Propusiste un tratamiento que coincide con una alergia o contraindicación del caso: "
++                         "revisa los antecedentes antes de indicarlo.")
++DEFAULT_RECOMMENDATION = ("Mantén el mismo orden: anamnesis completa, exámenes dirigidos y verificación de alergias "
++                          "antes de tratar.")
++SCORE_KEYS = ("score", "earned_weight", "total_weight", "completed_questions", "total_questions")
++
++
++def build_report(session: dict[str, Any], case: dict[str, Any], events: list[dict[str, Any]]) -> dict[str, Any]:
++    case_id = case["case_id"]
++    own = f"{case_id}."
++    public, protected = case["public"], case["protected"]
++    initial = DisclosurePolicy.initial_evidence_ids(case)
++    requested = [eid for eid in session.get("requested_evidence_ids", []) if eid.startswith(own)]
++    observed = set(requested) | set(initial)
++
++    alerts = [code for event in events if event.get("type") == "turn" for code in event.get("safety_alerts") or []]
++    key_questions = _key_questions(protected, initial, observed)
++    evaluation = session.get("evaluation") or _score(key_questions)
++    return {
++        "case_id": case_id,
++        "finished_at": session.get("finished_at"),
++        "patient": {key: public["patient"].get(key) for key in ("alias", "age_years", "sex")},
++        "chief_complaint": public["chief_complaint"]["text"],
++        "diagnosis": {
++            "student": session.get("student_diagnosis") or "",
++            "reference": protected["diagnosis"]["name"],
++            "synonyms": list(protected["diagnosis"].get("synonyms", [])),
++        },
++        "hypotheses": list(session.get("student_hypotheses") or []),
++        "differentials": [item["name"] for item in protected["differentials"]],
++        "score": {key: evaluation[key] for key in SCORE_KEYS},
++        "key_questions": key_questions,
++        "tests": _tests(case, requested),
++        "treatment": {
++            "proposed": [
++                {"message": event.get("student_message", ""), "alerts": list(event.get("safety_alerts") or [])}
++                for event in events
++                if event.get("type") == "turn" and event.get("intent") == "propose_treatment"
++            ],
++            "reference_summary": protected["treatment_reference"]["summary"],
++            "key_actions": list(protected["treatment_reference"].get("key_actions", [])),
++        },
++        "revealed_evidence": _revealed(case, session.get("revealed_evidence_ids", []), own),
++        "recommendations": _recommendations(key_questions["missing"], alerts),
++    }
++
++
++def _score(key_questions: dict[str, list]) -> dict[str, Any]:
++    """El mismo cálculo que ClinicalEvaluationEngine.evaluate, para consultas sin evaluación guardada."""
++    earned = sum(q["weight"] for q in key_questions["obtained"])
++    total = earned + sum(q["weight"] for q in key_questions["missing"])
++    return {
++        "score": round(earned * 100 / total, 2),
++        "earned_weight": earned,
++        "total_weight": total,
++        "completed_questions": len(key_questions["obtained"]),
++        "total_questions": len(key_questions["obtained"]) + len(key_questions["missing"]),
++    }
++
++
++def _key_questions(protected: dict[str, Any], initial: list[str], observed: set[str]) -> dict[str, list]:
++    # Mismas preguntas que puntúa el motor: las que entrega el doctor al presentar el caso no cuentan.
++    questions = protected["evaluation"]["key_questions"]
++    scored = [q for q in questions if not set(q["evidence_ids"]).issubset(initial)] or questions
++    obtained, missing = [], []
++    for question in scored:
++        error_type = question["error_if_missing"]
++        item = {
++            "id": question["id"],
++            "topic": question["topic"],
++            "weight": question["weight"],
++            "critical": bool(question.get("critical")),
++            "error_type": error_type,
++            "error_name": ERROR_NAMES.get(error_type, error_type),
++            "why": WHY.get(error_type, ""),
++            "helps_discard": [
++                differential["name"] for differential in protected["differentials"]
++                if set(differential.get("discard_evidence_ids", [])) & set(question["evidence_ids"])
++            ],
++        }
++        (obtained if set(question["evidence_ids"]).issubset(observed) else missing).append(item)
++    return {"obtained": obtained, "missing": missing}
++
++
++def _tests(case: dict[str, Any], requested: list[str]) -> dict[str, list]:
++    tests = case["protected"]["evaluation"].get("tests", {})
++    evidence = {item["evidence_id"]: item for item in case["on_request"]}
++    result = {key: [] for key in ("recommended_requested", "recommended_missing", "optional_requested",
++                                  "unnecessary_requested", "other_indications")}
++    for group in ("recommended", "optional", "unnecessary"):
++        for name in tests.get(group, []):
++            match = _evidence_for_test(name, evidence)
++            if match is None:
++                result["other_indications"].append(name.replace("_", " ").capitalize())
++                continue
++            entry = {"name": name, "label": evidence[match]["label"]}
++            if match in requested:
++                result[f"{group}_requested"].append(entry)
++            elif group == "recommended":
++                result["recommended_missing"].append(entry)
++    return result
++
++
++def _evidence_for_test(name: str, evidence: dict[str, dict]) -> str | None:
++    """El examen corresponde a la evidencia cuyo último segmento es su nombre o empieza por «nombre_»."""
++    for evidence_id in evidence:
++        last = evidence_id.rsplit(".", 1)[-1]
++        if last == name or last.startswith(f"{name}_"):
++            return evidence_id
++    return None
++
++
++def _revealed(case: dict[str, Any], revealed_ids: list[str], own: str) -> list[dict[str, str]]:
++    public = case["public"]
++    sources = {public["chief_complaint"]["evidence_id"]: public["chief_complaint"]}
++    sources.update({item["evidence_id"]: item for item in public.get("items", [])})
++    sources.update({item["evidence_id"]: item for item in case["on_request"]})
++    return [
++        {"evidence_id": eid, "label": sources[eid].get("label", ""), "text": _evidence_text(sources[eid])}
++        for eid in dict.fromkeys(revealed_ids)
++        if eid.startswith(own) and eid in sources
++    ]
++
++
++def _evidence_text(item: dict[str, Any]) -> str:
++    """El texto del dato; los que solo traen valor y unidad (signos vitales) se muestran como «74 /min»."""
++    if item.get("text"):
++        return item["text"]
++    return " ".join(str(part) for part in (item.get("value"), item.get("unit")) if part not in (None, "")).strip()
++
++
++def _recommendations(missing: list[dict], alerts: list[str]) -> list[str]:
++    types = list(dict.fromkeys(item["error_type"] for item in missing))
++    result = [RECOMMENDATIONS[t] for t in RECOMMENDATIONS if t in types]
++    if alerts:
++        result.append(SAFETY_RECOMMENDATION)
++    return result or [DEFAULT_RECOMMENDATION]
+diff --git a/backend/server/engine/evaluation/service.py b/backend/server/engine/evaluation/service.py
+index 3848383..26c8538 100644
+--- a/backend/server/engine/evaluation/service.py
++++ b/backend/server/engine/evaluation/service.py
+@@ -2,6 +2,8 @@ from __future__ import annotations
+ 
+ from typing import Any
+ 
++from .report import build_report
++
+ 
+ ERROR_TYPES = ("negligencia", "anamnesis_incompleta", "razonamiento_clinico")
+ 
+@@ -49,3 +51,9 @@ class ClinicalEvaluationEngine:
+             "total_questions": len(questions),
+             "errors": errors,
+         }
++
++    def report(self, session: dict[str, Any], events: list[dict[str, Any]]) -> dict[str, Any]:
++        """Reporte final de una consulta cerrada (HU-006): el motor es quien lee la parte protegida del caso."""
++        case = self.repository.get_conversation_case(session["case_id"])
++        case["protected"] = self.repository.get_protected(session["case_id"])
++        return build_report(session, case, events)
+diff --git a/backend/server/orchestration/__init__.py b/backend/server/orchestration/__init__.py
+index 89c3420..cffef79 100644
+--- a/backend/server/orchestration/__init__.py
++++ b/backend/server/orchestration/__init__.py
+@@ -1,12 +1,12 @@
+ """Orquestador de turnos (StateGraph): enruta al agente, pide evidencia autorizada, aplica el filtro de salida y registra la traza."""
+ 
+ from .router import DecisionRouter
+-from .service import MultiAgentSessionService
++from .service import MultiAgentSessionService, SessionNotFinished
+ from .star_graph import StarGraphOrchestrator
+ from .store import InMemorySessionStore, SessionNotFound
+ from .supabase_store import SessionStoreError, SupabaseSessionStore
+ 
+ __all__ = [
+     "DecisionRouter", "MultiAgentSessionService", "StarGraphOrchestrator",
+-    "InMemorySessionStore", "SessionNotFound", "SessionStoreError", "SupabaseSessionStore"
++    "InMemorySessionStore", "SessionNotFinished", "SessionNotFound", "SessionStoreError", "SupabaseSessionStore"
+ ]
+diff --git a/backend/server/orchestration/service.py b/backend/server/orchestration/service.py
+index 3a9b5cf..78fc019 100644
+--- a/backend/server/orchestration/service.py
++++ b/backend/server/orchestration/service.py
+@@ -7,6 +7,10 @@ from server.domain import AgentRole, Intent, SessionPhase
+ from server.orchestration.store import InMemorySessionStore
+ 
+ 
++class SessionNotFinished(Exception):
++    """El reporte solo existe cuando la consulta terminó (HU-006)."""
++
++
+ def _now() -> str:
+     return datetime.now(timezone.utc).isoformat()
+ 
+@@ -167,11 +171,14 @@ class MultiAgentSessionService:
+             "safety_alerts": safety_alerts,
+         }
+ 
+-    def finish(self, session_id: str) -> dict:
++    def finish(self, session_id: str, diagnosis: str | None = None, hypotheses: list[dict] | None = None) -> dict:
+         session = self.store.get(session_id)
+         # Cerrar otra vez devuelve el mismo resultado: no se recalcula ni se duplica el intento guardado.
+         if session["phase"] == SessionPhase.FINALIZADA.value and session.get("evaluation"):
+             return self._public(session)
++        # Lo que registró el estudiante queda en la consulta para el reporte final (HU-006). No es público.
++        session["student_diagnosis"] = diagnosis or ""
++        session["student_hypotheses"] = list(hypotheses or [])
+         self._ensure_clinical_state(session)
+         case = self.repository.get_conversation_case(session["case_id"])
+         session["evaluation"] = self.evaluation_engine.evaluate(
+@@ -191,6 +198,13 @@ class MultiAgentSessionService:
+         self.store.event(session_id, {"type": "session_finished", "case_id": session["case_id"]})
+         return self._public(session)
+ 
++    def report(self, session_id: str) -> dict:
++        """Reporte final de una consulta cerrada, armado solo con su caso y su propia sesión (HU-006)."""
++        session = self.store.get(session_id)
++        if session["phase"] != SessionPhase.FINALIZADA.value:
++            raise SessionNotFinished(session_id)
++        return self.evaluation_engine.report(session, self.store.events(session_id))
++
+     def owner_of(self, session_id: str) -> str | None:
+         return self.store.get(session_id).get("owner_id")
+ 
+diff --git a/frontend/public/css/simulacion.css b/frontend/public/css/simulacion.css
+index 30f3824..bc4410b 100644
+--- a/frontend/public/css/simulacion.css
++++ b/frontend/public/css/simulacion.css
+@@ -767,7 +767,12 @@ button[hidden] {
+   background: transparent;
+ }
+ 
+-.sheet-section:has(ul:empty) {
++/* Lista vacía, oculta; sección con listas pero sin ningún punto, también (la del diagnóstico no tiene listas) */
++.sheet-list:empty {
++  display: none;
++}
++
++.sheet-section:has(ul):not(:has(li)) {
+   display: none;
+ }
+ 
+@@ -812,6 +817,93 @@ button[hidden] {
+ }
+ 
+ /* Firma */
++/* Reporte final (HU-006): diagnóstico comparado, etiquetas, porqué y pliegues */
++.sheet-compare {
++  display: grid;
++  grid-template-columns: 1fr 1fr;
++  gap: 10px;
++  margin-top: 8px;
++  padding-left: 40px;
++}
++
++.sheet-compare > div {
++  border: 1px solid #dde6e8;
++  border-radius: 10px;
++  padding: 10px 12px;
++  font-size: 14px;
++  line-height: 1.45;
++  color: #36494e;
++}
++
++.sheet-compare span {
++  display: block;
++  margin-bottom: 2px;
++  font-size: 12px;
++  letter-spacing: 0.04em;
++  text-transform: uppercase;
++  color: #64748b;
++}
++
++.sheet-chip {
++  display: inline-block;
++  margin-left: 6px;
++  padding: 1px 8px;
++  border-radius: 999px;
++  font-size: 12px;
++  font-weight: 600;
++  line-height: 1.5;
++  vertical-align: 1px;
++}
++
++.sheet-chip-negligencia { background: #fee2e2; color: #b91c1c; }
++.sheet-chip-anamnesis_incompleta { background: #fef3c7; color: #92400e; }
++.sheet-chip-razonamiento_clinico { background: #e0f2fe; color: #075985; }
++.sheet-chip-critico { background: #b91c1c; color: #ffffff; }
++.sheet-chip-info { background: #e2e8f0; color: #334155; }
++
++.sheet-why {
++  display: block;
++  margin-top: 2px;
++  font-size: 13px;
++  color: #64748b;
++}
++
++.sheet-subtitle {
++  margin-top: 10px;
++  padding-left: 40px;
++  font-size: 13px;
++  font-weight: 600;
++  color: #10262b;
++}
++
++.sheet-fold {
++  margin-top: 6px;
++  padding-left: 40px;
++  font-size: 14px;
++  color: #36494e;
++}
++
++.sheet-fold summary {
++  cursor: pointer;
++  font-weight: 600;
++  color: #0e7490;
++}
++
++.sheet-fold .sheet-list {
++  padding-left: 0;
++}
++
++.sheet-fold:has(ul:empty) {
++  display: none;
++}
++
++@media (max-width: 640px) {
++  .sheet-compare {
++    grid-template-columns: 1fr;
++    padding-left: 0;
++  }
++}
++
+ .sheet-sign {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+diff --git a/frontend/public/js/simulacion.js b/frontend/public/js/simulacion.js
+index 0ad94ea..4bb95bd 100644
+--- a/frontend/public/js/simulacion.js
++++ b/frontend/public/js/simulacion.js
+@@ -106,7 +106,6 @@ document.addEventListener('DOMContentLoaded', async () => {
+   let discardingIndex = null;
+   let consultationClosed = false;
+   let currentCase = null;
+-  let safetyAlertCount = 0;
+ 
+   const showTab = name => {
+     tabButtons.forEach(button => {
+@@ -401,7 +400,6 @@ document.addEventListener('DOMContentLoaded', async () => {
+ 
+     currentCase = patientCase;
+     rememberCase(patientCase.case_id);
+-    safetyAlertCount = 0;
+     aiSessionId = await openConversation(patientCase.case_id);
+     resetRecord(patientCase);
+     showTab('ficha');
+@@ -485,7 +483,6 @@ document.addEventListener('DOMContentLoaded', async () => {
+     if (hypothesesHint) hypothesesHint.textContent = '¿Este dato cambia alguna de tus hipótesis?';
+     setReady();
+     if (Array.isArray(reply.safety_alerts) && reply.safety_alerts.length) {
+-      safetyAlertCount += reply.safety_alerts.length;
+       setStatus(reply.safety_alerts.map(alert => alert.message).join(' '), true);
+     }
+   };
+@@ -738,18 +735,9 @@ document.addEventListener('DOMContentLoaded', async () => {
+   hypothesisInput?.addEventListener('keydown', event => { if (event.key === 'Enter') addHypothesis(); });
+   hypothesisMic?.addEventListener('click', () => dictate(hypothesisInput, hypothesesFeedback));
+ 
+-  // Hoja de evaluación: el motor clínico solo devuelve puntaje y conteos por tipo de error, nunca los
+-  // temas protegidos; las hipótesis y el diagnóstico salen de lo que el estudiante registró.
+-  const ERROR_NAMES = {
+-    negligencia: 'Negligencia',
+-    anamnesis_incompleta: 'Anamnesis incompleta',
+-    razonamiento_clinico: 'Razonamiento clínico',
+-  };
+-  const RECOMMENDATIONS = {
+-    negligencia: 'Antes de indicar un tratamiento, verifica alergias, antecedentes y los estudios críticos del caso.',
+-    anamnesis_incompleta: 'Completa la anamnesis: inicio y evolución, antecedentes, medicación, alergias y hábitos.',
+-    razonamiento_clinico: 'Pide la exploración y los exámenes que confirmen o descarten cada una de tus hipótesis.',
+-  };
++  // Hoja de evaluación: el reporte final (HU-006) lo arma el servidor solo con datos del caso y de esta
++  // consulta, y solo lo entrega al dueño tras el cierre. Todo se escribe como texto, nunca como HTML.
++  const TEST_NOTES = { recommended_missing: 'Recomendado, no lo pediste', unnecessary_requested: 'Innecesario en este caso' };
+   const fillList = (role, lines) => {
+     const list = $(role);
+     if (!list) return;
+@@ -801,7 +789,30 @@ document.addEventListener('DOMContentLoaded', async () => {
+     if (event.key === 'Escape' && evaluationPanel && !evaluationPanel.hidden) hideEvaluation();
+   });
+ 
+-  const showEvaluation = (evaluation, diagnosis) => {
++  // Un punto de la hoja: texto principal, etiquetas y una línea de explicación opcional.
++  const sheetItem = (text, chips = [], why = '') => {
++    const item = document.createElement('li');
++    item.append(text);
++    chips.forEach(([label, kind]) => {
++      const chip = document.createElement('span');
++      chip.className = `sheet-chip sheet-chip-${kind}`;
++      chip.textContent = label;
++      item.append(chip);
++    });
++    if (why) {
++      const line = document.createElement('span');
++      line.className = 'sheet-why';
++      line.textContent = why;
++      item.append(line);
++    }
++    return item;
++  };
++  const fillItems = (role, items) => {
++    const list = $(role);
++    if (list) list.replaceChildren(...items);
++  };
++
++  const showEvaluation = (report, diagnosis) => {
+     if (currentCase) {
+       const { alias, age_years: age } = currentCase.patient;
+       setField('evaluation-patient', `${alias}, ${age} años`);
+@@ -809,42 +820,64 @@ document.addEventListener('DOMContentLoaded', async () => {
+     }
+     setField('evaluation-date', new Date().toLocaleDateString('es-PE', { day: 'numeric', month: 'long', year: 'numeric' }));
+     setField('evaluation-diagnosis', diagnosis);
++    setField('evaluation-student-diagnosis', report?.diagnosis?.student || diagnosis);
+ 
+-    const active = hypotheses.filter(hypothesis => !hypothesis.discarded);
+-    const discarded = hypotheses.filter(hypothesis => hypothesis.discarded);
++    const studentHypotheses = report?.hypotheses || hypotheses;
++    const active = studentHypotheses.filter(hypothesis => !hypothesis.discarded);
++    const discarded = studentHypotheses.filter(hypothesis => hypothesis.discarded);
+     fillList('evaluation-reasoning', [
+       active.length ? `Hipótesis activas: ${active.map(hypothesis => hypothesis.name).join(', ')}.` : 'No dejaste hipótesis activas.',
+       ...discarded.map(hypothesis => `Descartaste ${hypothesis.name}${hypothesis.reason ? `: ${hypothesis.reason}` : ''}.`),
+-      'El diagnóstico escrito queda registrado; el puntaje no lo califica automáticamente.',
++      'El diagnóstico escrito queda registrado junto al de referencia; el puntaje no lo califica automáticamente.',
+     ]);
+ 
+-    if (!evaluation) {
++    if (!report) {
+       setField('evaluation-score', '—');
+-      fillList('evaluation-strengths', []);
+-      fillList('evaluation-missing', ['No se pudo obtener la evaluación de esta consulta. Verifica la conexión con el servidor.']);
+-      fillList('evaluation-recommendations', []);
++      setField('evaluation-reference', '');
++      ['evaluation-key-ok', 'evaluation-tests-ok', 'evaluation-tests-warn', 'evaluation-other-indications',
++        'evaluation-differentials', 'evaluation-treatment-proposed', 'evaluation-treatment-reference',
++        'evaluation-treatment-actions', 'evaluation-revealed', 'evaluation-recommendations'].forEach(role => fillList(role, []));
++      fillList('evaluation-key-missing', ['No se pudo obtener el reporte de esta consulta. Verifica la conexión con el servidor.']);
+       openEvaluation();
+       return;
+     }
+ 
+-    setField('evaluation-score', `${evaluation.score}%`);
+-    // Sin datos clave obtenidos no hay logro que mostrar aquí: las omisiones van en «Lo que faltó preguntar».
+-    fillList('evaluation-strengths', [
+-      evaluation.completed_questions
+-        ? `Obtuviste ${evaluation.completed_questions} de ${evaluation.total_questions} datos clave del caso.`
+-        : 'Completaste la consulta y registraste un diagnóstico.',
++    const { score, key_questions: keys, tests, treatment } = report;
++    setField('evaluation-score', `${score.score}%`);
++    setField('evaluation-summary', `Obtuviste ${score.completed_questions} de ${score.total_questions} datos clave del caso.`);
++    setField('evaluation-reference', report.diagnosis.reference);
++
++    fillItems('evaluation-key-ok', keys.obtained.map(question => sheetItem(question.topic)));
++    fillItems('evaluation-key-missing', keys.missing.map(question => sheetItem(
++      question.topic,
++      [[question.error_name, question.error_type], ...(question.critical ? [['Crítico', 'critico']] : [])],
++      [question.why, question.helps_discard.length ? `Ayudaba a descartar: ${question.helps_discard.join(', ')}.` : '']
++        .filter(Boolean).join(' '),
++    )));
++
++    fillItems('evaluation-tests-ok', [
++      ...tests.recommended_requested.map(test => sheetItem(test.label, [['Recomendado', 'razonamiento_clinico']])),
++      ...tests.optional_requested.map(test => sheetItem(test.label, [['Opcional', 'info']])),
+     ]);
+-    const errors = Object.entries(evaluation.errors || {}).filter(([, count]) => count > 0);
+-    fillList('evaluation-missing', errors.length
+-      ? errors.map(([type, count]) => `${ERROR_NAMES[type] || type}: ${count} ${count === 1 ? 'dato clave' : 'datos clave'} sin obtener.`)
+-      : ['No quedaron datos clave sin obtener.']);
+-    const recommendations = errors.map(([type]) => RECOMMENDATIONS[type]).filter(Boolean);
+-    if (safetyAlertCount) {
+-      recommendations.push('Propusiste un tratamiento que coincide con una alergia o contraindicación del caso: revisa los antecedentes antes de indicarlo.');
+-    }
+-    fillList('evaluation-recommendations', recommendations.length
+-      ? recommendations
+-      : ['Mantén el mismo orden: anamnesis completa, exámenes dirigidos y verificación de alergias antes de tratar.']);
++    fillItems('evaluation-tests-warn', [
++      ...tests.recommended_missing.map(test => sheetItem(test.label, [[TEST_NOTES.recommended_missing, 'anamnesis_incompleta']])),
++      ...tests.unnecessary_requested.map(test => sheetItem(test.label, [[TEST_NOTES.unnecessary_requested, 'negligencia']])),
++    ]);
++    fillList('evaluation-other-indications', tests.other_indications);
++    fillList('evaluation-differentials', report.differentials);
++
++    fillItems('evaluation-treatment-proposed', treatment.proposed.length
++      ? treatment.proposed.map(item => sheetItem(`Propusiste: ${item.message}`,
++        item.alerts.length ? [['Alerta de seguridad', 'negligencia']] : []))
++      : [sheetItem('No propusiste un tratamiento durante la consulta.')]);
++    fillList('evaluation-treatment-reference', [treatment.reference_summary]);
++    fillList('evaluation-treatment-actions', treatment.key_actions);
++
++    setField('evaluation-revealed-summary', `Ver los ${report.revealed_evidence.length} datos revelados`);
++    // Algunos datos ya empiezan con su etiqueta («Troponina I ultrasensible: 2850 ng/L»): no se repite.
++    fillItems('evaluation-revealed', report.revealed_evidence.map(item => sheetItem(
++      item.text.startsWith(item.label) ? item.text : `${item.label}: ${item.text}`)));
++    fillList('evaluation-recommendations', report.recommendations);
+     openEvaluation();
+   };
+ 
+@@ -875,7 +908,7 @@ document.addEventListener('DOMContentLoaded', async () => {
+       if (element) element.disabled = true;
+     });
+     renderHypotheses();
+-    let evaluation = null;
++    let report = null;
+     let attempt = null;
+     if (aiSessionId) {
+       // Con la sesión iniciada se envía su token: el servidor lo comprueba y guarda la consulta en
+@@ -889,11 +922,11 @@ document.addEventListener('DOMContentLoaded', async () => {
+         }),
+       }).catch(() => null);
+       const finished = response?.ok ? await response.json().catch(() => null) : null;
+-      evaluation = finished?.evaluation || null;
++      report = finished?.report || null;
+       attempt = finished?.attempt || null;
+     }
+     show(diagnosisPanel, false);
+-    showEvaluation(evaluation, diagnosis);
++    showEvaluation(report, diagnosis);
+     setField('evaluation-saved', SAVED_MESSAGES[attempt?.saved ? 'guardado' : attempt?.reason] || '');
+     // El botón de diagnóstico pasa a reabrir la hoja si el estudiante la cierra.
+     if (diagnosisButton) {
+diff --git a/frontend/public/simulacion.html b/frontend/public/simulacion.html
+index 7da46a0..b2cec9a 100644
+--- a/frontend/public/simulacion.html
++++ b/frontend/public/simulacion.html
+@@ -336,7 +336,7 @@
+         <div class="sheet-result">
+           <div class="min-w-0">
+             <p class="text-[15px] font-semibold text-slate-900">Resultado de la anamnesis</p>
+-            <p class="mt-1 text-[13px] leading-relaxed text-slate-600">Datos clave del caso que obtuviste durante la consulta.</p>
++            <p data-role="evaluation-summary" class="mt-1 text-[13px] leading-relaxed text-slate-600">Datos clave del caso que obtuviste durante la consulta.</p>
+             <p data-role="evaluation-saved" class="mt-1 text-[13px] leading-relaxed text-slate-600"></p>
+           </div>
+           <div class="stamp" aria-label="Puntaje obtenido">
+@@ -346,20 +346,59 @@
+           </div>
+         </div>
+ 
++        <div class="sheet-section">
++          <h4><span class="sheet-icon bg-brand-50 text-brand-700 material-symbols-outlined">fact_check</span>Diagnóstico</h4>
++          <div class="sheet-compare">
++            <div><span>Tu diagnóstico</span><p data-role="evaluation-student-diagnosis">—</p></div>
++            <div><span>Diagnóstico de referencia</span><p data-role="evaluation-reference"></p></div>
++          </div>
++        </div>
+         <div class="sheet-section">
+           <h4><span class="sheet-icon bg-emerald-50 text-emerald-700 material-symbols-outlined">check_circle</span>Lo que
+             hiciste bien</h4>
+-          <ul data-role="evaluation-strengths" class="sheet-list sheet-list-ok"></ul>
++          <ul data-role="evaluation-key-ok" class="sheet-list sheet-list-ok"></ul>
+         </div>
+         <div class="sheet-section">
+           <h4><span class="sheet-icon bg-amber-50 text-amber-700 material-symbols-outlined">help</span>Lo que faltó
+             preguntar</h4>
+-          <ul data-role="evaluation-missing" class="sheet-list sheet-list-miss"></ul>
++          <ul data-role="evaluation-key-missing" class="sheet-list sheet-list-miss"></ul>
++        </div>
++        <div class="sheet-section">
++          <h4><span class="sheet-icon bg-brand-50 text-brand-700 material-symbols-outlined">biotech</span>Exámenes que
++            pediste</h4>
++          <ul data-role="evaluation-tests-ok" class="sheet-list sheet-list-ok"></ul>
++          <ul data-role="evaluation-tests-warn" class="sheet-list sheet-list-miss"></ul>
++          <details class="sheet-fold" data-role="evaluation-other-fold">
++            <summary>Otras indicaciones del caso</summary>
++            <ul data-role="evaluation-other-indications" class="sheet-list"></ul>
++          </details>
+         </div>
+         <div class="sheet-section">
+           <h4><span class="sheet-icon bg-brand-50 text-brand-700 material-symbols-outlined">psychology</span>Razonamiento
+             diagnóstico</h4>
+           <ul data-role="evaluation-reasoning" class="sheet-list"></ul>
++          <details class="sheet-fold">
++            <summary>Diagnósticos diferenciales del caso</summary>
++            <ul data-role="evaluation-differentials" class="sheet-list"></ul>
++          </details>
++        </div>
++        <div class="sheet-section">
++          <h4><span class="sheet-icon bg-emerald-50 text-emerald-700 material-symbols-outlined">medication</span>Tratamiento</h4>
++          <ul data-role="evaluation-treatment-proposed" class="sheet-list"></ul>
++          <p class="sheet-subtitle">Tratamiento de referencia</p>
++          <ul data-role="evaluation-treatment-reference" class="sheet-list"></ul>
++          <details class="sheet-fold">
++            <summary>Acciones clave</summary>
++            <ul data-role="evaluation-treatment-actions" class="sheet-list"></ul>
++          </details>
++        </div>
++        <div class="sheet-section">
++          <h4><span class="sheet-icon bg-slate-100 text-slate-700 material-symbols-outlined">description</span>Datos que
++            obtuviste en la consulta</h4>
++          <details class="sheet-fold">
++            <summary data-role="evaluation-revealed-summary">Ver los datos revelados</summary>
++            <ul data-role="evaluation-revealed" class="sheet-list"></ul>
++          </details>
+         </div>
+         <div class="sheet-section">
+           <h4><span class="sheet-icon bg-slate-100 text-slate-700 material-symbols-outlined">lightbulb</span>Recomendaciones</h4>

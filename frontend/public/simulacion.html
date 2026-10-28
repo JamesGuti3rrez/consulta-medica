@@ -336,7 +336,7 @@
         <div class="sheet-result">
           <div class="min-w-0">
             <p class="text-[15px] font-semibold text-slate-900">Resultado de la anamnesis</p>
-            <p class="mt-1 text-[13px] leading-relaxed text-slate-600">Datos clave del caso que obtuviste durante la consulta.</p>
+            <p data-role="evaluation-summary" class="mt-1 text-[13px] leading-relaxed text-slate-600">Datos clave del caso que obtuviste durante la consulta.</p>
             <p data-role="evaluation-saved" class="mt-1 text-[13px] leading-relaxed text-slate-600"></p>
           </div>
           <div class="stamp" aria-label="Puntaje obtenido">
@@ -347,19 +347,58 @@
         </div>
 
         <div class="sheet-section">
+          <h4><span class="sheet-icon bg-brand-50 text-brand-700 material-symbols-outlined">fact_check</span>Diagnóstico</h4>
+          <div class="sheet-compare">
+            <div><span>Tu diagnóstico</span><p data-role="evaluation-student-diagnosis">—</p></div>
+            <div><span>Diagnóstico de referencia</span><p data-role="evaluation-reference"></p></div>
+          </div>
+        </div>
+        <div class="sheet-section">
           <h4><span class="sheet-icon bg-emerald-50 text-emerald-700 material-symbols-outlined">check_circle</span>Lo que
             hiciste bien</h4>
-          <ul data-role="evaluation-strengths" class="sheet-list sheet-list-ok"></ul>
+          <ul data-role="evaluation-key-ok" class="sheet-list sheet-list-ok"></ul>
         </div>
         <div class="sheet-section">
           <h4><span class="sheet-icon bg-amber-50 text-amber-700 material-symbols-outlined">help</span>Lo que faltó
             preguntar</h4>
-          <ul data-role="evaluation-missing" class="sheet-list sheet-list-miss"></ul>
+          <ul data-role="evaluation-key-missing" class="sheet-list sheet-list-miss"></ul>
+        </div>
+        <div class="sheet-section">
+          <h4><span class="sheet-icon bg-brand-50 text-brand-700 material-symbols-outlined">biotech</span>Exámenes que
+            pediste</h4>
+          <ul data-role="evaluation-tests-ok" class="sheet-list sheet-list-ok"></ul>
+          <ul data-role="evaluation-tests-warn" class="sheet-list sheet-list-miss"></ul>
+          <details class="sheet-fold" data-role="evaluation-other-fold">
+            <summary>Otras indicaciones del caso</summary>
+            <ul data-role="evaluation-other-indications" class="sheet-list"></ul>
+          </details>
         </div>
         <div class="sheet-section">
           <h4><span class="sheet-icon bg-brand-50 text-brand-700 material-symbols-outlined">psychology</span>Razonamiento
             diagnóstico</h4>
           <ul data-role="evaluation-reasoning" class="sheet-list"></ul>
+          <details class="sheet-fold">
+            <summary>Diagnósticos diferenciales del caso</summary>
+            <ul data-role="evaluation-differentials" class="sheet-list"></ul>
+          </details>
+        </div>
+        <div class="sheet-section">
+          <h4><span class="sheet-icon bg-emerald-50 text-emerald-700 material-symbols-outlined">medication</span>Tratamiento</h4>
+          <ul data-role="evaluation-treatment-proposed" class="sheet-list"></ul>
+          <p class="sheet-subtitle">Tratamiento de referencia</p>
+          <ul data-role="evaluation-treatment-reference" class="sheet-list"></ul>
+          <details class="sheet-fold">
+            <summary>Acciones clave</summary>
+            <ul data-role="evaluation-treatment-actions" class="sheet-list"></ul>
+          </details>
+        </div>
+        <div class="sheet-section">
+          <h4><span class="sheet-icon bg-slate-100 text-slate-700 material-symbols-outlined">description</span>Datos que
+            obtuviste en la consulta</h4>
+          <details class="sheet-fold">
+            <summary data-role="evaluation-revealed-summary">Ver los datos revelados</summary>
+            <ul data-role="evaluation-revealed" class="sheet-list"></ul>
+          </details>
         </div>
         <div class="sheet-section">
           <h4><span class="sheet-icon bg-slate-100 text-slate-700 material-symbols-outlined">lightbulb</span>Recomendaciones</h4>

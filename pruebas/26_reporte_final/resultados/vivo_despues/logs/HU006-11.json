@@ -1,0 +1,120 @@
+{
+  "id": "HU006-11",
+  "nombre": "por_que",
+  "titulo": "Por qué de cada pregunta que faltó",
+  "criterio": "CA3",
+  "resultado_esperado": "Tipo, crítico y diferenciales que ayudaba a descartar, del caso",
+  "resultado": "PASA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_despues",
+  "commit": "0a55582",
+  "fecha": "2026-10-28 07:52:17 UTC",
+  "pasos": [
+    {
+      "descripcion": "reporte de SA",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/70fb67dc-39dc-435e-a801-92e791ebcd6b/report",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…XhsQ"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"case_id\":\"EME-001\",\"finished_at\":\"2026-10-28T07:51:40.435197+00:00\",\"patient\":{\"alias\":\"Jorge Salazar\",\"age_years\":33,\"sex\":\"masculino\"},\"chief_complaint\":\"Alteración del estado mental: sus compañeros de trabajo lo encontraron en el suelo de la obra donde trabaja como obrero de construcción.\",\"diagnosis\":{\"student\":\"Diagnóstico propuesto por A\",\"reference\":\"Golpe de calor por esfuerzo\",\"synonyms\":[\"Golpe de calor por esfuerzo\",\"Golpe de calor\",\"Golpe de calor por ejercicio\",\"Hipertermia por esfuerzo\"]},\"hypotheses\":[{\"name\":\"Hipótesis activa de A\",\"reason\":\"\",\"discarded\":false},{\"name\":\"Hipótesis descartada de A\",\"reason\":\"no encaja con la exploración\",\"discarded\":true}],\"differentials\":[\"Síndrome neuroléptico maligno\",\"Tormenta tiroidea\",\"Estado epiléptico\",\"Hipertermia maligna perioperatoria\"],\"score\":{\"score\":0.0,\"earned_weight\":0,\"total_weight\":16,\"completed_questions\":0,\"total_questions\":4},\"key_questions\":{\"obtained\":[],\"missing\":[{\"id\":\"kq2\",\"topic\":\"Medicación habitual: haloperidol, fenitoína y propranolol\",\"weight\":5,\"critical\":true,\"error_type\":\"anamnesis_incompleta\",\"error_name\":\"Anamnesis incompleta\",\"why\":\"Forma parte de una historia clínica completa.\",\"helps_discard\":[]},{\"id\":\"kq3\",\"topic\":\"Antecedentes: anestesia reciente, esquizofrenia, epilepsia e hipertiroidismo\",\"weight\":4,\"critical\":true,\"error_type\":\"anamnesis_incompleta\",\"error_name\":\"Anamnesis incompleta\",\"why\":\"Forma parte de una historia clínica completa.\",\"helps_discard\":[\"Hipertermia maligna perioperatoria\"]},{\"id\":\"kq4\",\"topic\":\"Exploración física: nivel de conciencia, tono muscular y sudoración\",\"weight\":4,\"critical\":true,\"error_type\":\"razonamiento_clinico\",\"error_name\":\"Razonamiento clínico\",\"why\":\"Orienta o confirma el diagnóstico del caso.\",\"helps_discard\":[\"Síndrome neuroléptico maligno\"]},{\"id\":\"kq5\",\"topic\":\"Función tiroidea normal pese al antecedente de hipertiroidismo\",\"weight\":3,\"critical\":false,\"error_type\":\"razonamiento_clinico\",\"error_name\":\"Razonamiento clínico\",\"why\":\"Orienta o confirma el diagnóstico del caso.\",\"helps_discard\":[\"Tormenta tiroidea\"]}]},\"tests\":{\"recommended_requested\":[],\"recommended_missing\":[],\"optional_requested\":[],\"unnecessary_requested\":[],\"other_indications\":[\"Enfriamiento activo inmediato\",\"Creatina quinasa funcion renal electrolitos\",\"Funcion hepatica y coagulacion\",\"Ecg glucosa y evaluacion de sindrome neuroleptico maligno\"]},\"treatment\":{\"proposed\":[{\"message\":\"Le indico paracetamol para el dolor\",\"alerts\":[]}],\"reference_summary\":\"Golpe de calor por esfuerzo con alteración neurológica es una emergencia vital. El enfriamiento activo debe comenzar de inmediato; la fuente no autoriza una pauta farmacológica individual.\",\"key_actions\":[\"Iniciar enfriamiento activo rápido y activar atención de emergencia.\",\"No usar antipiréticos como sustituto del enfriamiento.\",\"Vigilar rabdomiólisis, lesión renal/hepática, alteraciones electrolíticas y coagulopatía.\"]},\"revealed_evidence\":[{\"evidence_id\":\"EME-001.motivo.queja_principal\",\"label\":\"Motivo de consulta\",\"text\":\"Alteración del estado mental: sus compañeros de trabajo lo encontraron en el suelo de la obra donde trabaja como obrero de construcción.\"},{\"evidence_id\":\"EME-001.vital.signos_vitales\",\"label\":\"Signos vitales\",\"text\":\"Temperatura 41,1 °C, presión arterial 109/62 mmHg, pulso 170/min, frecuencia respiratoria 23/min y saturación de oxígeno 95 % al aire ambiente.\"}],\"recommendations\":[\"Completa la anamnesis: inicio y evolución, antecedentes, medicación, alergias y hábitos.\",\"Pide la exploración y los exámenes que confirmen o descarten cada una de tus hipótesis.\"]}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "kq2: tipo",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "kq2: crítico",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "kq2: diferenciales",
+      "resultado": "PASA",
+      "detalle": "[]"
+    },
+    {
+      "descripcion": "kq2: tiene por qué",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "kq3: tipo",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "kq3: crítico",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "kq3: diferenciales",
+      "resultado": "PASA",
+      "detalle": "['Hipertermia maligna perioperatoria']"
+    },
+    {
+      "descripcion": "kq3: tiene por qué",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "kq4: tipo",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "kq4: crítico",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "kq4: diferenciales",
+      "resultado": "PASA",
+      "detalle": "['Síndrome neuroléptico maligno']"
+    },
+    {
+      "descripcion": "kq4: tiene por qué",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "kq5: tipo",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "kq5: crítico",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "kq5: diferenciales",
+      "resultado": "PASA",
+      "detalle": "['Tormenta tiroidea']"
+    },
+    {
+      "descripcion": "kq5: tiene por qué",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [
+    "Preguntas que faltaron: 4"
+  ],
+  "error": ""
+}

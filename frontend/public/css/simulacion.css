@@ -767,7 +767,12 @@ button[hidden] {
   background: transparent;
 }
 
-.sheet-section:has(ul:empty) {
+/* Lista vacía, oculta; sección con listas pero sin ningún punto, también (la del diagnóstico no tiene listas) */
+.sheet-list:empty {
+  display: none;
+}
+
+.sheet-section:has(ul):not(:has(li)) {
   display: none;
 }
 
@@ -812,6 +817,93 @@ button[hidden] {
 }
 
 /* Firma */
+/* Reporte final (HU-006): diagnóstico comparado, etiquetas, porqué y pliegues */
+.sheet-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 8px;
+  padding-left: 40px;
+}
+
+.sheet-compare > div {
+  border: 1px solid #dde6e8;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: #36494e;
+}
+
+.sheet-compare span {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.sheet-chip {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.5;
+  vertical-align: 1px;
+}
+
+.sheet-chip-negligencia { background: #fee2e2; color: #b91c1c; }
+.sheet-chip-anamnesis_incompleta { background: #fef3c7; color: #92400e; }
+.sheet-chip-razonamiento_clinico { background: #e0f2fe; color: #075985; }
+.sheet-chip-critico { background: #b91c1c; color: #ffffff; }
+.sheet-chip-info { background: #e2e8f0; color: #334155; }
+
+.sheet-why {
+  display: block;
+  margin-top: 2px;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.sheet-subtitle {
+  margin-top: 10px;
+  padding-left: 40px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #10262b;
+}
+
+.sheet-fold {
+  margin-top: 6px;
+  padding-left: 40px;
+  font-size: 14px;
+  color: #36494e;
+}
+
+.sheet-fold summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: #0e7490;
+}
+
+.sheet-fold .sheet-list {
+  padding-left: 0;
+}
+
+.sheet-fold:has(ul:empty) {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .sheet-compare {
+    grid-template-columns: 1fr;
+    padding-left: 0;
+  }
+}
+
 .sheet-sign {
   display: grid;
   grid-template-columns: 1fr 1fr;

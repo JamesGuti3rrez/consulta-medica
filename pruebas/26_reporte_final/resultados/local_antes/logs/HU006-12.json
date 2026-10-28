@@ -1,0 +1,56 @@
+{
+  "id": "HU006-12",
+  "nombre": "examenes",
+  "titulo": "Exámenes clasificados según el caso",
+  "criterio": "CA3",
+  "resultado_esperado": "Pedidos y no pedidos según tests del caso y la evidencia pedida",
+  "resultado": "FALLA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_antes",
+  "commit": "a17cb62",
+  "fecha": "2026-10-28 07:21:22 UTC",
+  "pasos": [
+    {
+      "descripcion": "estado de SA (evidencia revelada)",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/9edb7876-a241-4752-a71a-a37f520e8405",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…WFG4"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"case_id\":\"MED-900\",\"phase\":\"finalizada\",\"started_at\":\"2026-10-28T07:21:21.145782+00:00\",\"session_id\":\"9edb7876-a241-4752-a71a-a37f520e8405\",\"finished_at\":\"2026-10-28T07:21:21.262401+00:00\",\"updated_at\":\"2026-10-28T07:21:21.262394+00:00\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\",\"MED-900.anamnesis.inicio_dolor\",\"MED-900.laboratorio.hemograma\"],\"active_agent\":\"orchestrator\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":{\"score\":35.71,\"earned_weight\":5,\"total_weight\":14,\"completed_questions\":1,\"total_questions\":3,\"errors\":{\"negligencia\":2,\"anamnesis_incompleta\":0,\"razonamiento_clinico\":0}},\"attempt_id\":\"intento-1\"}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "reporte de SA",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/9edb7876-a241-4752-a71a-a37f520e8405/report",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…WFG4"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"error\":\"Ruta de API no encontrada\"}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "FALLA"
+    }
+  ],
+  "comprobaciones": [],
+  "notas": [],
+  "error": "E   KeyError: 'tests'"
+}

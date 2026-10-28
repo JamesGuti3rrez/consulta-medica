@@ -1,0 +1,63 @@
+{
+  "id": "HU006-03",
+  "nombre": "consulta_abierta_409",
+  "titulo": "Consulta abierta: el reporte no existe",
+  "criterio": "CA1",
+  "resultado_esperado": "409 sin diagnóstico de referencia ni preguntas clave",
+  "resultado": "FALLA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_antes",
+  "commit": "0a55582",
+  "fecha": "2026-10-28 07:47:27 UTC",
+  "pasos": [
+    {
+      "descripcion": "reporte de una consulta abierta de A",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/73315374-095e-46a2-940c-a0e835a9a86f/report",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…3bbA"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"error\":\"Ruta de API no encontrada\"}",
+      "codigo_esperado": [
+        409
+      ],
+      "resultado": "FALLA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "mensaje exacto",
+      "resultado": "FALLA",
+      "detalle": "{\"error\":\"Ruta de API no encontrada\"}"
+    },
+    {
+      "descripcion": "sin «Golpe de calor por esfuerzo»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «key_questions»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «treatment»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «reference»",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": "E   AssertionError: HU006-03: paso 1 (GET http://127.0.0.1:3100/api/ai/sessions/73315374-095e-46a2-940c-a0e835a9a86f/report): 404 no está en [409] | comprobación: mensaje exacto {\"error\":\"Ruta de API no encontrada\"}"
+}

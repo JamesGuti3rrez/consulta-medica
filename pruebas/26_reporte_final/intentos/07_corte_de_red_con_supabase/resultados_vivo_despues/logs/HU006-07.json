@@ -1,0 +1,17 @@
+{
+  "id": "HU006-07",
+  "nombre": "ajeno_igual_a_inexistente",
+  "titulo": "Reporte ajeno igual a inexistente",
+  "criterio": "CA2",
+  "resultado_esperado": "Mismo código y mismo cuerpo",
+  "resultado": "FALLA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_despues",
+  "commit": "0a55582",
+  "fecha": "2026-10-28 07:49:06 UTC",
+  "pasos": [],
+  "comprobaciones": [],
+  "notas": [],
+  "error": "Falló la preparación: E   AssertionError: {\"detail\":\"No se pudo acceder a las sesiones. Inténtalo de nuevo.\"}\n    assert 503 == 200\n     +  where 503 = <Response [503 Service Unavailable]>.status_code"
+}

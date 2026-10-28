@@ -1,0 +1,17 @@
+{
+  "id": "HU006-09",
+  "nombre": "propuesta_y_referencia",
+  "titulo": "Propuesta del alumno y diagnóstico de referencia",
+  "criterio": "CA3",
+  "resultado_esperado": "Diagnóstico e hipótesis del primer cierre; referencia del caso",
+  "resultado": "FALLA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_despues",
+  "commit": "0a55582",
+  "fecha": "2026-10-28 07:49:06 UTC",
+  "pasos": [],
+  "comprobaciones": [],
+  "notas": [],
+  "error": "Falló la preparación: E   AssertionError: {\"detail\":\"No se pudo acceder a las sesiones. Inténtalo de nuevo.\"}\n    assert 503 == 200\n     +  where 503 = <Response [503 Service Unavailable]>.status_code"
+}

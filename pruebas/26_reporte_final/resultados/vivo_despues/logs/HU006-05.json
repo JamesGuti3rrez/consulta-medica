@@ -1,0 +1,43 @@
+{
+  "id": "HU006-05",
+  "nombre": "invitado2_sobre_SN1",
+  "titulo": "Invitado 2 no obtiene el reporte del invitado 1",
+  "criterio": "CA2",
+  "resultado_esperado": "404 con su propia credencial",
+  "resultado": "PASA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_despues",
+  "commit": "0a55582",
+  "fecha": "2026-10-28 07:51:58 UTC",
+  "pasos": [
+    {
+      "descripcion": "reporte de SN1",
+      "identidad": "Anónimo 2 + credencial de capacidad",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/9317990b-e5e7-4df9-aad6-b3835345e1de/report",
+      "cabeceras": {
+        "x-session-token": "R6WOsh…efr4"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "sin el diagnóstico del invitado 1",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}
