@@ -1,0 +1,48 @@
+{
+  "id": "TA011-02",
+  "nombre": "A_lee_SA",
+  "titulo": "A lee SA",
+  "criterio": "CA1, CA4",
+  "resultado_esperado": "200 con los datos de SA",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_despues",
+  "commit": "0666f9e",
+  "fecha": "2026-10-28 05:08:50 UTC",
+  "pasos": [
+    {
+      "descripcion": "leer SA",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…bM00"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"phase\":\"examenes\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\",\"MED-900.anamnesis.inicio_dolor\",\"MED-900.laboratorio.hemograma\"],\"finished_at\":null,\"session_id\":\"e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e\",\"case_id\":\"MED-900\",\"started_at\":\"2026-10-28T05:08:40.940636+00:00\",\"active_agent\":\"laboratorio\",\"updated_at\":\"2026-10-28T05:08:45.956208+00:00\",\"avatar_state\":{\"gesture\":\"attentive\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "devuelve SA",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "caso correcto",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

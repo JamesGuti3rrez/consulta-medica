@@ -1,0 +1,46 @@
+{
+  "id": "TA011-30",
+  "nombre": "mensaje_sesion_cerrada",
+  "titulo": "Mensaje a SA cerrada",
+  "criterio": "CA1",
+  "resultado_esperado": "409 «La sesión ya finalizó.»",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_antes",
+  "commit": "0666f9e",
+  "fecha": "2026-10-28 05:08:15 UTC",
+  "pasos": [
+    {
+      "descripcion": "mensaje a SA cerrada",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/6082876d-8a41-49eb-b342-f3945849ca98/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…Cd58",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 409,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"La sesión ya finalizó.\"}",
+      "codigo_esperado": [
+        409
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "no se agregan eventos",
+      "resultado": "PASA",
+      "detalle": "6 -> 6"
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

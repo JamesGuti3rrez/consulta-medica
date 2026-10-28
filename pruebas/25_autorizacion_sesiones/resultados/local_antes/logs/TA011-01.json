@@ -1,0 +1,56 @@
+{
+  "id": "TA011-01",
+  "nombre": "A_crea_sesion",
+  "titulo": "A crea sesión",
+  "criterio": "CA1, CA4",
+  "resultado_esperado": "200 y session_id UUID v4 (no secuencial); sin credencial de capacidad para registrados",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_antes",
+  "commit": "0666f9e",
+  "fecha": "2026-10-28 05:07:53 UTC",
+  "pasos": [
+    {
+      "descripcion": "crear SA con su token",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…Cd58",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "case_id": "MED-900"
+      },
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"case_id\":\"MED-900\",\"phase\":\"presentacion\",\"started_at\":\"2026-10-28T05:07:45.300385+00:00\",\"session_id\":\"6082876d-8a41-49eb-b342-f3945849ca98\",\"active_agent\":\"medico_asistente\",\"updated_at\":\"2026-10-28T05:07:45.300400+00:00\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"],\"finished_at\":null,\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "session_id es UUID versión 4 (aleatorio)",
+      "resultado": "PASA",
+      "detalle": "versión 4"
+    },
+    {
+      "descripcion": "el dueño (owner_id) no se devuelve al navegador",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "SA es distinto de SB",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

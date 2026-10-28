@@ -1,0 +1,122 @@
+{
+  "id": "TA011-16",
+  "nombre": "anonimo1_sobre_SA",
+  "titulo": "Anónimo 1 con su credencial sobre SA",
+  "criterio": "CA3, CA2",
+  "resultado_esperado": "404 en las 4 operaciones, sin datos de SA",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_despues",
+  "commit": "0666f9e",
+  "fecha": "2026-10-28 05:08:59 UTC",
+  "pasos": [
+    {
+      "descripcion": "leer sesión de SA",
+      "identidad": "Anónimo 1 + credencial de capacidad",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e",
+      "cabeceras": {
+        "x-session-token": "U1nMOT…aAbo"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "enviar mensaje de SA",
+      "identidad": "Anónimo 1 + credencial de capacidad",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/message",
+      "cabeceras": {
+        "x-session-token": "U1nMOT…aAbo",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "listar eventos de SA",
+      "identidad": "Anónimo 1 + credencial de capacidad",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/events",
+      "cabeceras": {
+        "x-session-token": "U1nMOT…aAbo"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "cerrar sesión de SA",
+      "identidad": "Anónimo 1 + credencial de capacidad",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/finish",
+      "cabeceras": {
+        "x-session-token": "U1nMOT…aAbo",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "diagnosis": "intento ajeno",
+        "hypotheses": []
+      },
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "sin datos de SA en «leer sesión»",
+      "resultado": "PASA",
+      "detalle": "marcadores encontrados: []"
+    },
+    {
+      "descripcion": "sin datos de SA en «enviar mensaje»",
+      "resultado": "PASA",
+      "detalle": "marcadores encontrados: []"
+    },
+    {
+      "descripcion": "sin datos de SA en «listar eventos»",
+      "resultado": "PASA",
+      "detalle": "marcadores encontrados: []"
+    },
+    {
+      "descripcion": "sin datos de SA en «cerrar sesión»",
+      "resultado": "PASA",
+      "detalle": "marcadores encontrados: []"
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

@@ -1,0 +1,43 @@
+{
+  "id": "TA011-09",
+  "nombre": "inventario_rutas_openapi",
+  "titulo": "Inventario completo de rutas con session_id",
+  "criterio": "CA1",
+  "resultado_esperado": "Solo existen las 4 rutas del inventario; no hay rutas extra (hipótesis, reporte, stream)",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_despues",
+  "commit": "0666f9e",
+  "fecha": "2026-10-28 05:08:58 UTC",
+  "pasos": [
+    {
+      "descripcion": "leer el esquema OpenAPI",
+      "identidad": "sin credencial (documento público de la API)",
+      "metodo": "GET",
+      "url": "http://testserver/api/openapi.json",
+      "cabeceras": {},
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"openapi\":\"3.1.0\",\"info\":{\"title\":\"Consulta Médica Virtual\",\"version\":\"0.1.0\"},\"paths\":{\"/api/ai/status\":{\"get\":{\"tags\":[\"ai-sma\"],\"summary\":\"Status\",\"operationId\":\"status_api_ai_status_get\",\"responses\":{\"200\":{\"description\":\"Successful Response\",\"content\":{\"application/json\":{\"schema\":{}}}}}}},\"/api/ai/sessions\":{\"post\":{\"tags\":[\"ai-sma\"],\"summary\":\"Start\",\"operationId\":\"start_api_ai_sessions_post\",\"parameters\":[{\"name\":\"authorization\",\"in\":\"header\",\"required\":false,\"schema\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Authorization\"}}],\"requestBody\":{\"required\":true,\"content\":{\"application/json\":{\"schema\":{\"$ref\":\"#/components/schemas/StartRequest\"}}}},\"responses\":{\"200\":{\"description\":\"Successful Response\",\"content\":{\"application/json\":{\"schema\":{}}}},\"422\":{\"description\":\"Validation Error\",\"content\":{\"application/json\":{\"schema\":{\"$ref\":\"#/components/schemas/HTTPValidationError\"}}}}}}},\"/api/ai/sessions/{session_id}\":{\"get\":{\"tags\":[\"ai-sma\"],\"summary\":\"Get Session\",\"operationId\":\"get_session_api_ai_sessions__session_id__get\",\"parameters\":[{\"name\":\"session_id\",\"in\":\"path\",\"required\":true,\"schema\":{\"type\":\"string\",\"title\":\"Session Id\"}},{\"name\":\"authorization\",\"in\":\"header\",\"required\":false,\"schema\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Authorization\"}},{\"name\":\"x-session-token\",\"in\":\"header\",\"required\":false,\"schema\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"X-Session-Token\"}}],\"responses\":{\"200\":{\"description\":\"Successful Response\",\"content\":{\"application/json\":{\"schema\":{}}}},\"422\":{\"description\":\"Validation Error\",\"content\":{\"application/json\":{\"schema\":{\"$ref\":\"#/components/schemas/HTTPValidationError\"}}}}}}},\"/api/ai/sessions/{session_id}/message\":{\"post\":{\"tags\":[\"ai-sma\"],\"summary\":\"Message\",\"operationId\":\"message_api_ai_sessions__session_id__message_post\",\"parameters\":[{\"name\":\"session_id\",\"in\":\"path\",\"required\":true,\"schema\":{\"type\":\"string\",\"title\":\"Session Id\"}},{\"name\":\"authorization\",\"in\":\"header\",\"required\":false,\"schema\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Authorization\"}},{\"name\":\"x-session-token\",\"in\":\"header\",\"required\":false,\"schema\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"X-Session-Token\"}}],\"requestBody\":{\"required\":true,\"content\":{\"application/json\":{\"schema\":{\"$ref\":\"#/components/schemas/MessageRequest\"}}}},\"responses\":{\"200\":{\"description\":\"Successful Response\",\"content\":{\"application/json\":{\"schema\":{}}}},\"422\":{\"description\":\"Validation Error\",\"content\":{\"application/json\":{\"schema\":{\"$ref\":\"#/components/schemas/HTTPValidationError\"}}}}}}},\"/api/ai/sessions/{session_id}/events\":{\"get\":{\"tags\":[\"ai-sma\"],\"summary\":\"Events\",\"operationId\":\"events_api_ai_sessions__session_id__events_get\",\"parameters\":[{\"name\":\"session_id\",\"in\":\"path\",\"required\":true,\"schema\":{\"type\":\"string\",\"title\":\"Session Id\"}},{\"name\":\"authorization\",\"in\":\"header\",\"required\":false,\"schema\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Authorization\"}},{\"name\":\"x-session-token\",\"in\":\"header\",\"required\":false,\"schema\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"X-Session-Token\"}}],\"responses\":{\"200\":{\"description\":\"Successful Response\",\"content\":{\"application/json\":{\"schema\":{}}}},\"422\":{\"description\":\"Validation Error\",\"content\":{\"application/json\":{\"schema\":{\"$ref\":\"#/components/schemas/HTTPValidationError\"}}}}}}},\"/api/ai/sessions/{session_id}/finish\":{\"post\":{\"tags\":[\"ai-sma\"],\"summary\":\"Finish\",\"operationId\":\"finish_api_ai_sessions__session_id__finish_post\",\"parameters\":[{\"name\":\"session_id\",\"in\":\"path\",\"required\":true,\"schema\":{\"type\":\"string\",\"title\":\"Session Id\"}},{\"name\":\"authorization\",\"in\":\"header\",\"required\":false,\"schema\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Authorization\"}},{\"name\":\"x-session-token\",\"in\":\"header\",\"required\":false,\"schema\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"X-Session-Token\"}}],\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"anyOf\":[{\"$ref\":\"#/components/schemas/FinishReque… (13883 caracteres más)",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "rutas con {session_id} = inventario",
+      "resultado": "PASA",
+      "detalle": "encontradas: ['GET /api/ai/sessions/{session_id}', 'GET /api/ai/sessions/{session_id}/events', 'POST /api/ai/sessions/{session_id}/finish', 'POST /api/ai/sessions/{session_id}/message']"
+    }
+  ],
+  "notas": [
+    "Rutas con session_id: GET /api/ai/sessions/{session_id}, GET /api/ai/sessions/{session_id}/events, POST /api/ai/sessions/{session_id}/finish, POST /api/ai/sessions/{session_id}/message"
+  ],
+  "error": ""
+}

@@ -1,0 +1,250 @@
+{
+  "id": "TA011-37",
+  "nombre": "errores_sin_detalles",
+  "titulo": "Errores sin detalles internos",
+  "criterio": "CA2, CA4",
+  "resultado_esperado": "Ningún error con stack trace, SQL, rutas internas, claves ni ids de otros usuarios",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_despues",
+  "commit": "0666f9e",
+  "fecha": "2026-10-28 05:09:07 UTC",
+  "pasos": [
+    {
+      "descripcion": "GET /api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e",
+      "identidad": "Sin credencial",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e",
+      "cabeceras": {},
+      "cuerpo_enviado": null,
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "GET /api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…oql8"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "POST /api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/message",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…oql8",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "POST /api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/message",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…bM00",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 409,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"La sesión ya finalizó.\"}",
+      "codigo_esperado": [
+        409
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "POST /api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/message",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…bM00",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "a"
+      },
+      "codigo_recibido": 422,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":[{\"type\":\"string_too_short\",\"loc\":[\"body\",\"message\"],\"msg\":\"String should have at least 2 characters\",\"input\":\"a\",\"ctx\":{\"min_length\":2}}]}",
+      "codigo_esperado": [
+        401,
+        404,
+        409,
+        422
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "GET /api/ai/sessions/1'%20OR%20'1'%3D'1",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/1'%20OR%20'1'%3D'1",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…bM00"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        400,
+        401,
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "GET /api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e",
+      "identidad": "Bearer abc",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e",
+      "cabeceras": {
+        "authorization": "Bearer abc"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "GET /api/ai/sessions/45492238-d97c-403d-9ec6-50cb06d570f3",
+      "identidad": "Credencial malformada",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/45492238-d97c-403d-9ec6-50cb06d570f3",
+      "cabeceras": {
+        "x-session-token": "abc"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "POST /api/ai/sessions",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…bM00",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "case_id": "NO-EXISTE"
+      },
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Caso no encontrado o no disponible.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "GET /api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e: sin detalles internos",
+      "resultado": "PASA",
+      "detalle": "encontrado: []"
+    },
+    {
+      "descripcion": "GET /api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e: sin detalles internos",
+      "resultado": "PASA",
+      "detalle": "encontrado: []"
+    },
+    {
+      "descripcion": "POST /api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/messag: sin detalles internos",
+      "resultado": "PASA",
+      "detalle": "encontrado: []"
+    },
+    {
+      "descripcion": "POST /api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/messag: sin detalles internos",
+      "resultado": "PASA",
+      "detalle": "encontrado: []"
+    },
+    {
+      "descripcion": "POST /api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/messag: sin detalles internos",
+      "resultado": "PASA",
+      "detalle": "encontrado: []"
+    },
+    {
+      "descripcion": "GET /api/ai/sessions/1'%20OR%20'1'%3D'1: sin detalles internos",
+      "resultado": "PASA",
+      "detalle": "encontrado: []"
+    },
+    {
+      "descripcion": "GET /api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e: sin detalles internos",
+      "resultado": "PASA",
+      "detalle": "encontrado: []"
+    },
+    {
+      "descripcion": "GET /api/ai/sessions/45492238-d97c-403d-9ec6-50cb06d570f3: sin detalles internos",
+      "resultado": "PASA",
+      "detalle": "encontrado: []"
+    },
+    {
+      "descripcion": "POST /api/ai/sessions: sin detalles internos",
+      "resultado": "PASA",
+      "detalle": "encontrado: []"
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

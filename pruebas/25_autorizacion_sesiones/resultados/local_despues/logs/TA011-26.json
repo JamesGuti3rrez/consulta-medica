@@ -1,0 +1,332 @@
+{
+  "id": "TA011-26",
+  "nombre": "solo_anon_key",
+  "titulo": "Solo la clave publicable de Supabase",
+  "criterio": "CA1, CA2",
+  "resultado_esperado": "401: la clave publicable no identifica a ningún usuario",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_despues",
+  "commit": "0666f9e",
+  "fecha": "2026-10-28 05:09:00 UTC",
+  "pasos": [
+    {
+      "descripcion": "leer sesión de SA",
+      "identidad": "clave publicable como Bearer",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e",
+      "cabeceras": {
+        "authorization": "Bearer sb_publishable_prueba"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "enviar mensaje de SA",
+      "identidad": "clave publicable como Bearer",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/message",
+      "cabeceras": {
+        "authorization": "Bearer sb_publishable_prueba",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "listar eventos de SA",
+      "identidad": "clave publicable como Bearer",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/events",
+      "cabeceras": {
+        "authorization": "Bearer sb_publishable_prueba"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "cerrar sesión de SA",
+      "identidad": "clave publicable como Bearer",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/finish",
+      "cabeceras": {
+        "authorization": "Bearer sb_publishable_prueba",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "diagnosis": "intento ajeno",
+        "hypotheses": []
+      },
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "leer sesión de SA",
+      "identidad": "clave publicable en apikey",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e",
+      "cabeceras": {
+        "apikey": "sb_publishable_prueba"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "enviar mensaje de SA",
+      "identidad": "clave publicable en apikey",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/message",
+      "cabeceras": {
+        "apikey": "sb_publishable_prueba",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "listar eventos de SA",
+      "identidad": "clave publicable en apikey",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/events",
+      "cabeceras": {
+        "apikey": "sb_publishable_prueba"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "cerrar sesión de SA",
+      "identidad": "clave publicable en apikey",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/finish",
+      "cabeceras": {
+        "apikey": "sb_publishable_prueba",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "diagnosis": "intento ajeno",
+        "hypotheses": []
+      },
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "leer sesión de SA",
+      "identidad": "ambas",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e",
+      "cabeceras": {
+        "apikey": "sb_publishable_prueba",
+        "authorization": "Bearer sb_publishable_prueba"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "enviar mensaje de SA",
+      "identidad": "ambas",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/message",
+      "cabeceras": {
+        "apikey": "sb_publishable_prueba",
+        "authorization": "Bearer sb_publishable_prueba",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "listar eventos de SA",
+      "identidad": "ambas",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/events",
+      "cabeceras": {
+        "apikey": "sb_publishable_prueba",
+        "authorization": "Bearer sb_publishable_prueba"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "cerrar sesión de SA",
+      "identidad": "ambas",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/finish",
+      "cabeceras": {
+        "apikey": "sb_publishable_prueba",
+        "authorization": "Bearer sb_publishable_prueba",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "diagnosis": "intento ajeno",
+        "hypotheses": []
+      },
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "sin datos de SA",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin datos de SA",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin datos de SA",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin datos de SA",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin datos de SA",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin datos de SA",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin datos de SA",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin datos de SA",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin datos de SA",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin datos de SA",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin datos de SA",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin datos de SA",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

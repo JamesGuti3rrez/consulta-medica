@@ -1,0 +1,86 @@
+{
+  "id": "TA011-27",
+  "nombre": "session_id_en_cuerpo",
+  "titulo": "session_id = SB dentro del cuerpo",
+  "criterio": "CA1, CA2",
+  "resultado_esperado": "Se ignora: el mensaje va a SA y SB no recibe nada",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_despues",
+  "commit": "0666f9e",
+  "fecha": "2026-10-28 05:09:06 UTC",
+  "pasos": [
+    {
+      "descripcion": "B cuenta los eventos de SB antes",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/5bca931b-a79e-478d-9e59-49af4e905dd0/events",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…oql8"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "[{\"type\":\"session_started\",\"case_id\":\"MED-900\",\"phase\":\"presentacion\",\"evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"]}]",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "mensaje a SA con session_id = SB en el cuerpo",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…bM00",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?",
+        "session_id": "5bca931b-a79e-478d-9e59-49af4e905dd0",
+        "owner_id": "451f123e-bf05-4bdb-a973-32e620b0af78"
+      },
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"session\":{\"phase\":\"examenes\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\",\"MED-900.anamnesis.inicio_dolor\",\"MED-900.laboratorio.hemograma\",\"MED-900.medicacion.paracetamol\",\"MED-900.anamnesis.alergias\"],\"finished_at\":null,\"session_id\":\"e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e\",\"case_id\":\"MED-900\",\"started_at\":\"2026-10-28T05:08:40.940636+00:00\",\"active_agent\":\"paciente\",\"updated_at\":\"2026-10-28T05:09:00.445788+00:00\",\"avatar_state\":{\"gesture\":\"attentive\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null},\"intent\":\"ask_patient\",\"agent\":\"paciente\",\"response\":\"Tomó paracetamol 1 g, con mejoría parcial y transitoria. Niega alergias medicamentosas conocidas.\",\"synthetic_generated_ids\":[],\"synthetic_reused_ids\":[],\"data_source\":\"curado\",\"doctor_question\":\"¿Tiene alergias a algún medicamento?\",\"provider\":\"local-development\",\"model\":\"rules-only\",\"evidence_ids\":[\"MED-900.medicacion.paracetamol\",\"MED-900.anamnesis.alergias\"],\"blocked\":false,\"safety_alerts\":[]}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "B cuenta los eventos de SB después",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/5bca931b-a79e-478d-9e59-49af4e905dd0/events",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…oql8"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "[{\"type\":\"session_started\",\"case_id\":\"MED-900\",\"phase\":\"presentacion\",\"evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"]}]",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "SB no recibió eventos",
+      "resultado": "PASA",
+      "detalle": "1 -> 1"
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

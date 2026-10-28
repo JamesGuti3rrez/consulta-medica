@@ -1,0 +1,119 @@
+{
+  "id": "TA011-11",
+  "nombre": "B_sin_fuga_de_SA",
+  "titulo": "Respuestas a B sin datos de SA",
+  "criterio": "CA2",
+  "resultado_esperado": "Ningún marcador de SA en los cuerpos devueltos a B",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_despues",
+  "commit": "0666f9e",
+  "fecha": "2026-10-28 05:08:59 UTC",
+  "pasos": [
+    {
+      "descripcion": "respuesta recibida en TA011-10",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…oql8"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "respuesta recibida en TA011-10",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…oql8",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "respuesta recibida en TA011-10",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/events",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…oql8"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "respuesta recibida en TA011-10",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…oql8",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "sin marcadores en GET /api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e",
+      "resultado": "PASA",
+      "detalle": "encontrados: []"
+    },
+    {
+      "descripcion": "sin marcadores en POST /api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/message",
+      "resultado": "PASA",
+      "detalle": "encontrados: []"
+    },
+    {
+      "descripcion": "sin marcadores en GET /api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/events",
+      "resultado": "PASA",
+      "detalle": "encontrados: []"
+    },
+    {
+      "descripcion": "sin marcadores en POST /api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/finish",
+      "resultado": "PASA",
+      "detalle": "encontrados: []"
+    }
+  ],
+  "notas": [
+    "Marcadores de fuga de SA: session_id, case_id, textos de los mensajes, evidence_id revelados y user_id de A."
+  ],
+  "error": ""
+}

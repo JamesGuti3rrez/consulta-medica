@@ -1,0 +1,76 @@
+{
+  "id": "TA011-38",
+  "nombre": "cors_origen_ajeno",
+  "titulo": "CORS con origen no permitido",
+  "criterio": "CA2",
+  "resultado_esperado": "Sin Access-Control-Allow-Origin: el navegador de otro sitio no puede leer la respuesta",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_despues",
+  "commit": "0666f9e",
+  "fecha": "2026-10-28 05:09:07 UTC",
+  "pasos": [
+    {
+      "descripcion": "GET SA con Origin ajeno",
+      "identidad": "Usuario A (registrado) desde otro origen",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…bM00",
+        "origin": "https://sitio-malicioso.example"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"phase\":\"finalizada\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\",\"MED-900.anamnesis.inicio_dolor\",\"MED-900.laboratorio.hemograma\",\"MED-900.medicacion.paracetamol\",\"MED-900.anamnesis.alergias\"],\"finished_at\":\"2026-10-28T05:09:07.277026+00:00\",\"session_id\":\"e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e\",\"case_id\":\"MED-900\",\"started_at\":\"2026-10-28T05:08:40.940636+00:00\",\"active_agent\":\"orchestrator\",\"updated_at\":\"2026-10-28T05:09:07.277012+00:00\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":{\"score\":64.29,\"earned_weight\":9,\"total_weight\":14,\"completed_questions\":2,\"total_questions\":3,\"errors\":{\"negligencia\":1,\"anamnesis_incompleta\":0,\"razonamiento_clinico\":0}},\"attempt_id\":\"intento-1\"}",
+      "codigo_esperado": [
+        200,
+        401,
+        403,
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "OPTIONS (preflight CORS)",
+      "identidad": "preflight desde otro origen",
+      "metodo": "OPTIONS",
+      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e",
+      "cabeceras": {
+        "origin": "https://sitio-malicioso.example",
+        "access-control-request-method": "GET"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 405,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Method Not Allowed\"}",
+      "codigo_esperado": [
+        400,
+        404,
+        405
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "sin Access-Control-Allow-Origin",
+      "resultado": "PASA",
+      "detalle": "None"
+    },
+    {
+      "descripcion": "preflight sin Access-Control-Allow-Origin",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [
+    "La API no tiene CORSMiddleware: ningún origen distinto al del propio sitio puede leer respuestas desde el navegador. Un cliente fuera del navegador sigue necesitando la credencial."
+  ],
+  "error": ""
+}
