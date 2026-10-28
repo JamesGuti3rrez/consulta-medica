@@ -33,7 +33,7 @@ Todas las capturas están en **vista de escritorio/PC (1440 px de ancho)**; ning
 | 22. Pedidos genéricos | [22_pedidos_genericos/](22_pedidos_genericos/README.md) | Ante un pedido sin nombre de examen («análisis de sangre»), el laboratorio y radiología preguntan cuál en lugar de afirmar que no se realizó | OK (intento 2) |
 | 23. Numeración de los casos | [23_numeracion_casos/](23_numeracion_casos/README.md) | Casos agrupados por especialidad (EME 001-002, GOB 003-004, CIR 005-006, MED 007-008, PED 009-010) con equivalencias para la evidencia anterior | OK (intento 2) |
 | 24. Guía de preguntas por paciente | [24_guia_por_paciente/](24_guia_por_paciente/README.md) | Documento «Guiones de prueba por paciente» 3.0, generado desde los datos: por qué de cada pregunta y por qué se descarta cada enfermedad; 124 de 124 pedidos con el modelo real | OK (intento 2) |
-| 25. Autorización de sesiones (TA-011) | [25_autorizacion_sesiones/](25_autorizacion_sesiones/README.md) | Cada consulta solo la abre quien la empezó: el alumno con su token o el invitado con una credencial de 256 bits; otro usuario recibe 404 sin datos. 23 casos fallaban antes y 37 de 37 pasan después; la capa en vivo y el preview de Vercel quedan pendientes | OK local (intento 4); vivo pendiente |
+| 25. Autorización de sesiones (TA-011) | [25_autorizacion_sesiones/](25_autorizacion_sesiones/README.md) | Cada consulta solo la abre quien la empezó: el alumno con su token o el invitado con una credencial de 256 bits; otro usuario recibe 404 sin datos. 23 casos fallaban antes; después pasan 37 de 37 en local y 40 de 40 en vivo contra el Supabase de producción; el preview de Vercel queda pendiente (sin claves de Groq) | OK local y en vivo; preview pendiente |
 
 ## Convención de cada fase
 

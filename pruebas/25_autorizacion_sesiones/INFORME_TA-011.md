@@ -45,8 +45,9 @@ la política de acceso (sección 4) y se verificó con 40 casos de prueba.
 | --- | --- | --- | --- | --- | --- |
 | Local, **antes** del cambio (código de producción de `main`, `0cebb31`) | 37 | 14 | **23** | 3 (34 a 36, solo en vivo) | `ejecucion/local_antes_pytest.txt`, `02_local_antes_terminal.png`, `resultados/local_antes/` |
 | Local, **después** del cambio | 37 | **37** | 0 | 3 (34 a 36, solo en vivo) | `ejecucion/local_despues_pytest.txt`, `04_local_despues_terminal.png`, `resultados/local_despues/` |
-| En vivo (servidor real + Supabase real) | 0 | - | - | **40** | Bloqueado: `intentos/02_supabase_del_env_no_existe/` |
-| Preview de Vercel | 0 | - | - | **40** | Bloqueado: `ejecucion/09_preview_protegido.txt` |
+| En vivo, **antes** (servidor real con el código de `main` + Supabase de producción) | 40 | 17 | **23** | - | `ejecucion/vivo_antes_pytest.txt`, `03_vivo_antes_terminal.png`, `resultados/vivo_antes/` |
+| En vivo, **después** (servidor real + Supabase de producción) | 40 | **40** | 0 | - | `ejecucion/vivo_despues_pytest.txt`, `05b_vivo_despues_terminal.png`, `resultados/vivo_despues/` |
+| Preview de Vercel (con token de bypass) | 0 | - | - | **40** | Bloqueado: el preview no tiene modelo de lenguaje (`intentos/08_preview_sin_modelo_de_lenguaje/`) |
 | Navegador real contra `localhost:3000` (después) | 4 escenarios | 4 | 0 | - | `capturas/navegador_0*.png`, `capturas/navegador_registro.json`, `ejecucion/08_navegador_terminal.png` |
 | Regresión completa (`backend/tests`) | antes 424 / después 461 | antes 424 / después 461 | 0 / 0 | después 3 deseleccionadas (34 a 36) | `ejecucion/01_regresion_antes*`, `ejecucion/05_regresion_despues*` |
 
@@ -60,6 +61,12 @@ Los 14 casos que pasaban antes del cambio son los positivos (el dueño usa su co
 existen (registrar eventos, stream), los de formatos raros de id, CORS y el cierre. Ninguno de los negativos de
 autorización pasaba.
 
+**El modo vivo** usa un servidor real (`npm start`, uvicorn en `127.0.0.1:3100`) con `SESSION_STORE=supabase` y
+`CASE_STORE=supabase` contra el proyecto de Supabase que usa producción (`rynkx…`), el modelo de Groq y dos alumnos
+temporales (`alumno.prueba.ta011.…@example.com`) que la suite crea y borra. El «antes» en vivo usa el mismo
+worktree con el código de `main`. En las dos corridas `limpieza.json` registra 10 consultas creadas y borradas, 0
+eventos restantes y los 2 usuarios borrados; Auth tenía 2 usuarios antes y después.
+
 **El modo local** usa `TestClient`, que atraviesa toda la pila HTTP de FastAPI (rutas, cabeceras, dependencias,
 códigos), con Supabase Auth simulado (`tests/fakes_supabase.py`) y el proveedor de LLM local. **Las pruebas en
 navegador** sí usan el servidor real (`npm start`, uvicorn en el puerto 3000), el simulador real y el modelo de
@@ -67,13 +74,14 @@ Groq.
 
 ## 2. Matriz de trazabilidad
 
-Resultado «después» (local). Cada caso tiene su JSON en `resultados/<fase>/logs/TA011-XX.json` y su tarjeta en
-`resultados/<fase>/capturas/TA011-XX_<nombre>.png`, en las fases `local_antes` y `local_despues`.
+Resultado «después» (local y en vivo). Cada caso tiene su JSON en `resultados/<fase>/logs/TA011-XX.json` y su
+tarjeta en `resultados/<fase>/capturas/TA011-XX_<nombre>.png`, en las fases `local_antes`, `local_despues`,
+`vivo_antes` y `vivo_despues`.
 
 | Criterio | Casos | Resultado antes | Resultado después |
 | --- | --- | --- | --- |
 | **CA1** GET /sessions/{id}, mensaje, eventos y cierre comprueban propietario/token | 01, 02, 03, 04, 05, 06, 09, 10, 13, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 39, 40 | 12 PASA (positivos, rutas inexistentes, ids raros, cierre), 11 FALLA | 23 PASA |
-| **CA2** Usuario B recibe 403/404 sin datos de A | 10, 11, 12, 13, 14, 15, 16, 17, 26, 27, 28, 33, 37, 38, 39 (+ 34, 35, 36 en vivo) | 1 PASA (38, CORS), 14 FALLA | 15 PASA; 34 a 36 NO EJECUTADOS |
+| **CA2** Usuario B recibe 403/404 sin datos de A | 10, 11, 12, 13, 14, 15, 16, 17, 26, 27, 28, 33, 37, 38, 39 (+ 34, 35, 36 en vivo) | 1 PASA (38, CORS), 14 FALLA; en vivo 34 a 36 PASA | 15 PASA; en vivo 18 PASA (34 a 36 incluidos) |
 | **CA3** Sesiones anónimas con credencial de capacidad | 07, 08, 15, 16, 17, 18, 19, 20 | 1 PASA (08: el invitado usaba su sesión porque nadie pedía nada), 7 FALLA | 8 PASA |
 | **CA4** Test HTTP positivo/negativo | 01, 02, 03, 04, 05, 06, 08, 18, 21, 22, 23, 24, 25, 29, 37 | 8 PASA (positivos), 7 FALLA (negativos) | 15 PASA |
 
@@ -103,8 +111,8 @@ Detalle por caso:
 | TA011-20 | La credencial de SN1 no abre SN2 ni sesiones nuevas | **FALLA** | PASA |
 | TA011-21 | Sin credencial: 401 en las 4 operaciones (SA, SN2 e inexistente) | **FALLA** | PASA |
 | TA011-22 | `Bearer abc`: 401 | **FALLA** | PASA |
-| TA011-23 | JWT con la firma alterada: 401 | **FALLA** | PASA (simulado; ver sección 8) |
-| TA011-24 | JWT con `exp` vencido: 401 | **FALLA** | PASA (simulado; ver sección 8) |
+| TA011-23 | JWT con la firma alterada: 401 | **FALLA** | PASA (en vivo, Supabase real lo rechaza: 401) |
+| TA011-24 | JWT con `exp` vencido: 401; en vivo, token cerrado con `logout` | **FALLA** | PASA (en vivo: `logout` 204 y luego 401) |
 | TA011-25 | Esquemas `Basic`, `Token` o sin esquema: 401 | **FALLA** | PASA |
 | TA011-26 | Solo la clave publicable: 401 | **FALLA** | PASA |
 | TA011-27 | `session_id = SB` en el cuerpo: se ignora y SB no recibe nada | **FALLA** (SA ya estaba cerrada por B) | PASA |
@@ -114,12 +122,12 @@ Detalle por caso:
 | TA011-31 | Evento a SA cerrada: 405 y la lista no cambia | PASA | PASA |
 | TA011-32 | Cerrar dos veces: 200, misma evaluación | PASA | PASA |
 | TA011-33 | B sobre SA cerrada: 404 | **FALLA** | PASA |
-| TA011-34 | RLS: B lee `sma_sesiones`, `sma_eventos` e `intentos` por REST | NO EJECUTADA | NO EJECUTADA |
-| TA011-35 | RLS: B modifica o borra SA por REST | NO EJECUTADA | NO EJECUTADA |
-| TA011-36 | RLS: solo la clave publicable | NO EJECUTADA | NO EJECUTADA |
+| TA011-34 | RLS: B lee `sma_sesiones`, `sma_eventos` e `intentos` por REST | PASA (en vivo: 403; `intentos`, 404) | PASA (igual) |
+| TA011-35 | RLS: B modifica o borra SA por REST | PASA (en vivo: 403 y SA intacta) | PASA (igual) |
+| TA011-36 | RLS: solo la clave publicable | PASA (en vivo: 401; `intentos` y `perfiles`, 404) | PASA (igual) |
 | TA011-37 | Errores sin stack trace, SQL, rutas internas ni ids ajenos | **FALLA** (por los códigos 200; los cuerpos sí eran limpios) | PASA |
 | TA011-38 | CORS: un origen ajeno no recibe `Access-Control-Allow-Origin` | PASA | PASA |
-| TA011-39 | Denegaciones en el log del servidor, sin tokens completos | **FALLA** (no había registro) | PASA |
+| TA011-39 | Denegaciones en el log del servidor, sin tokens completos | **FALLA** (no había registro; en vivo, 200) | PASA (en vivo: 3 líneas `[autorizacion]`, sin tokens) |
 | TA011-40 | No hay stream SSE ni websocket: 404 al conectar | PASA | PASA |
 | TA011-41 | Regresión completa antes y después | 424 pasan | 461 pasan (0 fallan) |
 
@@ -192,67 +200,75 @@ de EN-009 ni de EN-010 (`backend/server/engine/` sin cambios).
 | D-02 | **Crítica** | Las consultas de invitado no tenían ninguna credencial: el UUID era el único secreto y viaja en cada URL | Crear una consulta sin token: la respuesta no trae credencial | `resultados/local_antes/capturas/TA011-07_anonimo1_crea_sesion.png` | Corregido en `cd54a74` y `ac7c0e1` |
 | D-03 | Alta | Cualquiera podía cerrar una consulta ajena y ver su evaluación (el guardado del intento sí estaba protegido) | `POST /finish` de un id ajeno: 200, `phase: finalizada` | `resultados/local_antes/capturas/TA011-13_B_cierra_SA.png` | Corregido |
 | D-04 | Media | Las denegaciones no quedaban registradas | - | `resultados/local_antes/capturas/TA011-39_log_de_denegados.png` | Corregido |
-| D-05 | Media (entorno) | El `SUPABASE_URL` del `.env` apunta a un proyecto que ya no existe; producción usa otro | `nslookup` del host del `.env`: *Non-existent domain* | `intentos/02_supabase_del_env_no_existe/` | Abierto: bloquea las pruebas en vivo |
+| D-05 | Media (entorno) | El `SUPABASE_URL` del `.env` apuntaba a un proyecto que ya no existe; producción usa otro | `nslookup` del host del `.env`: *Non-existent domain* | `intentos/02_supabase_del_env_no_existe/` | Corregido: el `.env` apunta al proyecto de producción desde el 28 de octubre |
 | D-06 | Baja (fuera de TA-011) | La batería de la fase 18 se cae con los 30 casos sintéticos: no tienen guion (`KeyError: 'CIR-101'`) | `bateria_un_solo_diagnostico.py --local` sin lista de casos | `ejecucion/07_recorrido_scripts.txt` | Abierto (ya existía en `89fa6a3`) |
-| D-07 | Baja (entorno) | Con `LANGSMITH_TRACING=true` y el cupo mensual de LangSmith agotado (429), los scripts quedan esperando | Correr la fase 14 sin `LANGSMITH_TRACING=false` | `intentos/04_recorrido_con_langsmith_activo/` | Abierto |
+| D-07 | Baja (entorno) | Con `LANGSMITH_TRACING=true` y el cupo mensual de LangSmith agotado (429), los scripts quedan esperando | Correr la fase 14 sin `LANGSMITH_TRACING=false` | `intentos/04_recorrido_con_langsmith_activo/` | Abierto (`correr_suite.ps1` ya lo apaga) |
+| D-08 | Media (fuera de TA-011) | El proyecto de Supabase de producción no tiene las tablas `perfiles` ni `intentos` (migración `0001`): el historial «Mis simulaciones» no puede guardar intentos allí | `GET /rest/v1/intentos` con la clave secreta: 404 `PGRST205` | `resultados/vivo_despues/limpieza.json` (`intentos_que_quedan: HTTP 404`), casos 34 y 36 | Abierto: aplicar `0001_perfiles_e_intentos.sql` o confirmar que el historial está desactivado en producción |
+| D-09 | Media (entorno) | Las claves de Groq del entorno Preview de Vercel no funcionan: cada mensaje del preview responde 503 | `GET /api/ai/status` del preview: `groq-1` a `groq-3` con `available: false` (en producción, `true`) | `intentos/08_preview_sin_modelo_de_lenguaje/` | Abierto: bloquea la suite en el preview |
+| D-10 | Baja (entorno) | Las pruebas dependen del `.env` de quien las corre: con el `.env` de producción (`SESSION_STORE`, `CASE_STORE` y `RAG_BACKEND` en Supabase), la suite local daba error en los 37 casos y la regresión fallaba en 2 pruebas de `test_api_sma.py` | Correr la suite o la regresión con ese `.env` sin fijar las variables | commit `5f9435d`, `intentos/09_regresion_con_el_env_de_produccion/` | Corregido en `correr_suite.ps1`; la regresión se ejecutó con los valores por defecto. Abierto para el resto del equipo: conviene que las pruebas fijen su entorno |
 
 ## 7. Bloqueos y dependencias
 
 - **TA-004 y EN-011:** no aparecen en ningún archivo del repositorio (código, `docs/`, `pruebas/`). El backlog
   no está versionado, así que su estado no se puede verificar desde aquí. Hay que confirmarlo con el Product
   Owner.
-- **Pruebas en vivo (34 a 36 y la repetición de los 40 casos contra Supabase real): bloqueadas.** El `.env`
-  local apunta a un proyecto de Supabase que no existe (D-05) y no se tiene la clave secreta del proyecto que
-  usa producción. Esa clave hace falta solo para crear y borrar los alumnos temporales A y B. El intento quedó
-  documentado: no se creó ningún usuario ni ninguna sesión.
-- **Preview de Vercel: desplegado pero bloqueado.** La rama generó el preview
-  `consulta-medica-py4m5uyss-...vercel.app` (estado `success`), pero está protegido por Vercel Authentication
-  (302 al inicio de sesión de Vercel). Hace falta un token de *Protection Bypass for Automation*.
-  `correr_suite.ps1` (`TA011_VERCEL_BYPASS`) y `probar_navegador.cjs` (`VERCEL_BYPASS`) ya lo admiten.
+- **Pruebas en vivo: ejecutadas.** Con el `.env` actualizado al proyecto de producción, la suite corrió contra
+  Supabase real antes (23 FALLA, 17 PASA) y después (40 de 40) del cambio. La primera corrida en vivo reveló
+  que el caso 40 no admitía el 403 con que uvicorn rechaza un websocket; se corrigió la prueba y se repitió
+  (`intentos/06_websocket_403_en_servidor_real/`).
+- **Preview de Vercel: bloqueado por el modelo de lenguaje.** Con el token de bypass, el preview
+  `consulta-medica-1mjw4o7qz-...vercel.app` (commit `5f9435d`) ya responde la API: crea consultas y aplica la
+  autorización (401 sin credencial). Pero sus tres claves de Groq no funcionan (D-09) y la preparación de la
+  suite necesita conversar. Falta configurar `GROQ_API_KEYS` para el entorno Preview en Vercel y repetir
+  (`intentos/07_preview_sin_token_de_bypass/`, `intentos/08_preview_sin_modelo_de_lenguaje/`).
 
 ## 8. Riesgos residuales
 
-1. **RLS sin verificar en vivo.** Según la migración `0002`, `sma_sesiones` y `sma_eventos` tienen RLS activado,
-   ninguna política y permisos revocados, lo que debería impedir todo acceso desde el navegador. Falta
-   confirmarlo contra la base real (TA011-34 a 36).
-2. **JWT vencido y firma alterada: probados contra Supabase simulado.** En modo local, el falso Supabase rechaza
-   cualquier token que no conoce. La verificación real de firma y vencimiento la hace Supabase
-   (`/auth/v1/user`) y se prueba en vivo. Además, sin la clave de firma del proyecto no se puede emitir un JWT
-   vencido con firma válida: TA011-24 usa el JWT con `exp` en el pasado y, en vivo, un token de una sesión
-   cerrada con `logout`.
+1. **RLS verificado en vivo.** Contra la base de producción, B no puede leer, modificar ni borrar
+   `sma_sesiones` ni `sma_eventos` por REST con su JWT (403), y la clave publicable sola recibe 401 (TA011-34 a
+   36, antes y después). Ese control no dependía de TA-011: ya protegía las tablas antes del cambio.
+2. **Firma alterada y token revocado: verificados en vivo.** Supabase real rechaza el JWT con la firma alterada
+   y el token de una sesión cerrada con `logout` (204), y la API responde 401 (TA011-23 y 24). Sin la clave de
+   firma del proyecto no se puede emitir un JWT vencido con firma válida, así que el vencimiento por `exp` se
+   sigue probando con el token alterado.
 3. **Dependencia de Supabase Auth en cada petición de un alumno.** Cada operación verifica el token con
    `/auth/v1/user`: suma una llamada por mensaje y, si Supabase cae, el alumno recibe 503 (falla cerrada).
    Mejora posible: verificar el JWT localmente con las claves públicas (JWKS) del proyecto.
 4. **Sin límite de peticiones.** Adivinar una credencial de 256 bits no es factible, pero no hay rate limiting en
    `/api/ai/sessions`. Crear consultas o enviar mensajes en masa consume la cuota del LLM.
 5. **Registro de acceso de uvicorn.** Registra la URL completa. La API nunca acepta la credencial en la URL y el
-   simulador no la pone ahí, pero si un cliente la enviara en `?token=`, quedaría en ese registro (TA011-39 lo
-   revisa en vivo).
+   simulador no la pone ahí, pero si un cliente la enviara en `?token=`, quedaría en ese registro. En vivo,
+   TA011-39 confirmó que las líneas `[autorizacion]` no contienen tokens completos.
 6. **Consultas creadas antes del despliegue.** Las de invitado quedan inaccesibles (404). Son consultas de
-   minutos; el historial de los alumnos está en `intentos` y no se afecta.
-7. **Recargar la página pierde la consulta del invitado.** La credencial vive solo en memoria. Antes del cambio
+   minutos; el historial de los alumnos no se afecta.
+7. **Historial sin tablas en producción (D-08).** Si se activa `HISTORIAL_ALUMNOS` en producción sin aplicar la
+   migración `0001`, guardar el intento fallará. No afecta a la autorización de TA-011.
+8. **Recargar la página pierde la consulta del invitado.** La credencial vive solo en memoria. Antes del cambio
    el simulador tampoco retomaba una consulta al recargar.
-8. **Scripts antiguos de `pruebas/`.** Los scripts de fases anteriores (07, 10 a 13, 16, 22) llaman a la API
+9. **Scripts antiguos de `pruebas/`.** Los scripts de fases anteriores (07, 10 a 13, 16, 22) llaman a la API
    sin credencial: son evidencia histórica y no se modificaron. Si se vuelven a ejecutar, responderán 401.
 
 ## 9. Recomendación
 
 **SÍ: TA-011 cumple sus cuatro criterios de aceptación con el código de la rama `ta-011-autorizacion-sesiones`.**
-La reserva sobre la validación en vivo se detalla más abajo.
+Verificado en local, en navegador y en vivo contra el Supabase de producción; la reserva sobre el preview se
+detalla más abajo.
 
 - **CA1:** las cuatro operaciones con `session_id` pasan por `authorize_session` y comprueban dueño o
   credencial (23 casos, todos PASA; antes 11 FALLA).
 - **CA2:** B recibe 404 sin ningún dato de A en las cuatro operaciones, también con la consulta cerrada, y la
-  respuesta es idéntica a la de una consulta inexistente (15 casos PASA).
+  respuesta es idéntica a la de una consulta inexistente (15 casos PASA). En vivo, B tampoco accede a las tablas
+  por REST (34 a 36 PASA).
 - **CA3:** las consultas de invitado usan una credencial de capacidad de 256 bits, una por consulta, solo por
   cabecera (8 casos PASA). El simulador real la usa (capturas de navegador).
 - **CA4:** hay pruebas HTTP positivas y negativas automatizadas, con la misma suite antes (23 FALLA) y después
-  (37 PASA), y regresión completa sin pruebas rotas (461 pasan).
+  (37 PASA en local, 40 de 40 en vivo), y regresión completa sin pruebas rotas (461 pasan).
 
-**Reserva:** no se pudo ejecutar la capa en vivo (Supabase real, RLS y revocación de tokens) ni la repetición
-en el preview de Vercel (sección 7). Antes de dar por terminado el PBI, se recomienda ejecutarlas con
-`correr_suite.ps1 -Modo vivo` cuando estén disponibles la clave del proyecto de Supabase (o un proyecto de
-pruebas) y el token de bypass del preview. La decisión final es del Product Owner.
+**Reserva:** falta repetir la suite en el preview de Vercel, bloqueada porque el entorno Preview no tiene
+claves de Groq que funcionen (D-09). El código del preview es el mismo que pasó 40 de 40 en vivo, y el preview
+ya aplica la autorización (401 sin credencial, `ejecucion/09_preview_protegido.txt`). Cuando Vercel tenga
+`GROQ_API_KEYS` en Preview, basta con `correr_suite.ps1 -Fase vercel_preview -Modo vivo` (sección 7). La
+decisión final es del Product Owner.
 
 ## Verificación final
 
@@ -262,8 +278,12 @@ pruebas) y el token de bypass del preview. La decisión final es del Product Own
       de texto de las fases oficiales. La única excepción conocida se conserva fuera de GitHub en
       `intentos/03_credencial_alterada_sin_enmascarar/` (una credencial alterada e inválida) y motivó la
       corrección `1aaec15`.
-- [x] Regresión antes (424) y después (461).
+- [x] Regresión antes (424) y después (461), con los valores por defecto de `SESSION_STORE`, `CASE_STORE`,
+      `RAG_BACKEND` y `SYNTHETIC_CASE_DATA` (memoria y local), como en las regresiones anteriores.
+- [x] Los intentos 6 a 9 (caso 40 demasiado estricto, preview sin token, preview sin modelo, regresión con el
+      `.env` de producción) se conservan sin modificar en `intentos/`.
 - [x] Datos de prueba limpios. En local todo vive en memoria y se borra al terminar. La consulta de invitado
-      creada por la prueba de navegador quedó en la memoria del servidor de `localhost:3000`. En Supabase no se
-      creó nada (sección 7).
+      creada por la prueba de navegador quedó en la memoria del servidor de `localhost:3000`. En Supabase, cada
+      corrida en vivo borró sus 2 alumnos temporales, sus 10 consultas y sus eventos (`limpieza.json`); Auth
+      quedó con los mismos 2 usuarios que tenía.
 - [x] Cada afirmación de este informe remite a un JSON, una salida `.txt` o una captura de esta carpeta.
