@@ -1,0 +1,63 @@
+{
+  "id": "HU006-03",
+  "nombre": "consulta_abierta_409",
+  "titulo": "Consulta abierta: el reporte no existe",
+  "criterio": "CA1",
+  "resultado_esperado": "409 sin diagnóstico de referencia ni preguntas clave",
+  "resultado": "FALLA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_antes",
+  "commit": "a17cb62",
+  "fecha": "2026-10-28 07:21:21 UTC",
+  "pasos": [
+    {
+      "descripcion": "reporte de una consulta abierta de A",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/042422fc-1bea-401e-9195-c1313f816401/report",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…WFG4"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"error\":\"Ruta de API no encontrada\"}",
+      "codigo_esperado": [
+        409
+      ],
+      "resultado": "FALLA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "mensaje exacto",
+      "resultado": "FALLA",
+      "detalle": "{\"error\":\"Ruta de API no encontrada\"}"
+    },
+    {
+      "descripcion": "sin «Migraña sin signos de alarma»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «key_questions»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «treatment»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «reference»",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": "E   AssertionError: HU006-03: paso 1 (GET http://testserver/api/ai/sessions/042422fc-1bea-401e-9195-c1313f816401/report): 404 no está en [409] | comprobación: mensaje exacto {\"error\":\"Ruta de API no encontrada\"}"
+}

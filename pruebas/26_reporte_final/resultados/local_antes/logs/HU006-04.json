@@ -1,0 +1,43 @@
+{
+  "id": "HU006-04",
+  "nombre": "B_sobre_reporte_A",
+  "titulo": "B no obtiene el reporte de A",
+  "criterio": "CA2",
+  "resultado_esperado": "404 sin datos del reporte de A",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_antes",
+  "commit": "a17cb62",
+  "fecha": "2026-10-28 07:21:21 UTC",
+  "pasos": [
+    {
+      "descripcion": "reporte de SA",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/9edb7876-a241-4752-a71a-a37f520e8405/report",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…SqzE"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"error\":\"Ruta de API no encontrada\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "sin datos de A",
+      "resultado": "PASA",
+      "detalle": "encontrados: []"
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

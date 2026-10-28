@@ -1,0 +1,48 @@
+{
+  "id": "HU006-02",
+  "nombre": "invitado_obtiene_reporte",
+  "titulo": "El invitado obtiene su reporte con su credencial",
+  "criterio": "CA2",
+  "resultado_esperado": "200 con el reporte de SN1",
+  "resultado": "FALLA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_antes",
+  "commit": "a17cb62",
+  "fecha": "2026-10-28 07:21:21 UTC",
+  "pasos": [
+    {
+      "descripcion": "reporte de SN1",
+      "identidad": "Anónimo 1 + credencial de capacidad",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/d21533b2-d00f-45df-83c7-b8b0b6302982/report",
+      "cabeceras": {
+        "x-session-token": "Zy57bn…sTiM"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"error\":\"Ruta de API no encontrada\"}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "FALLA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "case_id de SN1",
+      "resultado": "FALLA",
+      "detalle": "None"
+    },
+    {
+      "descripcion": "diagnóstico del invitado",
+      "resultado": "FALLA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": "E   AssertionError: HU006-02: paso 1 (GET http://testserver/api/ai/sessions/d21533b2-d00f-45df-83c7-b8b0b6302982/report): 404 no está en [200] | comprobación: case_id de SN1 None | comprobación: diagnóstico del invitado"
+}
