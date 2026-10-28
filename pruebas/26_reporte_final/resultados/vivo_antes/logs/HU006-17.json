@@ -1,0 +1,53 @@
+{
+  "id": "HU006-17",
+  "nombre": "log_reporte_ajeno",
+  "titulo": "Intento ajeno sobre /report en el log",
+  "criterio": "CA2",
+  "resultado_esperado": "Línea [autorizacion] 404 GET .../report con quién y motivo",
+  "resultado": "FALLA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_antes",
+  "commit": "0a55582",
+  "fecha": "2026-10-28 07:47:34 UTC",
+  "pasos": [
+    {
+      "descripcion": "reporte de SA",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/aae77d6c-6d00-461f-acbf-4c39b7e2324f/report",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…MIFg"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"error\":\"Ruta de API no encontrada\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "una línea [autorizacion] del intento",
+      "resultado": "FALLA",
+      "detalle": "líneas: 0"
+    },
+    {
+      "descripcion": "código 404 y motivo",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "quién (id de B)",
+      "resultado": "FALLA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": "E   AssertionError: HU006-17: comprobación: una línea [autorizacion] del intento líneas: 0 | comprobación: código 404 y motivo | comprobación: quién (id de B)"
+}

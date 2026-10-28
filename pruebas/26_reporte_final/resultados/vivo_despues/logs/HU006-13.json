@@ -1,0 +1,77 @@
+{
+  "id": "HU006-13",
+  "nombre": "tratamiento",
+  "titulo": "Tratamiento propuesto y de referencia",
+  "criterio": "CA3",
+  "resultado_esperado": "La propuesta de A con sus alertas y el tratamiento de referencia del caso",
+  "resultado": "PASA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_despues",
+  "commit": "0a55582",
+  "fecha": "2026-10-28 07:52:22 UTC",
+  "pasos": [
+    {
+      "descripcion": "eventos de SA",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/70fb67dc-39dc-435e-a801-92e791ebcd6b/events",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…XhsQ"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "[{\"type\":\"session_started\",\"phase\":\"presentacion\",\"case_id\":\"EME-001\",\"evidence_ids\":[\"EME-001.motivo.queja_principal\",\"EME-001.vital.signos_vitales\"]},{\"type\":\"turn\",\"agent\":\"paciente\",\"model\":\"openai/gpt-oss-20b\",\"phase\":\"anamnesis\",\"intent\":\"ask_patient\",\"blocked\":false,\"case_id\":\"EME-001\",\"provider\":\"groq-2\",\"data_source\":\"sintetico\",\"block_reason\":null,\"evidence_ids\":[],\"input_tokens\":1226,\"route_reason\":\"pregunta clínica dirigida al paciente por defecto\",\"fallback_used\":false,\"output_tokens\":289,\"response_text\":\"Me gusta comer comidas rápidas, como hamburguesas y papas fritas, y suelo beber refrescos con azúcar varias veces al día. También consumo café en la mañana y a veces cenas con comida ligera, como ensaladas o sopas.\",\"safety_alerts\":[],\"doctor_question\":\"¿Desde cuándo comenzaron sus molestias y cómo las describiría?\",\"student_message\":\"¿Desde cuándo comenzaron sus molestias y cómo las describiría?\",\"route_confidence\":0.75,\"grounding_retry_used\":false,\"synthetic_reused_ids\":[\"a73b6e92-86a7-44d3-b6b0-d4201a168ab9\"],\"grounding_fallback_used\":false,\"synthetic_generated_ids\":[],\"synthetic_rejection_reason\":null},{\"type\":\"turn\",\"agent\":\"laboratorio\",\"model\":\"openai/gpt-oss-20b\",\"phase\":\"examenes\",\"intent\":\"request_lab\",\"blocked\":false,\"case_id\":\"EME-001\",\"provider\":\"groq-3\",\"data_source\":\"curado\",\"block_reason\":null,\"evidence_ids\":[],\"input_tokens\":711,\"route_reason\":\"términos de laboratorio\",\"fallback_used\":false,\"output_tokens\":80,\"response_text\":\"Ese examen no se realizó en este paciente.\",\"safety_alerts\":[],\"doctor_question\":null,\"student_message\":\"Solicito un hemograma completo\",\"route_confidence\":0.95,\"grounding_retry_used\":false,\"synthetic_reused_ids\":[],\"grounding_fallback_used\":false,\"synthetic_generated_ids\":[],\"synthetic_rejection_reason\":null},{\"type\":\"turn\",\"agent\":\"medico_asistente\",\"model\":\"openai/gpt-oss-20b\",\"phase\":\"diagnostico\",\"intent\":\"propose_treatment\",\"blocked\":false,\"case_id\":\"EME-001\",\"provider\":\"groq-1\",\"data_source\":\"curado\",\"block_reason\":null,\"evidence_ids\":[],\"input_tokens\":865,\"route_reason\":\"propuesta de tratamiento\",\"fallback_used\":false,\"output_tokens\":151,\"response_text\":\"Anotado la indicación de paracetamol. Se revisará al cerrar la consulta. Por favor continúe recopilando datos.\",\"safety_alerts\":[],\"doctor_question\":null,\"student_message\":\"Le indico paracetamol para el dolor\",\"route_confidence\":0.98,\"grounding_retry_used\":false,\"synthetic_reused_ids\":[],\"grounding_fallback_used\":false,\"synthetic_generated_ids\":[],\"synthetic_rejection_reason\":null},{\"type\":\"session_finished\",\"case_id\":\"EME-001\"}]",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "reporte de SA",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/70fb67dc-39dc-435e-a801-92e791ebcd6b/report",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…XhsQ"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"case_id\":\"EME-001\",\"finished_at\":\"2026-10-28T07:51:40.435197+00:00\",\"patient\":{\"alias\":\"Jorge Salazar\",\"age_years\":33,\"sex\":\"masculino\"},\"chief_complaint\":\"Alteración del estado mental: sus compañeros de trabajo lo encontraron en el suelo de la obra donde trabaja como obrero de construcción.\",\"diagnosis\":{\"student\":\"Diagnóstico propuesto por A\",\"reference\":\"Golpe de calor por esfuerzo\",\"synonyms\":[\"Golpe de calor por esfuerzo\",\"Golpe de calor\",\"Golpe de calor por ejercicio\",\"Hipertermia por esfuerzo\"]},\"hypotheses\":[{\"name\":\"Hipótesis activa de A\",\"reason\":\"\",\"discarded\":false},{\"name\":\"Hipótesis descartada de A\",\"reason\":\"no encaja con la exploración\",\"discarded\":true}],\"differentials\":[\"Síndrome neuroléptico maligno\",\"Tormenta tiroidea\",\"Estado epiléptico\",\"Hipertermia maligna perioperatoria\"],\"score\":{\"score\":0.0,\"earned_weight\":0,\"total_weight\":16,\"completed_questions\":0,\"total_questions\":4},\"key_questions\":{\"obtained\":[],\"missing\":[{\"id\":\"kq2\",\"topic\":\"Medicación habitual: haloperidol, fenitoína y propranolol\",\"weight\":5,\"critical\":true,\"error_type\":\"anamnesis_incompleta\",\"error_name\":\"Anamnesis incompleta\",\"why\":\"Forma parte de una historia clínica completa.\",\"helps_discard\":[]},{\"id\":\"kq3\",\"topic\":\"Antecedentes: anestesia reciente, esquizofrenia, epilepsia e hipertiroidismo\",\"weight\":4,\"critical\":true,\"error_type\":\"anamnesis_incompleta\",\"error_name\":\"Anamnesis incompleta\",\"why\":\"Forma parte de una historia clínica completa.\",\"helps_discard\":[\"Hipertermia maligna perioperatoria\"]},{\"id\":\"kq4\",\"topic\":\"Exploración física: nivel de conciencia, tono muscular y sudoración\",\"weight\":4,\"critical\":true,\"error_type\":\"razonamiento_clinico\",\"error_name\":\"Razonamiento clínico\",\"why\":\"Orienta o confirma el diagnóstico del caso.\",\"helps_discard\":[\"Síndrome neuroléptico maligno\"]},{\"id\":\"kq5\",\"topic\":\"Función tiroidea normal pese al antecedente de hipertiroidismo\",\"weight\":3,\"critical\":false,\"error_type\":\"razonamiento_clinico\",\"error_name\":\"Razonamiento clínico\",\"why\":\"Orienta o confirma el diagnóstico del caso.\",\"helps_discard\":[\"Tormenta tiroidea\"]}]},\"tests\":{\"recommended_requested\":[],\"recommended_missing\":[],\"optional_requested\":[],\"unnecessary_requested\":[],\"other_indications\":[\"Enfriamiento activo inmediato\",\"Creatina quinasa funcion renal electrolitos\",\"Funcion hepatica y coagulacion\",\"Ecg glucosa y evaluacion de sindrome neuroleptico maligno\"]},\"treatment\":{\"proposed\":[{\"message\":\"Le indico paracetamol para el dolor\",\"alerts\":[]}],\"reference_summary\":\"Golpe de calor por esfuerzo con alteración neurológica es una emergencia vital. El enfriamiento activo debe comenzar de inmediato; la fuente no autoriza una pauta farmacológica individual.\",\"key_actions\":[\"Iniciar enfriamiento activo rápido y activar atención de emergencia.\",\"No usar antipiréticos como sustituto del enfriamiento.\",\"Vigilar rabdomiólisis, lesión renal/hepática, alteraciones electrolíticas y coagulopatía.\"]},\"revealed_evidence\":[{\"evidence_id\":\"EME-001.motivo.queja_principal\",\"label\":\"Motivo de consulta\",\"text\":\"Alteración del estado mental: sus compañeros de trabajo lo encontraron en el suelo de la obra donde trabaja como obrero de construcción.\"},{\"evidence_id\":\"EME-001.vital.signos_vitales\",\"label\":\"Signos vitales\",\"text\":\"Temperatura 41,1 °C, presión arterial 109/62 mmHg, pulso 170/min, frecuencia respiratoria 23/min y saturación de oxígeno 95 % al aire ambiente.\"}],\"recommendations\":[\"Completa la anamnesis: inicio y evolución, antecedentes, medicación, alergias y hábitos.\",\"Pide la exploración y los exámenes que confirmen o descarten cada una de tus hipótesis.\"]}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "la propuesta se reconoció como tratamiento",
+      "resultado": "PASA",
+      "detalle": "propose_treatment"
+    },
+    {
+      "descripcion": "propuesta con sus alertas",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "resumen de referencia",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "acciones clave",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}
