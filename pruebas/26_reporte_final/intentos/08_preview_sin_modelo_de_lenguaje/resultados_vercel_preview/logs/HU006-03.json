@@ -1,0 +1,17 @@
+{
+  "id": "HU006-03",
+  "nombre": "consulta_abierta_409",
+  "titulo": "Consulta abierta: el reporte no existe",
+  "criterio": "CA1",
+  "resultado_esperado": "409 sin diagnóstico de referencia ni preguntas clave",
+  "resultado": "FALLA",
+  "modo": "vivo",
+  "servidor": "https://consulta-medica-2huhqybm3-james-gutierrezs-projects-49804000.vercel.app",
+  "fase": "vercel_preview",
+  "commit": "6ba8750",
+  "fecha": "2026-10-28 07:54:51 UTC",
+  "pasos": [],
+  "comprobaciones": [],
+  "notas": [],
+  "error": "Falló la preparación: E   AssertionError: {\"detail\":\"El simulador no puede responder en este momento. Inténtalo de nuevo en unos minutos.\"}\n    assert 503 == 200\n     +  where 503 = <Response [503 Service Unavailable]>.status_code"
+}
