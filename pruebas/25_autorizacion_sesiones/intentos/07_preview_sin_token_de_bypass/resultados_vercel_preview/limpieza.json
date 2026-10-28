@@ -1,0 +1,7 @@
+{
+  "sesiones_creadas": 0,
+  "usuarios_creados": 2,
+  "usuarios_borrados": 2,
+  "intentos_que_quedan": "HTTP 404",
+  "clave_secreta_usada_en": "solo preparación y limpieza (crear/borrar usuarios, borrar sesiones)"
+}

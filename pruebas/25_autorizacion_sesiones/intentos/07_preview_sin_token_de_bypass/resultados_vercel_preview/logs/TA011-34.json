@@ -1,0 +1,17 @@
+{
+  "id": "TA011-34",
+  "nombre": "rls_B_lee_tablas",
+  "titulo": "RLS: B lee las tablas de sesiones por REST",
+  "criterio": "CA2",
+  "resultado_esperado": "0 filas (o permiso denegado) en sma_sesiones, sma_eventos e intentos",
+  "resultado": "FALLA",
+  "modo": "vivo",
+  "servidor": "https://consulta-medica-1mjw4o7qz-james-gutierrezs-projects-49804000.vercel.app",
+  "fase": "vercel_preview",
+  "commit": "5f9435d",
+  "fecha": "2026-10-28 06:06:08 UTC",
+  "pasos": [],
+  "comprobaciones": [],
+  "notas": [],
+  "error": "Falló la preparación: E   AssertionError: {\"access\":\"vercel curl <deployment-url>\",\"message\":\"Protected by Vercel Authentication\",\"protection\":{\"auto_vercel_auth_redirect\":true,\"password_enabled\":false,\"vercel_auth_enabled\":true,\"vercel_auth_callback\":\"https:\\/\\/vercel.com\\/sso-api?url=https%3A%2F%2Fconsulta-medica-1mjw4o7qz-james-gutierrezs-projects-49804000.vercel.app%2Fapi%2Fai%2Fsessions&nonce=77fcf59ca9fd66e4d966f8afaf4ea7982c2f640534f645408cf87ac47fe6a803\"},\"mcp\":\"With an authorized Vercel MCP connection (https:\\/\\/mcp.vercel.com), call web_fetch_vercel_url with url set to the full deployment URL.\",\"error\":{\"code\":\"401\",\"message\":\"Protected deployment\"}}\n    assert 401 == 200\n     +  where 401 = <Response [401 Unauthorized]>.status_code"
+}
