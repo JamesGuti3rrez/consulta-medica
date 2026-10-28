@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 from server.engine.evaluation import ClinicalEvaluationEngine
-from server.report import build_report
+from server.engine.evaluation.report import build_report
 
 CASE = json.loads((Path(__file__).resolve().parents[1] / "fixtures" / "cases" / "MED-900.json").read_text(encoding="utf-8"))
 INITIAL = ["MED-900.motivo.cefalea", "MED-900.vital.presion_arterial", "MED-900.vital.frecuencia_cardiaca",

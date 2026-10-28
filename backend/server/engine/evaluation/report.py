@@ -8,7 +8,6 @@ from __future__ import annotations
 from typing import Any
 
 from server.engine.disclosure.policy import DisclosurePolicy
-from server.engine.evaluation import ClinicalEvaluationEngine
 
 ERROR_NAMES = {
     "negligencia": "Negligencia",
@@ -34,16 +33,6 @@ DEFAULT_RECOMMENDATION = ("Mantén el mismo orden: anamnesis completa, exámenes
 SCORE_KEYS = ("score", "earned_weight", "total_weight", "completed_questions", "total_questions")
 
 
-class _CaseRepository:
-    """Lo mínimo que necesita el motor de evaluación, servido desde el caso ya cargado."""
-
-    def __init__(self, case: dict[str, Any]):
-        self.case = case
-
-    def get_protected(self, case_id: str) -> dict[str, Any]:
-        return self.case["protected"]
-
-
 def build_report(session: dict[str, Any], case: dict[str, Any], events: list[dict[str, Any]]) -> dict[str, Any]:
     case_id = case["case_id"]
     own = f"{case_id}."
@@ -52,10 +41,9 @@ def build_report(session: dict[str, Any], case: dict[str, Any], events: list[dic
     requested = [eid for eid in session.get("requested_evidence_ids", []) if eid.startswith(own)]
     observed = set(requested) | set(initial)
 
-    evaluation = session.get("evaluation") or ClinicalEvaluationEngine(_CaseRepository(case)).evaluate(
-        case_id=case_id, evidence_ids=requested, initial_evidence_ids=initial)
     alerts = [code for event in events if event.get("type") == "turn" for code in event.get("safety_alerts") or []]
     key_questions = _key_questions(protected, initial, observed)
+    evaluation = session.get("evaluation") or _score(key_questions)
     return {
         "case_id": case_id,
         "finished_at": session.get("finished_at"),
@@ -82,6 +70,19 @@ def build_report(session: dict[str, Any], case: dict[str, Any], events: list[dic
         },
         "revealed_evidence": _revealed(case, session.get("revealed_evidence_ids", []), own),
         "recommendations": _recommendations(key_questions["missing"], alerts),
+    }
+
+
+def _score(key_questions: dict[str, list]) -> dict[str, Any]:
+    """El mismo cálculo que ClinicalEvaluationEngine.evaluate, para consultas sin evaluación guardada."""
+    earned = sum(q["weight"] for q in key_questions["obtained"])
+    total = earned + sum(q["weight"] for q in key_questions["missing"])
+    return {
+        "score": round(earned * 100 / total, 2),
+        "earned_weight": earned,
+        "total_weight": total,
+        "completed_questions": len(key_questions["obtained"]),
+        "total_questions": len(key_questions["obtained"]) + len(key_questions["missing"]),
     }
 
 

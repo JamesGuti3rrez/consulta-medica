@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from typing import Any
 
+from .report import build_report
+
 
 ERROR_TYPES = ("negligencia", "anamnesis_incompleta", "razonamiento_clinico")
 
@@ -49,3 +51,9 @@ class ClinicalEvaluationEngine:
             "total_questions": len(questions),
             "errors": errors,
         }
+
+    def report(self, session: dict[str, Any], events: list[dict[str, Any]]) -> dict[str, Any]:
+        """Reporte final de una consulta cerrada (HU-006): el motor es quien lee la parte protegida del caso."""
+        case = self.repository.get_conversation_case(session["case_id"])
+        case["protected"] = self.repository.get_protected(session["case_id"])
+        return build_report(session, case, events)
