@@ -1,0 +1,127 @@
+{
+  "id": "TA011-36",
+  "nombre": "rls_solo_anon_key",
+  "titulo": "RLS: solo la clave publicable",
+  "criterio": "CA2",
+  "resultado_esperado": "0 filas de cualquier usuario",
+  "resultado": "PASA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_antes",
+  "commit": "5f9435d",
+  "fecha": "2026-10-28 05:58:45 UTC",
+  "pasos": [
+    {
+      "descripcion": "GET sma_sesiones",
+      "identidad": "solo clave publicable",
+      "metodo": "GET",
+      "url": "https://rynkxszpzioutahwaczg.supabase.co/rest/v1/sma_sesiones?select=%2A&limit=5",
+      "cabeceras": {
+        "apikey": "sb_pub…T_Pc"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json; charset=utf-8"
+      },
+      "cuerpo_recibido": "{\"code\":\"42501\",\"details\":null,\"hint\":\"Grant the required privileges to the current role with: GRANT SELECT ON public.sma_sesiones TO anon;\",\"message\":\"permission denied for table sma_sesiones\"}",
+      "codigo_esperado": [
+        200,
+        401,
+        403,
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "GET sma_eventos",
+      "identidad": "solo clave publicable",
+      "metodo": "GET",
+      "url": "https://rynkxszpzioutahwaczg.supabase.co/rest/v1/sma_eventos?select=%2A&limit=5",
+      "cabeceras": {
+        "apikey": "sb_pub…T_Pc"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json; charset=utf-8"
+      },
+      "cuerpo_recibido": "{\"code\":\"42501\",\"details\":null,\"hint\":\"Grant the required privileges to the current role with: GRANT SELECT ON public.sma_eventos TO anon;\",\"message\":\"permission denied for table sma_eventos\"}",
+      "codigo_esperado": [
+        200,
+        401,
+        403,
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "GET intentos",
+      "identidad": "solo clave publicable",
+      "metodo": "GET",
+      "url": "https://rynkxszpzioutahwaczg.supabase.co/rest/v1/intentos?select=%2A&limit=5",
+      "cabeceras": {
+        "apikey": "sb_pub…T_Pc"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json; charset=utf-8"
+      },
+      "cuerpo_recibido": "{\"code\":\"PGRST205\",\"details\":null,\"hint\":null,\"message\":\"Could not find the table 'public.intentos' in the schema cache\"}",
+      "codigo_esperado": [
+        200,
+        401,
+        403,
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "GET perfiles",
+      "identidad": "solo clave publicable",
+      "metodo": "GET",
+      "url": "https://rynkxszpzioutahwaczg.supabase.co/rest/v1/perfiles?select=%2A&limit=5",
+      "cabeceras": {
+        "apikey": "sb_pub…T_Pc"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json; charset=utf-8"
+      },
+      "cuerpo_recibido": "{\"code\":\"PGRST205\",\"details\":null,\"hint\":null,\"message\":\"Could not find the table 'public.perfiles' in the schema cache\"}",
+      "codigo_esperado": [
+        200,
+        401,
+        403,
+        404
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "sma_sesiones: 0 filas",
+      "resultado": "PASA",
+      "detalle": "filas: 0"
+    },
+    {
+      "descripcion": "sma_eventos: 0 filas",
+      "resultado": "PASA",
+      "detalle": "filas: 0"
+    },
+    {
+      "descripcion": "intentos: 0 filas",
+      "resultado": "PASA",
+      "detalle": "filas: 0"
+    },
+    {
+      "descripcion": "perfiles: 0 filas",
+      "resultado": "PASA",
+      "detalle": "filas: 0"
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

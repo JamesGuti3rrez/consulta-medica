@@ -1,0 +1,71 @@
+{
+  "id": "TA011-13",
+  "nombre": "B_cierra_SA",
+  "titulo": "B intenta cerrar SA",
+  "criterio": "CA1, CA2",
+  "resultado_esperado": "404 y SA sigue abierta",
+  "resultado": "FALLA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_antes",
+  "commit": "5f9435d",
+  "fecha": "2026-10-28 05:57:36 UTC",
+  "pasos": [
+    {
+      "descripcion": "cerrar SA",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…1bBw",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "diagnosis": "cerrado por B",
+        "hypotheses": []
+      },
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"updated_at\":\"2026-10-28T05:57:34.375077+00:00\",\"finished_at\":\"2026-10-28T05:57:34.375101+00:00\",\"active_agent\":\"orchestrator\",\"session_id\":\"23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee\",\"revealed_evidence_ids\":[\"EME-001.motivo.queja_principal\",\"EME-001.vital.signos_vitales\",\"EME-001.medicacion.tratamiento_habitual\"],\"started_at\":\"2026-10-28T05:56:32.811926+00:00\",\"phase\":\"finalizada\",\"case_id\":\"EME-001\",\"avatar_state\":{\"alerts\":[],\"vitals\":[{\"text\":\"Temperatura 41,1 °C, presión arterial 109/62 mmHg, pulso 170/min, frecuencia respiratoria 23/min y saturación de oxígeno 95 % al aire ambiente.\",\"label\":\"Signos vitales\",\"evidence_id\":\"EME-001.vital.signos_vitales\"}],\"gesture\":\"idle\",\"complications\":[]},\"evaluation\":{\"score\":31.25,\"errors\":{\"negligencia\":0,\"anamnesis_incompleta\":1,\"razonamiento_clinico\":2},\"total_weight\":16,\"earned_weight\":5,\"total_questions\":4,\"completed_questions\":1},\"attempt\":{\"saved\":false,\"reason\":\"desactivado\"}}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "A comprueba SA",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…C5tw"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"updated_at\":\"2026-10-28T05:57:34.375077+00:00\",\"finished_at\":\"2026-10-28T05:57:34.375101+00:00\",\"active_agent\":\"orchestrator\",\"session_id\":\"23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee\",\"revealed_evidence_ids\":[\"EME-001.motivo.queja_principal\",\"EME-001.vital.signos_vitales\",\"EME-001.medicacion.tratamiento_habitual\"],\"started_at\":\"2026-10-28T05:56:32.811926+00:00\",\"phase\":\"finalizada\",\"case_id\":\"EME-001\",\"avatar_state\":{\"alerts\":[],\"vitals\":[{\"text\":\"Temperatura 41,1 °C, presión arterial 109/62 mmHg, pulso 170/min, frecuencia respiratoria 23/min y saturación de oxígeno 95 % al aire ambiente.\",\"label\":\"Signos vitales\",\"evidence_id\":\"EME-001.vital.signos_vitales\"}],\"gesture\":\"idle\",\"complications\":[]},\"evaluation\":{\"score\":31.25,\"errors\":{\"negligencia\":0,\"anamnesis_incompleta\":1,\"razonamiento_clinico\":2},\"total_weight\":16,\"earned_weight\":5,\"total_questions\":4,\"completed_questions\":1}}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "sin datos de SA",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "SA sigue abierta",
+      "resultado": "FALLA",
+      "detalle": "fase: finalizada"
+    }
+  ],
+  "notas": [],
+  "error": "E   AssertionError: TA011-13: paso 1 (POST http://127.0.0.1:3100/api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee/finish): 200 no está en [404] | comprobación: sin datos de SA | comprobación: SA sigue abierta fase: finalizada"
+}

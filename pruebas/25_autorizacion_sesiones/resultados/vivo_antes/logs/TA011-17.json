@@ -1,0 +1,122 @@
+{
+  "id": "TA011-17",
+  "nombre": "A_sobre_SN1",
+  "titulo": "A (registrado) sobre SN1 sin la credencial",
+  "criterio": "CA3, CA2",
+  "resultado_esperado": "404 en las 4 operaciones",
+  "resultado": "FALLA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_antes",
+  "commit": "5f9435d",
+  "fecha": "2026-10-28 05:57:42 UTC",
+  "pasos": [
+    {
+      "descripcion": "leer sesión de SN1",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/7ed2d5a4-6322-4fe6-a918-ffe1d11e1004",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…C5tw"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"updated_at\":\"2026-10-28T05:57:18.391829+00:00\",\"finished_at\":\"2026-10-28T05:57:18.391849+00:00\",\"active_agent\":\"orchestrator\",\"session_id\":\"7ed2d5a4-6322-4fe6-a918-ffe1d11e1004\",\"revealed_evidence_ids\":[\"CIR-005.motivo.queja_principal\",\"CIR-005.anamnesis.evolucion_quirurgica\"],\"started_at\":\"2026-10-28T05:56:35.559250+00:00\",\"phase\":\"finalizada\",\"case_id\":\"CIR-005\",\"avatar_state\":{\"alerts\":[],\"vitals\":[],\"gesture\":\"idle\",\"complications\":[]},\"evaluation\":{\"score\":0.0,\"errors\":{\"negligencia\":0,\"anamnesis_incompleta\":1,\"razonamiento_clinico\":3},\"total_weight\":17,\"earned_weight\":0,\"total_questions\":4,\"completed_questions\":0}}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "enviar mensaje de SN1",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/7ed2d5a4-6322-4fe6-a918-ffe1d11e1004/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…C5tw",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 409,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"La sesión ya finalizó.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "listar eventos de SN1",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/7ed2d5a4-6322-4fe6-a918-ffe1d11e1004/events",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…C5tw"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "[{\"type\":\"session_started\",\"phase\":\"presentacion\",\"case_id\":\"CIR-005\",\"evidence_ids\":[\"CIR-005.motivo.queja_principal\",\"CIR-005.anamnesis.evolucion_quirurgica\"]},{\"type\":\"turn\",\"agent\":\"paciente\",\"model\":\"openai/gpt-oss-20b\",\"phase\":\"anamnesis\",\"intent\":\"ask_patient\",\"blocked\":true,\"case_id\":\"CIR-005\",\"provider\":\"groq-1\",\"data_source\":\"fuera_de_alcance\",\"block_reason\":\"fuera_de_alcance\",\"evidence_ids\":[],\"input_tokens\":1195,\"route_reason\":\"pregunta clínica dirigida al paciente por defecto\",\"fallback_used\":false,\"output_tokens\":390,\"response_text\":\"Prefiero que hablemos de mi salud, doctor. ¿Seguimos con la consulta?\",\"safety_alerts\":[],\"doctor_question\":\"¿Tiene alergias a algún medicamento?\",\"student_message\":\"¿Tiene alergias a algún medicamento?\",\"route_confidence\":0.75,\"grounding_retry_used\":false,\"synthetic_reused_ids\":[],\"grounding_fallback_used\":false,\"synthetic_generated_ids\":[],\"synthetic_rejection_reason\":null},{\"type\":\"session_finished\",\"case_id\":\"CIR-005\"}]",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "cerrar sesión de SN1",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/7ed2d5a4-6322-4fe6-a918-ffe1d11e1004/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…C5tw",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "diagnosis": "intento ajeno",
+        "hypotheses": []
+      },
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"updated_at\":\"2026-10-28T05:57:18.391829+00:00\",\"finished_at\":\"2026-10-28T05:57:18.391849+00:00\",\"active_agent\":\"orchestrator\",\"session_id\":\"7ed2d5a4-6322-4fe6-a918-ffe1d11e1004\",\"revealed_evidence_ids\":[\"CIR-005.motivo.queja_principal\",\"CIR-005.anamnesis.evolucion_quirurgica\"],\"started_at\":\"2026-10-28T05:56:35.559250+00:00\",\"phase\":\"finalizada\",\"case_id\":\"CIR-005\",\"avatar_state\":{\"alerts\":[],\"vitals\":[],\"gesture\":\"idle\",\"complications\":[]},\"evaluation\":{\"score\":0.0,\"errors\":{\"negligencia\":0,\"anamnesis_incompleta\":1,\"razonamiento_clinico\":3},\"total_weight\":17,\"earned_weight\":0,\"total_questions\":4,\"completed_questions\":0},\"attempt\":{\"saved\":false,\"reason\":\"desactivado\"}}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "FALLA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "sin el id de SN1 en la respuesta",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin el id de SN1 en la respuesta",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin el id de SN1 en la respuesta",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin el id de SN1 en la respuesta",
+      "resultado": "FALLA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": "E   AssertionError: TA011-17: paso 1 (GET http://127.0.0.1:3100/api/ai/sessions/7ed2d5a4-6322-4fe6-a918-ffe1d11e1004): 200 no está en [404] | paso 2 (POST http://127.0.0.1:3100/api/ai/sessions/7ed2d5a4-6322-4fe6-a918-ffe1d11e1004/message): 409 no está en [404] | paso 3 (GET http://127.0.0.1:3100/api/ai/sessions/7ed2d5a4-6322-4fe6-a918-ffe1d11e1004/events): 200 no está en [404] | paso 4 (POST http://127.0.0.1:3100/api/ai/sessions/7ed2d5a4-6322-4fe6-a918-ffe1d11e1004/finish): 200 no está en [404] | comprobación: sin el id de SN1 en la respuesta | comprobación: sin el id de SN1 en la respuesta"
+}

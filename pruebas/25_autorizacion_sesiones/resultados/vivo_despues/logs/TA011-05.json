@@ -1,0 +1,53 @@
+{
+  "id": "TA011-05",
+  "nombre": "A_registra_evento_no_aplica",
+  "titulo": "Registrar evento (no aplica)",
+  "criterio": "CA1, CA4",
+  "resultado_esperado": "No existe ruta para registrar eventos: 405/404 y la lista de eventos no cambia",
+  "resultado": "PASA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_despues",
+  "commit": "5f9435d",
+  "fecha": "2026-10-28 06:00:32 UTC",
+  "pasos": [
+    {
+      "descripcion": "intentar escribir un evento",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/eca64381-86cb-4fef-bf00-d30b1c828b19/events",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…SpvA",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "type": "turn",
+        "agent": "paciente",
+        "evidence_ids": [
+          "inventado"
+        ]
+      },
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"error\":\"Ruta de API no encontrada\"}",
+      "codigo_esperado": [
+        404,
+        405
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "la cantidad de eventos no cambia",
+      "resultado": "PASA",
+      "detalle": "4 -> 4"
+    }
+  ],
+  "notas": [
+    "Los eventos solo los genera el servidor al iniciar, en cada mensaje y al cerrar. No hay ruta que permita a un cliente escribirlos."
+  ],
+  "error": ""
+}
