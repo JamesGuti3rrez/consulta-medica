@@ -1,0 +1,57 @@
+﻿FASE: vercel_preview
+MODO: vivo
+SERVIDOR: https://consulta-medica-1mjw4o7qz-james-gutierrezs-projects-49804000.vercel.app
+DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica\backend
+COMANDO: .venv\Scripts\python.exe -m pytest tests/security/test_ta011_session_authz.py -v --tb=no -rN -p no:cacheprovider -m not logs_servidor
+COMMIT: c00ee96
+FECHA: 2026-10-28 06:07:34 UTC
+CODIGO_SALIDA: 1
+
+============================= test session starts =============================
+platform win32 -- Python 3.14.4, pytest-8.3.4, pluggy-1.6.0 -- C:\Users\Usuario\Documents\consulta-medica\backend\.venv\Scripts\python.exe
+rootdir: C:\Users\Usuario\Documents\consulta-medica\backend
+configfile: pyproject.toml
+plugins: anyio-4.15.1, langsmith-0.14.7
+collecting ... collected 40 items / 1 deselected / 39 selected
+
+tests/security/test_ta011_session_authz.py::test_01_a_crea_sesion ERROR  [  2%]
+tests/security/test_ta011_session_authz.py::test_02_a_lee_sa ERROR       [  5%]
+tests/security/test_ta011_session_authz.py::test_03_a_envia_mensaje ERROR [  7%]
+tests/security/test_ta011_session_authz.py::test_04_a_lista_eventos ERROR [ 10%]
+tests/security/test_ta011_session_authz.py::test_05_registrar_evento_no_existe ERROR [ 12%]
+tests/security/test_ta011_session_authz.py::test_07_anonimo_recibe_credencial ERROR [ 15%]
+tests/security/test_ta011_session_authz.py::test_08_anonimo_opera_su_sesion ERROR [ 17%]
+tests/security/test_ta011_session_authz.py::test_09_no_hay_rutas_adicionales ERROR [ 20%]
+tests/security/test_ta011_session_authz.py::test_10_b_sobre_sa ERROR     [ 23%]
+tests/security/test_ta011_session_authz.py::test_11_sin_fugas ERROR      [ 25%]
+tests/security/test_ta011_session_authz.py::test_12_sa_intacta ERROR     [ 28%]
+tests/security/test_ta011_session_authz.py::test_13_b_no_cierra ERROR    [ 30%]
+tests/security/test_ta011_session_authz.py::test_14_no_enumeracion ERROR [ 33%]
+tests/security/test_ta011_session_authz.py::test_15_anonimo2_sobre_sn1 ERROR [ 35%]
+tests/security/test_ta011_session_authz.py::test_16_anonimo1_sobre_sa ERROR [ 38%]
+tests/security/test_ta011_session_authz.py::test_17_registrado_sobre_anonima ERROR [ 41%]
+tests/security/test_ta011_session_authz.py::test_18_credencial_alterada ERROR [ 43%]
+tests/security/test_ta011_session_authz.py::test_19_credencial_en_query ERROR [ 46%]
+tests/security/test_ta011_session_authz.py::test_20_credencial_otra_sesion ERROR [ 48%]
+tests/security/test_ta011_session_authz.py::test_21_sin_credencial ERROR [ 51%]
+tests/security/test_ta011_session_authz.py::test_22_token_malformado ERROR [ 53%]
+tests/security/test_ta011_session_authz.py::test_23_firma_alterada ERROR [ 56%]
+tests/security/test_ta011_session_authz.py::test_24_jwt_vencido ERROR    [ 58%]
+tests/security/test_ta011_session_authz.py::test_25_esquema_incorrecto ERROR [ 61%]
+tests/security/test_ta011_session_authz.py::test_26_solo_anon_key ERROR  [ 64%]
+tests/security/test_ta011_session_authz.py::test_27_session_id_en_cuerpo ERROR [ 66%]
+tests/security/test_ta011_session_authz.py::test_28_owner_en_cuerpo ERROR [ 69%]
+tests/security/test_ta011_session_authz.py::test_29_ids_raros ERROR      [ 71%]
+tests/security/test_ta011_session_authz.py::test_06_a_cierra_sa ERROR    [ 74%]
+tests/security/test_ta011_session_authz.py::test_30_mensaje_cerrada ERROR [ 76%]
+tests/security/test_ta011_session_authz.py::test_31_evento_cerrada ERROR [ 79%]
+tests/security/test_ta011_session_authz.py::test_32_cerrar_dos_veces ERROR [ 82%]
+tests/security/test_ta011_session_authz.py::test_33_b_sobre_cerrada ERROR [ 84%]
+tests/security/test_ta011_session_authz.py::test_34_rls_lectura ERROR    [ 87%]
+tests/security/test_ta011_session_authz.py::test_35_rls_escritura ERROR  [ 89%]
+tests/security/test_ta011_session_authz.py::test_36_rls_anon ERROR       [ 92%]
+tests/security/test_ta011_session_authz.py::test_37_errores_limpios ERROR [ 94%]
+tests/security/test_ta011_session_authz.py::test_38_cors ERROR           [ 97%]
+tests/security/test_ta011_session_authz.py::test_40_stream ERROR         [100%]
+
+====================== 1 deselected, 39 errors in 8.16s =======================

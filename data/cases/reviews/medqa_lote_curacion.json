@@ -1166,7 +1166,7 @@
           "text": "Antes del embarazo tenía reglas regulares; nunca tuvo cefalea persistente ni problemas de la vista.",
           "owner": "paciente",
           "requires": [
-            "antecedentes_gineco_obstetricos"
+            "antecedentes_personales"
           ],
           "complemento": {
             "fuente": "sheehan_statpearls",

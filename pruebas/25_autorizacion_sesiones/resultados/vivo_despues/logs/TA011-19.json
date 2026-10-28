@@ -1,0 +1,85 @@
+{
+  "id": "TA011-19",
+  "nombre": "credencial_en_query",
+  "titulo": "Credencial por query string",
+  "criterio": "CA3",
+  "resultado_esperado": "401: la credencial solo se acepta en la cabecera",
+  "resultado": "PASA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_despues",
+  "commit": "5f9435d",
+  "fecha": "2026-10-28 06:01:31 UTC",
+  "pasos": [
+    {
+      "descripcion": "leer SN2 con ?token=",
+      "identidad": "Anónimo 2 (credencial en ?token=)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/1be2f603-44c8-4611-8d39-146793d40777?token=MRXdnK…MdLY",
+      "cabeceras": {},
+      "cuerpo_enviado": null,
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "leer SN2 con ?session_token=",
+      "identidad": "Anónimo 2 (credencial en ?session_token=)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/1be2f603-44c8-4611-8d39-146793d40777?session_token=MRXdnK…MdLY",
+      "cabeceras": {},
+      "cuerpo_enviado": null,
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "leer SN2 con ?access_token=",
+      "identidad": "Anónimo 2 (credencial en ?access_token=)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/1be2f603-44c8-4611-8d39-146793d40777?access_token=MRXdnK…MdLY",
+      "cabeceras": {},
+      "cuerpo_enviado": null,
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "?token= no da acceso",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "?session_token= no da acceso",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "?access_token= no da acceso",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

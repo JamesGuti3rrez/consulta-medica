@@ -1,0 +1,76 @@
+{
+  "id": "TA011-38",
+  "nombre": "cors_origen_ajeno",
+  "titulo": "CORS con origen no permitido",
+  "criterio": "CA2",
+  "resultado_esperado": "Sin Access-Control-Allow-Origin: el navegador de otro sitio no puede leer la respuesta",
+  "resultado": "PASA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_antes",
+  "commit": "5f9435d",
+  "fecha": "2026-10-28 05:58:47 UTC",
+  "pasos": [
+    {
+      "descripcion": "GET SA con Origin ajeno",
+      "identidad": "Usuario A (registrado) desde otro origen",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…C5tw",
+        "origin": "https://sitio-malicioso.example"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"updated_at\":\"2026-10-28T05:57:34.375077+00:00\",\"finished_at\":\"2026-10-28T05:57:34.375101+00:00\",\"active_agent\":\"orchestrator\",\"session_id\":\"23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee\",\"revealed_evidence_ids\":[\"EME-001.motivo.queja_principal\",\"EME-001.vital.signos_vitales\",\"EME-001.medicacion.tratamiento_habitual\"],\"started_at\":\"2026-10-28T05:56:32.811926+00:00\",\"phase\":\"finalizada\",\"case_id\":\"EME-001\",\"avatar_state\":{\"alerts\":[],\"vitals\":[{\"text\":\"Temperatura 41,1 °C, presión arterial 109/62 mmHg, pulso 170/min, frecuencia respiratoria 23/min y saturación de oxígeno 95 % al aire ambiente.\",\"label\":\"Signos vitales\",\"evidence_id\":\"EME-001.vital.signos_vitales\"}],\"gesture\":\"idle\",\"complications\":[]},\"evaluation\":{\"score\":31.25,\"errors\":{\"negligencia\":0,\"anamnesis_incompleta\":1,\"razonamiento_clinico\":2},\"total_weight\":16,\"earned_weight\":5,\"total_questions\":4,\"completed_questions\":1}}",
+      "codigo_esperado": [
+        200,
+        401,
+        403,
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "OPTIONS (preflight CORS)",
+      "identidad": "preflight desde otro origen",
+      "metodo": "OPTIONS",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee",
+      "cabeceras": {
+        "origin": "https://sitio-malicioso.example",
+        "access-control-request-method": "GET"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 405,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Method Not Allowed\"}",
+      "codigo_esperado": [
+        400,
+        404,
+        405
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "sin Access-Control-Allow-Origin",
+      "resultado": "PASA",
+      "detalle": "None"
+    },
+    {
+      "descripcion": "preflight sin Access-Control-Allow-Origin",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [
+    "La API no tiene CORSMiddleware: ningún origen distinto al del propio sitio puede leer respuestas desde el navegador. Un cliente fuera del navegador sigue necesitando la credencial."
+  ],
+  "error": ""
+}

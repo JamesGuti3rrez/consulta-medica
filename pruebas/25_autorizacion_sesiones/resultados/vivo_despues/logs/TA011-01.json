@@ -1,0 +1,56 @@
+{
+  "id": "TA011-01",
+  "nombre": "A_crea_sesion",
+  "titulo": "A crea sesión",
+  "criterio": "CA1, CA4",
+  "resultado_esperado": "200 y session_id UUID v4 (no secuencial); sin credencial de capacidad para registrados",
+  "resultado": "PASA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_despues",
+  "commit": "5f9435d",
+  "fecha": "2026-10-28 06:00:17 UTC",
+  "pasos": [
+    {
+      "descripcion": "crear SA con su token",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…SpvA",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "case_id": "EME-001"
+      },
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"phase\":\"presentacion\",\"active_agent\":\"medico_asistente\",\"case_id\":\"EME-001\",\"session_id\":\"eca64381-86cb-4fef-bf00-d30b1c828b19\",\"revealed_evidence_ids\":[\"EME-001.motivo.queja_principal\",\"EME-001.vital.signos_vitales\"],\"updated_at\":\"2026-10-28T05:59:48.144470+00:00\",\"finished_at\":null,\"started_at\":\"2026-10-28T05:59:48.144447+00:00\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"EME-001.vital.signos_vitales\",\"label\":\"Signos vitales\",\"text\":\"Temperatura 41,1 °C, presión arterial 109/62 mmHg, pulso 170/min, frecuencia respiratoria 23/min y saturación de oxígeno 95 % al aire ambiente.\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "session_id es UUID versión 4 (aleatorio)",
+      "resultado": "PASA",
+      "detalle": "versión 4"
+    },
+    {
+      "descripcion": "el dueño (owner_id) no se devuelve al navegador",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "SA es distinto de SB",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

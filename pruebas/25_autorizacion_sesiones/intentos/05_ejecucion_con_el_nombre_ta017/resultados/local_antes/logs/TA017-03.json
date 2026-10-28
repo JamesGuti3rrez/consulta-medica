@@ -1,0 +1,90 @@
+{
+  "id": "TA017-03",
+  "nombre": "A_mensaje_SA",
+  "titulo": "A envía mensaje a SA",
+  "criterio": "CA1, CA4",
+  "resultado_esperado": "200 con la respuesta del agente",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_antes",
+  "commit": "0ef9e0e",
+  "fecha": "2026-10-27 02:52:51 UTC",
+  "pasos": [
+    {
+      "descripcion": "mensaje 1 de la preparación",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/943e4bfe-35dc-484c-b400-c233560db151/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…33Ms",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Desde cuándo comenzó el dolor y cómo lo describiría?"
+      },
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"session\":{\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\",\"MED-900.anamnesis.inicio_dolor\"],\"session_id\":\"943e4bfe-35dc-484c-b400-c233560db151\",\"active_agent\":\"paciente\",\"updated_at\":\"2026-10-27T02:52:37.328642+00:00\",\"finished_at\":null,\"phase\":\"anamnesis\",\"started_at\":\"2026-10-27T02:52:37.006068+00:00\",\"case_id\":\"MED-900\",\"avatar_state\":{\"gesture\":\"attentive\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null},\"intent\":\"ask_patient\",\"agent\":\"paciente\",\"response\":\"El dolor comenzó hace tres días; es pulsátil y predomina en el lado derecho.\",\"synthetic_generated_ids\":[],\"synthetic_reused_ids\":[],\"data_source\":\"curado\",\"doctor_question\":\"¿Desde cuándo comenzó el dolor y cómo lo describiría?\",\"provider\":\"local-development\",\"model\":\"rules-only\",\"evidence_ids\":[\"MED-900.anamnesis.inicio_dolor\"],\"blocked\":false,\"safety_alerts\":[]}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "mensaje 2 de la preparación",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/943e4bfe-35dc-484c-b400-c233560db151/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…33Ms",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "Solicito un hemograma y análisis de sangre"
+      },
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"session\":{\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\",\"MED-900.anamnesis.inicio_dolor\",\"MED-900.laboratorio.hemograma\"],\"session_id\":\"943e4bfe-35dc-484c-b400-c233560db151\",\"active_agent\":\"laboratorio\",\"updated_at\":\"2026-10-27T02:52:43.066167+00:00\",\"finished_at\":null,\"phase\":\"examenes\",\"started_at\":\"2026-10-27T02:52:37.006068+00:00\",\"case_id\":\"MED-900\",\"avatar_state\":{\"gesture\":\"attentive\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null},\"intent\":\"request_lab\",\"agent\":\"laboratorio\",\"response\":\"Hemograma sin alteraciones relevantes.\",\"synthetic_generated_ids\":[],\"synthetic_reused_ids\":[],\"data_source\":\"curado\",\"doctor_question\":null,\"provider\":\"local-development\",\"model\":\"rules-only\",\"evidence_ids\":[\"MED-900.laboratorio.hemograma\"],\"blocked\":false,\"safety_alerts\":[]}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "mensaje 3",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/943e4bfe-35dc-484c-b400-c233560db151/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…33Ms",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"session\":{\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\",\"MED-900.anamnesis.inicio_dolor\",\"MED-900.laboratorio.hemograma\",\"MED-900.medicacion.paracetamol\",\"MED-900.anamnesis.alergias\"],\"session_id\":\"943e4bfe-35dc-484c-b400-c233560db151\",\"active_agent\":\"paciente\",\"updated_at\":\"2026-10-27T02:52:47.548013+00:00\",\"finished_at\":null,\"phase\":\"examenes\",\"started_at\":\"2026-10-27T02:52:37.006068+00:00\",\"case_id\":\"MED-900\",\"avatar_state\":{\"gesture\":\"attentive\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null},\"intent\":\"ask_patient\",\"agent\":\"paciente\",\"response\":\"Tomó paracetamol 1 g, con mejoría parcial y transitoria. Niega alergias medicamentosas conocidas.\",\"synthetic_generated_ids\":[],\"synthetic_reused_ids\":[],\"data_source\":\"curado\",\"doctor_question\":\"¿Tiene alergias a algún medicamento?\",\"provider\":\"local-development\",\"model\":\"rules-only\",\"evidence_ids\":[\"MED-900.medicacion.paracetamol\",\"MED-900.anamnesis.alergias\"],\"blocked\":false,\"safety_alerts\":[]}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "responde un agente",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

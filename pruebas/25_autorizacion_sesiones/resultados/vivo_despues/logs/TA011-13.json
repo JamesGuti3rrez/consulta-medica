@@ -1,0 +1,71 @@
+{
+  "id": "TA011-13",
+  "nombre": "B_cierra_SA",
+  "titulo": "B intenta cerrar SA",
+  "criterio": "CA1, CA2",
+  "resultado_esperado": "404 y SA sigue abierta",
+  "resultado": "PASA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_despues",
+  "commit": "5f9435d",
+  "fecha": "2026-10-28 06:01:10 UTC",
+  "pasos": [
+    {
+      "descripcion": "cerrar SA",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/eca64381-86cb-4fef-bf00-d30b1c828b19/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…5-1w",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "diagnosis": "cerrado por B",
+        "hypotheses": []
+      },
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "A comprueba SA",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/eca64381-86cb-4fef-bf00-d30b1c828b19",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…SpvA"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"phase\":\"examenes\",\"active_agent\":\"paciente\",\"case_id\":\"EME-001\",\"session_id\":\"eca64381-86cb-4fef-bf00-d30b1c828b19\",\"revealed_evidence_ids\":[\"EME-001.motivo.queja_principal\",\"EME-001.vital.signos_vitales\",\"EME-001.medicacion.tratamiento_habitual\"],\"updated_at\":\"2026-10-28T06:00:26.056450+00:00\",\"finished_at\":null,\"started_at\":\"2026-10-28T05:59:48.144447+00:00\",\"avatar_state\":{\"alerts\":[],\"vitals\":[{\"text\":\"Temperatura 41,1 °C, presión arterial 109/62 mmHg, pulso 170/min, frecuencia respiratoria 23/min y saturación de oxígeno 95 % al aire ambiente.\",\"label\":\"Signos vitales\",\"evidence_id\":\"EME-001.vital.signos_vitales\"}],\"gesture\":\"attentive\",\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "sin datos de SA",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "SA sigue abierta",
+      "resultado": "PASA",
+      "detalle": "fase: examenes"
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

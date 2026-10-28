@@ -1,0 +1,86 @@
+{
+  "id": "TA011-27",
+  "nombre": "session_id_en_cuerpo",
+  "titulo": "session_id = SB dentro del cuerpo",
+  "criterio": "CA1, CA2",
+  "resultado_esperado": "Se ignora: el mensaje va a SA y SB no recibe nada",
+  "resultado": "FALLA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_antes",
+  "commit": "0b9b949",
+  "fecha": "2026-10-28 05:52:36 UTC",
+  "pasos": [
+    {
+      "descripcion": "B cuenta los eventos de SB antes",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/fc24f0ad-f868-4465-b6dc-1b7b9b312735/events",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…w3OQ"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "[{\"type\":\"session_started\",\"phase\":\"presentacion\",\"case_id\":\"CIR-005\",\"evidence_ids\":[\"CIR-005.motivo.queja_principal\",\"CIR-005.anamnesis.evolucion_quirurgica\"]}]",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "mensaje a SA con session_id = SB en el cuerpo",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/8573dd5f-f4ad-492b-bb70-aa0635b685b0/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…g3yQ",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?",
+        "session_id": "fc24f0ad-f868-4465-b6dc-1b7b9b312735",
+        "owner_id": "ebe64ca8-91d8-4526-a8fc-f8c96d38c9cc"
+      },
+      "codigo_recibido": 409,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"La sesión ya finalizó.\"}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "B cuenta los eventos de SB después",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/fc24f0ad-f868-4465-b6dc-1b7b9b312735/events",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…w3OQ"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "[{\"type\":\"session_started\",\"phase\":\"presentacion\",\"case_id\":\"CIR-005\",\"evidence_ids\":[\"CIR-005.motivo.queja_principal\",\"CIR-005.anamnesis.evolucion_quirurgica\"]}]",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "SB no recibió eventos",
+      "resultado": "PASA",
+      "detalle": "1 -> 1"
+    }
+  ],
+  "notas": [],
+  "error": "E   AssertionError: TA011-27: paso 2 (POST http://127.0.0.1:3100/api/ai/sessions/8573dd5f-f4ad-492b-bb70-aa0635b685b0/message): 409 no está en [200]"
+}

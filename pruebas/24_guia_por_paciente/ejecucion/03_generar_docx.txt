@@ -1,0 +1,11 @@
+DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica
+COMANDO: node pruebas/24_guia_por_paciente/generar_docx.cjs "Entregables/05_Guia_de_pruebas/Guiones de prueba por paciente.docx"
+FECHA: 2026-10-14 15:15:45 UTC
+CODIGO_SALIDA: 0
+
+STDOUT:
+Documento guardado: Entregables/05_Guia_de_pruebas/Guiones de prueba por paciente.docx (13 casos, 35 KB)
+
+
+STDERR:
+

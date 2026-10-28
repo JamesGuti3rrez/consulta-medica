@@ -1,0 +1,3116 @@
+{
+  "fecha": "2026-10-14",
+  "pedidos": 124,
+  "pedidos_correctos": 124,
+  "casos": [
+    {
+      "case_id": "EME-001",
+      "paciente": "Jorge Salazar, 33 años",
+      "especialidad": "Emergencias",
+      "motivo": "Alteración del estado mental: sus compañeros de trabajo lo encontraron en el suelo de la obra donde trabaja como obrero de construcción.",
+      "enlace": "https://consulta-medica-three.vercel.app/simulacion.html?caso=EME-001",
+      "al_empezar": {
+        "posibles": [
+          "Estado epiléptico",
+          "Golpe de calor por esfuerzo",
+          "Hipertermia maligna perioperatoria",
+          "Síndrome neuroléptico maligno",
+          "Tormenta tiroidea"
+        ],
+        "menos probables": [],
+        "descartadas": []
+      },
+      "pasos": [
+        {
+          "numero": 1,
+          "pedido": "Pregúntele por sus antecedentes de enfermedades",
+          "por_que": "Sus enfermedades (epilepsia, esquizofrenia, tiroides) pueden causar por sí mismas fiebre alta y confusión, o tratarse con fármacos que las provocan.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Tiene antecedentes de enfermedades?",
+          "respuesta": "Sí, hace varios meses tuve anestesia para una apendicectomía. También tengo esquizofrenia bien controlada, epilepsia, ansiedad e hipertiroidismo.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Hipertermia maligna perioperatoria",
+              "pasa_a": "descartada",
+              "por_que": "La hipertermia maligna aparece durante o justo después de una anestesia; la suya fue hace varios meses."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Estado epiléptico",
+              "Golpe de calor por esfuerzo",
+              "Síndrome neuroléptico maligno",
+              "Tormenta tiroidea"
+            ],
+            "menos probables": [],
+            "descartadas": [
+              "Hipertermia maligna perioperatoria"
+            ]
+          }
+        },
+        {
+          "numero": 2,
+          "pedido": "¿Qué medicamentos toma?",
+          "por_que": "Algunos fármacos, como los antipsicóticos, pueden causar fiebre muy alta con rigidez; otros cambian el pulso o la temperatura.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Qué medicamentos toma?",
+          "respuesta": "Tomo haloperidol para la esquizofrenia, fenitoína para la epilepsia y propranolol para la ansiedad y el hipertiroidismo.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Estado epiléptico",
+              "Golpe de calor por esfuerzo",
+              "Síndrome neuroléptico maligno",
+              "Tormenta tiroidea"
+            ],
+            "menos probables": [],
+            "descartadas": [
+              "Hipertermia maligna perioperatoria"
+            ]
+          }
+        },
+        {
+          "numero": 3,
+          "pedido": "Voy a examinar al paciente",
+          "por_que": "El tono muscular separa las causas de fiebre muy alta con confusión: rigidez en unas, músculos flojos en otras. El sudor y la suciedad orientan al esfuerzo físico al calor.",
+          "agente": "Médico asistente",
+          "medico_tratante": null,
+          "respuesta": "Paciente con alteración del estado mental y escala de coma de Glasgow de 10. Tono muscular mínimo; responde de forma incoherente a las preguntas. Está cubierto de sudor y suciedad.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Síndrome neuroléptico maligno",
+              "pasa_a": "descartada",
+              "por_que": "Tiene el tono muscular mínimo; el síndrome neuroléptico maligno cursa con rigidez muscular intensa."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Estado epiléptico",
+              "Golpe de calor por esfuerzo",
+              "Tormenta tiroidea"
+            ],
+            "menos probables": [],
+            "descartadas": [
+              "Hipertermia maligna perioperatoria",
+              "Síndrome neuroléptico maligno"
+            ]
+          }
+        },
+        {
+          "numero": 4,
+          "pedido": "Solicito función tiroidea",
+          "por_que": "Toma propranolol por hipertiroidismo: hay que saber si la tiroides está descontrolada antes de culpar al calor.",
+          "agente": "Laboratorio",
+          "medico_tratante": null,
+          "respuesta": "TSH y tiroxina libre dentro del rango normal.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Tormenta tiroidea",
+              "pasa_a": "descartada",
+              "por_que": "Aunque toma propranolol por hipertiroidismo, la TSH y la tiroxina libre están normales: la tiroides no está descontrolada."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Estado epiléptico",
+              "Golpe de calor por esfuerzo"
+            ],
+            "menos probables": [],
+            "descartadas": [
+              "Hipertermia maligna perioperatoria",
+              "Síndrome neuroléptico maligno",
+              "Tormenta tiroidea"
+            ]
+          }
+        },
+        {
+          "numero": 5,
+          "pedido": "Pido un electroencefalograma",
+          "por_que": "Tiene epilepsia y está confuso: el electroencefalograma muestra si sigue teniendo crisis sin convulsionar.",
+          "agente": "Laboratorio",
+          "medico_tratante": null,
+          "respuesta": "Sin actividad epileptiforme; enlentecimiento difuso propio de una encefalopatía.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Estado epiléptico",
+              "pasa_a": "descartada",
+              "por_que": "Tiene epilepsia y está obnubilado, pero el electroencefalograma no muestra actividad epileptiforme: no está convulsionando sin que se vea."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Golpe de calor por esfuerzo"
+            ],
+            "menos probables": [],
+            "descartadas": [
+              "Estado epiléptico",
+              "Hipertermia maligna perioperatoria",
+              "Síndrome neuroléptico maligno",
+              "Tormenta tiroidea"
+            ]
+          }
+        }
+      ],
+      "al_terminar": {
+        "posibles": [
+          "Golpe de calor por esfuerzo"
+        ],
+        "menos probables": [],
+        "descartadas": [
+          "Estado epiléptico",
+          "Hipertermia maligna perioperatoria",
+          "Síndrome neuroléptico maligno",
+          "Tormenta tiroidea"
+        ]
+      },
+      "no_preguntar": [
+        {
+          "pedido": "¿Tiene alergias?",
+          "motivo": "El caso no registra alergias: debe responder que no.",
+          "respuesta": "No, no tengo alergias."
+        },
+        {
+          "pedido": "Solicito un hemograma",
+          "motivo": "El caso no trae hemograma: solo función tiroidea y electroencefalograma.",
+          "respuesta": "Ese examen no se realizó en este paciente."
+        },
+        {
+          "pedido": "Le doy paracetamol para la fiebre",
+          "motivo": "No sustituye al enfriamiento activo inmediato.",
+          "respuesta": "Anotamos su propuesta de administrar paracetamol para la fiebre. Se revisará al cerrar la consulta. Por favor continúe recopilando datos."
+        }
+      ],
+      "nota": "El paciente llega confundido (Glasgow 10). En la simulación igual responde: tómese como la información que dan sus compañeros.",
+      "diagnostico": "Golpe de calor por esfuerzo",
+      "descartes": [
+        {
+          "enfermedad": "Síndrome neuroléptico maligno",
+          "por_que": "Tiene el tono muscular mínimo; el síndrome neuroléptico maligno cursa con rigidez muscular intensa."
+        },
+        {
+          "enfermedad": "Tormenta tiroidea",
+          "por_que": "Aunque toma propranolol por hipertiroidismo, la TSH y la tiroxina libre están normales: la tiroides no está descontrolada."
+        },
+        {
+          "enfermedad": "Estado epiléptico",
+          "por_que": "Tiene epilepsia y está obnubilado, pero el electroencefalograma no muestra actividad epileptiforme: no está convulsionando sin que se vea."
+        },
+        {
+          "enfermedad": "Hipertermia maligna perioperatoria",
+          "por_que": "La hipertermia maligna aparece durante o justo después de una anestesia; la suya fue hace varios meses."
+        }
+      ]
+    },
+    {
+      "case_id": "EME-002",
+      "paciente": "Ricardo Medina, 57 años",
+      "especialidad": "Emergencias",
+      "motivo": "Cefalea intensa de inicio súbito mientras se bañaba, seguida de vómitos; acude a urgencias.",
+      "enlace": "https://consulta-medica-three.vercel.app/simulacion.html?caso=EME-002",
+      "al_empezar": {
+        "posibles": [
+          "Hemorragia intracerebral",
+          "Hemorragia subaracnoidea"
+        ],
+        "menos probables": [
+          "Crisis epiléptica"
+        ],
+        "descartadas": [
+          "Meningitis o meningoencefalitis",
+          "Trombosis venosa cerebral"
+        ]
+      },
+      "pasos": [
+        {
+          "numero": 1,
+          "pedido": "¿Tiene alguna enfermedad?",
+          "por_que": "La hipertensión es un factor de riesgo de sangrado dentro de la cabeza.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Tiene alguna enfermedad?",
+          "respuesta": "Sí, tengo hipertensión arterial.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Hemorragia intracerebral",
+              "Hemorragia subaracnoidea"
+            ],
+            "menos probables": [
+              "Crisis epiléptica"
+            ],
+            "descartadas": [
+              "Meningitis o meningoencefalitis",
+              "Trombosis venosa cerebral"
+            ]
+          }
+        },
+        {
+          "numero": 2,
+          "pedido": "Voy a realizar la exploración física",
+          "por_que": "El nivel de conciencia y la rigidez de nuca orientan: tras una cefalea súbita, la rigidez sugiere sangre o infección alrededor del cerebro.",
+          "agente": "Médico asistente",
+          "medico_tratante": null,
+          "respuesta": "Ante estímulos dolorosos abre los ojos y gime, y señala el punto donde se le aplica el estímulo. Presenta rigidez de nuca.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Crisis epiléptica",
+              "pasa_a": "descartada",
+              "por_que": "No hubo convulsiones, y la cefalea súbita con rigidez de nuca no se explica por una crisis."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Hemorragia intracerebral",
+              "Hemorragia subaracnoidea"
+            ],
+            "menos probables": [],
+            "descartadas": [
+              "Crisis epiléptica",
+              "Meningitis o meningoencefalitis",
+              "Trombosis venosa cerebral"
+            ]
+          }
+        },
+        {
+          "numero": 3,
+          "pedido": "Solicito una tomografía de cráneo sin contraste",
+          "por_que": "Muestra dónde está la sangre: alrededor del cerebro o dentro de él.",
+          "agente": "Radiología",
+          "medico_tratante": null,
+          "respuesta": "Sangre en el espacio subaracnoideo de las cisternas basales y los surcos, sin hematoma intraparenquimatoso.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Hemorragia intracerebral",
+              "pasa_a": "descartada",
+              "por_que": "La tomografía muestra la sangre en el espacio subaracnoideo, sin un hematoma dentro del cerebro."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Hemorragia subaracnoidea"
+            ],
+            "menos probables": [],
+            "descartadas": [
+              "Crisis epiléptica",
+              "Hemorragia intracerebral",
+              "Meningitis o meningoencefalitis",
+              "Trombosis venosa cerebral"
+            ]
+          }
+        }
+      ],
+      "al_terminar": {
+        "posibles": [
+          "Hemorragia subaracnoidea"
+        ],
+        "menos probables": [],
+        "descartadas": [
+          "Crisis epiléptica",
+          "Hemorragia intracerebral",
+          "Meningitis o meningoencefalitis",
+          "Trombosis venosa cerebral"
+        ]
+      },
+      "no_preguntar": [
+        {
+          "pedido": "¿Ha tenido fiebre antes de hoy?",
+          "motivo": "El caso no lo describe: debe responder que no.",
+          "respuesta": "No."
+        },
+        {
+          "pedido": "Pido una resonancia magnética",
+          "motivo": "El caso no tiene ese estudio: la tomografía basta.",
+          "respuesta": "¿Qué estudio de imagen desea solicitar? Indíqueme cuál, por ejemplo una radiografía o una tomografía y de qué zona."
+        }
+      ],
+      "nota": "Caso corto: el diagnóstico sale del inicio súbito de la cefalea y de la rigidez de nuca; la tomografía (complemento del equipo) lo confirma y descarta un hematoma.",
+      "diagnostico": "Hemorragia subaracnoidea",
+      "descartes": [
+        {
+          "enfermedad": "Meningitis o meningoencefalitis",
+          "por_que": "La cefalea empezó de golpe, en segundos, y casi no tiene fiebre (37,9 °C); la meningitis se instala en horas y con fiebre alta."
+        },
+        {
+          "enfermedad": "Hemorragia intracerebral",
+          "por_que": "La tomografía muestra la sangre en el espacio subaracnoideo, sin un hematoma dentro del cerebro."
+        },
+        {
+          "enfermedad": "Trombosis venosa cerebral",
+          "por_que": "La trombosis venosa produce una cefalea que empeora en días; la suya fue súbita, la peor de su vida, en segundos."
+        },
+        {
+          "enfermedad": "Crisis epiléptica",
+          "por_que": "No hubo convulsiones, y la cefalea súbita con rigidez de nuca no se explica por una crisis."
+        }
+      ]
+    },
+    {
+      "case_id": "GOB-003",
+      "paciente": "Lucía Paredes, 24 años",
+      "especialidad": "Ginecología y obstetricia",
+      "motivo": "A la mañana siguiente del parto no puede lactar cuando intenta amamantar a su bebé.",
+      "enlace": "https://consulta-medica-three.vercel.app/simulacion.html?caso=GOB-003",
+      "al_empezar": {
+        "posibles": [
+          "Hipofisitis posparto",
+          "Infarto hipofisario posparto (síndrome de Sheehan)",
+          "Retención de restos placentarios",
+          "Tristeza puerperal",
+          "Tumor hipofisario"
+        ],
+        "menos probables": [],
+        "descartadas": []
+      },
+      "pasos": [
+        {
+          "numero": 1,
+          "pedido": "¿Cómo fue el parto?",
+          "por_que": "Saber si hubo un sangrado importante: una hemorragia grande en el parto puede dañar glándulas que necesitan mucho riego.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Cómo fue el parto?",
+          "respuesta": "El parto fue a término. El recién nacido obtuvo un Apgar de 9 al minuto y de 10 a los 5 minutos. Media hora después del parto me administraron líquidos y sangre por la vena.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Hipofisitis posparto",
+              "pasa_a": "menos probable",
+              "por_que": "Primer dato en contra: Parto y puerperio inmediato. Falta: Signos vitales tras el parto."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Infarto hipofisario posparto (síndrome de Sheehan)",
+              "Retención de restos placentarios",
+              "Tristeza puerperal",
+              "Tumor hipofisario"
+            ],
+            "menos probables": [
+              "Hipofisitis posparto"
+            ],
+            "descartadas": []
+          }
+        },
+        {
+          "numero": 2,
+          "pedido": "Voy a tomar los signos vitales",
+          "por_que": "Muestran si hubo shock por el sangrado: presión baja y pulso rápido.",
+          "agente": "Médico asistente",
+          "medico_tratante": null,
+          "respuesta": "A los 30 minutos del parto: presión arterial de 80/60 mmHg y pulso de 124/min. Tras 4 unidades de líquidos intravenosos y 4 unidades de sangre total, los signos vitales se estabilizaron.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Hipofisitis posparto",
+              "pasa_a": "descartada",
+              "por_que": "La hipofisitis aparece semanas o meses después del parto; aquí la falla es inmediata, justo tras una hemorragia con shock (presión 80/60) que necesitó transfusión."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Infarto hipofisario posparto (síndrome de Sheehan)",
+              "Retención de restos placentarios",
+              "Tristeza puerperal",
+              "Tumor hipofisario"
+            ],
+            "menos probables": [],
+            "descartadas": [
+              "Hipofisitis posparto"
+            ]
+          }
+        },
+        {
+          "numero": 3,
+          "pedido": "Voy a realizar la exploración física",
+          "por_que": "Busca signos de shock y la causa del sangrado, como un útero que no se contrae.",
+          "agente": "Médico asistente",
+          "medico_tratante": null,
+          "respuesta": "Exploración registrada a los 30 minutos del parto: extremidades distales frías y húmedas; útero blando (atónico).",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Infarto hipofisario posparto (síndrome de Sheehan)",
+              "Retención de restos placentarios",
+              "Tristeza puerperal",
+              "Tumor hipofisario"
+            ],
+            "menos probables": [],
+            "descartadas": [
+              "Hipofisitis posparto"
+            ]
+          }
+        },
+        {
+          "numero": 4,
+          "pedido": "¿Cómo está de ánimo? ¿Se ha sentido triste?",
+          "por_que": "Ver el ánimo: la tristeza del posparto no explica que no salga leche.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Cómo está de ánimo? ¿Se ha sentido triste?",
+          "respuesta": "Me siento con ánimo para cuidar al bebé y quiero amamantar. No me siento triste, ni lloro ni ansío.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Tristeza puerperal",
+              "pasa_a": "descartada",
+              "por_que": "Conserva el ánimo, quiere amamantar y niega tristeza o llanto; además, la tristeza puerperal no impide que salga la leche."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Infarto hipofisario posparto (síndrome de Sheehan)",
+              "Retención de restos placentarios",
+              "Tumor hipofisario"
+            ],
+            "menos probables": [],
+            "descartadas": [
+              "Hipofisitis posparto",
+              "Tristeza puerperal"
+            ]
+          }
+        },
+        {
+          "numero": 5,
+          "pedido": "¿Qué antecedentes tenía antes del embarazo? ¿Reglas irregulares, dolores de cabeza o problemas de la vista?",
+          "por_que": "Reglas normales y sin cefalea ni problemas de la vista antes del parto van en contra de un tumor de la hipófisis previo.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Qué antecedentes tenía antes del embarazo, como reglas irregulares, dolores de cabeza o problemas de la vista?",
+          "respuesta": "Antes del embarazo tenía reglas regulares, nunca tuve cefalea persistente ni problemas de la vista.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Tumor hipofisario",
+              "pasa_a": "menos probable",
+              "por_que": "Primer dato en contra: Antecedentes menstruales. Falta: Prolactina sérica."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Infarto hipofisario posparto (síndrome de Sheehan)",
+              "Retención de restos placentarios"
+            ],
+            "menos probables": [
+              "Tumor hipofisario"
+            ],
+            "descartadas": [
+              "Hipofisitis posparto",
+              "Tristeza puerperal"
+            ]
+          }
+        },
+        {
+          "numero": 6,
+          "pedido": "Solicito una prolactina sérica",
+          "por_que": "La prolactina es la hormona de la leche: si está baja tras el parto, la hipófisis está dañada.",
+          "agente": "Laboratorio",
+          "medico_tratante": null,
+          "respuesta": "Prolactina baja para el puerperio.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Retención de restos placentarios",
+              "pasa_a": "descartada",
+              "por_que": "Los restos placentarios frenan la lactancia sin dañar la hipófisis, con la prolactina normal; aquí la prolactina está baja."
+            },
+            {
+              "enfermedad": "Tumor hipofisario",
+              "pasa_a": "descartada",
+              "por_que": "Antes del embarazo tenía reglas normales, sin cefalea ni problemas de la vista, y la prolactina está baja (un tumor que la produce la elevaría)."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Infarto hipofisario posparto (síndrome de Sheehan)"
+            ],
+            "menos probables": [],
+            "descartadas": [
+              "Hipofisitis posparto",
+              "Retención de restos placentarios",
+              "Tristeza puerperal",
+              "Tumor hipofisario"
+            ]
+          }
+        }
+      ],
+      "al_terminar": {
+        "posibles": [
+          "Infarto hipofisario posparto (síndrome de Sheehan)"
+        ],
+        "menos probables": [],
+        "descartadas": [
+          "Hipofisitis posparto",
+          "Retención de restos placentarios",
+          "Tristeza puerperal",
+          "Tumor hipofisario"
+        ]
+      },
+      "no_preguntar": [
+        {
+          "pedido": "¿Tiene fiebre?",
+          "motivo": "El caso no lo describe: debe responder que no.",
+          "respuesta": "No."
+        },
+        {
+          "pedido": "Solicito hormonas tiroideas",
+          "motivo": "El caso no tiene ese examen.",
+          "respuesta": "Ese examen no se realizó en este paciente."
+        }
+      ],
+      "nota": "La clave es la hemorragia del parto con presión de 80/60 y transfusión: explica que no pueda lactar.",
+      "diagnostico": "Infarto hipofisario posparto (síndrome de Sheehan)",
+      "descartes": [
+        {
+          "enfermedad": "Retención de restos placentarios",
+          "por_que": "Los restos placentarios frenan la lactancia sin dañar la hipófisis, con la prolactina normal; aquí la prolactina está baja."
+        },
+        {
+          "enfermedad": "Tristeza puerperal",
+          "por_que": "Conserva el ánimo, quiere amamantar y niega tristeza o llanto; además, la tristeza puerperal no impide que salga la leche."
+        },
+        {
+          "enfermedad": "Tumor hipofisario",
+          "por_que": "Antes del embarazo tenía reglas normales, sin cefalea ni problemas de la vista, y la prolactina está baja (un tumor que la produce la elevaría)."
+        },
+        {
+          "enfermedad": "Hipofisitis posparto",
+          "por_que": "La hipofisitis aparece semanas o meses después del parto; aquí la falla es inmediata, justo tras una hemorragia con shock (presión 80/60) que necesitó transfusión."
+        }
+      ]
+    },
+    {
+      "case_id": "GOB-004",
+      "paciente": "Andrea Castillo, 24 años",
+      "especialidad": "Ginecología y obstetricia",
+      "motivo": "Molestia pélvica leve y flujo vaginal espumoso y amarillento desde hace 2 semanas.",
+      "enlace": "https://consulta-medica-three.vercel.app/simulacion.html?caso=GOB-004",
+      "al_empezar": {
+        "posibles": [
+          "Cervicitis por gonorrea o clamidia",
+          "Tricomoniasis vulvovaginal",
+          "Vaginosis bacteriana"
+        ],
+        "menos probables": [
+          "Candidiasis vulvovaginal"
+        ],
+        "descartadas": [
+          "Enfermedad pélvica inflamatoria"
+        ]
+      },
+      "pasos": [
+        {
+          "numero": 1,
+          "pedido": "¿Tiene algún otro síntoma?",
+          "por_que": "El dolor al tener relaciones o al orinar orienta a una infección genital.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Ha tenido algún otro síntoma?",
+          "respuesta": "Sí, he tenido dolor durante las relaciones sexuales y, a veces, después de orinar.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Cervicitis por gonorrea o clamidia",
+              "Tricomoniasis vulvovaginal",
+              "Vaginosis bacteriana"
+            ],
+            "menos probables": [
+              "Candidiasis vulvovaginal"
+            ],
+            "descartadas": [
+              "Enfermedad pélvica inflamatoria"
+            ]
+          }
+        },
+        {
+          "numero": 2,
+          "pedido": "Pregúntele por sus antecedentes de enfermedades",
+          "por_que": "Descarta enfermedades previas que cambien el cuadro.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Tiene antecedentes de enfermedades?",
+          "respuesta": "No, no tengo antecedentes de enfermedades.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Cervicitis por gonorrea o clamidia",
+              "Tricomoniasis vulvovaginal",
+              "Vaginosis bacteriana"
+            ],
+            "menos probables": [
+              "Candidiasis vulvovaginal"
+            ],
+            "descartadas": [
+              "Enfermedad pélvica inflamatoria"
+            ]
+          }
+        },
+        {
+          "numero": 3,
+          "pedido": "¿Toma algún medicamento?",
+          "por_que": "Saber qué toma: los anticonceptivos orales no protegen de las infecciones de transmisión sexual.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Está tomando algún medicamento?",
+          "respuesta": "Sí, tomo anticonceptivos orales y un multivitamínico a diario.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Cervicitis por gonorrea o clamidia",
+              "Tricomoniasis vulvovaginal",
+              "Vaginosis bacteriana"
+            ],
+            "menos probables": [
+              "Candidiasis vulvovaginal"
+            ],
+            "descartadas": [
+              "Enfermedad pélvica inflamatoria"
+            ]
+          }
+        },
+        {
+          "numero": 4,
+          "pedido": "¿Cuántas parejas sexuales ha tenido? ¿Usa preservativo?",
+          "por_que": "Las parejas sexuales y el uso irregular del preservativo aumentan el riesgo de infecciones de transmisión sexual.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Cuántas parejas sexuales ha tenido? ¿Usa preservativo?",
+          "respuesta": "He tenido dos parejas sexuales masculinas en mi vida y uso preservativo de forma irregular.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Cervicitis por gonorrea o clamidia",
+              "Tricomoniasis vulvovaginal",
+              "Vaginosis bacteriana"
+            ],
+            "menos probables": [
+              "Candidiasis vulvovaginal"
+            ],
+            "descartadas": [
+              "Enfermedad pélvica inflamatoria"
+            ]
+          }
+        },
+        {
+          "numero": 5,
+          "pedido": "Voy a realizar el examen ginecológico",
+          "por_que": "Ver el aspecto de la vulva, del cuello uterino y del flujo, que es distinto en cada infección.",
+          "agente": "Médico asistente",
+          "medico_tratante": null,
+          "respuesta": "Eritema vulvovaginal y cuello uterino en fresa, doloroso a la movilización, con escaso flujo verde-amarillento maloliente.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Cervicitis por gonorrea o clamidia",
+              "pasa_a": "descartada",
+              "por_que": "El cuello uterino «en fresa» y el flujo verde-amarillento espumoso son propios de la tricomoniasis, no de la cervicitis por gonorrea o clamidia."
+            },
+            {
+              "enfermedad": "Vaginosis bacteriana",
+              "pasa_a": "descartada",
+              "por_que": "La vaginosis da flujo grisáceo sin inflamación; aquí hay eritema vulvovaginal y cuello en fresa."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Tricomoniasis vulvovaginal"
+            ],
+            "menos probables": [
+              "Candidiasis vulvovaginal"
+            ],
+            "descartadas": [
+              "Cervicitis por gonorrea o clamidia",
+              "Enfermedad pélvica inflamatoria",
+              "Vaginosis bacteriana"
+            ]
+          }
+        },
+        {
+          "numero": 6,
+          "pedido": "Mido el pH vaginal",
+          "por_que": "Separa las causas de flujo: un pH alto (mayor de 4,5) apunta a unas infecciones y uno normal, a otras.",
+          "agente": "Laboratorio",
+          "medico_tratante": null,
+          "respuesta": "El pH vaginal medido es 5,8.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Candidiasis vulvovaginal",
+              "pasa_a": "descartada",
+              "por_que": "La candidiasis da flujo blanco grumoso con pH normal (menor de 4,5); aquí el flujo es espumoso y amarillento y el pH es 5,8."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Tricomoniasis vulvovaginal"
+            ],
+            "menos probables": [],
+            "descartadas": [
+              "Candidiasis vulvovaginal",
+              "Cervicitis por gonorrea o clamidia",
+              "Enfermedad pélvica inflamatoria",
+              "Vaginosis bacteriana"
+            ]
+          }
+        }
+      ],
+      "al_terminar": {
+        "posibles": [
+          "Tricomoniasis vulvovaginal"
+        ],
+        "menos probables": [],
+        "descartadas": [
+          "Candidiasis vulvovaginal",
+          "Cervicitis por gonorrea o clamidia",
+          "Enfermedad pélvica inflamatoria",
+          "Vaginosis bacteriana"
+        ]
+      },
+      "no_preguntar": [
+        {
+          "pedido": "¿Ha tenido tos?",
+          "motivo": "El caso no lo describe: debe responder que no.",
+          "respuesta": "No."
+        },
+        {
+          "pedido": "Pido una ecografía pélvica",
+          "motivo": "El caso no tiene ese estudio.",
+          "respuesta": "¿Qué estudio de imagen desea solicitar? Indíqueme cuál, por ejemplo una radiografía o una tomografía y de qué zona."
+        }
+      ],
+      "nota": "Lo decisivo: cuello uterino en fresa y pH vaginal de 5,8.",
+      "diagnostico": "Tricomoniasis vulvovaginal",
+      "descartes": [
+        {
+          "enfermedad": "Enfermedad pélvica inflamatoria",
+          "por_que": "Los signos vitales son normales, sin fiebre, y la molestia pélvica es leve; la enfermedad pélvica inflamatoria suele dar fiebre y dolor importante."
+        },
+        {
+          "enfermedad": "Cervicitis por gonorrea o clamidia",
+          "por_que": "El cuello uterino «en fresa» y el flujo verde-amarillento espumoso son propios de la tricomoniasis, no de la cervicitis por gonorrea o clamidia."
+        },
+        {
+          "enfermedad": "Vaginosis bacteriana",
+          "por_que": "La vaginosis da flujo grisáceo sin inflamación; aquí hay eritema vulvovaginal y cuello en fresa."
+        },
+        {
+          "enfermedad": "Candidiasis vulvovaginal",
+          "por_que": "La candidiasis da flujo blanco grumoso con pH normal (menor de 4,5); aquí el flujo es espumoso y amarillento y el pH es 5,8."
+        }
+      ]
+    },
+    {
+      "case_id": "CIR-005",
+      "paciente": "Martín Rojas, 28 años",
+      "especialidad": "Cirugía general",
+      "motivo": "Ingresó por dolor abdominal intenso; se diagnosticó apendicitis y se le realizó una apendicectomía de urgencia.",
+      "enlace": "https://consulta-medica-three.vercel.app/simulacion.html?caso=CIR-005",
+      "al_empezar": {
+        "posibles": [
+          "Coagulopatía perioperatoria adquirida",
+          "Enfermedad de von Willebrand",
+          "Hemofilia A",
+          "Hemofilia B",
+          "Inhibidor adquirido de factor VIII"
+        ],
+        "menos probables": [],
+        "descartadas": []
+      },
+      "pasos": [
+        {
+          "numero": 1,
+          "pedido": "¿Alguien en su familia tiene problemas de sangrado?",
+          "por_que": "Un trastorno de sangrado en la familia orienta a una enfermedad hereditaria de la coagulación.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Algún familiar tiene problemas de sangrado?",
+          "respuesta": "Sí, en mi familia hay antecedentes de un trastorno hemorrágico, aunque no sé precisar cuál.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Inhibidor adquirido de factor VIII",
+              "pasa_a": "descartada",
+              "por_que": "Hay antecedentes familiares de un trastorno hemorrágico: apunta a una enfermedad hereditaria, no a un inhibidor que aparece en la vida adulta."
+            },
+            {
+              "enfermedad": "Coagulopatía perioperatoria adquirida",
+              "pasa_a": "menos probable",
+              "por_que": "Primer dato en contra: Antecedentes familiares. Falta: Pruebas de coagulación posoperatorias."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Enfermedad de von Willebrand",
+              "Hemofilia A",
+              "Hemofilia B"
+            ],
+            "menos probables": [
+              "Coagulopatía perioperatoria adquirida"
+            ],
+            "descartadas": [
+              "Inhibidor adquirido de factor VIII"
+            ]
+          }
+        },
+        {
+          "numero": 2,
+          "pedido": "Solicito pruebas de coagulación",
+          "por_que": "Comparar antes y después de la cirugía: si las plaquetas y el tiempo de protrombina son normales y solo se alarga el tiempo de tromboplastina parcial, el defecto está en una parte concreta de la coagulación.",
+          "agente": "Laboratorio",
+          "medico_tratante": null,
+          "respuesta": "Tiempo de sangrado normal, tiempo de protrombina normal, INR de 1,0 y recuento de plaquetas normal. Tiempo de tromboplastina parcial prolongado.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Enfermedad de von Willebrand",
+              "pasa_a": "descartada",
+              "por_que": "La enfermedad de von Willebrand alarga el tiempo de sangrado; aquí el tiempo de sangrado y las plaquetas son normales."
+            },
+            {
+              "enfermedad": "Coagulopatía perioperatoria adquirida",
+              "pasa_a": "descartada",
+              "por_que": "Solo está alargado el tiempo de tromboplastina parcial, con protrombina y plaquetas normales, y hay antecedentes familiares; una coagulopatía por la cirugía altera varias pruebas a la vez."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Hemofilia A",
+              "Hemofilia B"
+            ],
+            "menos probables": [],
+            "descartadas": [
+              "Coagulopatía perioperatoria adquirida",
+              "Enfermedad de von Willebrand",
+              "Inhibidor adquirido de factor VIII"
+            ]
+          }
+        },
+        {
+          "numero": 3,
+          "pedido": "Pido el dosaje del factor VIII y del factor IX",
+          "por_que": "Las dos hemofilias alargan el mismo tiempo de coagulación; solo medir los factores dice cuál falta.",
+          "agente": "Laboratorio",
+          "medico_tratante": null,
+          "respuesta": "El factor VIII está disminuido; el factor IX es normal.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Hemofilia B",
+              "pasa_a": "descartada",
+              "por_que": "Las dos hemofilias alargan el mismo tiempo de coagulación; el dosaje muestra el factor VIII bajo y el factor IX normal."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Hemofilia A"
+            ],
+            "menos probables": [],
+            "descartadas": [
+              "Coagulopatía perioperatoria adquirida",
+              "Enfermedad de von Willebrand",
+              "Hemofilia B",
+              "Inhibidor adquirido de factor VIII"
+            ]
+          }
+        }
+      ],
+      "al_terminar": {
+        "posibles": [
+          "Hemofilia A"
+        ],
+        "menos probables": [],
+        "descartadas": [
+          "Coagulopatía perioperatoria adquirida",
+          "Enfermedad de von Willebrand",
+          "Hemofilia B",
+          "Inhibidor adquirido de factor VIII"
+        ]
+      },
+      "no_preguntar": [
+        {
+          "pedido": "¿Toma algún medicamento?",
+          "motivo": "El caso no lo registra: debe responder que no.",
+          "respuesta": "No."
+        },
+        {
+          "pedido": "Pido una tomografía de abdomen",
+          "motivo": "El caso no tiene ese estudio.",
+          "respuesta": "Ese estudio no se realizó en este paciente."
+        }
+      ],
+      "nota": "La clave es comparar la coagulación antes y después: solo el tiempo de tromboplastina parcial sale prolongado. El dosaje de factores (complemento del equipo) distingue hemofilia A de B.",
+      "diagnostico": "Hemofilia A",
+      "descartes": [
+        {
+          "enfermedad": "Hemofilia B",
+          "por_que": "Las dos hemofilias alargan el mismo tiempo de coagulación; el dosaje muestra el factor VIII bajo y el factor IX normal."
+        },
+        {
+          "enfermedad": "Enfermedad de von Willebrand",
+          "por_que": "La enfermedad de von Willebrand alarga el tiempo de sangrado; aquí el tiempo de sangrado y las plaquetas son normales."
+        },
+        {
+          "enfermedad": "Inhibidor adquirido de factor VIII",
+          "por_que": "Hay antecedentes familiares de un trastorno hemorrágico: apunta a una enfermedad hereditaria, no a un inhibidor que aparece en la vida adulta."
+        },
+        {
+          "enfermedad": "Coagulopatía perioperatoria adquirida",
+          "por_que": "Solo está alargado el tiempo de tromboplastina parcial, con protrombina y plaquetas normales, y hay antecedentes familiares; una coagulopatía por la cirugía altera varias pruebas a la vez."
+        }
+      ]
+    },
+    {
+      "case_id": "CIR-006",
+      "paciente": "Rosa Villanueva, 68 años",
+      "especialidad": "Cirugía general",
+      "motivo": "Confusión en el quinto día después de una hemicolectomía derecha electiva.",
+      "enlace": "https://consulta-medica-three.vercel.app/simulacion.html?caso=CIR-006",
+      "al_empezar": {
+        "posibles": [
+          "Atelectasia u otra causa de hipoxemia",
+          "Sepsis posoperatoria",
+          "Síndrome de respuesta inflamatoria sistémica no infeccioso"
+        ],
+        "menos probables": [
+          "Delirio posoperatorio por causa metabólica o farmacológica",
+          "Embolia pulmonar posoperatoria"
+        ],
+        "descartadas": []
+      },
+      "pasos": [
+        {
+          "numero": 1,
+          "pedido": "¿Qué enfermedades tiene?",
+          "por_que": "La diabetes, la hipertensión y la angina aumentan el riesgo de complicaciones después de una cirugía.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Qué enfermedades tiene usted?",
+          "respuesta": "Tengo diabetes tipo 2 desde hace 20 años, hipertensión esencial desde hace 15 años y angina de esfuerzo desde hace 6 años.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Atelectasia u otra causa de hipoxemia",
+              "Sepsis posoperatoria",
+              "Síndrome de respuesta inflamatoria sistémica no infeccioso"
+            ],
+            "menos probables": [
+              "Delirio posoperatorio por causa metabólica o farmacológica",
+              "Embolia pulmonar posoperatoria"
+            ],
+            "descartadas": []
+          }
+        },
+        {
+          "numero": 2,
+          "pedido": "¿Fuma?",
+          "por_que": "El tabaco aumenta el riesgo de complicaciones pulmonares tras operarse.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Fuma usted?",
+          "respuesta": "Sí, fumo. He fumado 30 paquetes‑año.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Atelectasia u otra causa de hipoxemia",
+              "Sepsis posoperatoria",
+              "Síndrome de respuesta inflamatoria sistémica no infeccioso"
+            ],
+            "menos probables": [
+              "Delirio posoperatorio por causa metabólica o farmacológica",
+              "Embolia pulmonar posoperatoria"
+            ],
+            "descartadas": []
+          }
+        },
+        {
+          "numero": 3,
+          "pedido": "Voy a examinar a la paciente y auscultar los pulmones",
+          "por_que": "Busca de dónde viene la fiebre: pulmones (crepitantes), herida quirúrgica y abdomen.",
+          "agente": "Médico asistente",
+          "medico_tratante": null,
+          "respuesta": "Auscultación torácica: crepitantes gruesos en la base pulmonar derecha. La herida quirúrgica cicatriza bien; el abdomen está blando y no doloroso.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Embolia pulmonar posoperatoria",
+              "pasa_a": "descartada",
+              "por_que": "Tiene fiebre de 38,5 °C y crepitantes localizados en la base derecha, propios de una infección pulmonar; la embolia no da crepitantes ni suele dar esa fiebre."
+            },
+            {
+              "enfermedad": "Delirio posoperatorio por causa metabólica o farmacológica",
+              "pasa_a": "descartada",
+              "por_que": "La confusión llega con fiebre, taquicardia y respiración rápida por una infección pulmonar; no hace falta otra causa metabólica o farmacológica."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Atelectasia u otra causa de hipoxemia",
+              "Sepsis posoperatoria",
+              "Síndrome de respuesta inflamatoria sistémica no infeccioso"
+            ],
+            "menos probables": [],
+            "descartadas": [
+              "Delirio posoperatorio por causa metabólica o farmacológica",
+              "Embolia pulmonar posoperatoria"
+            ]
+          }
+        },
+        {
+          "numero": 4,
+          "pedido": "Pido una radiografía de tórax",
+          "por_que": "Confirma si los crepitantes son una neumonía (el foco de la infección) o un pulmón colapsado.",
+          "agente": "Radiología",
+          "medico_tratante": null,
+          "respuesta": "Consolidación en la base pulmonar derecha con broncograma aéreo, compatible con neumonía; sin colapso lobar ni desplazamiento de cisuras.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Síndrome de respuesta inflamatoria sistémica no infeccioso",
+              "pasa_a": "menos probable",
+              "por_que": "Primer dato en contra: Radiografía de tórax. Falta: Hemograma."
+            },
+            {
+              "enfermedad": "Atelectasia u otra causa de hipoxemia",
+              "pasa_a": "descartada",
+              "por_que": "La radiografía muestra una consolidación con broncograma aéreo, sin colapso del pulmón: es una neumonía, no una atelectasia."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Sepsis posoperatoria"
+            ],
+            "menos probables": [
+              "Síndrome de respuesta inflamatoria sistémica no infeccioso"
+            ],
+            "descartadas": [
+              "Atelectasia u otra causa de hipoxemia",
+              "Delirio posoperatorio por causa metabólica o farmacológica",
+              "Embolia pulmonar posoperatoria"
+            ]
+          }
+        },
+        {
+          "numero": 5,
+          "pedido": "Solicito un hemograma",
+          "por_que": "Los glóbulos blancos altos apoyan una infección.",
+          "agente": "Laboratorio",
+          "medico_tratante": null,
+          "respuesta": "Leucocitosis con neutrofilia.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Síndrome de respuesta inflamatoria sistémica no infeccioso",
+              "pasa_a": "descartada",
+              "por_que": "Hay un foco infeccioso claro: la radiografía muestra una neumonía en la base derecha y el hemograma tiene leucocitosis con neutrofilia."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Sepsis posoperatoria"
+            ],
+            "menos probables": [],
+            "descartadas": [
+              "Atelectasia u otra causa de hipoxemia",
+              "Delirio posoperatorio por causa metabólica o farmacológica",
+              "Embolia pulmonar posoperatoria",
+              "Síndrome de respuesta inflamatoria sistémica no infeccioso"
+            ]
+          }
+        }
+      ],
+      "al_terminar": {
+        "posibles": [
+          "Sepsis posoperatoria"
+        ],
+        "menos probables": [],
+        "descartadas": [
+          "Atelectasia u otra causa de hipoxemia",
+          "Delirio posoperatorio por causa metabólica o farmacológica",
+          "Embolia pulmonar posoperatoria",
+          "Síndrome de respuesta inflamatoria sistémica no infeccioso"
+        ]
+      },
+      "no_preguntar": [
+        {
+          "pedido": "¿Le duele la herida?",
+          "motivo": "No lo describe; la exploración muestra que cicatriza bien.",
+          "respuesta": "No."
+        },
+        {
+          "pedido": "Pido una tomografía de abdomen",
+          "motivo": "El caso no tiene ese estudio: la herida y el abdomen están bien.",
+          "respuesta": "Ese estudio no se realizó en este paciente."
+        }
+      ],
+      "nota": "Fiebre, taquicardia y crepitantes en la base derecha al quinto día de la cirugía.",
+      "diagnostico": "Sepsis posoperatoria",
+      "descartes": [
+        {
+          "enfermedad": "Síndrome de respuesta inflamatoria sistémica no infeccioso",
+          "por_que": "Hay un foco infeccioso claro: la radiografía muestra una neumonía en la base derecha y el hemograma tiene leucocitosis con neutrofilia."
+        },
+        {
+          "enfermedad": "Embolia pulmonar posoperatoria",
+          "por_que": "Tiene fiebre de 38,5 °C y crepitantes localizados en la base derecha, propios de una infección pulmonar; la embolia no da crepitantes ni suele dar esa fiebre."
+        },
+        {
+          "enfermedad": "Atelectasia u otra causa de hipoxemia",
+          "por_que": "La radiografía muestra una consolidación con broncograma aéreo, sin colapso del pulmón: es una neumonía, no una atelectasia."
+        },
+        {
+          "enfermedad": "Delirio posoperatorio por causa metabólica o farmacológica",
+          "por_que": "La confusión llega con fiebre, taquicardia y respiración rápida por una infección pulmonar; no hace falta otra causa metabólica o farmacológica."
+        }
+      ]
+    },
+    {
+      "case_id": "MED-007",
+      "paciente": "Patricia Vargas, 48 años",
+      "especialidad": "Medicina interna",
+      "motivo": "Cefalea, fiebre intermitente con escalofríos, dolores articulares generalizados, sed excesiva con aumento de la ingesta de líquidos y una erupción progresiva en la espalda.",
+      "enlace": "https://consulta-medica-three.vercel.app/simulacion.html?caso=MED-007",
+      "al_empezar": {
+        "posibles": [
+          "Celulitis bacteriana",
+          "Enfermedad de Lyme con eritema migrans",
+          "Otras infecciones transmitidas por garrapatas"
+        ],
+        "menos probables": [
+          "Reacción local a picadura"
+        ],
+        "descartadas": []
+      },
+      "pasos": [
+        {
+          "numero": 1,
+          "pedido": "Pregúntele desde cuándo empezó y cómo ha evolucionado",
+          "por_que": "Cómo cambió la lesión de la espalda: una picadura que crece en forma de anillo es muy orientadora.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Desde cuándo empezó y cómo ha evolucionado?",
+          "respuesta": "Empecé hace tres días con una lesión pequeña en la espalda, algo elevada, parecida a una picadura de araña o insecto. Dos días después tuve fiebre de 39,4 °C y una sensación de ardor cada vez más intensa en la zona. Un familiar vio que el bulto se había convertido en una erupción circular. El día anterior me sentí agotada, pero completé una jornada laboral normal. Hoy desperté muy enferma, con dolores articulares punzantes, fiebre alta y sed excesiva.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Celulitis bacteriana",
+              "Enfermedad de Lyme con eritema migrans",
+              "Otras infecciones transmitidas por garrapatas"
+            ],
+            "menos probables": [
+              "Reacción local a picadura"
+            ],
+            "descartadas": []
+          }
+        },
+        {
+          "numero": 2,
+          "pedido": "¿Ha tomado algún medicamento?",
+          "por_que": "Saber qué tomó y si eso pudo cambiar los síntomas, como la fiebre.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Ha tomado algún medicamento?",
+          "respuesta": "Sí, tomé ibuprofeno de venta libre para el dolor intenso y poder dormir.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Celulitis bacteriana",
+              "Enfermedad de Lyme con eritema migrans",
+              "Otras infecciones transmitidas por garrapatas"
+            ],
+            "menos probables": [
+              "Reacción local a picadura"
+            ],
+            "descartadas": []
+          }
+        },
+        {
+          "numero": 3,
+          "pedido": "Pregúntele por sus antecedentes de enfermedades",
+          "por_que": "Busca enfermedades previas y reacciones a medicamentos.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Tiene antecedentes de enfermedades?",
+          "respuesta": "No, salvo una anafilaxia al tomar una tetraciclina.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Celulitis bacteriana",
+              "Enfermedad de Lyme con eritema migrans",
+              "Otras infecciones transmitidas por garrapatas"
+            ],
+            "menos probables": [
+              "Reacción local a picadura"
+            ],
+            "descartadas": []
+          }
+        },
+        {
+          "numero": 4,
+          "pedido": "¿Tiene alergias?",
+          "por_que": "Es crítica en este caso: el tratamiento habitual de este cuadro puede ser un fármaco al que la paciente es alérgica.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Tiene alergias?",
+          "respuesta": "Sí, soy alérgica a las tetraciclinas. No tengo alergias alimentarias ni por inhalación.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Celulitis bacteriana",
+              "Enfermedad de Lyme con eritema migrans",
+              "Otras infecciones transmitidas por garrapatas"
+            ],
+            "menos probables": [
+              "Reacción local a picadura"
+            ],
+            "descartadas": []
+          }
+        },
+        {
+          "numero": 5,
+          "pedido": "¿Ha hecho alguna actividad al aire libre o algún viaje?",
+          "por_que": "Una salida al campo o al bosque expone a picaduras de garrapatas y otros insectos.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Ha hecho alguna actividad al aire libre o ha viajado recientemente?",
+          "respuesta": "Sí, hace tres semanas fui a caminar por el bosque. No he viajado a ningún otro lugar.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Celulitis bacteriana",
+              "Enfermedad de Lyme con eritema migrans",
+              "Otras infecciones transmitidas por garrapatas"
+            ],
+            "menos probables": [
+              "Reacción local a picadura"
+            ],
+            "descartadas": []
+          }
+        },
+        {
+          "numero": 6,
+          "pedido": "Voy a examinar a la paciente",
+          "por_que": "Ver la lesión: su tamaño y su forma orientan el diagnóstico.",
+          "agente": "Médico asistente",
+          "medico_tratante": null,
+          "respuesta": "Erupción roja, circular y grande, con aspecto en diana (17 × 19 cm de diámetro), en la espalda. El resto de la exploración física no muestra hallazgos.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Celulitis bacteriana",
+              "pasa_a": "descartada",
+              "por_que": "La lesión es una mancha en diana que crece en anillo, sin la piel caliente, hinchada y mal delimitada de la celulitis."
+            },
+            {
+              "enfermedad": "Reacción local a picadura",
+              "pasa_a": "descartada",
+              "por_que": "Una reacción a picadura es pequeña y sin fiebre; aquí la mancha mide 17 × 19 cm y tiene fiebre de 40,1 °C."
+            },
+            {
+              "enfermedad": "Otras infecciones transmitidas por garrapatas",
+              "pasa_a": "menos probable",
+              "por_que": "Primer dato en contra: Exploración física. Falta: Hemograma y perfil hepático."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Enfermedad de Lyme con eritema migrans"
+            ],
+            "menos probables": [
+              "Otras infecciones transmitidas por garrapatas"
+            ],
+            "descartadas": [
+              "Celulitis bacteriana",
+              "Reacción local a picadura"
+            ]
+          }
+        },
+        {
+          "numero": 7,
+          "pedido": "Solicito un hemograma y perfil hepático",
+          "por_que": "Otras infecciones por garrapatas bajan glóbulos blancos y plaquetas y alteran el hígado; si todo es normal, apoyan la enfermedad de la lesión en diana.",
+          "agente": "Laboratorio",
+          "medico_tratante": null,
+          "respuesta": "Leucocitos y plaquetas normales; transaminasas normales.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Otras infecciones transmitidas por garrapatas",
+              "pasa_a": "descartada",
+              "por_que": "Otras infecciones por garrapatas (ehrlichiosis, anaplasmosis) bajan leucocitos y plaquetas y elevan las transaminasas; aquí todo es normal, y la mancha en diana es típica de la enfermedad de Lyme."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Enfermedad de Lyme con eritema migrans"
+            ],
+            "menos probables": [],
+            "descartadas": [
+              "Celulitis bacteriana",
+              "Otras infecciones transmitidas por garrapatas",
+              "Reacción local a picadura"
+            ]
+          }
+        }
+      ],
+      "al_terminar": {
+        "posibles": [
+          "Enfermedad de Lyme con eritema migrans"
+        ],
+        "menos probables": [],
+        "descartadas": [
+          "Celulitis bacteriana",
+          "Otras infecciones transmitidas por garrapatas",
+          "Reacción local a picadura"
+        ]
+      },
+      "no_preguntar": [
+        {
+          "pedido": "¿Tiene tos?",
+          "motivo": "El caso no tiene ese síntoma: debe responder que no.",
+          "respuesta": "No."
+        },
+        {
+          "pedido": "Le indico doxiciclina",
+          "motivo": "Contraindicado: es alérgica a las tetraciclinas (anafilaxia).",
+          "respuesta": "Anotamos la indicación de doxiciclina. Se revisará al cerrar la consulta. Continúe recopilando datos."
+        }
+      ],
+      "nota": "La pregunta de alergias es crítica: el tratamiento habitual de este cuadro es justo el fármaco al que es alérgica.",
+      "diagnostico": "Enfermedad de Lyme con eritema migrans",
+      "descartes": [
+        {
+          "enfermedad": "Celulitis bacteriana",
+          "por_que": "La lesión es una mancha en diana que crece en anillo, sin la piel caliente, hinchada y mal delimitada de la celulitis."
+        },
+        {
+          "enfermedad": "Reacción local a picadura",
+          "por_que": "Una reacción a picadura es pequeña y sin fiebre; aquí la mancha mide 17 × 19 cm y tiene fiebre de 40,1 °C."
+        },
+        {
+          "enfermedad": "Otras infecciones transmitidas por garrapatas",
+          "por_que": "Otras infecciones por garrapatas (ehrlichiosis, anaplasmosis) bajan leucocitos y plaquetas y elevan las transaminasas; aquí todo es normal, y la mancha en diana es típica de la enfermedad de Lyme."
+        }
+      ]
+    },
+    {
+      "case_id": "MED-008",
+      "paciente": "Alberto Núñez, 68 años",
+      "especialidad": "Medicina interna",
+      "motivo": "Acude a su control anual; no tiene molestias en este momento.",
+      "enlace": "https://consulta-medica-three.vercel.app/simulacion.html?caso=MED-008",
+      "al_empezar": {
+        "posibles": [
+          "Carcinoma basocelular",
+          "Carcinoma escamocelular",
+          "Carcinoma sebáceo palpebral",
+          "Chalazión persistente",
+          "Queratoacantoma"
+        ],
+        "menos probables": [],
+        "descartadas": []
+      },
+      "pasos": [
+        {
+          "numero": 1,
+          "pedido": "Voy a examinar al paciente",
+          "por_que": "En un control sin molestias, la exploración completa es la única forma de encontrar lesiones que el paciente no nota.",
+          "agente": "Médico asistente",
+          "medico_tratante": null,
+          "respuesta": "En el párpado hay una pápula de 0,5 cm, rosada y de aspecto perlado, con bordes enrollados y telangiectasias en la superficie.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Carcinoma escamocelular",
+              "pasa_a": "descartada",
+              "por_que": "La lesión es perlada, con bordes enrollados y telangiectasias, típica del carcinoma basocelular; el escamocelular suele ser costroso o ulcerado."
+            },
+            {
+              "enfermedad": "Carcinoma sebáceo palpebral",
+              "pasa_a": "descartada",
+              "por_que": "El carcinoma sebáceo suele ser amarillento, como un chalazión que vuelve; esta lesión es perlada con telangiectasias."
+            },
+            {
+              "enfermedad": "Chalazión persistente",
+              "pasa_a": "descartada",
+              "por_que": "El chalazión es un nódulo liso, sin aspecto perlado ni telangiectasias."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Carcinoma basocelular",
+              "Queratoacantoma"
+            ],
+            "menos probables": [],
+            "descartadas": [
+              "Carcinoma escamocelular",
+              "Carcinoma sebáceo palpebral",
+              "Chalazión persistente"
+            ]
+          }
+        },
+        {
+          "numero": 2,
+          "pedido": "¿Desde cuándo tiene esa lesión?",
+          "por_que": "El tiempo de evolución y si crece ayudan a separar lesiones benignas de malignas.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Desde cuándo tiene esa lesión?",
+          "respuesta": "Hace unos 6 meses.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Queratoacantoma",
+              "pasa_a": "descartada",
+              "por_que": "El queratoacantoma crece muy rápido, en semanas; esta lesión crece lento, en 6 meses."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Carcinoma basocelular"
+            ],
+            "menos probables": [],
+            "descartadas": [
+              "Carcinoma escamocelular",
+              "Carcinoma sebáceo palpebral",
+              "Chalazión persistente",
+              "Queratoacantoma"
+            ]
+          }
+        },
+        {
+          "numero": 3,
+          "pedido": "¿Ha trabajado al sol? ¿Usa protector solar?",
+          "por_que": "El sol sin protección y la piel clara son factores de riesgo de cáncer de piel.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Ha trabajado al sol? ¿Usa protector solar?",
+          "respuesta": "Sí, trabajé como vendedor puerta a puerta, pasé mucho tiempo al aire libre y no usaba protector solar.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Carcinoma basocelular"
+            ],
+            "menos probables": [],
+            "descartadas": [
+              "Carcinoma escamocelular",
+              "Carcinoma sebáceo palpebral",
+              "Chalazión persistente",
+              "Queratoacantoma"
+            ]
+          }
+        }
+      ],
+      "al_terminar": {
+        "posibles": [
+          "Carcinoma basocelular"
+        ],
+        "menos probables": [],
+        "descartadas": [
+          "Carcinoma escamocelular",
+          "Carcinoma sebáceo palpebral",
+          "Chalazión persistente",
+          "Queratoacantoma"
+        ]
+      },
+      "no_preguntar": [
+        {
+          "pedido": "¿Le duele algo?",
+          "motivo": "Viene a un control y no tiene molestias.",
+          "respuesta": "No, no tengo dolor."
+        },
+        {
+          "pedido": "Pido una tomografía",
+          "motivo": "El caso no tiene ese estudio.",
+          "respuesta": "Ese estudio no se realizó en este paciente."
+        }
+      ],
+      "nota": "Sin la exploración no hay pista: la lesión del párpado solo aparece al examinar.",
+      "diagnostico": "Carcinoma basocelular",
+      "descartes": [
+        {
+          "enfermedad": "Carcinoma escamocelular",
+          "por_que": "La lesión es perlada, con bordes enrollados y telangiectasias, típica del carcinoma basocelular; el escamocelular suele ser costroso o ulcerado."
+        },
+        {
+          "enfermedad": "Carcinoma sebáceo palpebral",
+          "por_que": "El carcinoma sebáceo suele ser amarillento, como un chalazión que vuelve; esta lesión es perlada con telangiectasias."
+        },
+        {
+          "enfermedad": "Queratoacantoma",
+          "por_que": "El queratoacantoma crece muy rápido, en semanas; esta lesión crece lento, en 6 meses."
+        },
+        {
+          "enfermedad": "Chalazión persistente",
+          "por_que": "El chalazión es un nódulo liso, sin aspecto perlado ni telangiectasias."
+        }
+      ]
+    },
+    {
+      "case_id": "PED-009",
+      "paciente": "Mateo Quispe, 7 años",
+      "especialidad": "Pediatría",
+      "motivo": "Cojea y protege la pierna izquierda; su madre nota que cambió su forma de jugar.",
+      "enlace": "https://consulta-medica-three.vercel.app/simulacion.html?caso=PED-009",
+      "al_empezar": {
+        "posibles": [
+          "Artritis idiopática juvenil",
+          "Enfermedad de Legg-Calvé-Perthes",
+          "Epifisiólisis de la cabeza femoral"
+        ],
+        "menos probables": [],
+        "descartadas": [
+          "Artritis séptica",
+          "Osteomielitis"
+        ]
+      },
+      "pasos": [
+        {
+          "numero": 1,
+          "pedido": "¿Dónde le duele?",
+          "por_que": "Localizar el dolor. En los niños, un problema de la cadera muchas veces se siente en la rodilla.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Dónde le duele?",
+          "respuesta": "Me duele la rodilla izquierda.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Artritis idiopática juvenil",
+              "Enfermedad de Legg-Calvé-Perthes",
+              "Epifisiólisis de la cabeza femoral"
+            ],
+            "menos probables": [],
+            "descartadas": [
+              "Artritis séptica",
+              "Osteomielitis"
+            ]
+          }
+        },
+        {
+          "numero": 2,
+          "pedido": "Pregúntele por sus antecedentes y su desarrollo",
+          "por_que": "Descarta enfermedades previas y problemas de crecimiento.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Podría contarme sus antecedentes y su desarrollo?",
+          "respuesta": "Estoy bien nutrido y cumplo todos los hitos del desarrollo.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Artritis idiopática juvenil",
+              "Enfermedad de Legg-Calvé-Perthes",
+              "Epifisiólisis de la cabeza femoral"
+            ],
+            "menos probables": [],
+            "descartadas": [
+              "Artritis séptica",
+              "Osteomielitis"
+            ]
+          }
+        },
+        {
+          "numero": 3,
+          "pedido": "Voy a examinar al niño",
+          "por_que": "Mover la rodilla y la cadera muestra de dónde viene realmente el dolor.",
+          "agente": "Médico asistente",
+          "medico_tratante": null,
+          "respuesta": "La rodilla tiene rango de movimiento completo; la movilización pasiva provoca dolor en la cadera izquierda.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Artritis idiopática juvenil",
+              "Enfermedad de Legg-Calvé-Perthes",
+              "Epifisiólisis de la cabeza femoral"
+            ],
+            "menos probables": [],
+            "descartadas": [
+              "Artritis séptica",
+              "Osteomielitis"
+            ]
+          }
+        },
+        {
+          "numero": 4,
+          "pedido": "Pido una radiografía de cadera",
+          "por_que": "Ver la forma de la cabeza del fémur.",
+          "agente": "Radiología",
+          "medico_tratante": null,
+          "respuesta": "La radiografía muestra cabeza femoral izquierda aplanada.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Epifisiólisis de la cabeza femoral",
+              "pasa_a": "descartada",
+              "por_que": "La radiografía muestra la cabeza del fémur aplanada (necrosis), no desplazada; la epifisiólisis además es más propia de adolescentes."
+            },
+            {
+              "enfermedad": "Artritis idiopática juvenil",
+              "pasa_a": "descartada",
+              "por_que": "La radiografía muestra la cabeza del fémur aplanada; la artritis idiopática afecta la articulación sin aplanar la cabeza femoral."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Enfermedad de Legg-Calvé-Perthes"
+            ],
+            "menos probables": [],
+            "descartadas": [
+              "Artritis idiopática juvenil",
+              "Artritis séptica",
+              "Epifisiólisis de la cabeza femoral",
+              "Osteomielitis"
+            ]
+          }
+        }
+      ],
+      "al_terminar": {
+        "posibles": [
+          "Enfermedad de Legg-Calvé-Perthes"
+        ],
+        "menos probables": [],
+        "descartadas": [
+          "Artritis idiopática juvenil",
+          "Artritis séptica",
+          "Epifisiólisis de la cabeza femoral",
+          "Osteomielitis"
+        ]
+      },
+      "no_preguntar": [
+        {
+          "pedido": "¿Ha tenido fiebre?",
+          "motivo": "Está afebril: debe responder que no.",
+          "respuesta": "No, no he tenido fiebre."
+        },
+        {
+          "pedido": "Solicito un hemograma",
+          "motivo": "El caso no tiene ese examen.",
+          "respuesta": "Ese examen no se realizó en este paciente."
+        }
+      ],
+      "nota": "Trampa: el niño dice que le duele la rodilla, pero la exploración muestra que el dolor viene de la cadera.",
+      "diagnostico": "Enfermedad de Legg-Calvé-Perthes",
+      "descartes": [
+        {
+          "enfermedad": "Artritis séptica",
+          "por_que": "El niño está afebril y con signos vitales estables; la artritis séptica da fiebre y aspecto de enfermo."
+        },
+        {
+          "enfermedad": "Epifisiólisis de la cabeza femoral",
+          "por_que": "La radiografía muestra la cabeza del fémur aplanada (necrosis), no desplazada; la epifisiólisis además es más propia de adolescentes."
+        },
+        {
+          "enfermedad": "Osteomielitis",
+          "por_que": "Sin fiebre ni signos de infección, y la radiografía muestra la cabeza del fémur aplanada, no una infección del hueso."
+        },
+        {
+          "enfermedad": "Artritis idiopática juvenil",
+          "por_que": "La radiografía muestra la cabeza del fémur aplanada; la artritis idiopática afecta la articulación sin aplanar la cabeza femoral."
+        }
+      ]
+    },
+    {
+      "case_id": "PED-010",
+      "paciente": "Valeria Torres, 6 años",
+      "especialidad": "Pediatría",
+      "motivo": "Fractura de brazo.",
+      "enlace": "https://consulta-medica-three.vercel.app/simulacion.html?caso=PED-010",
+      "al_empezar": {
+        "posibles": [
+          "Displasia fibrosa ósea no sindrómica",
+          "Neurofibromatosis tipo 1",
+          "Otras causas de pubertad precoz periférica",
+          "Síndrome de McCune-Albright",
+          "Síndrome de Peutz-Jeghers"
+        ],
+        "menos probables": [],
+        "descartadas": []
+      },
+      "pasos": [
+        {
+          "numero": 1,
+          "pedido": "Voy a examinar a la niña",
+          "por_que": "Busca signos de pubertad adelantada y manchas en la piel, que juntos orientan a síndromes concretos.",
+          "agente": "Médico asistente",
+          "medico_tratante": null,
+          "respuesta": "Se encuentra desarrollo mamario. Se encuentran manchas café con leche en la piel.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Neurofibromatosis tipo 1",
+              "pasa_a": "menos probable",
+              "por_que": "Primer dato en contra: Exploración física: mamas. Falta: Estudio de imagen ósea."
+            },
+            {
+              "enfermedad": "Síndrome de Peutz-Jeghers",
+              "pasa_a": "descartada",
+              "por_que": "En el Peutz-Jeghers las manchas son pequeñas y oscuras, en labios y boca; aquí son manchas café con leche en la piel."
+            },
+            {
+              "enfermedad": "Displasia fibrosa ósea no sindrómica",
+              "pasa_a": "descartada",
+              "por_que": "Además del hueso, tiene desarrollo mamario precoz y manchas café con leche: es un síndrome, no solo una displasia del hueso."
+            },
+            {
+              "enfermedad": "Otras causas de pubertad precoz periférica",
+              "pasa_a": "menos probable",
+              "por_que": "Primer dato en contra: Exploración física: piel. Falta: Estudio de imagen ósea."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Síndrome de McCune-Albright"
+            ],
+            "menos probables": [
+              "Neurofibromatosis tipo 1",
+              "Otras causas de pubertad precoz periférica"
+            ],
+            "descartadas": [
+              "Displasia fibrosa ósea no sindrómica",
+              "Síndrome de Peutz-Jeghers"
+            ]
+          }
+        },
+        {
+          "numero": 2,
+          "pedido": "Solicito función tiroidea",
+          "por_que": "Ver si otras glándulas también están alteradas.",
+          "agente": "Laboratorio",
+          "medico_tratante": null,
+          "respuesta": "La fuente describe a la vez hipotiroidismo e hipertiroidismo, sin más detalle.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Síndrome de McCune-Albright"
+            ],
+            "menos probables": [
+              "Neurofibromatosis tipo 1",
+              "Otras causas de pubertad precoz periférica"
+            ],
+            "descartadas": [
+              "Displasia fibrosa ósea no sindrómica",
+              "Síndrome de Peutz-Jeghers"
+            ]
+          }
+        },
+        {
+          "numero": 3,
+          "pedido": "Pido una radiografía de los huesos",
+          "por_que": "Buscar lesiones óseas que expliquen una fractura con un golpe pequeño.",
+          "agente": "Radiología",
+          "medico_tratante": null,
+          "respuesta": "Muestra crecimiento fibroso del hueso (displasia fibrosa).",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Neurofibromatosis tipo 1",
+              "pasa_a": "descartada",
+              "por_que": "La neurofibromatosis no produce displasia fibrosa del hueso ni desarrollo mamario precoz."
+            },
+            {
+              "enfermedad": "Otras causas de pubertad precoz periférica",
+              "pasa_a": "descartada",
+              "por_que": "La pubertad precoz llega con displasia fibrosa del hueso y manchas café con leche: la tríada del síndrome de McCune-Albright."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Síndrome de McCune-Albright"
+            ],
+            "menos probables": [],
+            "descartadas": [
+              "Displasia fibrosa ósea no sindrómica",
+              "Neurofibromatosis tipo 1",
+              "Otras causas de pubertad precoz periférica",
+              "Síndrome de Peutz-Jeghers"
+            ]
+          }
+        },
+        {
+          "numero": 4,
+          "pedido": "Solicito la edad ósea",
+          "por_que": "Una edad ósea mayor que la real indica un exceso de hormonas desde hace tiempo.",
+          "agente": "Radiología",
+          "medico_tratante": null,
+          "respuesta": "La edad ósea se interpreta como de 9 años.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Síndrome de McCune-Albright"
+            ],
+            "menos probables": [],
+            "descartadas": [
+              "Displasia fibrosa ósea no sindrómica",
+              "Neurofibromatosis tipo 1",
+              "Otras causas de pubertad precoz periférica",
+              "Síndrome de Peutz-Jeghers"
+            ]
+          }
+        }
+      ],
+      "al_terminar": {
+        "posibles": [
+          "Síndrome de McCune-Albright"
+        ],
+        "menos probables": [],
+        "descartadas": [
+          "Displasia fibrosa ósea no sindrómica",
+          "Neurofibromatosis tipo 1",
+          "Otras causas de pubertad precoz periférica",
+          "Síndrome de Peutz-Jeghers"
+        ]
+      },
+      "no_preguntar": [
+        {
+          "pedido": "¿Tiene dolor de cabeza?",
+          "motivo": "El caso no lo describe: debe responder que no.",
+          "respuesta": "No."
+        },
+        {
+          "pedido": "Pido una resonancia de cerebro",
+          "motivo": "El caso no tiene ese estudio.",
+          "respuesta": "¿Qué estudio de imagen desea solicitar? Indíqueme cuál, por ejemplo una radiografía o una tomografía y de qué zona."
+        }
+      ],
+      "nota": "El resultado tiroideo es ambiguo porque la fuente (banco de Taiwán) menciona hipotiroidismo e hipertiroidismo a la vez.",
+      "diagnostico": "Síndrome de McCune-Albright",
+      "descartes": [
+        {
+          "enfermedad": "Neurofibromatosis tipo 1",
+          "por_que": "La neurofibromatosis no produce displasia fibrosa del hueso ni desarrollo mamario precoz."
+        },
+        {
+          "enfermedad": "Síndrome de Peutz-Jeghers",
+          "por_que": "En el Peutz-Jeghers las manchas son pequeñas y oscuras, en labios y boca; aquí son manchas café con leche en la piel."
+        },
+        {
+          "enfermedad": "Displasia fibrosa ósea no sindrómica",
+          "por_que": "Además del hueso, tiene desarrollo mamario precoz y manchas café con leche: es un síndrome, no solo una displasia del hueso."
+        },
+        {
+          "enfermedad": "Otras causas de pubertad precoz periférica",
+          "por_que": "La pubertad precoz llega con displasia fibrosa del hueso y manchas café con leche: la tríada del síndrome de McCune-Albright."
+        }
+      ]
+    },
+    {
+      "case_id": "EME-101",
+      "paciente": "Carlos Mendoza, 58 años",
+      "especialidad": "Emergencias",
+      "motivo": "Dolor en el pecho que empezó hace unas 2 horas y no se le pasa.",
+      "enlace": "https://consulta-medica-three.vercel.app/simulacion.html?caso=EME-101",
+      "al_empezar": {
+        "posibles": [
+          "Disección aórtica aguda tipo A",
+          "Infarto agudo de miocardio con elevación del ST",
+          "Pericarditis aguda",
+          "Tromboembolia pulmonar aguda"
+        ],
+        "menos probables": [],
+        "descartadas": []
+      },
+      "pasos": [
+        {
+          "numero": 1,
+          "pedido": "¿Cómo es el dolor? Descríbalo, por favor",
+          "por_que": "El tipo de dolor es lo que más separa las causas graves de dolor torácico: opresivo e irradiado al brazo o la mandíbula orienta al corazón; punzante y que empeora al respirar, al pulmón o al pericardio; desgarrante y hacia la espalda, a la aorta.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Cómo es el dolor? Descríbalo, por favor.",
+          "respuesta": "Es un dolor opresivo, como un peso en el centro del pecho, que se va al brazo izquierdo y a la mandíbula. No cambia al respirar, al moverse ni al inclinarse hacia adelante. Lo califico con 8 de 10.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Disección aórtica aguda tipo A",
+              "pasa_a": "menos probable",
+              "por_que": "Primer dato en contra: Características del dolor. Falta: Exploración física, Radiografía de tórax, Angiotomografía de tórax."
+            },
+            {
+              "enfermedad": "Pericarditis aguda",
+              "pasa_a": "menos probable",
+              "por_que": "Primer dato en contra: Características del dolor. Falta: Exploración física, Electrocardiograma de 12 derivaciones."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Infarto agudo de miocardio con elevación del ST",
+              "Tromboembolia pulmonar aguda"
+            ],
+            "menos probables": [
+              "Disección aórtica aguda tipo A",
+              "Pericarditis aguda"
+            ],
+            "descartadas": []
+          }
+        },
+        {
+          "numero": 2,
+          "pedido": "Pregúntele cuándo empezó y cómo ha evolucionado",
+          "por_que": "El modo de inicio orienta la causa: con el esfuerzo y con molestias previas sugiere origen coronario; de golpe y con falta de aire, una embolia; brusco y máximo desde el primer momento, la aorta.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Cuándo empezó y cómo ha evolucionado?",
+          "respuesta": "Empecé hace unas 2 horas subiendo las escaleras de mi casa cargando bolsas. No se me quitó al sentarme. La semana pasada tuve molestias parecidas al caminar rápido, que se me pasaban en pocos minutos al descansar.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Infarto agudo de miocardio con elevación del ST",
+              "Tromboembolia pulmonar aguda"
+            ],
+            "menos probables": [
+              "Disección aórtica aguda tipo A",
+              "Pericarditis aguda"
+            ],
+            "descartadas": []
+          }
+        },
+        {
+          "numero": 3,
+          "pedido": "¿Tiene algún otro síntoma?",
+          "por_que": "Los síntomas que acompañan al dolor ayudan a separar: sudor frío y náuseas acompañan a la isquemia; falta de aire y tos con sangre, a la embolia pulmonar; sentir que se desmaya, a un problema de la aorta.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Tiene algún otro síntoma, por favor?",
+          "respuesta": "Sí, tengo sudor frío y náuseas desde que empezó el dolor, y un poco de falta de aire. No he tenido tos, fiebre ni desmayos.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Infarto agudo de miocardio con elevación del ST",
+              "Tromboembolia pulmonar aguda"
+            ],
+            "menos probables": [
+              "Disección aórtica aguda tipo A",
+              "Pericarditis aguda"
+            ],
+            "descartadas": []
+          }
+        },
+        {
+          "numero": 4,
+          "pedido": "Pregúntele por sus antecedentes de enfermedades",
+          "por_que": "Busca factores de riesgo: diabetes, hipertensión y colesterol para enfermedad coronaria; un cáncer para trombosis; hipertensión mal controlada para problemas de la aorta.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Tiene antecedentes de enfermedades?",
+          "respuesta": "Sí, tengo diabetes tipo 2 desde hace 8 años e hipertensión arterial. También me dijeron que tengo colesterol alto, pero no lo estoy tratando.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Infarto agudo de miocardio con elevación del ST",
+              "Tromboembolia pulmonar aguda"
+            ],
+            "menos probables": [
+              "Disección aórtica aguda tipo A",
+              "Pericarditis aguda"
+            ],
+            "descartadas": []
+          }
+        },
+        {
+          "numero": 5,
+          "pedido": "¿Toma algún medicamento?",
+          "por_que": "Muestra qué enfermedades trata y si cumple el tratamiento. Abandonar los antihipertensivos deja la presión alta sin control.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Está tomando algún medicamento?",
+          "respuesta": "Sí, estoy tomando metformina 850 mg dos veces al día y enalapril 10 mg al día.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Infarto agudo de miocardio con elevación del ST",
+              "Tromboembolia pulmonar aguda"
+            ],
+            "menos probables": [
+              "Disección aórtica aguda tipo A",
+              "Pericarditis aguda"
+            ],
+            "descartadas": []
+          }
+        },
+        {
+          "numero": 6,
+          "pedido": "¿Tiene alergias?",
+          "por_que": "Es obligatoria antes de indicar cualquier medicamento: en el dolor torácico se usan antiagregantes, anticoagulantes y otros fármacos.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Tiene alergias?",
+          "respuesta": "No, no tengo alergias conocidas a medicamentos.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Infarto agudo de miocardio con elevación del ST",
+              "Tromboembolia pulmonar aguda"
+            ],
+            "menos probables": [
+              "Disección aórtica aguda tipo A",
+              "Pericarditis aguda"
+            ],
+            "descartadas": []
+          }
+        },
+        {
+          "numero": 7,
+          "pedido": "¿Fuma? ¿Ha hecho algún viaje reciente?",
+          "por_que": "El tabaco es factor de riesgo coronario. Un viaje largo sin moverse favorece los coágulos en las piernas, que pueden llegar al pulmón.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Fuma? ¿Ha hecho algún viaje reciente?",
+          "respuesta": "Sí, fumo una cajetilla al día desde hace 30 años. No he hecho viajes largos recientemente.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Tromboembolia pulmonar aguda",
+              "pasa_a": "menos probable",
+              "por_que": "Primer dato en contra: Hábitos y viajes. Falta: Exploración física, Dímero D, Angiotomografía de tórax."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Infarto agudo de miocardio con elevación del ST"
+            ],
+            "menos probables": [
+              "Disección aórtica aguda tipo A",
+              "Pericarditis aguda",
+              "Tromboembolia pulmonar aguda"
+            ],
+            "descartadas": []
+          }
+        },
+        {
+          "numero": 8,
+          "pedido": "¿Alguien en su familia ha tenido problemas del corazón?",
+          "por_que": "Un familiar con infarto a edad temprana aumenta el riesgo de enfermedad coronaria.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Algún familiar ha tenido problemas del corazón?",
+          "respuesta": "Sí, mi padre murió de un ataque al corazón a los 60 años.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Infarto agudo de miocardio con elevación del ST"
+            ],
+            "menos probables": [
+              "Disección aórtica aguda tipo A",
+              "Pericarditis aguda",
+              "Tromboembolia pulmonar aguda"
+            ],
+            "descartadas": []
+          }
+        },
+        {
+          "numero": 9,
+          "pedido": "Voy a realizar la exploración física completa",
+          "por_que": "Busca los signos que separan las causas: presión distinta entre los brazos y soplo (aorta), pierna hinchada y dolorosa (coágulo que pudo llegar al pulmón), roce al auscultar (pericardio).",
+          "agente": "Médico asistente",
+          "medico_tratante": null,
+          "respuesta": "Paciente pálido y sudoroso. Ruidos cardiacos rítmicos, sin soplos ni roce. Pulmones con murmullo vesicular normal, sin crepitantes. Pulsos radiales simétricos; presión arterial 146/90 mmHg en el brazo derecho y 148/92 mmHg en el izquierdo. Piernas sin edema y pantorrillas no dolorosas.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Infarto agudo de miocardio con elevación del ST"
+            ],
+            "menos probables": [
+              "Disección aórtica aguda tipo A",
+              "Pericarditis aguda",
+              "Tromboembolia pulmonar aguda"
+            ],
+            "descartadas": []
+          }
+        },
+        {
+          "numero": 10,
+          "pedido": "Pido un electrocardiograma de 12 derivaciones",
+          "por_que": "Es el primer examen ante un dolor torácico, en los primeros 10 minutos: muestra si hay un infarto que necesita tratamiento inmediato y otros patrones (pericarditis, sobrecarga del corazón derecho).",
+          "agente": "Laboratorio",
+          "medico_tratante": null,
+          "respuesta": "Ritmo sinusal a 96/min. Elevación del segmento ST de 3 mm en II, III y aVF, con descenso del ST en I y aVL.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Pericarditis aguda",
+              "pasa_a": "descartada",
+              "por_que": "El dolor no cambia con la postura ni la respiración, no hay roce, y el ECG muestra elevación del ST localizada con cambios recíprocos (en la pericarditis es difusa)."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Infarto agudo de miocardio con elevación del ST"
+            ],
+            "menos probables": [
+              "Disección aórtica aguda tipo A",
+              "Tromboembolia pulmonar aguda"
+            ],
+            "descartadas": [
+              "Pericarditis aguda"
+            ]
+          }
+        },
+        {
+          "numero": 11,
+          "pedido": "Solicito troponina",
+          "por_que": "Mide el daño del músculo del corazón. Sube mucho en el infarto, pero también algo en otras causas, como la embolia pulmonar.",
+          "agente": "Laboratorio",
+          "medico_tratante": null,
+          "respuesta": "Troponina I ultrasensible: 2850 ng/L (valor de referencia < 26 ng/L); por encima del rango normal.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Infarto agudo de miocardio con elevación del ST"
+            ],
+            "menos probables": [
+              "Disección aórtica aguda tipo A",
+              "Tromboembolia pulmonar aguda"
+            ],
+            "descartadas": [
+              "Pericarditis aguda"
+            ]
+          }
+        },
+        {
+          "numero": 12,
+          "pedido": "Solicito dímero D",
+          "por_que": "Si es normal, hace muy poco probable una embolia pulmonar. Si está alto no aclara nada: también sube en otras causas, como la enfermedad de la aorta.",
+          "agente": "Laboratorio",
+          "medico_tratante": null,
+          "respuesta": "Dímero D: 420 ng/mL (valor de referencia < 500 ng/mL); dentro del rango normal.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Infarto agudo de miocardio con elevación del ST"
+            ],
+            "menos probables": [
+              "Disección aórtica aguda tipo A",
+              "Tromboembolia pulmonar aguda"
+            ],
+            "descartadas": [
+              "Pericarditis aguda"
+            ]
+          }
+        },
+        {
+          "numero": 13,
+          "pedido": "Pido una radiografía de tórax",
+          "por_que": "Busca un mediastino ensanchado (aorta) y descarta otras causas de dolor, como un neumotórax o una neumonía.",
+          "agente": "Radiología",
+          "medico_tratante": null,
+          "respuesta": "Silueta cardiaca y mediastino de tamaño normal. Campos pulmonares sin infiltrados ni derrame. Sin neumotórax.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Infarto agudo de miocardio con elevación del ST"
+            ],
+            "menos probables": [
+              "Disección aórtica aguda tipo A",
+              "Tromboembolia pulmonar aguda"
+            ],
+            "descartadas": [
+              "Pericarditis aguda"
+            ]
+          }
+        },
+        {
+          "numero": 14,
+          "pedido": "Solicito una angiotomografía de tórax",
+          "por_que": "Con un solo estudio confirma o descarta un coágulo en las arterias del pulmón y un problema de la aorta.",
+          "agente": "Radiología",
+          "medico_tratante": null,
+          "respuesta": "Arterias pulmonares sin defectos de llenado. Aorta de calibre normal, sin colgajo intimal.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Tromboembolia pulmonar aguda",
+              "pasa_a": "descartada",
+              "por_que": "No hay viaje ni piernas hinchadas, el dímero D es normal y la angiotomografía no muestra coágulos en las arterias del pulmón."
+            },
+            {
+              "enfermedad": "Disección aórtica aguda tipo A",
+              "pasa_a": "descartada",
+              "por_que": "El dolor es opresivo, no desgarrante; la presión es igual en ambos brazos, el mediastino es normal y la aorta está sana en la angiotomografía."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Infarto agudo de miocardio con elevación del ST"
+            ],
+            "menos probables": [],
+            "descartadas": [
+              "Disección aórtica aguda tipo A",
+              "Pericarditis aguda",
+              "Tromboembolia pulmonar aguda"
+            ]
+          }
+        }
+      ],
+      "al_terminar": {
+        "posibles": [
+          "Infarto agudo de miocardio con elevación del ST"
+        ],
+        "menos probables": [],
+        "descartadas": [
+          "Disección aórtica aguda tipo A",
+          "Pericarditis aguda",
+          "Tromboembolia pulmonar aguda"
+        ]
+      },
+      "no_preguntar": [
+        {
+          "pedido": "¿Qué tiene el paciente? Dígame el diagnóstico",
+          "motivo": "El diagnóstico lo debe deducir el estudiante.",
+          "respuesta": "Anotamos su pregunta. Por favor continúe con la recolección de datos."
+        },
+        {
+          "pedido": "¿Le duele la cabeza?",
+          "motivo": "El caso no tiene ese síntoma: debe responder que no.",
+          "respuesta": "No."
+        },
+        {
+          "pedido": "Pido una ecografía abdominal",
+          "motivo": "El caso no tiene ese estudio.",
+          "respuesta": "¿Qué estudio de imagen desea solicitar? Indíqueme cuál, por ejemplo una radiografía o una tomografía y de qué zona."
+        },
+        {
+          "pedido": "Solicito un hemograma",
+          "motivo": "El caso no tiene ese examen.",
+          "respuesta": "Ese examen no se realizó en este paciente."
+        },
+        {
+          "pedido": "Le doy morfina y lo mando a casa",
+          "motivo": "Tratamiento inadecuado: debe ir a reperfusión urgente.",
+          "respuesta": "Anotado. Se revisará al cerrar la consulta. Continúe recopilando datos."
+        }
+      ],
+      "nota": "Familia de dolor torácico. Lo decisivo: el dolor opresivo y el electrocardiograma con elevación del ST en cara inferior.",
+      "diagnostico": "Infarto agudo de miocardio con elevación del ST",
+      "descartes": [
+        {
+          "enfermedad": "Tromboembolia pulmonar aguda",
+          "por_que": "No hay viaje ni piernas hinchadas, el dímero D es normal y la angiotomografía no muestra coágulos en las arterias del pulmón."
+        },
+        {
+          "enfermedad": "Disección aórtica aguda tipo A",
+          "por_que": "El dolor es opresivo, no desgarrante; la presión es igual en ambos brazos, el mediastino es normal y la aorta está sana en la angiotomografía."
+        },
+        {
+          "enfermedad": "Pericarditis aguda",
+          "por_que": "El dolor no cambia con la postura ni la respiración, no hay roce, y el ECG muestra elevación del ST localizada con cambios recíprocos (en la pericarditis es difusa)."
+        }
+      ]
+    },
+    {
+      "case_id": "EME-102",
+      "paciente": "Luis Ramírez, 56 años",
+      "especialidad": "Emergencias",
+      "motivo": "Dolor en el pecho que empezó hace unas 2 horas y no se le pasa.",
+      "enlace": "https://consulta-medica-three.vercel.app/simulacion.html?caso=EME-102",
+      "al_empezar": {
+        "posibles": [
+          "Disección aórtica aguda tipo A",
+          "Infarto agudo de miocardio con elevación del ST",
+          "Pericarditis aguda",
+          "Tromboembolia pulmonar aguda"
+        ],
+        "menos probables": [],
+        "descartadas": []
+      },
+      "pasos": [
+        {
+          "numero": 1,
+          "pedido": "¿Cómo es el dolor? Descríbalo, por favor",
+          "por_que": "El tipo de dolor es lo que más separa las causas graves de dolor torácico: opresivo e irradiado al brazo o la mandíbula orienta al corazón; punzante y que empeora al respirar, al pulmón o al pericardio; desgarrante y hacia la espalda, a la aorta.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Cómo es el dolor? Descríbalo, por favor.",
+          "respuesta": "Es un dolor punzante en el lado derecho del pecho. Empeora cuando respiro hondo o tosa. No se irradia al brazo ni a la espalda y no cambia al inclinarme hacia adelante. Lo califico con 6 de 10.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Infarto agudo de miocardio con elevación del ST",
+              "pasa_a": "menos probable",
+              "por_que": "Primer dato en contra: Características del dolor. Falta: Electrocardiograma de 12 derivaciones."
+            },
+            {
+              "enfermedad": "Disección aórtica aguda tipo A",
+              "pasa_a": "menos probable",
+              "por_que": "Primer dato en contra: Características del dolor. Falta: Exploración física, Angiotomografía de tórax."
+            },
+            {
+              "enfermedad": "Pericarditis aguda",
+              "pasa_a": "menos probable",
+              "por_que": "Primer dato en contra: Características del dolor. Falta: Exploración física, Electrocardiograma de 12 derivaciones."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Tromboembolia pulmonar aguda"
+            ],
+            "menos probables": [
+              "Disección aórtica aguda tipo A",
+              "Infarto agudo de miocardio con elevación del ST",
+              "Pericarditis aguda"
+            ],
+            "descartadas": []
+          }
+        },
+        {
+          "numero": 2,
+          "pedido": "Pregúntele cuándo empezó y cómo ha evolucionado",
+          "por_que": "El modo de inicio orienta la causa: con el esfuerzo y con molestias previas sugiere origen coronario; de golpe y con falta de aire, una embolia; brusco y máximo desde el primer momento, la aorta.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Cuándo empezó y cómo ha evolucionado?",
+          "respuesta": "Empezó de golpe hace unas 2 horas, cuando me levanté de la cama para ir al baño. Desde entonces el dolor no se ha ido y me cuesta respirar, incluso cuando estoy sentado.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Tromboembolia pulmonar aguda"
+            ],
+            "menos probables": [
+              "Disección aórtica aguda tipo A",
+              "Infarto agudo de miocardio con elevación del ST",
+              "Pericarditis aguda"
+            ],
+            "descartadas": []
+          }
+        },
+        {
+          "numero": 3,
+          "pedido": "¿Tiene algún otro síntoma?",
+          "por_que": "Los síntomas que acompañan al dolor ayudan a separar: sudor frío y náuseas acompañan a la isquemia; falta de aire y tos con sangre, a la embolia pulmonar; sentir que se desmaya, a un problema de la aorta.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Tiene algún otro síntoma?",
+          "respuesta": "Sí, he tenido falta de aire desde que empezó el dolor y tos seca. Esta mañana escupí una flema con hilos de sangre. No he tenido fiebre ni sudor frío.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Tromboembolia pulmonar aguda"
+            ],
+            "menos probables": [
+              "Disección aórtica aguda tipo A",
+              "Infarto agudo de miocardio con elevación del ST",
+              "Pericarditis aguda"
+            ],
+            "descartadas": []
+          }
+        },
+        {
+          "numero": 4,
+          "pedido": "Pregúntele por sus antecedentes de enfermedades",
+          "por_que": "Busca factores de riesgo: diabetes, hipertensión y colesterol para enfermedad coronaria; un cáncer para trombosis; hipertensión mal controlada para problemas de la aorta.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Tiene antecedentes de enfermedades?",
+          "respuesta": "Sí, tengo antecedentes de cáncer de próstata que estoy tratando con terapia hormonal desde hace un año, y también tengo hipertensión arterial. No tengo diabetes.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Tromboembolia pulmonar aguda"
+            ],
+            "menos probables": [
+              "Disección aórtica aguda tipo A",
+              "Infarto agudo de miocardio con elevación del ST",
+              "Pericarditis aguda"
+            ],
+            "descartadas": []
+          }
+        },
+        {
+          "numero": 5,
+          "pedido": "¿Toma algún medicamento?",
+          "por_que": "Muestra qué enfermedades trata y si cumple el tratamiento. Abandonar los antihipertensivos deja la presión alta sin control.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Está tomando algún medicamento?",
+          "respuesta": "Sí, estoy tomando leuprolida inyectable cada 3 meses y losartán 50 mg al día.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Tromboembolia pulmonar aguda"
+            ],
+            "menos probables": [
+              "Disección aórtica aguda tipo A",
+              "Infarto agudo de miocardio con elevación del ST",
+              "Pericarditis aguda"
+            ],
+            "descartadas": []
+          }
+        },
+        {
+          "numero": 6,
+          "pedido": "¿Tiene alergias?",
+          "por_que": "Es obligatoria antes de indicar cualquier medicamento: en el dolor torácico se usan antiagregantes, anticoagulantes y otros fármacos.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Tiene alergias?",
+          "respuesta": "Sí, soy alérgico a la penicilina. Cuando me la han dado antes, me salieron ronchas en todo el cuerpo.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Tromboembolia pulmonar aguda"
+            ],
+            "menos probables": [
+              "Disección aórtica aguda tipo A",
+              "Infarto agudo de miocardio con elevación del ST",
+              "Pericarditis aguda"
+            ],
+            "descartadas": []
+          }
+        },
+        {
+          "numero": 7,
+          "pedido": "¿Fuma? ¿Ha hecho algún viaje reciente?",
+          "por_que": "El tabaco es factor de riesgo coronario. Un viaje largo sin moverse favorece los coágulos en las piernas, que pueden llegar al pulmón.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Fuma? ¿Ha hecho algún viaje reciente?",
+          "respuesta": "No fumo. Hace cinco días regresé de un viaje en bus de 20 horas desde Cusco y casi no me levanté del asiento.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Tromboembolia pulmonar aguda"
+            ],
+            "menos probables": [
+              "Disección aórtica aguda tipo A",
+              "Infarto agudo de miocardio con elevación del ST",
+              "Pericarditis aguda"
+            ],
+            "descartadas": []
+          }
+        },
+        {
+          "numero": 8,
+          "pedido": "¿Alguien en su familia ha tenido problemas del corazón?",
+          "por_que": "Un familiar con infarto a edad temprana aumenta el riesgo de enfermedad coronaria.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Algún familiar ha tenido problemas del corazón?",
+          "respuesta": "No, no sé de enfermedades del corazón en mi familia.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Tromboembolia pulmonar aguda"
+            ],
+            "menos probables": [
+              "Disección aórtica aguda tipo A",
+              "Infarto agudo de miocardio con elevación del ST",
+              "Pericarditis aguda"
+            ],
+            "descartadas": []
+          }
+        },
+        {
+          "numero": 9,
+          "pedido": "Voy a realizar la exploración física completa",
+          "por_que": "Busca los signos que separan las causas: presión distinta entre los brazos y soplo (aorta), pierna hinchada y dolorosa (coágulo que pudo llegar al pulmón), roce al auscultar (pericardio).",
+          "agente": "Médico asistente",
+          "medico_tratante": null,
+          "respuesta": "Paciente ansioso, respira rápido. Ruidos cardiacos rítmicos y rápidos, sin soplos ni roce; el segundo ruido pulmonar está aumentado. Pulmones con murmullo vesicular conservado, sin crepitantes. Pulsos simétricos y presión arterial igual en ambos brazos. Pantorrilla derecha hinchada, 3 cm más gruesa que la izquierda, caliente y dolorosa a la palpación.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Tromboembolia pulmonar aguda"
+            ],
+            "menos probables": [
+              "Disección aórtica aguda tipo A",
+              "Infarto agudo de miocardio con elevación del ST",
+              "Pericarditis aguda"
+            ],
+            "descartadas": []
+          }
+        },
+        {
+          "numero": 10,
+          "pedido": "Pido un electrocardiograma de 12 derivaciones",
+          "por_que": "Es el primer examen ante un dolor torácico, en los primeros 10 minutos: muestra si hay un infarto que necesita tratamiento inmediato y otros patrones (pericarditis, sobrecarga del corazón derecho).",
+          "agente": "Laboratorio",
+          "medico_tratante": null,
+          "respuesta": "Taquicardia sinusal a 112/min. Onda S profunda en I, onda Q y onda T negativa en III, y ondas T negativas de V1 a V3. Sin elevación del segmento ST.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Infarto agudo de miocardio con elevación del ST",
+              "pasa_a": "descartada",
+              "por_que": "El dolor es punzante y empeora al respirar, no opresivo; el ECG no tiene elevación del ST y muestra un patrón de sobrecarga del corazón derecho."
+            },
+            {
+              "enfermedad": "Pericarditis aguda",
+              "pasa_a": "descartada",
+              "por_que": "El dolor no cambia al inclinarse hacia adelante, no hay roce, y el ECG muestra sobrecarga derecha, sin elevación difusa del ST."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Tromboembolia pulmonar aguda"
+            ],
+            "menos probables": [
+              "Disección aórtica aguda tipo A"
+            ],
+            "descartadas": [
+              "Infarto agudo de miocardio con elevación del ST",
+              "Pericarditis aguda"
+            ]
+          }
+        },
+        {
+          "numero": 11,
+          "pedido": "Solicito troponina",
+          "por_que": "Mide el daño del músculo del corazón. Sube mucho en el infarto, pero también algo en otras causas, como la embolia pulmonar.",
+          "agente": "Laboratorio",
+          "medico_tratante": null,
+          "respuesta": "Troponina I ultrasensible: 38 ng/L (valor de referencia < 26 ng/L); por encima del rango normal.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Tromboembolia pulmonar aguda"
+            ],
+            "menos probables": [
+              "Disección aórtica aguda tipo A"
+            ],
+            "descartadas": [
+              "Infarto agudo de miocardio con elevación del ST",
+              "Pericarditis aguda"
+            ]
+          }
+        },
+        {
+          "numero": 12,
+          "pedido": "Solicito dímero D",
+          "por_que": "Si es normal, hace muy poco probable una embolia pulmonar. Si está alto no aclara nada: también sube en otras causas, como la enfermedad de la aorta.",
+          "agente": "Laboratorio",
+          "medico_tratante": null,
+          "respuesta": "Dímero D: 3200 ng/mL (valor de referencia < 500 ng/mL); por encima del rango normal.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Tromboembolia pulmonar aguda"
+            ],
+            "menos probables": [
+              "Disección aórtica aguda tipo A"
+            ],
+            "descartadas": [
+              "Infarto agudo de miocardio con elevación del ST",
+              "Pericarditis aguda"
+            ]
+          }
+        },
+        {
+          "numero": 13,
+          "pedido": "Pido una radiografía de tórax",
+          "por_que": "Busca un mediastino ensanchado (aorta) y descarta otras causas de dolor, como un neumotórax o una neumonía.",
+          "agente": "Radiología",
+          "medico_tratante": null,
+          "respuesta": "Sin infiltrados ni derrame pleural importante. Silueta cardiaca y mediastino de tamaño normal.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Tromboembolia pulmonar aguda"
+            ],
+            "menos probables": [
+              "Disección aórtica aguda tipo A"
+            ],
+            "descartadas": [
+              "Infarto agudo de miocardio con elevación del ST",
+              "Pericarditis aguda"
+            ]
+          }
+        },
+        {
+          "numero": 14,
+          "pedido": "Solicito una angiotomografía de tórax",
+          "por_que": "Con un solo estudio confirma o descarta un coágulo en las arterias del pulmón y un problema de la aorta.",
+          "agente": "Radiología",
+          "medico_tratante": null,
+          "respuesta": "Defectos de llenado en la arteria pulmonar principal derecha que se extienden a las ramas lobares media e inferior. Relación entre ventrículo derecho e izquierdo de 1,1. Aorta de calibre normal, sin colgajo intimal.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Disección aórtica aguda tipo A",
+              "pasa_a": "descartada",
+              "por_que": "El dolor es punzante y respiratorio, no desgarrante; la presión es simétrica y la angiotomografía muestra coágulos pulmonares con la aorta normal."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Tromboembolia pulmonar aguda"
+            ],
+            "menos probables": [],
+            "descartadas": [
+              "Disección aórtica aguda tipo A",
+              "Infarto agudo de miocardio con elevación del ST",
+              "Pericarditis aguda"
+            ]
+          }
+        }
+      ],
+      "al_terminar": {
+        "posibles": [
+          "Tromboembolia pulmonar aguda"
+        ],
+        "menos probables": [],
+        "descartadas": [
+          "Disección aórtica aguda tipo A",
+          "Infarto agudo de miocardio con elevación del ST",
+          "Pericarditis aguda"
+        ]
+      },
+      "no_preguntar": [
+        {
+          "pedido": "¿Qué tiene el paciente? Dígame el diagnóstico",
+          "motivo": "El diagnóstico lo debe deducir el estudiante.",
+          "respuesta": "Anotamos su pregunta. Para llegar al diagnóstico, continúe recopilando datos con más preguntas, exploración o exámenes."
+        },
+        {
+          "pedido": "¿Le duele la cabeza?",
+          "motivo": "El caso no tiene ese síntoma: debe responder que no.",
+          "respuesta": "No."
+        },
+        {
+          "pedido": "Pido una ecografía abdominal",
+          "motivo": "El caso no tiene ese estudio.",
+          "respuesta": "¿Qué estudio de imagen desea solicitar? Indíqueme cuál, por ejemplo una radiografía o una tomografía y de qué zona."
+        },
+        {
+          "pedido": "Solicito un hemograma",
+          "motivo": "El caso no tiene ese examen.",
+          "respuesta": "Ese examen no se realizó en este paciente."
+        },
+        {
+          "pedido": "Le indico amoxicilina",
+          "motivo": "Es alérgico a la penicilina; además, el cuadro no es una infección.",
+          "respuesta": "Anotado. Se revisará al cerrar la consulta. Continúe recopilando datos."
+        }
+      ],
+      "nota": "Familia de dolor torácico. Lo decisivo: dolor que empeora al respirar, viaje largo, pantorrilla hinchada y angiotomografía.",
+      "diagnostico": "Tromboembolia pulmonar aguda",
+      "descartes": [
+        {
+          "enfermedad": "Infarto agudo de miocardio con elevación del ST",
+          "por_que": "El dolor es punzante y empeora al respirar, no opresivo; el ECG no tiene elevación del ST y muestra un patrón de sobrecarga del corazón derecho."
+        },
+        {
+          "enfermedad": "Disección aórtica aguda tipo A",
+          "por_que": "El dolor es punzante y respiratorio, no desgarrante; la presión es simétrica y la angiotomografía muestra coágulos pulmonares con la aorta normal."
+        },
+        {
+          "enfermedad": "Pericarditis aguda",
+          "por_que": "El dolor no cambia al inclinarse hacia adelante, no hay roce, y el ECG muestra sobrecarga derecha, sin elevación difusa del ST."
+        }
+      ]
+    },
+    {
+      "case_id": "EME-103",
+      "paciente": "Víctor Chávez, 61 años",
+      "especialidad": "Emergencias",
+      "motivo": "Dolor en el pecho que empezó hace unas 2 horas y no se le pasa.",
+      "enlace": "https://consulta-medica-three.vercel.app/simulacion.html?caso=EME-103",
+      "al_empezar": {
+        "posibles": [
+          "Disección aórtica aguda tipo A",
+          "Infarto agudo de miocardio con elevación del ST",
+          "Pericarditis aguda",
+          "Tromboembolia pulmonar aguda"
+        ],
+        "menos probables": [],
+        "descartadas": []
+      },
+      "pasos": [
+        {
+          "numero": 1,
+          "pedido": "¿Cómo es el dolor? Descríbalo, por favor",
+          "por_que": "El tipo de dolor es lo que más separa las causas graves de dolor torácico: opresivo e irradiado al brazo o la mandíbula orienta al corazón; punzante y que empeora al respirar, al pulmón o al pericardio; desgarrante y hacia la espalda, a la aorta.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Cómo es el dolor? Descríbalo, por favor.",
+          "respuesta": "Es el peor dolor de mi vida, como si algo se me desgarrara por dentro. Empezó en el centro del pecho y ahora lo siento entre los omóplatos. No cambia al respirar ni al inclinarme hacia adelante. Lo califico con 10 de 10.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Pericarditis aguda",
+              "pasa_a": "menos probable",
+              "por_que": "Primer dato en contra: Características del dolor. Falta: Electrocardiograma de 12 derivaciones."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Disección aórtica aguda tipo A",
+              "Infarto agudo de miocardio con elevación del ST",
+              "Tromboembolia pulmonar aguda"
+            ],
+            "menos probables": [
+              "Pericarditis aguda"
+            ],
+            "descartadas": []
+          }
+        },
+        {
+          "numero": 2,
+          "pedido": "Pregúntele cuándo empezó y cómo ha evolucionado",
+          "por_que": "El modo de inicio orienta la causa: con el esfuerzo y con molestias previas sugiere origen coronario; de golpe y con falta de aire, una embolia; brusco y máximo desde el primer momento, la aorta.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Cuándo empezó y cómo ha evolucionado?",
+          "respuesta": "Empezó de golpe hace unas 2 horas, mientras cargaba un costal en el mercado. Desde entonces el dolor se ha ido corriendo hacia la espalda.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Disección aórtica aguda tipo A",
+              "Infarto agudo de miocardio con elevación del ST",
+              "Tromboembolia pulmonar aguda"
+            ],
+            "menos probables": [
+              "Pericarditis aguda"
+            ],
+            "descartadas": []
+          }
+        },
+        {
+          "numero": 3,
+          "pedido": "¿Tiene algún otro síntoma?",
+          "por_que": "Los síntomas que acompañan al dolor ayudan a separar: sudor frío y náuseas acompañan a la isquemia; falta de aire y tos con sangre, a la embolia pulmonar; sentir que se desmaya, a un problema de la aorta.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Ha tenido algún otro síntoma?",
+          "respuesta": "Sí, al principio sentí que me iba a desmayar y estuve mareado unos minutos. También tuve sudor frío. No tuve tos ni fiebre.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Disección aórtica aguda tipo A",
+              "Infarto agudo de miocardio con elevación del ST",
+              "Tromboembolia pulmonar aguda"
+            ],
+            "menos probables": [
+              "Pericarditis aguda"
+            ],
+            "descartadas": []
+          }
+        },
+        {
+          "numero": 4,
+          "pedido": "Pregúntele por sus antecedentes de enfermedades",
+          "por_que": "Busca factores de riesgo: diabetes, hipertensión y colesterol para enfermedad coronaria; un cáncer para trombosis; hipertensión mal controlada para problemas de la aorta.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Tiene antecedentes de enfermedades?",
+          "respuesta": "Sí, llevo hipertensión arterial desde hace 15 años y no la he operado.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Disección aórtica aguda tipo A",
+              "Infarto agudo de miocardio con elevación del ST",
+              "Tromboembolia pulmonar aguda"
+            ],
+            "menos probables": [
+              "Pericarditis aguda"
+            ],
+            "descartadas": []
+          }
+        },
+        {
+          "numero": 5,
+          "pedido": "¿Toma algún medicamento?",
+          "por_que": "Muestra qué enfermedades trata y si cumple el tratamiento. Abandonar los antihipertensivos deja la presión alta sin control.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Está tomando algún medicamento?",
+          "respuesta": "No, ya no tomo nada. Dejé el amlodipino 10 mg al día hace 4 meses.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Disección aórtica aguda tipo A",
+              "Infarto agudo de miocardio con elevación del ST",
+              "Tromboembolia pulmonar aguda"
+            ],
+            "menos probables": [
+              "Pericarditis aguda"
+            ],
+            "descartadas": []
+          }
+        },
+        {
+          "numero": 6,
+          "pedido": "¿Tiene alergias?",
+          "por_que": "Es obligatoria antes de indicar cualquier medicamento: en el dolor torácico se usan antiagregantes, anticoagulantes y otros fármacos.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Tiene alergias?",
+          "respuesta": "No, no tengo alergias conocidas a medicamentos.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Disección aórtica aguda tipo A",
+              "Infarto agudo de miocardio con elevación del ST",
+              "Tromboembolia pulmonar aguda"
+            ],
+            "menos probables": [
+              "Pericarditis aguda"
+            ],
+            "descartadas": []
+          }
+        },
+        {
+          "numero": 7,
+          "pedido": "¿Fuma? ¿Ha hecho algún viaje reciente?",
+          "por_que": "El tabaco es factor de riesgo coronario. Un viaje largo sin moverse favorece los coágulos en las piernas, que pueden llegar al pulmón.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Fuma? ¿Ha hecho algún viaje reciente?",
+          "respuesta": "Sí, fumo 10 cigarrillos al día. No he hecho viajes recientes.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Disección aórtica aguda tipo A",
+              "Infarto agudo de miocardio con elevación del ST",
+              "Tromboembolia pulmonar aguda"
+            ],
+            "menos probables": [
+              "Pericarditis aguda"
+            ],
+            "descartadas": []
+          }
+        },
+        {
+          "numero": 8,
+          "pedido": "¿Alguien en su familia ha tenido problemas del corazón?",
+          "por_que": "Un familiar con infarto a edad temprana aumenta el riesgo de enfermedad coronaria.",
+          "agente": "Paciente",
+          "medico_tratante": "¿Algún familiar suyo ha tenido problemas cardíacos?",
+          "respuesta": "No, no recuerdo que haya tenido problemas cardíacos en mi familia.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Disección aórtica aguda tipo A",
+              "Infarto agudo de miocardio con elevación del ST",
+              "Tromboembolia pulmonar aguda"
+            ],
+            "menos probables": [
+              "Pericarditis aguda"
+            ],
+            "descartadas": []
+          }
+        },
+        {
+          "numero": 9,
+          "pedido": "Voy a realizar la exploración física completa",
+          "por_que": "Busca los signos que separan las causas: presión distinta entre los brazos y soplo (aorta), pierna hinchada y dolorosa (coágulo que pudo llegar al pulmón), roce al auscultar (pericardio).",
+          "agente": "Médico asistente",
+          "medico_tratante": null,
+          "respuesta": "Paciente sudoroso y muy angustiado por el dolor. Presión arterial 174/98 mmHg en el brazo derecho y 132/80 mmHg en el izquierdo; pulso radial izquierdo más débil que el derecho. Soplo diastólico suave en el borde esternal izquierdo. Pulmones sin crepitantes. Piernas sin edema y pantorrillas no dolorosas.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Tromboembolia pulmonar aguda",
+              "pasa_a": "menos probable",
+              "por_que": "Primer dato en contra: Exploración física. Falta: Angiotomografía de tórax."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Disección aórtica aguda tipo A",
+              "Infarto agudo de miocardio con elevación del ST"
+            ],
+            "menos probables": [
+              "Pericarditis aguda",
+              "Tromboembolia pulmonar aguda"
+            ],
+            "descartadas": []
+          }
+        },
+        {
+          "numero": 10,
+          "pedido": "Pido un electrocardiograma de 12 derivaciones",
+          "por_que": "Es el primer examen ante un dolor torácico, en los primeros 10 minutos: muestra si hay un infarto que necesita tratamiento inmediato y otros patrones (pericarditis, sobrecarga del corazón derecho).",
+          "agente": "Laboratorio",
+          "medico_tratante": null,
+          "respuesta": "Ritmo sinusal a 104/min con signos de crecimiento del ventrículo izquierdo. Sin elevación ni descenso del segmento ST.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Infarto agudo de miocardio con elevación del ST",
+              "pasa_a": "menos probable",
+              "por_que": "Primer dato en contra: Electrocardiograma de 12 derivaciones. Falta: Troponina I ultrasensible."
+            },
+            {
+              "enfermedad": "Pericarditis aguda",
+              "pasa_a": "descartada",
+              "por_que": "El dolor es desgarrante y se va a la espalda, no cambia con la postura, y el ECG no muestra elevación difusa del ST."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Disección aórtica aguda tipo A"
+            ],
+            "menos probables": [
+              "Infarto agudo de miocardio con elevación del ST",
+              "Tromboembolia pulmonar aguda"
+            ],
+            "descartadas": [
+              "Pericarditis aguda"
+            ]
+          }
+        },
+        {
+          "numero": 11,
+          "pedido": "Solicito troponina",
+          "por_que": "Mide el daño del músculo del corazón. Sube mucho en el infarto, pero también algo en otras causas, como la embolia pulmonar.",
+          "agente": "Laboratorio",
+          "medico_tratante": null,
+          "respuesta": "Troponina I ultrasensible: 18 ng/L (valor de referencia < 26 ng/L); dentro del rango normal.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Infarto agudo de miocardio con elevación del ST",
+              "pasa_a": "descartada",
+              "por_que": "El ECG no muestra elevación ni descenso del ST y la troponina es normal."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Disección aórtica aguda tipo A"
+            ],
+            "menos probables": [
+              "Tromboembolia pulmonar aguda"
+            ],
+            "descartadas": [
+              "Infarto agudo de miocardio con elevación del ST",
+              "Pericarditis aguda"
+            ]
+          }
+        },
+        {
+          "numero": 12,
+          "pedido": "Solicito dímero D",
+          "por_que": "Si es normal, hace muy poco probable una embolia pulmonar. Si está alto no aclara nada: también sube en otras causas, como la enfermedad de la aorta.",
+          "agente": "Laboratorio",
+          "medico_tratante": null,
+          "respuesta": "Dímero D: 2400 ng/mL (valor de referencia < 500 ng/mL); por encima del rango normal.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Disección aórtica aguda tipo A"
+            ],
+            "menos probables": [
+              "Tromboembolia pulmonar aguda"
+            ],
+            "descartadas": [
+              "Infarto agudo de miocardio con elevación del ST",
+              "Pericarditis aguda"
+            ]
+          }
+        },
+        {
+          "numero": 13,
+          "pedido": "Pido una radiografía de tórax",
+          "por_que": "Busca un mediastino ensanchado (aorta) y descarta otras causas de dolor, como un neumotórax o una neumonía.",
+          "agente": "Radiología",
+          "medico_tratante": null,
+          "respuesta": "Mediastino ensanchado, de 8,5 cm a la altura del botón aórtico, con contorno aórtico irregular. Campos pulmonares sin infiltrados.",
+          "problemas": [],
+          "cambios": [],
+          "queda": {
+            "posibles": [
+              "Disección aórtica aguda tipo A"
+            ],
+            "menos probables": [
+              "Tromboembolia pulmonar aguda"
+            ],
+            "descartadas": [
+              "Infarto agudo de miocardio con elevación del ST",
+              "Pericarditis aguda"
+            ]
+          }
+        },
+        {
+          "numero": 14,
+          "pedido": "Solicito una angiotomografía de tórax",
+          "por_que": "Con un solo estudio confirma o descarta un coágulo en las arterias del pulmón y un problema de la aorta.",
+          "agente": "Radiología",
+          "medico_tratante": null,
+          "respuesta": "Colgajo intimal que se origina en la aorta ascendente, 2 cm por encima de la válvula aórtica, y se extiende por el arco hasta la aorta descendente, con una luz verdadera y una luz falsa. Arterias pulmonares sin defectos de llenado.",
+          "problemas": [],
+          "cambios": [
+            {
+              "enfermedad": "Tromboembolia pulmonar aguda",
+              "pasa_a": "descartada",
+              "por_que": "La presión es distinta entre los brazos, con un soplo de insuficiencia aórtica, y la angiotomografía muestra el colgajo en la aorta, con las arterias pulmonares normales."
+            }
+          ],
+          "queda": {
+            "posibles": [
+              "Disección aórtica aguda tipo A"
+            ],
+            "menos probables": [],
+            "descartadas": [
+              "Infarto agudo de miocardio con elevación del ST",
+              "Pericarditis aguda",
+              "Tromboembolia pulmonar aguda"
+            ]
+          }
+        }
+      ],
+      "al_terminar": {
+        "posibles": [
+          "Disección aórtica aguda tipo A"
+        ],
+        "menos probables": [],
+        "descartadas": [
+          "Infarto agudo de miocardio con elevación del ST",
+          "Pericarditis aguda",
+          "Tromboembolia pulmonar aguda"
+        ]
+      },
+      "no_preguntar": [
+        {
+          "pedido": "¿Qué tiene el paciente? Dígame el diagnóstico",
+          "motivo": "El diagnóstico lo debe deducir el estudiante.",
+          "respuesta": "Anotado, revisaremos al cerrar la consulta. Por favor, continúe recopilando datos."
+        },
+        {
+          "pedido": "¿Le duele la cabeza?",
+          "motivo": "El caso no tiene ese síntoma: debe responder que no.",
+          "respuesta": "No."
+        },
+        {
+          "pedido": "Pido una ecografía abdominal",
+          "motivo": "El caso no tiene ese estudio.",
+          "respuesta": "¿Qué estudio de imagen desea solicitar? Indíqueme cuál, por ejemplo una radiografía o una tomografía y de qué zona."
+        },
+        {
+          "pedido": "Solicito un hemograma",
+          "motivo": "El caso no tiene ese examen.",
+          "respuesta": "Ese examen no se realizó en este paciente."
+        },
+        {
+          "pedido": "Le indico aspirina y heparina",
+          "motivo": "Contraindicado: en la disección aumenta el riesgo de sangrado y de rotura de la aorta.",
+          "respuesta": "Anotado. Continúe recopilando datos clínicos y de laboratorio para seguir evaluando la situación."
+        }
+      ],
+      "nota": "Familia de dolor torácico. Lo decisivo: medir la presión en ambos brazos (exploración física) y la angiotomografía. El dímero D alto no lo distingue de la tromboembolia.",
+      "diagnostico": "Disección aórtica aguda tipo A",
+      "descartes": [
+        {
+          "enfermedad": "Infarto agudo de miocardio con elevación del ST",
+          "por_que": "El ECG no muestra elevación ni descenso del ST y la troponina es normal."
+        },
+        {
+          "enfermedad": "Tromboembolia pulmonar aguda",
+          "por_que": "La presión es distinta entre los brazos, con un soplo de insuficiencia aórtica, y la angiotomografía muestra el colgajo en la aorta, con las arterias pulmonares normales."
+        },
+        {
+          "enfermedad": "Pericarditis aguda",
+          "por_que": "El dolor es desgarrante y se va a la espalda, no cambia con la postura, y el ECG no muestra elevación difusa del ST."
+        }
+      ]
+    }
+  ]
+}

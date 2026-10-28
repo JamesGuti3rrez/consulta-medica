@@ -1,0 +1,46 @@
+{
+  "id": "TA011-30",
+  "nombre": "mensaje_sesion_cerrada",
+  "titulo": "Mensaje a SA cerrada",
+  "criterio": "CA1",
+  "resultado_esperado": "409 «La sesión ya finalizó.»",
+  "resultado": "PASA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_antes",
+  "commit": "0b9b949",
+  "fecha": "2026-10-28 05:52:42 UTC",
+  "pasos": [
+    {
+      "descripcion": "mensaje a SA cerrada",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/8573dd5f-f4ad-492b-bb70-aa0635b685b0/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…g3yQ",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 409,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"La sesión ya finalizó.\"}",
+      "codigo_esperado": [
+        409
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "no se agregan eventos",
+      "resultado": "PASA",
+      "detalle": "6 -> 6"
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

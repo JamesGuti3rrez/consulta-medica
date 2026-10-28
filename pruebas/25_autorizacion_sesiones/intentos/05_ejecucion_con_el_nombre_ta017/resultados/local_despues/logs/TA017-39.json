@@ -1,0 +1,106 @@
+{
+  "id": "TA017-39",
+  "nombre": "log_de_denegados",
+  "titulo": "Intentos denegados en el log del servidor",
+  "criterio": "CA1, CA2",
+  "resultado_esperado": "Línea [autorizacion] con quién, ruta y código; tokens solo enmascarados",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_despues",
+  "commit": "c752abe",
+  "fecha": "2026-10-27 03:23:01 UTC",
+  "pasos": [
+    {
+      "descripcion": "intento denegado: GET /api/ai/sessions/9ef3442c-0439-46c6-8142-dfea701a5c5b",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/9ef3442c-0439-46c6-8142-dfea701a5c5b",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…sFMc"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "intento denegado: GET /api/ai/sessions/9ef3442c-0439-46c6-8142-dfea701a5c5b/events",
+      "identidad": "Sin credencial",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/9ef3442c-0439-46c6-8142-dfea701a5c5b/events",
+      "cabeceras": {},
+      "cuerpo_enviado": null,
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "intento denegado: GET /api/ai/sessions/761c324e-f3b4-4bbd-add9-e1ac7f5b2e5f",
+      "identidad": "Anónimo 2 + credencial de capacidad",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/761c324e-f3b4-4bbd-add9-e1ac7f5b2e5f",
+      "cabeceras": {
+        "x-session-token": "jsjZay…tkMg"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "hay una línea por intento denegado",
+      "resultado": "PASA",
+      "detalle": "líneas: 3"
+    },
+    {
+      "descripcion": "registra el código 404",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "registra el código 401",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "registra la ruta",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "registra quién (id de B)",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "ningún token completo en las líneas [autorizacion]",
+      "resultado": "PASA",
+      "detalle": "tokens completos encontrados: []"
+    }
+  ],
+  "notas": [
+    "Líneas del log del servidor:\n[autorizacion] 404 GET /api/ai/sessions/9ef3442c-0439-46c6-8142-dfea701a5c5b usuario=af70c35a-2dcd-4111-86e4-12d1f100dd9b motivo=ajena\n[autorizacion] 401 GET /api/ai/sessions/9ef3442c-0439-46c6-8142-dfea701a5c5b/events anonimo motivo=sin_credencial\n[autorizacion] 404 GET /api/ai/sessions/761c324e-f3b4-4bbd-add9-e1ac7f5b2e5f capacidad=jsjZay…tkMg motivo=ajena"
+  ],
+  "error": ""
+}

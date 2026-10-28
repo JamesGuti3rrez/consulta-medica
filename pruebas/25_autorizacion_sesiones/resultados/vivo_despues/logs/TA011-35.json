@@ -1,0 +1,137 @@
+{
+  "id": "TA011-35",
+  "nombre": "rls_B_modifica",
+  "titulo": "RLS: B modifica o borra SA por REST",
+  "criterio": "CA2",
+  "resultado_esperado": "0 filas afectadas y SA intacta para A",
+  "resultado": "PASA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_despues",
+  "commit": "5f9435d",
+  "fecha": "2026-10-28 06:03:22 UTC",
+  "pasos": [
+    {
+      "descripcion": "PATCH sma_sesiones SA",
+      "identidad": "Usuario B (registrado) (JWT directo a Supabase REST)",
+      "metodo": "PATCH",
+      "url": "https://rynkxszpzioutahwaczg.supabase.co/rest/v1/sma_sesiones?session_id=eq.eca64381-86cb-4fef-bf00-d30b1c828b19",
+      "cabeceras": {
+        "apikey": "sb_pub…T_Pc",
+        "authorization": "Bearer eyJhbG…5-1w",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "phase": "alterada_por_B"
+      },
+      "codigo_recibido": 403,
+      "cabeceras_respuesta": {
+        "content-type": "application/json; charset=utf-8"
+      },
+      "cuerpo_recibido": "{\"code\":\"42501\",\"details\":null,\"hint\":\"Grant the required privileges to the current role with: GRANT SELECT, UPDATE ON public.sma_sesiones TO authenticated;\",\"message\":\"permission denied for table sma_sesiones\"}",
+      "codigo_esperado": [
+        200,
+        401,
+        403,
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "DELETE sma_eventos SA",
+      "identidad": "Usuario B (registrado) (JWT directo a Supabase REST)",
+      "metodo": "DELETE",
+      "url": "https://rynkxszpzioutahwaczg.supabase.co/rest/v1/sma_eventos?session_id=eq.eca64381-86cb-4fef-bf00-d30b1c828b19",
+      "cabeceras": {
+        "apikey": "sb_pub…T_Pc",
+        "authorization": "Bearer eyJhbG…5-1w"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 403,
+      "cabeceras_respuesta": {
+        "content-type": "application/json; charset=utf-8"
+      },
+      "cuerpo_recibido": "{\"code\":\"42501\",\"details\":null,\"hint\":\"Grant the required privileges to the current role with: GRANT SELECT, DELETE ON public.sma_eventos TO authenticated;\",\"message\":\"permission denied for table sma_eventos\"}",
+      "codigo_esperado": [
+        200,
+        204,
+        401,
+        403,
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "DELETE sma_sesiones SA",
+      "identidad": "Usuario B (registrado) (JWT directo a Supabase REST)",
+      "metodo": "DELETE",
+      "url": "https://rynkxszpzioutahwaczg.supabase.co/rest/v1/sma_sesiones?session_id=eq.eca64381-86cb-4fef-bf00-d30b1c828b19",
+      "cabeceras": {
+        "apikey": "sb_pub…T_Pc",
+        "authorization": "Bearer eyJhbG…5-1w"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 403,
+      "cabeceras_respuesta": {
+        "content-type": "application/json; charset=utf-8"
+      },
+      "cuerpo_recibido": "{\"code\":\"42501\",\"details\":null,\"hint\":\"Grant the required privileges to the current role with: GRANT SELECT, DELETE ON public.sma_sesiones TO authenticated;\",\"message\":\"permission denied for table sma_sesiones\"}",
+      "codigo_esperado": [
+        200,
+        204,
+        401,
+        403,
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "A comprueba SA por la API",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/eca64381-86cb-4fef-bf00-d30b1c828b19",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…SpvA"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"phase\":\"finalizada\",\"active_agent\":\"orchestrator\",\"case_id\":\"EME-001\",\"session_id\":\"eca64381-86cb-4fef-bf00-d30b1c828b19\",\"revealed_evidence_ids\":[\"EME-001.motivo.queja_principal\",\"EME-001.vital.signos_vitales\",\"EME-001.medicacion.tratamiento_habitual\"],\"updated_at\":\"2026-10-28T06:02:49.946798+00:00\",\"finished_at\":\"2026-10-28T06:02:49.946817+00:00\",\"started_at\":\"2026-10-28T05:59:48.144447+00:00\",\"avatar_state\":{\"alerts\":[],\"vitals\":[{\"text\":\"Temperatura 41,1 °C, presión arterial 109/62 mmHg, pulso 170/min, frecuencia respiratoria 23/min y saturación de oxígeno 95 % al aire ambiente.\",\"label\":\"Signos vitales\",\"evidence_id\":\"EME-001.vital.signos_vitales\"}],\"gesture\":\"idle\",\"complications\":[]},\"evaluation\":{\"score\":31.25,\"errors\":{\"negligencia\":0,\"anamnesis_incompleta\":1,\"razonamiento_clinico\":2},\"total_weight\":16,\"earned_weight\":5,\"total_questions\":4,\"completed_questions\":1}}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "PATCH: 0 filas afectadas",
+      "resultado": "PASA",
+      "detalle": "filas: 0"
+    },
+    {
+      "descripcion": "DELETE eventos: 0 filas afectadas",
+      "resultado": "PASA",
+      "detalle": "filas: 0"
+    },
+    {
+      "descripcion": "DELETE sesión: 0 filas afectadas",
+      "resultado": "PASA",
+      "detalle": "filas: 0"
+    },
+    {
+      "descripcion": "misma fase",
+      "resultado": "PASA",
+      "detalle": "finalizada -> finalizada"
+    },
+    {
+      "descripcion": "mismos eventos",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

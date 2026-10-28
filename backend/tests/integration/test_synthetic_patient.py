@@ -88,7 +88,8 @@ def test_two_sessions_get_identical_saved_history_and_trace_its_origin(scenario)
         start = client.post("/api/ai/sessions", json={"case_id": "MED-008"})
         assert start.status_code == 200
         sid = start.json()["session_id"]
-        response = client.post(f"/api/ai/sessions/{sid}/message", json={"message": question})
+        response = client.post(f"/api/ai/sessions/{sid}/message", json={"message": question},
+                               headers={"X-Session-Token": start.json()["session_token"]})
         assert response.status_code == 200, response.text
         reply = response.json()
         assert reply["data_source"] == "sintetico"
@@ -109,7 +110,8 @@ def test_two_sessions_get_identical_saved_history_and_trace_its_origin(scenario)
 def test_math_is_rejected_before_reformulation_without_changing_phase(scenario):
     client, service, facts, gateway = scenario
     start = client.post("/api/ai/sessions", json={"case_id": "MED-008"}).json()
-    response = client.post(f"/api/ai/sessions/{start['session_id']}/message", json={"message": "¿Cuánto es 2+2?"})
+    response = client.post(f"/api/ai/sessions/{start['session_id']}/message", json={"message": "¿Cuánto es 2+2?"},
+                           headers={"X-Session-Token": start["session_token"]})
     assert response.status_code == 200
     body = response.json()
     assert body["blocked"] is True
@@ -123,7 +125,8 @@ def test_casual_comment_is_not_echoed_as_a_medical_question(scenario):
     client, service, facts, gateway = scenario
     start = client.post("/api/ai/sessions", json={"case_id": "MED-008"}).json()
     response = client.post(f"/api/ai/sessions/{start['session_id']}/message",
-                           json={"message": "pero general López chistoso"})
+                           json={"message": "pero general López chistoso"},
+                           headers={"X-Session-Token": start["session_token"]})
     assert response.status_code == 200
     body = response.json()
     assert body["data_source"] == "conversacional" and not body["blocked"]
@@ -133,12 +136,14 @@ def test_casual_comment_is_not_echoed_as_a_medical_question(scenario):
 
 def test_exam_then_functional_impact_keeps_the_revealed_finding(scenario):
     client, service, facts, gateway = scenario
-    sid = client.post("/api/ai/sessions", json={"case_id": "MED-008"}).json()["session_id"]
-    exam = client.post(f"/api/ai/sessions/{sid}/message", json={"message": "un examen de exploración física"})
+    start = client.post("/api/ai/sessions", json={"case_id": "MED-008"}).json()
+    sid, headers = start["session_id"], {"X-Session-Token": start["session_token"]}
+    exam = client.post(f"/api/ai/sessions/{sid}/message", json={"message": "un examen de exploración física"},
+                       headers=headers)
     assert exam.status_code == 200
     assert "párpado" in exam.json()["response"]
     question = "es esa pápula la ha dado inconvenientes al momento de realizar las actividades diarias"
-    response = client.post(f"/api/ai/sessions/{sid}/message", json={"message": question})
+    response = client.post(f"/api/ai/sessions/{sid}/message", json={"message": question}, headers=headers)
     assert response.status_code == 200
     body = response.json()
     assert body["agent"] == "paciente" and not body["blocked"]

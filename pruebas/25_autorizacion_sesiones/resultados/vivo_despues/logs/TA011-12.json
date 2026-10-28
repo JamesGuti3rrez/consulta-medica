@@ -1,0 +1,72 @@
+{
+  "id": "TA011-12",
+  "nombre": "SA_intacta_tras_B",
+  "titulo": "SA no cambia tras los intentos de B",
+  "criterio": "CA2",
+  "resultado_esperado": "Mismos eventos, mismas evidencias y SA sigue abierta",
+  "resultado": "PASA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_despues",
+  "commit": "5f9435d",
+  "fecha": "2026-10-28 06:01:06 UTC",
+  "pasos": [
+    {
+      "descripcion": "A lee SA después de los intentos de B",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/eca64381-86cb-4fef-bf00-d30b1c828b19",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…SpvA"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"phase\":\"examenes\",\"active_agent\":\"paciente\",\"case_id\":\"EME-001\",\"session_id\":\"eca64381-86cb-4fef-bf00-d30b1c828b19\",\"revealed_evidence_ids\":[\"EME-001.motivo.queja_principal\",\"EME-001.vital.signos_vitales\",\"EME-001.medicacion.tratamiento_habitual\"],\"updated_at\":\"2026-10-28T06:00:26.056450+00:00\",\"finished_at\":null,\"started_at\":\"2026-10-28T05:59:48.144447+00:00\",\"avatar_state\":{\"alerts\":[],\"vitals\":[{\"text\":\"Temperatura 41,1 °C, presión arterial 109/62 mmHg, pulso 170/min, frecuencia respiratoria 23/min y saturación de oxígeno 95 % al aire ambiente.\",\"label\":\"Signos vitales\",\"evidence_id\":\"EME-001.vital.signos_vitales\"}],\"gesture\":\"attentive\",\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "A lista eventos de SA después de los intentos de B",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/eca64381-86cb-4fef-bf00-d30b1c828b19/events",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…SpvA"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "[{\"type\":\"session_started\",\"phase\":\"presentacion\",\"case_id\":\"EME-001\",\"evidence_ids\":[\"EME-001.motivo.queja_principal\",\"EME-001.vital.signos_vitales\"]},{\"type\":\"turn\",\"agent\":\"paciente\",\"model\":\"openai/gpt-oss-20b\",\"phase\":\"anamnesis\",\"intent\":\"ask_patient\",\"blocked\":false,\"case_id\":\"EME-001\",\"provider\":\"groq-2\",\"data_source\":\"sintetico\",\"block_reason\":null,\"evidence_ids\":[],\"input_tokens\":1226,\"route_reason\":\"pregunta clínica dirigida al paciente por defecto\",\"fallback_used\":false,\"output_tokens\":289,\"response_text\":\"Me gusta comer comidas rápidas, como hamburguesas y papas fritas, y suelo beber refrescos con azúcar varias veces al día. También consumo café en la mañana y a veces cenas con comida ligera, como ensaladas o sopas.\",\"safety_alerts\":[],\"doctor_question\":\"¿Desde cuándo comenzaron sus molestias y cómo las describiría?\",\"student_message\":\"¿Desde cuándo comenzaron sus molestias y cómo las describiría?\",\"route_confidence\":0.75,\"grounding_retry_used\":false,\"synthetic_reused_ids\":[\"a73b6e92-86a7-44d3-b6b0-d4201a168ab9\"],\"grounding_fallback_used\":false,\"synthetic_generated_ids\":[],\"synthetic_rejection_reason\":null},{\"type\":\"turn\",\"agent\":\"laboratorio\",\"model\":\"openai/gpt-oss-20b\",\"phase\":\"examenes\",\"intent\":\"request_lab\",\"blocked\":false,\"case_id\":\"EME-001\",\"provider\":\"groq-3\",\"data_source\":\"curado\",\"block_reason\":null,\"evidence_ids\":[],\"input_tokens\":711,\"route_reason\":\"términos de laboratorio\",\"fallback_used\":false,\"output_tokens\":80,\"response_text\":\"Ese examen no se realizó en este paciente.\",\"safety_alerts\":[],\"doctor_question\":null,\"student_message\":\"Solicito un hemograma completo\",\"route_confidence\":0.95,\"grounding_retry_used\":false,\"synthetic_reused_ids\":[],\"grounding_fallback_used\":false,\"synthetic_generated_ids\":[],\"synthetic_rejection_reason\":null},{\"type\":\"turn\",\"agent\":\"paciente\",\"model\":\"openai/gpt-oss-20b\",\"phase\":\"examenes\",\"intent\":\"ask_patient\",\"blocked\":false,\"case_id\":\"EME-001\",\"provider\":\"groq-3\",\"data_source\":\"curado\",\"block_reason\":null,\"evidence_ids\":[\"EME-001.medicacion.tratamiento_habitual\"],\"input_tokens\":2367,\"route_reason\":\"pregunta clínica dirigida al paciente por defecto\",\"fallback_used\":false,\"output_tokens\":348,\"response_text\":\"No recuerdo ninguna alergia a medicamentos.\",\"safety_alerts\":[],\"doctor_question\":\"¿Tiene alergias a algún medicamento?\",\"student_message\":\"¿Tiene alergias a algún medicamento?\",\"route_confidence\":0.75,\"grounding_retry_used\":false,\"synthetic_reused_ids\":[],\"grounding_fallback_used\":false,\"synthetic_generated_ids\":[],\"synthetic_rejection_reason\":null}]",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "misma cantidad de eventos",
+      "resultado": "PASA",
+      "detalle": "4 -> 4"
+    },
+    {
+      "descripcion": "mismas evidencias reveladas",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "SA sigue abierta",
+      "resultado": "PASA",
+      "detalle": "fase: examenes"
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

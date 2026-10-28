@@ -1,0 +1,72 @@
+{
+  "id": "TA011-12",
+  "nombre": "SA_intacta_tras_B",
+  "titulo": "SA no cambia tras los intentos de B",
+  "criterio": "CA2",
+  "resultado_esperado": "Mismos eventos, mismas evidencias y SA sigue abierta",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_despues",
+  "commit": "64218b9",
+  "fecha": "2026-10-28 06:31:51 UTC",
+  "pasos": [
+    {
+      "descripcion": "A lee SA después de los intentos de B",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…LRcQ"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"phase\":\"examenes\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\",\"MED-900.anamnesis.inicio_dolor\",\"MED-900.laboratorio.hemograma\",\"MED-900.medicacion.paracetamol\",\"MED-900.anamnesis.alergias\"],\"started_at\":\"2026-10-28T06:31:50.455339+00:00\",\"updated_at\":\"2026-10-28T06:31:50.761654+00:00\",\"finished_at\":null,\"case_id\":\"MED-900\",\"session_id\":\"4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2\",\"active_agent\":\"paciente\",\"avatar_state\":{\"gesture\":\"attentive\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "A lista eventos de SA después de los intentos de B",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2/events",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…LRcQ"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "[{\"type\":\"session_started\",\"case_id\":\"MED-900\",\"phase\":\"presentacion\",\"evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"]},{\"type\":\"turn\",\"student_message\":\"¿Desde cuándo comenzó el dolor y cómo lo describiría?\",\"response_text\":\"El dolor comenzó hace tres días; es pulsátil y predomina en el lado derecho.\",\"case_id\":\"MED-900\",\"phase\":\"anamnesis\",\"intent\":\"ask_patient\",\"agent\":\"paciente\",\"route_reason\":\"pregunta clínica dirigida al paciente por defecto\",\"route_confidence\":0.75,\"doctor_question\":\"¿Desde cuándo comenzó el dolor y cómo lo describiría?\",\"provider\":\"local-development\",\"model\":\"rules-only\",\"input_tokens\":0,\"output_tokens\":0,\"fallback_used\":false,\"grounding_retry_used\":false,\"grounding_fallback_used\":false,\"evidence_ids\":[\"MED-900.anamnesis.inicio_dolor\"],\"blocked\":false,\"block_reason\":null,\"synthetic_generated_ids\":[],\"synthetic_reused_ids\":[],\"data_source\":\"curado\",\"synthetic_rejection_reason\":null,\"safety_alerts\":[]},{\"type\":\"turn\",\"student_message\":\"Solicito un hemograma y análisis de sangre\",\"response_text\":\"Hemograma sin alteraciones relevantes.\",\"case_id\":\"MED-900\",\"phase\":\"examenes\",\"intent\":\"request_lab\",\"agent\":\"laboratorio\",\"route_reason\":\"términos de laboratorio\",\"route_confidence\":0.95,\"doctor_question\":null,\"provider\":\"local-development\",\"model\":\"rules-only\",\"input_tokens\":0,\"output_tokens\":0,\"fallback_used\":false,\"grounding_retry_used\":false,\"grounding_fallback_used\":false,\"evidence_ids\":[\"MED-900.laboratorio.hemograma\"],\"blocked\":false,\"block_reason\":null,\"synthetic_generated_ids\":[],\"synthetic_reused_ids\":[],\"data_source\":\"curado\",\"synthetic_rejection_reason\":null,\"safety_alerts\":[]},{\"type\":\"turn\",\"student_message\":\"¿Tiene alergias a algún medicamento?\",\"response_text\":\"Tomó paracetamol 1 g, con mejoría parcial y transitoria. Niega alergias medicamentosas conocidas.\",\"case_id\":\"MED-900\",\"phase\":\"examenes\",\"intent\":\"ask_patient\",\"agent\":\"paciente\",\"route_reason\":\"pregunta clínica dirigida al paciente por defecto\",\"route_confidence\":0.75,\"doctor_question\":\"¿Tiene alergias a algún medicamento?\",\"provider\":\"local-development\",\"model\":\"rules-only\",\"input_tokens\":0,\"output_tokens\":0,\"fallback_used\":false,\"grounding_retry_used\":false,\"grounding_fallback_used\":false,\"evidence_ids\":[\"MED-900.medicacion.paracetamol\",\"MED-900.anamnesis.alergias\"],\"blocked\":false,\"block_reason\":null,\"synthetic_generated_ids\":[],\"synthetic_reused_ids\":[],\"data_source\":\"curado\",\"synthetic_rejection_reason\":null,\"safety_alerts\":[]}]",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "misma cantidad de eventos",
+      "resultado": "PASA",
+      "detalle": "4 -> 4"
+    },
+    {
+      "descripcion": "mismas evidencias reveladas",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "SA sigue abierta",
+      "resultado": "PASA",
+      "detalle": "fase: examenes"
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

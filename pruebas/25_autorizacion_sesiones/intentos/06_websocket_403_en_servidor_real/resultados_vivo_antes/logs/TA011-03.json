@@ -1,0 +1,90 @@
+{
+  "id": "TA011-03",
+  "nombre": "A_mensaje_SA",
+  "titulo": "A envía mensaje a SA",
+  "criterio": "CA1, CA4",
+  "resultado_esperado": "200 con la respuesta del agente",
+  "resultado": "PASA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_antes",
+  "commit": "0b9b949",
+  "fecha": "2026-10-28 05:51:08 UTC",
+  "pasos": [
+    {
+      "descripcion": "mensaje 1 de la preparación",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/8573dd5f-f4ad-492b-bb70-aa0635b685b0/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…g3yQ",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Desde cuándo comenzaron sus molestias y cómo las describiría?"
+      },
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"session\":{\"finished_at\":null,\"active_agent\":\"paciente\",\"started_at\":\"2026-10-28T05:50:43.017116+00:00\",\"phase\":\"anamnesis\",\"revealed_evidence_ids\":[\"EME-001.motivo.queja_principal\",\"EME-001.vital.signos_vitales\"],\"session_id\":\"8573dd5f-f4ad-492b-bb70-aa0635b685b0\",\"updated_at\":\"2026-10-28T05:50:52.370112+00:00\",\"case_id\":\"EME-001\",\"avatar_state\":{\"alerts\":[],\"vitals\":[{\"text\":\"Temperatura 41,1 °C, presión arterial 109/62 mmHg, pulso 170/min, frecuencia respiratoria 23/min y saturación de oxígeno 95 % al aire ambiente.\",\"label\":\"Signos vitales\",\"evidence_id\":\"EME-001.vital.signos_vitales\"}],\"gesture\":\"attentive\",\"complications\":[]},\"evaluation\":null},\"intent\":\"ask_patient\",\"agent\":\"paciente\",\"response\":\"No recuerdo con precisión cuándo comenzaron, pero me encontré en el suelo de la obra.\",\"synthetic_generated_ids\":[],\"synthetic_reused_ids\":[],\"data_source\":\"curado\",\"doctor_question\":\"¿Desde cuándo comenzaron sus molestias y cómo las describiría?\",\"provider\":\"groq-3\",\"model\":\"openai/gpt-oss-20b\",\"evidence_ids\":[],\"blocked\":false,\"safety_alerts\":[]}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "mensaje 2 de la preparación",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/8573dd5f-f4ad-492b-bb70-aa0635b685b0/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…g3yQ",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "Solicito un hemograma completo"
+      },
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"session\":{\"finished_at\":null,\"active_agent\":\"laboratorio\",\"started_at\":\"2026-10-28T05:50:43.017116+00:00\",\"phase\":\"examenes\",\"revealed_evidence_ids\":[\"EME-001.motivo.queja_principal\",\"EME-001.vital.signos_vitales\"],\"session_id\":\"8573dd5f-f4ad-492b-bb70-aa0635b685b0\",\"updated_at\":\"2026-10-28T05:50:56.108549+00:00\",\"case_id\":\"EME-001\",\"avatar_state\":{\"alerts\":[],\"vitals\":[{\"text\":\"Temperatura 41,1 °C, presión arterial 109/62 mmHg, pulso 170/min, frecuencia respiratoria 23/min y saturación de oxígeno 95 % al aire ambiente.\",\"label\":\"Signos vitales\",\"evidence_id\":\"EME-001.vital.signos_vitales\"}],\"gesture\":\"attentive\",\"complications\":[]},\"evaluation\":null},\"intent\":\"request_lab\",\"agent\":\"laboratorio\",\"response\":\"Ese examen no se realizó en este paciente.\",\"synthetic_generated_ids\":[],\"synthetic_reused_ids\":[],\"data_source\":\"curado\",\"doctor_question\":null,\"provider\":\"groq-1\",\"model\":\"openai/gpt-oss-20b\",\"evidence_ids\":[],\"blocked\":false,\"safety_alerts\":[]}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "mensaje 3",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/8573dd5f-f4ad-492b-bb70-aa0635b685b0/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…g3yQ",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"session\":{\"finished_at\":null,\"active_agent\":\"paciente\",\"started_at\":\"2026-10-28T05:50:43.017116+00:00\",\"phase\":\"examenes\",\"revealed_evidence_ids\":[\"EME-001.motivo.queja_principal\",\"EME-001.vital.signos_vitales\",\"EME-001.medicacion.tratamiento_habitual\"],\"session_id\":\"8573dd5f-f4ad-492b-bb70-aa0635b685b0\",\"updated_at\":\"2026-10-28T05:51:07.358500+00:00\",\"case_id\":\"EME-001\",\"avatar_state\":{\"alerts\":[],\"vitals\":[{\"text\":\"Temperatura 41,1 °C, presión arterial 109/62 mmHg, pulso 170/min, frecuencia respiratoria 23/min y saturación de oxígeno 95 % al aire ambiente.\",\"label\":\"Signos vitales\",\"evidence_id\":\"EME-001.vital.signos_vitales\"}],\"gesture\":\"attentive\",\"complications\":[]},\"evaluation\":null},\"intent\":\"ask_patient\",\"agent\":\"paciente\",\"response\":\"No recuerdo si tengo alguna alergia a medicamentos.\",\"synthetic_generated_ids\":[],\"synthetic_reused_ids\":[],\"data_source\":\"curado\",\"doctor_question\":\"¿Tiene alergias a algún medicamento?\",\"provider\":\"groq-1\",\"model\":\"openai/gpt-oss-20b\",\"evidence_ids\":[\"EME-001.medicacion.tratamiento_habitual\"],\"blocked\":false,\"safety_alerts\":[]}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "responde un agente",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

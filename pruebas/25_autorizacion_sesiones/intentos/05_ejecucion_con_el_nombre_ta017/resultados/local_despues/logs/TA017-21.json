@@ -1,0 +1,310 @@
+{
+  "id": "TA017-21",
+  "nombre": "sin_credencial",
+  "titulo": "Sin credencial en todas las rutas",
+  "criterio": "CA1, CA4",
+  "resultado_esperado": "401 en las 4 operaciones (SA, SN2 y UUID inexistente)",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_despues",
+  "commit": "c752abe",
+  "fecha": "2026-10-27 03:22:51 UTC",
+  "pasos": [
+    {
+      "descripcion": "leer sesión de SA",
+      "identidad": "Sin credencial",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/9ef3442c-0439-46c6-8142-dfea701a5c5b",
+      "cabeceras": {},
+      "cuerpo_enviado": null,
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "enviar mensaje de SA",
+      "identidad": "Sin credencial",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/9ef3442c-0439-46c6-8142-dfea701a5c5b/message",
+      "cabeceras": {
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "listar eventos de SA",
+      "identidad": "Sin credencial",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/9ef3442c-0439-46c6-8142-dfea701a5c5b/events",
+      "cabeceras": {},
+      "cuerpo_enviado": null,
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "cerrar sesión de SA",
+      "identidad": "Sin credencial",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/9ef3442c-0439-46c6-8142-dfea701a5c5b/finish",
+      "cabeceras": {
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "diagnosis": "intento ajeno",
+        "hypotheses": []
+      },
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "leer sesión de SN2",
+      "identidad": "Sin credencial",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/130cd413-0d2d-4cbc-8405-a7b7cb8d7f90",
+      "cabeceras": {},
+      "cuerpo_enviado": null,
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "enviar mensaje de SN2",
+      "identidad": "Sin credencial",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/130cd413-0d2d-4cbc-8405-a7b7cb8d7f90/message",
+      "cabeceras": {
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "listar eventos de SN2",
+      "identidad": "Sin credencial",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/130cd413-0d2d-4cbc-8405-a7b7cb8d7f90/events",
+      "cabeceras": {},
+      "cuerpo_enviado": null,
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "cerrar sesión de SN2",
+      "identidad": "Sin credencial",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/130cd413-0d2d-4cbc-8405-a7b7cb8d7f90/finish",
+      "cabeceras": {
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "diagnosis": "intento ajeno",
+        "hypotheses": []
+      },
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "leer sesión de UUID inexistente",
+      "identidad": "Sin credencial",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/a2ac3e93-f7ff-4648-a7ac-031c87b57def",
+      "cabeceras": {},
+      "cuerpo_enviado": null,
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "enviar mensaje de UUID inexistente",
+      "identidad": "Sin credencial",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/a2ac3e93-f7ff-4648-a7ac-031c87b57def/message",
+      "cabeceras": {
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "listar eventos de UUID inexistente",
+      "identidad": "Sin credencial",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/a2ac3e93-f7ff-4648-a7ac-031c87b57def/events",
+      "cabeceras": {},
+      "cuerpo_enviado": null,
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "cerrar sesión de UUID inexistente",
+      "identidad": "Sin credencial",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/a2ac3e93-f7ff-4648-a7ac-031c87b57def/finish",
+      "cabeceras": {
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "diagnosis": "intento ajeno",
+        "hypotheses": []
+      },
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "sin datos de SA en «leer sesión»",
+      "resultado": "PASA",
+      "detalle": "marcadores encontrados: []"
+    },
+    {
+      "descripcion": "sin datos de SA en «enviar mensaje»",
+      "resultado": "PASA",
+      "detalle": "marcadores encontrados: []"
+    },
+    {
+      "descripcion": "sin datos de SA en «listar eventos»",
+      "resultado": "PASA",
+      "detalle": "marcadores encontrados: []"
+    },
+    {
+      "descripcion": "sin datos de SA en «cerrar sesión»",
+      "resultado": "PASA",
+      "detalle": "marcadores encontrados: []"
+    },
+    {
+      "descripcion": "sin datos de SA en «leer sesión»",
+      "resultado": "PASA",
+      "detalle": "marcadores encontrados: []"
+    },
+    {
+      "descripcion": "sin datos de SA en «enviar mensaje»",
+      "resultado": "PASA",
+      "detalle": "marcadores encontrados: []"
+    },
+    {
+      "descripcion": "sin datos de SA en «listar eventos»",
+      "resultado": "PASA",
+      "detalle": "marcadores encontrados: []"
+    },
+    {
+      "descripcion": "sin datos de SA en «cerrar sesión»",
+      "resultado": "PASA",
+      "detalle": "marcadores encontrados: []"
+    },
+    {
+      "descripcion": "sin datos de SA en «leer sesión»",
+      "resultado": "PASA",
+      "detalle": "marcadores encontrados: []"
+    },
+    {
+      "descripcion": "sin datos de SA en «enviar mensaje»",
+      "resultado": "PASA",
+      "detalle": "marcadores encontrados: []"
+    },
+    {
+      "descripcion": "sin datos de SA en «listar eventos»",
+      "resultado": "PASA",
+      "detalle": "marcadores encontrados: []"
+    },
+    {
+      "descripcion": "sin datos de SA en «cerrar sesión»",
+      "resultado": "PASA",
+      "detalle": "marcadores encontrados: []"
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

@@ -145,7 +145,8 @@ CHANGES = {
             {
                 "key": "antecedentes_menstruales", "category": "antecedente", "label": "Antecedentes menstruales",
                 "text": "Antes del embarazo tenía reglas regulares; nunca tuvo cefalea persistente ni problemas de la vista.",
-                "owner": "paciente", "requires": ["antecedentes_gineco_obstetricos"],
+                # Tema propio: con «antecedentes_gineco_obstetricos» se revelaba ya al preguntar por el parto.
+                "owner": "paciente", "requires": ["antecedentes_personales"],
                 "complemento": {"fuente": "sheehan_statpearls",
                                 "motivo": "Una función hipofisaria normal antes del parto va en contra de un tumor previo."},
             },

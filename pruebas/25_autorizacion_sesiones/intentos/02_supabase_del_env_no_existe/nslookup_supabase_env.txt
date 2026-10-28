@@ -1,0 +1,6 @@
+*** UnKnown no encuentra uxmuxciiyxirrcksxykc.supabase.co: Non-existent domain
+DNS request timed out.
+    timeout was 2 seconds.
+Servidor:  UnKnown
+Address:  8.8.8.8
+

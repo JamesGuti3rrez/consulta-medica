@@ -1,0 +1,17 @@
+{
+  "id": "TA017-29",
+  "nombre": "ids_raros",
+  "titulo": "Identificadores con formatos raros",
+  "criterio": "CA1, CA4",
+  "resultado_esperado": "4xx (400/401/404/405/414/422), nunca 500 ni datos",
+  "resultado": "FALLA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_antes",
+  "commit": "0ef9e0e",
+  "fecha": "2026-10-27 02:53:50 UTC",
+  "pasos": [],
+  "comprobaciones": [],
+  "notas": [],
+  "error": "Falló la preparación: E   httpcore.ConnectError: [Errno 11001] getaddrinfo failed\n\nThe above exception was the direct cause of the following exception:\nE   httpx.ConnectError: [Errno 11001] getaddrinfo failed"
+}

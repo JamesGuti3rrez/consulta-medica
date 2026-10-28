@@ -1,0 +1,44 @@
+{
+  "id": "TA011-32",
+  "nombre": "cerrar_dos_veces",
+  "titulo": "Cerrar dos veces",
+  "criterio": "CA1",
+  "resultado_esperado": "200 idempotente: misma evaluación, nunca 500",
+  "resultado": "PASA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_despues",
+  "commit": "5f9435d",
+  "fecha": "2026-10-28 06:03:03 UTC",
+  "pasos": [
+    {
+      "descripcion": "cerrar SA otra vez",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/eca64381-86cb-4fef-bf00-d30b1c828b19/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…SpvA",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {},
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"phase\":\"finalizada\",\"active_agent\":\"orchestrator\",\"case_id\":\"EME-001\",\"session_id\":\"eca64381-86cb-4fef-bf00-d30b1c828b19\",\"revealed_evidence_ids\":[\"EME-001.motivo.queja_principal\",\"EME-001.vital.signos_vitales\",\"EME-001.medicacion.tratamiento_habitual\"],\"updated_at\":\"2026-10-28T06:02:49.946798+00:00\",\"finished_at\":\"2026-10-28T06:02:49.946817+00:00\",\"started_at\":\"2026-10-28T05:59:48.144447+00:00\",\"avatar_state\":{\"alerts\":[],\"vitals\":[{\"text\":\"Temperatura 41,1 °C, presión arterial 109/62 mmHg, pulso 170/min, frecuencia respiratoria 23/min y saturación de oxígeno 95 % al aire ambiente.\",\"label\":\"Signos vitales\",\"evidence_id\":\"EME-001.vital.signos_vitales\"}],\"gesture\":\"idle\",\"complications\":[]},\"evaluation\":{\"score\":31.25,\"errors\":{\"negligencia\":0,\"anamnesis_incompleta\":1,\"razonamiento_clinico\":2},\"total_weight\":16,\"earned_weight\":5,\"total_questions\":4,\"completed_questions\":1},\"attempt\":{\"saved\":false,\"reason\":\"desactivado\"}}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "misma evaluación",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

@@ -1,0 +1,155 @@
+{
+  "id": "TA011-18",
+  "nombre": "credencial_alterada",
+  "titulo": "Credencial de SN1 alterada o malformada",
+  "criterio": "CA3, CA4",
+  "resultado_esperado": "Alterada en un carácter: 404 (decisión de la política); malformada: 401",
+  "resultado": "FALLA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_antes",
+  "commit": "0b9b949",
+  "fecha": "2026-10-28 05:51:48 UTC",
+  "pasos": [
+    {
+      "descripcion": "leer SN2 con su credencial alterada",
+      "identidad": "Anónimo 2 (credencial alterada)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/af152040-cc30-4aea-9d63-15c6d7b98cde",
+      "cabeceras": {
+        "x-session-token": "xxxxxx…xxxx"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"finished_at\":null,\"active_agent\":\"medico_asistente\",\"started_at\":\"2026-10-28T05:50:46.658921+00:00\",\"phase\":\"presentacion\",\"revealed_evidence_ids\":[\"CIR-005.motivo.queja_principal\",\"CIR-005.anamnesis.evolucion_quirurgica\"],\"session_id\":\"af152040-cc30-4aea-9d63-15c6d7b98cde\",\"updated_at\":\"2026-10-28T05:50:46.658944+00:00\",\"case_id\":\"CIR-005\",\"avatar_state\":{\"alerts\":[],\"vitals\":[],\"gesture\":\"idle\",\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "leer SN1 con la credencial alterada",
+      "identidad": "Anónimo 1 (credencial alterada)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/8479ac3f-f5e6-49c8-809a-6de3315ccddf",
+      "cabeceras": {
+        "x-session-token": "creden…ente"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"finished_at\":\"2026-10-28T05:51:25.513876+00:00\",\"active_agent\":\"orchestrator\",\"started_at\":\"2026-10-28T05:50:45.518266+00:00\",\"phase\":\"finalizada\",\"revealed_evidence_ids\":[\"CIR-005.motivo.queja_principal\",\"CIR-005.anamnesis.evolucion_quirurgica\"],\"session_id\":\"8479ac3f-f5e6-49c8-809a-6de3315ccddf\",\"updated_at\":\"2026-10-28T05:51:25.513858+00:00\",\"case_id\":\"CIR-005\",\"avatar_state\":{\"alerts\":[],\"vitals\":[],\"gesture\":\"idle\",\"complications\":[]},\"evaluation\":{\"score\":0.0,\"errors\":{\"negligencia\":0,\"anamnesis_incompleta\":1,\"razonamiento_clinico\":3},\"total_weight\":17,\"earned_weight\":0,\"total_questions\":4,\"completed_questions\":0}}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "leer SN2 con credencial muy corta",
+      "identidad": "credencial muy corta",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/af152040-cc30-4aea-9d63-15c6d7b98cde",
+      "cabeceras": {
+        "x-session-token": "abc"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"finished_at\":null,\"active_agent\":\"medico_asistente\",\"started_at\":\"2026-10-28T05:50:46.658921+00:00\",\"phase\":\"presentacion\",\"revealed_evidence_ids\":[\"CIR-005.motivo.queja_principal\",\"CIR-005.anamnesis.evolucion_quirurgica\"],\"session_id\":\"af152040-cc30-4aea-9d63-15c6d7b98cde\",\"updated_at\":\"2026-10-28T05:50:46.658944+00:00\",\"case_id\":\"CIR-005\",\"avatar_state\":{\"alerts\":[],\"vitals\":[],\"gesture\":\"idle\",\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "leer SN2 con credencial muy larga",
+      "identidad": "credencial muy larga",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/af152040-cc30-4aea-9d63-15c6d7b98cde",
+      "cabeceras": {
+        "x-session-token": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"finished_at\":null,\"active_agent\":\"medico_asistente\",\"started_at\":\"2026-10-28T05:50:46.658921+00:00\",\"phase\":\"presentacion\",\"revealed_evidence_ids\":[\"CIR-005.motivo.queja_principal\",\"CIR-005.anamnesis.evolucion_quirurgica\"],\"session_id\":\"af152040-cc30-4aea-9d63-15c6d7b98cde\",\"updated_at\":\"2026-10-28T05:50:46.658944+00:00\",\"case_id\":\"CIR-005\",\"avatar_state\":{\"alerts\":[],\"vitals\":[],\"gesture\":\"idle\",\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "leer SN2 con credencial con espacios",
+      "identidad": "credencial con espacios",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/af152040-cc30-4aea-9d63-15c6d7b98cde",
+      "cabeceras": {
+        "x-session-token": "abc def ghi jkl mno pqr stu"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"finished_at\":null,\"active_agent\":\"medico_asistente\",\"started_at\":\"2026-10-28T05:50:46.658921+00:00\",\"phase\":\"presentacion\",\"revealed_evidence_ids\":[\"CIR-005.motivo.queja_principal\",\"CIR-005.anamnesis.evolucion_quirurgica\"],\"session_id\":\"af152040-cc30-4aea-9d63-15c6d7b98cde\",\"updated_at\":\"2026-10-28T05:50:46.658944+00:00\",\"case_id\":\"CIR-005\",\"avatar_state\":{\"alerts\":[],\"vitals\":[],\"gesture\":\"idle\",\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "leer SN2 con credencial caracteres no permitidos",
+      "identidad": "credencial caracteres no permitidos",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/af152040-cc30-4aea-9d63-15c6d7b98cde",
+      "cabeceras": {
+        "x-session-token": "<script>alert(1)</script>aaaaaaaaaaaaaaaaaaaa"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"finished_at\":null,\"active_agent\":\"medico_asistente\",\"started_at\":\"2026-10-28T05:50:46.658921+00:00\",\"phase\":\"presentacion\",\"revealed_evidence_ids\":[\"CIR-005.motivo.queja_principal\",\"CIR-005.anamnesis.evolucion_quirurgica\"],\"session_id\":\"af152040-cc30-4aea-9d63-15c6d7b98cde\",\"updated_at\":\"2026-10-28T05:50:46.658944+00:00\",\"case_id\":\"CIR-005\",\"avatar_state\":{\"alerts\":[],\"vitals\":[],\"gesture\":\"idle\",\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "FALLA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "credencial muy corta: sin datos de SN2",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "credencial muy larga: sin datos de SN2",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "credencial con espacios: sin datos de SN2",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "credencial caracteres no permitidos: sin datos de SN2",
+      "resultado": "FALLA",
+      "detalle": ""
+    }
+  ],
+  "notas": [
+    "Decisión: una credencial bien formada pero que no corresponde a la sesión responde 404, igual que una sesión inexistente, para no ofrecer un oráculo. Las malformadas (largo o alfabeto incorrectos) responden 401 sin consultar la sesión."
+  ],
+  "error": "E   AssertionError: TA011-18: paso 1 (GET http://127.0.0.1:3100/api/ai/sessions/af152040-cc30-4aea-9d63-15c6d7b98cde): 200 no está en [404] | paso 2 (GET http://127.0.0.1:3100/api/ai/sessions/8479ac3f-f5e6-49c8-809a-6de3315ccddf): 200 no está en [404] | paso 3 (GET http://127.0.0.1:3100/api/ai/sessions/af152040-cc30-4aea-9d63-15c6d7b98cde): 200 no está en [401] | paso 4 (GET http://127.0.0.1:3100/api/ai/sessions/af152040-cc30-4aea-9d63-15c6d7b98cde): 200 no está en [401] | paso 5 (GET http://127.0.0.1:3100/api/ai/sessions/af152040-cc30-4aea-9d63-15c6d7b98cde): 200 no está en [401] | paso 6 (GET http://127.0.0.1:3100/api/ai/sessions/af152040-cc30-4aea-9d63-15c6d7b98cde): 200 no está en [401] | comprobación: credencial muy corta: sin datos de SN2 | comprobación: credencial muy larga: sin datos de SN2 | comprobación: credencial con espacios: sin datos de SN2 | comprobación: credencial caracteres no permitidos: sin datos de SN2"
+}

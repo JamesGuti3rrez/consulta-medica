@@ -1,0 +1,101 @@
+{
+  "id": "TA011-10",
+  "nombre": "B_sobre_SA",
+  "titulo": "B sobre SA en cada operación",
+  "criterio": "CA1, CA2",
+  "resultado_esperado": "404 en leer, mensaje, eventos y cierre",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_despues",
+  "commit": "64218b9",
+  "fecha": "2026-10-28 06:31:51 UTC",
+  "pasos": [
+    {
+      "descripcion": "leer sesión de SA",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…3kB4"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "enviar mensaje de SA",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…3kB4",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "listar eventos de SA",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2/events",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…3kB4"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "cerrar sesión de SA",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…3kB4",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "diagnosis": "intento ajeno",
+        "hypotheses": []
+      },
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [],
+  "notas": [],
+  "error": ""
+}

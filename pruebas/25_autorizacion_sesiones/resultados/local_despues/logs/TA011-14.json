@@ -1,0 +1,225 @@
+{
+  "id": "TA011-14",
+  "nombre": "ajena_igual_a_inexistente",
+  "titulo": "SA ajena vs sesión inexistente",
+  "criterio": "CA2",
+  "resultado_esperado": "Mismo código y mismo cuerpo para SA (ajena) y para un UUID inexistente",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_despues",
+  "commit": "64218b9",
+  "fecha": "2026-10-28 06:31:51 UTC",
+  "pasos": [
+    {
+      "descripcion": "leer sesión de SA (ajena)",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…3kB4"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "leer sesión de un UUID inexistente",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/c77a6485-7224-48f1-b1d0-5f0389bef8f0",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…3kB4"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "enviar mensaje de SA (ajena)",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…3kB4",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "enviar mensaje de un UUID inexistente",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/c77a6485-7224-48f1-b1d0-5f0389bef8f0/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…3kB4",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "listar eventos de SA (ajena)",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2/events",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…3kB4"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "listar eventos de un UUID inexistente",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/c77a6485-7224-48f1-b1d0-5f0389bef8f0/events",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…3kB4"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "cerrar sesión de SA (ajena)",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…3kB4",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "diagnosis": "intento ajeno",
+        "hypotheses": []
+      },
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "cerrar sesión de un UUID inexistente",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/c77a6485-7224-48f1-b1d0-5f0389bef8f0/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…3kB4",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "diagnosis": "intento ajeno",
+        "hypotheses": []
+      },
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "leer sesión: mismo código",
+      "resultado": "PASA",
+      "detalle": "404 vs 404"
+    },
+    {
+      "descripcion": "leer sesión: mismo cuerpo",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "enviar mensaje: mismo código",
+      "resultado": "PASA",
+      "detalle": "404 vs 404"
+    },
+    {
+      "descripcion": "enviar mensaje: mismo cuerpo",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "listar eventos: mismo código",
+      "resultado": "PASA",
+      "detalle": "404 vs 404"
+    },
+    {
+      "descripcion": "listar eventos: mismo cuerpo",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "cerrar sesión: mismo código",
+      "resultado": "PASA",
+      "detalle": "404 vs 404"
+    },
+    {
+      "descripcion": "cerrar sesión: mismo cuerpo",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

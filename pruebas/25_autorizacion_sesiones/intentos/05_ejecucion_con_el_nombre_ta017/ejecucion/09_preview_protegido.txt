@@ -1,0 +1,13 @@
+FECHA: 2026-10-27 03:44:14 UTC
+PREVIEW: https://consulta-medica-coubjba2a-james-gutierrezs-projects-49804000.vercel.app (rama ta-017-autorizacion-sesiones, commit 6224b1d, estado de GitHub: success)
+
+== curl -sI https://consulta-medica-coubjba2a-james-gutierrezs-projects-49804000.vercel.app/api/ai/sessions/00000000-0000-4000-8000-000000000000
+HTTP/1.1 302 Found
+Location: https://vercel.com/sso-api?(parametros omitidos)
+Server: Vercel
+X-Vercel-Id: gru1::k4z7b-1793072655075-06651c2eaab4
+
+== cuerpo
+Protected by Vercel Authentication
+To access this deployment with an authenticated Vercel CLI, run: vercel curl <deployment-url>
+With an authorized Vercel MCP connection (https://mcp.vercel.com), call web_fetch_vercel_url with url set to the full deployment URL.
