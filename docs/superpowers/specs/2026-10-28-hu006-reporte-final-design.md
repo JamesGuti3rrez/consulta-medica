@@ -1,6 +1,7 @@
 # HU-006: Completar reporte final (diseño)
 
-Fecha: 2026-10-28. Responsable: James Bryam Gutiérrez Rubio.
+Fecha: 2026-10-28. Responsable: James Bryam Gutiérrez Rubio. Ficha del PBI: prioridad baja, 1 SP. Diseño aprobado
+por el usuario el 2026-10-28, con la indicación de que quede completo.
 
 ## Historia y criterios de aceptación
 
