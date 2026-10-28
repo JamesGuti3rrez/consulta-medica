@@ -1,0 +1,11 @@
+{
+  "sesiones_creadas": 4,
+  "usuarios_creados": 2,
+  "sesiones_borradas_http": 200,
+  "sesiones_borradas": 0,
+  "sesiones_que_quedan": 0,
+  "eventos_que_quedan": 0,
+  "usuarios_borrados": 2,
+  "intentos_que_quedan": "HTTP 404",
+  "clave_secreta_usada_en": "solo preparación y limpieza (crear/borrar usuarios, borrar sesiones)"
+}

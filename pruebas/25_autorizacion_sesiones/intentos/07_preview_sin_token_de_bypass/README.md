@@ -16,3 +16,11 @@ su valor.
 
 Archivos conservados sin modificar: la foto de la terminal (solo en el equipo), la salida de pytest, los JSON
 de error de cada caso y la limpieza.
+
+## Repetición con el comando mal citado
+
+La primera repetición tampoco envió el token: el comando de PowerShell que lo carga del `.env` se pasó desde
+bash entre comillas dobles, y bash interpretó las comillas invertidas (`` ` ``) como sustitución de comandos.
+PowerShell recibió la línea cortada y la suite corrió otra vez sin la variable (mismo resultado: 39 ERROR, los
+2 usuarios temporales creados y borrados). Se conserva en `repeticion_comando_mal_citado/`. La corrida válida
+se lanzó desde un archivo `.ps1`, sin pasar por bash.
