@@ -1,0 +1,473 @@
+{
+  "id": "TA011-29",
+  "nombre": "ids_raros",
+  "titulo": "Identificadores con formatos raros",
+  "criterio": "CA1, CA4",
+  "resultado_esperado": "4xx (400/401/404/405/414/422), nunca 500 ni datos",
+  "resultado": "PASA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_antes",
+  "commit": "0b9b949",
+  "fecha": "2026-10-28 05:52:40 UTC",
+  "pasos": [
+    {
+      "descripcion": "no es UUID: GET leer",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/no-es-uuid",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…g3yQ"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        400,
+        401,
+        404,
+        405,
+        414,
+        422
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "no es UUID: POST /message",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/no-es-uuid/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…g3yQ",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        400,
+        401,
+        404,
+        405,
+        414,
+        422
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "espacio: GET leer",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/%20",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…g3yQ"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        400,
+        401,
+        404,
+        405,
+        414,
+        422
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "espacio: POST /message",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/%20/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…g3yQ",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        400,
+        401,
+        404,
+        405,
+        414,
+        422
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "muy largo (5000): GET leer",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…g3yQ"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        400,
+        401,
+        404,
+        405,
+        414,
+        422
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "muy largo (5000): POST /message",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…g3yQ",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        400,
+        401,
+        404,
+        405,
+        414,
+        422
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "recorrido de ruta: GET leer",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/..%2F..%2F..%2Fetc%2Fpasswd",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…g3yQ"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"error\":\"Ruta de API no encontrada\"}",
+      "codigo_esperado": [
+        400,
+        401,
+        404,
+        405,
+        414,
+        422
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "recorrido de ruta: POST /message",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/..%2F..%2F..%2Fetc%2Fpasswd/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…g3yQ",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"error\":\"Ruta de API no encontrada\"}",
+      "codigo_esperado": [
+        400,
+        401,
+        404,
+        405,
+        414,
+        422
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "inyección SQL: GET leer",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/1'%20OR%20'1'%3D'1",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…g3yQ"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        400,
+        401,
+        404,
+        405,
+        414,
+        422
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "inyección SQL: POST /message",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/1'%20OR%20'1'%3D'1/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…g3yQ",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        400,
+        401,
+        404,
+        405,
+        414,
+        422
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "UUID nulo: GET leer",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/00000000-0000-0000-0000-000000000000",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…g3yQ"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        400,
+        401,
+        404,
+        405,
+        414,
+        422
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "UUID nulo: POST /message",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/00000000-0000-0000-0000-000000000000/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…g3yQ",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        400,
+        401,
+        404,
+        405,
+        414,
+        422
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "byte nulo: GET leer",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/%00",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…g3yQ"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        400,
+        401,
+        404,
+        405,
+        414,
+        422
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "byte nulo: POST /message",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/%00/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…g3yQ",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        400,
+        401,
+        404,
+        405,
+        414,
+        422
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "id vacío",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions//message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…g3yQ",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"error\":\"Ruta de API no encontrada\"}",
+      "codigo_esperado": [
+        400,
+        401,
+        404,
+        405,
+        414,
+        422
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "no es UUID: sin datos de SA",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "no es UUID: sin datos de SA",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "espacio: sin datos de SA",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "espacio: sin datos de SA",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "muy largo (5000): sin datos de SA",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "muy largo (5000): sin datos de SA",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "recorrido de ruta: sin datos de SA",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "recorrido de ruta: sin datos de SA",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "inyección SQL: sin datos de SA",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "inyección SQL: sin datos de SA",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "UUID nulo: sin datos de SA",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "UUID nulo: sin datos de SA",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "byte nulo: sin datos de SA",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "byte nulo: sin datos de SA",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

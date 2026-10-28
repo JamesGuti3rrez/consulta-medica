@@ -1,0 +1,128 @@
+{
+  "id": "TA011-07",
+  "nombre": "anonimo1_crea_sesion",
+  "titulo": "Anónimo 1 crea sesión y recibe credencial",
+  "criterio": "CA3",
+  "resultado_esperado": "200 con session_token de al menos 128 bits (base64url >= 22 caracteres), único",
+  "resultado": "FALLA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_antes",
+  "commit": "0b9b949",
+  "fecha": "2026-10-28 05:51:13 UTC",
+  "pasos": [
+    {
+      "descripcion": "crear SN1 sin iniciar sesión",
+      "identidad": "Anónimo 1",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions",
+      "cabeceras": {
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "case_id": "CIR-005"
+      },
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"finished_at\":null,\"active_agent\":\"medico_asistente\",\"started_at\":\"2026-10-28T05:50:45.518266+00:00\",\"phase\":\"presentacion\",\"revealed_evidence_ids\":[\"CIR-005.motivo.queja_principal\",\"CIR-005.anamnesis.evolucion_quirurgica\"],\"session_id\":\"8479ac3f-f5e6-49c8-809a-6de3315ccddf\",\"updated_at\":\"2026-10-28T05:50:45.518288+00:00\",\"case_id\":\"CIR-005\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[],\"alerts\":[],\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "crear otra sesión para comparar credenciales",
+      "identidad": "Anónimo 1",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions",
+      "cabeceras": {
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "case_id": "CIR-005"
+      },
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"finished_at\":null,\"active_agent\":\"medico_asistente\",\"started_at\":\"2026-10-28T05:51:10.947344+00:00\",\"phase\":\"presentacion\",\"revealed_evidence_ids\":[\"CIR-005.motivo.queja_principal\",\"CIR-005.anamnesis.evolucion_quirurgica\"],\"session_id\":\"a5105514-f969-49bf-922a-c905e0e032cd\",\"updated_at\":\"2026-10-28T05:51:10.947371+00:00\",\"case_id\":\"CIR-005\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[],\"alerts\":[],\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "crear otra sesión para comparar credenciales",
+      "identidad": "Anónimo 1",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions",
+      "cabeceras": {
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "case_id": "CIR-005"
+      },
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"finished_at\":null,\"active_agent\":\"medico_asistente\",\"started_at\":\"2026-10-28T05:51:12.276378+00:00\",\"phase\":\"presentacion\",\"revealed_evidence_ids\":[\"CIR-005.motivo.queja_principal\",\"CIR-005.anamnesis.evolucion_quirurgica\"],\"session_id\":\"37ff7546-2c46-4b75-bc00-a2bfb6b33660\",\"updated_at\":\"2026-10-28T05:51:12.276398+00:00\",\"case_id\":\"CIR-005\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[],\"alerts\":[],\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "crear otra sesión para comparar credenciales",
+      "identidad": "Anónimo 1",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions",
+      "cabeceras": {
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "case_id": "CIR-005"
+      },
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"finished_at\":null,\"active_agent\":\"medico_asistente\",\"started_at\":\"2026-10-28T05:51:13.462565+00:00\",\"phase\":\"presentacion\",\"revealed_evidence_ids\":[\"CIR-005.motivo.queja_principal\",\"CIR-005.anamnesis.evolucion_quirurgica\"],\"session_id\":\"8b152c7b-6ac9-4f55-8a40-fb5a33356d26\",\"updated_at\":\"2026-10-28T05:51:13.462588+00:00\",\"case_id\":\"CIR-005\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[],\"alerts\":[],\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "la respuesta trae session_token",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "alfabeto base64url",
+      "resultado": "FALLA",
+      "detalle": "longitud 0"
+    },
+    {
+      "descripcion": "al menos 128 bits",
+      "resultado": "FALLA",
+      "detalle": "0 caracteres = 0 bits"
+    },
+    {
+      "descripcion": "cuatro sesiones, cuatro credenciales distintas",
+      "resultado": "FALLA",
+      "detalle": "distintas: 0"
+    },
+    {
+      "descripcion": "SN1 y SN2 tienen credenciales distintas",
+      "resultado": "FALLA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": "E   AssertionError: TA011-07: comprobación: la respuesta trae session_token | comprobación: alfabeto base64url longitud 0 | comprobación: al menos 128 bits 0 caracteres = 0 bits | comprobación: cuatro sesiones, cuatro credenciales distintas distintas: 0 | comprobación: SN1 y SN2 tienen credenciales distintas"
+}
