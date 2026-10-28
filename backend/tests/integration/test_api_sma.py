@@ -34,7 +34,7 @@ def fixture_cases(monkeypatch):
 
 
 def _creds(start, **headers) -> dict:
-    """Credencial para continuar la consulta (TA-017): la de capacidad del invitado y el token del alumno."""
+    """Credencial para continuar la consulta (TA-011): la de capacidad del invitado y el token del alumno."""
     token = start.json().get("session_token")
     return {**headers, **({"X-Session-Token": token} if token else {})}
 
@@ -219,7 +219,7 @@ def test_finish_without_session_or_with_a_forged_token_saves_nothing(monkeypatch
     fake.users["token-alumno"] = "0b8f3c1e-5d4a-4f6b-9a1e-2c3d4e5f6a7b"
     _, forged = _finished_session(monkeypatch, fake, start_token="token-alumno",
                                   headers={"Authorization": "Bearer token-inventado"})
-    # TA-017: un token que Supabase rechaza no puede operar sobre la consulta (antes: 200 sin guardar).
+    # TA-011: un token que Supabase rechaza no puede operar sobre la consulta (antes: 200 sin guardar).
     assert forged.status_code == 401
     assert "evaluation" not in forged.json()
     assert fake.attempts == []
@@ -259,7 +259,7 @@ def test_only_the_student_who_started_the_consultation_can_save_it(monkeypatch):
     # Otro alumno con el id de la consulta no puede quedarse con el resultado.
     _, stolen = _finished_session(monkeypatch, fake, start_token="token-alumno",
                                   headers={"Authorization": "Bearer token-otro"})
-    # TA-017: la consulta ajena responde 404, como si no existiera (antes: 200 sin guardar).
+    # TA-011: la consulta ajena responde 404, como si no existiera (antes: 200 sin guardar).
     assert stolen.status_code == 404
     assert "evaluation" not in stolen.json()
 
@@ -273,7 +273,7 @@ def test_only_the_student_who_started_the_consultation_can_save_it(monkeypatch):
 
 def test_without_history_a_signed_in_student_finishes_without_saving_or_warnings(monkeypatch):
     # HISTORIAL_ALUMNOS=false: no se escribe en Supabase y la hoja no muestra aviso. El token del alumno sí
-    # se verifica: es lo que le da acceso a su consulta (TA-017).
+    # se verifica: es lo que le da acceso a su consulta (TA-011).
     from tests.fakes_supabase import FakeSupabase
 
     monkeypatch.setattr(ai_module, "settings", replace(ai_module.settings, history_enabled=False))

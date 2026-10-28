@@ -48,7 +48,7 @@ class MultiAgentSessionService:
             "evaluation": None,
             # Alumno con sesión iniciada que empezó la consulta: solo él puede guardarla. No es público.
             "owner_id": owner_id,
-            # Consulta de invitado: hash SHA-256 de su credencial de capacidad (TA-017). Tampoco es público.
+            # Consulta de invitado: hash SHA-256 de su credencial de capacidad (TA-011). Tampoco es público.
             "access_token_hash": access_token_hash,
             "history": [],
             "started_at": _now(),

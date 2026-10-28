@@ -227,7 +227,7 @@ def authorize_session(
     authorization: str | None = Header(default=None),
     x_session_token: str | None = Header(default=None),
 ) -> str | None:
-    """Política de TA-017 para toda operación sobre una sesión; devuelve el id del alumno, si lo hay.
+    """Política de TA-011 para toda operación sobre una sesión; devuelve el id del alumno, si lo hay.
 
     - Sin credencial, o con una malformada o que Supabase rechaza: 401, antes de buscar la sesión.
     - Sesión de un alumno: solo su propio token (Authorization: Bearer) la abre.
