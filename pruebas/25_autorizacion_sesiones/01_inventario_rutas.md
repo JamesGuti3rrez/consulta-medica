@@ -17,13 +17,14 @@ este inventario. Resultado: coincide en todas las fases.
 | Enviar mensaje | `POST /api/ai/sessions/{session_id}/message` | `ai.py:209` | Ninguna | **Ninguna**: cualquiera con el UUID escribía en la consulta | `ai.py:270` | `authorize_session` |
 | Listar eventos | `GET /api/ai/sessions/{session_id}/events` | `ai.py:231` | Ninguna | **Ninguna**: cualquiera con el UUID leía los mensajes y las evidencias | `ai.py:292` | `authorize_session` |
 | Cerrar sesión | `POST /api/ai/sessions/{session_id}/finish` | `ai.py:241` | Opcional: `Authorization`, solo para guardar el intento | **Parcial**: cualquiera la cerraba y veía la evaluación; solo el guardado del intento exigía al dueño | `ai.py:302` | `authorize_session` y, además, el guardado del intento exige al dueño |
+| Reporte final (HU-006) | `GET /api/ai/sessions/{session_id}/report` | No existía | - | - | `ai.py:320` | `authorize_session`; además, 409 si la consulta no terminó |
 
 ## Rutas que no existen (pedidas en el prompt)
 
 | Operación pedida | Estado en el código | Caso que lo comprueba |
 | --- | --- | --- |
 | Registrar eventos desde el cliente | No existe. Los eventos los escribe solo el servidor al iniciar, en cada mensaje y al cerrar | TA011-05, TA011-31 (`POST .../events` responde 405) |
-| Hipótesis, exámenes, evaluación o reporte en rutas propias | No existen. Las hipótesis y el diagnóstico van en el cuerpo de `finish`; los exámenes se piden con `message` | TA011-09 |
+| Hipótesis, exámenes o evaluación en rutas propias | No existen. Las hipótesis y el diagnóstico van en el cuerpo de `finish`; los exámenes se piden con `message`. El reporte final se agregó en HU-006 (`/report`) | TA011-09 |
 | Reanudación | No existe ruta propia: reanudar es leer con `GET /sessions/{id}` | TA011-09 |
 | Stream SSE o websocket | No existe | TA011-40 (404 al conectar, con o sin credencial) |
 
