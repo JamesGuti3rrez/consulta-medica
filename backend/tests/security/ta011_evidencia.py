@@ -1,6 +1,6 @@
-"""Registro de evidencia de TA-017: cada caso guarda sus peticiones y respuestas reales en un JSON.
+"""Registro de evidencia de TA-011: cada caso guarda sus peticiones y respuestas reales en un JSON.
 
-Solo escribe si la variable TA017_EVIDENCIA apunta a una carpeta; en la suite normal no deja archivos.
+Solo escribe si la variable TA011_EVIDENCIA apunta a una carpeta; en la suite normal no deja archivos.
 Los secretos (tokens de usuario, credenciales de capacidad, claves) se enmascaran como
 «primeros 6 caracteres + … + últimos 4» antes de escribir nada.
 """
@@ -57,7 +57,7 @@ def _short(text: str) -> str:
 
 
 class Caso:
-    """Pasos (petición + respuesta) y comprobaciones de un caso TA017-XX."""
+    """Pasos (petición + respuesta) y comprobaciones de un caso TA011-XX."""
 
     def __init__(self, id: str, criterio: str, titulo: str, nombre: str, esperado: str):  # noqa: A002
         case_id = id
@@ -109,7 +109,7 @@ class Caso:
         assert not malos, f"{self.case_id}: " + " | ".join(malos)
 
     def escribir(self, resultado: str, error: str = "") -> None:
-        folder = os.getenv("TA017_EVIDENCIA")
+        folder = os.getenv("TA011_EVIDENCIA")
         if not folder:
             return
         logs = Path(folder) / "logs"
@@ -121,9 +121,9 @@ class Caso:
             "criterio": self.criterio,
             "resultado_esperado": self.esperado,
             "resultado": resultado,
-            "modo": os.getenv("TA017_MODO", "local"),
-            "servidor": os.getenv("TA017_BASE_URL", "TestClient (en proceso)"),
-            "fase": os.getenv("TA017_FASE", ""),
+            "modo": os.getenv("TA011_MODO", "local"),
+            "servidor": os.getenv("TA011_BASE_URL", "TestClient (en proceso)"),
+            "fase": os.getenv("TA011_FASE", ""),
             "commit": _commit(),
             "fecha": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC"),
             "pasos": self.pasos,

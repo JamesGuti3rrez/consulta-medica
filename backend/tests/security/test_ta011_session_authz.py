@@ -1,4 +1,4 @@
-"""TA-017: autorización de sesiones y eventos del simulador (/api/ai/sessions...).
+"""TA-011: autorización de sesiones y eventos del simulador (/api/ai/sessions...).
 
 Política verificada (pruebas/25_autorizacion_sesiones/02_politica_acceso.md):
 - Sesión de un alumno registrado: solo su propio token de Supabase (Authorization: Bearer) la abre.
@@ -9,14 +9,14 @@ Política verificada (pruebas/25_autorizacion_sesiones/02_politica_acceso.md):
 - Sesión cerrada: no admite mensajes (409); cerrar otra vez devuelve el mismo resultado.
 
 Dos modos, mismos casos:
-- TA017_MODO=local (por defecto): TestClient en proceso, Supabase Auth simulado (tests/fakes_supabase.py),
+- TA011_MODO=local (por defecto): TestClient en proceso, Supabase Auth simulado (tests/fakes_supabase.py),
   caso de fixtures MED-900 y LLM local. Los casos marcados «vivo» se excluyen con -m "not vivo".
-- TA017_MODO=vivo: servidor real en TA017_BASE_URL y el Supabase del .env. Crea dos alumnos temporales
+- TA011_MODO=vivo: servidor real en TA011_BASE_URL y el Supabase del .env. Crea dos alumnos temporales
   (alumno.prueba.*@example.com) y los borra al final. La clave secreta de Supabase SOLO se usa en la
   preparación y la limpieza (crear/borrar usuarios y borrar las sesiones creadas); ninguna petición de
   prueba la lleva.
 
-Con TA017_EVIDENCIA=<carpeta> cada caso guarda su JSON en <carpeta>/logs (tokens enmascarados).
+Con TA011_EVIDENCIA=<carpeta> cada caso guarda su JSON en <carpeta>/logs (tokens enmascarados).
 """
 
 from __future__ import annotations
@@ -34,16 +34,16 @@ from pathlib import Path
 import httpx
 import pytest
 
-from tests.security.ta017_evidencia import SECRETS, mask
+from tests.security.ta011_evidencia import SECRETS, mask
 
-MODO = os.getenv("TA017_MODO", "local")
+MODO = os.getenv("TA011_MODO", "local")
 VIVO = MODO == "vivo"
-BASE_URL = os.getenv("TA017_BASE_URL", "").rstrip("/")
-SERVER_LOG = os.getenv("TA017_SERVER_LOG", "")
+BASE_URL = os.getenv("TA011_BASE_URL", "").rstrip("/")
+SERVER_LOG = os.getenv("TA011_SERVER_LOG", "")
 # Encabezado opcional para un preview protegido de Vercel (x-vercel-protection-bypass).
-VERCEL_BYPASS = os.getenv("TA017_VERCEL_BYPASS", "")
-CASO_SA = os.getenv("TA017_CASO_SA", "EME-001" if VIVO else "MED-900")
-CASO_OTRO = os.getenv("TA017_CASO_OTRO", "CIR-005" if VIVO else "MED-900")
+VERCEL_BYPASS = os.getenv("TA011_VERCEL_BYPASS", "")
+CASO_SA = os.getenv("TA011_CASO_SA", "EME-001" if VIVO else "MED-900")
+CASO_OTRO = os.getenv("TA011_CASO_OTRO", "CIR-005" if VIVO else "MED-900")
 FIXTURES = Path(__file__).resolve().parents[1] / "fixtures" / "cases"
 
 SESSION_HEADER = "X-Session-Token"
@@ -146,7 +146,7 @@ def _mundo_local():
     mp.setattr(ai_module, "build_gateway", lambda: LLMGateway([LocalDevelopmentProvider()]))
     attempts = SupabaseAttempts(url, pub, sec, client=fake.client())
     mp.setattr(ai_module, "get_attempts", lambda: attempts)
-    # Verificador de identidad de TA-017; antes del cambio no existe y no se usa.
+    # Verificador de identidad de TA-011; antes del cambio no existe y no se usa.
     mp.setattr(ai_module, "get_session_auth", lambda: SupabaseAuth(url, pub, client=fake.client()), raising=False)
     ai_module.STORE.clear()
     ai_module.get_service.cache_clear()
@@ -184,17 +184,17 @@ def _mundo_vivo():
     from server.config import settings
 
     url, pub, sec = settings.supabase_url, settings.supabase_publishable_key, settings.supabase_secret_key
-    assert BASE_URL and url and pub and sec, "El modo vivo necesita TA017_BASE_URL y Supabase en el .env"
+    assert BASE_URL and url and pub and sec, "El modo vivo necesita TA011_BASE_URL y Supabase en el .env"
     SECRETS.add(pub, sec)
     admin = httpx.Client(timeout=30, headers=_admin_headers(sec))  # solo preparación y limpieza
     creados: list[dict] = []
 
     def usuario(nombre, etiqueta):
-        email = f"alumno.prueba.ta017.{etiqueta}.{secrets.token_hex(4)}@example.com"
+        email = f"alumno.prueba.ta011.{etiqueta}.{secrets.token_hex(4)}@example.com"
         password = secrets.token_urlsafe(24)
         response = admin.post(f"{url}/auth/v1/admin/users", json={
             "email": email, "password": password, "email_confirm": True,
-            "user_metadata": {"nombres": "Alumno", "apellidos": f"TA017 {etiqueta}"},
+            "user_metadata": {"nombres": "Alumno", "apellidos": f"TA011 {etiqueta}"},
         })
         response.raise_for_status()
         user_id = response.json()["id"]
@@ -237,7 +237,7 @@ def _mundo_vivo():
             "usuario_id": f"in.({','.join(u['id'] for u in creados)})", "select": "id"})
         informe["intentos_que_quedan"] = len(intentos.json()) if intentos.is_success else f"HTTP {intentos.status_code}"
         informe["clave_secreta_usada_en"] = "solo preparación y limpieza (crear/borrar usuarios, borrar sesiones)"
-        folder = os.getenv("TA017_EVIDENCIA")
+        folder = os.getenv("TA011_EVIDENCIA")
         if folder:
             Path(folder).mkdir(parents=True, exist_ok=True)
             (Path(folder) / "limpieza.json").write_text(json.dumps(informe, indent=2, ensure_ascii=False), "utf-8")
@@ -307,7 +307,7 @@ def _denegar_todas(caso, mundo: Mundo, quien: Identidad, session_id: str, capaci
 # ======================================================================= A. Positivos (CA1, CA4)
 
 
-@pytest.mark.ta017(id="TA017-01", criterio="CA1, CA4", titulo="A crea sesión", nombre="A_crea_sesion",
+@pytest.mark.ta011(id="TA011-01", criterio="CA1, CA4", titulo="A crea sesión", nombre="A_crea_sesion",
                    esperado="200 y session_id UUID v4 (no secuencial); sin credencial de capacidad para registrados")
 def test_01_a_crea_sesion(mundo, caso):
     response = mundo.extra["inicio_SA"]
@@ -320,7 +320,7 @@ def test_01_a_crea_sesion(mundo, caso):
     caso.exigir()
 
 
-@pytest.mark.ta017(id="TA017-02", criterio="CA1, CA4", titulo="A lee SA", nombre="A_lee_SA",
+@pytest.mark.ta011(id="TA011-02", criterio="CA1, CA4", titulo="A lee SA", nombre="A_lee_SA",
                    esperado="200 con los datos de SA")
 def test_02_a_lee_sa(mundo, caso):
     response = mundo.call("GET", f"/api/ai/sessions/{mundo.SA}", mundo.A.headers())
@@ -331,7 +331,7 @@ def test_02_a_lee_sa(mundo, caso):
     caso.exigir()
 
 
-@pytest.mark.ta017(id="TA017-03", criterio="CA1, CA4", titulo="A envía mensaje a SA", nombre="A_mensaje_SA",
+@pytest.mark.ta011(id="TA011-03", criterio="CA1, CA4", titulo="A envía mensaje a SA", nombre="A_mensaje_SA",
                    esperado="200 con la respuesta del agente")
 def test_03_a_envia_mensaje(mundo, caso):
     for i, reply in enumerate(mundo.extra["mensajes_SA"], 1):
@@ -343,7 +343,7 @@ def test_03_a_envia_mensaje(mundo, caso):
     caso.exigir()
 
 
-@pytest.mark.ta017(id="TA017-04", criterio="CA1, CA4", titulo="A lista eventos de SA", nombre="A_eventos_SA",
+@pytest.mark.ta011(id="TA011-04", criterio="CA1, CA4", titulo="A lista eventos de SA", nombre="A_eventos_SA",
                    esperado="200 con sus eventos (inicio y turnos)")
 def test_04_a_lista_eventos(mundo, caso):
     response = mundo.call("GET", f"/api/ai/sessions/{mundo.SA}/events", mundo.A.headers())
@@ -355,7 +355,7 @@ def test_04_a_lista_eventos(mundo, caso):
     caso.exigir()
 
 
-@pytest.mark.ta017(id="TA017-05", criterio="CA1, CA4", titulo="Registrar evento (no aplica)",
+@pytest.mark.ta011(id="TA011-05", criterio="CA1, CA4", titulo="Registrar evento (no aplica)",
                    nombre="A_registra_evento_no_aplica",
                    esperado="No existe ruta para registrar eventos: 405/404 y la lista de eventos no cambia")
 def test_05_registrar_evento_no_existe(mundo, caso):
@@ -371,7 +371,7 @@ def test_05_registrar_evento_no_existe(mundo, caso):
     caso.exigir()
 
 
-@pytest.mark.ta017(id="TA017-07", criterio="CA3", titulo="Anónimo 1 crea sesión y recibe credencial",
+@pytest.mark.ta011(id="TA011-07", criterio="CA3", titulo="Anónimo 1 crea sesión y recibe credencial",
                    nombre="anonimo1_crea_sesion",
                    esperado="200 con session_token de al menos 128 bits (base64url >= 22 caracteres), único")
 def test_07_anonimo_recibe_credencial(mundo, caso):
@@ -394,7 +394,7 @@ def test_07_anonimo_recibe_credencial(mundo, caso):
     caso.exigir()
 
 
-@pytest.mark.ta017(id="TA017-08", criterio="CA3, CA4", titulo="Anónimo 1 usa su credencial en SN1",
+@pytest.mark.ta011(id="TA011-08", criterio="CA3, CA4", titulo="Anónimo 1 usa su credencial en SN1",
                    nombre="anonimo1_opera_SN1", esperado="200 en leer, mensaje, eventos y cierre de SN1")
 def test_08_anonimo_opera_su_sesion(mundo, caso):
     for method, path, body, descripcion in ops(mundo.SN1):
@@ -409,7 +409,7 @@ def test_08_anonimo_opera_su_sesion(mundo, caso):
     caso.exigir()
 
 
-@pytest.mark.ta017(id="TA017-09", criterio="CA1", titulo="Inventario completo de rutas con session_id",
+@pytest.mark.ta011(id="TA011-09", criterio="CA1", titulo="Inventario completo de rutas con session_id",
                    nombre="inventario_rutas_openapi",
                    esperado="Solo existen las 4 rutas del inventario; no hay rutas extra (hipótesis, reporte, stream)")
 def test_09_no_hay_rutas_adicionales(mundo, caso):
@@ -429,7 +429,7 @@ def test_09_no_hay_rutas_adicionales(mundo, caso):
 # ================================================ B. Acceso cruzado entre usuarios (CA1, CA2)
 
 
-@pytest.mark.ta017(id="TA017-10", criterio="CA1, CA2", titulo="B sobre SA en cada operación",
+@pytest.mark.ta011(id="TA011-10", criterio="CA1, CA2", titulo="B sobre SA en cada operación",
                    nombre="B_sobre_SA", esperado="404 en leer, mensaje, eventos y cierre")
 def test_10_b_sobre_sa(mundo, caso):
     mundo.extra["antes_de_B"] = _snapshot(mundo, mundo.SA, mundo.A)
@@ -438,20 +438,20 @@ def test_10_b_sobre_sa(mundo, caso):
     caso.exigir()
 
 
-@pytest.mark.ta017(id="TA017-11", criterio="CA2", titulo="Respuestas a B sin datos de SA",
+@pytest.mark.ta011(id="TA011-11", criterio="CA2", titulo="Respuestas a B sin datos de SA",
                    nombre="B_sin_fuga_de_SA", esperado="Ningún marcador de SA en los cuerpos devueltos a B")
 def test_11_sin_fugas(mundo, caso):
     caso.nota("Marcadores de fuga de SA: session_id, case_id, textos de los mensajes, evidence_id revelados "
               "y user_id de A.")
     for response in mundo.extra.get("respuestas_B", []):
-        caso.paso(mundo.B.nombre, response, {NOT_FOUND}, "respuesta recibida en TA017-10")
+        caso.paso(mundo.B.nombre, response, {NOT_FOUND}, "respuesta recibida en TA011-10")
         found = fugas(mundo, response.text)
         caso.comprobar(f"sin marcadores en {response.request.method} {response.request.url.path}", not found,
                        f"encontrados: {found}")
     caso.exigir()
 
 
-@pytest.mark.ta017(id="TA017-12", criterio="CA2", titulo="SA no cambia tras los intentos de B",
+@pytest.mark.ta011(id="TA011-12", criterio="CA2", titulo="SA no cambia tras los intentos de B",
                    nombre="SA_intacta_tras_B", esperado="Mismos eventos, mismas evidencias y SA sigue abierta")
 def test_12_sa_intacta(mundo, caso):
     before = mundo.extra["antes_de_B"]
@@ -465,7 +465,7 @@ def test_12_sa_intacta(mundo, caso):
     caso.exigir()
 
 
-@pytest.mark.ta017(id="TA017-13", criterio="CA1, CA2", titulo="B intenta cerrar SA", nombre="B_cierra_SA",
+@pytest.mark.ta011(id="TA011-13", criterio="CA1, CA2", titulo="B intenta cerrar SA", nombre="B_cierra_SA",
                    esperado="404 y SA sigue abierta")
 def test_13_b_no_cierra(mundo, caso):
     body = {"diagnosis": "cerrado por B", "hypotheses": []}
@@ -478,7 +478,7 @@ def test_13_b_no_cierra(mundo, caso):
     caso.exigir()
 
 
-@pytest.mark.ta017(id="TA017-14", criterio="CA2", titulo="SA ajena vs sesión inexistente",
+@pytest.mark.ta011(id="TA011-14", criterio="CA2", titulo="SA ajena vs sesión inexistente",
                    nombre="ajena_igual_a_inexistente",
                    esperado="Mismo código y mismo cuerpo para SA (ajena) y para un UUID inexistente")
 def test_14_no_enumeracion(mundo, caso):
@@ -496,7 +496,7 @@ def test_14_no_enumeracion(mundo, caso):
 # ===================================================== C. Anónimos y credencial de capacidad (CA3)
 
 
-@pytest.mark.ta017(id="TA017-15", criterio="CA3, CA2", titulo="Anónimo 2 con su credencial sobre SN1",
+@pytest.mark.ta011(id="TA011-15", criterio="CA3, CA2", titulo="Anónimo 2 con su credencial sobre SN1",
                    nombre="anonimo2_sobre_SN1", esperado="404 en las 4 operaciones, sin datos de SN1")
 def test_15_anonimo2_sobre_sn1(mundo, caso):
     responses = _denegar_todas(caso, mundo, mundo.anon2, mundo.SN1, mundo.token_SN2, {NOT_FOUND}, "SN1",
@@ -506,14 +506,14 @@ def test_15_anonimo2_sobre_sn1(mundo, caso):
     caso.exigir()
 
 
-@pytest.mark.ta017(id="TA017-16", criterio="CA3, CA2", titulo="Anónimo 1 con su credencial sobre SA",
+@pytest.mark.ta011(id="TA011-16", criterio="CA3, CA2", titulo="Anónimo 1 con su credencial sobre SA",
                    nombre="anonimo1_sobre_SA", esperado="404 en las 4 operaciones, sin datos de SA")
 def test_16_anonimo1_sobre_sa(mundo, caso):
     _denegar_todas(caso, mundo, mundo.anon1, mundo.SA, mundo.token_SN1, {NOT_FOUND}, "SA")
     caso.exigir()
 
 
-@pytest.mark.ta017(id="TA017-17", criterio="CA3, CA2", titulo="A (registrado) sobre SN1 sin la credencial",
+@pytest.mark.ta011(id="TA011-17", criterio="CA3, CA2", titulo="A (registrado) sobre SN1 sin la credencial",
                    nombre="A_sobre_SN1", esperado="404 en las 4 operaciones")
 def test_17_registrado_sobre_anonima(mundo, caso):
     responses = _denegar_todas(caso, mundo, mundo.A, mundo.SN1, None, {NOT_FOUND}, "SN1", revisar_fugas=False)
@@ -527,7 +527,7 @@ def _alterar(token: str) -> str:
     return token[:middle] + ("A" if token[middle] != "A" else "B") + token[middle + 1:]
 
 
-@pytest.mark.ta017(id="TA017-18", criterio="CA3, CA4", titulo="Credencial de SN1 alterada o malformada",
+@pytest.mark.ta011(id="TA011-18", criterio="CA3, CA4", titulo="Credencial de SN1 alterada o malformada",
                    nombre="credencial_alterada",
                    esperado="Alterada en un carácter: 404 (decisión de la política); malformada: 401")
 def test_18_credencial_alterada(mundo, caso):
@@ -550,7 +550,7 @@ def test_18_credencial_alterada(mundo, caso):
     caso.exigir()
 
 
-@pytest.mark.ta017(id="TA017-19", criterio="CA3", titulo="Credencial por query string",
+@pytest.mark.ta011(id="TA011-19", criterio="CA3", titulo="Credencial por query string",
                    nombre="credencial_en_query", esperado="401: la credencial solo se acepta en la cabecera")
 def test_19_credencial_en_query(mundo, caso):
     token = mundo.token_SN2 or "sin-credencial"
@@ -561,7 +561,7 @@ def test_19_credencial_en_query(mundo, caso):
     caso.exigir()
 
 
-@pytest.mark.ta017(id="TA017-20", criterio="CA3", titulo="Credencial de SN1 usada en otra sesión",
+@pytest.mark.ta011(id="TA011-20", criterio="CA3", titulo="Credencial de SN1 usada en otra sesión",
                    nombre="credencial_otra_sesion",
                    esperado="404 en SN2; crear sesión con ella da una sesión nueva con credencial propia")
 def test_20_credencial_otra_sesion(mundo, caso):
@@ -581,7 +581,7 @@ def test_20_credencial_otra_sesion(mundo, caso):
 # ===================================================== D. Credenciales inválidas (CA1, CA4)
 
 
-@pytest.mark.ta017(id="TA017-21", criterio="CA1, CA4", titulo="Sin credencial en todas las rutas",
+@pytest.mark.ta011(id="TA011-21", criterio="CA1, CA4", titulo="Sin credencial en todas las rutas",
                    nombre="sin_credencial", esperado="401 en las 4 operaciones (SA, SN2 y UUID inexistente)")
 def test_21_sin_credencial(mundo, caso):
     sin = Identidad("Sin credencial")
@@ -590,7 +590,7 @@ def test_21_sin_credencial(mundo, caso):
     caso.exigir()
 
 
-@pytest.mark.ta017(id="TA017-22", criterio="CA1, CA4", titulo="Token malformado «Bearer abc»",
+@pytest.mark.ta011(id="TA011-22", criterio="CA1, CA4", titulo="Token malformado «Bearer abc»",
                    nombre="bearer_malformado", esperado="401 en las 4 operaciones")
 def test_22_token_malformado(mundo, caso):
     _denegar_todas(caso, mundo, Identidad("Bearer abc", jwt="abc"), mundo.SA, None, {401}, "SA")
@@ -601,7 +601,7 @@ def _b64(data: dict) -> str:
     return base64.urlsafe_b64encode(json.dumps(data).encode()).decode().rstrip("=")
 
 
-@pytest.mark.ta017(id="TA017-23", criterio="CA1, CA4", titulo="JWT de A con la firma alterada",
+@pytest.mark.ta011(id="TA011-23", criterio="CA1, CA4", titulo="JWT de A con la firma alterada",
                    nombre="jwt_firma_alterada", esperado="401 en las 4 operaciones")
 def test_23_firma_alterada(mundo, caso):
     header, payload, signature = mundo.A.jwt.split(".")
@@ -614,7 +614,7 @@ def test_23_firma_alterada(mundo, caso):
     caso.exigir()
 
 
-@pytest.mark.ta017(id="TA017-24", criterio="CA1, CA4", titulo="JWT vencido o revocado",
+@pytest.mark.ta011(id="TA011-24", criterio="CA1, CA4", titulo="JWT vencido o revocado",
                    nombre="jwt_vencido", esperado="401 en las 4 operaciones")
 def test_24_jwt_vencido(mundo, caso):
     header, payload, signature = mundo.A.jwt.split(".")
@@ -648,7 +648,7 @@ def test_24_jwt_vencido(mundo, caso):
     caso.exigir()
 
 
-@pytest.mark.ta017(id="TA017-25", criterio="CA1, CA4", titulo="Esquema de autorización incorrecto",
+@pytest.mark.ta011(id="TA011-25", criterio="CA1, CA4", titulo="Esquema de autorización incorrecto",
                    nombre="esquema_incorrecto", esperado="401 con «Basic», «Token» o sin esquema")
 def test_25_esquema_incorrecto(mundo, caso):
     for scheme in ("Basic", "Token", ""):
@@ -659,7 +659,7 @@ def test_25_esquema_incorrecto(mundo, caso):
     caso.exigir()
 
 
-@pytest.mark.ta017(id="TA017-26", criterio="CA1, CA2", titulo="Solo la clave publicable de Supabase",
+@pytest.mark.ta011(id="TA011-26", criterio="CA1, CA2", titulo="Solo la clave publicable de Supabase",
                    nombre="solo_anon_key", esperado="401: la clave publicable no identifica a ningún usuario")
 def test_26_solo_anon_key(mundo, caso):
     pub = mundo.extra["publishable"]
@@ -676,7 +676,7 @@ def test_26_solo_anon_key(mundo, caso):
 # ================================================ E. Manipulación de identificadores (IDOR)
 
 
-@pytest.mark.ta017(id="TA017-27", criterio="CA1, CA2", titulo="session_id = SB dentro del cuerpo",
+@pytest.mark.ta011(id="TA011-27", criterio="CA1, CA2", titulo="session_id = SB dentro del cuerpo",
                    nombre="session_id_en_cuerpo", esperado="Se ignora: el mensaje va a SA y SB no recibe nada")
 def test_27_session_id_en_cuerpo(mundo, caso):
     before = _snapshot(mundo, mundo.SB, mundo.B)
@@ -691,7 +691,7 @@ def test_27_session_id_en_cuerpo(mundo, caso):
     caso.exigir()
 
 
-@pytest.mark.ta017(id="TA017-28", criterio="CA1, CA2", titulo="owner_id/user_id = A en el cuerpo de B",
+@pytest.mark.ta011(id="TA011-28", criterio="CA1, CA2", titulo="owner_id/user_id = A en el cuerpo de B",
                    nombre="owner_id_en_cuerpo", esperado="Se ignora: la sesión queda a nombre de B (A recibe 404)")
 def test_28_owner_en_cuerpo(mundo, caso):
     body = {"case_id": CASO_OTRO, "owner_id": mundo.A.user_id, "user_id": mundo.A.user_id, "session_id": mundo.SA}
@@ -726,7 +726,7 @@ RAROS = [
 ]
 
 
-@pytest.mark.ta017(id="TA017-29", criterio="CA1, CA4", titulo="Identificadores con formatos raros",
+@pytest.mark.ta011(id="TA011-29", criterio="CA1, CA4", titulo="Identificadores con formatos raros",
                    nombre="ids_raros", esperado="4xx (400/401/404/405/414/422), nunca 500 ni datos")
 def test_29_ids_raros(mundo, caso):
     allowed = {400, 401, 404, 405, 414, 422}
@@ -743,7 +743,7 @@ def test_29_ids_raros(mundo, caso):
 # ============================================================== F. Estado de cierre
 
 
-@pytest.mark.ta017(id="TA017-06", criterio="CA1, CA4", titulo="A cierra SA", nombre="A_cierra_SA",
+@pytest.mark.ta011(id="TA011-06", criterio="CA1, CA4", titulo="A cierra SA", nombre="A_cierra_SA",
                    esperado="200, fase finalizada y evaluación")
 def test_06_a_cierra_sa(mundo, caso):
     body = {"diagnosis": "Diagnóstico de A", "hypotheses": [{"name": "Hipótesis de A", "discarded": False}]}
@@ -756,7 +756,7 @@ def test_06_a_cierra_sa(mundo, caso):
     caso.exigir()
 
 
-@pytest.mark.ta017(id="TA017-30", criterio="CA1", titulo="Mensaje a SA cerrada", nombre="mensaje_sesion_cerrada",
+@pytest.mark.ta011(id="TA011-30", criterio="CA1", titulo="Mensaje a SA cerrada", nombre="mensaje_sesion_cerrada",
                    esperado="409 «La sesión ya finalizó.»")
 def test_30_mensaje_cerrada(mundo, caso):
     before = _snapshot(mundo, mundo.SA, mundo.A)
@@ -769,7 +769,7 @@ def test_30_mensaje_cerrada(mundo, caso):
     caso.exigir()
 
 
-@pytest.mark.ta017(id="TA017-31", criterio="CA1", titulo="Evento a SA cerrada", nombre="evento_sesion_cerrada",
+@pytest.mark.ta011(id="TA011-31", criterio="CA1", titulo="Evento a SA cerrada", nombre="evento_sesion_cerrada",
                    esperado="Rechazado (no existe ruta de escritura de eventos) y la lista no cambia")
 def test_31_evento_cerrada(mundo, caso):
     body = {"type": "turn", "agent": "paciente"}
@@ -782,7 +782,7 @@ def test_31_evento_cerrada(mundo, caso):
     caso.exigir()
 
 
-@pytest.mark.ta017(id="TA017-32", criterio="CA1", titulo="Cerrar dos veces", nombre="cerrar_dos_veces",
+@pytest.mark.ta011(id="TA011-32", criterio="CA1", titulo="Cerrar dos veces", nombre="cerrar_dos_veces",
                    esperado="200 idempotente: misma evaluación, nunca 500")
 def test_32_cerrar_dos_veces(mundo, caso):
     response = mundo.call("POST", f"/api/ai/sessions/{mundo.SA}/finish", mundo.A.headers(), {})
@@ -792,7 +792,7 @@ def test_32_cerrar_dos_veces(mundo, caso):
     caso.exigir()
 
 
-@pytest.mark.ta017(id="TA017-33", criterio="CA2", titulo="B sobre SA cerrada", nombre="B_sobre_SA_cerrada",
+@pytest.mark.ta011(id="TA011-33", criterio="CA2", titulo="B sobre SA cerrada", nombre="B_sobre_SA_cerrada",
                    esperado="404 en las 4 operaciones, sin datos de SA")
 def test_33_b_sobre_cerrada(mundo, caso):
     _denegar_todas(caso, mundo, mundo.B, mundo.SA, None, {NOT_FOUND}, "SA cerrada")
@@ -816,7 +816,7 @@ def _rows(response) -> int:
 
 
 @pytest.mark.vivo
-@pytest.mark.ta017(id="TA017-34", criterio="CA2", titulo="RLS: B lee las tablas de sesiones por REST",
+@pytest.mark.ta011(id="TA011-34", criterio="CA2", titulo="RLS: B lee las tablas de sesiones por REST",
                    nombre="rls_B_lee_tablas", esperado="0 filas (o permiso denegado) en sma_sesiones, sma_eventos e intentos")
 def test_34_rls_lectura(mundo, caso):
     pub = mundo.extra["publishable"]
@@ -833,7 +833,7 @@ def test_34_rls_lectura(mundo, caso):
 
 
 @pytest.mark.vivo
-@pytest.mark.ta017(id="TA017-35", criterio="CA2", titulo="RLS: B modifica o borra SA por REST",
+@pytest.mark.ta011(id="TA011-35", criterio="CA2", titulo="RLS: B modifica o borra SA por REST",
                    nombre="rls_B_modifica", esperado="0 filas afectadas y SA intacta para A")
 def test_35_rls_escritura(mundo, caso):
     pub = mundo.extra["publishable"]
@@ -857,7 +857,7 @@ def test_35_rls_escritura(mundo, caso):
 
 
 @pytest.mark.vivo
-@pytest.mark.ta017(id="TA017-36", criterio="CA2", titulo="RLS: solo la clave publicable",
+@pytest.mark.ta011(id="TA011-36", criterio="CA2", titulo="RLS: solo la clave publicable",
                    nombre="rls_solo_anon_key", esperado="0 filas de cualquier usuario")
 def test_36_rls_anon(mundo, caso):
     pub = mundo.extra["publishable"]
@@ -875,7 +875,7 @@ PROHIBIDO = ["Traceback", 'File "', "psycopg", "postgres", "SELECT ", "sb_secret
              "C:\\", "/var/task", "backend/server", "site-packages"]
 
 
-@pytest.mark.ta017(id="TA017-37", criterio="CA2, CA4", titulo="Errores sin detalles internos",
+@pytest.mark.ta011(id="TA011-37", criterio="CA2, CA4", titulo="Errores sin detalles internos",
                    nombre="errores_sin_detalles",
                    esperado="Ningún error con stack trace, SQL, rutas internas, claves ni ids de otros usuarios")
 def test_37_errores_limpios(mundo, caso):
@@ -899,7 +899,7 @@ def test_37_errores_limpios(mundo, caso):
     caso.exigir()
 
 
-@pytest.mark.ta017(id="TA017-38", criterio="CA2", titulo="CORS con origen no permitido",
+@pytest.mark.ta011(id="TA011-38", criterio="CA2", titulo="CORS con origen no permitido",
                    nombre="cors_origen_ajeno",
                    esperado="Sin Access-Control-Allow-Origin: el navegador de otro sitio no puede leer la respuesta")
 def test_38_cors(mundo, caso):
@@ -926,7 +926,7 @@ def _leer_log_desde(offset: int) -> str:
 
 
 @pytest.mark.logs_servidor
-@pytest.mark.ta017(id="TA017-39", criterio="CA1, CA2", titulo="Intentos denegados en el log del servidor",
+@pytest.mark.ta011(id="TA011-39", criterio="CA1, CA2", titulo="Intentos denegados en el log del servidor",
                    nombre="log_de_denegados",
                    esperado="Línea [autorizacion] con quién, ruta y código; tokens solo enmascarados")
 def test_39_log_denegados(mundo, caso, capsys):
@@ -960,16 +960,16 @@ def test_39_log_denegados(mundo, caso, capsys):
         whole = _leer_log_desde(0)
         in_access = [mask(s) for s in SECRETS.values if s in whole]
         caso.nota(f"Tokens completos en el log completo del servidor: {len(in_access)} {in_access}. "
-                  "Si aparecen, vienen de la URL registrada por el log de acceso (TA017-19 envía la "
+                  "Si aparecen, vienen de la URL registrada por el log de acceso (TA011-19 envía la "
                   "credencial en ?token= a propósito); la API no la acepta por query string.")
     caso.exigir()
 
 
-@pytest.mark.ta017(id="TA017-40", criterio="CA1", titulo="Stream SSE/websocket (no aplica)",
+@pytest.mark.ta011(id="TA011-40", criterio="CA1", titulo="Stream SSE/websocket (no aplica)",
                    nombre="stream_no_existe",
                    esperado="No hay stream de eventos: 404/405 al intentar conectar, con o sin credencial")
 def test_40_stream(mundo, caso):
-    caso.nota("La API no ofrece SSE ni websocket (ver TA017-09): los eventos solo se leen con GET /events.")
+    caso.nota("La API no ofrece SSE ni websocket (ver TA011-09): los eventos solo se leen con GET /events.")
     for quien, headers in ((mundo.B.nombre, mundo.B.headers()), ("Sin credencial", {})):
         for suffix in ("/stream", "/events/stream", "/ws"):
             response = mundo.call("GET", f"/api/ai/sessions/{mundo.SA}{suffix}",
