@@ -59,8 +59,11 @@ def _short(text: str) -> str:
 class Caso:
     """Pasos (petición + respuesta) y comprobaciones de un caso TA011-XX."""
 
-    def __init__(self, id: str, criterio: str, titulo: str, nombre: str, esperado: str):  # noqa: A002
+    def __init__(self, id: str, criterio: str, titulo: str, nombre: str, esperado: str,  # noqa: A002
+                 carpeta_env: str = "TA011_EVIDENCIA"):
         case_id = id
+        # Variable con la carpeta de evidencia: TA011_EVIDENCIA para TA-011, HU006_EVIDENCIA para HU-006.
+        self.carpeta_env = carpeta_env
         self.case_id, self.criterio, self.titulo, self.nombre, self.esperado = case_id, criterio, titulo, nombre, esperado
         self.pasos: list[dict] = []
         self.comprobaciones: list[dict] = []
@@ -109,7 +112,7 @@ class Caso:
         assert not malos, f"{self.case_id}: " + " | ".join(malos)
 
     def escribir(self, resultado: str, error: str = "") -> None:
-        folder = os.getenv("TA011_EVIDENCIA")
+        folder = os.getenv(self.carpeta_env)
         if not folder:
             return
         logs = Path(folder) / "logs"
