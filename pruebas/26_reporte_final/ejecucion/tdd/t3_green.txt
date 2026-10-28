@@ -1,0 +1,7 @@
+﻿COMANDO: python -m pytest tests/security/test_ta011_session_authz.py -q -m 'not vivo'
+COMMIT: 1367b65
+FECHA: 2026-10-28 07:16:54 UTC
+CODIGO_SALIDA: 0
+
+.....................................                                    [100%]
+37 passed, 3 deselected in 1.73s
