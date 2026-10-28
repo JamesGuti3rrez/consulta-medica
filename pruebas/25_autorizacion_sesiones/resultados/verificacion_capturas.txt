@@ -6,5 +6,11 @@ Verificación de capturas de TA-011
 [local_despues] JSON: 37 | PNG: 37 | PASA 37 | FALLA 0
     casos sin PNG: ninguno
     casos sin JSON en esta fase (no ejecutados): TA011-34, TA011-35, TA011-36
+[vivo_antes] JSON: 40 | PNG: 40 | PASA 17 | FALLA 23
+    casos sin PNG: ninguno
+    casos sin JSON en esta fase (no ejecutados): ninguno
+[vivo_despues] JSON: 40 | PNG: 40 | PASA 40 | FALLA 0
+    casos sin PNG: ninguno
+    casos sin JSON en esta fase (no ejecutados): ninguno
 
 Secretos sin enmascarar: ninguno
