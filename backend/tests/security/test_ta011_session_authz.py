@@ -979,6 +979,7 @@ def test_40_stream(mundo, caso):
         upgrade = mundo.call("GET", f"/api/ai/sessions/{mundo.SA}/ws",
                              {**headers, "Connection": "Upgrade", "Upgrade": "websocket",
                               "Sec-WebSocket-Version": "13", "Sec-WebSocket-Key": "dGhlIHNhbXBsZSBub25jZQ=="})
-        caso.paso(quien, upgrade, {400, 401, 404, 405}, "handshake websocket")
+        # Un servidor ASGI real (uvicorn) rechaza el websocket de una ruta inexistente con 403; TestClient no.
+        caso.paso(quien, upgrade, {400, 401, 403, 404, 405}, "handshake websocket")
         caso.comprobar("no acepta el websocket (101)", upgrade.status_code != 101)
     caso.exigir()
