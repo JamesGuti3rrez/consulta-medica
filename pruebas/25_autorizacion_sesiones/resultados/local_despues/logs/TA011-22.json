@@ -8,14 +8,14 @@
   "modo": "local",
   "servidor": "TestClient (en proceso)",
   "fase": "local_despues",
-  "commit": "0666f9e",
-  "fecha": "2026-10-28 05:09:00 UTC",
+  "commit": "64218b9",
+  "fecha": "2026-10-28 06:31:52 UTC",
   "pasos": [
     {
       "descripcion": "leer sesión de SA",
       "identidad": "Bearer abc",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2",
       "cabeceras": {
         "authorization": "Bearer abc"
       },
@@ -34,7 +34,7 @@
       "descripcion": "enviar mensaje de SA",
       "identidad": "Bearer abc",
       "metodo": "POST",
-      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/message",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2/message",
       "cabeceras": {
         "authorization": "Bearer abc",
         "content-type": "application/json"
@@ -56,7 +56,7 @@
       "descripcion": "listar eventos de SA",
       "identidad": "Bearer abc",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/events",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2/events",
       "cabeceras": {
         "authorization": "Bearer abc"
       },
@@ -75,7 +75,7 @@
       "descripcion": "cerrar sesión de SA",
       "identidad": "Bearer abc",
       "metodo": "POST",
-      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/finish",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2/finish",
       "cabeceras": {
         "authorization": "Bearer abc",
         "content-type": "application/json"

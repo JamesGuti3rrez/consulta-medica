@@ -8,16 +8,16 @@
   "modo": "local",
   "servidor": "TestClient (en proceso)",
   "fase": "local_despues",
-  "commit": "0666f9e",
-  "fecha": "2026-10-28 05:08:59 UTC",
+  "commit": "64218b9",
+  "fecha": "2026-10-28 06:31:52 UTC",
   "pasos": [
     {
       "descripcion": "leer SN2 con su credencial alterada",
       "identidad": "Anónimo 2 (credencial alterada)",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/45492238-d97c-403d-9ec6-50cb06d570f3",
+      "url": "http://testserver/api/ai/sessions/078cebf0-0a95-4bcc-a274-0a1bc7c7bf63",
       "cabeceras": {
-        "x-session-token": "gsFV7C…RCaA"
+        "x-session-token": "j3O47z…UbKE"
       },
       "cuerpo_enviado": null,
       "codigo_recibido": 404,
@@ -34,9 +34,9 @@
       "descripcion": "leer SN1 con la credencial alterada",
       "identidad": "Anónimo 1 (credencial alterada)",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/78054857-76b1-469f-b807-119332d26c05",
+      "url": "http://testserver/api/ai/sessions/dcf2ef0f-0994-4be3-86c8-c11af3475036",
       "cabeceras": {
-        "x-session-token": "U1nMOT…aAbo"
+        "x-session-token": "9IKa59…6ess"
       },
       "cuerpo_enviado": null,
       "codigo_recibido": 404,
@@ -53,7 +53,7 @@
       "descripcion": "leer SN2 con credencial muy corta",
       "identidad": "credencial muy corta",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/45492238-d97c-403d-9ec6-50cb06d570f3",
+      "url": "http://testserver/api/ai/sessions/078cebf0-0a95-4bcc-a274-0a1bc7c7bf63",
       "cabeceras": {
         "x-session-token": "abc"
       },
@@ -72,7 +72,7 @@
       "descripcion": "leer SN2 con credencial muy larga",
       "identidad": "credencial muy larga",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/45492238-d97c-403d-9ec6-50cb06d570f3",
+      "url": "http://testserver/api/ai/sessions/078cebf0-0a95-4bcc-a274-0a1bc7c7bf63",
       "cabeceras": {
         "x-session-token": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
       },
@@ -91,7 +91,7 @@
       "descripcion": "leer SN2 con credencial con espacios",
       "identidad": "credencial con espacios",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/45492238-d97c-403d-9ec6-50cb06d570f3",
+      "url": "http://testserver/api/ai/sessions/078cebf0-0a95-4bcc-a274-0a1bc7c7bf63",
       "cabeceras": {
         "x-session-token": "abc def ghi jkl mno pqr stu"
       },
@@ -110,7 +110,7 @@
       "descripcion": "leer SN2 con credencial caracteres no permitidos",
       "identidad": "credencial caracteres no permitidos",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/45492238-d97c-403d-9ec6-50cb06d570f3",
+      "url": "http://testserver/api/ai/sessions/078cebf0-0a95-4bcc-a274-0a1bc7c7bf63",
       "cabeceras": {
         "x-session-token": "<script>alert(1)</script>aaaaaaaaaaaaaaaaaaaa"
       },

@@ -3,8 +3,8 @@ MODO: local
 SERVIDOR: TestClient en proceso
 DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica\backend
 COMANDO: .venv\Scripts\python.exe -m pytest tests/security/test_ta011_session_authz.py -v --tb=no -rN -p no:cacheprovider -m not vivo
-COMMIT: 0666f9e
-FECHA: 2026-10-28 05:08:38 UTC
+COMMIT: 64218b9
+FECHA: 2026-10-28 06:31:48 UTC
 CODIGO_SALIDA: 0
 
 ============================= test session starts =============================
@@ -52,4 +52,4 @@ tests/security/test_ta011_session_authz.py::test_38_cors PASSED          [ 94%]
 tests/security/test_ta011_session_authz.py::test_39_log_denegados PASSED [ 97%]
 tests/security/test_ta011_session_authz.py::test_40_stream PASSED        [100%]
 
-====================== 37 passed, 3 deselected in 28.32s ======================
+====================== 37 passed, 3 deselected in 4.67s =======================

@@ -8,16 +8,16 @@
   "modo": "local",
   "servidor": "TestClient (en proceso)",
   "fase": "local_despues",
-  "commit": "0666f9e",
-  "fecha": "2026-10-28 05:09:00 UTC",
+  "commit": "64218b9",
+  "fecha": "2026-10-28 06:31:53 UTC",
   "pasos": [
     {
       "descripcion": "leer sesión de SA",
       "identidad": "A con esquema «Basic»",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2",
       "cabeceras": {
-        "authorization": "Basic eyJhbG…bM00"
+        "authorization": "Basic eyJhbG…LRcQ"
       },
       "cuerpo_enviado": null,
       "codigo_recibido": 401,
@@ -34,9 +34,9 @@
       "descripcion": "enviar mensaje de SA",
       "identidad": "A con esquema «Basic»",
       "metodo": "POST",
-      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/message",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2/message",
       "cabeceras": {
-        "authorization": "Basic eyJhbG…bM00",
+        "authorization": "Basic eyJhbG…LRcQ",
         "content-type": "application/json"
       },
       "cuerpo_enviado": {
@@ -56,9 +56,9 @@
       "descripcion": "listar eventos de SA",
       "identidad": "A con esquema «Basic»",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/events",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2/events",
       "cabeceras": {
-        "authorization": "Basic eyJhbG…bM00"
+        "authorization": "Basic eyJhbG…LRcQ"
       },
       "cuerpo_enviado": null,
       "codigo_recibido": 401,
@@ -75,9 +75,9 @@
       "descripcion": "leer sesión de SA",
       "identidad": "A con esquema «Token»",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2",
       "cabeceras": {
-        "authorization": "Token eyJhbG…bM00"
+        "authorization": "Token eyJhbG…LRcQ"
       },
       "cuerpo_enviado": null,
       "codigo_recibido": 401,
@@ -94,9 +94,9 @@
       "descripcion": "enviar mensaje de SA",
       "identidad": "A con esquema «Token»",
       "metodo": "POST",
-      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/message",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2/message",
       "cabeceras": {
-        "authorization": "Token eyJhbG…bM00",
+        "authorization": "Token eyJhbG…LRcQ",
         "content-type": "application/json"
       },
       "cuerpo_enviado": {
@@ -116,9 +116,9 @@
       "descripcion": "listar eventos de SA",
       "identidad": "A con esquema «Token»",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/events",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2/events",
       "cabeceras": {
-        "authorization": "Token eyJhbG…bM00"
+        "authorization": "Token eyJhbG…LRcQ"
       },
       "cuerpo_enviado": null,
       "codigo_recibido": 401,
@@ -135,9 +135,9 @@
       "descripcion": "leer sesión de SA",
       "identidad": "A con esquema «ninguno»",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2",
       "cabeceras": {
-        "authorization": "eyJhbG…bM00"
+        "authorization": "eyJhbG…LRcQ"
       },
       "cuerpo_enviado": null,
       "codigo_recibido": 401,
@@ -154,9 +154,9 @@
       "descripcion": "enviar mensaje de SA",
       "identidad": "A con esquema «ninguno»",
       "metodo": "POST",
-      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/message",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2/message",
       "cabeceras": {
-        "authorization": "eyJhbG…bM00",
+        "authorization": "eyJhbG…LRcQ",
         "content-type": "application/json"
       },
       "cuerpo_enviado": {
@@ -176,9 +176,9 @@
       "descripcion": "listar eventos de SA",
       "identidad": "A con esquema «ninguno»",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/events",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2/events",
       "cabeceras": {
-        "authorization": "eyJhbG…bM00"
+        "authorization": "eyJhbG…LRcQ"
       },
       "cuerpo_enviado": null,
       "codigo_recibido": 401,

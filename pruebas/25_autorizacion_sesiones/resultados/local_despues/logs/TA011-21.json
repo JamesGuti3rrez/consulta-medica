@@ -8,14 +8,14 @@
   "modo": "local",
   "servidor": "TestClient (en proceso)",
   "fase": "local_despues",
-  "commit": "0666f9e",
-  "fecha": "2026-10-28 05:08:59 UTC",
+  "commit": "64218b9",
+  "fecha": "2026-10-28 06:31:52 UTC",
   "pasos": [
     {
       "descripcion": "leer sesión de SA",
       "identidad": "Sin credencial",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2",
       "cabeceras": {},
       "cuerpo_enviado": null,
       "codigo_recibido": 401,
@@ -32,7 +32,7 @@
       "descripcion": "enviar mensaje de SA",
       "identidad": "Sin credencial",
       "metodo": "POST",
-      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/message",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2/message",
       "cabeceras": {
         "content-type": "application/json"
       },
@@ -53,7 +53,7 @@
       "descripcion": "listar eventos de SA",
       "identidad": "Sin credencial",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/events",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2/events",
       "cabeceras": {},
       "cuerpo_enviado": null,
       "codigo_recibido": 401,
@@ -70,7 +70,7 @@
       "descripcion": "cerrar sesión de SA",
       "identidad": "Sin credencial",
       "metodo": "POST",
-      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/finish",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2/finish",
       "cabeceras": {
         "content-type": "application/json"
       },
@@ -92,7 +92,7 @@
       "descripcion": "leer sesión de SN2",
       "identidad": "Sin credencial",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/45492238-d97c-403d-9ec6-50cb06d570f3",
+      "url": "http://testserver/api/ai/sessions/078cebf0-0a95-4bcc-a274-0a1bc7c7bf63",
       "cabeceras": {},
       "cuerpo_enviado": null,
       "codigo_recibido": 401,
@@ -109,7 +109,7 @@
       "descripcion": "enviar mensaje de SN2",
       "identidad": "Sin credencial",
       "metodo": "POST",
-      "url": "http://testserver/api/ai/sessions/45492238-d97c-403d-9ec6-50cb06d570f3/message",
+      "url": "http://testserver/api/ai/sessions/078cebf0-0a95-4bcc-a274-0a1bc7c7bf63/message",
       "cabeceras": {
         "content-type": "application/json"
       },
@@ -130,7 +130,7 @@
       "descripcion": "listar eventos de SN2",
       "identidad": "Sin credencial",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/45492238-d97c-403d-9ec6-50cb06d570f3/events",
+      "url": "http://testserver/api/ai/sessions/078cebf0-0a95-4bcc-a274-0a1bc7c7bf63/events",
       "cabeceras": {},
       "cuerpo_enviado": null,
       "codigo_recibido": 401,
@@ -147,7 +147,7 @@
       "descripcion": "cerrar sesión de SN2",
       "identidad": "Sin credencial",
       "metodo": "POST",
-      "url": "http://testserver/api/ai/sessions/45492238-d97c-403d-9ec6-50cb06d570f3/finish",
+      "url": "http://testserver/api/ai/sessions/078cebf0-0a95-4bcc-a274-0a1bc7c7bf63/finish",
       "cabeceras": {
         "content-type": "application/json"
       },
@@ -169,7 +169,7 @@
       "descripcion": "leer sesión de UUID inexistente",
       "identidad": "Sin credencial",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/5e236940-1f40-4025-b6a7-68deee963ae0",
+      "url": "http://testserver/api/ai/sessions/c77a6485-7224-48f1-b1d0-5f0389bef8f0",
       "cabeceras": {},
       "cuerpo_enviado": null,
       "codigo_recibido": 401,
@@ -186,7 +186,7 @@
       "descripcion": "enviar mensaje de UUID inexistente",
       "identidad": "Sin credencial",
       "metodo": "POST",
-      "url": "http://testserver/api/ai/sessions/5e236940-1f40-4025-b6a7-68deee963ae0/message",
+      "url": "http://testserver/api/ai/sessions/c77a6485-7224-48f1-b1d0-5f0389bef8f0/message",
       "cabeceras": {
         "content-type": "application/json"
       },
@@ -207,7 +207,7 @@
       "descripcion": "listar eventos de UUID inexistente",
       "identidad": "Sin credencial",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/5e236940-1f40-4025-b6a7-68deee963ae0/events",
+      "url": "http://testserver/api/ai/sessions/c77a6485-7224-48f1-b1d0-5f0389bef8f0/events",
       "cabeceras": {},
       "cuerpo_enviado": null,
       "codigo_recibido": 401,
@@ -224,7 +224,7 @@
       "descripcion": "cerrar sesión de UUID inexistente",
       "identidad": "Sin credencial",
       "metodo": "POST",
-      "url": "http://testserver/api/ai/sessions/5e236940-1f40-4025-b6a7-68deee963ae0/finish",
+      "url": "http://testserver/api/ai/sessions/c77a6485-7224-48f1-b1d0-5f0389bef8f0/finish",
       "cabeceras": {
         "content-type": "application/json"
       },

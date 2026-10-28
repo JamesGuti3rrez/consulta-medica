@@ -8,8 +8,8 @@
   "modo": "local",
   "servidor": "TestClient (en proceso)",
   "fase": "local_despues",
-  "commit": "0666f9e",
-  "fecha": "2026-10-28 05:09:07 UTC",
+  "commit": "64218b9",
+  "fecha": "2026-10-28 06:31:53 UTC",
   "pasos": [
     {
       "descripcion": "crear sesión con owner_id, user_id y session_id de A",
@@ -17,20 +17,20 @@
       "metodo": "POST",
       "url": "http://testserver/api/ai/sessions",
       "cabeceras": {
-        "authorization": "Bearer eyJhbG…oql8",
+        "authorization": "Bearer eyJhbG…3kB4",
         "content-type": "application/json"
       },
       "cuerpo_enviado": {
         "case_id": "MED-900",
-        "owner_id": "d6fd7d8d-ab88-4e14-817e-fde2889c0156",
-        "user_id": "d6fd7d8d-ab88-4e14-817e-fde2889c0156",
-        "session_id": "e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e"
+        "owner_id": "059423b0-2cf1-48ec-9888-c37077223b48",
+        "user_id": "059423b0-2cf1-48ec-9888-c37077223b48",
+        "session_id": "4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2"
       },
       "codigo_recibido": 200,
       "cabeceras_respuesta": {
         "content-type": "application/json"
       },
-      "cuerpo_recibido": "{\"phase\":\"presentacion\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"],\"finished_at\":null,\"session_id\":\"90fa11ec-3e05-4106-a74d-c98c8756d499\",\"case_id\":\"MED-900\",\"started_at\":\"2026-10-28T05:09:07.009673+00:00\",\"active_agent\":\"medico_asistente\",\"updated_at\":\"2026-10-28T05:09:07.009686+00:00\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null}",
+      "cuerpo_recibido": "{\"phase\":\"presentacion\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"],\"started_at\":\"2026-10-28T06:31:53.312874+00:00\",\"updated_at\":\"2026-10-28T06:31:53.312885+00:00\",\"finished_at\":null,\"case_id\":\"MED-900\",\"session_id\":\"42812a58-3882-4441-a8ec-4e9b3396416e\",\"active_agent\":\"medico_asistente\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null}",
       "codigo_esperado": [
         200
       ],
@@ -40,9 +40,9 @@
       "descripcion": "A intenta leer la sesión creada por B",
       "identidad": "Usuario A (registrado)",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/90fa11ec-3e05-4106-a74d-c98c8756d499",
+      "url": "http://testserver/api/ai/sessions/42812a58-3882-4441-a8ec-4e9b3396416e",
       "cabeceras": {
-        "authorization": "Bearer eyJhbG…bM00"
+        "authorization": "Bearer eyJhbG…LRcQ"
       },
       "cuerpo_enviado": null,
       "codigo_recibido": 404,
@@ -59,16 +59,16 @@
       "descripcion": "B lee su sesión",
       "identidad": "Usuario B (registrado)",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/90fa11ec-3e05-4106-a74d-c98c8756d499",
+      "url": "http://testserver/api/ai/sessions/42812a58-3882-4441-a8ec-4e9b3396416e",
       "cabeceras": {
-        "authorization": "Bearer eyJhbG…oql8"
+        "authorization": "Bearer eyJhbG…3kB4"
       },
       "cuerpo_enviado": null,
       "codigo_recibido": 200,
       "cabeceras_respuesta": {
         "content-type": "application/json"
       },
-      "cuerpo_recibido": "{\"phase\":\"presentacion\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"],\"finished_at\":null,\"session_id\":\"90fa11ec-3e05-4106-a74d-c98c8756d499\",\"case_id\":\"MED-900\",\"started_at\":\"2026-10-28T05:09:07.009673+00:00\",\"active_agent\":\"medico_asistente\",\"updated_at\":\"2026-10-28T05:09:07.009686+00:00\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null}",
+      "cuerpo_recibido": "{\"phase\":\"presentacion\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"],\"started_at\":\"2026-10-28T06:31:53.312874+00:00\",\"updated_at\":\"2026-10-28T06:31:53.312885+00:00\",\"finished_at\":null,\"case_id\":\"MED-900\",\"session_id\":\"42812a58-3882-4441-a8ec-4e9b3396416e\",\"active_agent\":\"medico_asistente\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null}",
       "codigo_esperado": [
         200
       ],
@@ -84,13 +84,13 @@
       },
       "cuerpo_enviado": {
         "case_id": "MED-900",
-        "owner_id": "d6fd7d8d-ab88-4e14-817e-fde2889c0156"
+        "owner_id": "059423b0-2cf1-48ec-9888-c37077223b48"
       },
       "codigo_recibido": 200,
       "cabeceras_respuesta": {
         "content-type": "application/json"
       },
-      "cuerpo_recibido": "{\"phase\":\"presentacion\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"],\"finished_at\":null,\"session_id\":\"7f07ba71-be41-4a29-8c90-3da2ec43b0d2\",\"case_id\":\"MED-900\",\"started_at\":\"2026-10-28T05:09:07.035632+00:00\",\"active_agent\":\"medico_asistente\",\"updated_at\":\"2026-10-28T05:09:07.035646+00:00\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null,\"session_token\":\"2Ie_Pb…cPJM\"}",
+      "cuerpo_recibido": "{\"phase\":\"presentacion\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"],\"started_at\":\"2026-10-28T06:31:53.336396+00:00\",\"updated_at\":\"2026-10-28T06:31:53.336406+00:00\",\"finished_at\":null,\"case_id\":\"MED-900\",\"session_id\":\"16ab6cd9-8f11-432c-afb6-bbf36fb772a2\",\"active_agent\":\"medico_asistente\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null,\"session_token\":\"xn2rbr…IvUM\"}",
       "codigo_esperado": [
         200
       ],
@@ -100,9 +100,9 @@
       "descripcion": "A intenta leer la sesión del invitado",
       "identidad": "Usuario A (registrado)",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/7f07ba71-be41-4a29-8c90-3da2ec43b0d2",
+      "url": "http://testserver/api/ai/sessions/16ab6cd9-8f11-432c-afb6-bbf36fb772a2",
       "cabeceras": {
-        "authorization": "Bearer eyJhbG…bM00"
+        "authorization": "Bearer eyJhbG…LRcQ"
       },
       "cuerpo_enviado": null,
       "codigo_recibido": 404,
@@ -119,16 +119,16 @@
       "descripcion": "SA sigue intacta para A",
       "identidad": "Usuario A (registrado)",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2",
       "cabeceras": {
-        "authorization": "Bearer eyJhbG…bM00"
+        "authorization": "Bearer eyJhbG…LRcQ"
       },
       "cuerpo_enviado": null,
       "codigo_recibido": 200,
       "cabeceras_respuesta": {
         "content-type": "application/json"
       },
-      "cuerpo_recibido": "{\"phase\":\"examenes\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\",\"MED-900.anamnesis.inicio_dolor\",\"MED-900.laboratorio.hemograma\",\"MED-900.medicacion.paracetamol\",\"MED-900.anamnesis.alergias\"],\"finished_at\":null,\"session_id\":\"e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e\",\"case_id\":\"MED-900\",\"started_at\":\"2026-10-28T05:08:40.940636+00:00\",\"active_agent\":\"paciente\",\"updated_at\":\"2026-10-28T05:09:00.445788+00:00\",\"avatar_state\":{\"gesture\":\"attentive\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null}",
+      "cuerpo_recibido": "{\"phase\":\"examenes\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\",\"MED-900.anamnesis.inicio_dolor\",\"MED-900.laboratorio.hemograma\",\"MED-900.medicacion.paracetamol\",\"MED-900.anamnesis.alergias\"],\"started_at\":\"2026-10-28T06:31:50.455339+00:00\",\"updated_at\":\"2026-10-28T06:31:53.240225+00:00\",\"finished_at\":null,\"case_id\":\"MED-900\",\"session_id\":\"4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2\",\"active_agent\":\"paciente\",\"avatar_state\":{\"gesture\":\"attentive\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null}",
       "codigo_esperado": [
         200
       ],

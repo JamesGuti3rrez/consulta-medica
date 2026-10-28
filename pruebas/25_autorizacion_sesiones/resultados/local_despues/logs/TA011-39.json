@@ -8,16 +8,16 @@
   "modo": "local",
   "servidor": "TestClient (en proceso)",
   "fase": "local_despues",
-  "commit": "0666f9e",
-  "fecha": "2026-10-28 05:09:07 UTC",
+  "commit": "64218b9",
+  "fecha": "2026-10-28 06:31:54 UTC",
   "pasos": [
     {
-      "descripcion": "intento denegado: GET /api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e",
+      "descripcion": "intento denegado: GET /api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2",
       "identidad": "Usuario B (registrado)",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2",
       "cabeceras": {
-        "authorization": "Bearer eyJhbG…oql8"
+        "authorization": "Bearer eyJhbG…3kB4"
       },
       "cuerpo_enviado": null,
       "codigo_recibido": 404,
@@ -31,10 +31,10 @@
       "resultado": "PASA"
     },
     {
-      "descripcion": "intento denegado: GET /api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/events",
+      "descripcion": "intento denegado: GET /api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2/events",
       "identidad": "Sin credencial",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/events",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2/events",
       "cabeceras": {},
       "cuerpo_enviado": null,
       "codigo_recibido": 401,
@@ -48,12 +48,12 @@
       "resultado": "PASA"
     },
     {
-      "descripcion": "intento denegado: GET /api/ai/sessions/78054857-76b1-469f-b807-119332d26c05",
+      "descripcion": "intento denegado: GET /api/ai/sessions/dcf2ef0f-0994-4be3-86c8-c11af3475036",
       "identidad": "Anónimo 2 + credencial de capacidad",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/78054857-76b1-469f-b807-119332d26c05",
+      "url": "http://testserver/api/ai/sessions/dcf2ef0f-0994-4be3-86c8-c11af3475036",
       "cabeceras": {
-        "x-session-token": "gsFV7C…RCaA"
+        "x-session-token": "j3O47z…UbKE"
       },
       "cuerpo_enviado": null,
       "codigo_recibido": 404,
@@ -100,7 +100,7 @@
     }
   ],
   "notas": [
-    "Líneas del log del servidor:\n[autorizacion] 404 GET /api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e usuario=451f123e-bf05-4bdb-a973-32e620b0af78 motivo=ajena\n[autorizacion] 401 GET /api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/events anonimo motivo=sin_credencial\n[autorizacion] 404 GET /api/ai/sessions/78054857-76b1-469f-b807-119332d26c05 capacidad=gsFV7C…RCaA motivo=ajena"
+    "Líneas del log del servidor:\n[autorizacion] 404 GET /api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2 usuario=aad3c021-4f91-40d4-ac44-19c4b6d3a9bb motivo=ajena\n[autorizacion] 401 GET /api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2/events anonimo motivo=sin_credencial\n[autorizacion] 404 GET /api/ai/sessions/dcf2ef0f-0994-4be3-86c8-c11af3475036 capacidad=j3O47z…UbKE motivo=ajena"
   ],
   "error": ""
 }

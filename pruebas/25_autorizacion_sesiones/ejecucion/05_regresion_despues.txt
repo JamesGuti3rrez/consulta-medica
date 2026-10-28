@@ -1,6 +1,6 @@
 DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica\backend
-COMANDO: .venv\Scripts\python.exe -m pytest -q -p no:cacheprovider
-FECHA: 2026-10-28 05:15:31 UTC
+COMANDO: set SESSION_STORE=memoria&& set CASE_STORE=local&& set RAG_BACKEND=local&& set SYNTHETIC_CASE_DATA=false&& set LANGSMITH_TRACING=false&& .venv\Scripts\python.exe -m pytest -q -p no:cacheprovider
+FECHA: 2026-10-28 06:35:26 UTC
 CODIGO_SALIDA: 0
 
 STDOUT:
@@ -11,9 +11,8 @@ STDOUT:
 ........................................................................ [ 78%]
 ........................................................................ [ 93%]
 .............................                                            [100%]
-461 passed, 3 deselected in 182.11s (0:03:02)
+461 passed, 3 deselected in 19.92s
 
 
 STDERR:
-Failed to send compressed multipart ingest: langsmith.utils.LangSmithRateLimitError: Rate limit exceeded for https://api.smith.langchain.com/runs/multipart. HTTPError('429 Client Error: Too Many Requests for url: https://api.smith.langchain.com/runs/multipart', '{"error":"Too many requests: tenant exceeded usage limits: Monthly unique traces usage limit exceeded"}\n')trace=01a180ef-38c3-77c1-8093-ffc991345078,id=01a180ef-38c3-77c1-8093-ffc991345078; trace=01a180ef-38c3-77c1-8093-ffc991345078,id=01a180ef-38c4-7bb1-b1a8-c0754f08a853; trace=01a180ef-38c3-77c1-8093-ffc991345078,id=01a180ef-38c5-7562-87bf-217bbda8044a; trace=01a180ef-38c3-77c1-8093-ffc991345078,id=01a180ef-38c5-7562-87bf-217bbda8044a; trace=01a180ef-38c3-77c1-8093-ffc991345078,id=01a180ef-38c4-7bb1-b1a8-c0754f08a853; trace=01a180ef-38c3-77c1-8093-ffc991345078,id=01a180ef-38c6-7bc1-ba4c-72752369f903; trace=01a180ef-38c3-77c1-8093-ffc991345078,id=01a180ef-38c6-7bc1-ba4c-72752369f903; trace=01a180ef-38c3-77c1-8093-ffc991345078,id=01a180ef-38e0-7a60-9e1e-f93de448eb7f; trace=01a180ef-38c3-77c1-8093-ffc991345078,id=01a180ef-38e0-7a60-9e1e-f93de448eb7f; trace=01a180ef-38c3-77c1-8093-ffc991345078,id=01a180ef-38c3-77c1-8093-ffc991345078
 

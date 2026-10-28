@@ -8,16 +8,16 @@
   "modo": "local",
   "servidor": "TestClient (en proceso)",
   "fase": "local_despues",
-  "commit": "0666f9e",
-  "fecha": "2026-10-28 05:08:59 UTC",
+  "commit": "64218b9",
+  "fecha": "2026-10-28 06:31:52 UTC",
   "pasos": [
     {
       "descripcion": "leer sesión de SA",
       "identidad": "Anónimo 1 + credencial de capacidad",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2",
       "cabeceras": {
-        "x-session-token": "U1nMOT…aAbo"
+        "x-session-token": "9IKa59…6ess"
       },
       "cuerpo_enviado": null,
       "codigo_recibido": 404,
@@ -34,9 +34,9 @@
       "descripcion": "enviar mensaje de SA",
       "identidad": "Anónimo 1 + credencial de capacidad",
       "metodo": "POST",
-      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/message",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2/message",
       "cabeceras": {
-        "x-session-token": "U1nMOT…aAbo",
+        "x-session-token": "9IKa59…6ess",
         "content-type": "application/json"
       },
       "cuerpo_enviado": {
@@ -56,9 +56,9 @@
       "descripcion": "listar eventos de SA",
       "identidad": "Anónimo 1 + credencial de capacidad",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/events",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2/events",
       "cabeceras": {
-        "x-session-token": "U1nMOT…aAbo"
+        "x-session-token": "9IKa59…6ess"
       },
       "cuerpo_enviado": null,
       "codigo_recibido": 404,
@@ -75,9 +75,9 @@
       "descripcion": "cerrar sesión de SA",
       "identidad": "Anónimo 1 + credencial de capacidad",
       "metodo": "POST",
-      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/finish",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2/finish",
       "cabeceras": {
-        "x-session-token": "U1nMOT…aAbo",
+        "x-session-token": "9IKa59…6ess",
         "content-type": "application/json"
       },
       "cuerpo_enviado": {

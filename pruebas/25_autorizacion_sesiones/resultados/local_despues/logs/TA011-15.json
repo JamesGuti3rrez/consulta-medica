@@ -8,16 +8,16 @@
   "modo": "local",
   "servidor": "TestClient (en proceso)",
   "fase": "local_despues",
-  "commit": "0666f9e",
-  "fecha": "2026-10-28 05:08:59 UTC",
+  "commit": "64218b9",
+  "fecha": "2026-10-28 06:31:51 UTC",
   "pasos": [
     {
       "descripcion": "leer sesión de SN1",
       "identidad": "Anónimo 2 + credencial de capacidad",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/78054857-76b1-469f-b807-119332d26c05",
+      "url": "http://testserver/api/ai/sessions/dcf2ef0f-0994-4be3-86c8-c11af3475036",
       "cabeceras": {
-        "x-session-token": "gsFV7C…RCaA"
+        "x-session-token": "j3O47z…UbKE"
       },
       "cuerpo_enviado": null,
       "codigo_recibido": 404,
@@ -34,9 +34,9 @@
       "descripcion": "enviar mensaje de SN1",
       "identidad": "Anónimo 2 + credencial de capacidad",
       "metodo": "POST",
-      "url": "http://testserver/api/ai/sessions/78054857-76b1-469f-b807-119332d26c05/message",
+      "url": "http://testserver/api/ai/sessions/dcf2ef0f-0994-4be3-86c8-c11af3475036/message",
       "cabeceras": {
-        "x-session-token": "gsFV7C…RCaA",
+        "x-session-token": "j3O47z…UbKE",
         "content-type": "application/json"
       },
       "cuerpo_enviado": {
@@ -56,9 +56,9 @@
       "descripcion": "listar eventos de SN1",
       "identidad": "Anónimo 2 + credencial de capacidad",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/78054857-76b1-469f-b807-119332d26c05/events",
+      "url": "http://testserver/api/ai/sessions/dcf2ef0f-0994-4be3-86c8-c11af3475036/events",
       "cabeceras": {
-        "x-session-token": "gsFV7C…RCaA"
+        "x-session-token": "j3O47z…UbKE"
       },
       "cuerpo_enviado": null,
       "codigo_recibido": 404,
@@ -75,9 +75,9 @@
       "descripcion": "cerrar sesión de SN1",
       "identidad": "Anónimo 2 + credencial de capacidad",
       "metodo": "POST",
-      "url": "http://testserver/api/ai/sessions/78054857-76b1-469f-b807-119332d26c05/finish",
+      "url": "http://testserver/api/ai/sessions/dcf2ef0f-0994-4be3-86c8-c11af3475036/finish",
       "cabeceras": {
-        "x-session-token": "gsFV7C…RCaA",
+        "x-session-token": "j3O47z…UbKE",
         "content-type": "application/json"
       },
       "cuerpo_enviado": {

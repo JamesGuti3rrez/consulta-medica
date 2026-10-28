@@ -8,16 +8,16 @@
   "modo": "local",
   "servidor": "TestClient (en proceso)",
   "fase": "local_despues",
-  "commit": "0666f9e",
-  "fecha": "2026-10-28 05:08:59 UTC",
+  "commit": "64218b9",
+  "fecha": "2026-10-28 06:31:51 UTC",
   "pasos": [
     {
       "descripcion": "respuesta recibida en TA011-10",
       "identidad": "Usuario B (registrado)",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2",
       "cabeceras": {
-        "authorization": "Bearer eyJhbG…oql8"
+        "authorization": "Bearer eyJhbG…3kB4"
       },
       "cuerpo_enviado": null,
       "codigo_recibido": 404,
@@ -34,9 +34,9 @@
       "descripcion": "respuesta recibida en TA011-10",
       "identidad": "Usuario B (registrado)",
       "metodo": "POST",
-      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/message",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2/message",
       "cabeceras": {
-        "authorization": "Bearer eyJhbG…oql8",
+        "authorization": "Bearer eyJhbG…3kB4",
         "content-type": "application/json"
       },
       "cuerpo_enviado": null,
@@ -54,9 +54,9 @@
       "descripcion": "respuesta recibida en TA011-10",
       "identidad": "Usuario B (registrado)",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/events",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2/events",
       "cabeceras": {
-        "authorization": "Bearer eyJhbG…oql8"
+        "authorization": "Bearer eyJhbG…3kB4"
       },
       "cuerpo_enviado": null,
       "codigo_recibido": 404,
@@ -73,9 +73,9 @@
       "descripcion": "respuesta recibida en TA011-10",
       "identidad": "Usuario B (registrado)",
       "metodo": "POST",
-      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/finish",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2/finish",
       "cabeceras": {
-        "authorization": "Bearer eyJhbG…oql8",
+        "authorization": "Bearer eyJhbG…3kB4",
         "content-type": "application/json"
       },
       "cuerpo_enviado": null,
@@ -92,22 +92,22 @@
   ],
   "comprobaciones": [
     {
-      "descripcion": "sin marcadores en GET /api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e",
+      "descripcion": "sin marcadores en GET /api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2",
       "resultado": "PASA",
       "detalle": "encontrados: []"
     },
     {
-      "descripcion": "sin marcadores en POST /api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/message",
+      "descripcion": "sin marcadores en POST /api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2/message",
       "resultado": "PASA",
       "detalle": "encontrados: []"
     },
     {
-      "descripcion": "sin marcadores en GET /api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/events",
+      "descripcion": "sin marcadores en GET /api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2/events",
       "resultado": "PASA",
       "detalle": "encontrados: []"
     },
     {
-      "descripcion": "sin marcadores en POST /api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/finish",
+      "descripcion": "sin marcadores en POST /api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2/finish",
       "resultado": "PASA",
       "detalle": "encontrados: []"
     }

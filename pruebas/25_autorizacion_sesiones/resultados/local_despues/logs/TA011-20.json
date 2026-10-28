@@ -8,16 +8,16 @@
   "modo": "local",
   "servidor": "TestClient (en proceso)",
   "fase": "local_despues",
-  "commit": "0666f9e",
-  "fecha": "2026-10-28 05:08:59 UTC",
+  "commit": "64218b9",
+  "fecha": "2026-10-28 06:31:52 UTC",
   "pasos": [
     {
       "descripcion": "leer sesión de SN2",
       "identidad": "Anónimo 1 + credencial de capacidad",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/45492238-d97c-403d-9ec6-50cb06d570f3",
+      "url": "http://testserver/api/ai/sessions/078cebf0-0a95-4bcc-a274-0a1bc7c7bf63",
       "cabeceras": {
-        "x-session-token": "U1nMOT…aAbo"
+        "x-session-token": "9IKa59…6ess"
       },
       "cuerpo_enviado": null,
       "codigo_recibido": 404,
@@ -34,9 +34,9 @@
       "descripcion": "enviar mensaje de SN2",
       "identidad": "Anónimo 1 + credencial de capacidad",
       "metodo": "POST",
-      "url": "http://testserver/api/ai/sessions/45492238-d97c-403d-9ec6-50cb06d570f3/message",
+      "url": "http://testserver/api/ai/sessions/078cebf0-0a95-4bcc-a274-0a1bc7c7bf63/message",
       "cabeceras": {
-        "x-session-token": "U1nMOT…aAbo",
+        "x-session-token": "9IKa59…6ess",
         "content-type": "application/json"
       },
       "cuerpo_enviado": {
@@ -56,9 +56,9 @@
       "descripcion": "listar eventos de SN2",
       "identidad": "Anónimo 1 + credencial de capacidad",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/45492238-d97c-403d-9ec6-50cb06d570f3/events",
+      "url": "http://testserver/api/ai/sessions/078cebf0-0a95-4bcc-a274-0a1bc7c7bf63/events",
       "cabeceras": {
-        "x-session-token": "U1nMOT…aAbo"
+        "x-session-token": "9IKa59…6ess"
       },
       "cuerpo_enviado": null,
       "codigo_recibido": 404,
@@ -75,9 +75,9 @@
       "descripcion": "cerrar sesión de SN2",
       "identidad": "Anónimo 1 + credencial de capacidad",
       "metodo": "POST",
-      "url": "http://testserver/api/ai/sessions/45492238-d97c-403d-9ec6-50cb06d570f3/finish",
+      "url": "http://testserver/api/ai/sessions/078cebf0-0a95-4bcc-a274-0a1bc7c7bf63/finish",
       "cabeceras": {
-        "x-session-token": "U1nMOT…aAbo",
+        "x-session-token": "9IKa59…6ess",
         "content-type": "application/json"
       },
       "cuerpo_enviado": {
@@ -100,7 +100,7 @@
       "metodo": "POST",
       "url": "http://testserver/api/ai/sessions",
       "cabeceras": {
-        "x-session-token": "U1nMOT…aAbo",
+        "x-session-token": "9IKa59…6ess",
         "content-type": "application/json"
       },
       "cuerpo_enviado": {
@@ -110,7 +110,7 @@
       "cabeceras_respuesta": {
         "content-type": "application/json"
       },
-      "cuerpo_recibido": "{\"phase\":\"presentacion\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"],\"finished_at\":null,\"session_id\":\"2019e54b-195d-4a40-876f-416a32c766f7\",\"case_id\":\"MED-900\",\"started_at\":\"2026-10-28T05:08:59.769635+00:00\",\"active_agent\":\"medico_asistente\",\"updated_at\":\"2026-10-28T05:08:59.769651+00:00\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null,\"session_token\":\"ofLDwv…_c0s\"}",
+      "cuerpo_recibido": "{\"phase\":\"presentacion\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"],\"started_at\":\"2026-10-28T06:31:52.464233+00:00\",\"updated_at\":\"2026-10-28T06:31:52.464245+00:00\",\"finished_at\":null,\"case_id\":\"MED-900\",\"session_id\":\"2fe3fe17-0f5d-4ca7-8bf3-c0300f1ba46b\",\"active_agent\":\"medico_asistente\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null,\"session_token\":\"_MuBJV…el-A\"}",
       "codigo_esperado": [
         200
       ],
@@ -120,9 +120,9 @@
       "descripcion": "leer la sesión nueva con la credencial de SN1",
       "identidad": "Anónimo 1 + credencial de SN1",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/2019e54b-195d-4a40-876f-416a32c766f7",
+      "url": "http://testserver/api/ai/sessions/2fe3fe17-0f5d-4ca7-8bf3-c0300f1ba46b",
       "cabeceras": {
-        "x-session-token": "U1nMOT…aAbo"
+        "x-session-token": "9IKa59…6ess"
       },
       "cuerpo_enviado": null,
       "codigo_recibido": 404,

@@ -8,16 +8,16 @@
   "modo": "local",
   "servidor": "TestClient (en proceso)",
   "fase": "local_antes",
-  "commit": "0666f9e",
-  "fecha": "2026-10-28 05:08:15 UTC",
+  "commit": "5f9435d",
+  "fecha": "2026-10-28 06:31:41 UTC",
   "pasos": [
     {
       "descripcion": "B cuenta los eventos de SB antes",
       "identidad": "Usuario B (registrado)",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/228e7c46-50a0-48f2-bac2-3fd2bc416ca3/events",
+      "url": "http://testserver/api/ai/sessions/707cc587-0727-4c6a-8262-556e0b9dc3ba/events",
       "cabeceras": {
-        "authorization": "Bearer eyJhbG…Wuow"
+        "authorization": "Bearer eyJhbG…1DgA"
       },
       "cuerpo_enviado": null,
       "codigo_recibido": 200,
@@ -34,15 +34,15 @@
       "descripcion": "mensaje a SA con session_id = SB en el cuerpo",
       "identidad": "Usuario A (registrado)",
       "metodo": "POST",
-      "url": "http://testserver/api/ai/sessions/6082876d-8a41-49eb-b342-f3945849ca98/message",
+      "url": "http://testserver/api/ai/sessions/adbc98ed-6ba4-483d-92f3-21d9b9974613/message",
       "cabeceras": {
-        "authorization": "Bearer eyJhbG…Cd58",
+        "authorization": "Bearer eyJhbG…Gmp8",
         "content-type": "application/json"
       },
       "cuerpo_enviado": {
         "message": "¿Tiene alergias a algún medicamento?",
-        "session_id": "228e7c46-50a0-48f2-bac2-3fd2bc416ca3",
-        "owner_id": "7cc536f2-4f39-4c8c-b65c-f90ea2521efa"
+        "session_id": "707cc587-0727-4c6a-8262-556e0b9dc3ba",
+        "owner_id": "3a0aedf9-aa93-4e2e-9ac0-0dba383e4431"
       },
       "codigo_recibido": 409,
       "cabeceras_respuesta": {
@@ -58,9 +58,9 @@
       "descripcion": "B cuenta los eventos de SB después",
       "identidad": "Usuario B (registrado)",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/228e7c46-50a0-48f2-bac2-3fd2bc416ca3/events",
+      "url": "http://testserver/api/ai/sessions/707cc587-0727-4c6a-8262-556e0b9dc3ba/events",
       "cabeceras": {
-        "authorization": "Bearer eyJhbG…Wuow"
+        "authorization": "Bearer eyJhbG…1DgA"
       },
       "cuerpo_enviado": null,
       "codigo_recibido": 200,
@@ -82,5 +82,5 @@
     }
   ],
   "notas": [],
-  "error": "E   AssertionError: TA011-27: paso 2 (POST http://testserver/api/ai/sessions/6082876d-8a41-49eb-b342-f3945849ca98/message): 409 no está en [200]"
+  "error": "E   AssertionError: TA011-27: paso 2 (POST http://testserver/api/ai/sessions/adbc98ed-6ba4-483d-92f3-21d9b9974613/message): 409 no está en [200]"
 }

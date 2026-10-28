@@ -8,8 +8,8 @@
   "modo": "local",
   "servidor": "TestClient (en proceso)",
   "fase": "local_despues",
-  "commit": "0666f9e",
-  "fecha": "2026-10-28 05:08:58 UTC",
+  "commit": "64218b9",
+  "fecha": "2026-10-28 06:31:51 UTC",
   "pasos": [
     {
       "descripcion": "leer el esquema OpenAPI",

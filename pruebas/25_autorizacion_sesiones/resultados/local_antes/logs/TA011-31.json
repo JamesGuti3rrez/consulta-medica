@@ -8,16 +8,16 @@
   "modo": "local",
   "servidor": "TestClient (en proceso)",
   "fase": "local_antes",
-  "commit": "0666f9e",
-  "fecha": "2026-10-28 05:08:15 UTC",
+  "commit": "5f9435d",
+  "fecha": "2026-10-28 06:31:42 UTC",
   "pasos": [
     {
       "descripcion": "escribir evento en SA cerrada",
       "identidad": "Usuario A (registrado)",
       "metodo": "POST",
-      "url": "http://testserver/api/ai/sessions/6082876d-8a41-49eb-b342-f3945849ca98/events",
+      "url": "http://testserver/api/ai/sessions/adbc98ed-6ba4-483d-92f3-21d9b9974613/events",
       "cabeceras": {
-        "authorization": "Bearer eyJhbG…Cd58",
+        "authorization": "Bearer eyJhbG…Gmp8",
         "content-type": "application/json"
       },
       "cuerpo_enviado": {
@@ -39,9 +39,9 @@
       "descripcion": "A lista los eventos de SA",
       "identidad": "Usuario A (registrado)",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/6082876d-8a41-49eb-b342-f3945849ca98/events",
+      "url": "http://testserver/api/ai/sessions/adbc98ed-6ba4-483d-92f3-21d9b9974613/events",
       "cabeceras": {
-        "authorization": "Bearer eyJhbG…Cd58"
+        "authorization": "Bearer eyJhbG…Gmp8"
       },
       "cuerpo_enviado": null,
       "codigo_recibido": 200,

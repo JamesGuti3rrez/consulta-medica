@@ -8,16 +8,16 @@
   "modo": "local",
   "servidor": "TestClient (en proceso)",
   "fase": "local_antes",
-  "commit": "0666f9e",
-  "fecha": "2026-10-28 05:08:01 UTC",
+  "commit": "5f9435d",
+  "fecha": "2026-10-28 06:31:39 UTC",
   "pasos": [
     {
       "descripcion": "mensaje 1 de la preparación",
       "identidad": "Usuario A (registrado)",
       "metodo": "POST",
-      "url": "http://testserver/api/ai/sessions/6082876d-8a41-49eb-b342-f3945849ca98/message",
+      "url": "http://testserver/api/ai/sessions/adbc98ed-6ba4-483d-92f3-21d9b9974613/message",
       "cabeceras": {
-        "authorization": "Bearer eyJhbG…Cd58",
+        "authorization": "Bearer eyJhbG…Gmp8",
         "content-type": "application/json"
       },
       "cuerpo_enviado": {
@@ -27,7 +27,7 @@
       "cabeceras_respuesta": {
         "content-type": "application/json"
       },
-      "cuerpo_recibido": "{\"session\":{\"case_id\":\"MED-900\",\"phase\":\"anamnesis\",\"started_at\":\"2026-10-28T05:07:45.300385+00:00\",\"session_id\":\"6082876d-8a41-49eb-b342-f3945849ca98\",\"active_agent\":\"paciente\",\"updated_at\":\"2026-10-28T05:07:45.544501+00:00\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\",\"MED-900.anamnesis.inicio_dolor\"],\"finished_at\":null,\"avatar_state\":{\"gesture\":\"attentive\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null},\"intent\":\"ask_patient\",\"agent\":\"paciente\",\"response\":\"El dolor comenzó hace tres días; es pulsátil y predomina en el lado derecho.\",\"synthetic_generated_ids\":[],\"synthetic_reused_ids\":[],\"data_source\":\"curado\",\"doctor_question\":\"¿Desde cuándo comenzó el dolor y cómo lo describiría?\",\"provider\":\"local-development\",\"model\":\"rules-only\",\"evidence_ids\":[\"MED-900.anamnesis.inicio_dolor\"],\"blocked\":false,\"safety_alerts\":[]}",
+      "cuerpo_recibido": "{\"session\":{\"session_id\":\"adbc98ed-6ba4-483d-92f3-21d9b9974613\",\"started_at\":\"2026-10-28T06:31:39.321160+00:00\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\",\"MED-900.anamnesis.inicio_dolor\"],\"case_id\":\"MED-900\",\"updated_at\":\"2026-10-28T06:31:39.421419+00:00\",\"phase\":\"anamnesis\",\"finished_at\":null,\"active_agent\":\"paciente\",\"avatar_state\":{\"gesture\":\"attentive\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null},\"intent\":\"ask_patient\",\"agent\":\"paciente\",\"response\":\"El dolor comenzó hace tres días; es pulsátil y predomina en el lado derecho.\",\"synthetic_generated_ids\":[],\"synthetic_reused_ids\":[],\"data_source\":\"curado\",\"doctor_question\":\"¿Desde cuándo comenzó el dolor y cómo lo describiría?\",\"provider\":\"local-development\",\"model\":\"rules-only\",\"evidence_ids\":[\"MED-900.anamnesis.inicio_dolor\"],\"blocked\":false,\"safety_alerts\":[]}",
       "codigo_esperado": [
         200
       ],
@@ -37,9 +37,9 @@
       "descripcion": "mensaje 2 de la preparación",
       "identidad": "Usuario A (registrado)",
       "metodo": "POST",
-      "url": "http://testserver/api/ai/sessions/6082876d-8a41-49eb-b342-f3945849ca98/message",
+      "url": "http://testserver/api/ai/sessions/adbc98ed-6ba4-483d-92f3-21d9b9974613/message",
       "cabeceras": {
-        "authorization": "Bearer eyJhbG…Cd58",
+        "authorization": "Bearer eyJhbG…Gmp8",
         "content-type": "application/json"
       },
       "cuerpo_enviado": {
@@ -49,7 +49,7 @@
       "cabeceras_respuesta": {
         "content-type": "application/json"
       },
-      "cuerpo_recibido": "{\"session\":{\"case_id\":\"MED-900\",\"phase\":\"examenes\",\"started_at\":\"2026-10-28T05:07:45.300385+00:00\",\"session_id\":\"6082876d-8a41-49eb-b342-f3945849ca98\",\"active_agent\":\"laboratorio\",\"updated_at\":\"2026-10-28T05:07:50.002532+00:00\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\",\"MED-900.anamnesis.inicio_dolor\",\"MED-900.laboratorio.hemograma\"],\"finished_at\":null,\"avatar_state\":{\"gesture\":\"attentive\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null},\"intent\":\"request_lab\",\"agent\":\"laboratorio\",\"response\":\"Hemograma sin alteraciones relevantes.\",\"synthetic_generated_ids\":[],\"synthetic_reused_ids\":[],\"data_source\":\"curado\",\"doctor_question\":null,\"provider\":\"local-development\",\"model\":\"rules-only\",\"evidence_ids\":[\"MED-900.laboratorio.hemograma\"],\"blocked\":false,\"safety_alerts\":[]}",
+      "cuerpo_recibido": "{\"session\":{\"session_id\":\"adbc98ed-6ba4-483d-92f3-21d9b9974613\",\"started_at\":\"2026-10-28T06:31:39.321160+00:00\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\",\"MED-900.anamnesis.inicio_dolor\",\"MED-900.laboratorio.hemograma\"],\"case_id\":\"MED-900\",\"updated_at\":\"2026-10-28T06:31:39.454895+00:00\",\"phase\":\"examenes\",\"finished_at\":null,\"active_agent\":\"laboratorio\",\"avatar_state\":{\"gesture\":\"attentive\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null},\"intent\":\"request_lab\",\"agent\":\"laboratorio\",\"response\":\"Hemograma sin alteraciones relevantes.\",\"synthetic_generated_ids\":[],\"synthetic_reused_ids\":[],\"data_source\":\"curado\",\"doctor_question\":null,\"provider\":\"local-development\",\"model\":\"rules-only\",\"evidence_ids\":[\"MED-900.laboratorio.hemograma\"],\"blocked\":false,\"safety_alerts\":[]}",
       "codigo_esperado": [
         200
       ],
@@ -59,9 +59,9 @@
       "descripcion": "mensaje 3",
       "identidad": "Usuario A (registrado)",
       "metodo": "POST",
-      "url": "http://testserver/api/ai/sessions/6082876d-8a41-49eb-b342-f3945849ca98/message",
+      "url": "http://testserver/api/ai/sessions/adbc98ed-6ba4-483d-92f3-21d9b9974613/message",
       "cabeceras": {
-        "authorization": "Bearer eyJhbG…Cd58",
+        "authorization": "Bearer eyJhbG…Gmp8",
         "content-type": "application/json"
       },
       "cuerpo_enviado": {
@@ -71,7 +71,7 @@
       "cabeceras_respuesta": {
         "content-type": "application/json"
       },
-      "cuerpo_recibido": "{\"session\":{\"case_id\":\"MED-900\",\"phase\":\"examenes\",\"started_at\":\"2026-10-28T05:07:45.300385+00:00\",\"session_id\":\"6082876d-8a41-49eb-b342-f3945849ca98\",\"active_agent\":\"paciente\",\"updated_at\":\"2026-10-28T05:07:54.045738+00:00\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\",\"MED-900.anamnesis.inicio_dolor\",\"MED-900.laboratorio.hemograma\",\"MED-900.medicacion.paracetamol\",\"MED-900.anamnesis.alergias\"],\"finished_at\":null,\"avatar_state\":{\"gesture\":\"attentive\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null},\"intent\":\"ask_patient\",\"agent\":\"paciente\",\"response\":\"Tomó paracetamol 1 g, con mejoría parcial y transitoria. Niega alergias medicamentosas conocidas.\",\"synthetic_generated_ids\":[],\"synthetic_reused_ids\":[],\"data_source\":\"curado\",\"doctor_question\":\"¿Tiene alergias a algún medicamento?\",\"provider\":\"local-development\",\"model\":\"rules-only\",\"evidence_ids\":[\"MED-900.medicacion.paracetamol\",\"MED-900.anamnesis.alergias\"],\"blocked\":false,\"safety_alerts\":[]}",
+      "cuerpo_recibido": "{\"session\":{\"session_id\":\"adbc98ed-6ba4-483d-92f3-21d9b9974613\",\"started_at\":\"2026-10-28T06:31:39.321160+00:00\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\",\"MED-900.anamnesis.inicio_dolor\",\"MED-900.laboratorio.hemograma\",\"MED-900.medicacion.paracetamol\",\"MED-900.anamnesis.alergias\"],\"case_id\":\"MED-900\",\"updated_at\":\"2026-10-28T06:31:39.591487+00:00\",\"phase\":\"examenes\",\"finished_at\":null,\"active_agent\":\"paciente\",\"avatar_state\":{\"gesture\":\"attentive\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null},\"intent\":\"ask_patient\",\"agent\":\"paciente\",\"response\":\"Tomó paracetamol 1 g, con mejoría parcial y transitoria. Niega alergias medicamentosas conocidas.\",\"synthetic_generated_ids\":[],\"synthetic_reused_ids\":[],\"data_source\":\"curado\",\"doctor_question\":\"¿Tiene alergias a algún medicamento?\",\"provider\":\"local-development\",\"model\":\"rules-only\",\"evidence_ids\":[\"MED-900.medicacion.paracetamol\",\"MED-900.anamnesis.alergias\"],\"blocked\":false,\"safety_alerts\":[]}",
       "codigo_esperado": [
         200
       ],

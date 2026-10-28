@@ -8,8 +8,8 @@
   "modo": "local",
   "servidor": "TestClient (en proceso)",
   "fase": "local_antes",
-  "commit": "0666f9e",
-  "fecha": "2026-10-28 05:07:53 UTC",
+  "commit": "5f9435d",
+  "fecha": "2026-10-28 06:31:39 UTC",
   "pasos": [
     {
       "descripcion": "crear SA con su token",
@@ -17,7 +17,7 @@
       "metodo": "POST",
       "url": "http://testserver/api/ai/sessions",
       "cabeceras": {
-        "authorization": "Bearer eyJhbG…Cd58",
+        "authorization": "Bearer eyJhbG…Gmp8",
         "content-type": "application/json"
       },
       "cuerpo_enviado": {
@@ -27,7 +27,7 @@
       "cabeceras_respuesta": {
         "content-type": "application/json"
       },
-      "cuerpo_recibido": "{\"case_id\":\"MED-900\",\"phase\":\"presentacion\",\"started_at\":\"2026-10-28T05:07:45.300385+00:00\",\"session_id\":\"6082876d-8a41-49eb-b342-f3945849ca98\",\"active_agent\":\"medico_asistente\",\"updated_at\":\"2026-10-28T05:07:45.300400+00:00\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"],\"finished_at\":null,\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null}",
+      "cuerpo_recibido": "{\"session_id\":\"adbc98ed-6ba4-483d-92f3-21d9b9974613\",\"started_at\":\"2026-10-28T06:31:39.321160+00:00\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"],\"case_id\":\"MED-900\",\"updated_at\":\"2026-10-28T06:31:39.321175+00:00\",\"phase\":\"presentacion\",\"finished_at\":null,\"active_agent\":\"medico_asistente\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null}",
       "codigo_esperado": [
         200
       ],

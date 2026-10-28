@@ -8,16 +8,16 @@
   "modo": "local",
   "servidor": "TestClient (en proceso)",
   "fase": "local_despues",
-  "commit": "0666f9e",
-  "fecha": "2026-10-28 05:08:54 UTC",
+  "commit": "64218b9",
+  "fecha": "2026-10-28 06:31:51 UTC",
   "pasos": [
     {
       "descripcion": "intentar escribir un evento",
       "identidad": "Usuario A (registrado)",
       "metodo": "POST",
-      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/events",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2/events",
       "cabeceras": {
-        "authorization": "Bearer eyJhbG…bM00",
+        "authorization": "Bearer eyJhbG…LRcQ",
         "content-type": "application/json"
       },
       "cuerpo_enviado": {

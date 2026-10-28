@@ -8,16 +8,16 @@
   "modo": "local",
   "servidor": "TestClient (en proceso)",
   "fase": "local_despues",
-  "commit": "0666f9e",
-  "fecha": "2026-10-28 05:08:59 UTC",
+  "commit": "64218b9",
+  "fecha": "2026-10-28 06:31:51 UTC",
   "pasos": [
     {
       "descripcion": "leer sesión de SA (ajena)",
       "identidad": "Usuario B (registrado)",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2",
       "cabeceras": {
-        "authorization": "Bearer eyJhbG…oql8"
+        "authorization": "Bearer eyJhbG…3kB4"
       },
       "cuerpo_enviado": null,
       "codigo_recibido": 404,
@@ -34,9 +34,9 @@
       "descripcion": "leer sesión de un UUID inexistente",
       "identidad": "Usuario B (registrado)",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/5e236940-1f40-4025-b6a7-68deee963ae0",
+      "url": "http://testserver/api/ai/sessions/c77a6485-7224-48f1-b1d0-5f0389bef8f0",
       "cabeceras": {
-        "authorization": "Bearer eyJhbG…oql8"
+        "authorization": "Bearer eyJhbG…3kB4"
       },
       "cuerpo_enviado": null,
       "codigo_recibido": 404,
@@ -53,9 +53,9 @@
       "descripcion": "enviar mensaje de SA (ajena)",
       "identidad": "Usuario B (registrado)",
       "metodo": "POST",
-      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/message",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2/message",
       "cabeceras": {
-        "authorization": "Bearer eyJhbG…oql8",
+        "authorization": "Bearer eyJhbG…3kB4",
         "content-type": "application/json"
       },
       "cuerpo_enviado": {
@@ -75,9 +75,9 @@
       "descripcion": "enviar mensaje de un UUID inexistente",
       "identidad": "Usuario B (registrado)",
       "metodo": "POST",
-      "url": "http://testserver/api/ai/sessions/5e236940-1f40-4025-b6a7-68deee963ae0/message",
+      "url": "http://testserver/api/ai/sessions/c77a6485-7224-48f1-b1d0-5f0389bef8f0/message",
       "cabeceras": {
-        "authorization": "Bearer eyJhbG…oql8",
+        "authorization": "Bearer eyJhbG…3kB4",
         "content-type": "application/json"
       },
       "cuerpo_enviado": {
@@ -97,9 +97,9 @@
       "descripcion": "listar eventos de SA (ajena)",
       "identidad": "Usuario B (registrado)",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/events",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2/events",
       "cabeceras": {
-        "authorization": "Bearer eyJhbG…oql8"
+        "authorization": "Bearer eyJhbG…3kB4"
       },
       "cuerpo_enviado": null,
       "codigo_recibido": 404,
@@ -116,9 +116,9 @@
       "descripcion": "listar eventos de un UUID inexistente",
       "identidad": "Usuario B (registrado)",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/5e236940-1f40-4025-b6a7-68deee963ae0/events",
+      "url": "http://testserver/api/ai/sessions/c77a6485-7224-48f1-b1d0-5f0389bef8f0/events",
       "cabeceras": {
-        "authorization": "Bearer eyJhbG…oql8"
+        "authorization": "Bearer eyJhbG…3kB4"
       },
       "cuerpo_enviado": null,
       "codigo_recibido": 404,
@@ -135,9 +135,9 @@
       "descripcion": "cerrar sesión de SA (ajena)",
       "identidad": "Usuario B (registrado)",
       "metodo": "POST",
-      "url": "http://testserver/api/ai/sessions/e8ebf2f3-6d95-4e1c-81fe-f1e532a52a5e/finish",
+      "url": "http://testserver/api/ai/sessions/4d00cd0a-eb09-4eb2-bcd7-676a8e6ad4f2/finish",
       "cabeceras": {
-        "authorization": "Bearer eyJhbG…oql8",
+        "authorization": "Bearer eyJhbG…3kB4",
         "content-type": "application/json"
       },
       "cuerpo_enviado": {
@@ -158,9 +158,9 @@
       "descripcion": "cerrar sesión de un UUID inexistente",
       "identidad": "Usuario B (registrado)",
       "metodo": "POST",
-      "url": "http://testserver/api/ai/sessions/5e236940-1f40-4025-b6a7-68deee963ae0/finish",
+      "url": "http://testserver/api/ai/sessions/c77a6485-7224-48f1-b1d0-5f0389bef8f0/finish",
       "cabeceras": {
-        "authorization": "Bearer eyJhbG…oql8",
+        "authorization": "Bearer eyJhbG…3kB4",
         "content-type": "application/json"
       },
       "cuerpo_enviado": {

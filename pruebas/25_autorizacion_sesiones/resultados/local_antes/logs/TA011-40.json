@@ -8,16 +8,16 @@
   "modo": "local",
   "servidor": "TestClient (en proceso)",
   "fase": "local_antes",
-  "commit": "0666f9e",
-  "fecha": "2026-10-28 05:08:15 UTC",
+  "commit": "5f9435d",
+  "fecha": "2026-10-28 06:31:42 UTC",
   "pasos": [
     {
       "descripcion": "conectar a SA/stream",
       "identidad": "Usuario B (registrado)",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/6082876d-8a41-49eb-b342-f3945849ca98/stream",
+      "url": "http://testserver/api/ai/sessions/adbc98ed-6ba4-483d-92f3-21d9b9974613/stream",
       "cabeceras": {
-        "authorization": "Bearer eyJhbG…Wuow"
+        "authorization": "Bearer eyJhbG…1DgA"
       },
       "cuerpo_enviado": null,
       "codigo_recibido": 404,
@@ -36,9 +36,9 @@
       "descripcion": "conectar a SA/events/stream",
       "identidad": "Usuario B (registrado)",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/6082876d-8a41-49eb-b342-f3945849ca98/events/stream",
+      "url": "http://testserver/api/ai/sessions/adbc98ed-6ba4-483d-92f3-21d9b9974613/events/stream",
       "cabeceras": {
-        "authorization": "Bearer eyJhbG…Wuow"
+        "authorization": "Bearer eyJhbG…1DgA"
       },
       "cuerpo_enviado": null,
       "codigo_recibido": 404,
@@ -57,9 +57,9 @@
       "descripcion": "conectar a SA/ws",
       "identidad": "Usuario B (registrado)",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/6082876d-8a41-49eb-b342-f3945849ca98/ws",
+      "url": "http://testserver/api/ai/sessions/adbc98ed-6ba4-483d-92f3-21d9b9974613/ws",
       "cabeceras": {
-        "authorization": "Bearer eyJhbG…Wuow"
+        "authorization": "Bearer eyJhbG…1DgA"
       },
       "cuerpo_enviado": null,
       "codigo_recibido": 404,
@@ -78,9 +78,9 @@
       "descripcion": "handshake websocket",
       "identidad": "Usuario B (registrado)",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/6082876d-8a41-49eb-b342-f3945849ca98/ws",
+      "url": "http://testserver/api/ai/sessions/adbc98ed-6ba4-483d-92f3-21d9b9974613/ws",
       "cabeceras": {
-        "authorization": "Bearer eyJhbG…Wuow"
+        "authorization": "Bearer eyJhbG…1DgA"
       },
       "cuerpo_enviado": null,
       "codigo_recibido": 404,
@@ -91,6 +91,7 @@
       "codigo_esperado": [
         400,
         401,
+        403,
         404,
         405
       ],
@@ -100,7 +101,7 @@
       "descripcion": "conectar a SA/stream",
       "identidad": "Sin credencial",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/6082876d-8a41-49eb-b342-f3945849ca98/stream",
+      "url": "http://testserver/api/ai/sessions/adbc98ed-6ba4-483d-92f3-21d9b9974613/stream",
       "cabeceras": {},
       "cuerpo_enviado": null,
       "codigo_recibido": 404,
@@ -119,7 +120,7 @@
       "descripcion": "conectar a SA/events/stream",
       "identidad": "Sin credencial",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/6082876d-8a41-49eb-b342-f3945849ca98/events/stream",
+      "url": "http://testserver/api/ai/sessions/adbc98ed-6ba4-483d-92f3-21d9b9974613/events/stream",
       "cabeceras": {},
       "cuerpo_enviado": null,
       "codigo_recibido": 404,
@@ -138,7 +139,7 @@
       "descripcion": "conectar a SA/ws",
       "identidad": "Sin credencial",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/6082876d-8a41-49eb-b342-f3945849ca98/ws",
+      "url": "http://testserver/api/ai/sessions/adbc98ed-6ba4-483d-92f3-21d9b9974613/ws",
       "cabeceras": {},
       "cuerpo_enviado": null,
       "codigo_recibido": 404,
@@ -157,7 +158,7 @@
       "descripcion": "handshake websocket",
       "identidad": "Sin credencial",
       "metodo": "GET",
-      "url": "http://testserver/api/ai/sessions/6082876d-8a41-49eb-b342-f3945849ca98/ws",
+      "url": "http://testserver/api/ai/sessions/adbc98ed-6ba4-483d-92f3-21d9b9974613/ws",
       "cabeceras": {},
       "cuerpo_enviado": null,
       "codigo_recibido": 404,
@@ -168,6 +169,7 @@
       "codigo_esperado": [
         400,
         401,
+        403,
         404,
         405
       ],
