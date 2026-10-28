@@ -7,6 +7,10 @@ from server.domain import AgentRole, Intent, SessionPhase
 from server.orchestration.store import InMemorySessionStore
 
 
+class SessionNotFinished(Exception):
+    """El reporte solo existe cuando la consulta terminó (HU-006)."""
+
+
 def _now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
@@ -167,11 +171,14 @@ class MultiAgentSessionService:
             "safety_alerts": safety_alerts,
         }
 
-    def finish(self, session_id: str) -> dict:
+    def finish(self, session_id: str, diagnosis: str | None = None, hypotheses: list[dict] | None = None) -> dict:
         session = self.store.get(session_id)
         # Cerrar otra vez devuelve el mismo resultado: no se recalcula ni se duplica el intento guardado.
         if session["phase"] == SessionPhase.FINALIZADA.value and session.get("evaluation"):
             return self._public(session)
+        # Lo que registró el estudiante queda en la consulta para el reporte final (HU-006). No es público.
+        session["student_diagnosis"] = diagnosis or ""
+        session["student_hypotheses"] = list(hypotheses or [])
         self._ensure_clinical_state(session)
         case = self.repository.get_conversation_case(session["case_id"])
         session["evaluation"] = self.evaluation_engine.evaluate(
@@ -190,6 +197,13 @@ class MultiAgentSessionService:
         self.store.save(session)
         self.store.event(session_id, {"type": "session_finished", "case_id": session["case_id"]})
         return self._public(session)
+
+    def report(self, session_id: str) -> dict:
+        """Reporte final de una consulta cerrada, armado solo con su caso y su propia sesión (HU-006)."""
+        session = self.store.get(session_id)
+        if session["phase"] != SessionPhase.FINALIZADA.value:
+            raise SessionNotFinished(session_id)
+        return self.evaluation_engine.report(session, self.store.events(session_id))
 
     def owner_of(self, session_id: str) -> str | None:
         return self.store.get(session_id).get("owner_id")
