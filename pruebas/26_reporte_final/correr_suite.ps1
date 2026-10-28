@@ -22,7 +22,8 @@ New-Item -ItemType Directory -Force $evidencia, (Split-Path $salida) | Out-Null
 
 # La preparación es la de TA-011 (TA011_MODO, TA011_BASE_URL...); la evidencia va a HU006_EVIDENCIA.
 $env:HU006_EVIDENCIA = $evidencia
-$env:TA011_EVIDENCIA = ""
+# La limpieza del modo vivo (de la preparación de TA-011) deja limpieza.json en la misma carpeta.
+$env:TA011_EVIDENCIA = $evidencia
 $env:TA011_MODO = $Modo
 $env:TA011_FASE = $Fase
 $env:TA011_BASE_URL = $BaseUrl
