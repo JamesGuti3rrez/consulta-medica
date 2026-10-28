@@ -1,4 +1,4 @@
-// TA-017 en el navegador: el simulador real usa su credencial y otro navegador no puede abrir esa consulta.
+// TA-011 en el navegador: el simulador real usa su credencial y otro navegador no puede abrir esa consulta.
 //
 // 1. Navegador del invitado: abre el simulador, inicia el caso, hace una pregunta y cierra la consulta. Se
 //    registran las cabeceras que envía el simulador (credencial enmascarada) y los códigos que recibe.
@@ -85,7 +85,7 @@ const mask = value => (value && value.length > 12 ? `${value.slice(0, 6)}…${va
   await page.screenshot({ path: shot('navegador_01_invitado_conversa') });
 
   await page.click('[data-role="diagnosis-button"]');
-  await page.fill('[data-role="diagnosis-input"]', 'Diagnóstico del invitado (TA-017)');
+  await page.fill('[data-role="diagnosis-input"]', 'Diagnóstico del invitado (TA-011)');
   const finish = page.waitForResponse(r => r.url().includes('/finish'));
   await page.click('[data-role="save-diagnosis"]');
   await finish;

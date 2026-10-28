@@ -1,4 +1,4 @@
-# Ejecuta la suite de TA-017 y guarda la salida completa con fecha, comando y código de salida.
+# Ejecuta la suite de TA-011 y guarda la salida completa con fecha, comando y código de salida.
 #
 # Uso, desde la raíz del repositorio (o dentro de captura_terminal.ps1 para la foto real):
 #   .\pruebas\25_autorizacion_sesiones\correr_suite.ps1 -Fase local_antes
@@ -20,19 +20,19 @@ $salida = Join-Path $carpeta "ejecucion\$($Fase)_pytest.txt"
 if (Test-Path "$evidencia\logs") { Remove-Item -Recurse -Force "$evidencia\logs" }
 New-Item -ItemType Directory -Force $evidencia, (Split-Path $salida) | Out-Null
 
-$env:TA017_EVIDENCIA = $evidencia
-$env:TA017_MODO = $Modo
-$env:TA017_FASE = $Fase
-$env:TA017_BASE_URL = $BaseUrl
-$env:TA017_SERVER_LOG = $LogServidor
+$env:TA011_EVIDENCIA = $evidencia
+$env:TA011_MODO = $Modo
+$env:TA011_FASE = $Fase
+$env:TA011_BASE_URL = $BaseUrl
+$env:TA011_SERVER_LOG = $LogServidor
 $env:PYTHONIOENCODING = "utf-8"
 
 $marcas = if ($Filtro) { $Filtro } elseif ($Modo -eq "local") { "not vivo" } else { "" }
-$argumentos = @("-m", "pytest", "tests/security/test_ta017_session_authz.py", "-v", "--tb=no", "-rN", "-p", "no:cacheprovider")
+$argumentos = @("-m", "pytest", "tests/security/test_ta011_session_authz.py", "-v", "--tb=no", "-rN", "-p", "no:cacheprovider")
 if ($marcas) { $argumentos += @("-m", $marcas) }
 $comando = ".venv\Scripts\python.exe " + ($argumentos -join " ")
 
-Write-Host "TA-017 | fase: $Fase | modo: $Modo | servidor: $(if ($BaseUrl) { $BaseUrl } else { 'TestClient en proceso' })"
+Write-Host "TA-011 | fase: $Fase | modo: $Modo | servidor: $(if ($BaseUrl) { $BaseUrl } else { 'TestClient en proceso' })"
 Write-Host "commit: $(git -C $raiz rev-parse --short HEAD) | evidencia: $evidencia"
 Write-Host $comando
 Push-Location (Join-Path $raiz "backend")

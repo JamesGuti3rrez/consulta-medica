@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""Genera las capturas PNG de la evidencia de TA-017 y el índice evidencia.html.
+"""Genera las capturas PNG de la evidencia de TA-011 y el índice evidencia.html.
 
 Uso, desde la raíz del repositorio:
     backend\\.venv\\Scripts\\python.exe pruebas\\25_autorizacion_sesiones\\generar_capturas.py
 
 Qué hace:
-1. Por cada fase de resultados/<fase>/logs/TA017-XX.json arma una tarjeta HTML (encabezado con id, criterio
+1. Por cada fase de resultados/<fase>/logs/TA011-XX.json arma una tarjeta HTML (encabezado con id, criterio
    y resultado; petición a la izquierda y respuesta a la derecha) y la fotografía en
-   resultados/<fase>/capturas/TA017-XX_<nombre>.png.
+   resultados/<fase>/capturas/TA011-XX_<nombre>.png.
 2. Renderiza en HTML monoespaciado las salidas de texto (pytest, regresión, git diff) y los documentos .md, y
    los fotografía en capturas/.
 3. Escribe evidencia.html (índice filtrable por criterio CA1-CA4 y por fase) y
@@ -31,7 +31,7 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 RESULTADOS = HERE / "resultados"
 CAPTURAS = HERE / "capturas"
-CASOS = [f"TA017-{n:02d}" for n in range(1, 41)]
+CASOS = [f"TA011-{n:02d}" for n in range(1, 41)]
 
 FASES = {
     "local_antes": "Local, antes del cambio (código vulnerable)",
@@ -250,7 +250,7 @@ def secretos(text: str) -> list[str]:
 
 
 def main() -> int:
-    work = Path(tempfile.mkdtemp(prefix="ta017_capturas_"))
+    work = Path(tempfile.mkdtemp(prefix="ta011_capturas_"))
     manifest: list[dict] = []
     resumen: dict[str, dict] = {}
     verificacion: list[str] = []
@@ -266,7 +266,7 @@ def main() -> int:
         if not logs.is_dir():
             continue
         resumen[fase] = {}
-        for path in sorted(logs.glob("TA017-*.json")):
+        for path in sorted(logs.glob("TA011-*.json")):
             raw = path.read_text(encoding="utf-8")
             data = json.loads(raw)
             png = RESULTADOS / fase / "capturas" / f"{data['id']}_{data['nombre']}.png"
@@ -280,12 +280,12 @@ def main() -> int:
     textos = [
         ("01_regresion_antes.txt", "pytest_resumen_antes.png", "Regresión completa ANTES de los cambios"),
         ("05_regresion_despues.txt", "pytest_resumen_despues.png", "Regresión completa DESPUÉS de los cambios"),
-        ("local_antes_pytest.txt", "pytest_local_antes.png", "Suite TA-017, local, antes"),
-        ("local_despues_pytest.txt", "pytest_local_despues.png", "Suite TA-017, local, después"),
-        ("vivo_antes_pytest.txt", "pytest_vivo_antes.png", "Suite TA-017, en vivo, antes"),
-        ("vivo_despues_pytest.txt", "pytest_vivo_despues.png", "Suite TA-017, en vivo, después"),
-        ("vercel_preview_pytest.txt", "pytest_vercel_preview.png", "Suite TA-017, Vercel preview"),
-        ("06_git_diff_cambios.txt", "git_diff_cambios.png", "git diff de los cambios de código de TA-017"),
+        ("local_antes_pytest.txt", "pytest_local_antes.png", "Suite TA-011, local, antes"),
+        ("local_despues_pytest.txt", "pytest_local_despues.png", "Suite TA-011, local, después"),
+        ("vivo_antes_pytest.txt", "pytest_vivo_antes.png", "Suite TA-011, en vivo, antes"),
+        ("vivo_despues_pytest.txt", "pytest_vivo_despues.png", "Suite TA-011, en vivo, después"),
+        ("vercel_preview_pytest.txt", "pytest_vercel_preview.png", "Suite TA-011, Vercel preview"),
+        ("06_git_diff_cambios.txt", "git_diff_cambios.png", "git diff de los cambios de código de TA-011"),
         ("07_recorrido_scripts.txt", "recorrido_scripts.png", "Scripts del recorrido completo con la credencial"),
         ("07b_bateria_13_casos.txt", "bateria_13_casos.png", "Batería de la fase 18 con los 13 casos con guion"),
         ("09_preview_protegido.txt", "preview_vercel_protegido.png", "Preview de Vercel protegido por Vercel Authentication"),
@@ -299,7 +299,7 @@ def main() -> int:
             if leaks:
                 verificacion.append(f"[texto] {name}: posibles secretos sin enmascarar: {leaks}")
 
-    for md in ("01_inventario_rutas.md", "02_politica_acceso.md", "INFORME_TA-017.md"):
+    for md in ("01_inventario_rutas.md", "02_politica_acceso.md", "INFORME_TA-011.md"):
         source = HERE / md
         if source.exists():
             add(documento(source), HERE / md.replace(".md", ".png"))
@@ -309,7 +309,7 @@ def main() -> int:
     subprocess.run(["node", str(HERE / "fotografiar.cjs"), str(manifest_path)], check=True, cwd=ROOT)
 
     # Verificación: un PNG por caso ejecutado y casos sin JSON en cada fase.
-    lines = ["Verificación de capturas de TA-017", ""]
+    lines = ["Verificación de capturas de TA-011", ""]
     for fase, casos in resumen.items():
         sin_png = [cid for cid, info in casos.items() if not info["png"].exists()]
         sin_json = [cid for cid in CASOS if cid not in casos]
@@ -359,9 +359,9 @@ def escribir_indice(resumen: dict[str, dict]) -> None:
     botones_fase = "<button data-fase='todas'>Todas las fases</button>" + "".join(
         f"<button data-fase='{f}'>{esc(FASES[f])}</button>" for f in fases)
     body = f"""
-<h1>TA-017 - Autorización de sesiones y eventos: evidencia</h1>
+<h1>TA-011 - Autorización de sesiones y eventos: evidencia</h1>
 <p>Una tarjeta por caso y por fase: petición y respuesta reales, con los tokens enmascarados. El detalle completo
-de cada caso está en su JSON. Informe: <a href='INFORME_TA-017.md'>INFORME_TA-017.md</a>.</p>
+de cada caso está en su JSON. Informe: <a href='INFORME_TA-011.md'>INFORME_TA-011.md</a>.</p>
 <h2>Resultado por caso y fase</h2>
 <table id='matriz'><tr><th>Caso</th><th>Título</th><th>Criterio</th>{''.join(f'<th>{esc(FASES[f])}</th>' for f in fases)}</tr>
 {''.join(filas)}</table>
@@ -395,7 +395,7 @@ aplicar();
 figure { margin:14px 0 26px; } figcaption { margin-bottom:6px; font-size:15px; }
 figure img { max-width:100%; border:1px solid var(--line); border-radius:8px; }
 """
-    html_text = page("TA-017 evidencia", body).replace("</style>", extra_css + "</style>", 1)
+    html_text = page("TA-011 evidencia", body).replace("</style>", extra_css + "</style>", 1)
     (HERE / "evidencia.html").write_text(html_text, encoding="utf-8")
 
 
