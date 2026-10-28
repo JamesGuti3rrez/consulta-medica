@@ -144,10 +144,17 @@ def _revealed(case: dict[str, Any], revealed_ids: list[str], own: str) -> list[d
     sources.update({item["evidence_id"]: item for item in public.get("items", [])})
     sources.update({item["evidence_id"]: item for item in case["on_request"]})
     return [
-        {"evidence_id": eid, "label": sources[eid].get("label", ""), "text": sources[eid].get("text", "")}
+        {"evidence_id": eid, "label": sources[eid].get("label", ""), "text": _evidence_text(sources[eid])}
         for eid in dict.fromkeys(revealed_ids)
         if eid.startswith(own) and eid in sources
     ]
+
+
+def _evidence_text(item: dict[str, Any]) -> str:
+    """El texto del dato; los que solo traen valor y unidad (signos vitales) se muestran como «74 /min»."""
+    if item.get("text"):
+        return item["text"]
+    return " ".join(str(part) for part in (item.get("value"), item.get("unit")) if part not in (None, "")).strip()
 
 
 def _recommendations(missing: list[dict], alerts: list[str]) -> list[str]:

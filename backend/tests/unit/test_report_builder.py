@@ -141,3 +141,11 @@ def test_sin_evaluacion_guardada_la_calcula():
     expected = session.pop("evaluation")
     report = build_report(session, copy.deepcopy(CASE), [])
     assert report["score"]["score"] == expected["score"]
+
+
+def test_dato_con_valor_y_unidad():
+    # Signos vitales con value y unit en lugar de text (el esquema lo permite): el reporte los muestra legibles.
+    report = build_report(_session(), copy.deepcopy(CASE), [])
+    by_id = {item["evidence_id"]: item["text"] for item in report["revealed_evidence"]}
+    assert by_id["MED-900.vital.frecuencia_cardiaca"] == "74 /min"
+    assert by_id["MED-900.vital.presion_arterial"] == "120/80 mmHg"
