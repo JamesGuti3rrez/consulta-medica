@@ -1,0 +1,74 @@
+DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica\backend
+COMANDO: set SESSION_STORE=memoria&& set CASE_STORE=local&& set LANGSMITH_TRACING=false&& .venv\Scripts\python.exe -m pytest -q -p no:cacheprovider
+FECHA: 2026-10-28 06:33:42 UTC
+CODIGO_SALIDA: 1
+
+STDOUT:
+FF...................................................................... [ 15%]
+........................................................................ [ 31%]
+........................................................................ [ 46%]
+........................................................................ [ 62%]
+........................................................................ [ 78%]
+........................................................................ [ 93%]
+.............................                                            [100%]
+================================== FAILURES ===================================
+________ test_five_agents_in_one_star_session_with_traceable_evidence _________
+
+    def test_five_agents_in_one_star_session_with_traceable_evidence():
+        status = client.get("/api/ai/status")
+        assert status.status_code == 200
+        assert status.json()["topology"] == "star"
+        assert status.json()["disclosure_policy"] == "reveal-policy-minimum-privilege"
+    
+        start = client.post("/api/ai/sessions", json={"case_id": "MED-900"})
+        assert start.status_code == 200
+        sid, creds = start.json()["session_id"], _creds(start)
+        assert start.json()["avatar_state"]["vitals"]
+        assert start.json()["avatar_state"]["complications"] == []
+    
+        patient = _send(sid, "¿Desde cuándo comenzó el dolor y cómo lo describiría?", creds)
+        assert patient["agent"] == "paciente"
+>       assert patient["evidence_ids"] == ["MED-900.anamnesis.inicio_dolor"]
+E       AssertionError: assert [] == ['MED-900.ana...inicio_dolor']
+E         
+E         Right contains one more item: 'MED-900.anamnesis.inicio_dolor'
+E         Use -v to get more diff
+
+tests\integration\test_api_sma.py:67: AssertionError
+_________ test_session_survives_across_instances_with_supabase_store __________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000026E735F75C0>
+
+    def test_session_survives_across_instances_with_supabase_store(monkeypatch):
+        """En Vercel cada petición puede llegar a otra instancia: con SESSION_STORE=supabase la sesión sigue."""
+        from server.orchestration import SupabaseSessionStore
+        from tests.fakes_supabase import FakeSupabase
+    
+        fake = FakeSupabase()
+    
+        def new_instance():
+            monkeypatch.setattr(ai_module, "STORE", SupabaseSessionStore("https://proyecto.supabase.co", "sb_secret_prueba", client=fake.client()))
+            get_service.cache_clear()
+    
+        new_instance()
+        start = client.post("/api/ai/sessions", json={"case_id": "MED-900"})
+        assert start.status_code == 200, start.text
+        sid, creds = start.json()["session_id"], _creds(start)
+    
+        new_instance()
+        reply = _send(sid, "Pregúntele cuándo empezó el dolor", creds)
+>       assert reply["evidence_ids"] == ["MED-900.anamnesis.inicio_dolor"]
+E       AssertionError: assert [] == ['MED-900.ana...inicio_dolor']
+E         
+E         Right contains one more item: 'MED-900.anamnesis.inicio_dolor'
+E         Use -v to get more diff
+
+tests\integration\test_api_sma.py:128: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/integration/test_api_sma.py::test_five_agents_in_one_star_session_with_traceable_evidence
+FAILED tests/integration/test_api_sma.py::test_session_survives_across_instances_with_supabase_store
+2 failed, 459 passed, 3 deselected in 39.15s
+
+
+STDERR:
+
