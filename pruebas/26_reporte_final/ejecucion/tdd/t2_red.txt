@@ -1,0 +1,83 @@
+﻿COMANDO: python -m pytest tests/integration/test_api_report.py -v
+COMMIT: 801837b
+FECHA: 2026-10-28 07:13:08 UTC
+CODIGO_SALIDA: 1
+
+============================= test session starts =============================
+platform win32 -- Python 3.14.4, pytest-8.3.4, pluggy-1.6.0 -- C:\Users\Usuario\Documents\consulta-medica\backend\.venv\Scripts\python.exe
+rootdir: C:\Users\Usuario\Documents\consulta-medica\backend
+configfile: pyproject.toml
+plugins: anyio-4.15.1, langsmith-0.14.7
+collecting ... collected 5 items
+
+tests/integration/test_api_report.py::test_reporte_solo_tras_cerrar FAILED [ 20%]
+tests/integration/test_api_report.py::test_finish_devuelve_el_mismo_reporte FAILED [ 40%]
+tests/integration/test_api_report.py::test_cerrar_dos_veces_no_cambia_la_propuesta FAILED [ 60%]
+tests/integration/test_api_report.py::test_reporte_de_consulta_sin_propuesta_guardada FAILED [ 80%]
+tests/integration/test_api_report.py::test_reporte_ajeno_e_inexistente FAILED [100%]
+
+================================== FAILURES ===================================
+________________________ test_reporte_solo_tras_cerrar ________________________
+
+    def test_reporte_solo_tras_cerrar():
+        sid, headers = _guest()
+        before = client.get(f"/api/ai/sessions/{sid}/report", headers=headers)
+>       assert before.status_code == 409
+E       assert 404 == 409
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+tests\integration\test_api_report.py:47: AssertionError
+____________________ test_finish_devuelve_el_mismo_reporte ____________________
+
+    def test_finish_devuelve_el_mismo_reporte():
+        sid, headers = _guest()
+        client.post(f"/api/ai/sessions/{sid}/message", json={"message": "¿Es alérgico a algún medicamento?"}, headers=headers)
+        finished = _finish(sid, headers)
+>       assert finished["report"] == client.get(f"/api/ai/sessions/{sid}/report", headers=headers).json()
+E       KeyError: 'report'
+
+tests\integration\test_api_report.py:60: KeyError
+________________ test_cerrar_dos_veces_no_cambia_la_propuesta _________________
+
+    def test_cerrar_dos_veces_no_cambia_la_propuesta():
+        sid, headers = _guest()
+        _finish(sid, headers, diagnosis="Primera")
+        second = _finish(sid, headers, diagnosis="Segunda", hypotheses=[{"name": "Otra", "discarded": True, "reason": "x"}])
+>       assert second["report"]["diagnosis"]["student"] == "Primera"
+E       KeyError: 'report'
+
+tests\integration\test_api_report.py:68: KeyError
+_______________ test_reporte_de_consulta_sin_propuesta_guardada _______________
+
+    def test_reporte_de_consulta_sin_propuesta_guardada():
+        sid, headers = _guest()
+        _finish(sid, headers)
+        state = STORE.get(sid)
+>       state.pop("student_diagnosis")
+E       KeyError: 'student_diagnosis'
+
+tests\integration\test_api_report.py:76: KeyError
+______________________ test_reporte_ajeno_e_inexistente _______________________
+
+    def test_reporte_ajeno_e_inexistente():
+        sid, headers = _guest()
+        _finish(sid, headers)
+        other_sid, other_headers = _guest()
+        ajeno = client.get(f"/api/ai/sessions/{sid}/report", headers=other_headers)
+        inexistente = client.get("/api/ai/sessions/00000000-0000-4000-8000-000000000000/report", headers=other_headers)
+        assert ajeno.status_code == 404
+        assert (inexistente.status_code, inexistente.text) == (ajeno.status_code, ajeno.text)
+>       assert client.get(f"/api/ai/sessions/{sid}/report").status_code == 401
+E       AssertionError: assert 404 == 401
+E        +  where 404 = <Response [404 Not Found]>.status_code
+E        +    where <Response [404 Not Found]> = get('/api/ai/sessions/e2d282b0-01d0-4914-a4cd-525a6e384415/report')
+E        +      where get = <starlette.testclient.TestClient object at 0x000002C83A5DB0E0>.get
+
+tests\integration\test_api_report.py:93: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/integration/test_api_report.py::test_reporte_solo_tras_cerrar - ...
+FAILED tests/integration/test_api_report.py::test_finish_devuelve_el_mismo_reporte
+FAILED tests/integration/test_api_report.py::test_cerrar_dos_veces_no_cambia_la_propuesta
+FAILED tests/integration/test_api_report.py::test_reporte_de_consulta_sin_propuesta_guardada
+FAILED tests/integration/test_api_report.py::test_reporte_ajeno_e_inexistente
+============================== 5 failed in 1.81s ==============================
