@@ -1,0 +1,12 @@
+FECHA: 2026-10-28 07:58:05 UTC
+Consultas de invitado creadas por las pruebas en navegador (servidor local con sesiones en Supabase):
+   3f97c4d6-fa84-4c4a-998e-871a7246de22
+   57d38092-b4e4-4098-94c1-4629c239b626
+   71a1a018-7ee6-4e50-99b0-1d1b06aaff28
+   8561143c-d756-48ff-97b2-01627e685463
+   d4b64cc9-2974-4f46-aaac-d22454cd8b27
+   e95d29c0-1daa-4dc0-857e-b0e73111a414
+Antes de borrar: 6 consultas y 36 eventos
+Borrados: 36 eventos y 6 consultas
+Despues de borrar: 0 consultas y 0 eventos
+Usuarios en Auth: 2; de prueba: 0
