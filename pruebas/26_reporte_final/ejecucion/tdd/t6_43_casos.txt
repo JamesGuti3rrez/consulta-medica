@@ -1,0 +1,8 @@
+﻿COMANDO: python -m pytest tests/integration/test_report_all_cases.py -q
+COMMIT: 3fd19a9
+FECHA: 2026-10-28 07:41:26 UTC
+CODIGO_SALIDA: 0
+
+........................................................................ [ 81%]
+................                                                         [100%]
+88 passed in 0.17s
