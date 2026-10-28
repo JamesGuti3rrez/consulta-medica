@@ -26,6 +26,13 @@ $env:TA011_FASE = $Fase
 $env:TA011_BASE_URL = $BaseUrl
 $env:TA011_SERVER_LOG = $LogServidor
 $env:PYTHONIOENCODING = "utf-8"
+# Sin trazas: con el cupo de LangSmith agotado, cada llamada queda esperando (intento 4).
+$env:LANGSMITH_TRACING = "false"
+# El modo local es en memoria aunque el .env apunte las sesiones y los casos a Supabase.
+if ($Modo -eq "local") {
+    $env:SESSION_STORE = "memoria"
+    $env:CASE_STORE = "local"
+}
 
 $marcas = if ($Filtro) { $Filtro } elseif ($Modo -eq "local") { "not vivo" } else { "" }
 $argumentos = @("-m", "pytest", "tests/security/test_ta011_session_authz.py", "-v", "--tb=no", "-rN", "-p", "no:cacheprovider")
