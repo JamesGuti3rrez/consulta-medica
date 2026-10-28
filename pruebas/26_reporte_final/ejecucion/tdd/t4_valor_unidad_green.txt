@@ -1,0 +1,7 @@
+﻿COMANDO: python -m pytest tests/unit/test_report_builder.py tests/security/test_hu006_report.py -q
+COMMIT: 9814695
+FECHA: 2026-10-28 07:20:37 UTC
+CODIGO_SALIDA: 0
+
+............................                                             [100%]
+28 passed in 1.28s
