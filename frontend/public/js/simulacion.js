@@ -181,16 +181,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     button.classList.toggle('hidden', !visible);
     button.classList.toggle('inline-flex', visible);
   });
-  // Voz neuronal del servidor (/api/voz, edge-tts). Si la ruta responde 503 la voz está apagada y no se
-  // vuelve a pedir; ante cualquier otro fallo, o si tarda más de NEURAL_TIMEOUT, habla la voz del navegador.
+  // Voz neuronal del servidor (/api/voz, edge-tts): el audio llega en trozos y el <audio> suena con el
+  // primero. /api/voz/estado dice una sola vez si está activa; si no lo está, si falla o si no empieza a
+  // sonar en NEURAL_TIMEOUT, habla la voz del navegador.
   const NEURAL_TIMEOUT = 4000;
-  let neuralVoice = true;
+  const neuralVoice = fetch('/api/voz/estado')
+    .then(response => (response.ok ? response.json() : { activa: false }))
+    .then(body => body.activa === true)
+    .catch(() => false);
+  // Límite por si el audio nunca avisa del final: la frase hablada sin prisa, con margen.
+  const neuralTime = text => 3000 + text.length * 120;
   let currentAudio = null;
   const stopSpeech = () => {
     window.speechSynthesis?.cancel();
     if (currentAudio) {
       currentAudio.pause();
-      URL.revokeObjectURL(currentAudio.src);
+      currentAudio.removeAttribute('src');
+      currentAudio.load();
       currentAudio = null;
     }
   };
@@ -199,24 +206,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     skipCurrent?.();
   }));
 
-  const fetchNeuralAudio = async (text, speaker) => {
-    if (!neuralVoice) return null;
-    const controller = new AbortController();
-    const timer = window.setTimeout(() => controller.abort(), NEURAL_TIMEOUT);
-    try {
-      const response = await fetch('/api/voz', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ texto: text, personaje: speaker, sexo: currentCase?.patient?.sex ?? null }),
-        signal: controller.signal,
-      });
-      if (response.status === 503) neuralVoice = false;
-      return response.ok ? await response.blob() : null;
-    } catch {
-      return null;
-    } finally {
-      window.clearTimeout(timer);
-    }
+  const neuralUrl = (text, speaker) => {
+    const params = new URLSearchParams({ texto: text, personaje: speaker });
+    if (currentCase?.patient?.sex) params.set('sexo', currentCase.patient.sex);
+    return `/api/voz?${params}`;
   };
 
   const speakWithBrowser = (text, finish) => {
@@ -246,27 +239,39 @@ document.addEventListener('DOMContentLoaded', async () => {
     skipCurrent = finish;
     setSkipVisible(true);
     const spoken = spokenText(text);
-    fetchNeuralAudio(spoken, speaker).then(blob => {
+    neuralVoice.then(active => {
       if (done) return;
-      if (!blob) {
+      if (!active) {
         speakWithBrowser(spoken, finish);
         return;
       }
       stopSpeech();
-      const audio = new Audio(URL.createObjectURL(blob));
+      const audio = new Audio(neuralUrl(spoken, speaker));
       currentAudio = audio;
+      let started = false;
+      let settled = false;
+      // Antes de sonar, cualquier fallo pasa a la voz del navegador; después, termina la frase.
+      const fallBack = () => {
+        if (settled || started) return;
+        settled = true;
+        if (currentAudio === audio) stopSpeech();
+        if (!done) speakWithBrowser(spoken, finish);
+      };
       const end = () => {
+        if (settled) return;
+        settled = true;
         if (currentAudio === audio) stopSpeech();
         finish();
       };
+      audio.onplaying = () => {
+        if (started) return;
+        started = true;
+        wait(neuralTime(spoken)).then(end);
+      };
       audio.onended = end;
-      audio.onerror = end;
-      // Límite por si el audio nunca avisa del final: su duración más un margen.
-      audio.onloadedmetadata = () => wait((audio.duration + 2) * 1000).then(end);
-      audio.play().catch(() => {
-        if (currentAudio === audio) stopSpeech();
-        speakWithBrowser(spoken, finish);
-      });
+      audio.onerror = () => (started ? end() : fallBack());
+      wait(NEURAL_TIMEOUT).then(fallBack);
+      audio.play().catch(fallBack);
     });
   });
 
