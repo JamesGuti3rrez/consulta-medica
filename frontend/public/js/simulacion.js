@@ -212,6 +212,31 @@ document.addEventListener('DOMContentLoaded', async () => {
     return `/api/voz?${params}`;
   };
 
+  // Audio adelantado: la frase siguiente se empieza a pedir mientras suena la actual, para que no quede
+  // un silencio entre las dos. Se guarda por URL; speak() lo usa si lo encuentra.
+  const preloaded = new Map();
+  const preloadVoice = (text, speaker) => {
+    const url = neuralUrl(spokenText(text), speaker);
+    neuralVoice.then(active => {
+      if (!active || preloaded.has(url)) return;
+      const audio = new Audio();
+      audio.preload = 'auto';
+      audio.src = url;
+      preloaded.set(url, audio);
+    });
+  };
+  const clearPreloaded = () => {
+    preloaded.forEach(audio => {
+      audio.removeAttribute('src');
+      audio.load();
+    });
+    preloaded.clear();
+  };
+  const stopAllSpeech = () => {
+    stopSpeech();
+    clearPreloaded();
+  };
+
   const speakWithBrowser = (text, finish) => {
     if (!('speechSynthesis' in window)) {
       wait(readingTime(text)).then(finish);
@@ -246,7 +271,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
       }
       stopSpeech();
-      const audio = new Audio(neuralUrl(spoken, speaker));
+      const url = neuralUrl(spoken, speaker);
+      const audio = preloaded.get(url) || new Audio(url);
+      preloaded.delete(url);
       currentAudio = audio;
       let started = false;
       let settled = false;
@@ -270,6 +297,11 @@ document.addEventListener('DOMContentLoaded', async () => {
       };
       audio.onended = end;
       audio.onerror = () => (started ? end() : fallBack());
+      // Un audio adelantado pudo fallar antes de que se le pusieran los avisos.
+      if (audio.error) {
+        fallBack();
+        return;
+      }
       wait(NEURAL_TIMEOUT).then(fallBack);
       audio.play().catch(fallBack);
     });
@@ -391,14 +423,19 @@ document.addEventListener('DOMContentLoaded', async () => {
           : 'No hay alergias documentadas en la ficha.',
       },
     ];
-    for (const step of steps) {
+    const closing = 'Doctor, puede comenzar con el interrogatorio.';
+    const texts = [...steps.map(step => step.text), closing];
+    clearPreloaded();
+    preloadVoice(texts[0], 'doctor');
+    for (const [index, step] of steps.entries()) {
       if (current !== session) return false;
       step.show.forEach(element => { if (element) element.hidden = false; });
       if (step.add) recordHistory.append(step.add);
+      preloadVoice(texts[index + 1], 'doctor');
       await say('doctor', step.text);
     }
     if (current !== session) return false;
-    await say('doctor', 'Doctor, puede comenzar con el interrogatorio.');
+    await say('doctor', closing);
     return current === session;
   };
 
@@ -533,16 +570,19 @@ document.addEventListener('DOMContentLoaded', async () => {
       reply = { agent: 'medico_asistente', response: error.detail || 'No pude procesar tu pregunta. Inténtalo de nuevo.' };
     }
     if (current !== session) return;
+    const agent = { paciente: 'patient', medico_asistente: 'doctor' }[reply.agent] || reply.agent;
+    const speaker = SPEAKERS[agent] ? agent : 'doctor';
     // El médico tratante le hace al paciente la pregunta reformulada; luego el paciente responde.
     if (reply.doctor_question) {
+      // La respuesta se pide mientras el doctor pregunta, para que suene sin esperar.
+      preloadVoice(reply.response, speaker);
       await say('doctor', reply.doctor_question);
       if (current !== session) return;
       showThinking('patient');
     }
     await wait(500);
     if (current !== session) return;
-    const speaker = { paciente: 'patient', medico_asistente: 'doctor' }[reply.agent] || reply.agent;
-    await say(SPEAKERS[speaker] ? speaker : 'doctor', reply.response);
+    await say(speaker, reply.response);
     if (current !== session) return;
     if (hypothesesHint) hypothesesHint.textContent = '¿Este dato cambia alguna de tus hipótesis?';
     setReady();
@@ -646,14 +686,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (isListening) {
       cancelListening = true;
       session += 1;
-      stopSpeech();
+      stopAllSpeech();
       recognition.stop();
       return;
     }
     // Pulsar mientras alguien habla lo interrumpe y abre el micrófono.
     if (isRunning) {
       session += 1;
-      stopSpeech();
+      stopAllSpeech();
       isRunning = false;
       setPill(doctorStatus, 'Interrumpido');
     }
@@ -966,7 +1006,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     consultationClosed = true;
     discardingIndex = null;
     session += 1;
-    stopSpeech();
+    stopAllSpeech();
     if (recognition && isListening) recognition.abort();
     [saveDiagnosis, diagnosisMic, micButton, diagnosisButton, hypothesisInput, hypothesisMic, addHypothesisButton].forEach(element => {
       if (element) element.disabled = true;
