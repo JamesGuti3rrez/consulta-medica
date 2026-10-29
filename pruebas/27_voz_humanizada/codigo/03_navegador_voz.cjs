@@ -27,20 +27,21 @@ const FRASES = ['¿Desde cuándo tiene el dolor?', '¿Ha tenido fiebre o vómito
     const ms = () => Math.round(performance.now() - t0);
     window.__voz = [];
     const log = window.__log = (evento, detalle = '') => window.__voz.push({ t: ms(), evento, detalle });
-    // Cada <audio> de /api/voz es una frase: se registra cuándo se pide, cuándo empieza a sonar y cuándo
-    // termina, con su propio número para no mezclar el final de una con el inicio de la siguiente.
-    const AudioOriginal = window.Audio;
+    // Cada <audio> de /api/voz es una frase. Se registra cuando el simulador pide que suene (play), no
+    // cuando se crea: los audios adelantados se crean antes y lo que siente el estudiante es la espera desde
+    // que le toca hablar al personaje. Cada audio lleva su número para no mezclar finales e inicios.
+    const play = HTMLMediaElement.prototype.play;
     let siguiente = 0;
-    window.Audio = function (src) {
-      const audio = new AudioOriginal(src);
-      if (String(src).includes('/api/voz')) {
-        const id = ++siguiente;
-        const params = new URL(src, location.href).searchParams;
+    HTMLMediaElement.prototype.play = function () {
+      if (String(this.src).includes('/api/voz') && !this.__id) {
+        const id = this.__id = ++siguiente;
+        const params = new URL(this.src).searchParams;
         log('pide_audio', `${id}|${params.get('personaje')}: ${params.get('texto').slice(0, 60)}`);
-        audio.addEventListener('playing', () => log('suena_neuronal', String(id)), { once: true });
-        audio.addEventListener('ended', () => log('fin_audio', String(id)), { once: true });
+        if (this.readyState >= 3) log('ya_cargado', String(id));
+        this.addEventListener('playing', () => log('suena_neuronal', String(id)), { once: true });
+        this.addEventListener('ended', () => log('fin_audio', String(id)), { once: true });
       }
-      return audio;
+      return play.call(this);
     };
     if (window.speechSynthesis) {
       const speak = window.speechSynthesis.speak.bind(window.speechSynthesis);
