@@ -1,0 +1,30 @@
+﻿COMANDO: python -m pytest tests/unit/test_voice_choice.py tests/integration/test_api_voice.py -v
+COMMIT: 9f0d676
+FECHA: 2026-10-29 23:04:42 UTC
+CODIGO_SALIDA: 0
+
+============================= test session starts =============================
+platform win32 -- Python 3.14.4, pytest-8.3.4, pluggy-1.6.0 -- C:\Users\Usuario\Documents\consulta-medica\backend\.venv\Scripts\python.exe
+rootdir: C:\Users\Usuario\Documents\consulta-medica\backend
+configfile: pyproject.toml
+plugins: anyio-4.15.1, langsmith-0.14.7
+collecting ... collected 16 items
+
+tests/unit/test_voice_choice.py::test_patient_voice_follows_patient_sex PASSED [  6%]
+tests/unit/test_voice_choice.py::test_patient_without_known_sex_gets_a_valid_voice PASSED [ 12%]
+tests/unit/test_voice_choice.py::test_doctor_never_shares_the_voice_of_the_patient PASSED [ 18%]
+tests/unit/test_voice_choice.py::test_each_service_has_its_own_voice PASSED [ 25%]
+tests/unit/test_voice_choice.py::test_unknown_speaker_is_rejected PASSED [ 31%]
+tests/integration/test_api_voice.py::test_streams_the_whole_mp3_with_the_voice_of_the_speaker PASSED [ 37%]
+tests/integration/test_api_voice.py::test_unknown_speaker_is_rejected PASSED [ 43%]
+tests/integration/test_api_voice.py::test_empty_or_too_long_text_is_rejected[] PASSED [ 50%]
+tests/integration/test_api_voice.py::test_empty_or_too_long_text_is_rejected[   ] PASSED [ 56%]
+tests/integration/test_api_voice.py::test_empty_or_too_long_text_is_rejected[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa] PASSED [ 62%]
+tests/integration/test_api_voice.py::test_voice_off_answers_503_so_the_browser_uses_its_own_voice PASSED [ 68%]
+tests/integration/test_api_voice.py::test_missing_library_answers_503 PASSED [ 75%]
+tests/integration/test_api_voice.py::test_failure_before_the_first_chunk_answers_502 PASSED [ 81%]
+tests/integration/test_api_voice.py::test_one_failure_before_the_first_chunk_is_retried PASSED [ 87%]
+tests/integration/test_api_voice.py::test_two_failures_answer_502_and_are_logged PASSED [ 93%]
+tests/integration/test_api_voice.py::test_status_reports_whether_the_voice_is_on PASSED [100%]
+
+============================= 16 passed in 0.86s ==============================
