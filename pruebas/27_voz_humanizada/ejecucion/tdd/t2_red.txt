@@ -1,0 +1,172 @@
+﻿COMANDO: python -m pytest tests/unit/test_voice_choice.py tests/integration/test_api_voice.py -q
+COMMIT: 214cbd3
+FECHA: 2026-10-29 22:27:46 UTC
+CODIGO_SALIDA: 1
+
+.....EEEEEFFEE                                                           [100%]
+=================================== ERRORS ====================================
+_ ERROR at setup of test_streams_the_whole_mp3_with_the_voice_of_the_speaker __
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000029D7FA65CD0>
+
+    @pytest.fixture
+    def voice_on(monkeypatch):
+        calls = []
+    
+        async def fake_stream(text, voice):
+            calls.append((text, voice))
+            for chunk in CHUNKS:
+                yield chunk
+    
+        monkeypatch.setattr(voice_api, "settings", replace(voice_api.settings, tts_provider="edge"))
+>       monkeypatch.setattr(tts, "stream", fake_stream)
+E       AttributeError: <module 'server.voice.tts' from 'C:\\Users\\Usuario\\Documents\\consulta-medica\\backend\\server\\voice\\tts.py'> has no attribute 'stream'
+
+tests\integration\test_api_voice.py:30: AttributeError
+_____________ ERROR at setup of test_unknown_speaker_is_rejected ______________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000029D7FA66060>
+
+    @pytest.fixture
+    def voice_on(monkeypatch):
+        calls = []
+    
+        async def fake_stream(text, voice):
+            calls.append((text, voice))
+            for chunk in CHUNKS:
+                yield chunk
+    
+        monkeypatch.setattr(voice_api, "settings", replace(voice_api.settings, tts_provider="edge"))
+>       monkeypatch.setattr(tts, "stream", fake_stream)
+E       AttributeError: <module 'server.voice.tts' from 'C:\\Users\\Usuario\\Documents\\consulta-medica\\backend\\server\\voice\\tts.py'> has no attribute 'stream'
+
+tests\integration\test_api_voice.py:30: AttributeError
+_________ ERROR at setup of test_empty_or_too_long_text_is_rejected[] _________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000029D7FA33AD0>
+
+    @pytest.fixture
+    def voice_on(monkeypatch):
+        calls = []
+    
+        async def fake_stream(text, voice):
+            calls.append((text, voice))
+            for chunk in CHUNKS:
+                yield chunk
+    
+        monkeypatch.setattr(voice_api, "settings", replace(voice_api.settings, tts_provider="edge"))
+>       monkeypatch.setattr(tts, "stream", fake_stream)
+E       AttributeError: <module 'server.voice.tts' from 'C:\\Users\\Usuario\\Documents\\consulta-medica\\backend\\server\\voice\\tts.py'> has no attribute 'stream'
+
+tests\integration\test_api_voice.py:30: AttributeError
+_______ ERROR at setup of test_empty_or_too_long_text_is_rejected[   ] ________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000029D7FADEF10>
+
+    @pytest.fixture
+    def voice_on(monkeypatch):
+        calls = []
+    
+        async def fake_stream(text, voice):
+            calls.append((text, voice))
+            for chunk in CHUNKS:
+                yield chunk
+    
+        monkeypatch.setattr(voice_api, "settings", replace(voice_api.settings, tts_provider="edge"))
+>       monkeypatch.setattr(tts, "stream", fake_stream)
+E       AttributeError: <module 'server.voice.tts' from 'C:\\Users\\Usuario\\Documents\\consulta-medica\\backend\\server\\voice\\tts.py'> has no attribute 'stream'
+
+tests\integration\test_api_voice.py:30: AttributeError
+_ ERROR at setup of test_empty_or_too_long_text_is_rejected[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000029D7FADEE00>
+
+    @pytest.fixture
+    def voice_on(monkeypatch):
+        calls = []
+    
+        async def fake_stream(text, voice):
+            calls.append((text, voice))
+            for chunk in CHUNKS:
+                yield chunk
+    
+        monkeypatch.setattr(voice_api, "settings", replace(voice_api.settings, tts_provider="edge"))
+>       monkeypatch.setattr(tts, "stream", fake_stream)
+E       AttributeError: <module 'server.voice.tts' from 'C:\\Users\\Usuario\\Documents\\consulta-medica\\backend\\server\\voice\\tts.py'> has no attribute 'stream'
+
+tests\integration\test_api_voice.py:30: AttributeError
+______ ERROR at setup of test_failure_before_the_first_chunk_answers_502 ______
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000029D7FBE9130>
+
+    @pytest.fixture
+    def voice_on(monkeypatch):
+        calls = []
+    
+        async def fake_stream(text, voice):
+            calls.append((text, voice))
+            for chunk in CHUNKS:
+                yield chunk
+    
+        monkeypatch.setattr(voice_api, "settings", replace(voice_api.settings, tts_provider="edge"))
+>       monkeypatch.setattr(tts, "stream", fake_stream)
+E       AttributeError: <module 'server.voice.tts' from 'C:\\Users\\Usuario\\Documents\\consulta-medica\\backend\\server\\voice\\tts.py'> has no attribute 'stream'
+
+tests\integration\test_api_voice.py:30: AttributeError
+________ ERROR at setup of test_status_reports_whether_the_voice_is_on ________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000029D7FBE9040>
+
+    @pytest.fixture
+    def voice_on(monkeypatch):
+        calls = []
+    
+        async def fake_stream(text, voice):
+            calls.append((text, voice))
+            for chunk in CHUNKS:
+                yield chunk
+    
+        monkeypatch.setattr(voice_api, "settings", replace(voice_api.settings, tts_provider="edge"))
+>       monkeypatch.setattr(tts, "stream", fake_stream)
+E       AttributeError: <module 'server.voice.tts' from 'C:\\Users\\Usuario\\Documents\\consulta-medica\\backend\\server\\voice\\tts.py'> has no attribute 'stream'
+
+tests\integration\test_api_voice.py:30: AttributeError
+================================== FAILURES ===================================
+________ test_voice_off_answers_503_so_the_browser_uses_its_own_voice _________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000029D7FB8AB50>
+
+    def test_voice_off_answers_503_so_the_browser_uses_its_own_voice(monkeypatch):
+        monkeypatch.setattr(voice_api, "settings", replace(voice_api.settings, tts_provider=""))
+    
+>       assert say("Hola").status_code == 503
+E       AssertionError: assert 404 == 503
+E        +  where 404 = <Response [404 Not Found]>.status_code
+E        +    where <Response [404 Not Found]> = say('Hola')
+
+tests\integration\test_api_voice.py:65: AssertionError
+______________________ test_missing_library_answers_503 _______________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000029D7FB8B150>
+
+    def test_missing_library_answers_503(monkeypatch):
+        monkeypatch.setattr(voice_api, "settings", replace(voice_api.settings, tts_provider="edge"))
+        monkeypatch.setattr(tts, "available", lambda: False)
+    
+>       assert say("Hola").status_code == 503
+E       AssertionError: assert 404 == 503
+E        +  where 404 = <Response [404 Not Found]>.status_code
+E        +    where <Response [404 Not Found]> = say('Hola')
+
+tests\integration\test_api_voice.py:72: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/integration/test_api_voice.py::test_voice_off_answers_503_so_the_browser_uses_its_own_voice
+FAILED tests/integration/test_api_voice.py::test_missing_library_answers_503
+ERROR tests/integration/test_api_voice.py::test_streams_the_whole_mp3_with_the_voice_of_the_speaker
+ERROR tests/integration/test_api_voice.py::test_unknown_speaker_is_rejected
+ERROR tests/integration/test_api_voice.py::test_empty_or_too_long_text_is_rejected[]
+ERROR tests/integration/test_api_voice.py::test_empty_or_too_long_text_is_rejected[   ]
+ERROR tests/integration/test_api_voice.py::test_empty_or_too_long_text_is_rejected[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]
+ERROR tests/integration/test_api_voice.py::test_failure_before_the_first_chunk_answers_502
+ERROR tests/integration/test_api_voice.py::test_status_reports_whether_the_voice_is_on
+2 failed, 5 passed, 7 errors in 1.63s
