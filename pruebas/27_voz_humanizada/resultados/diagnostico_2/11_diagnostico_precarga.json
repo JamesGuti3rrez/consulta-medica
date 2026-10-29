@@ -1,0 +1,472 @@
+{
+  "base_url": "http://localhost:3100",
+  "caso": "CIR-005",
+  "max_silencio_ms": 700,
+  "fecha": "2026-10-29T23:02:01.583Z",
+  "frases": [
+    {
+      "texto": "doctor: Martín Rojas, de 28 años, sexo masculino. Motivo de consulta: Ingresó por dolor abdominal intenso; se diagnosticó apendicitis y se le realizó una apendicectomía de urgencia.",
+      "pide": 2635,
+      "tras_estudiante": false,
+      "suena": 4011,
+      "fin": 17589,
+      "voz": "neuronal",
+      "espera_ms": 1376,
+      "silencio_desde_la_anterior_ms": null,
+      "con_signos": true
+    },
+    {
+      "texto": "doctor: Evolución quirúrgica: Durante la intervención presentó un sangrado masivo y persistente que requirió transfusión de sangre.",
+      "pide": 17588,
+      "tras_estudiante": false,
+      "suena": 17595,
+      "fin": 25668,
+      "voz": "neuronal",
+      "espera_ms": 7,
+      "silencio_desde_la_anterior_ms": 6,
+      "con_signos": true
+    },
+    {
+      "texto": "doctor: No hay alergias documentadas en la ficha.",
+      "pide": 25667,
+      "tras_estudiante": false,
+      "suena": 25670,
+      "fin": 28967,
+      "voz": "neuronal",
+      "espera_ms": 3,
+      "silencio_desde_la_anterior_ms": 2,
+      "con_signos": true
+    },
+    {
+      "texto": "doctor: Doctor, puede comenzar con el interrogatorio.",
+      "pide": 28965,
+      "tras_estudiante": false,
+      "suena": 28970,
+      "fin": 32699,
+      "voz": "neuronal",
+      "espera_ms": 5,
+      "silencio_desde_la_anterior_ms": 3,
+      "con_signos": true
+    },
+    {
+      "texto": "doctor: ¿Desde cuándo tiene el dolor?",
+      "pide": 36875,
+      "tras_estudiante": true,
+      "suena": 38141,
+      "fin": 40702,
+      "voz": "neuronal",
+      "espera_ms": 1266,
+      "silencio_desde_la_anterior_ms": 5442
+    },
+    {
+      "texto": "patient: No recuerdo con precisión cuándo empezó el dolor.",
+      "pide": 41220,
+      "tras_estudiante": false,
+      "suena": 41221,
+      "fin": 45140,
+      "voz": "neuronal",
+      "espera_ms": 1,
+      "silencio_desde_la_anterior_ms": 519,
+      "con_signos": true
+    },
+    {
+      "texto": "doctor: ¿Ha tenido fiebre o vómitos?",
+      "pide": 52413,
+      "tras_estudiante": true,
+      "suena": 53935,
+      "fin": 56671,
+      "voz": "neuronal",
+      "espera_ms": 1522,
+      "silencio_desde_la_anterior_ms": 8795
+    },
+    {
+      "texto": "patient: No recuerdo haber tenido fiebre.",
+      "pide": 57183,
+      "tras_estudiante": false,
+      "suena": 57185,
+      "fin": 60253,
+      "voz": "neuronal",
+      "espera_ms": 2,
+      "silencio_desde_la_anterior_ms": 514,
+      "con_signos": true
+    }
+  ],
+  "eventos": [
+    {
+      "t": 2635,
+      "evento": "dir_puesta",
+      "detalle": "d1 Martín Rojas, de 28 años,"
+    },
+    {
+      "t": 2635,
+      "evento": "dir_puesta",
+      "detalle": "d2 Evolución quirúrgica: Dur"
+    },
+    {
+      "t": 2635,
+      "evento": "pide_audio",
+      "detalle": "1|doctor: Martín Rojas, de 28 años, sexo masculino. Motivo de consulta: Ingresó por dolor abdominal intenso; se diagnosticó apendicitis y se le realizó una apendicectomía de urgencia."
+    },
+    {
+      "t": 2637,
+      "evento": "descarga",
+      "detalle": "d1 waiting rs=0 buf=0"
+    },
+    {
+      "t": 2639,
+      "evento": "descarga",
+      "detalle": "d1 loadstart rs=0 buf=0"
+    },
+    {
+      "t": 2639,
+      "evento": "descarga",
+      "detalle": "d2 loadstart rs=0 buf=0"
+    },
+    {
+      "t": 3739,
+      "evento": "descarga",
+      "detalle": "d1 progress rs=0 buf=0"
+    },
+    {
+      "t": 3739,
+      "evento": "descarga",
+      "detalle": "d2 progress rs=0 buf=0"
+    },
+    {
+      "t": 4010,
+      "evento": "descarga",
+      "detalle": "d1 canplay rs=3 buf=0.3"
+    },
+    {
+      "t": 4011,
+      "evento": "suena_neuronal",
+      "detalle": "1"
+    },
+    {
+      "t": 4020,
+      "evento": "descarga",
+      "detalle": "d2 canplay rs=3 buf=0.3"
+    },
+    {
+      "t": 4050,
+      "evento": "descarga",
+      "detalle": "d2 progress rs=4 buf=2.3"
+    },
+    {
+      "t": 4050,
+      "evento": "descarga",
+      "detalle": "d2 suspend rs=4 buf=2.3"
+    },
+    {
+      "t": 4050,
+      "evento": "descarga",
+      "detalle": "d2 canplaythrough rs=4 buf=2.3"
+    },
+    {
+      "t": 4098,
+      "evento": "descarga",
+      "detalle": "d1 progress rs=3 buf=2.3"
+    },
+    {
+      "t": 4140,
+      "evento": "descarga",
+      "detalle": "d1 progress rs=4 buf=2.3"
+    },
+    {
+      "t": 4140,
+      "evento": "descarga",
+      "detalle": "d1 suspend rs=4 buf=2.4"
+    },
+    {
+      "t": 4140,
+      "evento": "descarga",
+      "detalle": "d1 canplaythrough rs=4 buf=2.4"
+    },
+    {
+      "t": 17586,
+      "evento": "dir_puesta",
+      "detalle": "d3 No hay alergias documenta"
+    },
+    {
+      "t": 17588,
+      "evento": "pide_audio",
+      "detalle": "2|doctor: Evolución quirúrgica: Durante la intervención presentó un sangrado masivo y persistente que requirió transfusión de sangre."
+    },
+    {
+      "t": 17588,
+      "evento": "ya_cargado",
+      "detalle": "2"
+    },
+    {
+      "t": 17589,
+      "evento": "fin_audio",
+      "detalle": "1"
+    },
+    {
+      "t": 17595,
+      "evento": "suena_neuronal",
+      "detalle": "2"
+    },
+    {
+      "t": 17596,
+      "evento": "descarga",
+      "detalle": "d3 loadstart rs=0 buf=0"
+    },
+    {
+      "t": 18686,
+      "evento": "descarga",
+      "detalle": "d3 progress rs=0 buf=0"
+    },
+    {
+      "t": 18813,
+      "evento": "descarga",
+      "detalle": "d3 progress rs=0 buf=0"
+    },
+    {
+      "t": 18813,
+      "evento": "descarga",
+      "detalle": "d3 suspend rs=0 buf=0"
+    },
+    {
+      "t": 18838,
+      "evento": "descarga",
+      "detalle": "d3 canplay rs=4 buf=3.2"
+    },
+    {
+      "t": 18838,
+      "evento": "descarga",
+      "detalle": "d3 canplaythrough rs=4 buf=3.2"
+    },
+    {
+      "t": 25667,
+      "evento": "dir_puesta",
+      "detalle": "d4 Doctor, puede comenzar co"
+    },
+    {
+      "t": 25667,
+      "evento": "pide_audio",
+      "detalle": "3|doctor: No hay alergias documentadas en la ficha."
+    },
+    {
+      "t": 25667,
+      "evento": "ya_cargado",
+      "detalle": "3"
+    },
+    {
+      "t": 25668,
+      "evento": "fin_audio",
+      "detalle": "2"
+    },
+    {
+      "t": 25670,
+      "evento": "suena_neuronal",
+      "detalle": "3"
+    },
+    {
+      "t": 25670,
+      "evento": "descarga",
+      "detalle": "d4 loadstart rs=0 buf=0"
+    },
+    {
+      "t": 26761,
+      "evento": "descarga",
+      "detalle": "d4 progress rs=0 buf=0"
+    },
+    {
+      "t": 26970,
+      "evento": "descarga",
+      "detalle": "d4 progress rs=0 buf=0"
+    },
+    {
+      "t": 26970,
+      "evento": "descarga",
+      "detalle": "d4 suspend rs=0 buf=0"
+    },
+    {
+      "t": 26995,
+      "evento": "descarga",
+      "detalle": "d4 canplay rs=4 buf=3.6"
+    },
+    {
+      "t": 26995,
+      "evento": "descarga",
+      "detalle": "d4 canplaythrough rs=4 buf=3.6"
+    },
+    {
+      "t": 28965,
+      "evento": "pide_audio",
+      "detalle": "4|doctor: Doctor, puede comenzar con el interrogatorio."
+    },
+    {
+      "t": 28965,
+      "evento": "ya_cargado",
+      "detalle": "4"
+    },
+    {
+      "t": 28967,
+      "evento": "fin_audio",
+      "detalle": "3"
+    },
+    {
+      "t": 28970,
+      "evento": "suena_neuronal",
+      "detalle": "4"
+    },
+    {
+      "t": 32699,
+      "evento": "fin_audio",
+      "detalle": "4"
+    },
+    {
+      "t": 33083,
+      "evento": "turno_estudiante",
+      "detalle": ""
+    },
+    {
+      "t": 36874,
+      "evento": "dir_puesta",
+      "detalle": "d5 No recuerdo con precisión"
+    },
+    {
+      "t": 36875,
+      "evento": "pide_audio",
+      "detalle": "5|doctor: ¿Desde cuándo tiene el dolor?"
+    },
+    {
+      "t": 36877,
+      "evento": "descarga",
+      "detalle": "d5 loadstart rs=0 buf=0"
+    },
+    {
+      "t": 37992,
+      "evento": "descarga",
+      "detalle": "d5 progress rs=0 buf=0"
+    },
+    {
+      "t": 38132,
+      "evento": "descarga",
+      "detalle": "d5 progress rs=0 buf=0"
+    },
+    {
+      "t": 38132,
+      "evento": "descarga",
+      "detalle": "d5 suspend rs=0 buf=0"
+    },
+    {
+      "t": 38141,
+      "evento": "suena_neuronal",
+      "detalle": "5"
+    },
+    {
+      "t": 38161,
+      "evento": "descarga",
+      "detalle": "d5 canplay rs=4 buf=3.8"
+    },
+    {
+      "t": 38161,
+      "evento": "descarga",
+      "detalle": "d5 canplaythrough rs=4 buf=3.8"
+    },
+    {
+      "t": 40702,
+      "evento": "fin_audio",
+      "detalle": "5"
+    },
+    {
+      "t": 41220,
+      "evento": "pide_audio",
+      "detalle": "6|patient: No recuerdo con precisión cuándo empezó el dolor."
+    },
+    {
+      "t": 41220,
+      "evento": "ya_cargado",
+      "detalle": "6"
+    },
+    {
+      "t": 41221,
+      "evento": "suena_neuronal",
+      "detalle": "6"
+    },
+    {
+      "t": 45140,
+      "evento": "fin_audio",
+      "detalle": "6"
+    },
+    {
+      "t": 45146,
+      "evento": "turno_estudiante",
+      "detalle": ""
+    },
+    {
+      "t": 52412,
+      "evento": "dir_puesta",
+      "detalle": "d6 No recuerdo haber tenido "
+    },
+    {
+      "t": 52413,
+      "evento": "pide_audio",
+      "detalle": "7|doctor: ¿Ha tenido fiebre o vómitos?"
+    },
+    {
+      "t": 52415,
+      "evento": "descarga",
+      "detalle": "d6 loadstart rs=0 buf=0"
+    },
+    {
+      "t": 53484,
+      "evento": "descarga",
+      "detalle": "d6 progress rs=0 buf=0"
+    },
+    {
+      "t": 53648,
+      "evento": "descarga",
+      "detalle": "d6 progress rs=0 buf=0"
+    },
+    {
+      "t": 53648,
+      "evento": "descarga",
+      "detalle": "d6 suspend rs=0 buf=0"
+    },
+    {
+      "t": 53677,
+      "evento": "descarga",
+      "detalle": "d6 canplay rs=4 buf=3.0"
+    },
+    {
+      "t": 53677,
+      "evento": "descarga",
+      "detalle": "d6 canplaythrough rs=4 buf=3.0"
+    },
+    {
+      "t": 53935,
+      "evento": "suena_neuronal",
+      "detalle": "7"
+    },
+    {
+      "t": 56671,
+      "evento": "fin_audio",
+      "detalle": "7"
+    },
+    {
+      "t": 57183,
+      "evento": "pide_audio",
+      "detalle": "8|patient: No recuerdo haber tenido fiebre."
+    },
+    {
+      "t": 57183,
+      "evento": "ya_cargado",
+      "detalle": "8"
+    },
+    {
+      "t": 57185,
+      "evento": "suena_neuronal",
+      "detalle": "8"
+    },
+    {
+      "t": 60253,
+      "evento": "fin_audio",
+      "detalle": "8"
+    }
+  ],
+  "errores": []
+}
