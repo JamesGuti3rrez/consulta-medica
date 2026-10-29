@@ -25,22 +25,20 @@ const FRASES = ['¿Desde cuándo tiene el dolor?', '¿Ha tenido fiebre o vómito
     const ms = () => Math.round(performance.now() - t0);
     window.__voz = [];
     const log = (evento, detalle = '') => window.__voz.push({ t: ms(), evento, detalle });
-    const fetchOriginal = window.fetch;
-    window.fetch = async (url, options) => {
-      if (String(url).includes('/api/voz')) {
-        const { personaje, texto } = JSON.parse(options.body);
-        log('pide_audio', `${personaje}: ${texto.slice(0, 60)}`);
-        const response = await fetchOriginal(url, options);
-        log('llega_audio', `HTTP ${response.status}`);
-        return response;
+    // Cada <audio> de /api/voz es una frase: se registra cuándo se pide, cuándo empieza a sonar y cuándo
+    // termina, con su propio número para no mezclar el final de una con el inicio de la siguiente.
+    const AudioOriginal = window.Audio;
+    let siguiente = 0;
+    window.Audio = function (src) {
+      const audio = new AudioOriginal(src);
+      if (String(src).includes('/api/voz')) {
+        const id = ++siguiente;
+        const params = new URL(src, location.href).searchParams;
+        log('pide_audio', `${id}|${params.get('personaje')}: ${params.get('texto').slice(0, 60)}`);
+        audio.addEventListener('playing', () => log('suena_neuronal', String(id)), { once: true });
+        audio.addEventListener('ended', () => log('fin_audio', String(id)), { once: true });
       }
-      return fetchOriginal(url, options);
-    };
-    const play = HTMLMediaElement.prototype.play;
-    HTMLMediaElement.prototype.play = function () {
-      this.addEventListener('ended', () => log('fin_audio'), { once: true });
-      log('suena_neuronal');
-      return play.call(this);
+      return audio;
     };
     if (window.speechSynthesis) {
       const speak = window.speechSynthesis.speak.bind(window.speechSynthesis);
@@ -79,15 +77,18 @@ const FRASES = ['¿Desde cuándo tiene el dolor?', '¿Ha tenido fiebre o vómito
   const eventos = await page.evaluate(() => window.__voz);
   await browser.close();
 
-  // Una frase = desde que se pide el audio hasta que termina de sonar.
+  // Una frase = desde que se pide el audio hasta que termina de sonar. Los eventos llevan el número de la
+  // frase; la voz del navegador se atribuye a la última frase pedida.
   const frases = [];
-  let actual = null;
+  const porId = {};
   for (const e of eventos) {
-    if (e.evento === 'pide_audio') { actual = { texto: e.detalle, pide: e.t }; frases.push(actual); }
-    else if (actual && e.evento === 'llega_audio') { actual.llega = e.t; actual.http = e.detalle; }
-    else if (actual && e.evento === 'suena_neuronal') actual.suena = e.t;
-    else if (actual && e.evento === 'suena_navegador') actual.navegador = true;
-    else if (actual && e.evento === 'fin_audio') actual.fin = e.t;
+    if (e.evento === 'pide_audio') {
+      const [id, texto] = e.detalle.split(/\|(.*)/s);
+      porId[id] = { texto, pide: e.t };
+      frases.push(porId[id]);
+    } else if (e.evento === 'suena_neuronal' && porId[e.detalle]) porId[e.detalle].suena = e.t;
+    else if (e.evento === 'fin_audio' && porId[e.detalle]) porId[e.detalle].fin = e.t;
+    else if (e.evento === 'suena_navegador' && frases.length) frases.at(-1).navegador = true;
   }
   let fallos = 0;
   console.log(`Caso ${CASO} en ${BASE_URL}: ${frases.length} frases habladas\n`);
