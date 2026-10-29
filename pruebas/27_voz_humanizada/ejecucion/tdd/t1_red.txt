@@ -1,0 +1,30 @@
+﻿COMANDO: python -m pytest tests/unit/test_voice_choice.py tests/integration/test_api_voice.py -q
+COMMIT: 1fa1c3c
+FECHA: 2026-10-29 22:19:06 UTC
+CODIGO_SALIDA: 2
+
+
+=================================== ERRORS ====================================
+______________ ERROR collecting tests/unit/test_voice_choice.py _______________
+ImportError while importing test module 'C:\Users\Usuario\Documents\consulta-medica\backend\tests\unit\test_voice_choice.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Python314\Lib\importlib\__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\unit\test_voice_choice.py:5: in <module>
+    from server.voice.tts import VOICES, choose_voice
+E   ModuleNotFoundError: No module named 'server.voice'
+____________ ERROR collecting tests/integration/test_api_voice.py _____________
+ImportError while importing test module 'C:\Users\Usuario\Documents\consulta-medica\backend\tests\integration\test_api_voice.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Python314\Lib\importlib\__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\integration\test_api_voice.py:11: in <module>
+    from server.api import voice as voice_api
+E   ImportError: cannot import name 'voice' from 'server.api' (C:\Users\Usuario\Documents\consulta-medica\backend\server\api\__init__.py)
+=========================== short test summary info ===========================
+ERROR tests/unit/test_voice_choice.py
+ERROR tests/integration/test_api_voice.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 2 errors during collection !!!!!!!!!!!!!!!!!!!
+2 errors in 0.61s
