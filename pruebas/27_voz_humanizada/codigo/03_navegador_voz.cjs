@@ -4,13 +4,15 @@
 //
 // Uso (servidor con TTS_PROVIDER=edge y sesiones en memoria):
 //   node pruebas/27_voz_humanizada/codigo/03_navegador_voz.cjs <carpeta de resultados>
-// Sale con código 1 si alguna frase no usó la voz neuronal.
+// Sale con código 1 si alguna frase no usó la voz neuronal o si entre dos frases del mismo turno hubo más
+// de MAX_SILENCIO ms de silencio (la primera frase tras hablar el estudiante se mide aparte: incluye al modelo).
 const fs = require('node:fs');
 const path = require('node:path');
 const { chromium } = require('playwright');
 
 const BASE_URL = process.env.BASE_URL || 'http://localhost:3100';
 const CASO = process.env.CASO || 'CIR-005';
+const MAX_SILENCIO = Number(process.env.MAX_SILENCIO || 700);
 const FRASES = ['¿Desde cuándo tiene el dolor?', '¿Ha tenido fiebre o vómitos?'];
 
 (async () => {
@@ -24,7 +26,7 @@ const FRASES = ['¿Desde cuándo tiene el dolor?', '¿Ha tenido fiebre o vómito
     const t0 = performance.now();
     const ms = () => Math.round(performance.now() - t0);
     window.__voz = [];
-    const log = (evento, detalle = '') => window.__voz.push({ t: ms(), evento, detalle });
+    const log = window.__log = (evento, detalle = '') => window.__voz.push({ t: ms(), evento, detalle });
     // Cada <audio> de /api/voz es una frase: se registra cuándo se pide, cuándo empieza a sonar y cuándo
     // termina, con su propio número para no mezclar el final de una con el inicio de la siguiente.
     const AudioOriginal = window.Audio;
@@ -69,6 +71,7 @@ const FRASES = ['¿Desde cuándo tiene el dolor?', '¿Ha tenido fiebre o vómito
   await mic.waitFor({ state: 'visible', timeout: 300000 });
   for (const frase of FRASES) {
     await page.waitForFunction(() => document.querySelector('[data-role="conversation-status"]').textContent === 'Tu turno', null, { timeout: 120000 });
+    await page.evaluate(() => window.__log('turno_estudiante'));
     await mic.click();
     await page.waitForTimeout(1500);
   }
@@ -84,13 +87,16 @@ const FRASES = ['¿Desde cuándo tiene el dolor?', '¿Ha tenido fiebre o vómito
   for (const e of eventos) {
     if (e.evento === 'pide_audio') {
       const [id, texto] = e.detalle.split(/\|(.*)/s);
-      porId[id] = { texto, pide: e.t };
+      porId[id] = { texto, pide: e.t, tras_estudiante: Boolean(frases.tras_estudiante) };
+      frases.tras_estudiante = false;
       frases.push(porId[id]);
     } else if (e.evento === 'suena_neuronal' && porId[e.detalle]) porId[e.detalle].suena = e.t;
     else if (e.evento === 'fin_audio' && porId[e.detalle]) porId[e.detalle].fin = e.t;
     else if (e.evento === 'suena_navegador' && frases.length) frases.at(-1).navegador = true;
+    else if (e.evento === 'turno_estudiante') frases.tras_estudiante = true;
   }
   let fallos = 0;
+  let largos = 0;
   console.log(`Caso ${CASO} en ${BASE_URL}: ${frases.length} frases habladas\n`);
   frases.forEach((f, i) => {
     const neuronal = f.suena !== undefined && !f.navegador;
@@ -100,13 +106,18 @@ const FRASES = ['¿Desde cuándo tiene el dolor?', '¿Ha tenido fiebre o vómito
     f.voz = neuronal ? 'neuronal' : 'navegador';
     f.espera_ms = espera;
     f.silencio_desde_la_anterior_ms = silencio;
-    console.log(`${String(i + 1).padStart(2)}. [${f.voz}] espera ${espera ?? '-'} ms, silencio ${silencio ?? '-'} ms  ${f.texto}`);
+    const mismoTurno = silencio !== null && !f.tras_estudiante;
+    if (mismoTurno && silencio > MAX_SILENCIO) { f.silencio_largo = true; largos += 1; }
+    const marca = f.tras_estudiante ? ' (tras el estudiante)' : f.silencio_largo ? ' (SILENCIO LARGO)' : '';
+    console.log(`${String(i + 1).padStart(2)}. [${f.voz}] espera ${espera ?? '-'} ms, silencio ${silencio ?? '-'} ms${marca}  ${f.texto}`);
   });
   const esperas = frases.map(f => f.espera_ms).filter(v => v !== null);
   const promedio = esperas.length ? Math.round(esperas.reduce((a, b) => a + b, 0) / esperas.length) : 0;
   console.log(`\nEspera promedio del audio: ${promedio} ms; máxima: ${Math.max(0, ...esperas)} ms`);
   console.log(`Errores de JavaScript: ${errores.length ? errores.join(' | ') : 'ninguno'}`);
-  console.log(fallos || errores.length ? `Resultado: ${fallos} frase(s) sin voz neuronal` : 'Resultado: todas las frases con voz neuronal');
-  fs.writeFileSync(path.join(outDir, '03_navegador_voz.json'), JSON.stringify({ base_url: BASE_URL, caso: CASO, fecha: new Date().toISOString(), frases, eventos, errores }, null, 2));
-  process.exit(fallos || errores.length ? 1 : 0);
+  const silenciosTurno = frases.filter(f => f.silencio_desde_la_anterior_ms !== null && !f.tras_estudiante).map(f => f.silencio_desde_la_anterior_ms);
+  console.log(`Silencio entre frases del mismo turno: máximo ${Math.max(0, ...silenciosTurno)} ms (límite ${MAX_SILENCIO} ms)`);
+  console.log(`Resultado: ${fallos} frase(s) sin voz neuronal, ${largos} silencio(s) largo(s) entre frases del mismo turno`);
+  fs.writeFileSync(path.join(outDir, '03_navegador_voz.json'), JSON.stringify({ base_url: BASE_URL, caso: CASO, max_silencio_ms: MAX_SILENCIO, fecha: new Date().toISOString(), frases, eventos, errores }, null, 2));
+  process.exit(fallos || largos || errores.length ? 1 : 0);
 })().catch(error => { console.error(error); process.exit(1); });

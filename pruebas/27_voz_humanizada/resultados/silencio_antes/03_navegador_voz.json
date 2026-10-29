@@ -1,0 +1,226 @@
+{
+  "base_url": "http://localhost:3100",
+  "caso": "CIR-005",
+  "max_silencio_ms": 700,
+  "fecha": "2026-10-29T22:43:02.550Z",
+  "frases": [
+    {
+      "texto": "doctor: Martín Rojas, de 28 años, sexo masculino. Motivo de consulta",
+      "pide": 6694,
+      "tras_estudiante": false,
+      "suena": 8313,
+      "fin": 21883,
+      "voz": "neuronal",
+      "espera_ms": 1619,
+      "silencio_desde_la_anterior_ms": null
+    },
+    {
+      "texto": "doctor: Evolución quirúrgica: Durante la intervención presentó un sa",
+      "pide": 21895,
+      "tras_estudiante": false,
+      "suena": 23295,
+      "fin": 31370,
+      "voz": "neuronal",
+      "espera_ms": 1400,
+      "silencio_desde_la_anterior_ms": 1412,
+      "silencio_largo": true
+    },
+    {
+      "texto": "doctor: No hay alergias documentadas en la ficha.",
+      "pide": 31374,
+      "tras_estudiante": false,
+      "suena": 33230,
+      "fin": 36510,
+      "voz": "neuronal",
+      "espera_ms": 1856,
+      "silencio_desde_la_anterior_ms": 1860,
+      "silencio_largo": true
+    },
+    {
+      "texto": "doctor: Doctor, puede comenzar con el interrogatorio.",
+      "pide": 36512,
+      "tras_estudiante": false,
+      "suena": 37818,
+      "fin": 41520,
+      "voz": "neuronal",
+      "espera_ms": 1306,
+      "silencio_desde_la_anterior_ms": 1308,
+      "silencio_largo": true
+    },
+    {
+      "texto": "doctor: ¿Desde cuándo tiene el dolor?",
+      "pide": 46157,
+      "tras_estudiante": true,
+      "suena": 47384,
+      "fin": 49940,
+      "voz": "neuronal",
+      "espera_ms": 1227,
+      "silencio_desde_la_anterior_ms": 5864
+    },
+    {
+      "texto": "patient: No recuerdo con precisión cuándo empezó el dolor.",
+      "pide": 50458,
+      "tras_estudiante": false,
+      "suena": 51856,
+      "fin": 55770,
+      "voz": "neuronal",
+      "espera_ms": 1398,
+      "silencio_desde_la_anterior_ms": 1916,
+      "silencio_largo": true
+    },
+    {
+      "texto": "doctor: ¿Ha tenido fiebre o vómitos?",
+      "pide": 61888,
+      "tras_estudiante": true,
+      "suena": 63209,
+      "fin": 65980,
+      "voz": "neuronal",
+      "espera_ms": 1321,
+      "silencio_desde_la_anterior_ms": 7439
+    },
+    {
+      "texto": "patient: No recuerdo haber tenido fiebre.",
+      "pide": 66493,
+      "tras_estudiante": false,
+      "suena": 67751,
+      "fin": 70831,
+      "voz": "neuronal",
+      "espera_ms": 1258,
+      "silencio_desde_la_anterior_ms": 1771,
+      "silencio_largo": true
+    }
+  ],
+  "eventos": [
+    {
+      "t": 6694,
+      "evento": "pide_audio",
+      "detalle": "1|doctor: Martín Rojas, de 28 años, sexo masculino. Motivo de consulta"
+    },
+    {
+      "t": 8313,
+      "evento": "suena_neuronal",
+      "detalle": "1"
+    },
+    {
+      "t": 21883,
+      "evento": "fin_audio",
+      "detalle": "1"
+    },
+    {
+      "t": 21895,
+      "evento": "pide_audio",
+      "detalle": "2|doctor: Evolución quirúrgica: Durante la intervención presentó un sa"
+    },
+    {
+      "t": 23295,
+      "evento": "suena_neuronal",
+      "detalle": "2"
+    },
+    {
+      "t": 31370,
+      "evento": "fin_audio",
+      "detalle": "2"
+    },
+    {
+      "t": 31374,
+      "evento": "pide_audio",
+      "detalle": "3|doctor: No hay alergias documentadas en la ficha."
+    },
+    {
+      "t": 33230,
+      "evento": "suena_neuronal",
+      "detalle": "3"
+    },
+    {
+      "t": 36510,
+      "evento": "fin_audio",
+      "detalle": "3"
+    },
+    {
+      "t": 36512,
+      "evento": "pide_audio",
+      "detalle": "4|doctor: Doctor, puede comenzar con el interrogatorio."
+    },
+    {
+      "t": 37818,
+      "evento": "suena_neuronal",
+      "detalle": "4"
+    },
+    {
+      "t": 41520,
+      "evento": "fin_audio",
+      "detalle": "4"
+    },
+    {
+      "t": 42036,
+      "evento": "turno_estudiante",
+      "detalle": ""
+    },
+    {
+      "t": 46157,
+      "evento": "pide_audio",
+      "detalle": "5|doctor: ¿Desde cuándo tiene el dolor?"
+    },
+    {
+      "t": 47384,
+      "evento": "suena_neuronal",
+      "detalle": "5"
+    },
+    {
+      "t": 49940,
+      "evento": "fin_audio",
+      "detalle": "5"
+    },
+    {
+      "t": 50458,
+      "evento": "pide_audio",
+      "detalle": "6|patient: No recuerdo con precisión cuándo empezó el dolor."
+    },
+    {
+      "t": 51856,
+      "evento": "suena_neuronal",
+      "detalle": "6"
+    },
+    {
+      "t": 55770,
+      "evento": "fin_audio",
+      "detalle": "6"
+    },
+    {
+      "t": 55894,
+      "evento": "turno_estudiante",
+      "detalle": ""
+    },
+    {
+      "t": 61888,
+      "evento": "pide_audio",
+      "detalle": "7|doctor: ¿Ha tenido fiebre o vómitos?"
+    },
+    {
+      "t": 63209,
+      "evento": "suena_neuronal",
+      "detalle": "7"
+    },
+    {
+      "t": 65980,
+      "evento": "fin_audio",
+      "detalle": "7"
+    },
+    {
+      "t": 66493,
+      "evento": "pide_audio",
+      "detalle": "8|patient: No recuerdo haber tenido fiebre."
+    },
+    {
+      "t": 67751,
+      "evento": "suena_neuronal",
+      "detalle": "8"
+    },
+    {
+      "t": 70831,
+      "evento": "fin_audio",
+      "detalle": "8"
+    }
+  ],
+  "errores": []
+}
