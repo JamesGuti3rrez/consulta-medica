@@ -1,0 +1,182 @@
+{
+  "base_url": "http://localhost:3100",
+  "caso": "CIR-005",
+  "fecha": "2026-10-29T22:24:44.210Z",
+  "frases": [
+    {
+      "texto": "doctor: Martín Rojas, de 28 años, sexo masculino. Motivo de consulta",
+      "pide": 6306,
+      "navegador": true,
+      "voz": "navegador",
+      "espera_ms": null,
+      "silencio_desde_la_anterior_ms": null
+    },
+    {
+      "texto": "doctor: Evolución quirúrgica: Durante la intervención presentó un sa",
+      "pide": 22329,
+      "llega": 24273,
+      "http": "HTTP 200",
+      "suena": 24284,
+      "voz": "neuronal",
+      "espera_ms": 1955,
+      "silencio_desde_la_anterior_ms": null
+    },
+    {
+      "texto": "doctor: No hay alergias documentadas en la ficha.",
+      "pide": 32746,
+      "fin": 32750,
+      "llega": 34354,
+      "http": "HTTP 200",
+      "suena": 34357,
+      "voz": "neuronal",
+      "espera_ms": 1611,
+      "silencio_desde_la_anterior_ms": null
+    },
+    {
+      "texto": "doctor: Doctor, puede comenzar con el interrogatorio.",
+      "pide": 37697,
+      "fin": 43174,
+      "llega": 39384,
+      "http": "HTTP 200",
+      "suena": 39387,
+      "voz": "neuronal",
+      "espera_ms": 1690,
+      "silencio_desde_la_anterior_ms": 6637
+    },
+    {
+      "texto": "doctor: No pude procesar tu pregunta. Inténtalo de nuevo.",
+      "pide": 49269,
+      "llega": 51086,
+      "http": "HTTP 200",
+      "suena": 51089,
+      "fin": 55834,
+      "voz": "neuronal",
+      "espera_ms": 1820,
+      "silencio_desde_la_anterior_ms": 7915
+    },
+    {
+      "texto": "doctor: No pude procesar tu pregunta. Inténtalo de nuevo.",
+      "pide": 62422,
+      "llega": 63771,
+      "http": "HTTP 200",
+      "suena": 63772,
+      "fin": 68494,
+      "voz": "neuronal",
+      "espera_ms": 1350,
+      "silencio_desde_la_anterior_ms": 7938
+    }
+  ],
+  "eventos": [
+    {
+      "t": 6306,
+      "evento": "pide_audio",
+      "detalle": "doctor: Martín Rojas, de 28 años, sexo masculino. Motivo de consulta"
+    },
+    {
+      "t": 10316,
+      "evento": "suena_navegador",
+      "detalle": "Martín Rojas, de 28 años, sexo masculino. Motivo de consulta"
+    },
+    {
+      "t": 22329,
+      "evento": "pide_audio",
+      "detalle": "doctor: Evolución quirúrgica: Durante la intervención presentó un sa"
+    },
+    {
+      "t": 24273,
+      "evento": "llega_audio",
+      "detalle": "HTTP 200"
+    },
+    {
+      "t": 24284,
+      "evento": "suena_neuronal",
+      "detalle": ""
+    },
+    {
+      "t": 32746,
+      "evento": "pide_audio",
+      "detalle": "doctor: No hay alergias documentadas en la ficha."
+    },
+    {
+      "t": 32750,
+      "evento": "fin_audio",
+      "detalle": ""
+    },
+    {
+      "t": 34354,
+      "evento": "llega_audio",
+      "detalle": "HTTP 200"
+    },
+    {
+      "t": 34357,
+      "evento": "suena_neuronal",
+      "detalle": ""
+    },
+    {
+      "t": 37697,
+      "evento": "pide_audio",
+      "detalle": "doctor: Doctor, puede comenzar con el interrogatorio."
+    },
+    {
+      "t": 37698,
+      "evento": "fin_audio",
+      "detalle": ""
+    },
+    {
+      "t": 39384,
+      "evento": "llega_audio",
+      "detalle": "HTTP 200"
+    },
+    {
+      "t": 39387,
+      "evento": "suena_neuronal",
+      "detalle": ""
+    },
+    {
+      "t": 43174,
+      "evento": "fin_audio",
+      "detalle": ""
+    },
+    {
+      "t": 49269,
+      "evento": "pide_audio",
+      "detalle": "doctor: No pude procesar tu pregunta. Inténtalo de nuevo."
+    },
+    {
+      "t": 51086,
+      "evento": "llega_audio",
+      "detalle": "HTTP 200"
+    },
+    {
+      "t": 51089,
+      "evento": "suena_neuronal",
+      "detalle": ""
+    },
+    {
+      "t": 55834,
+      "evento": "fin_audio",
+      "detalle": ""
+    },
+    {
+      "t": 62422,
+      "evento": "pide_audio",
+      "detalle": "doctor: No pude procesar tu pregunta. Inténtalo de nuevo."
+    },
+    {
+      "t": 63771,
+      "evento": "llega_audio",
+      "detalle": "HTTP 200"
+    },
+    {
+      "t": 63772,
+      "evento": "suena_neuronal",
+      "detalle": ""
+    },
+    {
+      "t": 68494,
+      "evento": "fin_audio",
+      "detalle": ""
+    }
+  ],
+  "errores": []
+}
