@@ -1,0 +1,57 @@
+﻿COMANDO: python -m pytest tests/integration/test_api_voice.py -q
+COMMIT: 906b67a
+FECHA: 2026-10-29 23:04:14 UTC
+CODIGO_SALIDA: 1
+
+........FF.                                                              [100%]
+================================== FAILURES ===================================
+_____________ test_one_failure_before_the_first_chunk_is_retried ______________
+
+voice_on = []
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001D4D237EF30>
+
+    def test_one_failure_before_the_first_chunk_is_retried(voice_on, monkeypatch):
+        attempts = []
+    
+        async def flaky_stream(text, voice):
+            attempts.append(voice)
+            if len(attempts) == 1:
+                raise tts.VoiceError("No audio was received")
+            for chunk in CHUNKS:
+                yield chunk
+    
+        monkeypatch.setattr(tts, "stream", flaky_stream)
+    
+        response = say("Hola")
+    
+>       assert response.status_code == 200
+E       assert 502 == 200
+E        +  where 502 = <Response [502 Bad Gateway]>.status_code
+
+tests\integration\test_api_voice.py:99: AssertionError
+_________________ test_two_failures_answer_502_and_are_logged _________________
+
+voice_on = []
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001D4D242B3F0>
+caplog = <_pytest.logging.LogCaptureFixture object at 0x000001D4D2459BE0>
+
+    def test_two_failures_answer_502_and_are_logged(voice_on, monkeypatch, caplog):
+        attempts = []
+    
+        async def failing_stream(text, voice):
+            attempts.append(voice)
+            raise tts.VoiceError("No audio was received")
+            yield b""  # pragma: no cover - lo vuelve generador
+    
+        monkeypatch.setattr(tts, "stream", failing_stream)
+    
+        assert say("Hola").status_code == 502
+>       assert len(attempts) == 2
+E       AssertionError: assert 1 == 2
+E        +  where 1 = len(['es-PE-AlexNeural'])
+
+tests\integration\test_api_voice.py:115: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/integration/test_api_voice.py::test_one_failure_before_the_first_chunk_is_retried
+FAILED tests/integration/test_api_voice.py::test_two_failures_answer_502_and_are_logged
+2 failed, 9 passed in 1.23s

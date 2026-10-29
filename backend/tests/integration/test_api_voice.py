@@ -82,6 +82,40 @@ def test_failure_before_the_first_chunk_answers_502(voice_on, monkeypatch):
     assert say("Hola").status_code == 502
 
 
+def test_one_failure_before_the_first_chunk_is_retried(voice_on, monkeypatch):
+    attempts = []
+
+    async def flaky_stream(text, voice):
+        attempts.append(voice)
+        if len(attempts) == 1:
+            raise tts.VoiceError("No audio was received")
+        for chunk in CHUNKS:
+            yield chunk
+
+    monkeypatch.setattr(tts, "stream", flaky_stream)
+
+    response = say("Hola")
+
+    assert response.status_code == 200
+    assert response.content == b"".join(CHUNKS)
+    assert len(attempts) == 2
+
+
+def test_two_failures_answer_502_and_are_logged(voice_on, monkeypatch, caplog):
+    attempts = []
+
+    async def failing_stream(text, voice):
+        attempts.append(voice)
+        raise tts.VoiceError("No audio was received")
+        yield b""  # pragma: no cover - lo vuelve generador
+
+    monkeypatch.setattr(tts, "stream", failing_stream)
+
+    assert say("Hola").status_code == 502
+    assert len(attempts) == 2
+    assert "No audio was received" in caplog.text
+
+
 def test_status_reports_whether_the_voice_is_on(voice_on, monkeypatch):
     assert client.get("/api/voz/estado").json() == {"activa": True}
 
