@@ -1,0 +1,71 @@
+{
+  "base_url": "http://localhost:3100",
+  "caso": "CIR-005",
+  "max_silencio_ms": 700,
+  "fecha": "2026-10-29T22:45:11.419Z",
+  "frases": [
+    {
+      "texto": "doctor: ¿Desde cuándo tiene el dolor?",
+      "pide": 37589,
+      "tras_estudiante": true,
+      "suena": 39036,
+      "fin": 41543,
+      "voz": "neuronal",
+      "espera_ms": 1447,
+      "silencio_desde_la_anterior_ms": null
+    },
+    {
+      "texto": "doctor: ¿Ha tenido fiebre o vómitos?",
+      "pide": 52984,
+      "tras_estudiante": true,
+      "suena": 54438,
+      "fin": 57193,
+      "voz": "neuronal",
+      "espera_ms": 1454,
+      "silencio_desde_la_anterior_ms": 12895
+    }
+  ],
+  "eventos": [
+    {
+      "t": 33374,
+      "evento": "turno_estudiante",
+      "detalle": ""
+    },
+    {
+      "t": 37589,
+      "evento": "pide_audio",
+      "detalle": "1|doctor: ¿Desde cuándo tiene el dolor?"
+    },
+    {
+      "t": 39036,
+      "evento": "suena_neuronal",
+      "detalle": "1"
+    },
+    {
+      "t": 41543,
+      "evento": "fin_audio",
+      "detalle": "1"
+    },
+    {
+      "t": 46128,
+      "evento": "turno_estudiante",
+      "detalle": ""
+    },
+    {
+      "t": 52984,
+      "evento": "pide_audio",
+      "detalle": "2|doctor: ¿Ha tenido fiebre o vómitos?"
+    },
+    {
+      "t": 54438,
+      "evento": "suena_neuronal",
+      "detalle": "2"
+    },
+    {
+      "t": 57193,
+      "evento": "fin_audio",
+      "detalle": "2"
+    }
+  ],
+  "errores": []
+}
