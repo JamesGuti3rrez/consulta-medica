@@ -6,6 +6,8 @@ con error y el navegador vuelve a su propia voz.
 
 from __future__ import annotations
 
+from collections.abc import AsyncIterator
+
 PATIENT_VOICES = {"masculino": "es-PE-AlexNeural", "femenino": "es-PE-CamilaNeural"}
 # El doctor nunca comparte la voz del paciente: con un paciente hombre habla otra voz masculina.
 DOCTOR_VOICES = {"masculino": "es-MX-JorgeNeural", "femenino": "es-PE-AlexNeural"}
@@ -40,16 +42,17 @@ def available() -> bool:
     return True
 
 
-async def synthesize(text: str, voice: str) -> bytes:
+async def stream(text: str, voice: str) -> AsyncIterator[bytes]:
+    """Trozos del mp3 a medida que llegan, para que el navegador empiece a sonar sin esperar el final."""
     import edge_tts
 
-    audio = bytearray()
+    sent = False
     try:
         async for chunk in edge_tts.Communicate(text, voice).stream():
             if chunk["type"] == "audio":
-                audio.extend(chunk["data"])
+                sent = True
+                yield chunk["data"]
     except Exception as exc:  # edge-tts lanza errores de red y de su propio protocolo
         raise VoiceError(str(exc)) from exc
-    if not audio:
+    if not sent:
         raise VoiceError("El servicio de voz no devolvió audio.")
-    return bytes(audio)
