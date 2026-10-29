@@ -181,12 +181,60 @@ document.addEventListener('DOMContentLoaded', async () => {
     button.classList.toggle('hidden', !visible);
     button.classList.toggle('inline-flex', visible);
   });
-  skipButtons.forEach(button => button.addEventListener('click', () => {
+  // Voz neuronal del servidor (/api/voz, edge-tts). Si la ruta responde 503 la voz está apagada y no se
+  // vuelve a pedir; ante cualquier otro fallo, o si tarda más de NEURAL_TIMEOUT, habla la voz del navegador.
+  const NEURAL_TIMEOUT = 4000;
+  let neuralVoice = true;
+  let currentAudio = null;
+  const stopSpeech = () => {
     window.speechSynthesis?.cancel();
+    if (currentAudio) {
+      currentAudio.pause();
+      URL.revokeObjectURL(currentAudio.src);
+      currentAudio = null;
+    }
+  };
+  skipButtons.forEach(button => button.addEventListener('click', () => {
+    stopSpeech();
     skipCurrent?.();
   }));
 
-  const speak = text => new Promise(resolve => {
+  const fetchNeuralAudio = async (text, speaker) => {
+    if (!neuralVoice) return null;
+    const controller = new AbortController();
+    const timer = window.setTimeout(() => controller.abort(), NEURAL_TIMEOUT);
+    try {
+      const response = await fetch('/api/voz', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ texto: text, personaje: speaker, sexo: currentCase?.patient?.sex ?? null }),
+        signal: controller.signal,
+      });
+      if (response.status === 503) neuralVoice = false;
+      return response.ok ? await response.blob() : null;
+    } catch {
+      return null;
+    } finally {
+      window.clearTimeout(timer);
+    }
+  };
+
+  const speakWithBrowser = (text, finish) => {
+    if (!('speechSynthesis' in window)) {
+      wait(readingTime(text)).then(finish);
+      return;
+    }
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'es-ES';
+    utterance.rate = SPEECH_RATE;
+    utterance.onend = finish;
+    utterance.onerror = finish;
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utterance);
+    wait(readingTime(text) * 2).then(finish);
+  };
+
+  const speak = (text, speaker = 'doctor') => new Promise(resolve => {
     let done = false;
     const finish = () => {
       if (done) return;
@@ -197,18 +245,29 @@ document.addEventListener('DOMContentLoaded', async () => {
     };
     skipCurrent = finish;
     setSkipVisible(true);
-    if (!('speechSynthesis' in window)) {
-      wait(readingTime(text)).then(finish);
-      return;
-    }
-    const utterance = new SpeechSynthesisUtterance(spokenText(text));
-    utterance.lang = 'es-ES';
-    utterance.rate = SPEECH_RATE;
-    utterance.onend = finish;
-    utterance.onerror = finish;
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(utterance);
-    wait(readingTime(text) * 2).then(finish);
+    const spoken = spokenText(text);
+    fetchNeuralAudio(spoken, speaker).then(blob => {
+      if (done) return;
+      if (!blob) {
+        speakWithBrowser(spoken, finish);
+        return;
+      }
+      stopSpeech();
+      const audio = new Audio(URL.createObjectURL(blob));
+      currentAudio = audio;
+      const end = () => {
+        if (currentAudio === audio) stopSpeech();
+        finish();
+      };
+      audio.onended = end;
+      audio.onerror = end;
+      // Límite por si el audio nunca avisa del final: su duración más un margen.
+      audio.onloadedmetadata = () => wait((audio.duration + 2) * 1000).then(end);
+      audio.play().catch(() => {
+        if (currentAudio === audio) stopSpeech();
+        speakWithBrowser(spoken, finish);
+      });
+    });
   });
 
   const SPEAKERS = {
@@ -269,7 +328,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const say = async (speaker, text) => {
     appendChat(text, speaker);
     setSpeaker(speaker, text);
-    await speak(text);
+    await speak(text, speaker);
   };
 
   const setReady = () => {
@@ -582,14 +641,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (isListening) {
       cancelListening = true;
       session += 1;
-      window.speechSynthesis?.cancel();
+      stopSpeech();
       recognition.stop();
       return;
     }
     // Pulsar mientras alguien habla lo interrumpe y abre el micrófono.
     if (isRunning) {
       session += 1;
-      window.speechSynthesis?.cancel();
+      stopSpeech();
       isRunning = false;
       setPill(doctorStatus, 'Interrumpido');
     }
@@ -902,7 +961,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     consultationClosed = true;
     discardingIndex = null;
     session += 1;
-    window.speechSynthesis?.cancel();
+    stopSpeech();
     if (recognition && isListening) recognition.abort();
     [saveDiagnosis, diagnosisMic, micButton, diagnosisButton, hypothesisInput, hypothesisMic, addHypothesisButton].forEach(element => {
       if (element) element.disabled = true;
