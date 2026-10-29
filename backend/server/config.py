@@ -47,6 +47,7 @@ class Settings:
     case_store: str = "local"
     synthetic_case_data: bool = False
     history_enabled: bool = False
+    tts_provider: str = ""
 
     @property
     def auth_enabled(self) -> bool:
@@ -83,4 +84,6 @@ settings = Settings(
     synthetic_case_data=_flag("SYNTHETIC_CASE_DATA", "false"),
     # Guardar las consultas de los alumnos con sesión en «Mis simulaciones»; requiere la migración 0001.
     history_enabled=_flag("HISTORIAL_ALUMNOS", "false"),
+    # Voz neuronal del simulador: «edge» la activa (prueba local); vacío, el navegador usa su propia voz.
+    tts_provider=os.getenv("TTS_PROVIDER", "").strip().lower(),
 )

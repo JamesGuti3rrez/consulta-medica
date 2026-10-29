@@ -10,6 +10,7 @@ from fastapi.responses import JSONResponse
 from .api.ai import router as ai_router
 from .api.routes import router as api_router
 from .api.teaching import router as teaching_router
+from .api.voice import router as voice_router
 from .rag.router import router as rag_router
 from .cases.supabase import CaseStoreError
 from .persistence.teaching import TeachingStoreError
@@ -63,6 +64,7 @@ async def security_headers(request: Request, call_next):
 app.include_router(ai_router)
 app.include_router(rag_router)
 app.include_router(teaching_router)
+app.include_router(voice_router)
 app.include_router(api_router)
 
 # Todo lo demás son los archivos del frontend. En Vercel los sirve su CDN desde public/ (lo copia el
