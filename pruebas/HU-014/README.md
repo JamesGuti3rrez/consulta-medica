@@ -1,7 +1,10 @@
-# HU-014 · Panel Doctor, grupos y desempeño
+# HU-011 · Panel Doctor, grupos y desempeño
 
 Implementación del refinamiento aprobado el 30/10/2026. El nombre visible del panel es
 **Panel Doctor**, conservando `docente.html` y los roles de servidor profesor/administrativo.
+El código actual es **HU-011**, antes HU-014, por indicación del usuario y pendiente de
+incorporación manual al backlog. La carpeta `pruebas/HU-014` conserva la evidencia
+original. Este informe no da por completada HU-010 (rondas gamificadas).
 
 ## Uso
 
@@ -127,4 +130,4 @@ Capturas y Word:
 Las capturas nativas muestran registros originales en ventanas propias de PowerShell;
 no se presentan como capturas de la terminal integrada de VS Code. El manifiesto conserva
 SHA-256 de cada registro. Las imágenes del navegador provienen de la UI y API ejecutadas.
-El documento queda en `Entregables/Sprint2/HU-014_Panel_Doctor_Grupos_y_Desempeno.docx`.
+El documento queda en `Entregables/Sprint2/HU-011_Panel_Doctor_Grupos_y_Desempeno.docx`.

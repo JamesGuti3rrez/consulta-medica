@@ -1,19 +1,23 @@
 # Sprint 2 · Primeros cinco PBIs de Rodrigo
 
-Fecha: 30 de octubre de 2026. Fuente: `Product_Backlog_Paciente_Virtual_Adaptativo_v5.5_Sprint2_Unificado.docx`.
-Se respetó el orden de la tabla del Sprint 2 e incluyeron responsabilidades compartidas.
-`alcance.json` contiene los cinco registros y el SHA-256 del documento fuente, sin modificarlo.
+Fecha: 30 de octubre de 2026. Códigos actuales: `Backlog_Sprint2_Fases_y_Dependencias_Completado.docx`.
+`alcance.json` conserva el encargo y la fuente históricos. La correspondencia actual,
+responsables, criterios, fases y SHA-256 están en
+[`correspondencia_backlog_sprint2.json`](../../docs/development/correspondencia_backlog_sprint2.json).
+Las capturas, registros, nombres de pruebas y carpetas de evidencia conservan sus nombres originales.
 
 | PBI | Resultado | Pruebas específicas | Documento independiente |
 | --- | --- | ---: | --- |
-| TA-017 | Autorización de sesiones y eventos verificada | 23 | `Entregables/Sprint2/TA-017_Autorizacion_sesiones_eventos.docx` |
-| TA-007 | Guardrails, evidencia y auditoría reforzados | 12 | `Entregables/Sprint2/TA-007_Validacion_adversarial_guardrails.docx` |
-| TA-027 | Informe y barrera de consistencia previa | 58 | `Entregables/Sprint2/TA-027_Validador_consistencia_casos.docx` |
-| HU-004 | Exámenes/especialistas y tablilla progresiva | 10 | `Entregables/Sprint2/HU-004_Examenes_especialistas.docx` |
-| EN-013 | Generación sintética controlada y validada | 21 | `Entregables/Sprint2/EN-013_Generacion_examenes_sinteticos.docx` |
+| TA-011 | Autorización de sesiones y eventos verificada | 23 | `Entregables/Sprint2/TA-011_Autorizacion_sesiones_eventos.docx` |
+| TA-012 | Guardrails, evidencia y auditoría reforzados | 12 | `Entregables/Sprint2/TA-012_Validacion_adversarial_guardrails.docx` |
+| TA-014 | Informe y barrera de consistencia previa | 58 | `Entregables/Sprint2/TA-014_Validador_consistencia_casos.docx` |
+| HU-005 | Exámenes/especialistas y tablilla progresiva | 10 | `Entregables/Sprint2/HU-005_Examenes_especialistas.docx` |
+| EN-005 | Generación sintética controlada y validada | 21 | `Entregables/Sprint2/EN-005_Generacion_examenes_sinteticos.docx` |
 
-**HU-005 y TA-019 excluidas.** No se renumeraron entregables históricos: TA-011 sigue
-siendo evidencia previa de autorización, y el Word histórico TA-012 no se sustituyó.
+**HU-006 y TA-023 excluidas del encargo inicial.** Los informes se renumeraron según el
+backlog actualizado. El informe de calificación diagnóstica se identifica ahora como
+**TA-021**; la carpeta `pruebas/TA-012` conserva sus registros originales. El TA-012
+actual corresponde exclusivamente a validación adversarial y guardrails.
 La aceptación del Product Owner y la revisión clínica humana siguen siendo independientes.
 
 ## Evidencia y límites
@@ -25,19 +29,19 @@ La aceptación del Product Owner y la revisión clínica humana siguen siendo in
   generación de un candidato con Groq real, persistencia y reutilización tras nueva instancia.
 - El catálogo local tiene 43 casos; se revisaron 44 documentos remotos sin modificarlos.
 - Se verificaron propietario A, usuario B y ausencia de credenciales con Supabase Auth real.
-- La matriz remota de HU-004 cubre laboratorio. Radiología y especialista presente/ausente
+- La matriz remota de HU-005 cubre laboratorio. Radiología y especialista presente/ausente
   se comprueban con casos/fixture locales y proveedores controlados, sin afirmarlo como prueba remota.
-- El bloqueo remoto de TA-007 es determinista; las salidas LLM hostiles se fuerzan localmente.
+- El bloqueo remoto de TA-012 es determinista; las salidas LLM hostiles se fuerzan localmente.
 - Se eliminaron y verificaron dos cuentas temporales, dos sesiones y sus eventos.
   No se migró el esquema, no se modificaron casos curados, roles de usuarios existentes ni `.env`.
 - La primera ejecución y la corrección del trazado automático se conservan en
   `intentos/01_trazado_automatico/`. La comprobación final no depende de LangSmith.
 
-EN-013 incorpora **hemograma parcial y glucosa explícitamente en ayunas**, solo para adultos
+EN-005 incorpora **hemograma parcial y glucosa explícitamente en ayunas**, solo para adultos
 con contrato aplicable. Los valores que no pasan el contrato no se muestran ni se guardan.
 Los aceptados indican `synthetic=true` y revisión clínica humana pendiente; no se emplean
 como evidencia canónica para conceder puntos. El repositorio entre casos/sesiones y la
-validación clínica especializada de TA-028/TA-026 no se dan por terminados aquí.
+validación clínica especializada de TA-016/TA-015 no se dan por terminados aquí.
 
 ## Ejecutar desde la terminal de VS Code
 
@@ -92,7 +96,7 @@ Los Word y las fotografías están excluidos de Git por las reglas actuales del 
 ## Activación en el simulador
 
 Después de cargar el código, reiniciar el servidor con `npm start`.
-`SYNTHETIC_EXAM_DATA=true` habilita EN-013; si la variable no está definida, hereda
+`SYNTHETIC_EXAM_DATA=true` habilita EN-005; si la variable no está definida, hereda
 `SYNTHETIC_CASE_DATA`. El `.env` proporcionado ya activa esa condición, sin haberlo modificado.
 El resultado aceptado queda en `sma_sesiones.state.synthetic_exam_results` y la decisión
 en `sma_eventos.payload.exam_validation`. No requiere crear columnas nuevas.

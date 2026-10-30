@@ -13,7 +13,7 @@
         "rag:sync": "node backend/scripts/python.mjs sync-rag",
         "test:cases": "node backend/scripts/python.mjs test-cases",
         "test:diagnosis": "node backend/scripts/python.mjs test-cases tests/unit/test_evaluation.py tests/unit/test_report_builder.py tests/integration/test_api_report.py tests/integration/test_report_all_cases.py tests/security tests/unit/test_attempts.py tests/unit/test_supabase_store.py",
-        "test:sprint2": "node backend/scripts/python.mjs test-cases tests/sprint2 tests/groups tests/security tests/unit/test_report_builder.py tests/integration/test_api_report.py tests/integration/test_report_all_cases.py tests/unit/test_attempts.py tests/unit/test_supabase_store.py",
+        "test:sprint2": "node backend/scripts/python.mjs test-cases tests/sprint2 tests/groups tests/security tests/integration/test_direct_dialogue.py tests/unit/test_report_builder.py tests/integration/test_api_report.py tests/integration/test_report_all_cases.py tests/unit/test_attempts.py tests/unit/test_supabase_store.py",
         "test:groups": "node backend/scripts/python.mjs test-cases tests/groups",
         "test:groups:sql": "node pruebas/HU-014/probar_sql.mjs",
         "prestart": "npm run build",

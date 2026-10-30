@@ -458,7 +458,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       addClinicalEvidence(groupTurn.evidencias);
       for (const event of groupTurn.eventos.filter(event => event.type === 'turn')) {
         appendChat(event.student_message, 'student');
-        if (event.doctor_question) appendChat(event.doctor_question, 'doctor');
+        // Los eventos antiguos pueden incluir doctor_question; no se reproduce ese turno duplicado.
         appendChat(event.response_text, ({ paciente: 'patient', medico_asistente: 'doctor' })[event.agent] || event.agent);
       }
     }
@@ -478,29 +478,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   };
 
   // Respuesta a una intervención del estudiante: el agente que corresponda contesta con su burbuja.
-  // Puntos de «pensando» en la burbuja de quien va a hablar.
-  const showThinking = speaker => {
-    const isPatient = speaker === 'patient';
-    const bubble = isPatient ? patientBubble : doctorBubble;
-    const text = isPatient ? patientText : doctorText;
-    if (!bubble || !text) return;
-    show(doctorBubble, !isPatient);
-    show(patientBubble, isPatient);
-    const dots = document.createElement('span');
-    dots.className = 'typing-dots';
-    dots.setAttribute('aria-label', 'Pensando');
-    dots.append(...[0, 1, 2].map(() => document.createElement('i')));
-    text.replaceChildren(dots);
-    setPill(isPatient ? patientStatus : doctorStatus, 'Pensando');
-  };
-
   const respondToStudent = async (question, current) => {
     if (!aiSessionId) {
       await say('doctor', 'El interrogatorio con el paciente todavía no está disponible en esta versión.');
       if (current === session) setReady();
       return;
     }
-    showThinking('doctor');
+    // Espera neutral: todavía no sabemos qué agente responderá.
+    show(doctorBubble, false); show(patientBubble, false);
+    if (conversationStatus) conversationStatus.textContent = 'Preparando respuesta';
     let reply;
     try {
       const response = await fetch(`/api/ai/sessions/${encodeURIComponent(aiSessionId)}/message`, {
@@ -522,12 +508,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     if (current !== session) return;
     addClinicalEvidence(reply.clinical_evidence);
-    // El médico tratante le hace al paciente la pregunta reformulada; luego el paciente responde.
-    if (reply.doctor_question) {
-      await say('doctor', reply.doctor_question);
-      if (current !== session) return;
-      showThinking('patient');
-    }
     await wait(500);
     if (current !== session) return;
     const speaker = { paciente: 'patient', medico_asistente: 'doctor' }[reply.agent] || reply.agent;

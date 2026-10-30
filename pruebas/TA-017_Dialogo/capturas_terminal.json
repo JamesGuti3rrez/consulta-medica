@@ -1,0 +1,12 @@
+[
+  {
+    "registro": "pruebas\\TA-017_Dialogo\\pytest.txt",
+    "captura": "pruebas\\TA-017_Dialogo\\capturas\\terminal-pytest.png",
+    "sha256": "bee8e35b7f9c93b9240f1bdaf9a6f7b144e0e7f5ffbcda314e66d1d5359e6115"
+  },
+  {
+    "registro": "pruebas\\TA-017_Dialogo\\navegador.txt",
+    "captura": "pruebas\\TA-017_Dialogo\\capturas\\terminal-navegador.png",
+    "sha256": "6fe2b53e94555ed9eff26a6e3a0bb9a5608ab2423759a4d7e82126cc639e373d"
+  }
+]

@@ -65,12 +65,12 @@ def test_five_agents_in_one_star_session_with_traceable_evidence():
     patient = _send(sid, "¿Desde cuándo comenzó el dolor y cómo lo describiría?", creds)
     assert patient["agent"] == "paciente"
     assert patient["evidence_ids"] == ["MED-900.anamnesis.inicio_dolor"]
-    # Al paciente le habla el médico tratante con la pregunta reformulada.
-    assert patient["doctor_question"]
+    # El estudiante conversa directamente con el paciente, sin otro turno del doctor.
+    assert patient["doctor_question"] is None
 
     ordered = _send(sid, "Pregúntale si tiene alergias", creds)
     assert ordered["agent"] == "paciente"
-    assert ordered["doctor_question"] == "¿Tiene alergias?"
+    assert ordered["doctor_question"] is None
     assert ordered["evidence_ids"] == ["MED-900.anamnesis.alergias"]
 
     lab = _send(sid, "Solicito un hemograma y análisis de sangre", creds)
@@ -95,6 +95,10 @@ def test_five_agents_in_one_star_session_with_traceable_evidence():
         "paciente", "paciente", "laboratorio", "radiologia", "especialista", "medico_asistente"
     ]
     assert all("evidence_ids" in turn for turn in turns)
+    assert all(turn["doctor_question"] is None for turn in turns)
+    history = get_service().store.get(sid)["history"]
+    assert len(history) == 2 * len(turns)
+    assert all(turn["role"] != "medico_tratante" for turn in history)
 
     state = client.get(f"/api/ai/sessions/{sid}", headers=creds).json()
     assert "MED-900.laboratorio.hemograma" in state["revealed_evidence_ids"]

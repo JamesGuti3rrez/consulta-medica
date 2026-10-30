@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import hashlib
+import sys
 from pathlib import Path
 from zipfile import ZipFile
 import xml.etree.ElementTree as ET
@@ -14,8 +15,10 @@ from docx.oxml.ns import qn
 from docx.shared import Cm, Pt, RGBColor
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / 'pruebas'))
+from codigos_documentacion import align_document, destination as report_destination
 HERE = Path(__file__).resolve().parent
-OUTPUT = ROOT / "Entregables/TA-012_Calificacion_diagnostico_final.docx"
+OUTPUT = report_destination('TA-012')
 DATE = "28 de octubre de 2026"
 TEAL = "176B75"
 DARK = "183E49"
@@ -405,6 +408,7 @@ def main():
         code("SHA-256: " + capture["sha256_registro"])
 
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    align_document(doc, 'TA-012')
     doc.save(OUTPUT)
     # Validación del paquete y lectura posterior: detectar archivos incompletos o XML corrupto.
     with ZipFile(OUTPUT) as archive:
@@ -415,9 +419,9 @@ def main():
                 ET.fromstring(archive.read(name))
     check = Document(OUTPUT)
     text = "\n".join(paragraph.text for paragraph in check.paragraphs)
-    if "TA-012" not in text or "10. Capturas" not in text or len(check.inline_shapes) != 8:
+    if "TA-021" not in text or "10. Capturas" not in text or len(check.inline_shapes) != 8:
         raise SystemExit("La validación de contenido del Word falló.")
-    summary = {"tarea": "TA-012", "fecha": DATE, "pruebas_aprobadas": len(tests),
+    summary = {"tarea": "TA-021", "codigo_evidencia": "TA-012", "fecha": DATE, "pruebas_aprobadas": len(tests),
                "pruebas_ta012": len(specific), "navegador": "5/5", "casos_curados": len(catalog),
                "etiquetas_comprobadas": labels, "word": str(OUTPUT.relative_to(ROOT)),
                "supabase_real": "5/5 sesiones y eventos", "historial_real_disponible": remote["historial_real_disponible"],

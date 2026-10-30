@@ -1,4 +1,8 @@
-# TA-012 · Calificación del diagnóstico final
+# TA-021 · Calificación diagnóstica final
+
+Código actual según `Backlog_Sprint2_Fases_y_Dependencias_Completado.docx`.
+La carpeta `pruebas/TA-012` conserva el nombre usado cuando se ejecutaron las pruebas.
+El informe actualizado está en `Entregables/Sprint2/TA-021_Calificacion_diagnostico_final.docx`.
 
 Implementado el 28 de octubre de 2026. La comparación es determinística, usa exclusivamente
 el diagnóstico y los sinónimos del caso y solo se invoca desde el cierre autorizado de la consulta.
@@ -70,7 +74,7 @@ la descarga de fuentes externas. No se simulan las respuestas de `/finish`.
 
 ## Evidencia obtenida
 
-- `pytest.xml`: 566 pruebas aprobadas; 93 de TA-012. Otras tres pruebas de seguridad
+- `pytest.xml`: 566 pruebas aprobadas; 93 de TA-021. Otras tres pruebas de seguridad
   que requieren servicios reales se deseleccionaron por configuración.
 - `resultados/*.json`: los cinco resultados HTTP y sus comprobaciones de persistencia.
 - `navegador.json`: 5/5 escenarios aprobados con la API local real.
@@ -119,7 +123,7 @@ El generador requiere `python-docx` solo como herramienta de documentación:
 .\backend\.venv\Scripts\python.exe pruebas/TA-012/generar_informe.py
 ```
 
-Produce `Entregables/TA-012_Calificacion_diagnostico_final.docx`.
+Produce `Entregables/Sprint2/TA-021_Calificacion_diagnostico_final.docx`.
 El generador exige que la batería, los cinco casos del navegador y las cinco comprobaciones
 remotas estén aprobados, que la limpieza esté confirmada y que los registros coincidan
 con los hashes de las capturas. Incorpora ocho capturas: cinco de la interfaz y tres

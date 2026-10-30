@@ -31,7 +31,6 @@ class StarGraphOrchestrator:
         state_machine,
         output_guard,
         protected_lexicon,
-        reformulator=None,
         temperature: float = 0.0,
         patient_completion=None,
         exam_completion=None,
@@ -45,7 +44,6 @@ class StarGraphOrchestrator:
         self.state_machine = state_machine
         self.output_guard = output_guard
         self.protected_lexicon = protected_lexicon
-        self.reformulator = reformulator
         self.temperature = temperature
         self.patient_completion = patient_completion
         self.exam_completion = exam_completion
@@ -99,19 +97,8 @@ class StarGraphOrchestrator:
             case = self.repository.get_conversation_case(state["case_id"])
             intent = Intent(state["route_intent"])
             forbidden_terms = self.protected_lexicon.for_case(state["case_id"])
-            reformulation_blocked = False
-            # Al paciente le habla el médico tratante: reformula lo que pidió el estudiante. La
-            # autorización usa la frase original, así la reformulación no puede revelar datos.
-            reformulation = None
-            message_for_agent = state["student_message"]
+            # El estudiante pregunta directamente al agente. No se crea un turno intermedio del doctor.
             social = rapport_reply(state["student_message"]) if role == AgentRole.PACIENTE else None
-            if role == AgentRole.PACIENTE and self.reformulator is not None and not social:
-                reformulation = self.reformulator.reformulate(state["student_message"], temperature=self.temperature)
-                if self.output_guard.validate(reformulation.text, forbidden_terms)[0]:
-                    message_for_agent = reformulation.text
-                else:
-                    reformulation_blocked = True
-                    reformulation = None
             disclosure = self.disclosure_policy.authorize(
                 case=case,
                 role=role,
@@ -119,7 +106,7 @@ class StarGraphOrchestrator:
                 student_message=state["student_message"],
             )
             retrieved = self.retriever.retrieve(
-                query=message_for_agent,
+                query=state["student_message"],
                 case_id=state["case_id"],
                 agent_role=role,
                 allowed_evidence_ids=disclosure.allowed_evidence_ids,
@@ -172,7 +159,7 @@ class StarGraphOrchestrator:
                 reply = AgentReply(role=role, text=social, provider="reglas", model="reglas")
             if reply is None:
                 reply = self.agents[role].respond(
-                    student_message=message_for_agent, context=context, temperature=self.temperature,
+                    student_message=state["student_message"], context=context, temperature=self.temperature,
                 )
                 if completion is not None:
                     reply.input_tokens += completion.selector_usage[0]
@@ -189,11 +176,11 @@ class StarGraphOrchestrator:
             validation_rejected = bool(completion and completion.validation_rejected)
             return {
                 "response_text": reply.text if ok else "Eso no lo puedo responder. Sigamos con la consulta.",
-                "doctor_question": reformulation.text if reformulation else None,
+                "doctor_question": None,  # Compatibilidad del contrato; ya no hay preguntas intermediadas.
                 "provider": reply.provider,
                 "model": reply.model,
-                "input_tokens": reply.input_tokens + (reformulation.input_tokens if reformulation else 0),
-                "output_tokens": reply.output_tokens + (reformulation.output_tokens if reformulation else 0),
+                "input_tokens": reply.input_tokens,
+                "output_tokens": reply.output_tokens,
                 "fallback_used": reply.fallback_used,
                 "grounding_retry_used": reply.grounding_retry_used,
                 "grounding_fallback_used": reply.grounding_fallback_used,
@@ -209,11 +196,10 @@ class StarGraphOrchestrator:
                 "data_source": ("sintetico_examen" if exam_result["evidence"] else "examen_no_validado") if exam_result
                                else completion.source if completion else "conversacional" if social else "curado",
                 "synthetic_rejection_reason": completion.rejection_reason if completion else None,
-                "blocked": not ok or scope_rejected or validation_rejected or reformulation_blocked or reply.blocked,
+                "blocked": not ok or scope_rejected or validation_rejected or reply.blocked,
                 "block_reason": ("fuera_de_alcance" if scope_rejected else
                                  "validacion_sintetica" if validation_rejected else reason or
-                                 ("pregunta_reformulada_protegida" if reformulation_blocked else
-                                  "examen_no_validado" if reply.blocked else None)),
+                                 ("examen_no_validado" if reply.blocked else None)),
             }
 
         return node

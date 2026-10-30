@@ -1,0 +1,93 @@
+{
+  "fuente": "Backlog_Sprint2_Fases_y_Dependencias_Completado.docx",
+  "sha256_fuente": "220326f78883444dfd68e236fe0a60d168aa3827db3b2bb4affa3aeb5d4a7da4",
+  "fecha_alineacion": "2026-10-30",
+  "tareas": {
+    "TA-017": {
+      "codigo": "TA-011",
+      "titulo": "Autorización de sesiones y eventos",
+      "responsable": "RODRIGO NICOLAS FLORES ALVAREZ",
+      "criterios": "GET /sessions/{id}, mensaje, eventos y cierre comprueban propietario/token. Usuario B recibe 403/404 sin datos de A. Sesiones anónimas usan credencial de capacidad o política equivalente. Test HTTP positivo/negativo.",
+      "prioridad": "MEDIA",
+      "sp": "1 SP",
+      "numero_fase": "Fase 4",
+      "fase": "Modelamiento/Aprendizaje",
+      "dependencias": "EN-004, TA-004",
+      "archivo": "TA-011_Autorizacion_sesiones_eventos.docx",
+      "codigo_evidencia": "TA-017"
+    },
+    "TA-007": {
+      "codigo": "TA-012",
+      "titulo": "Validación adversarial y guardrails",
+      "responsable": "RODRIGO NICOLAS FLORES ALVAREZ",
+      "criterios": "Atacar con sinónimos, solicitudes entre roles, mezcla de case_id y datos inexistentes; ninguna salida prohibida llega al frontend; logs saneados con evidence_id; verificar ruta positiva y bloqueo.",
+      "prioridad": "BAJA",
+      "sp": "1 SP",
+      "numero_fase": "Fase 5",
+      "fase": "Evaluación",
+      "dependencias": "EN-004, TA-011, TA-014",
+      "archivo": "TA-012_Validacion_adversarial_guardrails.docx",
+      "codigo_evidencia": "TA-007"
+    },
+    "TA-027": {
+      "codigo": "TA-014",
+      "titulo": "Agente validador de consistencia general del caso",
+      "responsable": "RODRIGO NICOLAS FLORES ALVAREZ",
+      "criterios": "• Informe por caso con hallazgos clasificados y evidencias• Bloquear casos inválidos o registrar estado de revisión• Prueba con casos válidos y alterados intencionalmente",
+      "prioridad": "BAJA",
+      "sp": "1 SP",
+      "numero_fase": "Fase 4",
+      "fase": "Modelamiento/Aprendizaje",
+      "dependencias": "TA-013, EN-004",
+      "archivo": "TA-014_Validador_consistencia_casos.docx",
+      "codigo_evidencia": "TA-027"
+    },
+    "HU-004": {
+      "codigo": "HU-005",
+      "titulo": "Verificar exámenes y especialistas",
+      "responsable": "RODRIGO NICOLAS FLORES ALVAREZ",
+      "criterios": "Laboratorio, radiología y consulta especializada present/ausente; invoca rol correcto; solo evidence_id autorizado del case_id activo; tablilla y eventos actualizados sin repeticiones.",
+      "prioridad": "ALTA",
+      "sp": "2 SP",
+      "numero_fase": "Fase 6",
+      "fase": "Paso a producción",
+      "dependencias": "EN-008, EN-004, TA-011, TA-003",
+      "archivo": "HU-005_Examenes_especialistas.docx",
+      "codigo_evidencia": "HU-004"
+    },
+    "EN-013": {
+      "codigo": "EN-005",
+      "titulo": "Agente generador de resultados de exámenes faltantes",
+      "responsable": "RODRIGO NICOLAS FLORES ALVAREZ",
+      "criterios": "• Generar indicadores pertinentes (p. ej. hemograma) con unidades y referencias cuando proceda• Marcar sintético y procedencia; no generar cuando hay dato canónico• Salida debe pasar por validador, política de revelación y trazabilidad",
+      "prioridad": "MEDIA",
+      "sp": "1 SP",
+      "numero_fase": "Fase 4",
+      "fase": "Modelamiento/Aprendizaje",
+      "dependencias": "HU-005, TA-013, EN-004",
+      "archivo": "EN-005_Generacion_examenes_sinteticos.docx",
+      "codigo_evidencia": "EN-013"
+    },
+    "TA-012": {
+      "codigo": "TA-021",
+      "titulo": "Calificación diagnóstica final",
+      "responsable": "James Gutiérrez",
+      "criterios": "Normaliza entrada, compara con diagnóstico/sinónimos solo tras /finish; casos correcto, incorrecto, sinónimo, vacío y ambigüedad. Persistir puntuación/motivo; impedir fuga pre-cierre.",
+      "prioridad": "BAJA",
+      "sp": "1 SP",
+      "numero_fase": "Fase 5",
+      "fase": "Evaluación",
+      "dependencias": "HU-006, EN-004",
+      "archivo": "TA-021_Calificacion_diagnostico_final.docx",
+      "codigo_evidencia": "TA-012"
+    },
+    "HU-014": {
+      "codigo": "HU-011",
+      "titulo": "Panel Doctor, grupos y desempeño",
+      "archivo": "HU-011_Panel_Doctor_Grupos_y_Desempeno.docx",
+      "codigo_evidencia": "HU-014",
+      "incorporacion_manual_pendiente": true,
+      "nota": "Renumerado de HU-014 a HU-011 por indicación del usuario; lo incorporará manualmente al backlog."
+    }
+  }
+}

@@ -33,10 +33,10 @@ def test_diagnosis_and_synonyms_blocked_in_response_and_events(api, text):
     assert "contenido_protegido" in wire
 
 
-def test_reformulated_question_is_guarded_before_reaching_an_agent(api):
+def test_patient_response_is_guarded_without_an_intermediate_doctor_question(api):
     client, service, _ = api
     sid, headers = start(client)
-    service.graph.reformulator = SimpleNamespace(reformulate=lambda *a, **k: SimpleNamespace(text="¿Tiene carcinoma basocelular?"))
+    service.graph.agents[AgentRole.PACIENTE] = HostileAgent(AgentRole.PACIENTE, "Tengo carcinoma basocelular.")
     reply = ask(client, sid, headers, "¿Desde cuándo tiene esta molestia?")
     assert reply["blocked"] and reply["doctor_question"] is None
     assert "carcinoma" not in reply["response"].lower()

@@ -4,6 +4,7 @@ from __future__ import annotations
 from collections import Counter
 import hashlib
 import json
+import sys
 from pathlib import Path
 from zipfile import ZipFile
 import xml.etree.ElementTree as ET
@@ -18,11 +19,13 @@ from PIL import Image
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
+sys.path.insert(0, str(ROOT / 'pruebas'))
+from codigos_documentacion import align_document, destination as report_destination
 OUT = ROOT / 'Entregables/Sprint2'
 DATE = '30 de octubre de 2026'
 CONFIG = {
  'TA-017': {
-  'file': 'TA-017_Autorizacion_sesiones_eventos.docx', 'test': 'test_ta017.py', 'image': 'http.png',
+  'test': 'test_ta017.py', 'image': 'http.png',
   'before': 'La protección de sesiones ya estaba implementada bajo la evidencia histórica TA-011. Este punto conserva ese código y cierra su validación bajo el identificador TA-017 del backlog actual.',
   'steps': [
    'Toda lectura de sesión, mensaje, eventos, cierre y reporte pasa por authorize_session antes de operar sobre el estado.',
@@ -44,7 +47,7 @@ CONFIG = {
   'caption': 'Matriz visual del registro HTTP: propietario 200, otro alumno 404 y ausencia de credenciales 401. Es un visor de evidencia, no una pantalla nueva del producto.',
  },
  'TA-007': {
-  'file': 'TA-007_Validacion_adversarial_guardrails.docx', 'test': 'test_ta007.py', 'image': 'bloqueo.png',
+  'test': 'test_ta007.py', 'image': 'bloqueo.png',
   'before': 'Existían filtros de diagnóstico y grounding, pero la pregunta reformulada y el motivo del bloqueo podían revelar contenido protegido. Además, el orquestador dependía de que el adaptador de recuperación entregara referencias y textos correctos.',
   'steps': [
    'El motivo de bloqueo se convirtió en un código estable: contenido_protegido. Los eventos ya no incluyen el término diagnóstico que causó el rechazo.',
@@ -69,7 +72,7 @@ CONFIG = {
   'caption': 'Conversación real de la interfaz: un proveedor de prueba produce una respuesta protegida y el filtro la sustituye. El texto diagnóstico del proveedor no llega al chat.',
  },
  'TA-027': {
-  'file': 'TA-027_Validador_consistencia_casos.docx', 'test': 'test_ta027.py', 'image': 'consistencia.png',
+  'test': 'test_ta027.py', 'image': 'consistencia.png',
   'before': 'El proyecto validaba el esquema y varias reglas cruzadas, pero no reunía un informe de consistencia por caso con clasificación, huella, trazabilidad de hallazgos y estado previo a su presentación.',
   'steps': [
    'Se implementó un componente validador determinista que reutiliza el JSON Schema y las reglas cruzadas existentes. No usa un LLM como autoridad clínica.',
@@ -94,7 +97,7 @@ CONFIG = {
   'caption': 'Panel docente con revisión automática de consistencia visible y versión de reglas. La referencia diagnóstica es visible únicamente dentro del contexto docente autorizado de prueba.',
  },
  'HU-004': {
-  'file': 'HU-004_Examenes_especialistas.docx', 'test': 'test_hu004.py', 'image': 'tablilla.png',
+  'test': 'test_hu004.py', 'image': 'tablilla.png',
   'before': 'Los agentes de exámenes existían, pero faltaba cerrar la matriz presente/ausente, proteger la entrega canónica y alimentar la tablilla con los datos revelados por los turnos del backend.',
   'steps': [
    'Se verificó la selección de laboratorio, radiología, especialista y médico asistente para exploración física. El routing reconoce palabras completas y alias explícitos de estudios.',
@@ -121,7 +124,7 @@ CONFIG = {
   'extra': ('agentes.png', 'Conversación con los roles correspondientes. Micrófono y voz simulados para reproducibilidad; mensajes y respuestas pasan por la API real local.'),
  },
  'EN-013': {
-  'file': 'EN-013_Generacion_examenes_sinteticos.docx', 'test': 'test_en013.py', 'image': 'procedencia.png',
+  'test': 'test_en013.py', 'image': 'procedencia.png',
   'before': 'Los exámenes faltantes se respondían como ausentes. Se añadió una ruta separada para proponer datos sintéticos educativos, condicionada a la solicitud y al caso, con contrato de validación antes de su revelación.',
   'steps': [
    'La política permite solicitudes explícitas de laboratorio soportadas. Se prioriza cualquier resultado canónico y se excluyen población pediátrica y casos gineco-obstétricos sin contrato de referencia aplicable.',
@@ -312,7 +315,8 @@ def main():
         code('SHA-256 del backlog: ' + source['sha256_fuente'])
         code('SHA-256 del registro del punto: ' + captures[task]['sha256'])
         p('Los XML y JSON proceden de ejecuciones reales. La presentación de capturas no añade salidas inventadas. Las credenciales no forman parte del documento ni de las imágenes seleccionadas.')
-        destination = OUT / config['file']; doc.save(destination)
+        entry = align_document(doc, task)
+        destination = report_destination(task); doc.save(destination)
         with ZipFile(destination) as archive:
             assert archive.testzip() is None
             xml = ''
@@ -324,14 +328,14 @@ def main():
                     assert value not in xml, 'Credencial detectada en el documento.'
         reopened = Document(destination)
         assert len(reopened.inline_shapes) == (4 if config.get('extra') else 3)
-        all_results.append({'tarea': task, 'archivo': str(destination.relative_to(ROOT)),
+        all_results.append({'tarea': entry['codigo'], 'codigo_evidencia': task, 'archivo': str(destination.relative_to(ROOT)),
                             'pruebas_aprobadas': len(tests), 'capturas': len(reopened.inline_shapes),
                             'integridad_zip_xml': 'PASA', 'credenciales_incluidas': False,
                             'servicios_reales': 'PASA', 'navegador': 'PASA'})
-        print('[PASA] Word ' + task + ': ' + str(len(tests)) + ' pruebas, ' + str(len(reopened.inline_shapes)) + ' capturas.', flush=True)
+        print('[PASA] Word ' + entry['codigo'] + ': ' + str(len(tests)) + ' pruebas, ' + str(len(reopened.inline_shapes)) + ' capturas.', flush=True)
     summary = {'fecha': DATE, 'puntos': all_results, 'regresion_aprobada': len(regression),
                'pruebas_especificas': sum(r['pruebas_aprobadas'] for r in all_results),
-               'limpieza_remota_confirmada': remote['limpieza']['confirmada'], 'excluidos': source['excluidos']}
+               'limpieza_remota_confirmada': remote['limpieza']['confirmada'], 'excluidos': ['HU-006', 'TA-023']}
     (HERE / 'resumen.json').write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding='utf-8')
 
 

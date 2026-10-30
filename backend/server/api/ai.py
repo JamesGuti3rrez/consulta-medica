@@ -11,8 +11,6 @@ from functools import lru_cache
 from fastapi import APIRouter, Depends, Header, HTTPException, Request
 from pydantic import BaseModel, Field
 
-from server.ai.agents.base import PROMPTS_DIR
-from server.ai.agents.reformulador import QuestionReformulator
 from server.ai.agents.history_composer import HistoryComposer
 from server.ai.agents.registry import build_agents
 from server.ai.llm.factory import build_gateway
@@ -158,7 +156,6 @@ def get_service() -> MultiAgentSessionService:
         state_machine=state_machine,
         output_guard=OutputGuard(),
         protected_lexicon=ProtectedLexiconService(repository),
-        reformulator=QuestionReformulator(gateway, PROMPTS_DIR),
         temperature=settings.llm_temperature,
         patient_completion=completion,
         exam_completion=SyntheticExamCompletion(ExamComposer(gateway)) if settings.synthetic_exam_data else None,

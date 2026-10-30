@@ -1,6 +1,7 @@
 {
-  "tarea": "HU-014",
-  "documento": "Entregables\\Sprint2\\HU-014_Panel_Doctor_Grupos_y_Desempeno.docx",
+  "tarea": "HU-011",
+  "codigo_evidencia": "HU-014",
+  "documento": "Entregables\\Sprint2\\HU-011_Panel_Doctor_Grupos_y_Desempeno.docx",
   "regresion": 704,
   "pruebas_api": 16,
   "pruebas_sql": 14,

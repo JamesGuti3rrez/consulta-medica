@@ -2,8 +2,9 @@
   "fecha": "30 de octubre de 2026",
   "puntos": [
     {
-      "tarea": "TA-017",
-      "archivo": "Entregables\\Sprint2\\TA-017_Autorizacion_sesiones_eventos.docx",
+      "tarea": "TA-011",
+      "codigo_evidencia": "TA-017",
+      "archivo": "Entregables\\Sprint2\\TA-011_Autorizacion_sesiones_eventos.docx",
       "pruebas_aprobadas": 23,
       "capturas": 3,
       "integridad_zip_xml": "PASA",
@@ -12,8 +13,9 @@
       "navegador": "PASA"
     },
     {
-      "tarea": "TA-007",
-      "archivo": "Entregables\\Sprint2\\TA-007_Validacion_adversarial_guardrails.docx",
+      "tarea": "TA-012",
+      "codigo_evidencia": "TA-007",
+      "archivo": "Entregables\\Sprint2\\TA-012_Validacion_adversarial_guardrails.docx",
       "pruebas_aprobadas": 12,
       "capturas": 3,
       "integridad_zip_xml": "PASA",
@@ -22,8 +24,9 @@
       "navegador": "PASA"
     },
     {
-      "tarea": "TA-027",
-      "archivo": "Entregables\\Sprint2\\TA-027_Validador_consistencia_casos.docx",
+      "tarea": "TA-014",
+      "codigo_evidencia": "TA-027",
+      "archivo": "Entregables\\Sprint2\\TA-014_Validador_consistencia_casos.docx",
       "pruebas_aprobadas": 58,
       "capturas": 3,
       "integridad_zip_xml": "PASA",
@@ -32,8 +35,9 @@
       "navegador": "PASA"
     },
     {
-      "tarea": "HU-004",
-      "archivo": "Entregables\\Sprint2\\HU-004_Examenes_especialistas.docx",
+      "tarea": "HU-005",
+      "codigo_evidencia": "HU-004",
+      "archivo": "Entregables\\Sprint2\\HU-005_Examenes_especialistas.docx",
       "pruebas_aprobadas": 10,
       "capturas": 4,
       "integridad_zip_xml": "PASA",
@@ -42,8 +46,9 @@
       "navegador": "PASA"
     },
     {
-      "tarea": "EN-013",
-      "archivo": "Entregables\\Sprint2\\EN-013_Generacion_examenes_sinteticos.docx",
+      "tarea": "EN-005",
+      "codigo_evidencia": "EN-013",
+      "archivo": "Entregables\\Sprint2\\EN-005_Generacion_examenes_sinteticos.docx",
       "pruebas_aprobadas": 21,
       "capturas": 4,
       "integridad_zip_xml": "PASA",
@@ -56,7 +61,7 @@
   "pruebas_especificas": 124,
   "limpieza_remota_confirmada": true,
   "excluidos": [
-    "HU-005",
-    "TA-019"
+    "HU-006",
+    "TA-023"
   ]
 }

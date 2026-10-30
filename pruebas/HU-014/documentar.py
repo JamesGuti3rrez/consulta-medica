@@ -2,6 +2,7 @@
 from collections import Counter
 from pathlib import Path
 import hashlib,json
+import sys
 from zipfile import ZipFile
 import xml.etree.ElementTree as ET
 
@@ -14,7 +15,9 @@ from dotenv import dotenv_values
 from PIL import Image
 
 HERE=Path(__file__).resolve().parent;ROOT=HERE.parents[1]
-OUT=ROOT/'Entregables/Sprint2/HU-014_Panel_Doctor_Grupos_y_Desempeno.docx'
+sys.path.insert(0, str(ROOT / 'pruebas'))
+from codigos_documentacion import align_document, destination as report_destination
+OUT=report_destination('HU-014')
 
 
 def xml_tests(path):
@@ -211,6 +214,7 @@ def main():
     for c in captures:p(Path(c['registro']).name+': '+c['sha256'])
     p('Referencia del motor de pruebas: https://pglite.dev/docs/ (documentación oficial). El estado aprobado proviene de los XML/JSON incluidos; el generador rechaza fallos y limpieza no confirmada.')
 
+    entry = align_document(doc, 'HU-014')
     OUT.parent.mkdir(parents=True,exist_ok=True);doc.save(OUT)
     with ZipFile(OUT) as archive:
         assert archive.testzip() is None
@@ -221,7 +225,7 @@ def main():
         for key,value in dotenv_values(ROOT/'.env').items():
             if value and len(value)>=12 and any(part in key.upper() for part in ('KEY','SECRET','TOKEN','PASSWORD')):assert value not in xml,'Credencial detectada'
     reopened=Document(OUT);assert len(reopened.inline_shapes)==12
-    result={'tarea':'HU-014','documento':str(OUT.relative_to(ROOT)),'regresion':len(regression),'pruebas_api':len(specific),
+    result={'tarea':entry['codigo'],'codigo_evidencia':'HU-014','documento':str(OUT.relative_to(ROOT)),'regresion':len(regression),'pruebas_api':len(specific),
       'pruebas_sql':len(sql['casos']),'navegador':len(browser['pruebas']),'supabase_real':len(live['pruebas']),
       'carga_grupos':len(loading['pruebas']),
       'limpieza_confirmada':True,'capturas_word':len(reopened.inline_shapes),'zip_xml_validos':True,'credenciales_incluidas':False}

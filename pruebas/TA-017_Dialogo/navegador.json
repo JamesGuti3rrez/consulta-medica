@@ -1,0 +1,58 @@
+{
+  "resultado": "PASA",
+  "entorno": "API real y PostgreSQL local PGlite; Auth y voz controlados; evento histórico sintético de prueba",
+  "pruebas": [
+    {
+      "prueba": "El doctor presenta el caso al inicio",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Turno 1: estudiante → Paciente; dos mensajes y una respuesta por voz",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Turno 2: estudiante → Paciente; dos mensajes y una respuesta por voz",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Turno 3: estudiante → Paciente; dos mensajes y una respuesta por voz",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Turno 4: estudiante → Doctor; dos mensajes y una respuesta por voz",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Turno 5: estudiante → Paciente; dos mensajes y una respuesta por voz",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Turno 6: estudiante → Doctor; dos mensajes y una respuesta por voz",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Turno 7: estudiante → Laboratorio; dos mensajes y una respuesta por voz",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Turno 8: estudiante → Radiología; dos mensajes y una respuesta por voz",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Turno 9: estudiante → Especialista; dos mensajes y una respuesta por voz",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Turno 10: estudiante → Paciente; dos mensajes y una respuesta por voz",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Al recuperar una actividad, los eventos antiguos no muestran ni leen la pregunta duplicada del doctor",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Sin errores JavaScript",
+      "resultado": "PASA"
+    }
+  ]
+}
