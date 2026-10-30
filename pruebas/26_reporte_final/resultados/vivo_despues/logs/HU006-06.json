@@ -1,0 +1,63 @@
+{
+  "id": "HU006-06",
+  "nombre": "sin_credencial_401",
+  "titulo": "Sin credencial no hay reporte",
+  "criterio": "CA2",
+  "resultado_esperado": "401 en SA y SN1",
+  "resultado": "PASA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_despues",
+  "commit": "0a55582",
+  "fecha": "2026-10-28 07:51:58 UTC",
+  "pasos": [
+    {
+      "descripcion": "reporte de SA",
+      "identidad": "sin credencial",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/70fb67dc-39dc-435e-a801-92e791ebcd6b/report",
+      "cabeceras": {},
+      "cuerpo_enviado": null,
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "reporte de SN1",
+      "identidad": "sin credencial",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/9317990b-e5e7-4df9-aad6-b3835345e1de/report",
+      "cabeceras": {},
+      "cuerpo_enviado": null,
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "SA: sin datos",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "SN1: sin datos",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

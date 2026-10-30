@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import copy
+from dataclasses import replace
 import json
 from io import BytesIO
 from pathlib import Path
@@ -68,6 +69,8 @@ def setup(monkeypatch):
     app.dependency_overrides[get_auth] = lambda: auth
     app.dependency_overrides[teaching.get_teaching_store] = lambda: store
     monkeypatch.setenv("RAG_EMBEDDING_BACKEND", "local_hash")
+    monkeypatch.setattr(teaching, "settings", replace(teaching.settings,
+        supabase_url="https://test.supabase.co", supabase_secret_key="sb_secret_test"))
     client = TestClient(app)
     yield client, store
     app.dependency_overrides.clear()

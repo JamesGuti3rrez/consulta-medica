@@ -1,0 +1,7 @@
+{
+  "id": "HU-004",
+  "prueba": "test_unsupported_request_does_not_invent_or_reveal_another_result[Solicito una radiograf\\xeda-radiologia]",
+  "resultado": "PASA",
+  "duracion_s": 0.0381,
+  "entorno": "HTTP local y proveedores controlados"
+}

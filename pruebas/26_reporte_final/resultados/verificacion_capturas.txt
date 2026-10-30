@@ -1,0 +1,16 @@
+Verificación de capturas de HU-006
+
+[local_antes] JSON: 17 | PNG: 17 | PASA 3 | FALLA 14
+    casos sin PNG: ninguno
+    casos sin JSON en esta fase (no ejecutados): ninguno
+[local_despues] JSON: 17 | PNG: 17 | PASA 17 | FALLA 0
+    casos sin PNG: ninguno
+    casos sin JSON en esta fase (no ejecutados): ninguno
+[vivo_antes] JSON: 17 | PNG: 17 | PASA 3 | FALLA 14
+    casos sin PNG: ninguno
+    casos sin JSON en esta fase (no ejecutados): ninguno
+[vivo_despues] JSON: 17 | PNG: 17 | PASA 17 | FALLA 0
+    casos sin PNG: ninguno
+    casos sin JSON en esta fase (no ejecutados): ninguno
+
+Secretos sin enmascarar: ninguno

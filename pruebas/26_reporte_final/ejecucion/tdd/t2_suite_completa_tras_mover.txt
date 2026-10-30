@@ -1,0 +1,48 @@
+﻿COMANDO: python -m pytest -q
+COMMIT: 801837b
+FECHA: 2026-10-28 07:15:15 UTC
+CODIGO_SALIDA: 1
+
+........................................................................ [ 15%]
+....................................F................................... [ 30%]
+........................................................................ [ 45%]
+........................................................................ [ 60%]
+........................................................................ [ 75%]
+........................................................................ [ 90%]
+............................................                             [100%]
+================================== FAILURES ===================================
+______________________ test_09_no_hay_rutas_adicionales _______________________
+
+mundo = Mundo(client=<starlette.testclient.TestClient object at 0x0000023DFC9DCF30>, A=Identidad(nombre='Usuario A (registrado...1': <Response [200 OK]>, 'inicio_SN2': <Response [200 OK]>, 'mensajes_SA': [<Response [200 OK]>, <Response [200 OK]>]})
+caso = <tests.security.ta011_evidencia.Caso object at 0x0000023DFC8C7AC0>
+
+    @pytest.mark.ta011(id="TA011-09", criterio="CA1", titulo="Inventario completo de rutas con session_id",
+                       nombre="inventario_rutas_openapi",
+                       esperado="Solo existen las 4 rutas del inventario; no hay rutas extra (hipótesis, reporte, stream)")
+    def test_09_no_hay_rutas_adicionales(mundo, caso):
+        response = mundo.call("GET", "/api/openapi.json")
+        caso.paso("sin credencial (documento público de la API)", response, {200}, "leer el esquema OpenAPI")
+        paths = response.json().get("paths", {}) if response.status_code == 200 else {}
+        with_id = sorted(f"{m.upper()} {p}" for p, d in paths.items() if "{session_id}" in p for m in d)
+        expected = sorted([
+            "GET /api/ai/sessions/{session_id}", "POST /api/ai/sessions/{session_id}/message",
+            "GET /api/ai/sessions/{session_id}/events", "POST /api/ai/sessions/{session_id}/finish",
+        ])
+        caso.comprobar("rutas con {session_id} = inventario", with_id == expected, f"encontradas: {with_id}")
+        caso.nota("Rutas con session_id: " + ", ".join(with_id))
+>       caso.exigir()
+
+tests\security\test_ta011_session_authz.py:426: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <tests.security.ta011_evidencia.Caso object at 0x0000023DFC8C7AC0>
+
+    def exigir(self) -> None:
+        malos = self.fallos()
+>       assert not malos, f"{self.case_id}: " + " | ".join(malos)
+E       AssertionError: TA011-09: comprobación: rutas con {session_id} = inventario encontradas: ['GET /api/ai/sessions/{session_id}', 'GET /api/ai/sessions/{session_id}/events', 'GET /api/ai/sessions/{session_id}/report', 'POST /api/ai/sessions/{session_id}/finish', 'POST /api/ai/sessions/{session_id}/message']
+
+tests\security\ta011_evidencia.py:109: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/security/test_ta011_session_authz.py::test_09_no_hay_rutas_adicionales
+1 failed, 475 passed, 3 deselected in 16.52s

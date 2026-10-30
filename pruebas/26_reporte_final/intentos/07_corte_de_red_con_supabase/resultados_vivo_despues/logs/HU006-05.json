@@ -1,0 +1,17 @@
+{
+  "id": "HU006-05",
+  "nombre": "invitado2_sobre_SN1",
+  "titulo": "Invitado 2 no obtiene el reporte del invitado 1",
+  "criterio": "CA2",
+  "resultado_esperado": "404 con su propia credencial",
+  "resultado": "FALLA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_despues",
+  "commit": "0a55582",
+  "fecha": "2026-10-28 07:49:06 UTC",
+  "pasos": [],
+  "comprobaciones": [],
+  "notas": [],
+  "error": "Falló la preparación: E   AssertionError: {\"detail\":\"No se pudo acceder a las sesiones. Inténtalo de nuevo.\"}\n    assert 503 == 200\n     +  where 503 = <Response [503 Service Unavailable]>.status_code"
+}

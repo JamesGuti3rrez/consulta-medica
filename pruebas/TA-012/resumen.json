@@ -1,0 +1,16 @@
+{
+  "tarea": "TA-012",
+  "fecha": "28 de octubre de 2026",
+  "pruebas_aprobadas": 566,
+  "pruebas_ta012": 93,
+  "navegador": "5/5",
+  "casos_curados": 43,
+  "etiquetas_comprobadas": 185,
+  "word": "Entregables\\TA-012_Calificacion_diagnostico_final.docx",
+  "supabase_real": "5/5 sesiones y eventos",
+  "historial_real_disponible": false,
+  "limpieza_remota_verificada": true,
+  "capturas_terminal": 3,
+  "word_zip_xml_validos": true,
+  "capturas_incluidas": 8
+}

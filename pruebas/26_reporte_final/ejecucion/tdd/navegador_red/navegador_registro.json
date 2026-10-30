@@ -1,0 +1,180 @@
+{
+  "base_url": "http://localhost:3000",
+  "caso": "EME-101",
+  "fecha": "2026-10-28T07:23:24.492Z",
+  "comprobaciones": [
+    {
+      "descripcion": "antes de cerrar: 409",
+      "resultado": "FALLA",
+      "detalle": "404 {\"error\":\"Ruta de API no encontrada\"}"
+    },
+    {
+      "descripcion": "el cierre trae el reporte",
+      "resultado": "FALLA",
+      "detalle": "claves: "
+    },
+    {
+      "descripcion": "sección «Diagnóstico de referencia» con contenido",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sección «Preguntas clave obtenidas» con contenido",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sección «Preguntas clave que faltaron» con contenido",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sección «Exámenes pedidos» con contenido",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sección «Diagnósticos diferenciales» con contenido",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sección «Tratamiento propuesto» con contenido",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sección «Tratamiento de referencia» con contenido",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sección «Acciones clave» con contenido",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sección «Datos obtenidos» con contenido",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "diagnóstico de referencia igual al del reporte",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "una fila por pregunta que faltó",
+      "resultado": "FALLA",
+      "detalle": "0 filas, undefined en el reporte"
+    },
+    {
+      "descripcion": "una fila por pregunta obtenida",
+      "resultado": "FALLA",
+      "detalle": "0 filas, undefined en el reporte"
+    },
+    {
+      "descripcion": "la hipótesis con HTML se ve como texto",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "no se creó ningún elemento <b> desde los datos",
+      "resultado": "PASA",
+      "detalle": "elementos <b>: 0"
+    },
+    {
+      "descripcion": "sin errores de JavaScript en la página",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "otro navegador sin credencial: 401",
+      "resultado": "FALLA",
+      "detalle": "{\"error\":\"Ruta de API no encontrada\"}"
+    },
+    {
+      "descripcion": "otro navegador con credencial ajena: 404",
+      "resultado": "PASA",
+      "detalle": "{\"error\":\"Ruta de API no encontrada\"}"
+    },
+    {
+      "descripcion": "ninguna respuesta del otro navegador trae el reporte",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "peticiones": [
+    {
+      "metodo": "POST",
+      "ruta": "/api/ai/sessions",
+      "codigo": 200,
+      "cabecera_x_session_token": "(ninguna)",
+      "trae_reporte": false
+    },
+    {
+      "metodo": "POST",
+      "ruta": "/api/ai/sessions/3f97c4d6-fa84-4c4a-998e-871a7246de22/message",
+      "codigo": 200,
+      "cabecera_x_session_token": "xmTQRw…f5zA",
+      "trae_reporte": false,
+      "frase": "¿Cómo es el dolor y hacia dónde se va?"
+    },
+    {
+      "metodo": "POST",
+      "ruta": "/api/ai/sessions/3f97c4d6-fa84-4c4a-998e-871a7246de22/message",
+      "codigo": 200,
+      "cabecera_x_session_token": "xmTQRw…f5zA",
+      "trae_reporte": false,
+      "frase": "Solicito un electrocardiograma"
+    },
+    {
+      "metodo": "POST",
+      "ruta": "/api/ai/sessions/3f97c4d6-fa84-4c4a-998e-871a7246de22/message",
+      "codigo": 200,
+      "cabecera_x_session_token": "xmTQRw…f5zA",
+      "trae_reporte": false,
+      "frase": "Solicito una troponina"
+    },
+    {
+      "metodo": "POST",
+      "ruta": "/api/ai/sessions/3f97c4d6-fa84-4c4a-998e-871a7246de22/message",
+      "codigo": 200,
+      "cabecera_x_session_token": "xmTQRw…f5zA",
+      "trae_reporte": false,
+      "frase": "Le indico aspirina 300 miligramos"
+    },
+    {
+      "metodo": "GET",
+      "ruta": "/api/ai/sessions/3f97c4d6-fa84-4c4a-998e-871a7246de22/report",
+      "codigo": 404,
+      "cabecera_x_session_token": "xmTQRw…f5zA",
+      "trae_reporte": false
+    },
+    {
+      "metodo": "POST",
+      "ruta": "/api/ai/sessions/3f97c4d6-fa84-4c4a-998e-871a7246de22/finish",
+      "codigo": 200,
+      "cabecera_x_session_token": "xmTQRw…f5zA",
+      "trae_reporte": false
+    }
+  ],
+  "otro_navegador": [
+    {
+      "prueba": "GET /report sin credencial",
+      "codigo": 404,
+      "cuerpo": "{\"error\":\"Ruta de API no encontrada\"}"
+    },
+    {
+      "prueba": "GET /report con una credencial bien formada que no es la suya",
+      "codigo": 404,
+      "cuerpo": "{\"error\":\"Ruta de API no encontrada\"}"
+    }
+  ],
+  "reporte_antes_de_cerrar": {
+    "status": 404,
+    "body": "{\"error\":\"Ruta de API no encontrada\"}"
+  },
+  "session_id": "3f97c4d6-fa84-4c4a-998e-871a7246de22",
+  "errores_de_la_pagina": []
+}

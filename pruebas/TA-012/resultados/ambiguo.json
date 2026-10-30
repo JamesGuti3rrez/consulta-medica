@@ -1,0 +1,20 @@
+{
+  "criterio": "ambiguo",
+  "entrada": "Migraña o meningitis",
+  "http_status": 200,
+  "phase": "finalizada",
+  "resultado": {
+    "status": "ambiguous",
+    "score": 0,
+    "max_score": 100,
+    "reason_code": "multiple_answers",
+    "reason": "Se registraron varias alternativas en lugar de un único diagnóstico final; requiere revisión docente.",
+    "normalized_input": "migrana o meningitis",
+    "matched_term": null,
+    "requires_review": true,
+    "version": "1.0.0"
+  },
+  "persistido_en_sesion": true,
+  "persistido_en_intentos": true,
+  "reporte_coincidente": true
+}

@@ -1,0 +1,86 @@
+{
+  "id": "TA011-27",
+  "nombre": "session_id_en_cuerpo",
+  "titulo": "session_id = SB dentro del cuerpo",
+  "criterio": "CA1, CA2",
+  "resultado_esperado": "Se ignora: el mensaje va a SA y SB no recibe nada",
+  "resultado": "FALLA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_antes",
+  "commit": "5f9435d",
+  "fecha": "2026-10-28 06:31:41 UTC",
+  "pasos": [
+    {
+      "descripcion": "B cuenta los eventos de SB antes",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/707cc587-0727-4c6a-8262-556e0b9dc3ba/events",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…1DgA"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "[{\"type\":\"session_started\",\"case_id\":\"MED-900\",\"phase\":\"presentacion\",\"evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"]}]",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "mensaje a SA con session_id = SB en el cuerpo",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/adbc98ed-6ba4-483d-92f3-21d9b9974613/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…Gmp8",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?",
+        "session_id": "707cc587-0727-4c6a-8262-556e0b9dc3ba",
+        "owner_id": "3a0aedf9-aa93-4e2e-9ac0-0dba383e4431"
+      },
+      "codigo_recibido": 409,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"La sesión ya finalizó.\"}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "B cuenta los eventos de SB después",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/707cc587-0727-4c6a-8262-556e0b9dc3ba/events",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…1DgA"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "[{\"type\":\"session_started\",\"case_id\":\"MED-900\",\"phase\":\"presentacion\",\"evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"]}]",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "SB no recibió eventos",
+      "resultado": "PASA",
+      "detalle": "1 -> 1"
+    }
+  ],
+  "notas": [],
+  "error": "E   AssertionError: TA011-27: paso 2 (POST http://testserver/api/ai/sessions/adbc98ed-6ba4-483d-92f3-21d9b9974613/message): 409 no está en [200]"
+}

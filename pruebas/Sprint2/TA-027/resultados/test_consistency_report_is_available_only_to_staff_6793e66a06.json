@@ -1,0 +1,7 @@
+{
+  "id": "TA-027",
+  "prueba": "test_consistency_report_is_available_only_to_staff[profesor-200]",
+  "resultado": "PASA",
+  "duracion_s": 0.0169,
+  "entorno": "HTTP local y proveedores controlados"
+}

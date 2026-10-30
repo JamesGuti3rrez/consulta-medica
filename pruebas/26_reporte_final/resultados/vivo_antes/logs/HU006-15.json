@@ -1,0 +1,50 @@
+{
+  "id": "HU006-15",
+  "nombre": "sin_fuentes_ajenas",
+  "titulo": "Ninguna fuente ajena al case_id",
+  "criterio": "CA4",
+  "resultado_esperado": "Ids solo del caso; ningún diagnóstico ni diferencial de otro caso",
+  "resultado": "FALLA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_antes",
+  "commit": "0a55582",
+  "fecha": "2026-10-28 07:47:32 UTC",
+  "pasos": [
+    {
+      "descripcion": "reporte de SA",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/aae77d6c-6d00-461f-acbf-4c39b7e2324f/report",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…3bbA"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"error\":\"Ruta de API no encontrada\"}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "FALLA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "ids de evidencia del caso",
+      "resultado": "PASA",
+      "detalle": "ajenos: []"
+    },
+    {
+      "descripcion": "sin diagnósticos ni diferenciales de otros casos",
+      "resultado": "PASA",
+      "detalle": "encontrados: []"
+    }
+  ],
+  "notas": [
+    "Nombres de otros casos revisados: 76"
+  ],
+  "error": "E   AssertionError: HU006-15: paso 1 (GET http://127.0.0.1:3100/api/ai/sessions/aae77d6c-6d00-461f-acbf-4c39b7e2324f/report): 404 no está en [200]"
+}

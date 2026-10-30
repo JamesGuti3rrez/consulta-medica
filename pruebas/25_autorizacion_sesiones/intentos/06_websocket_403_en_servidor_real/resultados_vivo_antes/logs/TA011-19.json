@@ -1,0 +1,85 @@
+{
+  "id": "TA011-19",
+  "nombre": "credencial_en_query",
+  "titulo": "Credencial por query string",
+  "criterio": "CA3",
+  "resultado_esperado": "401: la credencial solo se acepta en la cabecera",
+  "resultado": "FALLA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_antes",
+  "commit": "0b9b949",
+  "fecha": "2026-10-28 05:51:49 UTC",
+  "pasos": [
+    {
+      "descripcion": "leer SN2 con ?token=",
+      "identidad": "Anónimo 2 (credencial en ?token=)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/af152040-cc30-4aea-9d63-15c6d7b98cde?token=sin-credencial",
+      "cabeceras": {},
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"finished_at\":null,\"active_agent\":\"medico_asistente\",\"started_at\":\"2026-10-28T05:50:46.658921+00:00\",\"phase\":\"presentacion\",\"revealed_evidence_ids\":[\"CIR-005.motivo.queja_principal\",\"CIR-005.anamnesis.evolucion_quirurgica\"],\"session_id\":\"af152040-cc30-4aea-9d63-15c6d7b98cde\",\"updated_at\":\"2026-10-28T05:50:46.658944+00:00\",\"case_id\":\"CIR-005\",\"avatar_state\":{\"alerts\":[],\"vitals\":[],\"gesture\":\"idle\",\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "leer SN2 con ?session_token=",
+      "identidad": "Anónimo 2 (credencial en ?session_token=)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/af152040-cc30-4aea-9d63-15c6d7b98cde?session_token=sin-credencial",
+      "cabeceras": {},
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"finished_at\":null,\"active_agent\":\"medico_asistente\",\"started_at\":\"2026-10-28T05:50:46.658921+00:00\",\"phase\":\"presentacion\",\"revealed_evidence_ids\":[\"CIR-005.motivo.queja_principal\",\"CIR-005.anamnesis.evolucion_quirurgica\"],\"session_id\":\"af152040-cc30-4aea-9d63-15c6d7b98cde\",\"updated_at\":\"2026-10-28T05:50:46.658944+00:00\",\"case_id\":\"CIR-005\",\"avatar_state\":{\"alerts\":[],\"vitals\":[],\"gesture\":\"idle\",\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "leer SN2 con ?access_token=",
+      "identidad": "Anónimo 2 (credencial en ?access_token=)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/af152040-cc30-4aea-9d63-15c6d7b98cde?access_token=sin-credencial",
+      "cabeceras": {},
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"finished_at\":null,\"active_agent\":\"medico_asistente\",\"started_at\":\"2026-10-28T05:50:46.658921+00:00\",\"phase\":\"presentacion\",\"revealed_evidence_ids\":[\"CIR-005.motivo.queja_principal\",\"CIR-005.anamnesis.evolucion_quirurgica\"],\"session_id\":\"af152040-cc30-4aea-9d63-15c6d7b98cde\",\"updated_at\":\"2026-10-28T05:50:46.658944+00:00\",\"case_id\":\"CIR-005\",\"avatar_state\":{\"alerts\":[],\"vitals\":[],\"gesture\":\"idle\",\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "FALLA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "?token= no da acceso",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "?session_token= no da acceso",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "?access_token= no da acceso",
+      "resultado": "FALLA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": "E   AssertionError: TA011-19: paso 1 (GET http://127.0.0.1:3100/api/ai/sessions/af152040-cc30-4aea-9d63-15c6d7b98cde?token=sin-credencial): 200 no está en [401] | paso 2 (GET http://127.0.0.1:3100/api/ai/sessions/af152040-cc30-4aea-9d63-15c6d7b98cde?session_token=sin-credencial): 200 no está en [401] | paso 3 (GET http://127.0.0.1:3100/api/ai/sessions/af152040-cc30-4aea-9d63-15c6d7b98cde?access_token=sin-credencial): 200 no está en [401] | comprobación: ?token= no da acceso | comprobación: ?session_token= no da acceso | comprobación: ?access_token= no da acceso"
+}

@@ -1,0 +1,106 @@
+{
+  "id": "TA011-39",
+  "nombre": "log_de_denegados",
+  "titulo": "Intentos denegados en el log del servidor",
+  "criterio": "CA1, CA2",
+  "resultado_esperado": "Línea [autorizacion] con quién, ruta y código; tokens solo enmascarados",
+  "resultado": "FALLA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_antes",
+  "commit": "5f9435d",
+  "fecha": "2026-10-28 06:31:42 UTC",
+  "pasos": [
+    {
+      "descripcion": "intento denegado: GET /api/ai/sessions/adbc98ed-6ba4-483d-92f3-21d9b9974613",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/adbc98ed-6ba4-483d-92f3-21d9b9974613",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…1DgA"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"session_id\":\"adbc98ed-6ba4-483d-92f3-21d9b9974613\",\"started_at\":\"2026-10-28T06:31:39.321160+00:00\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\",\"MED-900.anamnesis.inicio_dolor\",\"MED-900.laboratorio.hemograma\",\"MED-900.medicacion.paracetamol\",\"MED-900.anamnesis.alergias\"],\"case_id\":\"MED-900\",\"updated_at\":\"2026-10-28T06:31:40.137111+00:00\",\"phase\":\"finalizada\",\"finished_at\":\"2026-10-28T06:31:40.137121+00:00\",\"active_agent\":\"orchestrator\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":{\"score\":64.29,\"earned_weight\":9,\"total_weight\":14,\"completed_questions\":2,\"total_questions\":3,\"errors\":{\"negligencia\":1,\"anamnesis_incompleta\":0,\"razonamiento_clinico\":0}},\"attempt_id\":\"intento-1\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "intento denegado: GET /api/ai/sessions/adbc98ed-6ba4-483d-92f3-21d9b9974613/events",
+      "identidad": "Sin credencial",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/adbc98ed-6ba4-483d-92f3-21d9b9974613/events",
+      "cabeceras": {},
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "[{\"type\":\"session_started\",\"case_id\":\"MED-900\",\"phase\":\"presentacion\",\"evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"]},{\"type\":\"turn\",\"student_message\":\"¿Desde cuándo comenzó el dolor y cómo lo describiría?\",\"response_text\":\"El dolor comenzó hace tres días; es pulsátil y predomina en el lado derecho.\",\"case_id\":\"MED-900\",\"phase\":\"anamnesis\",\"intent\":\"ask_patient\",\"agent\":\"paciente\",\"route_reason\":\"pregunta clínica dirigida al paciente por defecto\",\"route_confidence\":0.75,\"doctor_question\":\"¿Desde cuándo comenzó el dolor y cómo lo describiría?\",\"provider\":\"local-development\",\"model\":\"rules-only\",\"input_tokens\":0,\"output_tokens\":0,\"fallback_used\":false,\"grounding_retry_used\":false,\"grounding_fallback_used\":false,\"evidence_ids\":[\"MED-900.anamnesis.inicio_dolor\"],\"blocked\":false,\"block_reason\":null,\"synthetic_generated_ids\":[],\"synthetic_reused_ids\":[],\"data_source\":\"curado\",\"synthetic_rejection_reason\":null,\"safety_alerts\":[]},{\"type\":\"turn\",\"student_message\":\"Solicito un hemograma y análisis de sangre\",\"response_text\":\"Hemograma sin alteraciones relevantes.\",\"case_id\":\"MED-900\",\"phase\":\"examenes\",\"intent\":\"request_lab\",\"agent\":\"laboratorio\",\"route_reason\":\"términos de laboratorio\",\"route_confidence\":0.95,\"doctor_question\":null,\"provider\":\"local-development\",\"model\":\"rules-only\",\"input_tokens\":0,\"output_tokens\":0,\"fallback_used\":false,\"grounding_retry_used\":false,\"grounding_fallback_used\":false,\"evidence_ids\":[\"MED-900.laboratorio.hemograma\"],\"blocked\":false,\"block_reason\":null,\"synthetic_generated_ids\":[],\"synthetic_reused_ids\":[],\"data_source\":\"curado\",\"synthetic_rejection_reason\":null,\"safety_alerts\":[]},{\"type\":\"turn\",\"student_message\":\"¿Tiene alergias a algún medicamento?\",\"response_text\":\"Tomó paracetamol 1 g, con mejoría parcial y transitoria. Niega alergias medicamentosas conocidas.\",\"case_id\":\"MED-900\",\"phase\":\"examenes\",\"intent\":\"ask_patient\",\"agent\":\"paciente\",\"route_reason\":\"pregunta clínica dirigida al paciente por defecto\",\"route_confidence\":0.75,\"doctor_question\":\"¿Tiene alergias a algún medicamento?\",\"provider\":\"local-development\",\"model\":\"rules-only\",\"input_tokens\":0,\"output_tokens\":0,\"fallback_used\":false,\"grounding_retry_used\":false,\"grounding_fallback_used\":false,\"evidence_ids\":[\"MED-900.medicacion.paracetamol\",\"MED-900.anamnesis.alergias\"],\"blocked\":false,\"block_reason\":null,\"synthetic_generated_ids\":[],\"synthetic_reused_ids\":[],\"data_source\":\"curado\",\"synthetic_rejection_reason\":null,\"safety_alerts\":[]},{\"type\":\"turn\",\"student_message\":\"¿Tiene alergias a algún medicamento?\",\"response_text\":\"Tomó paracetamol 1 g, con mejoría parcial y transitoria. Niega alergias medicamentosas conocidas.\",\"case_id\":\"MED-900\",\"phase\":\"examenes\",\"intent\":\"ask_patient\",\"agent\":\"paciente\",\"route_reason\":\"pregunta clínica dirigida al paciente por defecto\",\"route_confidence\":0.75,\"doctor_question\":\"¿Tiene alergias a algún medicamento?\",\"provider\":\"local-development\",\"model\":\"rules-only\",\"input_tokens\":0,\"output_tokens\":0,\"fallback_used\":false,\"grounding_retry_used\":false,\"grounding_fallback_used\":false,\"evidence_ids\":[\"MED-900.medicacion.paracetamol\",\"MED-900.anamnesis.alergias\"],\"blocked\":false,\"block_reason\":null,\"synthetic_generated_ids\":[],\"synthetic_reused_ids\":[],\"data_source\":\"curado\",\"synthetic_rejection_reason\":null,\"safety_alerts\":[]},{\"type\":\"session_finished\",\"case_id\":\"MED-900\"}]",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "intento denegado: GET /api/ai/sessions/139d52aa-4dbf-4f11-b5a8-1885a0fa200d",
+      "identidad": "Anónimo 2 + credencial de capacidad",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/139d52aa-4dbf-4f11-b5a8-1885a0fa200d",
+      "cabeceras": {
+        "x-session-token": ""
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"session_id\":\"139d52aa-4dbf-4f11-b5a8-1885a0fa200d\",\"started_at\":\"2026-10-28T06:31:39.351948+00:00\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\",\"MED-900.medicacion.paracetamol\",\"MED-900.anamnesis.alergias\"],\"case_id\":\"MED-900\",\"updated_at\":\"2026-10-28T06:31:39.945312+00:00\",\"phase\":\"finalizada\",\"finished_at\":\"2026-10-28T06:31:39.945323+00:00\",\"active_agent\":\"orchestrator\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":{\"score\":28.57,\"earned_weight\":4,\"total_weight\":14,\"completed_questions\":1,\"total_questions\":3,\"errors\":{\"negligencia\":1,\"anamnesis_incompleta\":1,\"razonamiento_clinico\":0}}}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "FALLA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "hay una línea por intento denegado",
+      "resultado": "FALLA",
+      "detalle": "líneas: 0"
+    },
+    {
+      "descripcion": "registra el código 404",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "registra el código 401",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "registra la ruta",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "registra quién (id de B)",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "ningún token completo en las líneas [autorizacion]",
+      "resultado": "PASA",
+      "detalle": "tokens completos encontrados: []"
+    }
+  ],
+  "notas": [
+    "Líneas del log del servidor:\n"
+  ],
+  "error": "E   AssertionError: TA011-39: paso 1 (GET http://testserver/api/ai/sessions/adbc98ed-6ba4-483d-92f3-21d9b9974613): 200 no está en [404] | paso 2 (GET http://testserver/api/ai/sessions/adbc98ed-6ba4-483d-92f3-21d9b9974613/events): 200 no está en [401] | paso 3 (GET http://testserver/api/ai/sessions/139d52aa-4dbf-4f11-b5a8-1885a0fa200d): 200 no está en [404] | comprobación: hay una línea por intento denegado líneas: 0 | comprobación: registra el código 404 | comprobación: registra el código 401 | comprobación: registra la ruta | comprobación: registra quién (id de B)"
+}

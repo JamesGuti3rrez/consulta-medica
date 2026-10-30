@@ -1,0 +1,34 @@
+﻿FASE: vercel_preview
+MODO: vivo
+SERVIDOR: https://consulta-medica-2huhqybm3-james-gutierrezs-projects-49804000.vercel.app
+DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica\backend
+COMANDO: .venv\Scripts\python.exe -m pytest tests/security/test_hu006_report.py -v --tb=no -rN -p no:cacheprovider -m not logs_servidor
+COMMIT: 6ba8750
+FECHA: 2026-10-28 07:54:44 UTC
+CODIGO_SALIDA: 1
+
+============================= test session starts =============================
+platform win32 -- Python 3.14.4, pytest-8.3.4, pluggy-1.6.0 -- C:\Users\Usuario\Documents\consulta-medica\backend\.venv\Scripts\python.exe
+rootdir: C:\Users\Usuario\Documents\consulta-medica\backend
+configfile: pyproject.toml
+plugins: anyio-4.15.1, langsmith-0.14.7
+collecting ... collected 17 items / 1 deselected / 16 selected
+
+tests/security/test_hu006_report.py::test_01_a_obtiene_reporte ERROR     [  6%]
+tests/security/test_hu006_report.py::test_02_invitado_obtiene_reporte ERROR [ 12%]
+tests/security/test_hu006_report.py::test_03_consulta_abierta ERROR      [ 18%]
+tests/security/test_hu006_report.py::test_04_b_sobre_reporte ERROR       [ 25%]
+tests/security/test_hu006_report.py::test_05_invitado2_sobre_sn1 ERROR   [ 31%]
+tests/security/test_hu006_report.py::test_06_sin_credencial ERROR        [ 37%]
+tests/security/test_hu006_report.py::test_07_ajeno_igual_inexistente ERROR [ 43%]
+tests/security/test_hu006_report.py::test_08_reporte_estable ERROR       [ 50%]
+tests/security/test_hu006_report.py::test_09_propuesta ERROR             [ 56%]
+tests/security/test_hu006_report.py::test_10_puntaje ERROR               [ 62%]
+tests/security/test_hu006_report.py::test_11_por_que ERROR               [ 68%]
+tests/security/test_hu006_report.py::test_12_examenes ERROR              [ 75%]
+tests/security/test_hu006_report.py::test_13_tratamiento ERROR           [ 81%]
+tests/security/test_hu006_report.py::test_14_evidencia ERROR             [ 87%]
+tests/security/test_hu006_report.py::test_15_sin_fuentes_ajenas ERROR    [ 93%]
+tests/security/test_hu006_report.py::test_16_errores ERROR               [100%]
+
+====================== 1 deselected, 16 errors in 6.49s =======================

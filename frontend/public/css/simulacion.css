@@ -767,7 +767,12 @@ button[hidden] {
   background: transparent;
 }
 
-.sheet-section:has(ul:empty) {
+/* Lista vacía, oculta; sección con listas pero sin ningún punto, también (la del diagnóstico no tiene listas) */
+.sheet-list:empty {
+  display: none;
+}
+
+.sheet-section:has(ul):not(:has(li)) {
   display: none;
 }
 
@@ -812,6 +817,93 @@ button[hidden] {
 }
 
 /* Firma */
+/* Reporte final (HU-006): diagnóstico comparado, etiquetas, porqué y pliegues */
+.sheet-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 8px;
+  padding-left: 40px;
+}
+
+.sheet-compare > div {
+  border: 1px solid #dde6e8;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: #36494e;
+}
+
+.sheet-compare span {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.sheet-chip {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.5;
+  vertical-align: 1px;
+}
+
+.sheet-chip-negligencia { background: #fee2e2; color: #b91c1c; }
+.sheet-chip-anamnesis_incompleta { background: #fef3c7; color: #92400e; }
+.sheet-chip-razonamiento_clinico { background: #e0f2fe; color: #075985; }
+.sheet-chip-critico { background: #b91c1c; color: #ffffff; }
+.sheet-chip-info { background: #e2e8f0; color: #334155; }
+
+.sheet-why {
+  display: block;
+  margin-top: 2px;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.sheet-subtitle {
+  margin-top: 10px;
+  padding-left: 40px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #10262b;
+}
+
+.sheet-fold {
+  margin-top: 6px;
+  padding-left: 40px;
+  font-size: 14px;
+  color: #36494e;
+}
+
+.sheet-fold summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: #0e7490;
+}
+
+.sheet-fold .sheet-list {
+  padding-left: 0;
+}
+
+.sheet-fold:has(ul:empty) {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .sheet-compare {
+    grid-template-columns: 1fr;
+    padding-left: 0;
+  }
+}
+
 .sheet-sign {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -851,4 +943,23 @@ button[hidden] {
   .stamp {
     animation: none;
   }
+}
+
+/* TA-012: resultado del diagnóstico, visible únicamente en la hoja de cierre. */
+.diagnosis-grade { margin-top: 15px; padding: 15px 17px; border: 1px solid #cbdce5; border-left: 4px solid #45809a; border-radius: 8px; background: #f3f8fb; color: #274854; }
+.diagnosis-grade-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; font-size: 13px; }
+.diagnosis-grade-heading > span { padding: 3px 9px; border-radius: 5px; background: #ffffffb3; font-weight: 700; }
+.diagnosis-grade > p { margin-top: 9px; font-size: 13px; line-height: 1.6; }
+.diagnosis-grade > small { display: block; margin-top: 9px; font-size: 11px; opacity: .85; }
+.diagnosis-grade[data-result="correct"] { background: #f0faf5; border-color: #b7ddc9; border-left-color: #308060; color: #20533d; }
+.diagnosis-grade[data-result="incorrect"] { background: #fff5f1; border-color: #efcfc4; border-left-color: #b76449; color: #79412e; }
+.diagnosis-grade[data-result="ambiguous"] { background: #fffbef; border-color: #e9d8a6; border-left-color: #ad8429; color: #71571e; }
+.synthetic-exam-badge {
+  display: block;
+  padding: .45rem .65rem;
+  border: 1px solid #b45309;
+  border-radius: .6rem;
+  color: #92400e;
+  background: #fffbeb;
+  font-size: .75rem;
 }

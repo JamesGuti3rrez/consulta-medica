@@ -1,0 +1,48 @@
+{
+  "id": "HU006-01",
+  "nombre": "A_obtiene_reporte",
+  "titulo": "A obtiene el reporte de su consulta cerrada",
+  "criterio": "CA2, CA3",
+  "resultado_esperado": "200 con todas las secciones del reporte",
+  "resultado": "FALLA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_antes",
+  "commit": "a17cb62",
+  "fecha": "2026-10-28 07:44:51 UTC",
+  "pasos": [
+    {
+      "descripcion": "reporte de SA (cerrada)",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/eea8e10e-b702-41c2-b928-4883a97248ac/report",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…Ayrw"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"error\":\"Ruta de API no encontrada\"}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "FALLA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "todas las secciones",
+      "resultado": "FALLA",
+      "detalle": "faltan: ['case_id', 'chief_complaint', 'diagnosis', 'differentials', 'finished_at', 'hypotheses', 'key_questions', 'patient', 'recommendations', 'revealed_evidence', 'score', 'tests', 'treatment']"
+    },
+    {
+      "descripcion": "case_id de la consulta",
+      "resultado": "FALLA",
+      "detalle": "None"
+    }
+  ],
+  "notas": [],
+  "error": "E   AssertionError: HU006-01: paso 1 (GET http://127.0.0.1:3100/api/ai/sessions/eea8e10e-b702-41c2-b928-4883a97248ac/report): 404 no está en [200] | comprobación: todas las secciones faltan: ['case_id', 'chief_complaint', 'diagnosis', 'differentials', 'finished_at', 'hypotheses', 'key_questions', 'patient', 'recommendations', 'revealed_evidence', 'score', 'tests', 'treatment'] | comprobación: case_id de la consulta None"
+}

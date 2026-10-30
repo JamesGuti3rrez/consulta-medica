@@ -1,0 +1,122 @@
+{
+  "id": "TA011-33",
+  "nombre": "B_sobre_SA_cerrada",
+  "titulo": "B sobre SA cerrada",
+  "criterio": "CA2",
+  "resultado_esperado": "404 en las 4 operaciones, sin datos de SA",
+  "resultado": "FALLA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_antes",
+  "commit": "0b9b949",
+  "fecha": "2026-10-28 05:52:47 UTC",
+  "pasos": [
+    {
+      "descripcion": "leer sesión de SA cerrada",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/8573dd5f-f4ad-492b-bb70-aa0635b685b0",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…w3OQ"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"finished_at\":\"2026-10-28T05:51:35.770891+00:00\",\"active_agent\":\"orchestrator\",\"started_at\":\"2026-10-28T05:50:43.017116+00:00\",\"phase\":\"finalizada\",\"revealed_evidence_ids\":[\"EME-001.motivo.queja_principal\",\"EME-001.vital.signos_vitales\",\"EME-001.medicacion.tratamiento_habitual\"],\"session_id\":\"8573dd5f-f4ad-492b-bb70-aa0635b685b0\",\"updated_at\":\"2026-10-28T05:51:35.770872+00:00\",\"case_id\":\"EME-001\",\"avatar_state\":{\"alerts\":[],\"vitals\":[{\"text\":\"Temperatura 41,1 °C, presión arterial 109/62 mmHg, pulso 170/min, frecuencia respiratoria 23/min y saturación de oxígeno 95 % al aire ambiente.\",\"label\":\"Signos vitales\",\"evidence_id\":\"EME-001.vital.signos_vitales\"}],\"gesture\":\"idle\",\"complications\":[]},\"evaluation\":{\"score\":31.25,\"errors\":{\"negligencia\":0,\"anamnesis_incompleta\":1,\"razonamiento_clinico\":2},\"total_weight\":16,\"earned_weight\":5,\"total_questions\":4,\"completed_questions\":1}}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "enviar mensaje de SA cerrada",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/8573dd5f-f4ad-492b-bb70-aa0635b685b0/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…w3OQ",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 409,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"La sesión ya finalizó.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "listar eventos de SA cerrada",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/8573dd5f-f4ad-492b-bb70-aa0635b685b0/events",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…w3OQ"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "[{\"type\":\"session_started\",\"phase\":\"presentacion\",\"case_id\":\"EME-001\",\"evidence_ids\":[\"EME-001.motivo.queja_principal\",\"EME-001.vital.signos_vitales\"]},{\"type\":\"turn\",\"agent\":\"paciente\",\"model\":\"openai/gpt-oss-20b\",\"phase\":\"anamnesis\",\"intent\":\"ask_patient\",\"blocked\":false,\"case_id\":\"EME-001\",\"provider\":\"groq-3\",\"data_source\":\"curado\",\"block_reason\":null,\"evidence_ids\":[],\"input_tokens\":2179,\"route_reason\":\"pregunta clínica dirigida al paciente por defecto\",\"fallback_used\":false,\"output_tokens\":553,\"response_text\":\"No recuerdo con precisión cuándo comenzaron, pero me encontré en el suelo de la obra.\",\"safety_alerts\":[],\"doctor_question\":\"¿Desde cuándo comenzaron sus molestias y cómo las describiría?\",\"student_message\":\"¿Desde cuándo comenzaron sus molestias y cómo las describiría?\",\"route_confidence\":0.75,\"grounding_retry_used\":false,\"synthetic_reused_ids\":[],\"grounding_fallback_used\":false,\"synthetic_generated_ids\":[],\"synthetic_rejection_reason\":null},{\"type\":\"turn\",\"agent\":\"laboratorio\",\"model\":\"openai/gpt-oss-20b\",\"phase\":\"examenes\",\"intent\":\"request_lab\",\"blocked\":false,\"case_id\":\"EME-001\",\"provider\":\"groq-1\",\"data_source\":\"curado\",\"block_reason\":null,\"evidence_ids\":[],\"input_tokens\":679,\"route_reason\":\"términos de laboratorio\",\"fallback_used\":false,\"output_tokens\":62,\"response_text\":\"Ese examen no se realizó en este paciente.\",\"safety_alerts\":[],\"doctor_question\":null,\"student_message\":\"Solicito un hemograma completo\",\"route_confidence\":0.95,\"grounding_retry_used\":false,\"synthetic_reused_ids\":[],\"grounding_fallback_used\":false,\"synthetic_generated_ids\":[],\"synthetic_rejection_reason\":null},{\"type\":\"turn\",\"agent\":\"paciente\",\"model\":\"openai/gpt-oss-20b\",\"phase\":\"examenes\",\"intent\":\"ask_patient\",\"blocked\":false,\"case_id\":\"EME-001\",\"provider\":\"groq-1\",\"data_source\":\"curado\",\"block_reason\":null,\"evidence_ids\":[\"EME-001.medicacion.tratamiento_habitual\"],\"input_tokens\":2335,\"route_reason\":\"pregunta clínica dirigida al paciente por defecto\",\"fallback_used\":false,\"output_tokens\":352,\"response_text\":\"No recuerdo si tengo alguna alergia a medicamentos.\",\"safety_alerts\":[],\"doctor_question\":\"¿Tiene alergias a algún medicamento?\",\"student_message\":\"¿Tiene alergias a algún medicamento?\",\"route_confidence\":0.75,\"grounding_retry_used\":false,\"synthetic_reused_ids\":[],\"grounding_fallback_used\":false,\"synthetic_generated_ids\":[],\"synthetic_rejection_reason\":null},{\"type\":\"turn\",\"agent\":\"paciente\",\"model\":\"openai/gpt-oss-20b\",\"phase\":\"examenes\",\"intent\":\"ask_patient\",\"blocked\":false,\"case_id\":\"EME-001\",\"provider\":\"groq-3\",\"data_source\":\"curado\",\"block_reason\":null,\"evidence_ids\":[\"EME-001.medicacion.tratamiento_habitual\"],\"input_tokens\":2481,\"route_reason\":\"pregunta clínica dirigida al paciente por defecto\",\"fallback_used\":false,\"output_tokens\":336,\"response_text\":\"No recuerdo si tengo alguna alergia a medicamentos.\",\"safety_alerts\":[],\"doctor_question\":\"¿Tiene alergias a algún medicamento?\",\"student_message\":\"¿Tiene alergias a algún medicamento?\",\"route_confidence\":0.75,\"grounding_retry_used\":false,\"synthetic_reused_ids\":[],\"grounding_fallback_used\":false,\"synthetic_generated_ids\":[],\"synthetic_rejection_reason\":null},{\"type\":\"session_finished\",\"case_id\":\"EME-001\"}]",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "cerrar sesión de SA cerrada",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/8573dd5f-f4ad-492b-bb70-aa0635b685b0/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…w3OQ",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "diagnosis": "intento ajeno",
+        "hypotheses": []
+      },
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"finished_at\":\"2026-10-28T05:51:35.770891+00:00\",\"active_agent\":\"orchestrator\",\"started_at\":\"2026-10-28T05:50:43.017116+00:00\",\"phase\":\"finalizada\",\"revealed_evidence_ids\":[\"EME-001.motivo.queja_principal\",\"EME-001.vital.signos_vitales\",\"EME-001.medicacion.tratamiento_habitual\"],\"session_id\":\"8573dd5f-f4ad-492b-bb70-aa0635b685b0\",\"updated_at\":\"2026-10-28T05:51:35.770872+00:00\",\"case_id\":\"EME-001\",\"avatar_state\":{\"alerts\":[],\"vitals\":[{\"text\":\"Temperatura 41,1 °C, presión arterial 109/62 mmHg, pulso 170/min, frecuencia respiratoria 23/min y saturación de oxígeno 95 % al aire ambiente.\",\"label\":\"Signos vitales\",\"evidence_id\":\"EME-001.vital.signos_vitales\"}],\"gesture\":\"idle\",\"complications\":[]},\"evaluation\":{\"score\":31.25,\"errors\":{\"negligencia\":0,\"anamnesis_incompleta\":1,\"razonamiento_clinico\":2},\"total_weight\":16,\"earned_weight\":5,\"total_questions\":4,\"completed_questions\":1},\"attempt\":{\"saved\":false,\"reason\":\"desactivado\"}}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "FALLA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "sin datos de SA en «leer sesión»",
+      "resultado": "FALLA",
+      "detalle": "marcadores encontrados: ['8573dd5f-f4ad-492b-bb70-aa0635b685b0', 'EME-001.motivo.queja_principal', 'EME-001.vital.signos_vitales', 'EME-001']"
+    },
+    {
+      "descripcion": "sin datos de SA en «enviar mensaje»",
+      "resultado": "PASA",
+      "detalle": "marcadores encontrados: []"
+    },
+    {
+      "descripcion": "sin datos de SA en «listar eventos»",
+      "resultado": "FALLA",
+      "detalle": "marcadores encontrados: ['¿Desde cuándo comenzaron sus molestias y cómo las describiría?', 'Solicito un hemograma completo', 'EME-001.motivo.queja_principal', 'EME-001.vital.signos_vitales', 'EME-001']"
+    },
+    {
+      "descripcion": "sin datos de SA en «cerrar sesión»",
+      "resultado": "FALLA",
+      "detalle": "marcadores encontrados: ['8573dd5f-f4ad-492b-bb70-aa0635b685b0', 'EME-001.motivo.queja_principal', 'EME-001.vital.signos_vitales', 'EME-001']"
+    }
+  ],
+  "notas": [],
+  "error": "E   AssertionError: TA011-33: paso 1 (GET http://127.0.0.1:3100/api/ai/sessions/8573dd5f-f4ad-492b-bb70-aa0635b685b0): 200 no está en [404] | paso 2 (POST http://127.0.0.1:3100/api/ai/sessions/8573dd5f-f4ad-492b-bb70-aa0635b685b0/message): 409 no está en [404] | paso 3 (GET http://127.0.0.1:3100/api/ai/sessions/8573dd5f-f4ad-492b-bb70-aa0635b685b0/events): 200 no está en [404] | paso 4 (POST http://127.0.0.1:3100/api/ai/sessions/8573dd5f-f4ad-492b-bb70-aa0635b685b0/finish): 200 no está en [404] | comprobación: sin datos de SA en «leer sesión» marcadores encontrados: ['8573dd5f-f4ad-492b-bb70-aa0635b685b0', 'EME-001.motivo.queja_principal', 'EME-001.vital.signos_vitales', 'EME-001'] | comprobación: sin datos de SA en «listar eventos» marcadores encontrados: ['¿Desde cuándo comenzaron sus molestias y cómo las describiría?', 'Solicito un hemograma completo', 'EME-001.motivo.queja_principal', 'EME-001.vital.signos_vitales', 'EME-001'] | comprobación: sin datos de SA en «cerrar sesión» marcadores encontrados: ['8573dd5f-f4ad-492b-bb70-aa0635b685b0', 'EME-001.motivo.queja_principal', 'EME-001.vital.signos_vitales', 'EME-001']"
+}

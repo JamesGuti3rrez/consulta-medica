@@ -1,0 +1,90 @@
+{
+  "id": "TA011-03",
+  "nombre": "A_mensaje_SA",
+  "titulo": "A envía mensaje a SA",
+  "criterio": "CA1, CA4",
+  "resultado_esperado": "200 con la respuesta del agente",
+  "resultado": "PASA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_antes",
+  "commit": "5f9435d",
+  "fecha": "2026-10-28 05:57:04 UTC",
+  "pasos": [
+    {
+      "descripcion": "mensaje 1 de la preparación",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…C5tw",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Desde cuándo comenzaron sus molestias y cómo las describiría?"
+      },
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"session\":{\"updated_at\":\"2026-10-28T05:56:49.678906+00:00\",\"finished_at\":null,\"active_agent\":\"paciente\",\"session_id\":\"23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee\",\"revealed_evidence_ids\":[\"EME-001.motivo.queja_principal\",\"EME-001.vital.signos_vitales\"],\"started_at\":\"2026-10-28T05:56:32.811926+00:00\",\"phase\":\"anamnesis\",\"case_id\":\"EME-001\",\"avatar_state\":{\"alerts\":[],\"vitals\":[{\"text\":\"Temperatura 41,1 °C, presión arterial 109/62 mmHg, pulso 170/min, frecuencia respiratoria 23/min y saturación de oxígeno 95 % al aire ambiente.\",\"label\":\"Signos vitales\",\"evidence_id\":\"EME-001.vital.signos_vitales\"}],\"gesture\":\"attentive\",\"complications\":[]},\"evaluation\":null},\"intent\":\"ask_patient\",\"agent\":\"paciente\",\"response\":\"Me gusta comer comidas rápidas, como hamburguesas y papas fritas, y suelo beber refrescos con azúcar varias veces al día. También consumo café en la mañana y a veces cenas con comida ligera, como ensaladas o sopas.\",\"synthetic_generated_ids\":[\"a73b6e92-86a7-44d3-b6b0-d4201a168ab9\"],\"synthetic_reused_ids\":[],\"data_source\":\"sintetico\",\"doctor_question\":\"¿Desde cuándo comenzaron sus molestias y cómo las describiría?\",\"provider\":\"groq-1\",\"model\":\"openai/gpt-oss-20b\",\"evidence_ids\":[],\"blocked\":false,\"safety_alerts\":[]}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "mensaje 2 de la preparación",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…C5tw",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "Solicito un hemograma completo"
+      },
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"session\":{\"updated_at\":\"2026-10-28T05:56:54.141757+00:00\",\"finished_at\":null,\"active_agent\":\"laboratorio\",\"session_id\":\"23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee\",\"revealed_evidence_ids\":[\"EME-001.motivo.queja_principal\",\"EME-001.vital.signos_vitales\"],\"started_at\":\"2026-10-28T05:56:32.811926+00:00\",\"phase\":\"examenes\",\"case_id\":\"EME-001\",\"avatar_state\":{\"alerts\":[],\"vitals\":[{\"text\":\"Temperatura 41,1 °C, presión arterial 109/62 mmHg, pulso 170/min, frecuencia respiratoria 23/min y saturación de oxígeno 95 % al aire ambiente.\",\"label\":\"Signos vitales\",\"evidence_id\":\"EME-001.vital.signos_vitales\"}],\"gesture\":\"attentive\",\"complications\":[]},\"evaluation\":null},\"intent\":\"request_lab\",\"agent\":\"laboratorio\",\"response\":\"Ese examen no se realizó en este paciente.\",\"synthetic_generated_ids\":[],\"synthetic_reused_ids\":[],\"data_source\":\"curado\",\"doctor_question\":null,\"provider\":\"groq-2\",\"model\":\"openai/gpt-oss-20b\",\"evidence_ids\":[],\"blocked\":false,\"safety_alerts\":[]}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "mensaje 3",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…C5tw",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"session\":{\"updated_at\":\"2026-10-28T05:57:02.174159+00:00\",\"finished_at\":null,\"active_agent\":\"paciente\",\"session_id\":\"23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee\",\"revealed_evidence_ids\":[\"EME-001.motivo.queja_principal\",\"EME-001.vital.signos_vitales\",\"EME-001.medicacion.tratamiento_habitual\"],\"started_at\":\"2026-10-28T05:56:32.811926+00:00\",\"phase\":\"examenes\",\"case_id\":\"EME-001\",\"avatar_state\":{\"alerts\":[],\"vitals\":[{\"text\":\"Temperatura 41,1 °C, presión arterial 109/62 mmHg, pulso 170/min, frecuencia respiratoria 23/min y saturación de oxígeno 95 % al aire ambiente.\",\"label\":\"Signos vitales\",\"evidence_id\":\"EME-001.vital.signos_vitales\"}],\"gesture\":\"attentive\",\"complications\":[]},\"evaluation\":null},\"intent\":\"ask_patient\",\"agent\":\"paciente\",\"response\":\"No recuerdo haber tenido alergias a medicamentos.\",\"synthetic_generated_ids\":[],\"synthetic_reused_ids\":[],\"data_source\":\"curado\",\"doctor_question\":\"¿Tiene alergias a algún medicamento?\",\"provider\":\"groq-2\",\"model\":\"openai/gpt-oss-20b\",\"evidence_ids\":[\"EME-001.medicacion.tratamiento_habitual\"],\"blocked\":false,\"safety_alerts\":[]}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "responde un agente",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

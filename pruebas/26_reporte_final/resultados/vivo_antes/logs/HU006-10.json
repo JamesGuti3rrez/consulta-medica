@@ -1,0 +1,37 @@
+{
+  "id": "HU006-10",
+  "nombre": "puntaje",
+  "titulo": "Puntaje y preguntas clave cuadran",
+  "criterio": "CA3",
+  "resultado_esperado": "Pesos obtenidos = earned_weight; preguntas = las puntuables del caso",
+  "resultado": "FALLA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_antes",
+  "commit": "0a55582",
+  "fecha": "2026-10-28 07:47:29 UTC",
+  "pasos": [
+    {
+      "descripcion": "reporte de SA",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/aae77d6c-6d00-461f-acbf-4c39b7e2324f/report",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…3bbA"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"error\":\"Ruta de API no encontrada\"}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "FALLA"
+    }
+  ],
+  "comprobaciones": [],
+  "notas": [],
+  "error": "E   KeyError: 'key_questions'"
+}

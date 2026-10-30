@@ -3,6 +3,7 @@ from server.domain import AgentRole
 
 
 class LaboratorioAgent(BaseAgent):
+    missing_data_reply = "Ese examen no tiene un resultado disponible en este caso."
     role = AgentRole.LABORATORIO
     prompt_filename = "laboratorio.md"
     # Pedido genérico (sin nombrar examen): se pregunta cuál, sin afirmar que no existe.

@@ -1,0 +1,85 @@
+{
+  "id": "TA017-19",
+  "nombre": "credencial_en_query",
+  "titulo": "Credencial por query string",
+  "criterio": "CA3",
+  "resultado_esperado": "401: la credencial solo se acepta en la cabecera",
+  "resultado": "FALLA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_antes",
+  "commit": "0ef9e0e",
+  "fecha": "2026-10-27 02:53:05 UTC",
+  "pasos": [
+    {
+      "descripcion": "leer SN2 con ?token=",
+      "identidad": "Anónimo 2 (credencial en ?token=)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/317eb9f6-b3b4-4587-95c4-1048f558b0cb?token=sin-credencial",
+      "cabeceras": {},
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"],\"session_id\":\"317eb9f6-b3b4-4587-95c4-1048f558b0cb\",\"active_agent\":\"medico_asistente\",\"updated_at\":\"2026-10-27T02:52:37.054454+00:00\",\"finished_at\":null,\"phase\":\"presentacion\",\"started_at\":\"2026-10-27T02:52:37.054440+00:00\",\"case_id\":\"MED-900\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "leer SN2 con ?session_token=",
+      "identidad": "Anónimo 2 (credencial en ?session_token=)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/317eb9f6-b3b4-4587-95c4-1048f558b0cb?session_token=sin-credencial",
+      "cabeceras": {},
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"],\"session_id\":\"317eb9f6-b3b4-4587-95c4-1048f558b0cb\",\"active_agent\":\"medico_asistente\",\"updated_at\":\"2026-10-27T02:52:37.054454+00:00\",\"finished_at\":null,\"phase\":\"presentacion\",\"started_at\":\"2026-10-27T02:52:37.054440+00:00\",\"case_id\":\"MED-900\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "leer SN2 con ?access_token=",
+      "identidad": "Anónimo 2 (credencial en ?access_token=)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/317eb9f6-b3b4-4587-95c4-1048f558b0cb?access_token=sin-credencial",
+      "cabeceras": {},
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"],\"session_id\":\"317eb9f6-b3b4-4587-95c4-1048f558b0cb\",\"active_agent\":\"medico_asistente\",\"updated_at\":\"2026-10-27T02:52:37.054454+00:00\",\"finished_at\":null,\"phase\":\"presentacion\",\"started_at\":\"2026-10-27T02:52:37.054440+00:00\",\"case_id\":\"MED-900\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "FALLA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "?token= no da acceso",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "?session_token= no da acceso",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "?access_token= no da acceso",
+      "resultado": "FALLA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": "E   AssertionError: TA017-19: paso 1 (GET http://testserver/api/ai/sessions/317eb9f6-b3b4-4587-95c4-1048f558b0cb?token=sin-credencial): 200 no está en [401] | paso 2 (GET http://testserver/api/ai/sessions/317eb9f6-b3b4-4587-95c4-1048f558b0cb?session_token=sin-credencial): 200 no está en [401] | paso 3 (GET http://testserver/api/ai/sessions/317eb9f6-b3b4-4587-95c4-1048f558b0cb?access_token=sin-credencial): 200 no está en [401] | comprobación: ?token= no da acceso | comprobación: ?session_token= no da acceso | comprobación: ?access_token= no da acceso"
+}

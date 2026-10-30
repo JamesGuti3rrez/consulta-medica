@@ -1,0 +1,7 @@
+{
+  "id": "HU-004",
+  "prueba": "test_physical_exam_uses_assistant_and_updates_progressive_evidence",
+  "resultado": "PASA",
+  "duracion_s": 0.0422,
+  "entorno": "HTTP local y proveedores controlados"
+}

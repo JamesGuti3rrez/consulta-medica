@@ -1,0 +1,56 @@
+{
+  "id": "HU006-14",
+  "nombre": "evidencia_revelada",
+  "titulo": "Evidencia revelada",
+  "criterio": "CA3",
+  "resultado_esperado": "Los mismos datos que la consulta reveló, con su texto del caso",
+  "resultado": "FALLA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_antes",
+  "commit": "0a55582",
+  "fecha": "2026-10-28 07:47:32 UTC",
+  "pasos": [
+    {
+      "descripcion": "estado de SA",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/aae77d6c-6d00-461f-acbf-4c39b7e2324f",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…3bbA"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"session_id\":\"aae77d6c-6d00-461f-acbf-4c39b7e2324f\",\"revealed_evidence_ids\":[\"EME-001.motivo.queja_principal\",\"EME-001.vital.signos_vitales\"],\"case_id\":\"EME-001\",\"finished_at\":\"2026-10-28T07:47:21.218520+00:00\",\"phase\":\"finalizada\",\"updated_at\":\"2026-10-28T07:47:21.218508+00:00\",\"started_at\":\"2026-10-28T07:46:59.729980+00:00\",\"active_agent\":\"orchestrator\",\"avatar_state\":{\"alerts\":[],\"vitals\":[{\"text\":\"Temperatura 41,1 °C, presión arterial 109/62 mmHg, pulso 170/min, frecuencia respiratoria 23/min y saturación de oxígeno 95 % al aire ambiente.\",\"label\":\"Signos vitales\",\"evidence_id\":\"EME-001.vital.signos_vitales\"}],\"gesture\":\"idle\",\"complications\":[]},\"evaluation\":{\"score\":0.0,\"errors\":{\"negligencia\":0,\"anamnesis_incompleta\":2,\"razonamiento_clinico\":2},\"total_weight\":16,\"earned_weight\":0,\"total_questions\":4,\"completed_questions\":0}}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "reporte de SA",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/aae77d6c-6d00-461f-acbf-4c39b7e2324f/report",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…3bbA"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"error\":\"Ruta de API no encontrada\"}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "FALLA"
+    }
+  ],
+  "comprobaciones": [],
+  "notas": [],
+  "error": "E   KeyError: 'revealed_evidence'"
+}

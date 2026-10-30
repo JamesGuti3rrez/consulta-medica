@@ -1,0 +1,63 @@
+{
+  "id": "HU006-03",
+  "nombre": "consulta_abierta_409",
+  "titulo": "Consulta abierta: el reporte no existe",
+  "criterio": "CA1",
+  "resultado_esperado": "409 sin diagnóstico de referencia ni preguntas clave",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_despues",
+  "commit": "a17cb62",
+  "fecha": "2026-10-28 07:21:39 UTC",
+  "pasos": [
+    {
+      "descripcion": "reporte de una consulta abierta de A",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/d11e8390-2886-44c5-a734-7a351967760b/report",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…MaZk"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 409,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"El reporte estará disponible al terminar la consulta.\"}",
+      "codigo_esperado": [
+        409
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "mensaje exacto",
+      "resultado": "PASA",
+      "detalle": "{\"detail\":\"El reporte estará disponible al terminar la consulta.\"}"
+    },
+    {
+      "descripcion": "sin «Migraña sin signos de alarma»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «key_questions»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «treatment»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «reference»",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

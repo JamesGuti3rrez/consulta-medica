@@ -1,0 +1,10 @@
+Verificación de capturas de TA-017
+
+[local_antes] JSON: 37 | PNG: 37 | PASA 14 | FALLA 23
+    casos sin PNG: ninguno
+    casos sin JSON en esta fase (no ejecutados): TA017-34, TA017-35, TA017-36
+[local_despues] JSON: 37 | PNG: 37 | PASA 37 | FALLA 0
+    casos sin PNG: ninguno
+    casos sin JSON en esta fase (no ejecutados): TA017-34, TA017-35, TA017-36
+
+Secretos sin enmascarar: ninguno

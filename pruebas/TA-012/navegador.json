@@ -1,0 +1,55 @@
+{
+  "api_real_local": true,
+  "casos": [
+    {
+      "caso": "correcto",
+      "entrada": "APENDICITIS AGUDA.",
+      "http": 200,
+      "estado": "correct",
+      "puntuacion": 100,
+      "motivo": "Coincide con el diagnóstico de referencia normalizado.",
+      "interfaz": "PASA",
+      "sin_fuga_previa": true
+    },
+    {
+      "caso": "incorrecto",
+      "entrada": "Meningitis",
+      "http": 200,
+      "estado": "incorrect",
+      "puntuacion": 0,
+      "motivo": "No coincide exactamente con el diagnóstico de referencia ni con los sinónimos admitidos por este caso.",
+      "interfaz": "PASA",
+      "sin_fuga_previa": true
+    },
+    {
+      "caso": "sinonimo",
+      "entrada": "APENDICITIS",
+      "http": 200,
+      "estado": "correct",
+      "puntuacion": 100,
+      "motivo": "Coincide con un sinónimo admitido por este caso.",
+      "interfaz": "PASA",
+      "sin_fuga_previa": true
+    },
+    {
+      "caso": "vacio",
+      "entrada": "",
+      "http": 200,
+      "estado": "empty",
+      "puntuacion": 0,
+      "motivo": "No se registró un diagnóstico final.",
+      "interfaz": "PASA",
+      "sin_fuga_previa": true
+    },
+    {
+      "caso": "ambiguo",
+      "entrada": "Apendicitis o meningitis",
+      "http": 200,
+      "estado": "ambiguous",
+      "puntuacion": 0,
+      "motivo": "Se registraron varias alternativas en lugar de un único diagnóstico final; requiere revisión docente.",
+      "interfaz": "PASA",
+      "sin_fuga_previa": true
+    }
+  ]
+}

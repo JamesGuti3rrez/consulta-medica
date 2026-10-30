@@ -1,0 +1,67 @@
+{
+  "id": "HU006-07",
+  "nombre": "ajeno_igual_a_inexistente",
+  "titulo": "Reporte ajeno igual a inexistente",
+  "criterio": "CA2",
+  "resultado_esperado": "Mismo código y mismo cuerpo",
+  "resultado": "PASA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_despues",
+  "commit": "0a55582",
+  "fecha": "2026-10-28 07:51:59 UTC",
+  "pasos": [
+    {
+      "descripcion": "reporte de SA (ajena)",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/70fb67dc-39dc-435e-a801-92e791ebcd6b/report",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…A2Ew"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "reporte de un UUID inexistente",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/a6496f85-1d53-4e47-aa49-3936d8da8b71/report",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…A2Ew"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "mismo código",
+      "resultado": "PASA",
+      "detalle": "404 vs 404"
+    },
+    {
+      "descripcion": "mismo cuerpo",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

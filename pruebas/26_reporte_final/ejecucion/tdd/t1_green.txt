@@ -1,0 +1,24 @@
+﻿COMANDO: python -m pytest tests/unit/test_report_builder.py -v
+COMMIT: a4bf22d
+FECHA: 2026-10-28 07:12:29 UTC
+CODIGO_SALIDA: 0
+
+============================= test session starts =============================
+platform win32 -- Python 3.14.4, pytest-8.3.4, pluggy-1.6.0 -- C:\Users\Usuario\Documents\consulta-medica\backend\.venv\Scripts\python.exe
+rootdir: C:\Users\Usuario\Documents\consulta-medica\backend
+configfile: pyproject.toml
+plugins: anyio-4.15.1, langsmith-0.14.7
+collecting ... collected 10 items
+
+tests/unit/test_report_builder.py::test_reporte_con_dos_preguntas_obtenidas PASSED [ 10%]
+tests/unit/test_report_builder.py::test_diagnostico_de_referencia_y_propuesta PASSED [ 20%]
+tests/unit/test_report_builder.py::test_examenes PASSED                  [ 30%]
+tests/unit/test_report_builder.py::test_examen_opcional_por_prefijo PASSED [ 40%]
+tests/unit/test_report_builder.py::test_tratamiento PASSED               [ 50%]
+tests/unit/test_report_builder.py::test_evidencia_revelada PASSED        [ 60%]
+tests/unit/test_report_builder.py::test_consulta_sin_preguntas PASSED    [ 70%]
+tests/unit/test_report_builder.py::test_recomendacion_por_alerta_y_por_defecto PASSED [ 80%]
+tests/unit/test_report_builder.py::test_ids_ajenos_se_descartan PASSED   [ 90%]
+tests/unit/test_report_builder.py::test_sin_evaluacion_guardada_la_calcula PASSED [100%]
+
+============================= 10 passed in 0.07s ==============================

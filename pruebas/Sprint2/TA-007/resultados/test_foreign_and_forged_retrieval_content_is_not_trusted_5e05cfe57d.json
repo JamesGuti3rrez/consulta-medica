@@ -1,0 +1,7 @@
+{
+  "id": "TA-007",
+  "prueba": "test_foreign_and_forged_retrieval_content_is_not_trusted",
+  "resultado": "PASA",
+  "duracion_s": 0.0502,
+  "entorno": "HTTP local y proveedores controlados"
+}

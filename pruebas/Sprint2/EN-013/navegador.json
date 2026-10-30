@@ -1,0 +1,61 @@
+{
+  "resultado": "PASA",
+  "tipo": "Generador estructurado controlado, validador/API/UI reales",
+  "generacion": [
+    {
+      "evidence_id": "MED-008.sintetico.hemograma",
+      "label": "Hemograma parcial sintético",
+      "text": "Resultado sintético educativo, no observado en una persona real. Leucocitos: 7000 /uL (referencia educativa 4500–11000 /uL); Hemoglobina: 14.5 g/dL (referencia educativa 13–18 g/dL); Hematocrito: 43 % (referencia educativa 40–55 %).",
+      "synthetic": true,
+      "indicators": [
+        {
+          "key": "leucocitos",
+          "label": "Leucocitos",
+          "value": 7000,
+          "unit": "/uL",
+          "reference": {
+            "min": 4500,
+            "max": 11000
+          },
+          "reference_source": "https://medlineplus.gov/ency/article/003642.htm"
+        },
+        {
+          "key": "hemoglobina",
+          "label": "Hemoglobina",
+          "value": 14.5,
+          "unit": "g/dL",
+          "reference": {
+            "min": 13,
+            "max": 18
+          },
+          "reference_source": "https://medlineplus.gov/ency/article/003642.htm"
+        },
+        {
+          "key": "hematocrito",
+          "label": "Hematocrito",
+          "value": 43,
+          "unit": "%",
+          "reference": {
+            "min": 40,
+            "max": 55
+          },
+          "reference_source": "https://medlineplus.gov/ency/article/003642.htm"
+        }
+      ],
+      "provenance": {
+        "provider": "sprint2-controlled",
+        "model": "local-test-double",
+        "validator_version": "synthetic-exam-contract-1.0.0",
+        "validation": "contrato_validado",
+        "clinical_review": "pendiente"
+      }
+    }
+  ],
+  "reuso": [
+    "MED-008.sintetico.hemograma"
+  ],
+  "validacion": {
+    "decision": "contrato_validado",
+    "version": "synthetic-exam-contract-1.0.0"
+  }
+}

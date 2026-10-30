@@ -1,0 +1,48 @@
+{
+  "id": "HU006-02",
+  "nombre": "invitado_obtiene_reporte",
+  "titulo": "El invitado obtiene su reporte con su credencial",
+  "criterio": "CA2",
+  "resultado_esperado": "200 con el reporte de SN1",
+  "resultado": "PASA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_despues",
+  "commit": "0a55582",
+  "fecha": "2026-10-28 07:51:56 UTC",
+  "pasos": [
+    {
+      "descripcion": "reporte de SN1",
+      "identidad": "Anónimo 1 + credencial de capacidad",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/9317990b-e5e7-4df9-aad6-b3835345e1de/report",
+      "cabeceras": {
+        "x-session-token": "TxwCNb…Hb2I"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"case_id\":\"CIR-005\",\"finished_at\":\"2026-10-28T07:51:43.956470+00:00\",\"patient\":{\"alias\":\"Martín Rojas\",\"age_years\":28,\"sex\":\"masculino\"},\"chief_complaint\":\"Ingresó por dolor abdominal intenso; se diagnosticó apendicitis y se le realizó una apendicectomía de urgencia.\",\"diagnosis\":{\"student\":\"Diagnóstico de Anónimo 1\",\"reference\":\"Hemofilia A\",\"synonyms\":[\"Hemofilia A\",\"Hemofilia clásica\",\"Deficiencia de factor VIII\",\"Déficit de factor VIII\"]},\"hypotheses\":[],\"differentials\":[\"Hemofilia B\",\"Enfermedad de von Willebrand\",\"Inhibidor adquirido de factor VIII\",\"Coagulopatía perioperatoria adquirida\"],\"score\":{\"score\":0.0,\"earned_weight\":0,\"total_weight\":17,\"completed_questions\":0,\"total_questions\":4},\"key_questions\":{\"obtained\":[],\"missing\":[{\"id\":\"kq2\",\"topic\":\"Antecedentes familiares de trastorno hemorrágico\",\"weight\":5,\"critical\":true,\"error_type\":\"anamnesis_incompleta\",\"error_name\":\"Anamnesis incompleta\",\"why\":\"Forma parte de una historia clínica completa.\",\"helps_discard\":[\"Inhibidor adquirido de factor VIII\",\"Coagulopatía perioperatoria adquirida\"]},{\"id\":\"kq3\",\"topic\":\"Pruebas de coagulación posoperatorias: tiempo de tromboplastina parcial prolongado\",\"weight\":5,\"critical\":true,\"error_type\":\"razonamiento_clinico\",\"error_name\":\"Razonamiento clínico\",\"why\":\"Orienta o confirma el diagnóstico del caso.\",\"helps_discard\":[\"Coagulopatía perioperatoria adquirida\"]},{\"id\":\"kq4\",\"topic\":\"Pruebas de coagulación preoperatorias normales\",\"weight\":3,\"critical\":false,\"error_type\":\"razonamiento_clinico\",\"error_name\":\"Razonamiento clínico\",\"why\":\"Orienta o confirma el diagnóstico del caso.\",\"helps_discard\":[\"Enfermedad de von Willebrand\"]},{\"id\":\"kq5\",\"topic\":\"Dosaje de factores: factor VIII disminuido y factor IX normal\",\"weight\":4,\"critical\":true,\"error_type\":\"razonamiento_clinico\",\"error_name\":\"Razonamiento clínico\",\"why\":\"Orienta o confirma el diagnóstico del caso.\",\"helps_discard\":[\"Hemofilia B\"]}]},\"tests\":{\"recommended_requested\":[],\"recommended_missing\":[],\"optional_requested\":[],\"unnecessary_requested\":[],\"other_indications\":[\"Actividad de factor viii y factor ix\",\"Estudio de mezcla del ttp\",\"Valoracion hematologia urgente\",\"Antigeno y actividad del factor de von willebrand\"]},\"treatment\":{\"proposed\":[],\"reference_summary\":\"El sangrado activo con posible hemofilia requiere control hemostático urgente con hematología. El producto depende de factor deficiente, inhibidores y situación clínica; la fuente no permite elegir producto ni dosis.\",\"key_actions\":[\"No retrasar consulta de hematología ante sangrado quirúrgico persistente.\",\"Confirmar actividad de factor VIII/IX y descartar inhibidor antes de etiquetar hemofilia A.\"]},\"revealed_evidence\":[{\"evidence_id\":\"CIR-005.motivo.queja_principal\",\"label\":\"Motivo de consulta\",\"text\":\"Ingresó por dolor abdominal intenso; se diagnosticó apendicitis y se le realizó una apendicectomía de urgencia.\"},{\"evidence_id\":\"CIR-005.anamnesis.evolucion_quirurgica\",\"label\":\"Evolución quirúrgica\",\"text\":\"Durante la intervención presentó un sangrado masivo y persistente que requirió transfusión de sangre.\"}],\"recommendations\":[\"Completa la anamnesis: inicio y evolución, antecedentes, medicación, alergias y hábitos.\",\"Pide la exploración y los exámenes que confirmen o descarten cada una de tus hipótesis.\"]}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "case_id de SN1",
+      "resultado": "PASA",
+      "detalle": "CIR-005"
+    },
+    {
+      "descripcion": "diagnóstico del invitado",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

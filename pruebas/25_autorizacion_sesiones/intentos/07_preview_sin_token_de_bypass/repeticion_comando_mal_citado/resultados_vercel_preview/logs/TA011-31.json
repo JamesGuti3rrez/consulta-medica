@@ -1,0 +1,17 @@
+{
+  "id": "TA011-31",
+  "nombre": "evento_sesion_cerrada",
+  "titulo": "Evento a SA cerrada",
+  "criterio": "CA1",
+  "resultado_esperado": "Rechazado (no existe ruta de escritura de eventos) y la lista no cambia",
+  "resultado": "FALLA",
+  "modo": "vivo",
+  "servidor": "https://consulta-medica-1mjw4o7qz-james-gutierrezs-projects-49804000.vercel.app",
+  "fase": "vercel_preview",
+  "commit": "c00ee96",
+  "fecha": "2026-10-28 06:07:44 UTC",
+  "pasos": [],
+  "comprobaciones": [],
+  "notas": [],
+  "error": "Falló la preparación: E   AssertionError: {\"message\":\"Protected by Vercel Authentication\",\"access\":\"vercel curl <deployment-url>\",\"protection\":{\"auto_vercel_auth_redirect\":true,\"password_enabled\":false,\"vercel_auth_enabled\":true,\"vercel_auth_callback\":\"https:\\/\\/vercel.com\\/sso-api?url=https%3A%2F%2Fconsulta-medica-1mjw4o7qz-james-gutierrezs-projects-49804000.vercel.app%2Fapi%2Fai%2Fsessions&nonce=43adbd4e947f0be06c6b322277d76a88c407bddc78d10b11f94021ebd32fec65\"},\"mcp\":\"With an authorized Vercel MCP connection (https:\\/\\/mcp.vercel.com), call web_fetch_vercel_url with url set to the full deployment URL.\",\"error\":{\"code\":\"401\",\"message\":\"Protected deployment\"}}\n    assert 401 == 200\n     +  where 401 = <Response [401 Unauthorized]>.status_code"
+}

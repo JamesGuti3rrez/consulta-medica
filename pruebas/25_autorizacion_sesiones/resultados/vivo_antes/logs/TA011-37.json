@@ -1,0 +1,250 @@
+{
+  "id": "TA011-37",
+  "nombre": "errores_sin_detalles",
+  "titulo": "Errores sin detalles internos",
+  "criterio": "CA2, CA4",
+  "resultado_esperado": "Ningún error con stack trace, SQL, rutas internas, claves ni ids de otros usuarios",
+  "resultado": "FALLA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_antes",
+  "commit": "5f9435d",
+  "fecha": "2026-10-28 05:58:46 UTC",
+  "pasos": [
+    {
+      "descripcion": "GET /api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee",
+      "identidad": "Sin credencial",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee",
+      "cabeceras": {},
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"updated_at\":\"2026-10-28T05:57:34.375077+00:00\",\"finished_at\":\"2026-10-28T05:57:34.375101+00:00\",\"active_agent\":\"orchestrator\",\"session_id\":\"23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee\",\"revealed_evidence_ids\":[\"EME-001.motivo.queja_principal\",\"EME-001.vital.signos_vitales\",\"EME-001.medicacion.tratamiento_habitual\"],\"started_at\":\"2026-10-28T05:56:32.811926+00:00\",\"phase\":\"finalizada\",\"case_id\":\"EME-001\",\"avatar_state\":{\"alerts\":[],\"vitals\":[{\"text\":\"Temperatura 41,1 °C, presión arterial 109/62 mmHg, pulso 170/min, frecuencia respiratoria 23/min y saturación de oxígeno 95 % al aire ambiente.\",\"label\":\"Signos vitales\",\"evidence_id\":\"EME-001.vital.signos_vitales\"}],\"gesture\":\"idle\",\"complications\":[]},\"evaluation\":{\"score\":31.25,\"errors\":{\"negligencia\":0,\"anamnesis_incompleta\":1,\"razonamiento_clinico\":2},\"total_weight\":16,\"earned_weight\":5,\"total_questions\":4,\"completed_questions\":1}}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "GET /api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…1bBw"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"updated_at\":\"2026-10-28T05:57:34.375077+00:00\",\"finished_at\":\"2026-10-28T05:57:34.375101+00:00\",\"active_agent\":\"orchestrator\",\"session_id\":\"23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee\",\"revealed_evidence_ids\":[\"EME-001.motivo.queja_principal\",\"EME-001.vital.signos_vitales\",\"EME-001.medicacion.tratamiento_habitual\"],\"started_at\":\"2026-10-28T05:56:32.811926+00:00\",\"phase\":\"finalizada\",\"case_id\":\"EME-001\",\"avatar_state\":{\"alerts\":[],\"vitals\":[{\"text\":\"Temperatura 41,1 °C, presión arterial 109/62 mmHg, pulso 170/min, frecuencia respiratoria 23/min y saturación de oxígeno 95 % al aire ambiente.\",\"label\":\"Signos vitales\",\"evidence_id\":\"EME-001.vital.signos_vitales\"}],\"gesture\":\"idle\",\"complications\":[]},\"evaluation\":{\"score\":31.25,\"errors\":{\"negligencia\":0,\"anamnesis_incompleta\":1,\"razonamiento_clinico\":2},\"total_weight\":16,\"earned_weight\":5,\"total_questions\":4,\"completed_questions\":1}}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "POST /api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee/message",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…1bBw",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 409,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"La sesión ya finalizó.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "POST /api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee/message",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…C5tw",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 409,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"La sesión ya finalizó.\"}",
+      "codigo_esperado": [
+        409
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "POST /api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee/message",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…C5tw",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "a"
+      },
+      "codigo_recibido": 422,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":[{\"type\":\"string_too_short\",\"loc\":[\"body\",\"message\"],\"msg\":\"String should have at least 2 characters\",\"input\":\"a\",\"ctx\":{\"min_length\":2}}]}",
+      "codigo_esperado": [
+        401,
+        404,
+        409,
+        422
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "GET /api/ai/sessions/1'%20OR%20'1'%3D'1",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/1'%20OR%20'1'%3D'1",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…C5tw"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        400,
+        401,
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "GET /api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee",
+      "identidad": "Bearer abc",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee",
+      "cabeceras": {
+        "authorization": "Bearer abc"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"updated_at\":\"2026-10-28T05:57:34.375077+00:00\",\"finished_at\":\"2026-10-28T05:57:34.375101+00:00\",\"active_agent\":\"orchestrator\",\"session_id\":\"23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee\",\"revealed_evidence_ids\":[\"EME-001.motivo.queja_principal\",\"EME-001.vital.signos_vitales\",\"EME-001.medicacion.tratamiento_habitual\"],\"started_at\":\"2026-10-28T05:56:32.811926+00:00\",\"phase\":\"finalizada\",\"case_id\":\"EME-001\",\"avatar_state\":{\"alerts\":[],\"vitals\":[{\"text\":\"Temperatura 41,1 °C, presión arterial 109/62 mmHg, pulso 170/min, frecuencia respiratoria 23/min y saturación de oxígeno 95 % al aire ambiente.\",\"label\":\"Signos vitales\",\"evidence_id\":\"EME-001.vital.signos_vitales\"}],\"gesture\":\"idle\",\"complications\":[]},\"evaluation\":{\"score\":31.25,\"errors\":{\"negligencia\":0,\"anamnesis_incompleta\":1,\"razonamiento_clinico\":2},\"total_weight\":16,\"earned_weight\":5,\"total_questions\":4,\"completed_questions\":1}}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "GET /api/ai/sessions/38bf53d0-f6cf-43a9-bf75-c5622b7ddb3b",
+      "identidad": "Credencial malformada",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/38bf53d0-f6cf-43a9-bf75-c5622b7ddb3b",
+      "cabeceras": {
+        "x-session-token": "abc"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"updated_at\":\"2026-10-28T05:57:58.003499+00:00\",\"finished_at\":\"2026-10-28T05:57:58.003521+00:00\",\"active_agent\":\"orchestrator\",\"session_id\":\"38bf53d0-f6cf-43a9-bf75-c5622b7ddb3b\",\"revealed_evidence_ids\":[\"CIR-005.motivo.queja_principal\",\"CIR-005.anamnesis.evolucion_quirurgica\"],\"started_at\":\"2026-10-28T05:56:36.733007+00:00\",\"phase\":\"finalizada\",\"case_id\":\"CIR-005\",\"avatar_state\":{\"alerts\":[],\"vitals\":[],\"gesture\":\"idle\",\"complications\":[]},\"evaluation\":{\"score\":0.0,\"errors\":{\"negligencia\":0,\"anamnesis_incompleta\":1,\"razonamiento_clinico\":3},\"total_weight\":17,\"earned_weight\":0,\"total_questions\":4,\"completed_questions\":0}}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "POST /api/ai/sessions",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…C5tw",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "case_id": "NO-EXISTE"
+      },
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Caso no encontrado o no disponible.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "GET /api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee: sin detalles internos",
+      "resultado": "PASA",
+      "detalle": "encontrado: []"
+    },
+    {
+      "descripcion": "GET /api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee: sin detalles internos",
+      "resultado": "PASA",
+      "detalle": "encontrado: []"
+    },
+    {
+      "descripcion": "POST /api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee/messag: sin detalles internos",
+      "resultado": "PASA",
+      "detalle": "encontrado: []"
+    },
+    {
+      "descripcion": "POST /api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee/messag: sin detalles internos",
+      "resultado": "PASA",
+      "detalle": "encontrado: []"
+    },
+    {
+      "descripcion": "POST /api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee/messag: sin detalles internos",
+      "resultado": "PASA",
+      "detalle": "encontrado: []"
+    },
+    {
+      "descripcion": "GET /api/ai/sessions/1'%20OR%20'1'%3D'1: sin detalles internos",
+      "resultado": "PASA",
+      "detalle": "encontrado: []"
+    },
+    {
+      "descripcion": "GET /api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee: sin detalles internos",
+      "resultado": "PASA",
+      "detalle": "encontrado: []"
+    },
+    {
+      "descripcion": "GET /api/ai/sessions/38bf53d0-f6cf-43a9-bf75-c5622b7ddb3b: sin detalles internos",
+      "resultado": "PASA",
+      "detalle": "encontrado: []"
+    },
+    {
+      "descripcion": "POST /api/ai/sessions: sin detalles internos",
+      "resultado": "PASA",
+      "detalle": "encontrado: []"
+    }
+  ],
+  "notas": [],
+  "error": "E   AssertionError: TA011-37: paso 1 (GET http://127.0.0.1:3100/api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee): 200 no está en [401] | paso 2 (GET http://127.0.0.1:3100/api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee): 200 no está en [404] | paso 3 (POST http://127.0.0.1:3100/api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee/message): 409 no está en [404] | paso 7 (GET http://127.0.0.1:3100/api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee): 200 no está en [401] | paso 8 (GET http://127.0.0.1:3100/api/ai/sessions/38bf53d0-f6cf-43a9-bf75-c5622b7ddb3b): 200 no está en [401]"
+}

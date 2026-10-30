@@ -1,0 +1,155 @@
+{
+  "id": "TA011-18",
+  "nombre": "credencial_alterada",
+  "titulo": "Credencial de SN1 alterada o malformada",
+  "criterio": "CA3, CA4",
+  "resultado_esperado": "Alterada en un carácter: 404 (decisión de la política); malformada: 401",
+  "resultado": "FALLA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_antes",
+  "commit": "5f9435d",
+  "fecha": "2026-10-28 06:31:40 UTC",
+  "pasos": [
+    {
+      "descripcion": "leer SN2 con su credencial alterada",
+      "identidad": "Anónimo 2 (credencial alterada)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/7ed0b385-1aec-42b1-a6d8-cb44eefdc424",
+      "cabeceras": {
+        "x-session-token": "xxxxxx…xxxx"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"session_id\":\"7ed0b385-1aec-42b1-a6d8-cb44eefdc424\",\"started_at\":\"2026-10-28T06:31:39.367261+00:00\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"],\"case_id\":\"MED-900\",\"updated_at\":\"2026-10-28T06:31:39.367273+00:00\",\"phase\":\"presentacion\",\"finished_at\":null,\"active_agent\":\"medico_asistente\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "leer SN1 con la credencial alterada",
+      "identidad": "Anónimo 1 (credencial alterada)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/139d52aa-4dbf-4f11-b5a8-1885a0fa200d",
+      "cabeceras": {
+        "x-session-token": "creden…ente"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"session_id\":\"139d52aa-4dbf-4f11-b5a8-1885a0fa200d\",\"started_at\":\"2026-10-28T06:31:39.351948+00:00\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\",\"MED-900.medicacion.paracetamol\",\"MED-900.anamnesis.alergias\"],\"case_id\":\"MED-900\",\"updated_at\":\"2026-10-28T06:31:39.945312+00:00\",\"phase\":\"finalizada\",\"finished_at\":\"2026-10-28T06:31:39.945323+00:00\",\"active_agent\":\"orchestrator\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":{\"score\":28.57,\"earned_weight\":4,\"total_weight\":14,\"completed_questions\":1,\"total_questions\":3,\"errors\":{\"negligencia\":1,\"anamnesis_incompleta\":1,\"razonamiento_clinico\":0}}}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "leer SN2 con credencial muy corta",
+      "identidad": "credencial muy corta",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/7ed0b385-1aec-42b1-a6d8-cb44eefdc424",
+      "cabeceras": {
+        "x-session-token": "abc"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"session_id\":\"7ed0b385-1aec-42b1-a6d8-cb44eefdc424\",\"started_at\":\"2026-10-28T06:31:39.367261+00:00\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"],\"case_id\":\"MED-900\",\"updated_at\":\"2026-10-28T06:31:39.367273+00:00\",\"phase\":\"presentacion\",\"finished_at\":null,\"active_agent\":\"medico_asistente\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "leer SN2 con credencial muy larga",
+      "identidad": "credencial muy larga",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/7ed0b385-1aec-42b1-a6d8-cb44eefdc424",
+      "cabeceras": {
+        "x-session-token": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"session_id\":\"7ed0b385-1aec-42b1-a6d8-cb44eefdc424\",\"started_at\":\"2026-10-28T06:31:39.367261+00:00\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"],\"case_id\":\"MED-900\",\"updated_at\":\"2026-10-28T06:31:39.367273+00:00\",\"phase\":\"presentacion\",\"finished_at\":null,\"active_agent\":\"medico_asistente\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "leer SN2 con credencial con espacios",
+      "identidad": "credencial con espacios",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/7ed0b385-1aec-42b1-a6d8-cb44eefdc424",
+      "cabeceras": {
+        "x-session-token": "abc def ghi jkl mno pqr stu"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"session_id\":\"7ed0b385-1aec-42b1-a6d8-cb44eefdc424\",\"started_at\":\"2026-10-28T06:31:39.367261+00:00\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"],\"case_id\":\"MED-900\",\"updated_at\":\"2026-10-28T06:31:39.367273+00:00\",\"phase\":\"presentacion\",\"finished_at\":null,\"active_agent\":\"medico_asistente\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "leer SN2 con credencial caracteres no permitidos",
+      "identidad": "credencial caracteres no permitidos",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/7ed0b385-1aec-42b1-a6d8-cb44eefdc424",
+      "cabeceras": {
+        "x-session-token": "<script>alert(1)</script>aaaaaaaaaaaaaaaaaaaa"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"session_id\":\"7ed0b385-1aec-42b1-a6d8-cb44eefdc424\",\"started_at\":\"2026-10-28T06:31:39.367261+00:00\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"],\"case_id\":\"MED-900\",\"updated_at\":\"2026-10-28T06:31:39.367273+00:00\",\"phase\":\"presentacion\",\"finished_at\":null,\"active_agent\":\"medico_asistente\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "FALLA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "credencial muy corta: sin datos de SN2",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "credencial muy larga: sin datos de SN2",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "credencial con espacios: sin datos de SN2",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "credencial caracteres no permitidos: sin datos de SN2",
+      "resultado": "FALLA",
+      "detalle": ""
+    }
+  ],
+  "notas": [
+    "Decisión: una credencial bien formada pero que no corresponde a la sesión responde 404, igual que una sesión inexistente, para no ofrecer un oráculo. Las malformadas (largo o alfabeto incorrectos) responden 401 sin consultar la sesión."
+  ],
+  "error": "E   AssertionError: TA011-18: paso 1 (GET http://testserver/api/ai/sessions/7ed0b385-1aec-42b1-a6d8-cb44eefdc424): 200 no está en [404] | paso 2 (GET http://testserver/api/ai/sessions/139d52aa-4dbf-4f11-b5a8-1885a0fa200d): 200 no está en [404] | paso 3 (GET http://testserver/api/ai/sessions/7ed0b385-1aec-42b1-a6d8-cb44eefdc424): 200 no está en [401] | paso 4 (GET http://testserver/api/ai/sessions/7ed0b385-1aec-42b1-a6d8-cb44eefdc424): 200 no está en [401] | paso 5 (GET http://testserver/api/ai/sessions/7ed0b385-1aec-42b1-a6d8-cb44eefdc424): 200 no está en [401] | paso 6 (GET http://testserver/api/ai/sessions/7ed0b385-1aec-42b1-a6d8-cb44eefdc424): 200 no está en [401] | comprobación: credencial muy corta: sin datos de SN2 | comprobación: credencial muy larga: sin datos de SN2 | comprobación: credencial con espacios: sin datos de SN2 | comprobación: credencial caracteres no permitidos: sin datos de SN2"
+}

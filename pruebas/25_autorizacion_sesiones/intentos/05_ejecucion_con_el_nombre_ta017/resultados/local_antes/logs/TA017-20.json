@@ -1,0 +1,141 @@
+{
+  "id": "TA017-20",
+  "nombre": "credencial_otra_sesion",
+  "titulo": "Credencial de SN1 usada en otra sesión",
+  "criterio": "CA3",
+  "resultado_esperado": "404 en SN2; crear sesión con ella da una sesión nueva con credencial propia",
+  "resultado": "FALLA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_antes",
+  "commit": "0ef9e0e",
+  "fecha": "2026-10-27 02:53:09 UTC",
+  "pasos": [
+    {
+      "descripcion": "leer sesión de SN2",
+      "identidad": "Anónimo 1",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/317eb9f6-b3b4-4587-95c4-1048f558b0cb",
+      "cabeceras": {},
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"],\"session_id\":\"317eb9f6-b3b4-4587-95c4-1048f558b0cb\",\"active_agent\":\"medico_asistente\",\"updated_at\":\"2026-10-27T02:52:37.054454+00:00\",\"finished_at\":null,\"phase\":\"presentacion\",\"started_at\":\"2026-10-27T02:52:37.054440+00:00\",\"case_id\":\"MED-900\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "enviar mensaje de SN2",
+      "identidad": "Anónimo 1",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/317eb9f6-b3b4-4587-95c4-1048f558b0cb/message",
+      "cabeceras": {
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"session\":{\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\",\"MED-900.medicacion.paracetamol\",\"MED-900.anamnesis.alergias\"],\"session_id\":\"317eb9f6-b3b4-4587-95c4-1048f558b0cb\",\"active_agent\":\"paciente\",\"updated_at\":\"2026-10-27T02:53:05.203714+00:00\",\"finished_at\":null,\"phase\":\"anamnesis\",\"started_at\":\"2026-10-27T02:52:37.054440+00:00\",\"case_id\":\"MED-900\",\"avatar_state\":{\"gesture\":\"attentive\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null},\"intent\":\"ask_patient\",\"agent\":\"paciente\",\"response\":\"Tomó paracetamol 1 g, con mejoría parcial y transitoria. Niega alergias medicamentosas conocidas.\",\"synthetic_generated_ids\":[],\"synthetic_reused_ids\":[],\"data_source\":\"curado\",\"doctor_question\":\"¿Tiene alergias a algún medicamento?\",\"provider\":\"local-development\",\"model\":\"rules-only\",\"evidence_ids\":[\"MED-900.medicacion.paracetamol\",\"MED-900.anamnesis.alergias\"],\"blocked\":false,\"safety_alerts\":[]}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "listar eventos de SN2",
+      "identidad": "Anónimo 1",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/317eb9f6-b3b4-4587-95c4-1048f558b0cb/events",
+      "cabeceras": {},
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "[{\"type\":\"session_started\",\"case_id\":\"MED-900\",\"phase\":\"presentacion\",\"evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"]},{\"type\":\"turn\",\"student_message\":\"¿Tiene alergias a algún medicamento?\",\"response_text\":\"Tomó paracetamol 1 g, con mejoría parcial y transitoria. Niega alergias medicamentosas conocidas.\",\"case_id\":\"MED-900\",\"phase\":\"anamnesis\",\"intent\":\"ask_patient\",\"agent\":\"paciente\",\"route_reason\":\"pregunta clínica dirigida al paciente por defecto\",\"route_confidence\":0.75,\"doctor_question\":\"¿Tiene alergias a algún medicamento?\",\"provider\":\"local-development\",\"model\":\"rules-only\",\"input_tokens\":0,\"output_tokens\":0,\"fallback_used\":false,\"grounding_retry_used\":false,\"grounding_fallback_used\":false,\"evidence_ids\":[\"MED-900.medicacion.paracetamol\",\"MED-900.anamnesis.alergias\"],\"blocked\":false,\"block_reason\":null,\"synthetic_generated_ids\":[],\"synthetic_reused_ids\":[],\"data_source\":\"curado\",\"synthetic_rejection_reason\":null,\"safety_alerts\":[]}]",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "cerrar sesión de SN2",
+      "identidad": "Anónimo 1",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/317eb9f6-b3b4-4587-95c4-1048f558b0cb/finish",
+      "cabeceras": {
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "diagnosis": "intento ajeno",
+        "hypotheses": []
+      },
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\",\"MED-900.medicacion.paracetamol\",\"MED-900.anamnesis.alergias\"],\"session_id\":\"317eb9f6-b3b4-4587-95c4-1048f558b0cb\",\"active_agent\":\"orchestrator\",\"updated_at\":\"2026-10-27T02:53:09.355021+00:00\",\"finished_at\":\"2026-10-27T02:53:09.355048+00:00\",\"phase\":\"finalizada\",\"started_at\":\"2026-10-27T02:52:37.054440+00:00\",\"case_id\":\"MED-900\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":{\"score\":28.57,\"earned_weight\":4,\"total_weight\":14,\"completed_questions\":1,\"total_questions\":3,\"errors\":{\"negligencia\":1,\"anamnesis_incompleta\":1,\"razonamiento_clinico\":0}},\"attempt\":{\"saved\":false,\"reason\":\"sin_sesion\"}}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "crear sesión presentando la credencial de SN1",
+      "identidad": "Anónimo 1 + credencial de SN1",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions",
+      "cabeceras": {
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "case_id": "MED-900"
+      },
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"],\"session_id\":\"aef28799-cc91-4eef-abfc-8f4925a5406c\",\"active_agent\":\"medico_asistente\",\"updated_at\":\"2026-10-27T02:53:09.412392+00:00\",\"finished_at\":null,\"phase\":\"presentacion\",\"started_at\":\"2026-10-27T02:53:09.412363+00:00\",\"case_id\":\"MED-900\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "leer la sesión nueva con la credencial de SN1",
+      "identidad": "Anónimo 1 + credencial de SN1",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/aef28799-cc91-4eef-abfc-8f4925a5406c",
+      "cabeceras": {
+        "x-session-token": ""
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"],\"session_id\":\"aef28799-cc91-4eef-abfc-8f4925a5406c\",\"active_agent\":\"medico_asistente\",\"updated_at\":\"2026-10-27T02:53:09.412392+00:00\",\"finished_at\":null,\"phase\":\"presentacion\",\"started_at\":\"2026-10-27T02:53:09.412363+00:00\",\"case_id\":\"MED-900\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "FALLA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "la sesión nueva tiene credencial propia",
+      "resultado": "FALLA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": "E   AssertionError: TA017-20: paso 1 (GET http://testserver/api/ai/sessions/317eb9f6-b3b4-4587-95c4-1048f558b0cb): 200 no está en [404] | paso 2 (POST http://testserver/api/ai/sessions/317eb9f6-b3b4-4587-95c4-1048f558b0cb/message): 200 no está en [404] | paso 3 (GET http://testserver/api/ai/sessions/317eb9f6-b3b4-4587-95c4-1048f558b0cb/events): 200 no está en [404] | paso 4 (POST http://testserver/api/ai/sessions/317eb9f6-b3b4-4587-95c4-1048f558b0cb/finish): 200 no está en [404] | paso 6 (GET http://testserver/api/ai/sessions/aef28799-cc91-4eef-abfc-8f4925a5406c): 200 no está en [404] | comprobación: la sesión nueva tiene credencial propia"
+}

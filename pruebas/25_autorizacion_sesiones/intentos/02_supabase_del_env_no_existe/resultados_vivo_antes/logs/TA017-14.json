@@ -1,0 +1,17 @@
+{
+  "id": "TA017-14",
+  "nombre": "ajena_igual_a_inexistente",
+  "titulo": "SA ajena vs sesión inexistente",
+  "criterio": "CA2",
+  "resultado_esperado": "Mismo código y mismo cuerpo para SA (ajena) y para un UUID inexistente",
+  "resultado": "FALLA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_antes",
+  "commit": "0ef9e0e",
+  "fecha": "2026-10-27 02:53:49 UTC",
+  "pasos": [],
+  "comprobaciones": [],
+  "notas": [],
+  "error": "Falló la preparación: E   httpcore.ConnectError: [Errno 11001] getaddrinfo failed\n\nThe above exception was the direct cause of the following exception:\nE   httpx.ConnectError: [Errno 11001] getaddrinfo failed"
+}

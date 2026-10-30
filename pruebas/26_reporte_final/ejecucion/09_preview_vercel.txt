@@ -1,0 +1,15 @@
+FECHA: 2026-10-28 07:55:29 UTC
+PREVIEW: https://consulta-medica-2huhqybm3-james-gutierrezs-projects-49804000.vercel.app (rama hu-006-reporte-final, commit 6ba8750, estado de GitHub: success)
+
+== GET https://consulta-medica-2huhqybm3-james-gutierrezs-projects-49804000.vercel.app/api/ai/sessions/00000000-0000-4000-8000-000000000000/report (con el token de bypass, sin credencial)
+HTTP 401
+
+== GET https://consulta-medica-2huhqybm3-james-gutierrezs-projects-49804000.vercel.app/api/ai/status (con el token de bypass), despues de la corrida de la suite
+"name":"groq-1","model":"openai/gpt-oss-20b","available":false
+"name":"groq-2","model":"openai/gpt-oss-20b","available":false
+"name":"groq-3","model":"openai/gpt-oss-20b","available":false
+
+== GET https://consulta-medica-three.vercel.app/api/ai/status (produccion, sin token)
+"name":"groq-1","model":"openai/gpt-oss-20b","available":true
+"name":"groq-2","model":"openai/gpt-oss-20b","available":true
+"name":"groq-3","model":"openai/gpt-oss-20b","available":true

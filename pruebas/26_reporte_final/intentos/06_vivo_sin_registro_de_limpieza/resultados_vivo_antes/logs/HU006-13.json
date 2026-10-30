@@ -1,0 +1,56 @@
+{
+  "id": "HU006-13",
+  "nombre": "tratamiento",
+  "titulo": "Tratamiento propuesto y de referencia",
+  "criterio": "CA3",
+  "resultado_esperado": "La propuesta de A con sus alertas y el tratamiento de referencia del caso",
+  "resultado": "FALLA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_antes",
+  "commit": "a17cb62",
+  "fecha": "2026-10-28 07:44:54 UTC",
+  "pasos": [
+    {
+      "descripcion": "eventos de SA",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/eea8e10e-b702-41c2-b928-4883a97248ac/events",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…Ayrw"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "[{\"type\":\"session_started\",\"phase\":\"presentacion\",\"case_id\":\"EME-001\",\"evidence_ids\":[\"EME-001.motivo.queja_principal\",\"EME-001.vital.signos_vitales\"]},{\"type\":\"turn\",\"agent\":\"paciente\",\"model\":\"openai/gpt-oss-20b\",\"phase\":\"anamnesis\",\"intent\":\"ask_patient\",\"blocked\":false,\"case_id\":\"EME-001\",\"provider\":\"groq-2\",\"data_source\":\"sintetico\",\"block_reason\":null,\"evidence_ids\":[],\"input_tokens\":1226,\"route_reason\":\"pregunta clínica dirigida al paciente por defecto\",\"fallback_used\":false,\"output_tokens\":289,\"response_text\":\"Me gusta comer comidas rápidas, como hamburguesas y papas fritas, y suelo beber refrescos con azúcar varias veces al día. También consumo café en la mañana y a veces cenas con comida ligera, como ensaladas o sopas.\",\"safety_alerts\":[],\"doctor_question\":\"¿Desde cuándo comenzaron sus molestias y cómo las describiría?\",\"student_message\":\"¿Desde cuándo comenzaron sus molestias y cómo las describiría?\",\"route_confidence\":0.75,\"grounding_retry_used\":false,\"synthetic_reused_ids\":[\"a73b6e92-86a7-44d3-b6b0-d4201a168ab9\"],\"grounding_fallback_used\":false,\"synthetic_generated_ids\":[],\"synthetic_rejection_reason\":null},{\"type\":\"turn\",\"agent\":\"laboratorio\",\"model\":\"openai/gpt-oss-20b\",\"phase\":\"examenes\",\"intent\":\"request_lab\",\"blocked\":false,\"case_id\":\"EME-001\",\"provider\":\"groq-3\",\"data_source\":\"curado\",\"block_reason\":null,\"evidence_ids\":[],\"input_tokens\":711,\"route_reason\":\"términos de laboratorio\",\"fallback_used\":false,\"output_tokens\":80,\"response_text\":\"Ese examen no se realizó en este paciente.\",\"safety_alerts\":[],\"doctor_question\":null,\"student_message\":\"Solicito un hemograma completo\",\"route_confidence\":0.95,\"grounding_retry_used\":false,\"synthetic_reused_ids\":[],\"grounding_fallback_used\":false,\"synthetic_generated_ids\":[],\"synthetic_rejection_reason\":null},{\"type\":\"turn\",\"agent\":\"medico_asistente\",\"model\":\"openai/gpt-oss-20b\",\"phase\":\"diagnostico\",\"intent\":\"propose_treatment\",\"blocked\":false,\"case_id\":\"EME-001\",\"provider\":\"groq-1\",\"data_source\":\"curado\",\"block_reason\":null,\"evidence_ids\":[],\"input_tokens\":865,\"route_reason\":\"propuesta de tratamiento\",\"fallback_used\":false,\"output_tokens\":151,\"response_text\":\"Anotado la indicación de paracetamol. Se revisará al cerrar la consulta. Por favor continúe recopilando datos.\",\"safety_alerts\":[],\"doctor_question\":null,\"student_message\":\"Le indico paracetamol para el dolor\",\"route_confidence\":0.98,\"grounding_retry_used\":false,\"synthetic_reused_ids\":[],\"grounding_fallback_used\":false,\"synthetic_generated_ids\":[],\"synthetic_rejection_reason\":null},{\"type\":\"session_finished\",\"case_id\":\"EME-001\"}]",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "reporte de SA",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/eea8e10e-b702-41c2-b928-4883a97248ac/report",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…Ayrw"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"error\":\"Ruta de API no encontrada\"}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "FALLA"
+    }
+  ],
+  "comprobaciones": [],
+  "notas": [],
+  "error": "E   KeyError: 'treatment'"
+}

@@ -1,0 +1,147 @@
+{
+  "id": "TA011-28",
+  "nombre": "owner_id_en_cuerpo",
+  "titulo": "owner_id/user_id = A en el cuerpo de B",
+  "criterio": "CA1, CA2",
+  "resultado_esperado": "Se ignora: la sesión queda a nombre de B (A recibe 404)",
+  "resultado": "PASA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_despues",
+  "commit": "5f9435d",
+  "fecha": "2026-10-28 06:02:33 UTC",
+  "pasos": [
+    {
+      "descripcion": "crear sesión con owner_id, user_id y session_id de A",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…5-1w",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "case_id": "CIR-005",
+        "owner_id": "a80c6991-e87a-4c64-a26d-35c5245a67e9",
+        "user_id": "a80c6991-e87a-4c64-a26d-35c5245a67e9",
+        "session_id": "eca64381-86cb-4fef-bf00-d30b1c828b19"
+      },
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"phase\":\"presentacion\",\"active_agent\":\"medico_asistente\",\"case_id\":\"CIR-005\",\"session_id\":\"665eaff7-4b46-4648-88d5-ea443ad76e95\",\"revealed_evidence_ids\":[\"CIR-005.motivo.queja_principal\",\"CIR-005.anamnesis.evolucion_quirurgica\"],\"updated_at\":\"2026-10-28T06:02:21.638840+00:00\",\"finished_at\":null,\"started_at\":\"2026-10-28T06:02:21.638811+00:00\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[],\"alerts\":[],\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "A intenta leer la sesión creada por B",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/665eaff7-4b46-4648-88d5-ea443ad76e95",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…SpvA"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "B lee su sesión",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/665eaff7-4b46-4648-88d5-ea443ad76e95",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…5-1w"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"phase\":\"presentacion\",\"active_agent\":\"medico_asistente\",\"case_id\":\"CIR-005\",\"session_id\":\"665eaff7-4b46-4648-88d5-ea443ad76e95\",\"revealed_evidence_ids\":[\"CIR-005.motivo.queja_principal\",\"CIR-005.anamnesis.evolucion_quirurgica\"],\"updated_at\":\"2026-10-28T06:02:21.638840+00:00\",\"finished_at\":null,\"started_at\":\"2026-10-28T06:02:21.638811+00:00\",\"avatar_state\":{\"alerts\":[],\"vitals\":[],\"gesture\":\"idle\",\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "invitado crea sesión con owner_id = A",
+      "identidad": "Anónimo 2",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions",
+      "cabeceras": {
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "case_id": "CIR-005",
+        "owner_id": "a80c6991-e87a-4c64-a26d-35c5245a67e9"
+      },
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"phase\":\"presentacion\",\"active_agent\":\"medico_asistente\",\"case_id\":\"CIR-005\",\"session_id\":\"a2e0d96e-c77f-4b92-8ccc-a19eec34dc16\",\"revealed_evidence_ids\":[\"CIR-005.motivo.queja_principal\",\"CIR-005.anamnesis.evolucion_quirurgica\"],\"updated_at\":\"2026-10-28T06:02:31.398180+00:00\",\"finished_at\":null,\"started_at\":\"2026-10-28T06:02:31.398154+00:00\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[],\"alerts\":[],\"complications\":[]},\"evaluation\":null,\"session_token\":\"DeXVi_…KTf8\"}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "A intenta leer la sesión del invitado",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/a2e0d96e-c77f-4b92-8ccc-a19eec34dc16",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…SpvA"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "SA sigue intacta para A",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/eca64381-86cb-4fef-bf00-d30b1c828b19",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…SpvA"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"phase\":\"examenes\",\"active_agent\":\"paciente\",\"case_id\":\"EME-001\",\"session_id\":\"eca64381-86cb-4fef-bf00-d30b1c828b19\",\"revealed_evidence_ids\":[\"EME-001.motivo.queja_principal\",\"EME-001.vital.signos_vitales\",\"EME-001.medicacion.tratamiento_habitual\"],\"updated_at\":\"2026-10-28T06:02:17.222271+00:00\",\"finished_at\":null,\"started_at\":\"2026-10-28T05:59:48.144447+00:00\",\"avatar_state\":{\"alerts\":[],\"vitals\":[{\"text\":\"Temperatura 41,1 °C, presión arterial 109/62 mmHg, pulso 170/min, frecuencia respiratoria 23/min y saturación de oxígeno 95 % al aire ambiente.\",\"label\":\"Signos vitales\",\"evidence_id\":\"EME-001.vital.signos_vitales\"}],\"gesture\":\"attentive\",\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "no reutiliza el id de SA",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

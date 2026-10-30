@@ -1,0 +1,124 @@
+{
+  "id": "TA017-24",
+  "nombre": "jwt_vencido",
+  "titulo": "JWT vencido o revocado",
+  "criterio": "CA1, CA4",
+  "resultado_esperado": "401 en las 4 operaciones",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_despues",
+  "commit": "c752abe",
+  "fecha": "2026-10-27 03:22:52 UTC",
+  "pasos": [
+    {
+      "descripcion": "leer sesión de SA",
+      "identidad": "A con exp vencido",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/9ef3442c-0439-46c6-8142-dfea701a5c5b",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…v27c"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "enviar mensaje de SA",
+      "identidad": "A con exp vencido",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/9ef3442c-0439-46c6-8142-dfea701a5c5b/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…v27c",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "listar eventos de SA",
+      "identidad": "A con exp vencido",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/9ef3442c-0439-46c6-8142-dfea701a5c5b/events",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…v27c"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "cerrar sesión de SA",
+      "identidad": "A con exp vencido",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/9ef3442c-0439-46c6-8142-dfea701a5c5b/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…v27c",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "diagnosis": "intento ajeno",
+        "hypotheses": []
+      },
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "sin datos de SA en «leer sesión»",
+      "resultado": "PASA",
+      "detalle": "marcadores encontrados: []"
+    },
+    {
+      "descripcion": "sin datos de SA en «enviar mensaje»",
+      "resultado": "PASA",
+      "detalle": "marcadores encontrados: []"
+    },
+    {
+      "descripcion": "sin datos de SA en «listar eventos»",
+      "resultado": "PASA",
+      "detalle": "marcadores encontrados: []"
+    },
+    {
+      "descripcion": "sin datos de SA en «cerrar sesión»",
+      "resultado": "PASA",
+      "detalle": "marcadores encontrados: []"
+    }
+  ],
+  "notas": [
+    "Sin la clave de firma del proyecto no se puede emitir un JWT vencido con firma válida: se usa el JWT de A con exp una hora en el pasado (la firma deja de coincidir)."
+  ],
+  "error": ""
+}

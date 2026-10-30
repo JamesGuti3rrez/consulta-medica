@@ -1,0 +1,67 @@
+{
+  "id": "TA011-31",
+  "nombre": "evento_sesion_cerrada",
+  "titulo": "Evento a SA cerrada",
+  "criterio": "CA1",
+  "resultado_esperado": "Rechazado (no existe ruta de escritura de eventos) y la lista no cambia",
+  "resultado": "PASA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_despues",
+  "commit": "5f9435d",
+  "fecha": "2026-10-28 06:03:00 UTC",
+  "pasos": [
+    {
+      "descripcion": "escribir evento en SA cerrada",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/eca64381-86cb-4fef-bf00-d30b1c828b19/events",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…SpvA",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "type": "turn",
+        "agent": "paciente"
+      },
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"error\":\"Ruta de API no encontrada\"}",
+      "codigo_esperado": [
+        404,
+        405
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "A lista los eventos de SA",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/eca64381-86cb-4fef-bf00-d30b1c828b19/events",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…SpvA"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "[{\"type\":\"session_started\",\"phase\":\"presentacion\",\"case_id\":\"EME-001\",\"evidence_ids\":[\"EME-001.motivo.queja_principal\",\"EME-001.vital.signos_vitales\"]},{\"type\":\"turn\",\"agent\":\"paciente\",\"model\":\"openai/gpt-oss-20b\",\"phase\":\"anamnesis\",\"intent\":\"ask_patient\",\"blocked\":false,\"case_id\":\"EME-001\",\"provider\":\"groq-2\",\"data_source\":\"sintetico\",\"block_reason\":null,\"evidence_ids\":[],\"input_tokens\":1226,\"route_reason\":\"pregunta clínica dirigida al paciente por defecto\",\"fallback_used\":false,\"output_tokens\":289,\"response_text\":\"Me gusta comer comidas rápidas, como hamburguesas y papas fritas, y suelo beber refrescos con azúcar varias veces al día. También consumo café en la mañana y a veces cenas con comida ligera, como ensaladas o sopas.\",\"safety_alerts\":[],\"doctor_question\":\"¿Desde cuándo comenzaron sus molestias y cómo las describiría?\",\"student_message\":\"¿Desde cuándo comenzaron sus molestias y cómo las describiría?\",\"route_confidence\":0.75,\"grounding_retry_used\":false,\"synthetic_reused_ids\":[\"a73b6e92-86a7-44d3-b6b0-d4201a168ab9\"],\"grounding_fallback_used\":false,\"synthetic_generated_ids\":[],\"synthetic_rejection_reason\":null},{\"type\":\"turn\",\"agent\":\"laboratorio\",\"model\":\"openai/gpt-oss-20b\",\"phase\":\"examenes\",\"intent\":\"request_lab\",\"blocked\":false,\"case_id\":\"EME-001\",\"provider\":\"groq-3\",\"data_source\":\"curado\",\"block_reason\":null,\"evidence_ids\":[],\"input_tokens\":711,\"route_reason\":\"términos de laboratorio\",\"fallback_used\":false,\"output_tokens\":80,\"response_text\":\"Ese examen no se realizó en este paciente.\",\"safety_alerts\":[],\"doctor_question\":null,\"student_message\":\"Solicito un hemograma completo\",\"route_confidence\":0.95,\"grounding_retry_used\":false,\"synthetic_reused_ids\":[],\"grounding_fallback_used\":false,\"synthetic_generated_ids\":[],\"synthetic_rejection_reason\":null},{\"type\":\"turn\",\"agent\":\"paciente\",\"model\":\"openai/gpt-oss-20b\",\"phase\":\"examenes\",\"intent\":\"ask_patient\",\"blocked\":false,\"case_id\":\"EME-001\",\"provider\":\"groq-3\",\"data_source\":\"curado\",\"block_reason\":null,\"evidence_ids\":[\"EME-001.medicacion.tratamiento_habitual\"],\"input_tokens\":2367,\"route_reason\":\"pregunta clínica dirigida al paciente por defecto\",\"fallback_used\":false,\"output_tokens\":348,\"response_text\":\"No recuerdo ninguna alergia a medicamentos.\",\"safety_alerts\":[],\"doctor_question\":\"¿Tiene alergias a algún medicamento?\",\"student_message\":\"¿Tiene alergias a algún medicamento?\",\"route_confidence\":0.75,\"grounding_retry_used\":false,\"synthetic_reused_ids\":[],\"grounding_fallback_used\":false,\"synthetic_generated_ids\":[],\"synthetic_rejection_reason\":null},{\"type\":\"turn\",\"agent\":\"paciente\",\"model\":\"openai/gpt-oss-20b\",\"phase\":\"examenes\",\"intent\":\"ask_patient\",\"blocked\":false,\"case_id\":\"EME-001\",\"provider\":\"groq-2\",\"data_source\":\"curado\",\"block_reason\":null,\"evidence_ids\":[\"EME-001.medicacion.tratamiento_habitual\"],\"input_tokens\":2479,\"route_reason\":\"pregunta clínica dirigida al paciente por defecto\",\"fallback_used\":false,\"output_tokens\":422,\"response_text\":\"No recuerdo ninguna alergia a medicamentos.\",\"safety_alerts\":[],\"doctor_question\":\"¿Tiene alergias a algún medicamento?\",\"student_message\":\"¿Tiene alergias a algún medicamento?\",\"route_confidence\":0.75,\"grounding_retry_used\":false,\"synthetic_reused_ids\":[],\"grounding_fallback_used\":false,\"synthetic_generated_ids\":[],\"synthetic_rejection_reason\":null},{\"type\":\"session_finished\",\"case_id\":\"EME-001\"}]",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "la lista no cambia",
+      "resultado": "PASA",
+      "detalle": "6 -> 6"
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

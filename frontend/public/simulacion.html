@@ -261,7 +261,7 @@
               </div>
               <textarea data-role="diagnosis-input"
                 class="w-full min-h-24 resize-y rounded-lg border border-slate-300 bg-surface p-3 text-sm text-slate-900 outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-100"
-                placeholder="Escribe tu diagnóstico y la justificación..."></textarea>
+                maxlength="2000" placeholder="Escribe un único diagnóstico final..."></textarea>
               <div class="flex items-center gap-2">
                 <button data-role="diagnosis-mic" type="button" title="Dictar diagnóstico"
                   class="h-11 flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg bg-slate-100 px-3 text-sm font-semibold text-slate-700 hover:bg-slate-200 transition-colors"><span
@@ -270,6 +270,7 @@
                   class="h-11 flex-[2] rounded-lg bg-accent-600 px-3 text-sm font-semibold text-white hover:bg-accent-700 transition-colors">Guardar
                   y finalizar consulta</button>
               </div>
+              <p class="text-[13px] text-slate-500">El diagnóstico se calificará al cerrar. Si lo dejas vacío, se registrará sin respuesta y con 0 puntos.</p>
               <p data-role="diagnosis-feedback" class="text-[13px] text-slate-500" aria-live="polite"></p>
             </div>
         </div>
@@ -336,7 +337,7 @@
         <div class="sheet-result">
           <div class="min-w-0">
             <p class="text-[15px] font-semibold text-slate-900">Resultado de la anamnesis</p>
-            <p class="mt-1 text-[13px] leading-relaxed text-slate-600">Datos clave del caso que obtuviste durante la consulta.</p>
+            <p data-role="evaluation-summary" class="mt-1 text-[13px] leading-relaxed text-slate-600">Datos clave del caso que obtuviste durante la consulta.</p>
             <p data-role="evaluation-saved" class="mt-1 text-[13px] leading-relaxed text-slate-600"></p>
           </div>
           <div class="stamp" aria-label="Puntaje obtenido">
@@ -347,19 +348,63 @@
         </div>
 
         <div class="sheet-section">
+          <h4><span class="sheet-icon bg-brand-50 text-brand-700 material-symbols-outlined">fact_check</span>Diagnóstico</h4>
+          <div class="sheet-compare">
+            <div><span>Tu diagnóstico</span><p data-role="evaluation-student-diagnosis">—</p></div>
+            <div><span>Diagnóstico de referencia</span><p data-role="evaluation-reference"></p></div>
+          </div>
+          <div data-role="evaluation-diagnosis-result" class="diagnosis-grade" hidden aria-live="polite">
+            <div class="diagnosis-grade-heading"><strong data-role="evaluation-diagnosis-status"></strong><span data-role="evaluation-diagnosis-score"></span></div>
+            <p data-role="evaluation-diagnosis-reason"></p>
+            <small>Calificación del diagnóstico final, independiente del resultado de anamnesis.</small>
+          </div>
+        </div>
+        <div class="sheet-section">
           <h4><span class="sheet-icon bg-emerald-50 text-emerald-700 material-symbols-outlined">check_circle</span>Lo que
             hiciste bien</h4>
-          <ul data-role="evaluation-strengths" class="sheet-list sheet-list-ok"></ul>
+          <ul data-role="evaluation-key-ok" class="sheet-list sheet-list-ok"></ul>
         </div>
         <div class="sheet-section">
           <h4><span class="sheet-icon bg-amber-50 text-amber-700 material-symbols-outlined">help</span>Lo que faltó
             preguntar</h4>
-          <ul data-role="evaluation-missing" class="sheet-list sheet-list-miss"></ul>
+          <ul data-role="evaluation-key-missing" class="sheet-list sheet-list-miss"></ul>
+        </div>
+        <div class="sheet-section">
+          <h4><span class="sheet-icon bg-brand-50 text-brand-700 material-symbols-outlined">biotech</span>Exámenes que
+            pediste</h4>
+          <ul data-role="evaluation-tests-ok" class="sheet-list sheet-list-ok"></ul>
+          <ul data-role="evaluation-tests-warn" class="sheet-list sheet-list-miss"></ul>
+          <details class="sheet-fold" data-role="evaluation-other-fold">
+            <summary>Otras indicaciones del caso</summary>
+            <ul data-role="evaluation-other-indications" class="sheet-list"></ul>
+          </details>
         </div>
         <div class="sheet-section">
           <h4><span class="sheet-icon bg-brand-50 text-brand-700 material-symbols-outlined">psychology</span>Razonamiento
             diagnóstico</h4>
           <ul data-role="evaluation-reasoning" class="sheet-list"></ul>
+          <details class="sheet-fold">
+            <summary>Diagnósticos diferenciales del caso</summary>
+            <ul data-role="evaluation-differentials" class="sheet-list"></ul>
+          </details>
+        </div>
+        <div class="sheet-section">
+          <h4><span class="sheet-icon bg-emerald-50 text-emerald-700 material-symbols-outlined">medication</span>Tratamiento</h4>
+          <ul data-role="evaluation-treatment-proposed" class="sheet-list"></ul>
+          <p class="sheet-subtitle">Tratamiento de referencia</p>
+          <ul data-role="evaluation-treatment-reference" class="sheet-list"></ul>
+          <details class="sheet-fold">
+            <summary>Acciones clave</summary>
+            <ul data-role="evaluation-treatment-actions" class="sheet-list"></ul>
+          </details>
+        </div>
+        <div class="sheet-section">
+          <h4><span class="sheet-icon bg-slate-100 text-slate-700 material-symbols-outlined">description</span>Datos que
+            obtuviste en la consulta</h4>
+          <details class="sheet-fold">
+            <summary data-role="evaluation-revealed-summary">Ver los datos revelados</summary>
+            <ul data-role="evaluation-revealed" class="sheet-list"></ul>
+          </details>
         </div>
         <div class="sheet-section">
           <h4><span class="sheet-icon bg-slate-100 text-slate-700 material-symbols-outlined">lightbulb</span>Recomendaciones</h4>

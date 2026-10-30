@@ -2,6 +2,9 @@ from __future__ import annotations
 
 from typing import Any
 
+from .report import build_report
+from .diagnosis import grade_diagnosis
+
 
 ERROR_TYPES = ("negligencia", "anamnesis_incompleta", "razonamiento_clinico")
 
@@ -49,3 +52,19 @@ class ClinicalEvaluationEngine:
             "total_questions": len(questions),
             "errors": errors,
         }
+
+    def evaluate_diagnosis(self, session: dict[str, Any]) -> dict[str, Any]:
+        """TA-012: solo /finish invoca esta calificación, tras cerrar la consulta."""
+        if session.get("phase") != "finalizada" or not session.get("finished_at"):
+            raise ValueError("El diagnóstico solo se califica al finalizar la consulta.")
+        protected = self.repository.get_protected(session["case_id"])
+        return grade_diagnosis(session.get("student_diagnosis"), protected["diagnosis"],
+                               protected.get("differentials", []))
+
+    def report(self, session: dict[str, Any], events: list[dict[str, Any]]) -> dict[str, Any]:
+        """Reporte final de una consulta cerrada (HU-006): el motor es quien lee la parte protegida del caso."""
+        if session.get("phase") != "finalizada" or not session.get("finished_at"):
+            raise ValueError("El reporte solo está disponible al finalizar la consulta.")
+        case = self.repository.get_conversation_case(session["case_id"])
+        case["protected"] = self.repository.get_protected(session["case_id"])
+        return build_report(session, case, events)

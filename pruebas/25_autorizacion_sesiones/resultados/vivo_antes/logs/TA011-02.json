@@ -1,0 +1,48 @@
+{
+  "id": "TA011-02",
+  "nombre": "A_lee_SA",
+  "titulo": "A lee SA",
+  "criterio": "CA1, CA4",
+  "resultado_esperado": "200 con los datos de SA",
+  "resultado": "PASA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_antes",
+  "commit": "5f9435d",
+  "fecha": "2026-10-28 05:56:54 UTC",
+  "pasos": [
+    {
+      "descripcion": "leer SA",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…C5tw"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"updated_at\":\"2026-10-28T05:56:54.141757+00:00\",\"finished_at\":null,\"active_agent\":\"laboratorio\",\"session_id\":\"23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee\",\"revealed_evidence_ids\":[\"EME-001.motivo.queja_principal\",\"EME-001.vital.signos_vitales\"],\"started_at\":\"2026-10-28T05:56:32.811926+00:00\",\"phase\":\"examenes\",\"case_id\":\"EME-001\",\"avatar_state\":{\"alerts\":[],\"vitals\":[{\"text\":\"Temperatura 41,1 °C, presión arterial 109/62 mmHg, pulso 170/min, frecuencia respiratoria 23/min y saturación de oxígeno 95 % al aire ambiente.\",\"label\":\"Signos vitales\",\"evidence_id\":\"EME-001.vital.signos_vitales\"}],\"gesture\":\"attentive\",\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "devuelve SA",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "caso correcto",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

@@ -34,7 +34,7 @@ ALIASES: dict[str, tuple[str, ...]] = {
                 "parejas", "vida sexual", "preservativo", "bosque", "garrapata", "actividad", "compras"),
     "antecedentes_gineco_obstetricos": ("embarazo", "embarazos", "menstruacion", "regla", "parto", "anticonceptivo"),
     "signos_vitales": ("signos vitales", "presion", "pulso", "temperatura", "saturacion"),
-    "exploracion_fisica": ("examen", "examino", "examinar", "exploracion", "exploro", "explorar", "ausculto",
+    "exploracion_fisica": ("examen", "examenes fisicos", "examenes fisico", "examen fisicos", "examino", "examinar", "exploracion", "exploro", "explorar", "ausculto",
                            "auscultar", "palpo", "palpar", "reviso al paciente", "evaluacion fisica",
                            "revision fisica", "revisar al paciente"),
     # Exámenes de los casos curados.
@@ -173,4 +173,4 @@ class DisclosurePolicy:
     def _requirement_matches(requirement: str, normalized_message: str) -> bool:
         direct = _normalize(requirement.replace("_", " "))
         candidates = (direct, *ALIASES.get(requirement, ()))
-        return any(_normalize(candidate) in normalized_message for candidate in candidates if candidate)
+        return any(f" {_normalize(candidate)} " in f" {normalized_message} " for candidate in candidates if candidate)

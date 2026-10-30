@@ -204,6 +204,8 @@ def run() -> list[dict[str, Any]]:
                     json={"case_id": case_id},
                 )
                 session_id = session["session_id"]
+                # TA-011: la consulta de invitado se continúa con su credencial de capacidad.
+                client.headers["X-Session-Token"] = session["session_token"]
                 initial_vitals = session["avatar_state"]["vitals"]
                 plans = _plans_for_case(case)
                 turns: list[dict[str, Any]] = []

@@ -1,0 +1,55 @@
+﻿FASE: local_antes
+MODO: local
+SERVIDOR: TestClient en proceso
+DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica\.wt_antes\backend
+COMANDO: .venv\Scripts\python.exe -m pytest tests/security/test_ta011_session_authz.py -v --tb=no -rN -p no:cacheprovider -m not vivo
+COMMIT: 5f9435d
+FECHA: 2026-10-28 06:31:36 UTC
+CODIGO_SALIDA: 1
+
+============================= test session starts =============================
+platform win32 -- Python 3.14.4, pytest-8.3.4, pluggy-1.6.0 -- C:\Users\Usuario\Documents\consulta-medica\.wt_antes\backend\.venv\Scripts\python.exe
+rootdir: C:\Users\Usuario\Documents\consulta-medica\.wt_antes\backend
+configfile: pyproject.toml
+plugins: anyio-4.15.1, langsmith-0.14.7
+collecting ... collected 40 items / 3 deselected / 37 selected
+
+tests/security/test_ta011_session_authz.py::test_01_a_crea_sesion PASSED [  2%]
+tests/security/test_ta011_session_authz.py::test_02_a_lee_sa PASSED      [  5%]
+tests/security/test_ta011_session_authz.py::test_03_a_envia_mensaje PASSED [  8%]
+tests/security/test_ta011_session_authz.py::test_04_a_lista_eventos PASSED [ 10%]
+tests/security/test_ta011_session_authz.py::test_05_registrar_evento_no_existe PASSED [ 13%]
+tests/security/test_ta011_session_authz.py::test_07_anonimo_recibe_credencial FAILED [ 16%]
+tests/security/test_ta011_session_authz.py::test_08_anonimo_opera_su_sesion PASSED [ 18%]
+tests/security/test_ta011_session_authz.py::test_09_no_hay_rutas_adicionales PASSED [ 21%]
+tests/security/test_ta011_session_authz.py::test_10_b_sobre_sa FAILED    [ 24%]
+tests/security/test_ta011_session_authz.py::test_11_sin_fugas FAILED     [ 27%]
+tests/security/test_ta011_session_authz.py::test_12_sa_intacta FAILED    [ 29%]
+tests/security/test_ta011_session_authz.py::test_13_b_no_cierra FAILED   [ 32%]
+tests/security/test_ta011_session_authz.py::test_14_no_enumeracion FAILED [ 35%]
+tests/security/test_ta011_session_authz.py::test_15_anonimo2_sobre_sn1 FAILED [ 37%]
+tests/security/test_ta011_session_authz.py::test_16_anonimo1_sobre_sa FAILED [ 40%]
+tests/security/test_ta011_session_authz.py::test_17_registrado_sobre_anonima FAILED [ 43%]
+tests/security/test_ta011_session_authz.py::test_18_credencial_alterada FAILED [ 45%]
+tests/security/test_ta011_session_authz.py::test_19_credencial_en_query FAILED [ 48%]
+tests/security/test_ta011_session_authz.py::test_20_credencial_otra_sesion FAILED [ 51%]
+tests/security/test_ta011_session_authz.py::test_21_sin_credencial FAILED [ 54%]
+tests/security/test_ta011_session_authz.py::test_22_token_malformado FAILED [ 56%]
+tests/security/test_ta011_session_authz.py::test_23_firma_alterada FAILED [ 59%]
+tests/security/test_ta011_session_authz.py::test_24_jwt_vencido FAILED   [ 62%]
+tests/security/test_ta011_session_authz.py::test_25_esquema_incorrecto FAILED [ 64%]
+tests/security/test_ta011_session_authz.py::test_26_solo_anon_key FAILED [ 67%]
+tests/security/test_ta011_session_authz.py::test_27_session_id_en_cuerpo FAILED [ 70%]
+tests/security/test_ta011_session_authz.py::test_28_owner_en_cuerpo FAILED [ 72%]
+tests/security/test_ta011_session_authz.py::test_29_ids_raros PASSED     [ 75%]
+tests/security/test_ta011_session_authz.py::test_06_a_cierra_sa PASSED   [ 78%]
+tests/security/test_ta011_session_authz.py::test_30_mensaje_cerrada PASSED [ 81%]
+tests/security/test_ta011_session_authz.py::test_31_evento_cerrada PASSED [ 83%]
+tests/security/test_ta011_session_authz.py::test_32_cerrar_dos_veces PASSED [ 86%]
+tests/security/test_ta011_session_authz.py::test_33_b_sobre_cerrada FAILED [ 89%]
+tests/security/test_ta011_session_authz.py::test_37_errores_limpios FAILED [ 91%]
+tests/security/test_ta011_session_authz.py::test_38_cors PASSED          [ 94%]
+tests/security/test_ta011_session_authz.py::test_39_log_denegados FAILED [ 97%]
+tests/security/test_ta011_session_authz.py::test_40_stream PASSED        [100%]
+
+================= 23 failed, 14 passed, 3 deselected in 4.56s =================

@@ -204,6 +204,15 @@
       block('Tratamiento de referencia', caseData.protected.treatment_reference.summary),
       block('Diagnósticos diferenciales', caseData.protected.differentials.map(item => item.name).join(' · ')),
     );
+    if (data.consistencia) {
+      const review = data.consistencia;
+      summary.append(block('Revisión automática de consistencia',
+        `${review.can_present ? 'Apto para presentación' : 'Requiere revisión'} · ${review.version}. ${review.scope}`));
+      for (const finding of review.findings) {
+        summary.append(block(`${finding.code} · ${finding.severity}`, finding.message +
+          (finding.evidence_ids.length ? ' Evidencias: ' + finding.evidence_ids.join(', ') : '')));
+      }
+    }
     const history = node('div', 'field-block'); history.append(node('h3', '', 'Historia y hallazgos bajo solicitud'));
     const descriptions = node('dl');
     for (const item of caseData.on_request) descriptions.append(node('dt', '', item.label), node('dd', '', item.text || item.value + ' ' + item.unit));

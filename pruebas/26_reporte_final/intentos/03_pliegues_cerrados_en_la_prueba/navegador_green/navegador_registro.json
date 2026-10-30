@@ -1,0 +1,180 @@
+{
+  "base_url": "http://localhost:3000",
+  "caso": "EME-101",
+  "fecha": "2026-10-28T07:32:13.953Z",
+  "comprobaciones": [
+    {
+      "descripcion": "antes de cerrar: 409",
+      "resultado": "PASA",
+      "detalle": "409 {\"detail\":\"El reporte estará disponible al terminar la consulta.\"}"
+    },
+    {
+      "descripcion": "el cierre trae el reporte",
+      "resultado": "PASA",
+      "detalle": "claves: case_id, finished_at, patient, chief_complaint, diagnosis, hypotheses, differentials, score, key_questions, tests, treatment, revealed_evidence, recommendations"
+    },
+    {
+      "descripcion": "sección «Diagnóstico de referencia» con contenido",
+      "resultado": "PASA",
+      "detalle": "Infarto agudo de miocardio con elevación del ST"
+    },
+    {
+      "descripcion": "sección «Preguntas clave obtenidas» con contenido",
+      "resultado": "PASA",
+      "detalle": "Características del dolor: opresivo, irradiado al brazo izquierdo y la mandíbula\nElectrocardiograma: elevación del ST en cara inferior\nTroponina elevada"
+    },
+    {
+      "descripcion": "sección «Preguntas clave que faltaron» con contenido",
+      "resultado": "PASA",
+      "detalle": "Inicio con el esfuerzo y molestias previas al caminarAnamnesis incompletaCrítico\nForma parte de una historia clínica completa.\nFactores de riesgo: diabetes, hip"
+    },
+    {
+      "descripcion": "sección «Exámenes pedidos» con contenido",
+      "resultado": "PASA",
+      "detalle": "Electrocardiograma de 12 derivacionesRecomendado\nTroponina I ultrasensibleRecomendado"
+    },
+    {
+      "descripcion": "sección «Diagnósticos diferenciales» con contenido",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sección «Tratamiento propuesto» con contenido",
+      "resultado": "PASA",
+      "detalle": "Propusiste: Le indico aspirina 300 miligramos"
+    },
+    {
+      "descripcion": "sección «Tratamiento de referencia» con contenido",
+      "resultado": "PASA",
+      "detalle": "Reperfusión urgente: angioplastia primaria, idealmente en menos de 90 minutos desde el diagnóstico, o fibrinólisis si no se puede hacer en menos de 120 minutos."
+    },
+    {
+      "descripcion": "sección «Acciones clave» con contenido",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sección «Datos obtenidos» con contenido",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "diagnóstico de referencia igual al del reporte",
+      "resultado": "PASA",
+      "detalle": "Infarto agudo de miocardio con elevación del ST"
+    },
+    {
+      "descripcion": "una fila por pregunta que faltó",
+      "resultado": "PASA",
+      "detalle": "3 filas, 3 en el reporte"
+    },
+    {
+      "descripcion": "una fila por pregunta obtenida",
+      "resultado": "PASA",
+      "detalle": "3 filas, 3 en el reporte"
+    },
+    {
+      "descripcion": "la hipótesis con HTML se ve como texto",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "no se creó ningún elemento <b> desde los datos",
+      "resultado": "PASA",
+      "detalle": "elementos <b>: 0"
+    },
+    {
+      "descripcion": "sin errores de JavaScript en la página",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "otro navegador sin credencial: 401",
+      "resultado": "PASA",
+      "detalle": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}"
+    },
+    {
+      "descripcion": "otro navegador con credencial ajena: 404",
+      "resultado": "PASA",
+      "detalle": "{\"detail\":\"Sesión no encontrada.\"}"
+    },
+    {
+      "descripcion": "ninguna respuesta del otro navegador trae el reporte",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "peticiones": [
+    {
+      "metodo": "POST",
+      "ruta": "/api/ai/sessions",
+      "codigo": 200,
+      "cabecera_x_session_token": "(ninguna)",
+      "trae_reporte": false
+    },
+    {
+      "metodo": "POST",
+      "ruta": "/api/ai/sessions/71a1a018-7ee6-4e50-99b0-1d1b06aaff28/message",
+      "codigo": 200,
+      "cabecera_x_session_token": "eXCS4-…8PrU",
+      "trae_reporte": false,
+      "frase": "¿Cómo es el dolor y hacia dónde se va?"
+    },
+    {
+      "metodo": "POST",
+      "ruta": "/api/ai/sessions/71a1a018-7ee6-4e50-99b0-1d1b06aaff28/message",
+      "codigo": 200,
+      "cabecera_x_session_token": "eXCS4-…8PrU",
+      "trae_reporte": false,
+      "frase": "Solicito un electrocardiograma"
+    },
+    {
+      "metodo": "POST",
+      "ruta": "/api/ai/sessions/71a1a018-7ee6-4e50-99b0-1d1b06aaff28/message",
+      "codigo": 200,
+      "cabecera_x_session_token": "eXCS4-…8PrU",
+      "trae_reporte": false,
+      "frase": "Solicito una troponina"
+    },
+    {
+      "metodo": "POST",
+      "ruta": "/api/ai/sessions/71a1a018-7ee6-4e50-99b0-1d1b06aaff28/message",
+      "codigo": 200,
+      "cabecera_x_session_token": "eXCS4-…8PrU",
+      "trae_reporte": false,
+      "frase": "Le indico aspirina 300 miligramos"
+    },
+    {
+      "metodo": "GET",
+      "ruta": "/api/ai/sessions/71a1a018-7ee6-4e50-99b0-1d1b06aaff28/report",
+      "codigo": 409,
+      "cabecera_x_session_token": "eXCS4-…8PrU",
+      "trae_reporte": false
+    },
+    {
+      "metodo": "POST",
+      "ruta": "/api/ai/sessions/71a1a018-7ee6-4e50-99b0-1d1b06aaff28/finish",
+      "codigo": 200,
+      "cabecera_x_session_token": "eXCS4-…8PrU",
+      "trae_reporte": true
+    }
+  ],
+  "otro_navegador": [
+    {
+      "prueba": "GET /report sin credencial",
+      "codigo": 401,
+      "cuerpo": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}"
+    },
+    {
+      "prueba": "GET /report con una credencial bien formada que no es la suya",
+      "codigo": 404,
+      "cuerpo": "{\"detail\":\"Sesión no encontrada.\"}"
+    }
+  ],
+  "reporte_antes_de_cerrar": {
+    "status": 409,
+    "body": "{\"detail\":\"El reporte estará disponible al terminar la consulta.\"}"
+  },
+  "session_id": "71a1a018-7ee6-4e50-99b0-1d1b06aaff28",
+  "errores_de_la_pagina": []
+}

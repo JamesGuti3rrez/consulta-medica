@@ -1,0 +1,113 @@
+{
+  "id": "HU006-16",
+  "nombre": "errores_sin_detalles",
+  "titulo": "Errores sin detalles internos",
+  "criterio": "CA2",
+  "resultado_esperado": "401, 404 y 409 sin rutas, trazas, SQL ni claves",
+  "resultado": "FALLA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_antes",
+  "commit": "0a55582",
+  "fecha": "2026-10-28 07:47:32 UTC",
+  "pasos": [
+    {
+      "descripcion": "GET /api/ai/sessions/aae77d6c-6d00-461f-acbf-4c39b7e2324f/report",
+      "identidad": "sin credencial",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/aae77d6c-6d00-461f-acbf-4c39b7e2324f/report",
+      "cabeceras": {},
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"error\":\"Ruta de API no encontrada\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "GET /api/ai/sessions/aae77d6c-6d00-461f-acbf-4c39b7e2324f/report",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/aae77d6c-6d00-461f-acbf-4c39b7e2324f/report",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…MIFg"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"error\":\"Ruta de API no encontrada\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "GET /api/ai/sessions/73315374-095e-46a2-940c-a0e835a9a86f/report",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/73315374-095e-46a2-940c-a0e835a9a86f/report",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…3bbA"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"error\":\"Ruta de API no encontrada\"}",
+      "codigo_esperado": [
+        409
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "GET /api/ai/sessions/no-es-un-uuid/report",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/no-es-un-uuid/report",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…3bbA"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"error\":\"Ruta de API no encontrada\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "404: sin detalles internos",
+      "resultado": "PASA",
+      "detalle": "[]"
+    },
+    {
+      "descripcion": "404: sin detalles internos",
+      "resultado": "PASA",
+      "detalle": "[]"
+    },
+    {
+      "descripcion": "404: sin detalles internos",
+      "resultado": "PASA",
+      "detalle": "[]"
+    },
+    {
+      "descripcion": "404: sin detalles internos",
+      "resultado": "PASA",
+      "detalle": "[]"
+    }
+  ],
+  "notas": [],
+  "error": "E   AssertionError: HU006-16: paso 1 (GET http://127.0.0.1:3100/api/ai/sessions/aae77d6c-6d00-461f-acbf-4c39b7e2324f/report): 404 no está en [401] | paso 3 (GET http://127.0.0.1:3100/api/ai/sessions/73315374-095e-46a2-940c-a0e835a9a86f/report): 404 no está en [409]"
+}

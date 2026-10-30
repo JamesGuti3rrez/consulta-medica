@@ -1,0 +1,20 @@
+{
+  "criterio": "correcto",
+  "entrada": "Migraña sin signos de alarma",
+  "http_status": 200,
+  "phase": "finalizada",
+  "resultado": {
+    "status": "correct",
+    "score": 100,
+    "max_score": 100,
+    "reason_code": "reference_match",
+    "reason": "Coincide con el diagnóstico de referencia normalizado.",
+    "normalized_input": "migrana sin signos de alarma",
+    "matched_term": "Migraña sin signos de alarma",
+    "requires_review": false,
+    "version": "1.0.0"
+  },
+  "persistido_en_sesion": true,
+  "persistido_en_intentos": true,
+  "reporte_coincidente": true
+}

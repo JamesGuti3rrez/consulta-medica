@@ -1,0 +1,91 @@
+{
+  "fecha_utc": "2026-10-28T14:02:07.084801+00:00",
+  "supabase_real": true,
+  "historial_habilitado_solo_en_prueba": false,
+  "casos": [
+    {
+      "caso": "correcto",
+      "entrada": "Apendicitis aguda",
+      "estado": "correct",
+      "puntuacion": 100,
+      "motivo": "Coincide con el diagnóstico de referencia normalizado.",
+      "session_id": "251a78c9-81c1-4090-80fe-ba39cc3ebd9b",
+      "attempt_id": null,
+      "sesion_real": true,
+      "intento_real": false,
+      "evento_real": true,
+      "sin_fuga_previa": true,
+      "lectura_nueva_instancia": true,
+      "reintento_inmutable": true
+    },
+    {
+      "caso": "incorrecto",
+      "entrada": "Respuesta de control no admitida",
+      "estado": "incorrect",
+      "puntuacion": 0,
+      "motivo": "No coincide exactamente con el diagnóstico de referencia ni con los sinónimos admitidos por este caso.",
+      "session_id": "6a4ec2e1-0d4e-406b-a836-040834a2d2e6",
+      "attempt_id": null,
+      "sesion_real": true,
+      "intento_real": false,
+      "evento_real": true,
+      "sin_fuga_previa": true,
+      "lectura_nueva_instancia": true,
+      "reintento_inmutable": true
+    },
+    {
+      "caso": "sinonimo",
+      "entrada": "INFLAMACIÓN AGUDA DEL APÉNDICE",
+      "estado": "correct",
+      "puntuacion": 100,
+      "motivo": "Coincide con un sinónimo admitido por este caso.",
+      "session_id": "665ca023-ea67-4ac0-9d60-4bc2da1a1b49",
+      "attempt_id": null,
+      "sesion_real": true,
+      "intento_real": false,
+      "evento_real": true,
+      "sin_fuga_previa": true,
+      "lectura_nueva_instancia": true,
+      "reintento_inmutable": true
+    },
+    {
+      "caso": "vacio",
+      "entrada": "",
+      "estado": "empty",
+      "puntuacion": 0,
+      "motivo": "No se registró un diagnóstico final.",
+      "session_id": "7db98115-eec4-4d1b-983f-7deaa9ea2bca",
+      "attempt_id": null,
+      "sesion_real": true,
+      "intento_real": false,
+      "evento_real": true,
+      "sin_fuga_previa": true,
+      "lectura_nueva_instancia": true,
+      "reintento_inmutable": true
+    },
+    {
+      "caso": "ambiguo",
+      "entrada": "Apendicitis aguda o una alternativa no concluyente",
+      "estado": "ambiguous",
+      "puntuacion": 0,
+      "motivo": "Se registraron varias alternativas en lugar de un único diagnóstico final; requiere revisión docente.",
+      "session_id": "948c112a-cd8a-488a-86f5-ed5a36d1cdc8",
+      "attempt_id": null,
+      "sesion_real": true,
+      "intento_real": false,
+      "evento_real": true,
+      "sin_fuga_previa": true,
+      "lectura_nueva_instancia": true,
+      "reintento_inmutable": true
+    }
+  ],
+  "limpieza": {
+    "cuenta_eliminada": true,
+    "sesiones_eliminadas": 5,
+    "eventos_eliminados": true,
+    "intentos_eliminados": false
+  },
+  "credenciales_incluidas": false,
+  "resultado": "PASA",
+  "historial_real_disponible": false
+}

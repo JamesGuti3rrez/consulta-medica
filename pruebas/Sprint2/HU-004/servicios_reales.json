@@ -1,0 +1,11 @@
+{
+  "resultado": "PASA",
+  "agente": "laboratorio",
+  "evidencias": [
+    "CIR-005.lab.coagulacion_posoperatoria",
+    "CIR-005.lab.coagulacion_preoperatoria"
+  ],
+  "data_source": "curado",
+  "revelacion_y_evento": true,
+  "alcance": "Laboratorio canónico remoto; radiología/especialista presente y ausente se verifican localmente."
+}

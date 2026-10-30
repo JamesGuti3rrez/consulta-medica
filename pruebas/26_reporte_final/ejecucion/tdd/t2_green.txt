@@ -1,0 +1,19 @@
+﻿COMANDO: python -m pytest tests/integration/test_api_report.py -v
+COMMIT: 801837b
+FECHA: 2026-10-28 07:14:02 UTC
+CODIGO_SALIDA: 0
+
+============================= test session starts =============================
+platform win32 -- Python 3.14.4, pytest-8.3.4, pluggy-1.6.0 -- C:\Users\Usuario\Documents\consulta-medica\backend\.venv\Scripts\python.exe
+rootdir: C:\Users\Usuario\Documents\consulta-medica\backend
+configfile: pyproject.toml
+plugins: anyio-4.15.1, langsmith-0.14.7
+collecting ... collected 5 items
+
+tests/integration/test_api_report.py::test_reporte_solo_tras_cerrar PASSED [ 20%]
+tests/integration/test_api_report.py::test_finish_devuelve_el_mismo_reporte PASSED [ 40%]
+tests/integration/test_api_report.py::test_cerrar_dos_veces_no_cambia_la_propuesta PASSED [ 60%]
+tests/integration/test_api_report.py::test_reporte_de_consulta_sin_propuesta_guardada PASSED [ 80%]
+tests/integration/test_api_report.py::test_reporte_ajeno_e_inexistente PASSED [100%]
+
+============================== 5 passed in 1.09s ==============================

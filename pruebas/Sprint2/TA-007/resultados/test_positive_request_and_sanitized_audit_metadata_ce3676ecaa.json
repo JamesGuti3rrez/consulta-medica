@@ -1,0 +1,7 @@
+{
+  "id": "TA-007",
+  "prueba": "test_positive_request_and_sanitized_audit_metadata",
+  "resultado": "PASA",
+  "duracion_s": 0.0637,
+  "entorno": "HTTP local y proveedores controlados"
+}

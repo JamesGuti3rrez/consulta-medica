@@ -1,0 +1,17 @@
+{
+  "id": "TA011-05",
+  "nombre": "A_registra_evento_no_aplica",
+  "titulo": "Registrar evento (no aplica)",
+  "criterio": "CA1, CA4",
+  "resultado_esperado": "No existe ruta para registrar eventos: 405/404 y la lista de eventos no cambia",
+  "resultado": "FALLA",
+  "modo": "vivo",
+  "servidor": "https://consulta-medica-1mjw4o7qz-james-gutierrezs-projects-49804000.vercel.app",
+  "fase": "vercel_preview",
+  "commit": "c00ee96",
+  "fecha": "2026-10-28 06:08:45 UTC",
+  "pasos": [],
+  "comprobaciones": [],
+  "notas": [],
+  "error": "Falló la preparación: E   AssertionError: {\"detail\":\"El simulador no puede responder en este momento. Inténtalo de nuevo en unos minutos.\"}\n    assert 503 == 200\n     +  where 503 = <Response [503 Service Unavailable]>.status_code"
+}

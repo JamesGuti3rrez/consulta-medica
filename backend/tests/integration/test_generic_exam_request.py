@@ -30,8 +30,10 @@ def curated_cases(monkeypatch):
 
 
 def _ask(case_id: str, message: str) -> dict:
-    sid = client.post("/api/ai/sessions", json={"case_id": case_id}).json()["session_id"]
-    response = client.post(f"/api/ai/sessions/{sid}/message", json={"message": message})
+    start = client.post("/api/ai/sessions", json={"case_id": case_id}).json()
+    # Consulta de invitado: se continúa con su credencial de capacidad (TA-011).
+    response = client.post(f"/api/ai/sessions/{start['session_id']}/message", json={"message": message},
+                           headers={"X-Session-Token": start["session_token"]})
     assert response.status_code == 200, response.text
     return response.json()
 

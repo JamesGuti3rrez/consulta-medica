@@ -60,6 +60,7 @@ if (task === 'setup') {
     'tests/integration/test_synthetic_patient.py', 'tests/unit/test_grounding.py',
     'tests/integration/test_generic_exam_request.py', 'tests/unit/test_router.py',
     'tests/unit/test_history_json.py',
+    'tests/unit/test_final_diagnosis.py', 'tests/integration/test_ta012_diagnosis.py',
     'tests/test_ampliacion_casos.py',
     'tests/integration/test_teaching_api.py',
     'tests/unit/test_disclosure.py', ...process.argv.slice(3)], {
@@ -67,6 +68,7 @@ if (task === 'setup') {
     RAG_BACKEND: 'local', RAG_EMBEDDING_BACKEND: 'local_hash', RAG_SERVICE_URL: '',
     LANGSMITH_TRACING: 'false', LANGCHAIN_TRACING_V2: 'false',
     SYNTHETIC_CASE_DATA: 'false',
+      SYNTHETIC_EXAM_DATA: 'false',
   });
 } else if (task === 'user-role') {
   if (!existsSync(venvPython)) {

@@ -1,0 +1,20 @@
+{
+  "criterio": "vacio",
+  "entrada": "",
+  "http_status": 200,
+  "phase": "finalizada",
+  "resultado": {
+    "status": "empty",
+    "score": 0,
+    "max_score": 100,
+    "reason_code": "empty_input",
+    "reason": "No se registró un diagnóstico final.",
+    "normalized_input": "",
+    "matched_term": null,
+    "requires_review": false,
+    "version": "1.0.0"
+  },
+  "persistido_en_sesion": true,
+  "persistido_en_intentos": true,
+  "reporte_coincidente": true
+}

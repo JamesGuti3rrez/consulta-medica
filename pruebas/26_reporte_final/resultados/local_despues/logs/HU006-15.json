@@ -1,0 +1,50 @@
+{
+  "id": "HU006-15",
+  "nombre": "sin_fuentes_ajenas",
+  "titulo": "Ninguna fuente ajena al case_id",
+  "criterio": "CA4",
+  "resultado_esperado": "Ids solo del caso; ningún diagnóstico ni diferencial de otro caso",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_despues",
+  "commit": "a17cb62",
+  "fecha": "2026-10-28 07:21:39 UTC",
+  "pasos": [
+    {
+      "descripcion": "reporte de SA",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/8b98e879-4ae5-4540-899b-79fc2d0db41f/report",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…MaZk"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"case_id\":\"MED-900\",\"finished_at\":\"2026-10-28T07:21:38.756610+00:00\",\"patient\":{\"alias\":\"Carlos Ramos\",\"age_years\":28,\"sex\":\"masculino\"},\"chief_complaint\":\"Dolor de cabeza de 3 días de evolución\",\"diagnosis\":{\"student\":\"Diagnóstico propuesto por A\",\"reference\":\"Migraña sin signos de alarma\",\"synonyms\":[\"migraña\",\"cefalea migrañosa\"]},\"hypotheses\":[{\"name\":\"Hipótesis activa de A\",\"discarded\":false,\"reason\":\"\"},{\"name\":\"Hipótesis descartada de A\",\"discarded\":true,\"reason\":\"no encaja con la exploración\"}],\"differentials\":[\"Meningitis\",\"Hemorragia subaracnoidea\",\"Cefalea tensional\"],\"score\":{\"score\":35.71,\"earned_weight\":5,\"total_weight\":14,\"completed_questions\":1,\"total_questions\":3},\"key_questions\":{\"obtained\":[{\"id\":\"kq1\",\"topic\":\"inicio y características del dolor\",\"weight\":5,\"critical\":true,\"error_type\":\"anamnesis_incompleta\",\"error_name\":\"Anamnesis incompleta\",\"why\":\"Forma parte de una historia clínica completa.\",\"helps_discard\":[\"Hemorragia subaracnoidea\",\"Cefalea tensional\"]}],\"missing\":[{\"id\":\"kq2\",\"topic\":\"signos de alarma neurológica\",\"weight\":5,\"critical\":true,\"error_type\":\"negligencia\",\"error_name\":\"Negligencia\",\"why\":\"Dato de seguridad: se pregunta antes de indicar un tratamiento.\",\"helps_discard\":[\"Meningitis\",\"Hemorragia subaracnoidea\"]},{\"id\":\"kq3\",\"topic\":\"alergias\",\"weight\":4,\"critical\":true,\"error_type\":\"negligencia\",\"error_name\":\"Negligencia\",\"why\":\"Dato de seguridad: se pregunta antes de indicar un tratamiento.\",\"helps_discard\":[]}]},\"tests\":{\"recommended_requested\":[],\"recommended_missing\":[],\"optional_requested\":[{\"name\":\"hemograma\",\"label\":\"Hemograma\"}],\"unnecessary_requested\":[],\"other_indications\":[\"Evaluacion clinica\"]},\"treatment\":{\"proposed\":[{\"message\":\"Le indico paracetamol para el dolor\",\"alerts\":[]}],\"reference_summary\":\"Manejo sintomático y seguimiento clínico según la evaluación profesional.\",\"key_actions\":[\"Control sintomático\",\"Reevaluar signos de alarma\",\"Seguimiento clínico\"]},\"revealed_evidence\":[{\"evidence_id\":\"MED-900.motivo.cefalea\",\"label\":\"Motivo de consulta\",\"text\":\"Dolor de cabeza de 3 días de evolución\"},{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"text\":\"74 /min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"text\":\"36.8 Cel\"},{\"evidence_id\":\"MED-900.anamnesis.inicio_dolor\",\"label\":\"Inicio y características del dolor\",\"text\":\"El dolor comenzó hace tres días; es pulsátil y predomina en el lado derecho.\"},{\"evidence_id\":\"MED-900.laboratorio.hemograma\",\"label\":\"Hemograma\",\"text\":\"Hemograma sin alteraciones relevantes.\"}],\"recommendations\":[\"Antes de indicar un tratamiento, verifica alergias, antecedentes y los estudios críticos del caso.\"]}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "ids de evidencia del caso",
+      "resultado": "PASA",
+      "detalle": "ajenos: []"
+    },
+    {
+      "descripcion": "sin diagnósticos ni diferenciales de otros casos",
+      "resultado": "PASA",
+      "detalle": "encontrados: []"
+    }
+  ],
+  "notas": [
+    "Nombres de otros casos revisados: 80"
+  ],
+  "error": ""
+}

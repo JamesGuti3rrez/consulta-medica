@@ -1,0 +1,17 @@
+{
+  "id": "TA017-07",
+  "nombre": "anonimo1_crea_sesion",
+  "titulo": "Anónimo 1 crea sesión y recibe credencial",
+  "criterio": "CA3",
+  "resultado_esperado": "200 con session_token de al menos 128 bits (base64url >= 22 caracteres), único",
+  "resultado": "FALLA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_antes",
+  "commit": "0ef9e0e",
+  "fecha": "2026-10-27 02:53:48 UTC",
+  "pasos": [],
+  "comprobaciones": [],
+  "notas": [],
+  "error": "Falló la preparación: E   httpcore.ConnectError: [Errno 11001] getaddrinfo failed\n\nThe above exception was the direct cause of the following exception:\nE   httpx.ConnectError: [Errno 11001] getaddrinfo failed"
+}

@@ -6,6 +6,7 @@ from typing import Any
 
 from .rules import check_case_rules, evidence_text
 from .validator import validate_case_document
+from .consistency import ensure_presentable
 
 CURATED_CASES_DIR = Path(__file__).resolve().parents[3] / "data" / "cases" / "curated"
 
@@ -21,6 +22,7 @@ def load_curated_cases(directory: Path | str = CURATED_CASES_DIR) -> list[dict[s
         errors = check_case_rules(case)
         if errors:
             raise ValueError(f"El caso {case_path.name} incumple reglas cruzadas: {errors}")
+        ensure_presentable(case)
         if case["status"] == "curado":
             cases.append(case)
     return cases

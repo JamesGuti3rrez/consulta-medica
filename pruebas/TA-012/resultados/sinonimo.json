@@ -1,0 +1,20 @@
+{
+  "criterio": "sinonimo",
+  "entrada": "  CEFALEA MIGRAÑOSA. ",
+  "http_status": 200,
+  "phase": "finalizada",
+  "resultado": {
+    "status": "correct",
+    "score": 100,
+    "max_score": 100,
+    "reason_code": "synonym_match",
+    "reason": "Coincide con un sinónimo admitido por este caso.",
+    "normalized_input": "cefalea migranosa",
+    "matched_term": "cefalea migrañosa",
+    "requires_review": false,
+    "version": "1.0.0"
+  },
+  "persistido_en_sesion": true,
+  "persistido_en_intentos": true,
+  "reporte_coincidente": true
+}

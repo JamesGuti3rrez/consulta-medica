@@ -100,11 +100,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   let finalTranscript = '';
   let studentPreview = null;
   let aiSessionId = null;
+  // Credencial de capacidad de una consulta de invitado: solo vive en memoria y se envía en cada petición.
+  let aiSessionToken = null;
   let hypotheses = [];
   let discardingIndex = null;
   let consultationClosed = false;
   let currentCase = null;
-  let safetyAlertCount = 0;
 
   const showTab = name => {
     tabButtons.forEach(button => {
@@ -291,6 +292,26 @@ document.addEventListener('DOMContentLoaded', async () => {
     return section;
   };
 
+  // HU-004 / EN-013: la tablilla recibe únicamente los datos autorizados de la respuesta del servidor.
+  const recordEvidenceIds = new Set();
+  const addClinicalEvidence = items => {
+    for (const item of items || []) {
+      if (recordEvidenceIds.has(item.evidence_id)) continue;
+      recordEvidenceIds.add(item.evidence_id);
+      const section = recordSection(item.label, item.text);
+      section.dataset.evidenceId = item.evidence_id;
+      section.dataset.synthetic = String(Boolean(item.synthetic));
+      if (item.synthetic) {
+        const badge = document.createElement('strong');
+        badge.className = 'synthetic-exam-badge';
+        badge.textContent = 'Sintético educativo · Revisión clínica pendiente';
+        section.append(badge);
+      }
+      recordHistory.append(section);
+      recordHistory.hidden = false;
+    }
+  };
+
   // Ficha vacía al iniciar: se completa a medida que el doctor presenta el caso.
   const resetRecord = patientCase => {
     $('record-name').textContent = patientCase.patient.alias;
@@ -300,6 +321,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       ? patientCase.allergies.join(', ')
       : 'No documentadas; deben preguntarse.';
     recordHistory.replaceChildren();
+    recordEvidenceIds.clear();
     [...record.children].forEach(section => { section.hidden = true; });
     emptyRecord.hidden = true;
     show(record);
@@ -349,10 +371,23 @@ document.addEventListener('DOMContentLoaded', async () => {
         headers,
         body: JSON.stringify({ case_id: caseId }),
       });
-      return response.ok ? (await response.json()).session_id : null;
+      if (!response.ok) return null;
+      const body = await response.json();
+      aiSessionToken = body.session_token || null;
+      return body.session_id;
     } catch {
       return null;
     }
+  };
+
+  // Cada petición sobre la consulta lleva la sesión del alumno o la credencial del invitado: el servidor
+  // solo atiende a quien la empezó.
+  const conversationHeaders = async () => {
+    const headers = { 'Content-Type': 'application/json' };
+    const token = await accessToken();
+    if (token) headers.Authorization = `Bearer ${token}`;
+    if (aiSessionToken) headers['X-Session-Token'] = aiSessionToken;
+    return headers;
   };
 
   const startSimulation = async ({ another = false } = {}) => {
@@ -386,7 +421,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     currentCase = patientCase;
     rememberCase(patientCase.case_id);
-    safetyAlertCount = 0;
     aiSessionId = await openConversation(patientCase.case_id);
     resetRecord(patientCase);
     showTab('ficha');
@@ -440,7 +474,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
       const response = await fetch(`/api/ai/sessions/${encodeURIComponent(aiSessionId)}/message`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: await conversationHeaders(),
         body: JSON.stringify({ message: question }),
       });
       if (!response.ok) {
@@ -456,6 +490,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       reply = { agent: 'medico_asistente', response: error.detail || 'No pude procesar tu pregunta. Inténtalo de nuevo.' };
     }
     if (current !== session) return;
+    addClinicalEvidence(reply.clinical_evidence);
     // El médico tratante le hace al paciente la pregunta reformulada; luego el paciente responde.
     if (reply.doctor_question) {
       await say('doctor', reply.doctor_question);
@@ -470,7 +505,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (hypothesesHint) hypothesesHint.textContent = '¿Este dato cambia alguna de tus hipótesis?';
     setReady();
     if (Array.isArray(reply.safety_alerts) && reply.safety_alerts.length) {
-      safetyAlertCount += reply.safety_alerts.length;
       setStatus(reply.safety_alerts.map(alert => alert.message).join(' '), true);
     }
   };
@@ -723,18 +757,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   hypothesisInput?.addEventListener('keydown', event => { if (event.key === 'Enter') addHypothesis(); });
   hypothesisMic?.addEventListener('click', () => dictate(hypothesisInput, hypothesesFeedback));
 
-  // Hoja de evaluación: el motor clínico solo devuelve puntaje y conteos por tipo de error, nunca los
-  // temas protegidos; las hipótesis y el diagnóstico salen de lo que el estudiante registró.
-  const ERROR_NAMES = {
-    negligencia: 'Negligencia',
-    anamnesis_incompleta: 'Anamnesis incompleta',
-    razonamiento_clinico: 'Razonamiento clínico',
-  };
-  const RECOMMENDATIONS = {
-    negligencia: 'Antes de indicar un tratamiento, verifica alergias, antecedentes y los estudios críticos del caso.',
-    anamnesis_incompleta: 'Completa la anamnesis: inicio y evolución, antecedentes, medicación, alergias y hábitos.',
-    razonamiento_clinico: 'Pide la exploración y los exámenes que confirmen o descarten cada una de tus hipótesis.',
-  };
+  // Hoja de evaluación: el reporte final (HU-006) lo arma el servidor solo con datos del caso y de esta
+  // consulta, y solo lo entrega al dueño tras el cierre. Todo se escribe como texto, nunca como HTML.
+  const TEST_NOTES = { recommended_missing: 'Recomendado, no lo pediste', unnecessary_requested: 'Innecesario en este caso' };
   const fillList = (role, lines) => {
     const list = $(role);
     if (!list) return;
@@ -786,50 +811,112 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (event.key === 'Escape' && evaluationPanel && !evaluationPanel.hidden) hideEvaluation();
   });
 
-  const showEvaluation = (evaluation, diagnosis) => {
+  // Un punto de la hoja: texto principal, etiquetas y una línea de explicación opcional.
+  const sheetItem = (text, chips = [], why = '') => {
+    const item = document.createElement('li');
+    item.append(text);
+    chips.forEach(([label, kind]) => {
+      const chip = document.createElement('span');
+      chip.className = `sheet-chip sheet-chip-${kind}`;
+      chip.textContent = label;
+      item.append(chip);
+    });
+    if (why) {
+      const line = document.createElement('span');
+      line.className = 'sheet-why';
+      line.textContent = why;
+      item.append(line);
+    }
+    return item;
+  };
+  const fillItems = (role, items) => {
+    const list = $(role);
+    if (list) list.replaceChildren(...items);
+  };
+
+  const showEvaluation = (report, diagnosis) => {
     if (currentCase) {
       const { alias, age_years: age } = currentCase.patient;
       setField('evaluation-patient', `${alias}, ${age} años`);
       setField('evaluation-chief', currentCase.chief_complaint.text);
     }
     setField('evaluation-date', new Date().toLocaleDateString('es-PE', { day: 'numeric', month: 'long', year: 'numeric' }));
-    setField('evaluation-diagnosis', diagnosis);
+    setField('evaluation-diagnosis', diagnosis || 'Sin diagnóstico registrado');
+    setField('evaluation-student-diagnosis', report?.diagnosis?.student || diagnosis || 'Sin diagnóstico registrado');
 
-    const active = hypotheses.filter(hypothesis => !hypothesis.discarded);
-    const discarded = hypotheses.filter(hypothesis => hypothesis.discarded);
+    const studentHypotheses = report?.hypotheses || hypotheses;
+    const active = studentHypotheses.filter(hypothesis => !hypothesis.discarded);
+    const discarded = studentHypotheses.filter(hypothesis => hypothesis.discarded);
     fillList('evaluation-reasoning', [
       active.length ? `Hipótesis activas: ${active.map(hypothesis => hypothesis.name).join(', ')}.` : 'No dejaste hipótesis activas.',
       ...discarded.map(hypothesis => `Descartaste ${hypothesis.name}${hypothesis.reason ? `: ${hypothesis.reason}` : ''}.`),
-      'El diagnóstico escrito queda registrado; el puntaje no lo califica automáticamente.',
+      'El diagnóstico final se compara con la referencia y los sinónimos del caso al cerrar; su nota es independiente de la anamnesis.',
     ]);
 
-    if (!evaluation) {
+    if (!report) {
+      show($('evaluation-diagnosis-result'), false);
       setField('evaluation-score', '—');
-      fillList('evaluation-strengths', []);
-      fillList('evaluation-missing', ['No se pudo obtener la evaluación de esta consulta. Verifica la conexión con el servidor.']);
-      fillList('evaluation-recommendations', []);
+      setField('evaluation-reference', '');
+      ['evaluation-key-ok', 'evaluation-tests-ok', 'evaluation-tests-warn', 'evaluation-other-indications',
+        'evaluation-differentials', 'evaluation-treatment-proposed', 'evaluation-treatment-reference',
+        'evaluation-treatment-actions', 'evaluation-revealed', 'evaluation-recommendations'].forEach(role => fillList(role, []));
+      fillList('evaluation-key-missing', ['No se pudo obtener el reporte de esta consulta. Verifica la conexión con el servidor.']);
       openEvaluation();
       return;
     }
 
-    setField('evaluation-score', `${evaluation.score}%`);
-    // Sin datos clave obtenidos no hay logro que mostrar aquí: las omisiones van en «Lo que faltó preguntar».
-    fillList('evaluation-strengths', [
-      evaluation.completed_questions
-        ? `Obtuviste ${evaluation.completed_questions} de ${evaluation.total_questions} datos clave del caso.`
-        : 'Completaste la consulta y registraste un diagnóstico.',
-    ]);
-    const errors = Object.entries(evaluation.errors || {}).filter(([, count]) => count > 0);
-    fillList('evaluation-missing', errors.length
-      ? errors.map(([type, count]) => `${ERROR_NAMES[type] || type}: ${count} ${count === 1 ? 'dato clave' : 'datos clave'} sin obtener.`)
-      : ['No quedaron datos clave sin obtener.']);
-    const recommendations = errors.map(([type]) => RECOMMENDATIONS[type]).filter(Boolean);
-    if (safetyAlertCount) {
-      recommendations.push('Propusiste un tratamiento que coincide con una alergia o contraindicación del caso: revisa los antecedentes antes de indicarlo.');
+    const { score, key_questions: keys, tests, treatment } = report;
+    setField('evaluation-score', `${score.score}%`);
+    setField('evaluation-summary', `Obtuviste ${score.completed_questions} de ${score.total_questions} datos clave del caso.`);
+    setField('evaluation-reference', report.diagnosis.reference);
+    const grade = report.diagnosis.grading;
+    const gradePanel = $('evaluation-diagnosis-result');
+    show(gradePanel, Boolean(grade));
+    if (grade && gradePanel) {
+      const names = { correct: 'Diagnóstico correcto', incorrect: 'Diagnóstico incorrecto',
+        empty: 'Sin diagnóstico registrado', ambiguous: 'Respuesta ambigua · Revisión docente' };
+      gradePanel.dataset.result = grade.status;
+      setField('evaluation-diagnosis-status', names[grade.status] || 'Resultado del diagnóstico');
+      setField('evaluation-diagnosis-score', grade.score + '/' + grade.max_score + ' puntos');
+      setField('evaluation-diagnosis-reason', grade.reason);
     }
-    fillList('evaluation-recommendations', recommendations.length
-      ? recommendations
-      : ['Mantén el mismo orden: anamnesis completa, exámenes dirigidos y verificación de alergias antes de tratar.']);
+
+    fillItems('evaluation-key-ok', keys.obtained.map(question => sheetItem(question.topic)));
+    fillItems('evaluation-key-missing', keys.missing.map(question => sheetItem(
+      question.topic,
+      [[question.error_name, question.error_type], ...(question.critical ? [['Crítico', 'critico']] : [])],
+      [question.why, question.helps_discard.length ? `Ayudaba a descartar: ${question.helps_discard.join(', ')}.` : '']
+        .filter(Boolean).join(' '),
+    )));
+
+    fillItems('evaluation-tests-ok', [
+      ...tests.recommended_requested.map(test => sheetItem(test.label, [['Recomendado', 'razonamiento_clinico']])),
+      ...tests.optional_requested.map(test => sheetItem(test.label, [['Opcional', 'info']])),
+    ]);
+    fillItems('evaluation-tests-warn', [
+      ...tests.recommended_missing.map(test => sheetItem(test.label, [[TEST_NOTES.recommended_missing, 'anamnesis_incompleta']])),
+      ...tests.unnecessary_requested.map(test => sheetItem(test.label, [[TEST_NOTES.unnecessary_requested, 'negligencia']])),
+    ]);
+    fillList('evaluation-other-indications', tests.other_indications);
+    fillList('evaluation-differentials', report.differentials);
+
+    fillItems('evaluation-treatment-proposed', treatment.proposed.length
+      ? treatment.proposed.map(item => sheetItem(`Propusiste: ${item.message}`,
+        item.alerts.length ? [['Alerta de seguridad', 'negligencia']] : []))
+      : [sheetItem('No propusiste un tratamiento durante la consulta.')]);
+    fillList('evaluation-treatment-reference', [treatment.reference_summary]);
+    fillList('evaluation-treatment-actions', treatment.key_actions);
+
+    const syntheticExams = report.synthetic_exams || [];
+    setField('evaluation-revealed-summary', `Ver los ${report.revealed_evidence.length + syntheticExams.length} datos revelados`);
+    // Algunos datos ya empiezan con su etiqueta («Troponina I ultrasensible: 2850 ng/L»): no se repite.
+    fillItems('evaluation-revealed', [
+      ...report.revealed_evidence.map(item => sheetItem(
+        item.text.startsWith(item.label) ? item.text : `${item.label}: ${item.text}`)),
+      ...syntheticExams.map(item => sheetItem(`${item.label}: ${item.text}`,
+        [['Sintético · Revisión clínica pendiente', 'info']])),
+    ]);
+    fillList('evaluation-recommendations', report.recommendations);
     openEvaluation();
   };
 
@@ -846,11 +933,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   diagnosisMic?.addEventListener('click', () => dictate(diagnosisInput, diagnosisFeedback));
 
   saveDiagnosis?.addEventListener('click', async () => {
-    const diagnosis = diagnosisInput?.value.trim();
-    if (!diagnosis) {
-      if (diagnosisFeedback) diagnosisFeedback.textContent = 'Escribe o dicta un diagnóstico antes de guardar.';
-      return;
-    }
+    const diagnosis = diagnosisInput?.value.trim() || '';
     consultationClosed = true;
     discardingIndex = null;
     session += 1;
@@ -860,28 +943,25 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (element) element.disabled = true;
     });
     renderHypotheses();
-    let evaluation = null;
+    let report = null;
     let attempt = null;
     if (aiSessionId) {
       // Con la sesión iniciada se envía su token: el servidor lo comprueba y guarda la consulta en
       // «Mis simulaciones». Sin sesión la consulta termina igual, pero no se guarda.
-      const headers = { 'Content-Type': 'application/json' };
-      const token = await accessToken();
-      if (token) headers.Authorization = `Bearer ${token}`;
       const response = await fetch(`/api/ai/sessions/${encodeURIComponent(aiSessionId)}/finish`, {
         method: 'POST',
-        headers,
+        headers: await conversationHeaders(),
         body: JSON.stringify({
           diagnosis,
           hypotheses: hypotheses.map(({ name, discarded, reason }) => ({ name, discarded, reason: reason || '' })),
         }),
       }).catch(() => null);
       const finished = response?.ok ? await response.json().catch(() => null) : null;
-      evaluation = finished?.evaluation || null;
+      report = finished?.report || null;
       attempt = finished?.attempt || null;
     }
     show(diagnosisPanel, false);
-    showEvaluation(evaluation, diagnosis);
+    showEvaluation(report, diagnosis);
     setField('evaluation-saved', SAVED_MESSAGES[attempt?.saved ? 'guardado' : attempt?.reason] || '');
     // El botón de diagnóstico pasa a reabrir la hoja si el estudiante la cierra.
     if (diagnosisButton) {
@@ -908,6 +988,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     hideEvaluation();
     aiSessionId = null;
+    aiSessionToken = null;
     isRunning = false;
     [saveDiagnosis, diagnosisMic, hypothesisInput, hypothesisMic, addHypothesisButton].forEach(element => {
       if (element) element.disabled = false;

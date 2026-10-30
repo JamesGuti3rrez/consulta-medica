@@ -1,0 +1,17 @@
+{
+  "id": "HU006-09",
+  "nombre": "propuesta_y_referencia",
+  "titulo": "Propuesta del alumno y diagnóstico de referencia",
+  "criterio": "CA3",
+  "resultado_esperado": "Diagnóstico e hipótesis del primer cierre; referencia del caso",
+  "resultado": "FALLA",
+  "modo": "vivo",
+  "servidor": "https://consulta-medica-2huhqybm3-james-gutierrezs-projects-49804000.vercel.app",
+  "fase": "vercel_preview",
+  "commit": "6ba8750",
+  "fecha": "2026-10-28 07:54:51 UTC",
+  "pasos": [],
+  "comprobaciones": [],
+  "notas": [],
+  "error": "Falló la preparación: E   AssertionError: {\"detail\":\"El simulador no puede responder en este momento. Inténtalo de nuevo en unos minutos.\"}\n    assert 503 == 200\n     +  where 503 = <Response [503 Service Unavailable]>.status_code"
+}

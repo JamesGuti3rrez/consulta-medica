@@ -1,0 +1,7 @@
+{
+  "id": "EN-013",
+  "prueba": "test_canonical_results_prevent_generation[CIR-005-Solicito pruebas de coagulaci\\xf3n]",
+  "resultado": "PASA",
+  "duracion_s": 0.0464,
+  "entorno": "HTTP local y proveedores controlados"
+}

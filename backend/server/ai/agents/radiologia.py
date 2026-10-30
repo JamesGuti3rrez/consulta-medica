@@ -3,6 +3,7 @@ from server.domain import AgentRole
 
 
 class RadiologiaAgent(BaseAgent):
+    missing_data_reply = "Ese estudio de imagen no tiene un informe disponible en este caso."
     role = AgentRole.RADIOLOGIA
     prompt_filename = "radiologia.md"
     # Pedido genérico (sin nombrar examen): se pregunta cuál, sin afirmar que no existe.

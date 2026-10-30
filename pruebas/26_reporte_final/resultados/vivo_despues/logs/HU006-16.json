@@ -1,0 +1,113 @@
+{
+  "id": "HU006-16",
+  "nombre": "errores_sin_detalles",
+  "titulo": "Errores sin detalles internos",
+  "criterio": "CA2",
+  "resultado_esperado": "401, 404 y 409 sin rutas, trazas, SQL ni claves",
+  "resultado": "PASA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_despues",
+  "commit": "0a55582",
+  "fecha": "2026-10-28 07:52:29 UTC",
+  "pasos": [
+    {
+      "descripcion": "GET /api/ai/sessions/70fb67dc-39dc-435e-a801-92e791ebcd6b/report",
+      "identidad": "sin credencial",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/70fb67dc-39dc-435e-a801-92e791ebcd6b/report",
+      "cabeceras": {},
+      "cuerpo_enviado": null,
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "GET /api/ai/sessions/70fb67dc-39dc-435e-a801-92e791ebcd6b/report",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/70fb67dc-39dc-435e-a801-92e791ebcd6b/report",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…A2Ew"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "GET /api/ai/sessions/c9478d07-86b8-40fc-9ffb-44430a7cdd1e/report",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/c9478d07-86b8-40fc-9ffb-44430a7cdd1e/report",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…XhsQ"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 409,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"El reporte estará disponible al terminar la consulta.\"}",
+      "codigo_esperado": [
+        409
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "GET /api/ai/sessions/no-es-un-uuid/report",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/no-es-un-uuid/report",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…XhsQ"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "401: sin detalles internos",
+      "resultado": "PASA",
+      "detalle": "[]"
+    },
+    {
+      "descripcion": "404: sin detalles internos",
+      "resultado": "PASA",
+      "detalle": "[]"
+    },
+    {
+      "descripcion": "409: sin detalles internos",
+      "resultado": "PASA",
+      "detalle": "[]"
+    },
+    {
+      "descripcion": "404: sin detalles internos",
+      "resultado": "PASA",
+      "detalle": "[]"
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

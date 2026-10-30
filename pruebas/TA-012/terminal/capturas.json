@@ -1,0 +1,32 @@
+[
+  {
+    "registro": "pruebas\\TA-012\\terminal\\pytest.txt",
+    "captura": "pruebas\\TA-012\\capturas\\terminal-pytest.png",
+    "origen": "ventana nativa propia de PowerShell mostrando el registro original",
+    "sha256_registro": "d2400d1366b73834df663e1de78d811d87177e23ab08818c290b15f410619a0d",
+    "dimensiones": [
+      1354,
+      542
+    ]
+  },
+  {
+    "registro": "pruebas\\TA-012\\terminal\\supabase-real.txt",
+    "captura": "pruebas\\TA-012\\capturas\\terminal-supabase-real.png",
+    "origen": "ventana nativa propia de PowerShell mostrando el registro original",
+    "sha256_registro": "09b8e53b1879cd73ba4e4e424f6c503b3365420d9abec1402f3b5de7472d07d0",
+    "dimensiones": [
+      1354,
+      642
+    ]
+  },
+  {
+    "registro": "pruebas\\TA-012\\terminal\\navegador.txt",
+    "captura": "pruebas\\TA-012\\capturas\\terminal-navegador.png",
+    "origen": "ventana nativa propia de PowerShell mostrando el registro original",
+    "sha256_registro": "b0f06e802fa0134a11f5a209a9db2bbdbb68b3affcd8a10f49fd04d1ff6441f9",
+    "dimensiones": [
+      1354,
+      342
+    ]
+  }
+]

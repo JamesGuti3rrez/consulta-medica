@@ -1,0 +1,126 @@
+{
+  "id": "TA011-08",
+  "nombre": "anonimo1_opera_SN1",
+  "titulo": "Anónimo 1 usa su credencial en SN1",
+  "criterio": "CA3, CA4",
+  "resultado_esperado": "200 en leer, mensaje, eventos y cierre de SN1",
+  "resultado": "PASA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_despues",
+  "commit": "5f9435d",
+  "fecha": "2026-10-28 06:00:51 UTC",
+  "pasos": [
+    {
+      "descripcion": "leer sesión de SN1",
+      "identidad": "Anónimo 1 + credencial de capacidad",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/bd98d5f9-045a-474e-813c-696bb46088ee",
+      "cabeceras": {
+        "x-session-token": "irhNy3…V_i8"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"phase\":\"presentacion\",\"active_agent\":\"medico_asistente\",\"case_id\":\"CIR-005\",\"session_id\":\"bd98d5f9-045a-474e-813c-696bb46088ee\",\"revealed_evidence_ids\":[\"CIR-005.motivo.queja_principal\",\"CIR-005.anamnesis.evolucion_quirurgica\"],\"updated_at\":\"2026-10-28T05:59:51.422262+00:00\",\"finished_at\":null,\"started_at\":\"2026-10-28T05:59:51.422245+00:00\",\"avatar_state\":{\"alerts\":[],\"vitals\":[],\"gesture\":\"idle\",\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "enviar mensaje de SN1",
+      "identidad": "Anónimo 1 + credencial de capacidad",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/bd98d5f9-045a-474e-813c-696bb46088ee/message",
+      "cabeceras": {
+        "x-session-token": "irhNy3…V_i8",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"session\":{\"phase\":\"anamnesis\",\"active_agent\":\"paciente\",\"case_id\":\"CIR-005\",\"session_id\":\"bd98d5f9-045a-474e-813c-696bb46088ee\",\"revealed_evidence_ids\":[\"CIR-005.motivo.queja_principal\",\"CIR-005.anamnesis.evolucion_quirurgica\"],\"updated_at\":\"2026-10-28T06:00:47.120174+00:00\",\"finished_at\":null,\"started_at\":\"2026-10-28T05:59:51.422245+00:00\",\"avatar_state\":{\"alerts\":[],\"vitals\":[],\"gesture\":\"attentive\",\"complications\":[]},\"evaluation\":null},\"intent\":\"ask_patient\",\"agent\":\"paciente\",\"response\":\"Prefiero que hablemos de mi salud, doctor. ¿Seguimos con la consulta?\",\"synthetic_generated_ids\":[],\"synthetic_reused_ids\":[],\"data_source\":\"fuera_de_alcance\",\"doctor_question\":\"¿Tiene alergias a algún medicamento?\",\"provider\":\"groq-2\",\"model\":\"openai/gpt-oss-20b\",\"evidence_ids\":[],\"blocked\":true,\"safety_alerts\":[]}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "listar eventos de SN1",
+      "identidad": "Anónimo 1 + credencial de capacidad",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/bd98d5f9-045a-474e-813c-696bb46088ee/events",
+      "cabeceras": {
+        "x-session-token": "irhNy3…V_i8"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "[{\"type\":\"session_started\",\"phase\":\"presentacion\",\"case_id\":\"CIR-005\",\"evidence_ids\":[\"CIR-005.motivo.queja_principal\",\"CIR-005.anamnesis.evolucion_quirurgica\"]},{\"type\":\"turn\",\"agent\":\"paciente\",\"model\":\"openai/gpt-oss-20b\",\"phase\":\"anamnesis\",\"intent\":\"ask_patient\",\"blocked\":true,\"case_id\":\"CIR-005\",\"provider\":\"groq-2\",\"data_source\":\"fuera_de_alcance\",\"block_reason\":\"fuera_de_alcance\",\"evidence_ids\":[],\"input_tokens\":1195,\"route_reason\":\"pregunta clínica dirigida al paciente por defecto\",\"fallback_used\":false,\"output_tokens\":387,\"response_text\":\"Prefiero que hablemos de mi salud, doctor. ¿Seguimos con la consulta?\",\"safety_alerts\":[],\"doctor_question\":\"¿Tiene alergias a algún medicamento?\",\"student_message\":\"¿Tiene alergias a algún medicamento?\",\"route_confidence\":0.75,\"grounding_retry_used\":false,\"synthetic_reused_ids\":[],\"grounding_fallback_used\":false,\"synthetic_generated_ids\":[],\"synthetic_rejection_reason\":null}]",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "cerrar sesión de SN1",
+      "identidad": "Anónimo 1 + credencial de capacidad",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/bd98d5f9-045a-474e-813c-696bb46088ee/finish",
+      "cabeceras": {
+        "x-session-token": "irhNy3…V_i8",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "diagnosis": "Diagnóstico del invitado",
+        "hypotheses": []
+      },
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"phase\":\"finalizada\",\"active_agent\":\"orchestrator\",\"case_id\":\"CIR-005\",\"session_id\":\"bd98d5f9-045a-474e-813c-696bb46088ee\",\"revealed_evidence_ids\":[\"CIR-005.motivo.queja_principal\",\"CIR-005.anamnesis.evolucion_quirurgica\"],\"updated_at\":\"2026-10-28T06:00:50.438027+00:00\",\"finished_at\":\"2026-10-28T06:00:50.438046+00:00\",\"started_at\":\"2026-10-28T05:59:51.422245+00:00\",\"avatar_state\":{\"alerts\":[],\"vitals\":[],\"gesture\":\"idle\",\"complications\":[]},\"evaluation\":{\"score\":0.0,\"earned_weight\":0,\"total_weight\":17,\"completed_questions\":0,\"total_questions\":4,\"errors\":{\"negligencia\":0,\"anamnesis_incompleta\":1,\"razonamiento_clinico\":3}},\"attempt\":{\"saved\":false,\"reason\":\"desactivado\"}}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "SN1 queda finalizada",
+      "identidad": "Anónimo 1 + credencial de capacidad",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/bd98d5f9-045a-474e-813c-696bb46088ee",
+      "cabeceras": {
+        "x-session-token": "irhNy3…V_i8"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"phase\":\"finalizada\",\"active_agent\":\"orchestrator\",\"case_id\":\"CIR-005\",\"session_id\":\"bd98d5f9-045a-474e-813c-696bb46088ee\",\"revealed_evidence_ids\":[\"CIR-005.motivo.queja_principal\",\"CIR-005.anamnesis.evolucion_quirurgica\"],\"updated_at\":\"2026-10-28T06:00:50.438027+00:00\",\"finished_at\":\"2026-10-28T06:00:50.438046+00:00\",\"started_at\":\"2026-10-28T05:59:51.422245+00:00\",\"avatar_state\":{\"alerts\":[],\"vitals\":[],\"gesture\":\"idle\",\"complications\":[]},\"evaluation\":{\"score\":0.0,\"errors\":{\"negligencia\":0,\"anamnesis_incompleta\":1,\"razonamiento_clinico\":3},\"total_weight\":17,\"earned_weight\":0,\"total_questions\":4,\"completed_questions\":0}}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "fase finalizada",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

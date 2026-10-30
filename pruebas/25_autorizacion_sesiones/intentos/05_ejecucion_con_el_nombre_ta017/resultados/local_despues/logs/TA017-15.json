@@ -1,0 +1,122 @@
+{
+  "id": "TA017-15",
+  "nombre": "anonimo2_sobre_SN1",
+  "titulo": "Anónimo 2 con su credencial sobre SN1",
+  "criterio": "CA3, CA2",
+  "resultado_esperado": "404 en las 4 operaciones, sin datos de SN1",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_despues",
+  "commit": "c752abe",
+  "fecha": "2026-10-27 03:22:50 UTC",
+  "pasos": [
+    {
+      "descripcion": "leer sesión de SN1",
+      "identidad": "Anónimo 2 + credencial de capacidad",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/761c324e-f3b4-4bbd-add9-e1ac7f5b2e5f",
+      "cabeceras": {
+        "x-session-token": "jsjZay…tkMg"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "enviar mensaje de SN1",
+      "identidad": "Anónimo 2 + credencial de capacidad",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/761c324e-f3b4-4bbd-add9-e1ac7f5b2e5f/message",
+      "cabeceras": {
+        "x-session-token": "jsjZay…tkMg",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "listar eventos de SN1",
+      "identidad": "Anónimo 2 + credencial de capacidad",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/761c324e-f3b4-4bbd-add9-e1ac7f5b2e5f/events",
+      "cabeceras": {
+        "x-session-token": "jsjZay…tkMg"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "cerrar sesión de SN1",
+      "identidad": "Anónimo 2 + credencial de capacidad",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/761c324e-f3b4-4bbd-add9-e1ac7f5b2e5f/finish",
+      "cabeceras": {
+        "x-session-token": "jsjZay…tkMg",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "diagnosis": "intento ajeno",
+        "hypotheses": []
+      },
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "sin el id de SN1 en la respuesta",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin el id de SN1 en la respuesta",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin el id de SN1 en la respuesta",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin el id de SN1 en la respuesta",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

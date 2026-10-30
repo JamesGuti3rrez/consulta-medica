@@ -1,0 +1,225 @@
+{
+  "id": "TA011-40",
+  "nombre": "stream_no_existe",
+  "titulo": "Stream SSE/websocket (no aplica)",
+  "criterio": "CA1",
+  "resultado_esperado": "No hay stream de eventos: 404/405 al intentar conectar, con o sin credencial",
+  "resultado": "PASA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_antes",
+  "commit": "5f9435d",
+  "fecha": "2026-10-28 05:58:49 UTC",
+  "pasos": [
+    {
+      "descripcion": "conectar a SA/stream",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee/stream",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…1bBw"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"error\":\"Ruta de API no encontrada\"}",
+      "codigo_esperado": [
+        401,
+        404,
+        405
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "conectar a SA/events/stream",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee/events/stream",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…1bBw"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"error\":\"Ruta de API no encontrada\"}",
+      "codigo_esperado": [
+        401,
+        404,
+        405
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "conectar a SA/ws",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee/ws",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…1bBw"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"error\":\"Ruta de API no encontrada\"}",
+      "codigo_esperado": [
+        401,
+        404,
+        405
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "handshake websocket",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee/ws",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…1bBw"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 403,
+      "cabeceras_respuesta": {
+        "content-type": "text/plain; charset=utf-8"
+      },
+      "cuerpo_recibido": "",
+      "codigo_esperado": [
+        400,
+        401,
+        403,
+        404,
+        405
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "conectar a SA/stream",
+      "identidad": "Sin credencial",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee/stream",
+      "cabeceras": {},
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"error\":\"Ruta de API no encontrada\"}",
+      "codigo_esperado": [
+        401,
+        404,
+        405
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "conectar a SA/events/stream",
+      "identidad": "Sin credencial",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee/events/stream",
+      "cabeceras": {},
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"error\":\"Ruta de API no encontrada\"}",
+      "codigo_esperado": [
+        401,
+        404,
+        405
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "conectar a SA/ws",
+      "identidad": "Sin credencial",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee/ws",
+      "cabeceras": {},
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"error\":\"Ruta de API no encontrada\"}",
+      "codigo_esperado": [
+        401,
+        404,
+        405
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "handshake websocket",
+      "identidad": "Sin credencial",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/23e685e5-3437-4fcf-92f4-7bb2b6e1e1ee/ws",
+      "cabeceras": {},
+      "cuerpo_enviado": null,
+      "codigo_recibido": 403,
+      "cabeceras_respuesta": {
+        "content-type": "text/plain; charset=utf-8"
+      },
+      "cuerpo_recibido": "",
+      "codigo_esperado": [
+        400,
+        401,
+        403,
+        404,
+        405
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "/stream: sin datos de SA",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "/events/stream: sin datos de SA",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "/ws: sin datos de SA",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "no acepta el websocket (101)",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "/stream: sin datos de SA",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "/events/stream: sin datos de SA",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "/ws: sin datos de SA",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "no acepta el websocket (101)",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [
+    "La API no ofrece SSE ni websocket (ver TA011-09): los eventos solo se leen con GET /events."
+  ],
+  "error": ""
+}

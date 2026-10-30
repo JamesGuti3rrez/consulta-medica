@@ -1,0 +1,7 @@
+{
+  "id": "TA-007",
+  "prueba": "test_diagnosis_and_synonyms_blocked_in_response_and_events[Es un epitelioma basocelular.]",
+  "resultado": "PASA",
+  "duracion_s": 0.0435,
+  "entorno": "HTTP local y proveedores controlados"
+}

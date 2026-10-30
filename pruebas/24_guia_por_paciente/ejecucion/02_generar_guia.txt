@@ -1,0 +1,26 @@
+DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica
+COMANDO: backend\.venv\Scripts\python.exe pruebas\24_guia_por_paciente\generar_guia.py pruebas\24_guia_por_paciente\resultados\resultados_guiones_groq.json
+FECHA: 2026-10-14 15:15:44 UTC
+CODIGO_SALIDA: 0
+
+STDOUT:
+13 casos; 124 de 124 pedidos correctos en la verificación con el modelo real
+casos que terminan con un solo diagnóstico: 13 de 13
+  EME-001: 5 pasos -> queda ['Golpe de calor por esfuerzo']
+  EME-002: 3 pasos -> queda ['Hemorragia subaracnoidea']
+  GOB-003: 6 pasos -> queda ['Infarto hipofisario posparto (síndrome de Sheehan)']
+  GOB-004: 6 pasos -> queda ['Tricomoniasis vulvovaginal']
+  CIR-005: 3 pasos -> queda ['Hemofilia A']
+  CIR-006: 5 pasos -> queda ['Sepsis posoperatoria']
+  MED-007: 7 pasos -> queda ['Enfermedad de Lyme con eritema migrans']
+  MED-008: 3 pasos -> queda ['Carcinoma basocelular']
+  PED-009: 4 pasos -> queda ['Enfermedad de Legg-Calvé-Perthes']
+  PED-010: 4 pasos -> queda ['Síndrome de McCune-Albright']
+  EME-101: 14 pasos -> queda ['Infarto agudo de miocardio con elevación del ST']
+  EME-102: 14 pasos -> queda ['Tromboembolia pulmonar aguda']
+  EME-103: 14 pasos -> queda ['Disección aórtica aguda tipo A']
+Contenido guardado en pruebas\24_guia_por_paciente\resultados\guia.json
+
+
+STDERR:
+

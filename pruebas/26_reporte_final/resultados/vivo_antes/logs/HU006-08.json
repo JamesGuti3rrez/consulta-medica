@@ -1,0 +1,106 @@
+{
+  "id": "HU006-08",
+  "nombre": "reporte_estable",
+  "titulo": "El reporte del cierre es el mismo y no cambia",
+  "criterio": "CA1, CA3",
+  "resultado_esperado": "finish.report igual a GET /report en tres lecturas",
+  "resultado": "FALLA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_antes",
+  "commit": "0a55582",
+  "fecha": "2026-10-28 07:47:28 UTC",
+  "pasos": [
+    {
+      "descripcion": "respuesta del cierre de SA (con el reporte)",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/aae77d6c-6d00-461f-acbf-4c39b7e2324f/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…3bbA",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"session_id\":\"aae77d6c-6d00-461f-acbf-4c39b7e2324f\",\"revealed_evidence_ids\":[\"EME-001.motivo.queja_principal\",\"EME-001.vital.signos_vitales\"],\"case_id\":\"EME-001\",\"finished_at\":\"2026-10-28T07:47:21.218520+00:00\",\"phase\":\"finalizada\",\"updated_at\":\"2026-10-28T07:47:21.218508+00:00\",\"started_at\":\"2026-10-28T07:46:59.729980+00:00\",\"active_agent\":\"orchestrator\",\"avatar_state\":{\"alerts\":[],\"vitals\":[{\"text\":\"Temperatura 41,1 °C, presión arterial 109/62 mmHg, pulso 170/min, frecuencia respiratoria 23/min y saturación de oxígeno 95 % al aire ambiente.\",\"label\":\"Signos vitales\",\"evidence_id\":\"EME-001.vital.signos_vitales\"}],\"gesture\":\"idle\",\"complications\":[]},\"evaluation\":{\"score\":0.0,\"earned_weight\":0,\"total_weight\":16,\"completed_questions\":0,\"total_questions\":4,\"errors\":{\"negligencia\":0,\"anamnesis_incompleta\":2,\"razonamiento_clinico\":2}},\"attempt\":{\"saved\":false,\"reason\":\"desactivado\"}}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "lectura 1 del reporte",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/aae77d6c-6d00-461f-acbf-4c39b7e2324f/report",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…3bbA"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"error\":\"Ruta de API no encontrada\"}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "lectura 2 del reporte",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/aae77d6c-6d00-461f-acbf-4c39b7e2324f/report",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…3bbA"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"error\":\"Ruta de API no encontrada\"}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "lectura 3 del reporte",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/aae77d6c-6d00-461f-acbf-4c39b7e2324f/report",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…3bbA"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"error\":\"Ruta de API no encontrada\"}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "FALLA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "finish.report == GET /report",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "tres lecturas idénticas",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": "E   AssertionError: HU006-08: paso 2 (GET http://127.0.0.1:3100/api/ai/sessions/aae77d6c-6d00-461f-acbf-4c39b7e2324f/report): 404 no está en [200] | paso 3 (GET http://127.0.0.1:3100/api/ai/sessions/aae77d6c-6d00-461f-acbf-4c39b7e2324f/report): 404 no está en [200] | paso 4 (GET http://127.0.0.1:3100/api/ai/sessions/aae77d6c-6d00-461f-acbf-4c39b7e2324f/report): 404 no está en [200] | comprobación: finish.report == GET /report"
+}

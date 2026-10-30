@@ -1,0 +1,18 @@
+DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica\backend
+COMANDO: set SESSION_STORE=memoria&& set CASE_STORE=local&& set RAG_BACKEND=local&& set SYNTHETIC_CASE_DATA=false&& set LANGSMITH_TRACING=false&& .venv\Scripts\python.exe -m pytest -q -p no:cacheprovider
+FECHA: 2026-10-28 06:35:26 UTC
+CODIGO_SALIDA: 0
+
+STDOUT:
+........................................................................ [ 15%]
+........................................................................ [ 31%]
+........................................................................ [ 46%]
+........................................................................ [ 62%]
+........................................................................ [ 78%]
+........................................................................ [ 93%]
+.............................                                            [100%]
+461 passed, 3 deselected in 19.92s
+
+
+STDERR:
+

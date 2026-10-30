@@ -81,6 +81,7 @@ def build_attempt(*, user_id: str, session: dict[str, Any], specialty: str,
             "total_questions": evaluation["total_questions"],
             "errors": evaluation["errors"],
             "safety_alerts": [alert["code"] for alert in session.get("avatar_state", {}).get("alerts", [])],
+            **({"diagnosis_evaluation": session["diagnosis_evaluation"]} if session.get("diagnosis_evaluation") else {}),
         },
         "duracion_segundos": max(0, int((finished - started).total_seconds())),
     }

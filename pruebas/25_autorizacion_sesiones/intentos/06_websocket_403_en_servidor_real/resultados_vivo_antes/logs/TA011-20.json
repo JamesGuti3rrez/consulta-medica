@@ -1,0 +1,141 @@
+{
+  "id": "TA011-20",
+  "nombre": "credencial_otra_sesion",
+  "titulo": "Credencial de SN1 usada en otra sesión",
+  "criterio": "CA3",
+  "resultado_esperado": "404 en SN2; crear sesión con ella da una sesión nueva con credencial propia",
+  "resultado": "FALLA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_antes",
+  "commit": "0b9b949",
+  "fecha": "2026-10-28 05:52:09 UTC",
+  "pasos": [
+    {
+      "descripcion": "leer sesión de SN2",
+      "identidad": "Anónimo 1",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/af152040-cc30-4aea-9d63-15c6d7b98cde",
+      "cabeceras": {},
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"finished_at\":null,\"active_agent\":\"medico_asistente\",\"started_at\":\"2026-10-28T05:50:46.658921+00:00\",\"phase\":\"presentacion\",\"revealed_evidence_ids\":[\"CIR-005.motivo.queja_principal\",\"CIR-005.anamnesis.evolucion_quirurgica\"],\"session_id\":\"af152040-cc30-4aea-9d63-15c6d7b98cde\",\"updated_at\":\"2026-10-28T05:50:46.658944+00:00\",\"case_id\":\"CIR-005\",\"avatar_state\":{\"alerts\":[],\"vitals\":[],\"gesture\":\"idle\",\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "enviar mensaje de SN2",
+      "identidad": "Anónimo 1",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/af152040-cc30-4aea-9d63-15c6d7b98cde/message",
+      "cabeceras": {
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "message": "¿Tiene alergias a algún medicamento?"
+      },
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"session\":{\"finished_at\":null,\"active_agent\":\"paciente\",\"started_at\":\"2026-10-28T05:50:46.658921+00:00\",\"phase\":\"anamnesis\",\"revealed_evidence_ids\":[\"CIR-005.motivo.queja_principal\",\"CIR-005.anamnesis.evolucion_quirurgica\"],\"session_id\":\"af152040-cc30-4aea-9d63-15c6d7b98cde\",\"updated_at\":\"2026-10-28T05:51:56.861359+00:00\",\"case_id\":\"CIR-005\",\"avatar_state\":{\"alerts\":[],\"vitals\":[],\"gesture\":\"attentive\",\"complications\":[]},\"evaluation\":null},\"intent\":\"ask_patient\",\"agent\":\"paciente\",\"response\":\"Prefiero que hablemos de mi salud, doctor. ¿Seguimos con la consulta?\",\"synthetic_generated_ids\":[],\"synthetic_reused_ids\":[],\"data_source\":\"fuera_de_alcance\",\"doctor_question\":\"¿Tiene alergias a algún medicamento?\",\"provider\":\"groq-2\",\"model\":\"openai/gpt-oss-20b\",\"evidence_ids\":[],\"blocked\":true,\"safety_alerts\":[]}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "listar eventos de SN2",
+      "identidad": "Anónimo 1",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/af152040-cc30-4aea-9d63-15c6d7b98cde/events",
+      "cabeceras": {},
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "[{\"type\":\"session_started\",\"phase\":\"presentacion\",\"case_id\":\"CIR-005\",\"evidence_ids\":[\"CIR-005.motivo.queja_principal\",\"CIR-005.anamnesis.evolucion_quirurgica\"]},{\"type\":\"turn\",\"agent\":\"paciente\",\"model\":\"openai/gpt-oss-20b\",\"phase\":\"anamnesis\",\"intent\":\"ask_patient\",\"blocked\":true,\"case_id\":\"CIR-005\",\"provider\":\"groq-2\",\"data_source\":\"fuera_de_alcance\",\"block_reason\":\"fuera_de_alcance\",\"evidence_ids\":[],\"input_tokens\":1195,\"route_reason\":\"pregunta clínica dirigida al paciente por defecto\",\"fallback_used\":false,\"output_tokens\":387,\"response_text\":\"Prefiero que hablemos de mi salud, doctor. ¿Seguimos con la consulta?\",\"safety_alerts\":[],\"doctor_question\":\"¿Tiene alergias a algún medicamento?\",\"student_message\":\"¿Tiene alergias a algún medicamento?\",\"route_confidence\":0.75,\"grounding_retry_used\":false,\"synthetic_reused_ids\":[],\"grounding_fallback_used\":false,\"synthetic_generated_ids\":[],\"synthetic_rejection_reason\":null}]",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "cerrar sesión de SN2",
+      "identidad": "Anónimo 1",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/af152040-cc30-4aea-9d63-15c6d7b98cde/finish",
+      "cabeceras": {
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "diagnosis": "intento ajeno",
+        "hypotheses": []
+      },
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"finished_at\":\"2026-10-28T05:52:05.016812+00:00\",\"active_agent\":\"orchestrator\",\"started_at\":\"2026-10-28T05:50:46.658921+00:00\",\"phase\":\"finalizada\",\"revealed_evidence_ids\":[\"CIR-005.motivo.queja_principal\",\"CIR-005.anamnesis.evolucion_quirurgica\"],\"session_id\":\"af152040-cc30-4aea-9d63-15c6d7b98cde\",\"updated_at\":\"2026-10-28T05:52:05.016793+00:00\",\"case_id\":\"CIR-005\",\"avatar_state\":{\"alerts\":[],\"vitals\":[],\"gesture\":\"idle\",\"complications\":[]},\"evaluation\":{\"score\":0.0,\"earned_weight\":0,\"total_weight\":17,\"completed_questions\":0,\"total_questions\":4,\"errors\":{\"negligencia\":0,\"anamnesis_incompleta\":1,\"razonamiento_clinico\":3}},\"attempt\":{\"saved\":false,\"reason\":\"desactivado\"}}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "FALLA"
+    },
+    {
+      "descripcion": "crear sesión presentando la credencial de SN1",
+      "identidad": "Anónimo 1 + credencial de SN1",
+      "metodo": "POST",
+      "url": "http://127.0.0.1:3100/api/ai/sessions",
+      "cabeceras": {
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": {
+        "case_id": "CIR-005"
+      },
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"finished_at\":null,\"active_agent\":\"medico_asistente\",\"started_at\":\"2026-10-28T05:52:07.707775+00:00\",\"phase\":\"presentacion\",\"revealed_evidence_ids\":[\"CIR-005.motivo.queja_principal\",\"CIR-005.anamnesis.evolucion_quirurgica\"],\"session_id\":\"229e2b3a-eaf6-4ba4-8228-be41e132237b\",\"updated_at\":\"2026-10-28T05:52:07.707797+00:00\",\"case_id\":\"CIR-005\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[],\"alerts\":[],\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "leer la sesión nueva con la credencial de SN1",
+      "identidad": "Anónimo 1 + credencial de SN1",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/229e2b3a-eaf6-4ba4-8228-be41e132237b",
+      "cabeceras": {
+        "x-session-token": ""
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"finished_at\":null,\"active_agent\":\"medico_asistente\",\"started_at\":\"2026-10-28T05:52:07.707775+00:00\",\"phase\":\"presentacion\",\"revealed_evidence_ids\":[\"CIR-005.motivo.queja_principal\",\"CIR-005.anamnesis.evolucion_quirurgica\"],\"session_id\":\"229e2b3a-eaf6-4ba4-8228-be41e132237b\",\"updated_at\":\"2026-10-28T05:52:07.707797+00:00\",\"case_id\":\"CIR-005\",\"avatar_state\":{\"alerts\":[],\"vitals\":[],\"gesture\":\"idle\",\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "FALLA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "la sesión nueva tiene credencial propia",
+      "resultado": "FALLA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": "E   AssertionError: TA011-20: paso 1 (GET http://127.0.0.1:3100/api/ai/sessions/af152040-cc30-4aea-9d63-15c6d7b98cde): 200 no está en [404] | paso 2 (POST http://127.0.0.1:3100/api/ai/sessions/af152040-cc30-4aea-9d63-15c6d7b98cde/message): 200 no está en [404] | paso 3 (GET http://127.0.0.1:3100/api/ai/sessions/af152040-cc30-4aea-9d63-15c6d7b98cde/events): 200 no está en [404] | paso 4 (POST http://127.0.0.1:3100/api/ai/sessions/af152040-cc30-4aea-9d63-15c6d7b98cde/finish): 200 no está en [404] | paso 6 (GET http://127.0.0.1:3100/api/ai/sessions/229e2b3a-eaf6-4ba4-8228-be41e132237b): 200 no está en [404] | comprobación: la sesión nueva tiene credencial propia"
+}

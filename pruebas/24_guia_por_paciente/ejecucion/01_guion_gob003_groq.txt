@@ -1,0 +1,39 @@
+DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica\backend
+COMANDO: .venv\Scripts\python.exe ..\pruebas\13_guiones_por_paciente\bateria_guiones.py GOB-003
+FECHA: 2026-10-14 15:15:43 UTC
+CODIGO_SALIDA: 0
+
+STDOUT:
+LLM: groq-pool (openai/gpt-oss-20b) · recuperación: deterministic-case-fallback
+
+GOB-003 · Lucía Paredes
+  [OK] (preguntar) ¿Cómo fue el parto? -> paciente
+        médico tratante: ¿Cómo fue el parto?
+        respuesta: El parto fue a término. El recién nacido obtuvo un Apgar de 9 al minuto y de 10 a los 5 minutos. Media hora después del parto me administraron líquidos y sangre por la vena.
+  [OK] (preguntar) Voy a tomar los signos vitales -> medico_asistente
+        respuesta: A los 30 minutos del parto: presión arterial de 80/60 mmHg y pulso de 124/min. Tras 4 unidades de líquidos intravenosos y 4 unidades de sangre total, los signos vitales se estabilizaron.
+  [OK] (preguntar) Voy a realizar la exploración física -> medico_asistente
+        respuesta: Exploración registrada a los 30 minutos del parto: extremidades distales frías y húmedas; útero blando (atónico).
+  [OK] (preguntar) ¿Cómo está de ánimo? ¿Se ha sentido triste? -> paciente
+        médico tratante: ¿Cómo está de ánimo? ¿Se ha sentido triste?
+        respuesta: Me siento con ánimo para cuidar al bebé y quiero amamantar. No me siento triste, ni lloro ni ansío.
+  [OK] (preguntar) ¿Qué antecedentes tenía antes del embarazo? ¿Reglas irregulares, dolores de cabeza o problemas de la vista? -> paciente
+        médico tratante: ¿Qué antecedentes tenía antes del embarazo, como reglas irregulares, dolores de cabeza o problemas de la vista?
+        respuesta: Antes del embarazo tenía reglas regulares, nunca tuve cefalea persistente ni problemas de la vista.
+  [OK] (preguntar) Solicito una prolactina sérica -> laboratorio
+        respuesta: Prolactina baja para el puerperio.
+  [OK] (no preguntar) ¿Tiene fiebre? -> paciente
+        médico tratante: ¿Tiene fiebre?
+        respuesta: No.
+  [OK] (no preguntar) Solicito hormonas tiroideas -> laboratorio
+        respuesta: Ese examen no se realizó en este paciente.
+
+RESUMEN
+  GOB-003: 8 de 8 pedidos correctos
+  total: 8 de 8
+
+RESULTADO: todos los guiones funcionan
+
+
+STDERR:
+

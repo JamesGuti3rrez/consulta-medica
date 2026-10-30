@@ -1,0 +1,20 @@
+{
+  "criterio": "incorrecto",
+  "entrada": "Meningitis",
+  "http_status": 200,
+  "phase": "finalizada",
+  "resultado": {
+    "status": "incorrect",
+    "score": 0,
+    "max_score": 100,
+    "reason_code": "no_match",
+    "reason": "No coincide exactamente con el diagnóstico de referencia ni con los sinónimos admitidos por este caso.",
+    "normalized_input": "meningitis",
+    "matched_term": null,
+    "requires_review": false,
+    "version": "1.0.0"
+  },
+  "persistido_en_sesion": true,
+  "persistido_en_intentos": true,
+  "reporte_coincidente": true
+}

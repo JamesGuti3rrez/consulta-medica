@@ -1,0 +1,63 @@
+{
+  "id": "HU006-03",
+  "nombre": "consulta_abierta_409",
+  "titulo": "Consulta abierta: el reporte no existe",
+  "criterio": "CA1",
+  "resultado_esperado": "409 sin diagnóstico de referencia ni preguntas clave",
+  "resultado": "PASA",
+  "modo": "vivo",
+  "servidor": "http://127.0.0.1:3100",
+  "fase": "vivo_despues",
+  "commit": "0a55582",
+  "fecha": "2026-10-28 07:51:57 UTC",
+  "pasos": [
+    {
+      "descripcion": "reporte de una consulta abierta de A",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://127.0.0.1:3100/api/ai/sessions/c9478d07-86b8-40fc-9ffb-44430a7cdd1e/report",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…XhsQ"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 409,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"El reporte estará disponible al terminar la consulta.\"}",
+      "codigo_esperado": [
+        409
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "mensaje exacto",
+      "resultado": "PASA",
+      "detalle": "{\"detail\":\"El reporte estará disponible al terminar la consulta.\"}"
+    },
+    {
+      "descripcion": "sin «Golpe de calor por esfuerzo»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «key_questions»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «treatment»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «reference»",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

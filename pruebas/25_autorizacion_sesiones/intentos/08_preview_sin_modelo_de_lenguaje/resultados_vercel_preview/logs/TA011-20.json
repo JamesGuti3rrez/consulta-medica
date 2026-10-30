@@ -1,0 +1,17 @@
+{
+  "id": "TA011-20",
+  "nombre": "credencial_otra_sesion",
+  "titulo": "Credencial de SN1 usada en otra sesión",
+  "criterio": "CA3",
+  "resultado_esperado": "404 en SN2; crear sesión con ella da una sesión nueva con credencial propia",
+  "resultado": "FALLA",
+  "modo": "vivo",
+  "servidor": "https://consulta-medica-1mjw4o7qz-james-gutierrezs-projects-49804000.vercel.app",
+  "fase": "vercel_preview",
+  "commit": "c00ee96",
+  "fecha": "2026-10-28 06:08:46 UTC",
+  "pasos": [],
+  "comprobaciones": [],
+  "notas": [],
+  "error": "Falló la preparación: E   AssertionError: {\"detail\":\"El simulador no puede responder en este momento. Inténtalo de nuevo en unos minutos.\"}\n    assert 503 == 200\n     +  where 503 = <Response [503 Service Unavailable]>.status_code"
+}

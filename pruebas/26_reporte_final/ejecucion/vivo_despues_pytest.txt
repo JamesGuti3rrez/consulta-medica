@@ -1,0 +1,35 @@
+﻿FASE: vivo_despues
+MODO: vivo
+SERVIDOR: http://127.0.0.1:3100
+DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica\backend
+COMANDO: .venv\Scripts\python.exe -m pytest tests/security/test_hu006_report.py -v --tb=no -rN -p no:cacheprovider
+COMMIT: 0a55582
+FECHA: 2026-10-28 07:51:17 UTC
+CODIGO_SALIDA: 0
+
+============================= test session starts =============================
+platform win32 -- Python 3.14.4, pytest-8.3.4, pluggy-1.6.0 -- C:\Users\Usuario\Documents\consulta-medica\backend\.venv\Scripts\python.exe
+rootdir: C:\Users\Usuario\Documents\consulta-medica\backend
+configfile: pyproject.toml
+plugins: anyio-4.15.1, langsmith-0.14.7
+collecting ... collected 17 items
+
+tests/security/test_hu006_report.py::test_01_a_obtiene_reporte PASSED    [  5%]
+tests/security/test_hu006_report.py::test_02_invitado_obtiene_reporte PASSED [ 11%]
+tests/security/test_hu006_report.py::test_03_consulta_abierta PASSED     [ 17%]
+tests/security/test_hu006_report.py::test_04_b_sobre_reporte PASSED      [ 23%]
+tests/security/test_hu006_report.py::test_05_invitado2_sobre_sn1 PASSED  [ 29%]
+tests/security/test_hu006_report.py::test_06_sin_credencial PASSED       [ 35%]
+tests/security/test_hu006_report.py::test_07_ajeno_igual_inexistente PASSED [ 41%]
+tests/security/test_hu006_report.py::test_08_reporte_estable PASSED      [ 47%]
+tests/security/test_hu006_report.py::test_09_propuesta PASSED            [ 52%]
+tests/security/test_hu006_report.py::test_10_puntaje PASSED              [ 58%]
+tests/security/test_hu006_report.py::test_11_por_que PASSED              [ 64%]
+tests/security/test_hu006_report.py::test_12_examenes PASSED             [ 70%]
+tests/security/test_hu006_report.py::test_13_tratamiento PASSED          [ 76%]
+tests/security/test_hu006_report.py::test_14_evidencia PASSED            [ 82%]
+tests/security/test_hu006_report.py::test_15_sin_fuentes_ajenas PASSED   [ 88%]
+tests/security/test_hu006_report.py::test_16_errores PASSED              [ 94%]
+tests/security/test_hu006_report.py::test_17_log PASSED                  [100%]
+
+======================== 17 passed in 76.27s (0:01:16) ========================
