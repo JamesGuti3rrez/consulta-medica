@@ -1,0 +1,14 @@
+{
+  "tarea": "HU-014",
+  "documento": "Entregables\\Sprint2\\HU-014_Panel_Doctor_Grupos_y_Desempeno.docx",
+  "regresion": 704,
+  "pruebas_api": 16,
+  "pruebas_sql": 14,
+  "navegador": 9,
+  "supabase_real": 20,
+  "carga_grupos": 8,
+  "limpieza_confirmada": true,
+  "capturas_word": 12,
+  "zip_xml_validos": true,
+  "credenciales_incluidas": false
+}

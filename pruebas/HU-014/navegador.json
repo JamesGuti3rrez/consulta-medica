@@ -1,0 +1,45 @@
+{
+  "resultado": "PASA",
+  "api_real": true,
+  "sql_real_local": "PostgreSQL PGlite con migraciones 0005 y 0006",
+  "auth": "Identidades de fixture",
+  "voz": "Dispositivos simulados",
+  "pruebas": [
+    {
+      "prueba": "Panel Doctor: creación y selección de grupo",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Tres cuentas registradas incorporadas al grupo",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Caso asignado; comparación inicial sin notas ni diagnósticos",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Alumno resuelve caso; diagnóstico y proceso calculados por el backend",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Recarga recupera la entrega finalizada sin abrir otra sesión",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Comparativa de la misma actividad: correcto, incorrecto y revisión; acierto 50% sobre dos evaluadas",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Otro doctor recibe 404 sin resultados del grupo",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Grupo y resultados persisten al recargar el panel",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Sin errores JavaScript en los recorridos",
+      "resultado": "PASA"
+    }
+  ]
+}

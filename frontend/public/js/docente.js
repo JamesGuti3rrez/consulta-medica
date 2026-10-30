@@ -393,29 +393,33 @@
     try {
       const profile = await window.auth.profile();
       if (!profile.panel_docente) {
-        $('access-title').textContent = 'Acceso para docentes';
+        $('access-title').textContent = 'Acceso al Panel Doctor';
         $('access-message').textContent = 'Tu cuenta tiene rol de alumno. Solicita a la administración que te asigne acceso docente.';
         return;
       }
       $('account-name').textContent = profile.email;
       $('account-avatar').textContent = profile.email.slice(0, 2).toLocaleUpperCase('es');
-      $('account-role').textContent = profile.rol === 'administrativo' ? 'Administración' : 'Profesor';
+      $('account-role').textContent = profile.rol === 'administrativo' ? 'Administración' : 'Doctor';
       $('logout').hidden = false;
       $('access').hidden = true; $('workspace').hidden = false;
-      await loadCatalog();
+      // Conserva la verificación si el módulo de grupos se carga después del evento.
+      window.doctorProfile = profile;
+      document.dispatchEvent(new CustomEvent('doctor:ready', { detail: profile }));
       const client = await window.auth.ready;
       client?.auth.onAuthStateChange((event, session) => {
-        if (event === 'SIGNED_OUT' || !session) {
+        if (event === 'SIGNED_OUT' || !session || session.user?.id !== profile.id) {
           catalog = []; selected = null; preview = null;
+          window.doctorProfile = null;
           $('case-list').replaceChildren(); $('case-summary').replaceChildren();
           $('case-dialog').close(); $('workspace').hidden = true;
           window.location.assign('index.html?cuenta=login');
         }
       });
+      await loadCatalog();
     } catch (error) {
       if (!$('workspace').hidden) notice('notice', error.message, true);
       else {
-        $('access-title').textContent = 'Entra a tu espacio docente';
+        $('access-title').textContent = 'Entra al Panel Doctor';
         $('access-message').textContent = error.message;
         $('login-link').hidden = false;
       }

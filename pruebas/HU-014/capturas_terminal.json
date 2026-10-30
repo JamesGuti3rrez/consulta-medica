@@ -1,0 +1,32 @@
+[
+  {
+    "registro": "pruebas\\HU-014\\regresion.txt",
+    "captura": "pruebas\\HU-014\\capturas\\terminal-regresion.png",
+    "sha256": "463551cdeee0ac17ded25556b668f0e8a1c0c0882799b703a3d879736714f6f1",
+    "origen": "Ventana nativa propia de PowerShell con registro original"
+  },
+  {
+    "registro": "pruebas\\HU-014\\sql.txt",
+    "captura": "pruebas\\HU-014\\capturas\\terminal-sql.png",
+    "sha256": "a38775bedeea01ad5a4aa4d2336e535edd4cdfc2b8d8421a606fe3424c14def2",
+    "origen": "Ventana nativa propia de PowerShell con registro original"
+  },
+  {
+    "registro": "pruebas\\HU-014\\supabase_real.txt",
+    "captura": "pruebas\\HU-014\\capturas\\terminal-supabase_real.png",
+    "sha256": "46aeb3adf75c10f99326d123289c803bf3a9a53d4537a16db718c636e7841f3a",
+    "origen": "Ventana nativa propia de PowerShell con registro original"
+  },
+  {
+    "registro": "pruebas\\HU-014\\navegador.txt",
+    "captura": "pruebas\\HU-014\\capturas\\terminal-navegador.png",
+    "sha256": "72c9de3218f9a93f0e7effa5b0aa35227c02006d5c82e7663d95e95f2df182b2",
+    "origen": "Ventana nativa propia de PowerShell con registro original"
+  },
+  {
+    "registro": "pruebas\\HU-014\\carga_grupos.txt",
+    "captura": "pruebas\\HU-014\\capturas\\terminal-carga_grupos.png",
+    "sha256": "dcfbf311d64b74ce3743345af8047b435ceb1c617c4660257caecf523ae54ce3",
+    "origen": "Ventana nativa propia de PowerShell con registro original"
+  }
+]

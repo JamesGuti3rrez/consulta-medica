@@ -10,6 +10,8 @@ from fastapi.responses import JSONResponse
 from .api.ai import router as ai_router
 from .api.routes import router as api_router
 from .api.teaching import router as teaching_router
+from .api.groups import router as groups_router
+from .persistence.groups import GroupStoreError
 from .rag.router import router as rag_router
 from .cases.supabase import CaseStoreError
 from .persistence.teaching import TeachingStoreError
@@ -31,6 +33,11 @@ app = FastAPI(
     openapi_url="/api/openapi.json",
     redoc_url=None,
 )
+
+
+@app.exception_handler(GroupStoreError)
+async def group_store_unavailable(request: Request, exc: GroupStoreError):
+    return JSONResponse(status_code=503, content={'detail': str(exc)})
 
 
 @app.exception_handler(TeachingStoreError)
@@ -63,6 +70,7 @@ async def security_headers(request: Request, call_next):
 app.include_router(ai_router)
 app.include_router(rag_router)
 app.include_router(teaching_router)
+app.include_router(groups_router)
 app.include_router(api_router)
 
 # Todo lo demás son los archivos del frontend. En Vercel los sirve su CDN desde public/ (lo copia el

@@ -42,6 +42,14 @@ class MultiAgentSessionService:
         self.evaluation_engine = evaluation_engine
 
     def start(self, case_id: str, owner_id: str | None = None, access_token_hash: str | None = None) -> dict:
+        state = self.prepare_start(case_id, owner_id=owner_id, access_token_hash=access_token_hash)
+        self.store.create(state)
+        self.store.event(state['session_id'], {'type': 'session_started', 'case_id': state['case_id'],
+                                             'phase': state['phase'], 'evidence_ids': state['revealed_evidence_ids']})
+        return self._public(state)
+
+    def prepare_start(self, case_id: str, owner_id: str | None = None, access_token_hash: str | None = None) -> dict:
+        """Construye el estado sin escribir; el inicio de grupo se confirma atómicamente por RPC."""
         case = self.repository.get_conversation_case(case_id)
         state = {
             "session_id": str(uuid4()),
@@ -61,17 +69,16 @@ class MultiAgentSessionService:
             "updated_at": _now(),
             "finished_at": None,
         }
-        self.store.create(state)
-        self.store.event(
-            state["session_id"],
-            {
-                "type": "session_started",
-                "case_id": state["case_id"],
-                "phase": state["phase"],
-                "evidence_ids": state["revealed_evidence_ids"],
-            },
-        )
-        return self._public(state)
+        return state
+
+    def revealed(self, session_id):
+        state = self.store.get(session_id)
+        synthetic = [v['evidence'] for v in state.get('synthetic_exam_results', {}).values()]
+        return self._turn_evidence(state['case_id'], state['revealed_evidence_ids'], synthetic)
+
+    def access_details(self, session_id):
+        state = self.store.get(session_id)
+        return {key: state.get(key) for key in ('owner_id', 'access_token_hash', 'group_assignment_id')}
 
     def get(self, session_id: str) -> dict:
         return self._public(self.store.get(session_id))
@@ -215,7 +222,11 @@ class MultiAgentSessionService:
         session["updated_at"] = _now()
         session["finished_at"] = _now()
         session["diagnosis_evaluation"] = self.evaluation_engine.evaluate_diagnosis(session)
-        self.store.save(session)
+        if session.get('group_assignment_id') and hasattr(self.store, 'finalize_group'):
+            if not self.store.finalize_group(session):
+                return self._public(self.store.get(session_id))
+        else:
+            self.store.save(session)
         self.store.event(session_id, {"type": "session_finished", "case_id": session["case_id"],
                                       "diagnosis_evaluation": deepcopy(session["diagnosis_evaluation"])})
         return self._public(session)

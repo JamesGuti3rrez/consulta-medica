@@ -251,7 +251,8 @@ def authorize_session(
     user_id = _verified_user(request, token) if token else None
     who = f"usuario={user_id}" if user_id else f"capacidad={_mask(x_session_token)}"
     try:
-        owner_id, token_hash = get_service().access_of(session_id)
+        access = get_service().access_details(session_id)
+        owner_id, token_hash = access['owner_id'], access['access_token_hash']
     except SessionNotFound as exc:
         raise _deny(request, 404, "inexistente", who) from exc
     except SessionStoreError as exc:
@@ -263,6 +264,11 @@ def authorize_session(
                        and hmac.compare_digest(token_hash, _token_hash(x_session_token)))
     if not allowed:
         raise _deny(request, 404, "ajena", who)
+    if access.get('group_assignment_id'):
+        from server.api.groups import get_groups_store
+        if not get_groups_store().rpc('alumno_acceso_sesion_grupo', p_actor=user_id,
+                                      p_asignacion=access['group_assignment_id'], p_sesion=session_id):
+            raise _deny(request, 404, 'fuera_del_grupo', who)
     return user_id
 
 

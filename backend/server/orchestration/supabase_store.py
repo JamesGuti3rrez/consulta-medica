@@ -72,12 +72,29 @@ class SupabaseSessionStore:
         return rows[0]["state"]
 
     def save(self, state: dict) -> None:
+        params = {"session_id": f"eq.{_uuid(state['session_id'])}", "select": "session_id"}
+        if state.get('group_assignment_id') and state['phase'] != 'finalizada':
+            # Una respuesta pendiente no puede reabrir una actividad que ya cerró otro request.
+            params['phase'] = 'neq.finalizada'
         rows = self._request("PATCH", SESSIONS_TABLE, headers={"Prefer": "return=representation"},
-                             params={"session_id": f"eq.{_uuid(state['session_id'])}", "select": "session_id"},
+                             params=params,
                              json={"phase": state["phase"], "state": state,
                                    "updated_at": datetime.now(timezone.utc).isoformat()}).json()
         if not rows:
+            if state.get('group_assignment_id') and self.get(state['session_id']).get('phase') == 'finalizada':
+                raise ValueError('La sesión ya finalizó.')
             raise SessionNotFound(state["session_id"])
+
+    def finalize_group(self, state: dict) -> bool:
+        """Compare-and-set: solo la primera entrega puede cerrar una sesión de grupo."""
+        rows = self._request('PATCH', SESSIONS_TABLE, headers={'Prefer': 'return=representation'},
+            params={'session_id': f"eq.{_uuid(state['session_id'])}", 'phase': 'neq.finalizada', 'select': 'session_id'},
+            json={'phase': 'finalizada', 'state': state, 'updated_at': datetime.now(timezone.utc).isoformat()}).json()
+        if rows:
+            return True
+        if self.get(state['session_id']).get('phase') == 'finalizada':
+            return False
+        raise SessionNotFound(state['session_id'])
 
     def event(self, session_id: str, payload: dict) -> None:
         try:

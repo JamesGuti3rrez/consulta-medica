@@ -1,0 +1,214 @@
+{
+  "tarea": "HU-014",
+  "fecha": "2026-10-30",
+  "inicio_utc": "2026-10-30T20:21:18.585071+00:00",
+  "supabase_real": true,
+  "llm": "Proveedor local controlado; no necesario para evaluar el diagnóstico final.",
+  "resultado": "PASA",
+  "pruebas": [
+    {
+      "prueba": "Siete cuentas temporales autenticadas; no se enviaron correos",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Doctor crea su grupo en Supabase",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Supabase recupera el grupo vacío antes de añadir alumnos o crear otro grupo",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "0006 activa: Supabase rechaza el nombre duplicado con HTTP 409",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Editar el mismo grupo normaliza espacios y conserva su identidad",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Otro doctor no accede al grupo ajeno",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Cinco integrantes registrados; incorporación repetida sin duplicados",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Asignación curada publicada al grupo",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Actividad de grupo requiere autenticación",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Dos cierres simultáneos conservan la primera calificación",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Solo un evento de cierre para solicitudes concurrentes",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Comparativa: 5 asignados, 3 finalizados, 1 pendiente; acierto 1/2 = 50%",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Sin iniciar y en curso separados de las entregas incorrectas",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Duración del alumno calculada con inicio y cierre persistidos",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Sin diagnóstico ni puntuación expuestos antes del cierre",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Nueva instancia reutiliza la entrega original",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Repetir cierre no altera el acierto ni la respuesta entregada",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Retirar integrante revoca su acceso a la sesión de grupo",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Resultados históricos del integrante retirado se conservan",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "RLS y privilegios: navegador sin acceso directo a las cuatro tablas ni RPC",
+      "resultado": "PASA"
+    }
+  ],
+  "comparativa_previa_al_retiro": {
+    "id": "25f6cd22-6071-4dc2-bab6-09190f6dde37",
+    "activa": true,
+    "titulo": "Actividad de verificación",
+    "case_id": "MED-008",
+    "grupo_id": "4cdb8c5b-f20d-4d63-a935-640a14ee6a44",
+    "creado_en": "2026-10-30T20:21:51.835044+00:00",
+    "resultados": [
+      {
+        "alumno_id": "c96e39a2-952f-4e81-92a2-e63120ddd1f6",
+        "nombre": "HU014 Alumno 1",
+        "email": "hu014-14ba449d1d3147938b0d228c646a549f@example.com",
+        "miembro_activo": true,
+        "estado": "finalizada",
+        "iniciado_en": "2026-10-30T20:21:54.645138+00:00",
+        "finalizado_en": "2026-10-30T20:22:02.530276+00:00",
+        "duracion_segundos": 7,
+        "diagnostico": "Basalioma",
+        "acierto": "correct",
+        "puntaje_diagnostico": 100,
+        "motivo": "Coincide con un sinónimo admitido por este caso.",
+        "puntaje_proceso": 0.0
+      },
+      {
+        "alumno_id": "1f1af8e6-8b8d-4b02-8ac7-460aa9a236e6",
+        "nombre": "HU014 Alumno 2",
+        "email": "hu014-3bede305fcef4aea97bbe3ed894f0f94@example.com",
+        "miembro_activo": true,
+        "estado": "finalizada",
+        "iniciado_en": "2026-10-30T20:22:13.290711+00:00",
+        "finalizado_en": "2026-10-30T20:22:19.828530+00:00",
+        "duracion_segundos": 6,
+        "diagnostico": "Respuesta no admitida",
+        "acierto": "incorrect",
+        "puntaje_diagnostico": 0,
+        "motivo": "No coincide exactamente con el diagnóstico de referencia ni con los sinónimos admitidos por este caso.",
+        "puntaje_proceso": 0.0
+      },
+      {
+        "alumno_id": "cceda387-c1df-456d-83ed-d54c72f1f6ec",
+        "nombre": "HU014 Alumno 3",
+        "email": "hu014-4c61f6e818014200a0a380acaec3ac65@example.com",
+        "miembro_activo": true,
+        "estado": "pendiente_revision",
+        "iniciado_en": "2026-10-30T20:22:27.105021+00:00",
+        "finalizado_en": "2026-10-30T20:22:34.052169+00:00",
+        "duracion_segundos": 6,
+        "diagnostico": "Basalioma o dermatitis",
+        "acierto": "ambiguous",
+        "puntaje_diagnostico": 0,
+        "motivo": "Se registraron varias alternativas en lugar de un único diagnóstico final; requiere revisión docente.",
+        "puntaje_proceso": 0.0
+      },
+      {
+        "alumno_id": "592672ce-5cfe-4eb9-a54b-e96beba2ef64",
+        "nombre": "HU014 Alumno 4",
+        "email": "hu014-28977f36aa2e4fd5ae08620b40a80585@example.com",
+        "miembro_activo": true,
+        "estado": "en_curso",
+        "iniciado_en": "2026-10-30T20:22:40.700541+00:00",
+        "finalizado_en": null,
+        "duracion_segundos": null,
+        "diagnostico": null,
+        "acierto": null,
+        "puntaje_diagnostico": null,
+        "motivo": null,
+        "puntaje_proceso": null
+      },
+      {
+        "alumno_id": "3278c0bd-52c5-4f93-95c1-6c8342ba9afd",
+        "nombre": "HU014 Alumno 5",
+        "email": "hu014-311555cf27f7482f9404f30533ca5480@example.com",
+        "miembro_activo": true,
+        "estado": "sin_iniciar",
+        "iniciado_en": null,
+        "finalizado_en": null,
+        "duracion_segundos": null,
+        "diagnostico": null,
+        "acierto": null,
+        "puntaje_diagnostico": null,
+        "motivo": null,
+        "puntaje_proceso": null
+      }
+    ],
+    "resumen": {
+      "asignados": 5,
+      "iniciados": 4,
+      "finalizados": 3,
+      "pendientes_revision": 1,
+      "aciertos": 1,
+      "entregas_evaluadas": 2,
+      "tasa_acierto": 50.0,
+      "tiempo_promedio_segundos": 6.33,
+      "puntaje_diagnostico_promedio": 50,
+      "puntaje_proceso_promedio": 0.0
+    }
+  },
+  "limpieza": {
+    "confirmada": true,
+    "cuentas": 7,
+    "grupos": 1,
+    "sesiones": 4,
+    "eventos_eliminados": true
+  },
+  "ids_temporales": {
+    "cuentas": [
+      "68e8e9c1-abc5-422c-8256-54c1e5c04225",
+      "79206730-fd96-49f7-a2de-e0dc19e19f9e",
+      "c96e39a2-952f-4e81-92a2-e63120ddd1f6",
+      "1f1af8e6-8b8d-4b02-8ac7-460aa9a236e6",
+      "cceda387-c1df-456d-83ed-d54c72f1f6ec",
+      "592672ce-5cfe-4eb9-a54b-e96beba2ef64",
+      "3278c0bd-52c5-4f93-95c1-6c8342ba9afd"
+    ],
+    "grupos": [
+      "4cdb8c5b-f20d-4d63-a935-640a14ee6a44"
+    ],
+    "sesiones": [
+      "6dbf2609-170f-40bf-8734-49b94f19310f",
+      "4085ed31-a456-4b55-9a8b-8351912e3c8a",
+      "81e094db-7464-4e2a-82bf-c81cda94231f",
+      "5b369ac2-3f3a-4888-ab23-873f6b576600"
+    ]
+  }
+}

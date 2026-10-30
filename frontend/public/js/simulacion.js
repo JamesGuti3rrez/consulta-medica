@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   let specialtyName = SPECIALTY_NAMES[specialty];
   // Solo para pruebas: simulacion.html?caso=EME-103 abre ese caso (guía de pruebas en docs/).
   let testCase = new URLSearchParams(window.location.search).get('caso');
+  const groupActivityId = new URLSearchParams(window.location.search).get('actividad');
 
   // Casos ya vistos en esta pestaña (el actual primero): «Probar otro caso» no repite paciente.
   // Se guardan en sessionStorage y no en la URL, para que el estudiante no vea códigos de caso.
@@ -403,16 +404,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     startButton.lastChild.textContent = ' Presentando caso...';
 
     let patientCase;
+    let groupTurn = null;
     try {
+      if (groupActivityId) {
+        groupTurn = await (await window.auth.api(`/api/grupos/actividades/${encodeURIComponent(groupActivityId)}/iniciar`, { method: 'POST' })).json();
+        patientCase = groupTurn.caso;
+      } else {
       const response = await fetch(caseUrl(another));
       if (!response.ok) {
         const body = await response.json().catch(() => ({}));
         throw new Error(body.detail || `API respondió con HTTP ${response.status}`);
       }
       patientCase = await response.json();
+      }
     } catch (error) {
       console.error('No se pudo cargar un caso:', error);
-      setStatus('No se pudo cargar el caso. Verifica la conexión e inténtalo de nuevo.', true);
+      setStatus(groupActivityId ? error.message : 'No se pudo cargar el caso. Verifica la conexión e inténtalo de nuevo.', true);
       startButton.disabled = !caseAvailable;
       startButton.lastChild.textContent = caseAvailable ? ' Reintentar' : ' Sin casos disponibles';
       isRunning = false;
@@ -421,7 +428,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     currentCase = patientCase;
     rememberCase(patientCase.case_id);
-    aiSessionId = await openConversation(patientCase.case_id);
+    aiSessionId = groupTurn ? groupTurn.session.session_id : await openConversation(patientCase.case_id);
+    if (groupTurn) aiSessionToken = null;
     resetRecord(patientCase);
     showTab('ficha');
     simulatorStatus.textContent = 'Presentación del caso';
@@ -429,8 +437,31 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (nextPrompt) nextPrompt.textContent = 'Escucha la presentación del caso.';
     setStatus('El doctor te presenta al paciente.');
 
+    if (groupTurn?.session.phase === 'finalizada') {
+      try {
+        const report = await (await window.auth.api(`/api/ai/sessions/${encodeURIComponent(aiSessionId)}/report`)).json();
+        [...record.children].forEach(child => { child.hidden = false; });
+        patientCase.items.forEach(item => recordHistory.append(recordSection(item.label, item.text)));
+        addClinicalEvidence(groupTurn.evidencias);
+        consultationClosed = true; show(startButton, false); show(diagnosisButton); show(micButton, false);
+        diagnosisButton.disabled = false; diagnosisButton.lastChild.textContent = ' Ver hoja de evaluación';
+        simulatorStatus.textContent = 'Actividad finalizada'; recordStatus.lastChild.textContent = 'Finalizada';
+        showEvaluation(report, report.diagnosis.student); setField('evaluation-saved', 'Actividad registrada en tu grupo.');
+        setStatus('Ya entregaste esta actividad. Puedes revisar tu resultado o volver a tus grupos.'); isRunning = false;
+      } catch (error) { setStatus(error.message, true); startButton.disabled = false; isRunning = false; }
+      return;
+    }
+
     const finished = await presentCase(patientCase, current);
     if (!finished) return;
+    if (groupTurn?.reutilizada) {
+      addClinicalEvidence(groupTurn.evidencias);
+      for (const event of groupTurn.eventos.filter(event => event.type === 'turn')) {
+        appendChat(event.student_message, 'student');
+        if (event.doctor_question) appendChat(event.doctor_question, 'doctor');
+        appendChat(event.response_text, ({ paciente: 'patient', medico_asistente: 'doctor' })[event.agent] || event.agent);
+      }
+    }
     show(startButton, false);
     show(micButton);
     if (micButton) micButton.disabled = false;
@@ -933,6 +964,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   diagnosisMic?.addEventListener('click', () => dictate(diagnosisInput, diagnosisFeedback));
 
   saveDiagnosis?.addEventListener('click', async () => {
+    if (consultationClosed) return;
     const diagnosis = diagnosisInput?.value.trim() || '';
     consultationClosed = true;
     discardingIndex = null;
@@ -945,6 +977,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     renderHypotheses();
     let report = null;
     let attempt = null;
+    let finishError = null;
     if (aiSessionId) {
       // Con la sesión iniciada se envía su token: el servidor lo comprueba y guarda la consulta en
       // «Mis simulaciones». Sin sesión la consulta termina igual, pero no se guarda.
@@ -956,13 +989,22 @@ document.addEventListener('DOMContentLoaded', async () => {
           hypotheses: hypotheses.map(({ name, discarded, reason }) => ({ name, discarded, reason: reason || '' })),
         }),
       }).catch(() => null);
-      const finished = response?.ok ? await response.json().catch(() => null) : null;
+      const body = await response?.json().catch(() => null);
+      const finished = response?.ok ? body : null;
+      if (!finished?.report) finishError = typeof body?.detail === 'string' ? body.detail : 'No se confirmó el cierre. Revisa la conexión y vuelve a guardar tu diagnóstico.';
       report = finished?.report || null;
       attempt = finished?.attempt || null;
     }
+    if (finishError || (groupActivityId && !report)) {
+      consultationClosed = false;
+      [saveDiagnosis, diagnosisMic, micButton, diagnosisButton, hypothesisInput, hypothesisMic, addHypothesisButton].forEach(element => { if (element) element.disabled = false; });
+      if (diagnosisFeedback) diagnosisFeedback.textContent = finishError || 'No se confirmó el cierre de la actividad.';
+      setStatus(finishError || 'No se confirmó el cierre de la actividad.', true); renderHypotheses(); isRunning = false;
+      return;
+    }
     show(diagnosisPanel, false);
     showEvaluation(report, diagnosis);
-    setField('evaluation-saved', SAVED_MESSAGES[attempt?.saved ? 'guardado' : attempt?.reason] || '');
+    setField('evaluation-saved', groupActivityId ? 'Actividad registrada en tu grupo. El doctor puede consultar el resultado.' : SAVED_MESSAGES[attempt?.saved ? 'guardado' : attempt?.reason] || '');
     // El botón de diagnóstico pasa a reabrir la hoja si el estudiante la cierra.
     if (diagnosisButton) {
       diagnosisButton.disabled = false;
@@ -977,6 +1019,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // «Probar otro caso»: misma especialidad, otro paciente. Se reinicia aquí mismo, sin recargar, para que
   // el clic del estudiante habilite la voz del doctor en la nueva presentación.
   $('another-case')?.addEventListener('click', () => {
+    if (groupActivityId) { window.location.assign('grupos.html'); return; }
     if (currentCase && (testCase || !specialtyName)) {
       // Desde un caso de prueba o sin especialidad elegida, se sigue con la especialidad del caso actual.
       specialty = currentCase.specialty;
@@ -1012,6 +1055,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   startButton.addEventListener('click', startSimulation);
 
   try {
+    if (groupActivityId) {
+      const data = await (await window.auth.api(`/api/grupos/actividades/${encodeURIComponent(groupActivityId)}`)).json();
+      caseAvailable = true; startButton.disabled = false;
+      startButton.lastChild.textContent = data.actividad.session_id ? ' Abrir mi actividad' : ' Comenzar actividad';
+      simulatorStatus.textContent = data.actividad.grupo;
+      setStatus(`${data.actividad.titulo}. Una entrega por alumno. El tiempo total comienza al iniciar el caso.`);
+      const anotherButton = $('another-case'); if (anotherButton) anotherButton.textContent = 'Volver a mis grupos';
+      return;
+    }
     const response = await fetch('/api/status');
     if (!response.ok) throw new Error(`API respondió con HTTP ${response.status}`);
     const status = await response.json();
@@ -1024,9 +1076,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       : 'Aún no hay casos clínicos disponibles.');
   } catch (error) {
     console.error('No se pudo comprobar la disponibilidad de casos clínicos:', error);
-    setStatus('No se pudo comprobar el estado del simulador. Verifica que el servidor esté en ejecución.', true);
-    simulatorStatus.textContent = 'Servidor no disponible';
+    setStatus(groupActivityId ? error.message : 'No se pudo comprobar el estado del simulador. Verifica que el servidor esté en ejecución.', true);
+    simulatorStatus.textContent = groupActivityId ? 'Actividad no disponible' : 'Servidor no disponible';
     startButton.disabled = true;
-    startButton.lastChild.textContent = ' Servidor no disponible';
+    startButton.lastChild.textContent = groupActivityId ? ' Actividad no disponible' : ' Servidor no disponible';
   }
 });
