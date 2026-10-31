@@ -30,7 +30,7 @@ indexing = [
 semantic = [
     "sentence-transformers>=3.3,<4",
 ]
-# Voz neuronal del simulador (prueba local, TTS_PROVIDER=edge): npm run setup -- --extras voz
+# Voz neuronal del simulador (TTS_PROVIDER=edge; en Vercel va en el pyproject.toml de la raiz): npm run setup -- --extras voz
 voz = [
     "edge-tts==7.3.1",
 ]
