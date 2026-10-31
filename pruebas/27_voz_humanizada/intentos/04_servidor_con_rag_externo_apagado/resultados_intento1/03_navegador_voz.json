@@ -1,0 +1,192 @@
+{
+  "base_url": "http://localhost:3100",
+  "caso": "CIR-005",
+  "max_silencio_ms": 700,
+  "fecha": "2026-10-31T03:54:03.704Z",
+  "frases": [
+    {
+      "texto": "doctor: Martín Rojas de 28 años sexo masculino Motivo de consulta Ingresó por dolor abdominal intenso se diagnosticó apendicitis y se le realizó una apendicectomía de urgencia",
+      "pide": 6034,
+      "tras_estudiante": false,
+      "suena": 7421,
+      "fin": 18443,
+      "voz": "neuronal",
+      "espera_ms": 1387,
+      "silencio_desde_la_anterior_ms": null,
+      "sin_signos": true
+    },
+    {
+      "texto": "doctor: Evolución quirúrgica Durante la intervención presentó un sangrado masivo y persistente que requirió transfusión de sangre",
+      "pide": 18443,
+      "tras_estudiante": false,
+      "suena": 18444,
+      "fin": 26199,
+      "voz": "neuronal",
+      "espera_ms": 1,
+      "silencio_desde_la_anterior_ms": 1,
+      "sin_signos": true
+    },
+    {
+      "texto": "doctor: No hay alergias documentadas en la ficha",
+      "pide": 26199,
+      "tras_estudiante": false,
+      "suena": 26205,
+      "fin": 29498,
+      "voz": "neuronal",
+      "espera_ms": 6,
+      "silencio_desde_la_anterior_ms": 6,
+      "sin_signos": true
+    },
+    {
+      "texto": "doctor: Doctor puede comenzar con el interrogatorio",
+      "pide": 29498,
+      "tras_estudiante": false,
+      "suena": 29498,
+      "fin": 32913,
+      "voz": "neuronal",
+      "espera_ms": 0,
+      "silencio_desde_la_anterior_ms": 0,
+      "sin_signos": true
+    },
+    {
+      "texto": "doctor: No pude procesar tu pregunta Inténtalo de nuevo",
+      "pide": 37873,
+      "tras_estudiante": true,
+      "suena": 39269,
+      "fin": 42890,
+      "voz": "neuronal",
+      "espera_ms": 1396,
+      "silencio_desde_la_anterior_ms": 6356,
+      "sin_signos": true
+    },
+    {
+      "texto": "doctor: No pude procesar tu pregunta Inténtalo de nuevo",
+      "pide": 47776,
+      "tras_estudiante": true,
+      "suena": 49089,
+      "fin": 52718,
+      "voz": "neuronal",
+      "espera_ms": 1313,
+      "silencio_desde_la_anterior_ms": 6199,
+      "sin_signos": true
+    }
+  ],
+  "eventos": [
+    {
+      "t": 6034,
+      "evento": "pide_audio",
+      "detalle": "1|doctor: Martín Rojas de 28 años sexo masculino Motivo de consulta Ingresó por dolor abdominal intenso se diagnosticó apendicitis y se le realizó una apendicectomía de urgencia"
+    },
+    {
+      "t": 7421,
+      "evento": "suena_neuronal",
+      "detalle": "1"
+    },
+    {
+      "t": 18443,
+      "evento": "pide_audio",
+      "detalle": "2|doctor: Evolución quirúrgica Durante la intervención presentó un sangrado masivo y persistente que requirió transfusión de sangre"
+    },
+    {
+      "t": 18443,
+      "evento": "ya_cargado",
+      "detalle": "2"
+    },
+    {
+      "t": 18443,
+      "evento": "fin_audio",
+      "detalle": "1"
+    },
+    {
+      "t": 18444,
+      "evento": "suena_neuronal",
+      "detalle": "2"
+    },
+    {
+      "t": 26199,
+      "evento": "pide_audio",
+      "detalle": "3|doctor: No hay alergias documentadas en la ficha"
+    },
+    {
+      "t": 26199,
+      "evento": "ya_cargado",
+      "detalle": "3"
+    },
+    {
+      "t": 26199,
+      "evento": "fin_audio",
+      "detalle": "2"
+    },
+    {
+      "t": 26205,
+      "evento": "suena_neuronal",
+      "detalle": "3"
+    },
+    {
+      "t": 29498,
+      "evento": "pide_audio",
+      "detalle": "4|doctor: Doctor puede comenzar con el interrogatorio"
+    },
+    {
+      "t": 29498,
+      "evento": "ya_cargado",
+      "detalle": "4"
+    },
+    {
+      "t": 29498,
+      "evento": "fin_audio",
+      "detalle": "3"
+    },
+    {
+      "t": 29498,
+      "evento": "suena_neuronal",
+      "detalle": "4"
+    },
+    {
+      "t": 32913,
+      "evento": "fin_audio",
+      "detalle": "4"
+    },
+    {
+      "t": 33144,
+      "evento": "turno_estudiante",
+      "detalle": ""
+    },
+    {
+      "t": 37873,
+      "evento": "pide_audio",
+      "detalle": "5|doctor: No pude procesar tu pregunta Inténtalo de nuevo"
+    },
+    {
+      "t": 39269,
+      "evento": "suena_neuronal",
+      "detalle": "5"
+    },
+    {
+      "t": 42890,
+      "evento": "fin_audio",
+      "detalle": "5"
+    },
+    {
+      "t": 42905,
+      "evento": "turno_estudiante",
+      "detalle": ""
+    },
+    {
+      "t": 47776,
+      "evento": "pide_audio",
+      "detalle": "6|doctor: No pude procesar tu pregunta Inténtalo de nuevo"
+    },
+    {
+      "t": 49089,
+      "evento": "suena_neuronal",
+      "detalle": "6"
+    },
+    {
+      "t": 52718,
+      "evento": "fin_audio",
+      "detalle": "6"
+    }
+  ],
+  "errores": []
+}

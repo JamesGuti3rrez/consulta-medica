@@ -160,8 +160,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const wait = milliseconds => new Promise(resolve => window.setTimeout(resolve, milliseconds));
 
-  // La voz lee las unidades completas y sin signos de puntuación, porque cada signo es una pausa; solo se
-  // conservan ¿ ? (entonación de pregunta) y el punto de los decimales. El texto en pantalla no cambia.
+  // La voz lee las unidades completas y conserva los signos de puntuación. El punto seguido de más texto se
+  // lee como coma: edge-tts hace en él una pausa de ~860 ms y en la coma de ~300 ms. El punto de los
+  // decimales (9.8) no lleva espacio detrás y se respeta. El texto en pantalla no cambia.
   const spokenText = text => text
     .replace(/(\d+)\/(\d+) mmHg/g, '$1 sobre $2 milímetros de mercurio')
     .replace(/mmHg/g, 'milímetros de mercurio')
@@ -170,9 +171,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     .replace(/(\d+) %/g, '$1 por ciento')
     .replace(/(\d+),(\d+)/g, '$1 coma $2')
     .replace(/ × /g, ' por ')
-    .replace(/(?<!\d)[.,](?!\d)|[.,](?=\s|$)|[;:¡!«»"()…—–]/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
+    .replace(/\.(?=\s+\S)/g, ',');
 
   // Velocidad de la voz: 1,3 veces la normal.
   const SPEECH_RATE = 1.3;

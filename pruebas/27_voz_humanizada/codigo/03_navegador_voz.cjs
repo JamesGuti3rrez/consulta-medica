@@ -5,7 +5,8 @@
 // Uso (servidor con TTS_PROVIDER=edge y sesiones en memoria):
 //   node pruebas/27_voz_humanizada/codigo/03_navegador_voz.cjs <carpeta de resultados>
 // Sale con código 1 si alguna frase no usó la voz neuronal o si entre dos frases del mismo turno hubo más
-// de MAX_SILENCIO ms de silencio, o si algún texto enviado a la voz lleva signos de puntuación (la primera frase tras hablar el estudiante se mide aparte: incluye al modelo).
+// de MAX_SILENCIO ms de silencio, o si algún texto enviado a la voz perdió sus signos o conserva un punto en medio
+// (la primera frase tras hablar el estudiante se mide aparte: incluye al modelo).
 const fs = require('node:fs');
 const path = require('node:path');
 const { chromium } = require('playwright');
@@ -13,8 +14,10 @@ const { chromium } = require('playwright');
 const BASE_URL = process.env.BASE_URL || 'http://localhost:3100';
 const CASO = process.env.CASO || 'CIR-005';
 const MAX_SILENCIO = Number(process.env.MAX_SILENCIO || 700);
-// La voz lee sin signos de puntuación (cada uno es una pausa); solo se conservan ¿ ? y los decimales.
-const SIGNO = /(?<!\d)[.,](?!\d)|[.,](?=\s|$)|[;:¡!«»"()…—–]/;
+// La voz conserva los signos: cada frase termina en . ? o !. El punto seguido de más texto pausa ~860 ms y se lee
+// como coma (medición 17); el punto de los decimales (9.8) no lleva espacio detrás.
+const SIGNO_FINAL = /[.?!]$/;
+const PUNTO_EN_MEDIO = /\.(?=\s+\S)/;
 const FRASES = ['¿Desde cuándo tiene el dolor?', '¿Ha tenido fiebre o vómitos?'];
 
 (async () => {
@@ -100,7 +103,7 @@ const FRASES = ['¿Desde cuándo tiene el dolor?', '¿Ha tenido fiebre o vómito
   }
   let fallos = 0;
   let largos = 0;
-  let conSignos = 0;
+  let malLeidos = 0;
   console.log(`Caso ${CASO} en ${BASE_URL}: ${frases.length} frases habladas\n`);
   frases.forEach((f, i) => {
     const neuronal = f.suena !== undefined && !f.navegador;
@@ -112,9 +115,11 @@ const FRASES = ['¿Desde cuándo tiene el dolor?', '¿Ha tenido fiebre o vómito
     f.silencio_desde_la_anterior_ms = silencio;
     const mismoTurno = silencio !== null && !f.tras_estudiante;
     if (mismoTurno && silencio > MAX_SILENCIO) { f.silencio_largo = true; largos += 1; }
-    if (SIGNO.test(f.texto.replace(/^[a-z]+: /, ''))) { f.con_signos = true; conSignos += 1; }
-    const marca = (f.tras_estudiante ? ' (tras el estudiante)' : f.silencio_largo ? ' (SILENCIO LARGO)' : '') + (f.con_signos ? ' (CON SIGNOS)' : '');
-    console.log(`${String(i + 1).padStart(2)}. [${f.voz}] espera ${espera ?? '-'} ms, silencio ${silencio ?? '-'} ms${marca}  ${f.texto.slice(0, 70)}`);
+    const leido = f.texto.replace(/^[a-z]+: /, '');
+    if (!SIGNO_FINAL.test(leido)) { f.sin_signos = true; malLeidos += 1; } else if (PUNTO_EN_MEDIO.test(leido)) { f.punto_en_medio = true; malLeidos += 1; }
+    const marca = (f.tras_estudiante ? ' (tras el estudiante)' : f.silencio_largo ? ' (SILENCIO LARGO)' : '')
+      + (f.sin_signos ? ' (SIN SIGNOS)' : '') + (f.punto_en_medio ? ' (PUNTO EN MEDIO)' : '');
+    console.log(`${String(i + 1).padStart(2)}. [${f.voz}] espera ${espera ?? '-'} ms, silencio ${silencio ?? '-'} ms${marca}  ${f.texto}`);
   });
   const esperas = frases.map(f => f.espera_ms).filter(v => v !== null);
   const promedio = esperas.length ? Math.round(esperas.reduce((a, b) => a + b, 0) / esperas.length) : 0;
@@ -122,7 +127,7 @@ const FRASES = ['¿Desde cuándo tiene el dolor?', '¿Ha tenido fiebre o vómito
   console.log(`Errores de JavaScript: ${errores.length ? errores.join(' | ') : 'ninguno'}`);
   const silenciosTurno = frases.filter(f => f.silencio_desde_la_anterior_ms !== null && !f.tras_estudiante).map(f => f.silencio_desde_la_anterior_ms);
   console.log(`Silencio entre frases del mismo turno: máximo ${Math.max(0, ...silenciosTurno)} ms (límite ${MAX_SILENCIO} ms)`);
-  console.log(`Resultado: ${fallos} frase(s) sin voz neuronal, ${largos} silencio(s) largo(s) entre frases del mismo turno, ${conSignos} texto(s) con signos de puntuación`);
+  console.log(`Resultado: ${fallos} frase(s) sin voz neuronal, ${largos} silencio(s) largo(s) entre frases del mismo turno, ${malLeidos} texto(s) sin signos o con un punto en medio`);
   fs.writeFileSync(path.join(outDir, '03_navegador_voz.json'), JSON.stringify({ base_url: BASE_URL, caso: CASO, max_silencio_ms: MAX_SILENCIO, fecha: new Date().toISOString(), frases, eventos, errores }, null, 2));
-  process.exit(fallos || largos || conSignos || errores.length ? 1 : 0);
+  process.exit(fallos || largos || malLeidos || errores.length ? 1 : 0);
 })().catch(error => { console.error(error); process.exit(1); });

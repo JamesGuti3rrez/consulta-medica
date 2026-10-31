@@ -1,0 +1,252 @@
+{
+  "base_url": "http://localhost:3100",
+  "caso": "CIR-005",
+  "max_silencio_ms": 700,
+  "fecha": "2026-10-31T03:55:53.550Z",
+  "frases": [
+    {
+      "texto": "doctor: Martín Rojas de 28 años sexo masculino Motivo de consulta Ingresó por dolor abdominal intenso se diagnosticó apendicitis y se le realizó una apendicectomía de urgencia",
+      "pide": 3250,
+      "tras_estudiante": false,
+      "suena": 6301,
+      "fin": 17321,
+      "voz": "neuronal",
+      "espera_ms": 3051,
+      "silencio_desde_la_anterior_ms": null,
+      "sin_signos": true
+    },
+    {
+      "texto": "doctor: Evolución quirúrgica Durante la intervención presentó un sangrado masivo y persistente que requirió transfusión de sangre",
+      "pide": 17321,
+      "tras_estudiante": false,
+      "suena": 17322,
+      "fin": 25088,
+      "voz": "neuronal",
+      "espera_ms": 1,
+      "silencio_desde_la_anterior_ms": 1,
+      "sin_signos": true
+    },
+    {
+      "texto": "doctor: No hay alergias documentadas en la ficha",
+      "pide": 25087,
+      "tras_estudiante": false,
+      "suena": 25089,
+      "fin": 28382,
+      "voz": "neuronal",
+      "espera_ms": 2,
+      "silencio_desde_la_anterior_ms": 1,
+      "sin_signos": true
+    },
+    {
+      "texto": "doctor: Doctor puede comenzar con el interrogatorio",
+      "pide": 28382,
+      "tras_estudiante": false,
+      "suena": 28383,
+      "fin": 31786,
+      "voz": "neuronal",
+      "espera_ms": 1,
+      "silencio_desde_la_anterior_ms": 1,
+      "sin_signos": true
+    },
+    {
+      "texto": "doctor: ¿Desde cuándo tiene el dolor?",
+      "pide": 36091,
+      "tras_estudiante": true,
+      "suena": 37545,
+      "fin": 40053,
+      "voz": "neuronal",
+      "espera_ms": 1454,
+      "silencio_desde_la_anterior_ms": 5759
+    },
+    {
+      "texto": "patient: No recuerdo con precisión cuándo empezó el dolor",
+      "pide": 40559,
+      "tras_estudiante": false,
+      "suena": 40563,
+      "fin": 44471,
+      "voz": "neuronal",
+      "espera_ms": 4,
+      "silencio_desde_la_anterior_ms": 510,
+      "sin_signos": true
+    },
+    {
+      "texto": "doctor: ¿Ha tenido fiebre o vómitos?",
+      "pide": 50818,
+      "tras_estudiante": true,
+      "suena": 52234,
+      "fin": 54963,
+      "voz": "neuronal",
+      "espera_ms": 1416,
+      "silencio_desde_la_anterior_ms": 7763
+    },
+    {
+      "texto": "patient: No recuerdo haber tenido fiebre",
+      "pide": 55467,
+      "tras_estudiante": false,
+      "suena": 55467,
+      "fin": 58543,
+      "voz": "neuronal",
+      "espera_ms": 0,
+      "silencio_desde_la_anterior_ms": 504,
+      "sin_signos": true
+    }
+  ],
+  "eventos": [
+    {
+      "t": 3250,
+      "evento": "pide_audio",
+      "detalle": "1|doctor: Martín Rojas de 28 años sexo masculino Motivo de consulta Ingresó por dolor abdominal intenso se diagnosticó apendicitis y se le realizó una apendicectomía de urgencia"
+    },
+    {
+      "t": 6301,
+      "evento": "suena_neuronal",
+      "detalle": "1"
+    },
+    {
+      "t": 17321,
+      "evento": "pide_audio",
+      "detalle": "2|doctor: Evolución quirúrgica Durante la intervención presentó un sangrado masivo y persistente que requirió transfusión de sangre"
+    },
+    {
+      "t": 17321,
+      "evento": "ya_cargado",
+      "detalle": "2"
+    },
+    {
+      "t": 17321,
+      "evento": "fin_audio",
+      "detalle": "1"
+    },
+    {
+      "t": 17322,
+      "evento": "suena_neuronal",
+      "detalle": "2"
+    },
+    {
+      "t": 25087,
+      "evento": "pide_audio",
+      "detalle": "3|doctor: No hay alergias documentadas en la ficha"
+    },
+    {
+      "t": 25088,
+      "evento": "ya_cargado",
+      "detalle": "3"
+    },
+    {
+      "t": 25088,
+      "evento": "fin_audio",
+      "detalle": "2"
+    },
+    {
+      "t": 25089,
+      "evento": "suena_neuronal",
+      "detalle": "3"
+    },
+    {
+      "t": 28382,
+      "evento": "pide_audio",
+      "detalle": "4|doctor: Doctor puede comenzar con el interrogatorio"
+    },
+    {
+      "t": 28382,
+      "evento": "ya_cargado",
+      "detalle": "4"
+    },
+    {
+      "t": 28382,
+      "evento": "fin_audio",
+      "detalle": "3"
+    },
+    {
+      "t": 28383,
+      "evento": "suena_neuronal",
+      "detalle": "4"
+    },
+    {
+      "t": 31786,
+      "evento": "fin_audio",
+      "detalle": "4"
+    },
+    {
+      "t": 31860,
+      "evento": "turno_estudiante",
+      "detalle": ""
+    },
+    {
+      "t": 36091,
+      "evento": "pide_audio",
+      "detalle": "5|doctor: ¿Desde cuándo tiene el dolor?"
+    },
+    {
+      "t": 37545,
+      "evento": "suena_neuronal",
+      "detalle": "5"
+    },
+    {
+      "t": 40053,
+      "evento": "fin_audio",
+      "detalle": "5"
+    },
+    {
+      "t": 40559,
+      "evento": "pide_audio",
+      "detalle": "6|patient: No recuerdo con precisión cuándo empezó el dolor"
+    },
+    {
+      "t": 40559,
+      "evento": "ya_cargado",
+      "detalle": "6"
+    },
+    {
+      "t": 40563,
+      "evento": "suena_neuronal",
+      "detalle": "6"
+    },
+    {
+      "t": 44471,
+      "evento": "fin_audio",
+      "detalle": "6"
+    },
+    {
+      "t": 44600,
+      "evento": "turno_estudiante",
+      "detalle": ""
+    },
+    {
+      "t": 50818,
+      "evento": "pide_audio",
+      "detalle": "7|doctor: ¿Ha tenido fiebre o vómitos?"
+    },
+    {
+      "t": 52234,
+      "evento": "suena_neuronal",
+      "detalle": "7"
+    },
+    {
+      "t": 54963,
+      "evento": "fin_audio",
+      "detalle": "7"
+    },
+    {
+      "t": 55467,
+      "evento": "pide_audio",
+      "detalle": "8|patient: No recuerdo haber tenido fiebre"
+    },
+    {
+      "t": 55467,
+      "evento": "ya_cargado",
+      "detalle": "8"
+    },
+    {
+      "t": 55467,
+      "evento": "suena_neuronal",
+      "detalle": "8"
+    },
+    {
+      "t": 58543,
+      "evento": "fin_audio",
+      "detalle": "8"
+    }
+  ],
+  "errores": []
+}
