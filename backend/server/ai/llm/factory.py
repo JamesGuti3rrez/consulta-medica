@@ -3,18 +3,19 @@ from server.ai.llm.gateway import LLMGateway
 from server.ai.llm.providers import GroqProvider, LocalDevelopmentProvider
 
 
-def build_gateway() -> LLMGateway:
-    if not settings.groq_api_keys:
-        return LLMGateway([LocalDevelopmentProvider()], cooldown_seconds=settings.provider_cooldown_seconds)
+def build_gateway(*, config=None) -> LLMGateway:
+    config = config or settings
+    if not config.groq_api_keys:
+        return LLMGateway([LocalDevelopmentProvider()], cooldown_seconds=config.provider_cooldown_seconds)
 
     providers = [
         GroqProvider(
             name=f"groq-{index + 1}",
             api_key=key,
-            model=settings.groq_model,
-            base_url=settings.groq_base_url,
-            timeout=settings.llm_timeout_seconds,
+            model=config.groq_model,
+            base_url=config.groq_base_url,
+            timeout=config.llm_timeout_seconds,
         )
-        for index, key in enumerate(settings.groq_api_keys)
+        for index, key in enumerate(config.groq_api_keys)
     ]
-    return LLMGateway(providers, cooldown_seconds=settings.provider_cooldown_seconds)
+    return LLMGateway(providers, cooldown_seconds=config.provider_cooldown_seconds)
