@@ -138,6 +138,9 @@ class StarGraphOrchestrator:
             if (role == AgentRole.MEDICO_ASISTENTE and intent == Intent.ASK_ASSISTANT
                     and self.router.generic_exam_request(state["student_message"])):
                 context["pedido_generico"] = True
+            # Exploración física sin hallazgos registrados: el doctor lo dice, sin pedir al estudiante que los describa.
+            if role == AgentRole.MEDICO_ASISTENTE and intent == Intent.EXAMINE and not retrieved:
+                context["exploracion_sin_hallazgos"] = True
             completion = None
             exam_result = None
             if role == AgentRole.LABORATORIO and not disclosure.allowed_evidence_ids and self.exam_completion is not None:
@@ -164,16 +167,19 @@ class StarGraphOrchestrator:
                 if completion is not None:
                     reply.input_tokens += completion.selector_usage[0]
                     reply.output_tokens += completion.selector_usage[1]
+            # Los controles del agente se aplican si respondió el agente, también tras un rechazo del generador.
+            from_generator = completion is not None and completion.reply is not None
             ok, reason = self.output_guard.validate(reply.text, forbidden_terms)
-            if not completion and invented_figures(reply.text, context):
+            if not from_generator and invented_figures(reply.text, context):
                 ok, reason = False, "cifras_sin_respaldo"
             # Un agente tampoco puede adjuntar referencias fuera del conjunto que realmente recibió.
             visible_ids = {item["evidence_id"] for key in ("retrieved_evidence", "revealed_evidence")
                            for item in context.get(key, [])}
-            if any(eid not in visible_ids for eid in reply.evidence_ids) and not completion:
+            if any(eid not in visible_ids for eid in reply.evidence_ids) and not from_generator:
                 ok, reason = False, "evidencia_no_autorizada"
             scope_rejected = bool(completion and completion.scope_rejected)
-            validation_rejected = bool(completion and completion.validation_rejected)
+            # Un rechazo del generador ya no bloquea: respondió el agente; el motivo queda en la auditoría.
+            validation_rejected = bool(from_generator and completion.validation_rejected)
             return {
                 "response_text": reply.text if ok else "Eso no lo puedo responder. Sigamos con la consulta.",
                 "doctor_question": None,  # Compatibilidad del contrato; ya no hay preguntas intermediadas.

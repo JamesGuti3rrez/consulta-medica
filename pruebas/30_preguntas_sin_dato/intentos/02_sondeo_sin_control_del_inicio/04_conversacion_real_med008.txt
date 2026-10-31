@@ -1,0 +1,18 @@
+﻿Caso MED-008 en http://127.0.0.1:3100
+
+PASA   Realizo exploración física
+       [medico_asistente / examine / curado] En el párpado hay una pápula de 0,5 cm, rosada y de aspecto perlado, con bordes enrollados y telangiectasias en la superficie.
+
+PASA   ¿Desde cuándo tiene la molestia?
+       [paciente / ask_patient / sintetico] Me diagnosticaron en 2003, cuando tenía aproximadamente 45 años.
+
+PASA   ¿Qué toma para la presión y desde qué año?
+       [paciente / ask_patient / sintetico] Tomo losartán para controlar la hipertensión. Me diagnosticaron en 2003, cuando tenía aproximadamente 45 años.
+
+PASA   ¿Ha tenido fiebre?
+       [paciente / ask_patient / curado] No recuerdo haber tenido fiebre.
+
+PASA   Solicito hemograma
+       [laboratorio / request_lab / sintetico_examen] Resultado sintético educativo, no observado en una persona real. Leucocitos: 7500 /uL (referencia educativa 4500–11000 /uL); Hemoglobina: 15.2 g/dL (referencia educativa 13–18 g/dL); Hematocrito: 45.8 % (referencia educativa 40–55 %).
+
+TODO PASA

@@ -193,8 +193,10 @@ class PatientHistoryCompletion:
                           source="mixto" if curated else "sintetico",
                           curated_ids=[item["evidence_id"] for item in curated_records])
         except (ValueError, TypeError, KeyError) as exc:
-            # No persistir JSON inválido ni volver a convertir un dato ausente en un "No".
-            result = finish("No entendí bien, doctor. ¿Me puede hacer la pregunta de otra manera?", rejected=True)
+            # No persistir JSON inválido ni volver a convertir un dato ausente en un "No". La pregunta sí se
+            # entendió: responde el agente paciente, que dice con naturalidad que no recuerda el dato.
+            result = finish(rejected=True)
+            result.selector_usage = (input_tokens, output_tokens)
             result.rejection_reason = f"{stage}:{type(exc).__name__}:{str(exc)[:160]}"
             return result
 

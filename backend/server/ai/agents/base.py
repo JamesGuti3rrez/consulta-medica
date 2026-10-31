@@ -179,6 +179,11 @@ class BaseAgent(ABC):
                 result_text = self._deterministic_evidence_fallback(context)
             else:
                 result_text = retry.text
+        elif not self._has_retrieved_evidence(context) and self._asks_student_to_supply_available_evidence(first.text):
+            # Sin datos que entregar, pedir al estudiante que describa o invente hallazgos confunde: se dice que
+            # el dato no está disponible.
+            grounding_fallback_used = True
+            result_text = self.missing_data_reply
         else:
             result_text = first.text
 

@@ -55,9 +55,22 @@ def _topic_text(raw: str) -> str:
     return VERB_VINO.sub("llego", _normalize(raw)) + " "
 
 
+# «¿Desde cuándo…?» o «¿Hace cuánto…?» sobre la molestia actual pregunta por su inicio, no por el de un
+# antecedente: sin esto, «¿Desde cuándo tiene la molestia?» respondía el año en que le diagnosticaron la hipertensión.
+GENERIC_ONSET = ("desde cuando", "hace cuanto")
+CURRENT_COMPLAINT = ("molestia", "dolor", "duele", "lesion", "sintoma", "bulto", "mancha", "herida", "papula",
+                     "granito", "roncha", "picazon", "comezon", "fiebre", "tos", "sangr", "hinchaz", "inflama",
+                     "ardor", "nausea", "vomit", "mareo", "diarrea", "cansancio", "falta de aire")
+
+
 def candidate_topics(question: str) -> list[str]:
     text = _topic_text(question)
-    return [key for key, words in TOPICS.items() if any(word in text for word in words)]
+    topics = [key for key, words in TOPICS.items() if any(word in text for word in words)]
+    if "inicio_antecedentes" in topics:
+        specific = [word for word in TOPICS["inicio_antecedentes"] if word in text and word not in GENERIC_ONSET]
+        if not specific and any(word in text for word in CURRENT_COMPLAINT):
+            topics.remove("inicio_antecedentes")
+    return topics
 
 
 def rapport_reply(question: str) -> str | None:

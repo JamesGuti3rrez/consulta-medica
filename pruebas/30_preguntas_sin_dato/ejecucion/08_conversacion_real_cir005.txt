@@ -1,0 +1,18 @@
+﻿Caso CIR-005 en http://127.0.0.1:3100
+
+PASA   Realizo exploración física
+       [medico_asistente / examine / curado] No hay hallazgos de exploración física registrados para este paciente.
+
+PASA   ¿Desde cuándo tiene el dolor?
+       [paciente / ask_patient / curado] El dolor empezó antes de la cirugía, pero no recuerdo la fecha exacta.
+
+PASA   ¿Ha tenido fiebre o vómitos?
+       [paciente / ask_patient / curado] No recuerdo haber tenido fiebre.
+
+PASA   ¿Dónde le duele exactamente?
+       [paciente / ask_patient / curado] Me duele en el abdomen, es muy intenso.
+
+PASA   ¿Qué medicamentos toma?
+       [paciente / ask_patient / curado] No recuerdo con precisión los medicamentos que tomo.
+
+TODO PASA

@@ -1,0 +1,22 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.14.4, pytest-8.3.4, pluggy-1.6.0 -- C:\Users\Usuario\Documents\consulta-medica\backend\.venv\Scripts\python.exe
+rootdir: C:\Users\Usuario\Documents\consulta-medica\backend
+configfile: pyproject.toml
+plugins: anyio-4.15.1, langsmith-0.14.7
+collecting ... collected 7 items
+
+tests/integration/test_preguntas_sin_dato.py::test_exploracion_sin_hallazgos_registrados_no_pide_al_estudiante_que_los_describa FAILED [ 14%]
+tests/integration/test_preguntas_sin_dato.py::test_exploracion_con_hallazgos_registrados_los_entrega PASSED [ 28%]
+tests/integration/test_preguntas_sin_dato.py::test_doctor_sin_datos_que_pide_describir_hallazgos_se_sustituye FAILED [ 42%]
+tests/integration/test_preguntas_sin_dato.py::test_doctor_sin_datos_que_responde_bien_no_se_toca PASSED [ 57%]
+tests/integration/test_preguntas_sin_dato.py::test_rechazo_del_generador_deja_responder_al_agente_paciente FAILED [ 71%]
+tests/integration/test_preguntas_sin_dato.py::test_paciente_responde_con_naturalidad_cuando_el_generador_rechaza FAILED [ 85%]
+tests/integration/test_preguntas_sin_dato.py::test_la_respuesta_del_agente_tras_el_rechazo_pasa_los_controles FAILED [100%]
+
+=========================== short test summary info ===========================
+FAILED tests/integration/test_preguntas_sin_dato.py::test_exploracion_sin_hallazgos_registrados_no_pide_al_estudiante_que_los_describa
+FAILED tests/integration/test_preguntas_sin_dato.py::test_doctor_sin_datos_que_pide_describir_hallazgos_se_sustituye
+FAILED tests/integration/test_preguntas_sin_dato.py::test_rechazo_del_generador_deja_responder_al_agente_paciente
+FAILED tests/integration/test_preguntas_sin_dato.py::test_paciente_responde_con_naturalidad_cuando_el_generador_rechaza
+FAILED tests/integration/test_preguntas_sin_dato.py::test_la_respuesta_del_agente_tras_el_rechazo_pasa_los_controles
+========================= 5 failed, 2 passed in 1.00s =========================

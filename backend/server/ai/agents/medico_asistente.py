@@ -1,5 +1,5 @@
 from server.ai.agents.base import BaseAgent
-from server.domain import AgentRole
+from server.domain import AgentReply, AgentRole
 
 
 class MedicoAsistenteAgent(BaseAgent):
@@ -18,3 +18,12 @@ class MedicoAsistenteAgent(BaseAgent):
         "llegar a él con los datos de la consulta. Si pide un dato que no está en el contexto, di con "
         "naturalidad que no está disponible. No uses palabras como evidencia, autorizado o recuperado."
     )
+    missing_data_reply = "Ese dato no está disponible en la ficha de este paciente."
+    no_exam_findings_reply = "No hay hallazgos de exploración física registrados para este paciente."
+
+    def respond(self, *, student_message, context, temperature=0.0):
+        # Sin hallazgos registrados no se llama al modelo: no puede pedir al estudiante que los describa.
+        if context.get("exploracion_sin_hallazgos"):
+            return AgentReply(role=self.role, text=self.no_exam_findings_reply, provider="reglas", model="reglas",
+                              evidence_ids=[], input_tokens=0, output_tokens=0)
+        return super().respond(student_message=student_message, context=context, temperature=temperature)
