@@ -94,6 +94,16 @@ NUMBER_WORDS = {
 FIGURE = re.compile(r"\d+(?:[.,]\d+)?")
 
 
+def invented_figures(reply: str, context: dict[str, Any]) -> list[str]:
+    """Las cifras de una salida clínica deben existir en su contexto, no en la pregunta del alumno."""
+    raw = json.dumps({key: context.get(key) for key in
+                     ("patient", "public_evidence", "revealed_evidence", "retrieved_evidence")}, ensure_ascii=False)
+    # Los números que aparecen solo en identificadores no autorizan valores clínicos.
+    raw = re.sub(r'[A-Z]{3,5}-\d{3}(?:\.[\w]+)*', '', raw)
+    allowed = {value.replace(',', '.') for value in FIGURE.findall(raw)}
+    return [value for value in FIGURE.findall(reply) if value.replace(',', '.') not in allowed]
+
+
 def omitted_figures(reply: str, context: dict[str, Any]) -> list[str]:
     """Cifras de la evidencia recuperada que la respuesta no menciona (ni con dígitos ni con letras).
 

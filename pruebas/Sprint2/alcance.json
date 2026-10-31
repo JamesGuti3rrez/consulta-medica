@@ -1,0 +1,77 @@
+{
+  "fuente": "Product_Backlog_Paciente_Virtual_Adaptativo_v5.5_Sprint2_Unificado.docx",
+  "sha256_fuente": "d611ee1224ebfbe66a385998ee8f35a7a3e1e0a97d4c817d1d1035f68689d028",
+  "fecha": "2026-10-30",
+  "excluidos": [
+    "HU-005",
+    "TA-019"
+  ],
+  "criterio": "Primeras cinco filas de Sprint 2 con Rodrigo en Responsable, incluidas asignaciones compartidas",
+  "puntos": [
+    {
+      "ID": "TA-017",
+      "Título corto": "Autorización de sesiones y eventos",
+      "Descripción / Objetivo": "Aplicar controles de propietario y política de acceso a todas las operaciones de sesión, incluyendo usuarios anónimos según regla explícita.",
+      "Criterios de aceptación verificables": "GET /sessions/{id}, mensaje, eventos y cierre comprueban propietario/token. Usuario B recibe 403/404 sin datos de A. Sesiones anónimas usan credencial de capacidad o política equivalente. Test HTTP positivo/negativo.",
+      "Prioridad": "Crítica",
+      "SP": "4",
+      "Estado / evidencia / notas": "Pendiente de seguridad; evidencia objetivo: backend/server/api/ai.py + pruebas HTTP de autorización.",
+      "Dependencias": "TA-004, EN-011",
+      "Categoría": "Seguridad / Backend",
+      "Fuente": "Auditoría del repositorio",
+      "Responsable": "James + Rodrigo"
+    },
+    {
+      "ID": "TA-007",
+      "Título corto": "Validación adversarial y guardrails",
+      "Descripción / Objetivo": "Cerrar la aceptación del aislamiento, fidelidad al caso y protección de diagnóstico en los agentes que ya existen.",
+      "Criterios de aceptación verificables": "Atacar con sinónimos, solicitudes entre roles, mezcla de case_id y datos inexistentes; ninguna salida prohibida llega al frontend; logs saneados con evidence_id; verificar ruta positiva y bloqueo.",
+      "Prioridad": "Crítica",
+      "SP": "3",
+      "Estado / evidencia / notas": "Código de guardrails presente; falta validación E2E adversarial.",
+      "Dependencias": "EN-004, TA-014, TA-017",
+      "Categoría": "IA / Seguridad",
+      "Fuente": "backend/tests/security/",
+      "Responsable": "Rodrigo"
+    },
+    {
+      "ID": "TA-027",
+      "Título corto": "Agente validador de consistencia general del caso",
+      "Descripción / Objetivo": "Ejecutar una revisión de consistencia del caso antes de presentarlo al estudiante: estructura, contradicciones, datos faltantes, revelación y plausibilidad; no sustituye revisión clínica humana.",
+      "Criterios de aceptación verificables": "• Informe por caso con hallazgos clasificados y evidencias\n• Bloquear casos inválidos o registrar estado de revisión\n• Prueba con casos válidos y alterados intencionalmente",
+      "Prioridad": "Alta",
+      "SP": "4",
+      "Estado / evidencia / notas": "Planificado en Sprint 2; desarrollo, pruebas y aceptación pendientes.",
+      "Dependencias": "TA-020, TA-002, EN-001",
+      "Categoría": "Validación de casos",
+      "Fuente": "Docente 28/10: Pedido / recomendación aceptada",
+      "Responsable": "James + Rodrigo"
+    },
+    {
+      "ID": "HU-004",
+      "Título corto": "Verificar exámenes y especialistas",
+      "Descripción / Objetivo": "Cerrar flujo de revelación progresiva de resultados existentes y rechazo de solicitudes no soportadas.",
+      "Criterios de aceptación verificables": "Laboratorio, radiología y consulta especializada present/ausente; invoca rol correcto; solo evidence_id autorizado del case_id activo; tablilla y eventos actualizados sin repeticiones.",
+      "Prioridad": "Alta",
+      "SP": "2",
+      "Estado / evidencia / notas": "Implementación parcial/funcional en código; falta conformidad integral y pruebas de rutas faltantes.",
+      "Dependencias": "EN-008, TA-006, TA-017",
+      "Categoría": "Frontend / Agentes",
+      "Fuente": "backend/tests/integration/test_generic_exam_request.py",
+      "Responsable": "Julio + Rodrigo"
+    },
+    {
+      "ID": "EN-013",
+      "Título corto": "Agente generador de resultados de exámenes faltantes",
+      "Descripción / Objetivo": "Si faltan resultados pertinentes en el JSON, generar valores CLÍNICOS SINTÉTICOS condicionados al caso y a la solicitud, sin revelar o inducir el diagnóstico ni presentarlos como observaciones reales.",
+      "Criterios de aceptación verificables": "• Generar indicadores pertinentes (p. ej. hemograma) con unidades y referencias cuando proceda\n• Marcar sintético y procedencia; no generar cuando hay dato canónico\n• Salida debe pasar por validador, política de revelación y trazabilidad",
+      "Prioridad": "Crítica",
+      "SP": "5",
+      "Estado / evidencia / notas": "Planificado en Sprint 2; desarrollo, pruebas y aceptación pendientes.",
+      "Dependencias": "TA-015, HU-004, EN-012, EN-004",
+      "Categoría": "IA clínica / Datos sintéticos",
+      "Fuente": "Docente 28/10: Pedido directo",
+      "Responsable": "Rodrigo + James"
+    }
+  ]
+}

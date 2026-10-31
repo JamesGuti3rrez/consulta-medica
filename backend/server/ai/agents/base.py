@@ -7,7 +7,7 @@ from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Any
 
-from server.ai.agents.invencion import invented_symptoms, omitted_figures
+from server.ai.agents.invencion import invented_symptoms, omitted_figures, invented_figures
 from server.ai.llm.gateway import LLMGateway
 from server.domain import AgentReply, AgentRole
 
@@ -136,6 +136,13 @@ class BaseAgent(ABC):
             return AgentReply(role=self.role, text=self.generic_request_reply, provider="reglas", model="reglas",
                               evidence_ids=[], input_tokens=0, output_tokens=0, fallback_used=False,
                               grounding_retry_used=False, grounding_fallback_used=False)
+        if self.role in (AgentRole.LABORATORIO, AgentRole.RADIOLOGIA, AgentRole.ESPECIALISTA) and not self._has_retrieved_evidence(context):
+            return AgentReply(role=self.role, text=self.missing_data_reply, provider="reglas", model="reglas")
+        if self.role in (AgentRole.LABORATORIO, AgentRole.RADIOLOGIA, AgentRole.ESPECIALISTA):
+            # Los informes existentes se entregan literalmente: un LLM no necesita reinterpretar sus cifras.
+            return AgentReply(role=self.role, text=clean_reply(self._deterministic_evidence_fallback(context)),
+                              provider="reglas", model="dato-canonico",
+                              evidence_ids=[i["evidence_id"] for i in context["retrieved_evidence"]])
         messages = self._messages(student_message=student_message, context=context)
         first = self.gateway.generate(messages, temperature=temperature)
 
@@ -236,9 +243,14 @@ class BaseAgent(ABC):
                 for item in context.get("revealed_evidence", [])
                 if item.get("evidence_id")
             ]
+        # Último control: ninguna cifra nueva del LLM puede convertirse en un resultado clínico.
+        final_text = clean_reply(result_text)
+        if invented_figures(final_text, context):
+            final_text = clean_reply(self._deterministic_evidence_fallback(context))
+            grounding_fallback_used = True
         return AgentReply(
             role=self.role,
-            text=clean_reply(result_text),
+            text=final_text,
             provider=result.provider,
             model=result.model,
             evidence_ids=evidence_ids,

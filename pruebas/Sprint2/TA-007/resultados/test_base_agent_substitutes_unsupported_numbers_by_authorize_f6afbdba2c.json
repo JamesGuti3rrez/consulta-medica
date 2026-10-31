@@ -1,0 +1,7 @@
+{
+  "id": "TA-007",
+  "prueba": "test_base_agent_substitutes_unsupported_numbers_by_authorized_evidence",
+  "resultado": "PASA",
+  "duracion_s": 0.0006,
+  "entorno": "HTTP local y proveedores controlados"
+}

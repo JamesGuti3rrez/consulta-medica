@@ -15,6 +15,7 @@ from case_preparation.indexing.documents import IndexingError, build_case_docume
 from server.auth import AuthUser, current_user, require_staff
 from server.cases import CaseNotFound
 from server.cases.repository import CASE_ID_PATTERN
+from server.cases.consistency import review_case
 from server.cases.upload_templates import example_case, excel_template
 from server.cases.uploads import MAX_FILE_BYTES, UploadError, prepare_cases, read_upload
 from server.config import settings
@@ -95,11 +96,23 @@ def detail(case_id: str, user: AuthUser = Depends(require_staff), store=Depends(
             stale.append(document.source_id)
     return {
         "caso": case, "evidencias_rag": evidence, "datos_adicionales": facts,
+        "consistencia": review_case(case),
         "rag": {"backend": settings.rag_backend, "tabla": "rag_evidencias", "esperadas": len(expected),
                 "indexadas": len(evidence), "faltantes": missing, "desactualizadas": stale,
                 "por_propietario": dict(Counter(item["owner"] for item in evidence)),
                 "por_categoria": dict(Counter(item["category"] for item in evidence))},
     }
+
+
+class ConsistencyRequest(BaseModel):
+    caso: dict
+
+
+@router.post("/consistencia")
+def consistency(payload: ConsistencyRequest, user: AuthUser = Depends(require_staff)):
+    if len(json.dumps(payload.caso).encode()) > MAX_FILE_BYTES:
+        raise HTTPException(413, "El caso supera el tamaño permitido.")
+    return review_case(payload.caso)
 
 
 @router.get("/plantilla")

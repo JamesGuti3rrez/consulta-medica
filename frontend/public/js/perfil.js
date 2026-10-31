@@ -18,6 +18,16 @@
     const signedIn = Boolean(user);
     if (guest) guest.hidden = signedIn;
     if (account) account.hidden = !signedIn;
+    let groupsLink = document.querySelector('[data-role="my-groups"]');
+    if (!groupsLink && menu) {
+      groupsLink = document.createElement('a');
+      groupsLink.dataset.role = 'my-groups';
+      groupsLink.className = 'menu-item';
+      groupsLink.href = 'grupos.html';
+      groupsLink.textContent = 'Mis grupos';
+      menu.querySelector('[data-role="logout"]')?.parentElement.before(groupsLink);
+    }
+    if (groupsLink) groupsLink.hidden = !signedIn;
     const existingLink = document.querySelector('[data-role="teacher-panel"]');
     if (existingLink) existingLink.hidden = true;
     if (signedIn) window.setTimeout(async () => {
@@ -30,7 +40,7 @@
           link.dataset.role = 'teacher-panel';
           link.className = 'menu-item';
           link.href = 'docente.html';
-          link.textContent = 'Panel docente';
+          link.textContent = 'Panel Doctor';
           menu.querySelector('[data-role="logout"]')?.parentElement.before(link);
         }
         link.hidden = false;

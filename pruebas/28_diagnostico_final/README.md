@@ -23,7 +23,7 @@ Diseño con todas las decisiones: `docs/superpowers/specs/2026-10-31-hu006-diagn
 | --- | --- |
 | Validación y normalización del texto | `backend/server/domain/final_diagnosis.py` |
 | Registro en memoria y en Supabase | `backend/server/persistence/diagnoses.py` |
-| Tabla `diagnosticos_finales` (única por sesión y por alumno/caso/intento, RLS sin políticas) | `backend/supabase/migrations/0005_diagnosticos_finales.sql` |
+| Tabla `diagnosticos_finales` (única por sesión y por alumno/caso/intento, RLS sin políticas) | `backend/supabase/migrations/0007_diagnosticos_finales.sql` |
 | Cierre: valida, exige `confirmado: true`, registra y después cierra; 503 sin cerrar si el registro falla | `backend/server/api/ai.py` (`finish`) |
 | Simulador: validación en pantalla, paso de confirmación, un solo envío, sin cierre ante 422/503/red | `frontend/public/simulacion.html`, `frontend/public/js/simulacion.js` |
 
@@ -41,7 +41,7 @@ diagnóstico y confirmación (contrato nuevo, mismas comprobaciones).
 | Navegador real, invitado y alumno (E2E) | Se detiene: no hay confirmación (2 de 5) | 33 de 33 | `ejecucion/navegador_*`, `resultados/navegador_*` |
 | Regresión de HU-007 en el navegador | - | 21 de 21 | `ejecucion/regresion_hu007_navegador.txt` |
 | Regresión completa del backend | 582 pasan | 662 pasan (582 + 80) | `ejecucion/tdd/suite_*` |
-| Suite HU006 en vivo con Supabase | Pendiente: migración 0005 | - | - |
+| Suite HU006 en vivo con Supabase | Pendiente: migración 0007 | - | - |
 
 Los 5 casos que ya pasaban antes son de acceso ajeno (otro alumno, otro invitado, sin credencial, consulta
 inexistente) y la consulta abierta sin datos protegidos: los cubría TA-011.
@@ -76,7 +76,7 @@ Desde la raíz del repositorio:
 $env:PORT='3100'; $env:SESSION_STORE='memoria'; $env:CASE_STORE='local'; $env:RAG_BACKEND='local'; $env:RAG_SERVICE_URL=''; npm start
 $env:BASE_URL='http://localhost:3100'; node pruebas\28_diagnostico_final\probar_navegador.cjs pruebas\28_diagnostico_final\resultados\navegador_despues
 
-# En vivo (requiere la migración 0005 en Supabase): servidor con sesiones en Supabase y la suite contra él
+# En vivo (requiere la migración 0007 en Supabase): servidor con sesiones en Supabase y la suite contra él
 $env:PORT='3100'; $env:SESSION_STORE='supabase'; $env:RAG_SERVICE_URL=''; $env:LANGSMITH_TRACING='false'; npm start > <log>
 .\pruebas\28_diagnostico_final\correr_suite.ps1 -Fase vivo_despues -Modo vivo -BaseUrl http://127.0.0.1:3100 -LogServidor <log>
 ```

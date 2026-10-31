@@ -3,7 +3,7 @@
 Panel docente: aplicar `migrations/0004_panel_docente.sql` para publicar casos y evidencias en una
 transacción. Roles y funcionamiento: [guía del panel](../../docs/development/panel_docente.md).
 
-Diagnóstico final (HU-006): aplicar `migrations/0005_diagnosticos_finales.sql` **antes** de publicar el servidor de
+Diagnóstico final (HU-006): aplicar `migrations/0007_diagnosticos_finales.sql` **antes** de publicar el servidor de
 HU-006. Crea `diagnosticos_finales` (uno por sesión, numerado por alumno y caso), que solo usa el servidor; sin la
 tabla, el cierre de un alumno con sesión responde 503 y su consulta sigue abierta.
 

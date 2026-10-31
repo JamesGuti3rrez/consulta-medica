@@ -205,6 +205,7 @@ def clinical_content(case: dict) -> dict:
 
 
 def prepare_cases(cases: list[dict], existing: list[dict], user_id: str) -> tuple[list[dict], list[dict], list[str]]:
+    from .consistency import review_case
     if not cases or len(cases) > MAX_CASES or any(not isinstance(case, dict) for case in cases):
         raise UploadError("El lote debe tener entre 1 y 100 casos.")
     prepared, errors, warnings = [], [], []
@@ -233,6 +234,11 @@ def prepare_cases(cases: list[dict], existing: list[dict], user_id: str) -> tupl
             continue
         for error in check_case_rules(case):
             errors.append({"case_id": case_id, "path": "", "message": error})
+        consistency = review_case(case)
+        for finding in consistency["findings"]:
+            if finding["severity"] in {"error", "revision"} and finding["code"].startswith("CV"):
+                errors.append({"case_id": case_id, "path": finding["path"],
+                               "message": finding["code"] + " " + finding["message"]})
         warnings += [f"{case_id}: {warning}" for warning in check_case_warnings(case)]
         if previous:
             if clinical_content(previous) != clinical_content(case):

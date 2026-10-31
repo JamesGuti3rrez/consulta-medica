@@ -12,6 +12,7 @@ from .repository import (
 )
 from .rules import check_case_rules
 from .validator import validate_case_document
+from .consistency import ensure_presentable
 
 
 class CaseStoreError(RuntimeError):
@@ -60,6 +61,7 @@ class SupabaseCaseRepository(CanonicalCaseRepository):
             validate_case_document(document)
             if check_case_rules(document):
                 raise CaseValidationError("Reglas cruzadas inválidas.")
+            ensure_presentable(document)
             if document["case_id"] != row.get("case_id") or document["status"] != "curado":
                 raise CaseValidationError("Identidad o estado inválido.")
         except Exception as exc:

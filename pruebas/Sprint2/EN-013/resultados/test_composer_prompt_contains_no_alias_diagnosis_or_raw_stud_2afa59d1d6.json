@@ -1,0 +1,7 @@
+{
+  "id": "EN-013",
+  "prueba": "test_composer_prompt_contains_no_alias_diagnosis_or_raw_student_instructions",
+  "resultado": "PASA",
+  "duracion_s": 0.0004,
+  "entorno": "HTTP local y proveedores controlados"
+}

@@ -1,6 +1,6 @@
 """Registro del diagnóstico final (HU-006): uno por sesión, numerado por alumno y caso.
 
-En producción vive en la tabla diagnosticos_finales de Supabase (migración 0005), que solo usa el servidor con
+En producción vive en la tabla diagnosticos_finales de Supabase (migración 0007), que solo usa el servidor con
 la clave secreta. Con SESSION_STORE=memoria se usa la versión en memoria, con la misma interfaz.
 No guarda nada de la parte protegida del caso: solo lo que propuso el alumno.
 """

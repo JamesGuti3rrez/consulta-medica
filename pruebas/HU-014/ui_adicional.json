@@ -1,0 +1,10 @@
+{
+  "resultado": "PASA",
+  "responsive_390": true,
+  "cambio_identidad_cierra_panel": true,
+  "capturas": [
+    "crear-grupo.png",
+    "miembros.png",
+    "asignar.png"
+  ]
+}

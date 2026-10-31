@@ -89,3 +89,6 @@ class TurnGraphState(TypedDict, total=False):
     synthetic_reused_ids: list[str]
     data_source: str
     synthetic_rejection_reason: str | None
+    synthetic_exam_results: dict
+    exam_evidence: list[dict]
+    exam_validation: dict | None

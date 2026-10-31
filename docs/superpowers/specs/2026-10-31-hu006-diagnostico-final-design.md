@@ -38,7 +38,7 @@ con las mismas validaciones, pero su diagnóstico no queda en la tabla nueva (la
 
 Las demás son decisiones del desarrollador (el usuario pidió implementarlo sin más preguntas):
 
-1. **Tabla nueva `diagnosticos_finales`** (migración `0005_diagnosticos_finales.sql`), en lugar de `intentos`:
+1. **Tabla nueva `diagnosticos_finales`** (migración `0007_diagnosticos_finales.sql`; se escribió como 0005 y se renumeró al unir la rama de Rodrigo, cuyas 0005 y 0006 de grupos ya están en producción), en lugar de `intentos`:
    `intentos` depende de `HISTORIAL_ALUMNOS` y no existe en producción; mezclarla cambiaría «Mis simulaciones».
    Columnas: `id` uuid, `session_id` uuid **único**, `usuario_id` uuid (dueño de la sesión), `case_id` text,
    `numero_intento` integer >= 1, `diagnostico` text (2..2000), `hipotesis` jsonb, `creado_en` timestamptz.
@@ -85,10 +85,10 @@ Las demás son decisiones del desarrollador (el usuario pidió implementarlo sin
 - Navegador real (Playwright): validación en pantalla, confirmación y «Seguir en la consulta», doble clic con una sola
   petición, fallo 503 simulado sin cierre y reintento, intento N registrado.
 - Regresión completa del backend antes y después.
-- En vivo contra Supabase: requiere ejecutar la migración 0005 en el SQL Editor (lo hace el usuario); los datos de
+- En vivo contra Supabase: requiere ejecutar la migración 0007 en el SQL Editor (lo hace el usuario); los datos de
   prueba se borran al terminar.
 
 ## Despliegue
 
-La migración 0005 debe ejecutarse en Supabase **antes** de publicar: sin la tabla, el cierre de un alumno con sesión
+La migración 0007 debe ejecutarse en Supabase **antes** de publicar: sin la tabla, el cierre de un alumno con sesión
 responde 503 (la consulta sigue abierta y nada se pierde, pero no se puede cerrar).

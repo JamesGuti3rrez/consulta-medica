@@ -1,0 +1,38 @@
+{
+  "resultado": "PASA",
+  "auth": "Fixture; API FastAPI y PostgreSQL reales locales",
+  "pruebas": [
+    {
+      "prueba": "Perfil verificado antes de cargar el módulo: aparecen los dos grupos vacíos sin crear otro",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Cerrar sesión y volver con la misma identidad recupera los grupos sin escrituras (Auth controlado)",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Crear un nombre repetido devuelve 409 y un mensaje claro sin añadir tarjetas",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Editar hacia un nombre existente también se rechaza y conserva el grupo original",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Apertura anterior a la verificación se reanuda automáticamente al recibir el perfil",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Un error del catálogo no oculta ni impide cargar los grupos",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Catálogo lento: los grupos se consultan primero y el selector se completa cuando llegan los casos",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Sin errores JavaScript durante las pruebas de carga",
+      "resultado": "PASA"
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+[
+  {
+    "tarea": "TA-017",
+    "registro": "pruebas\\Sprint2\\TA-017\\terminal.txt",
+    "captura": "pruebas\\Sprint2\\TA-017\\capturas\\terminal.png",
+    "sha256": "618a60514c95d6abe2ef37f0121f6e2db24f71a90b93ef68521a7ea8888e52ba",
+    "procedencia": "Ventana nativa de PowerShell mostrando la salida original registrada",
+    "dimensiones": [
+      1283,
+      319
+    ]
+  },
+  {
+    "tarea": "TA-007",
+    "registro": "pruebas\\Sprint2\\TA-007\\terminal.txt",
+    "captura": "pruebas\\Sprint2\\TA-007\\capturas\\terminal.png",
+    "sha256": "6846a4eed9ff5b2d7a4af95d95494827c3b8442599acfc0e60f2a490a16d78b3",
+    "procedencia": "Ventana nativa de PowerShell mostrando la salida original registrada",
+    "dimensiones": [
+      1283,
+      319
+    ]
+  },
+  {
+    "tarea": "TA-027",
+    "registro": "pruebas\\Sprint2\\TA-027\\terminal.txt",
+    "captura": "pruebas\\Sprint2\\TA-027\\capturas\\terminal.png",
+    "sha256": "5e4ecd392cfa6534f431866fa6a5075d60ed3e75e0411d51557e871fe18ba132",
+    "procedencia": "Ventana nativa de PowerShell mostrando la salida original registrada",
+    "dimensiones": [
+      1283,
+      319
+    ]
+  },
+  {
+    "tarea": "HU-004",
+    "registro": "pruebas\\Sprint2\\HU-004\\terminal.txt",
+    "captura": "pruebas\\Sprint2\\HU-004\\capturas\\terminal.png",
+    "sha256": "ea5224bc68491e9c7ed7fc8983db4d4e76f482cde54df4226d942e04a49effaa",
+    "procedencia": "Ventana nativa de PowerShell mostrando la salida original registrada",
+    "dimensiones": [
+      1283,
+      319
+    ]
+  },
+  {
+    "tarea": "EN-013",
+    "registro": "pruebas\\Sprint2\\EN-013\\terminal.txt",
+    "captura": "pruebas\\Sprint2\\EN-013\\capturas\\terminal.png",
+    "sha256": "95da5021b24b15ff4dfc554ac67ae1c8f91f21d89a922cf47bf2041d88c3fcc6",
+    "procedencia": "Ventana nativa de PowerShell mostrando la salida original registrada",
+    "dimensiones": [
+      1283,
+      319
+    ]
+  },
+  {
+    "tarea": "SERVICIOS-REALES",
+    "registro": "pruebas\\Sprint2\\servicios_reales.txt",
+    "captura": "pruebas\\Sprint2\\capturas\\servicios-reales.png",
+    "sha256": "01c78328c696da1eef7da54d63ffbf3293bbc3fe929685f3f04ce06354e49c6e",
+    "procedencia": "Ventana nativa de PowerShell mostrando la salida original registrada",
+    "dimensiones": [
+      1283,
+      650
+    ]
+  }
+]

@@ -15,6 +15,7 @@ from typing import Any
 from .catalog import CURATED_CASES_DIR
 from .rules import check_case_rules
 from .validator import validate_case_document
+from .consistency import ensure_presentable
 
 # Mismo patrón que case_id en schemas/caso.schema.json. El ID llega del cliente y se usa como
 # nombre de archivo: cualquier otra forma (por ejemplo, con «../») se trata como inexistente.
@@ -99,4 +100,8 @@ class CanonicalCaseRepository:
         errors = check_case_rules(case)
         if errors:
             raise CaseValidationError(f"{path.name}: incumple reglas cruzadas: {errors}")
+        try:
+            ensure_presentable(case)
+        except ValueError as exc:
+            raise CaseValidationError(str(exc)) from exc
         return case

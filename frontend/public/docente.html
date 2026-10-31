@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
-  <title>Espacio docente | Consulta Médica Virtual</title>
+  <title>Panel Doctor | Consulta Médica Virtual</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,25 +12,43 @@
   <script>try { document.documentElement.dataset.theme = localStorage.getItem('tema-docente') === 'dark' ? 'dark' : 'light'; } catch {}</script>
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/docente.css">
+  <link rel="stylesheet" href="css/grupos.css">
   <script src="vendor/supabase.js" defer></script>
   <script src="js/auth.js" defer></script>
   <script src="js/docente.js" defer></script>
+  <script src="js/grupos-doctor.js" defer></script>
 </head>
 <body>
   <a class="skip" href="#workspace">Saltar al contenido</a>
   <header class="topbar">
-    <a class="brand" href="index.html"><img class="brand-mark" src="assets/favicon.svg" alt="" width="40" height="40"><span>Consulta Médica<small>APRENDER HACIENDO</small></span><span class="brand-context">Espacio docente</span></a>
+    <a class="brand" href="index.html"><img class="brand-mark" src="assets/favicon.svg" alt="" width="40" height="40"><span>Consulta Médica<small>APRENDER HACIENDO</small></span><span class="brand-context">Panel Doctor</span></a>
     <div class="account"><a class="simulator-link" href="index.html">Ir al simulador <svg class="icon" aria-hidden="true"><use href="assets/docente-icons.svg#arrow"/></svg></a><button id="toggle-panel-theme" class="panel-theme-toggle" type="button" aria-label="Cambiar a vista oscura" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="assets/docente-icons.svg#sun"/></svg><span>Claro</span></button><div class="account-person"><span id="account-avatar" class="account-avatar" aria-hidden="true">D</span><div><span id="account-name"></span><small id="account-role">Docente</small></div></div><button id="logout" class="quiet" hidden><svg class="icon" aria-hidden="true"><use href="assets/docente-icons.svg#logout"/></svg><span>Cerrar sesión</span></button></div>
   </header>
   <main>
     <section id="access" class="access" aria-live="polite">
-      <span class="eyebrow">ESPACIO DOCENTE</span>
+      <span class="eyebrow">PANEL DOCTOR</span>
       <h1 id="access-title">Comprobando tu acceso…</h1>
       <p id="access-message">Estamos verificando tu sesión.</p>
       <a id="login-link" class="button primary" href="index.html?cuenta=login" hidden>Iniciar sesión</a>
     </section>
     <div id="workspace" hidden>
       <div class="page-breadcrumb"><span>Docencia</span><span aria-hidden="true">/</span><strong>Banco de casos</strong><time id="panel-date"></time></div>
+      <nav class="doctor-sections" aria-label="Secciones del Panel Doctor">
+        <button id="show-catalog" class="section-choice is-current" aria-pressed="true">Banco de casos</button>
+        <button id="show-groups" class="section-choice" aria-pressed="false">Grupos y desempeño <span class="new-tag">NUEVO</span></button>
+      </nav>
+      <section id="groups-workspace" hidden aria-labelledby="groups-title">
+        <header class="group-hero"><div><span class="eyebrow">ENSEÑA EN COMUNIDAD</span><h1 id="groups-title">Cada grupo, un camino<br>de aprendizaje<span>.</span></h1><p>Asigna casos, acompaña el proceso y descubre cómo avanza cada alumno.</p></div><div class="hero-group-mark" aria-hidden="true"><span>+</span><i></i><i></i><i></i></div></header>
+        <div id="groups-status" class="notice" role="status" hidden></div>
+        <div class="groups-layout">
+          <aside class="panel group-sidebar"><div class="section-row"><h2>Mis grupos</h2><button id="refresh-groups" class="quiet" type="button">Actualizar</button></div>
+            <form id="create-group-form" class="group-form"><label for="group-name">Nombre del grupo<input id="group-name" required maxlength="100" placeholder="Ej. Medicina interna · Grupo A"></label><label for="group-description">Descripción <span class="muted">(opcional)</span><textarea id="group-description" maxlength="1000" rows="2" placeholder="Curso, sección o propósito del grupo"></textarea></label><button class="button primary" type="submit">Crear grupo</button></form>
+            <div id="group-list" class="group-list" aria-label="Tus grupos"></div>
+          </aside>
+          <div id="group-detail" class="group-detail"><section class="panel group-welcome"><span class="welcome-symbol" aria-hidden="true">◎</span><h2>Tu próxima experiencia compartida</h2><p>Crea un grupo o selecciona uno para incorporar alumnos y asignar el primer caso.</p></section></div>
+        </div>
+      </section>
+      <div id="catalog-workspace">
       <section class="page-heading" aria-labelledby="workspace-title">
         <div class="hero-copy"><span class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span> TU ESPACIO DE ENSEÑANZA</span><h1 id="workspace-title">Dale vida a la<br>próxima consulta<span>.</span></h1><p>Transforma tu conocimiento en casos clínicos.<br class="desktop-break"> Diseña, explora y acompaña cada aprendizaje.</p><div class="hero-actions"><button id="open-upload" class="button primary"><svg class="icon" aria-hidden="true"><use href="assets/docente-icons.svg#upload"/></svg>Importar casos</button><a class="hero-link" href="#catalog-section">Explorar catálogo <svg class="icon" aria-hidden="true"><use href="assets/docente-icons.svg#arrow"/></svg></a></div></div>
         <div class="hero-art" aria-hidden="true">
@@ -74,7 +92,8 @@
           <p id="empty-catalog" class="empty" hidden>No hay casos que coincidan con tu búsqueda.</p>
         </div>
       </section>
-      <footer class="workspace-footer"><span><svg class="icon" aria-hidden="true"><use href="assets/docente-icons.svg#shield"/></svg>Un espacio para enseñar, explorar y aprender.</span><span>Consulta Médica · Docencia</span></footer>
+      </div>
+      <footer class="workspace-footer"><span><svg class="icon" aria-hidden="true"><use href="assets/docente-icons.svg#shield"/></svg>Un espacio para enseñar, explorar y aprender.</span><span>Consulta Médica · Panel Doctor</span></footer>
     </div>
   </main>
   <dialog id="case-dialog">

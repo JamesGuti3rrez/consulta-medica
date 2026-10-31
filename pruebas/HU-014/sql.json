@@ -1,0 +1,62 @@
+{
+  "motor": "PostgreSQL PGlite, migración SQL real",
+  "resultado": "PASA",
+  "casos": [
+    {
+      "prueba": "Migración ejecutada dos veces; cuatro tablas con RLS",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Un alumno no crea grupos",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Doctor crea grupo propio; otro doctor no accede",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Nombres únicos por doctor en creación y edición; espacios y mayúsculas equivalentes",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "0006 corrige duplicados existentes sin perder integrantes ni actividades y es idempotente",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Alumno registrado por correo; alta repetida idempotente",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Asignación por grupo y roster; sin acceso de otro alumno",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Lote con caso inexistente revierte todas sus escrituras",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Inicio concurrente reutiliza una sesión y un único evento",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Proyección abierta no revela diagnóstico ni notas",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Cierre conserva nota diagnóstica y proceso por separado",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Cerrar actividad bloquea nuevos inicios y conserva entregas",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Retirar alumno revoca acceso; su resultado permanece",
+      "resultado": "PASA"
+    },
+    {
+      "prueba": "Claves de navegador sin acceso directo a tablas ni RPC",
+      "resultado": "PASA"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "id": "TA-027",
+  "prueba": "test_intentionally_altered_case_is_not_presented_or_published[foreign]",
+  "resultado": "PASA",
+  "duracion_s": 0.0213,
+  "entorno": "HTTP local y proveedores controlados"
+}

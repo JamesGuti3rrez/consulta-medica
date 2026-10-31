@@ -1,0 +1,229 @@
+{
+  "resultado": "PASA",
+  "casos_remotos_revisados": 44,
+  "bloqueados": 0,
+  "version": "case-consistency-1.0.0",
+  "solo_lectura": true,
+  "informes": [
+    {
+      "case_id": "CIR-005",
+      "status": "apto",
+      "fingerprint": "ac6a302403a8a885533cc9016ec63feb20701da67e95337290e08ecf1ffe674f"
+    },
+    {
+      "case_id": "CIR-006",
+      "status": "apto",
+      "fingerprint": "47c8bed1aac51eed6b1ee16126246f7ddd54adbcb5b83d2c1c1b0ac9daa5a9d5"
+    },
+    {
+      "case_id": "EME-001",
+      "status": "apto",
+      "fingerprint": "bb283a95b7fb582cf2f07c113a0a53ec2e45973c61ddd28f2037305e172f3ab3"
+    },
+    {
+      "case_id": "EME-002",
+      "status": "apto",
+      "fingerprint": "159af429b094b78fc09fcc5019621fbcadb4e005c3a8b79e883cda41a640d820"
+    },
+    {
+      "case_id": "EME-101",
+      "status": "apto",
+      "fingerprint": "0ccf60f2e7ed00c72e726ca8847c0b92cb00a37e5eded56f7da3a87df6d6b9b7"
+    },
+    {
+      "case_id": "EME-102",
+      "status": "apto",
+      "fingerprint": "fdcefc580663765d6787a370d17bf4d368e72e99aa3cd9b4c80c5a6695269455"
+    },
+    {
+      "case_id": "EME-103",
+      "status": "apto",
+      "fingerprint": "5e750f7af1a0c0398e1ce89eb78c38404b119cecda655ad800e8ae84a02c6635"
+    },
+    {
+      "case_id": "GOB-003",
+      "status": "apto",
+      "fingerprint": "791560df938dcc9be58bf28de16be8efdbd5e6654535a778b04320662e2f7f65"
+    },
+    {
+      "case_id": "GOB-004",
+      "status": "apto",
+      "fingerprint": "574bb63bae16baedea55b28880496f98d53b25d9732a6cb9acb659d5f4dfd22b"
+    },
+    {
+      "case_id": "MED-007",
+      "status": "apto",
+      "fingerprint": "6f1680bd2ee94fbf6d695e5e266036aaf88056f64dace4bbc1c777cef6f9af37"
+    },
+    {
+      "case_id": "MED-008",
+      "status": "apto",
+      "fingerprint": "25895ce5a2b57fe41f4887859228924ad0d72a7d4e0a6dcec41320fab237406f"
+    },
+    {
+      "case_id": "PED-009",
+      "status": "apto",
+      "fingerprint": "3d4d754b0e3ac03981aeda7aafccf370e2b8732f3926266c62e19ca54a54912f"
+    },
+    {
+      "case_id": "PED-010",
+      "status": "apto",
+      "fingerprint": "4dfd665dfbc5d14cbdd6b5fa5515eca6099a98328129075f4dc9fd3bf6dff393"
+    },
+    {
+      "case_id": "CIR-101",
+      "status": "apto",
+      "fingerprint": "1f68e1fe6c2a7c71efb7ea89f0ea07e5cfecefdf221384aabff662c74011d1c8"
+    },
+    {
+      "case_id": "CIR-102",
+      "status": "apto",
+      "fingerprint": "a28825c5d3aeef96eb5b983e90df17ba92dfc94991886b6473b16893c6ccd802"
+    },
+    {
+      "case_id": "CIR-103",
+      "status": "apto",
+      "fingerprint": "c270e1a0639c6cd9b738ebb58504b74e93e2c1032269046f0fe2536928ff0964"
+    },
+    {
+      "case_id": "CIR-104",
+      "status": "apto",
+      "fingerprint": "14f98cb048a75138f679eaf6dbb35d5e34ac04419e0a929f2d5087aa1c767986"
+    },
+    {
+      "case_id": "CIR-105",
+      "status": "apto",
+      "fingerprint": "a3210169b725b7d711b3c4f348efec6fbb26e58f18c52d620f5291bad3417489"
+    },
+    {
+      "case_id": "CIR-106",
+      "status": "apto",
+      "fingerprint": "7f765d4f7d2ae7cd8568de13212eb05f4305bfab0a2f164732fafe0bf387f0f0"
+    },
+    {
+      "case_id": "EME-104",
+      "status": "apto",
+      "fingerprint": "067ddd295c52806c5b3935d691eb302340246a971c90377cdaa70609d3e837e0"
+    },
+    {
+      "case_id": "EME-105",
+      "status": "apto",
+      "fingerprint": "481cd39d37662640ef7e1b99f21b01a3ba051ec606ed95c7b86b94049f224184"
+    },
+    {
+      "case_id": "EME-106",
+      "status": "apto",
+      "fingerprint": "7e1bb4a64d07b40eee060cc12fd3b722e1e4118d39626983b81c41b97fd66d10"
+    },
+    {
+      "case_id": "EME-107",
+      "status": "apto",
+      "fingerprint": "7581dbe6b74004eb4b8c9bd0f7987ca96667ef5ae1ecdb1d4c0246eb798a7539"
+    },
+    {
+      "case_id": "EME-108",
+      "status": "apto",
+      "fingerprint": "437fabb585515803405309cb34a3a064a5430db7fd3a376c0d16db586e99cd7a"
+    },
+    {
+      "case_id": "EME-109",
+      "status": "apto",
+      "fingerprint": "09ee42a5d5a83d066831af004c08169556350d65b7e80b2f67a914a470a7d9a8"
+    },
+    {
+      "case_id": "GOB-101",
+      "status": "apto",
+      "fingerprint": "e350b8abc90dd564d3375d3862add4040e4dcd9079d18b6b91987ace8289920d"
+    },
+    {
+      "case_id": "GOB-102",
+      "status": "apto",
+      "fingerprint": "cac7ff3a16eef97d97960ef26f298280ae66552e39f8203e125b677c0688ecd8"
+    },
+    {
+      "case_id": "GOB-103",
+      "status": "apto",
+      "fingerprint": "758c24dad9a5051a779e879309de16de6fcefc1422436efa45d997a089f902aa"
+    },
+    {
+      "case_id": "GOB-104",
+      "status": "apto",
+      "fingerprint": "f1a76a292f23738515545eea142c87fadc0c21a4f434084d6774ceb58383c6fe"
+    },
+    {
+      "case_id": "GOB-105",
+      "status": "apto",
+      "fingerprint": "3374b5cc4b1f6f21ea2bf5e8336c3eb1c530336148ed86e289151f0f921e63c2"
+    },
+    {
+      "case_id": "GOB-106",
+      "status": "apto",
+      "fingerprint": "41edfbe0c516af1537542f3e9e7815b92b5eeb52284c63aa00c9e86e6b64cbcf"
+    },
+    {
+      "case_id": "MED-101",
+      "status": "apto",
+      "fingerprint": "5a5458f2bfc6ef15415f07f4359eeee22096650d773fd6ac3d997e875a733e06"
+    },
+    {
+      "case_id": "MED-102",
+      "status": "apto",
+      "fingerprint": "9a96a8a025433b193e1357146ea7f3fcab1e1c763adcc41ea292d55ea4f8b6f1"
+    },
+    {
+      "case_id": "MED-103",
+      "status": "apto",
+      "fingerprint": "02633f8186039f67f46726921d181bf834b8c1431eb6ceb0c0a3bd38f6796cab"
+    },
+    {
+      "case_id": "MED-104",
+      "status": "apto",
+      "fingerprint": "bb6811a28d59eb1ffbfa68e05c04ab6b32231993858aa8db932e867ba77ee64b"
+    },
+    {
+      "case_id": "MED-105",
+      "status": "apto",
+      "fingerprint": "8f132e38f680ba0e39c77a0e0467f3a32b7556807cf72b1f5a8ad781f9b9a2b5"
+    },
+    {
+      "case_id": "MED-106",
+      "status": "apto",
+      "fingerprint": "f1458dabd96e4ac90f3e06c035416d68b1773a8644b6335f24493fdfa2cfe1fb"
+    },
+    {
+      "case_id": "PED-101",
+      "status": "apto",
+      "fingerprint": "3d68567811f00d326a113f7393c16aee4b6a6e9f53900ea067408cf2763398fb"
+    },
+    {
+      "case_id": "PED-102",
+      "status": "apto",
+      "fingerprint": "73911dabe44fe8ebf39da97c5a13725532b9ac4f173f800daaf81126b3b792e3"
+    },
+    {
+      "case_id": "PED-103",
+      "status": "apto",
+      "fingerprint": "2959a35119e520201b1b2e0ad4e850a1198d77a8753e60ec0b8d8a362f261c1d"
+    },
+    {
+      "case_id": "PED-104",
+      "status": "apto",
+      "fingerprint": "78e23ea4a33a11a9b6794720af2eb9959ef043aea98e0923103ab79d4fcf25b2"
+    },
+    {
+      "case_id": "PED-105",
+      "status": "apto",
+      "fingerprint": "b92f7940087fcf275aaf393305d744c3b0f1c9f5320ab1385a90a225bbfb6adb"
+    },
+    {
+      "case_id": "PED-106",
+      "status": "apto",
+      "fingerprint": "bdeb570240214f56ef895848736e36c9ec1f95a3ae46784fa9f3f7a9011fef28"
+    },
+    {
+      "case_id": "MED-107",
+      "status": "apto",
+      "fingerprint": "3c1deb64aeb85d63113cf316cee6013d01d5f63cc0aa7a6a9a52aae879f3bcdf"
+    }
+  ]
+}

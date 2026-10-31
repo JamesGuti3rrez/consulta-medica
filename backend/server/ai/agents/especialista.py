@@ -3,6 +3,7 @@ from server.domain import AgentRole
 
 
 class EspecialistaAgent(BaseAgent):
+    missing_data_reply = "No hay una interconsulta disponible en este caso. Puede continuar con la historia, la exploración y los exámenes disponibles."
     role = AgentRole.ESPECIALISTA
     prompt_filename = "especialista.md"
     # Ningún caso trae datos de interconsulta: se responde con naturalidad, sin términos internos.

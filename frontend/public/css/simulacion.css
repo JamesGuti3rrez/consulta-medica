@@ -944,3 +944,14 @@ button[hidden] {
     animation: none;
   }
 }
+
+/* EN-013: examen sintético, marcado como tal en la tablilla y en el reporte. */
+.synthetic-exam-badge {
+  display: block;
+  padding: .45rem .65rem;
+  border: 1px solid #b45309;
+  border-radius: .6rem;
+  color: #92400e;
+  background: #fffbeb;
+  font-size: .75rem;
+}

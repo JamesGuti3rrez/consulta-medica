@@ -12,6 +12,10 @@
         "role:user": "node backend/scripts/python.mjs user-role",
         "rag:sync": "node backend/scripts/python.mjs sync-rag",
         "test:cases": "node backend/scripts/python.mjs test-cases",
+        "test:diagnosis": "node backend/scripts/python.mjs test-cases tests/unit/test_evaluation.py tests/unit/test_report_builder.py tests/integration/test_api_report.py tests/integration/test_report_all_cases.py tests/security tests/unit/test_attempts.py tests/unit/test_supabase_store.py",
+        "test:sprint2": "node backend/scripts/python.mjs test-cases tests/sprint2 tests/groups tests/security tests/integration/test_direct_dialogue.py tests/unit/test_report_builder.py tests/integration/test_api_report.py tests/integration/test_report_all_cases.py tests/unit/test_attempts.py tests/unit/test_supabase_store.py",
+        "test:groups": "node backend/scripts/python.mjs test-cases tests/groups",
+        "test:groups:sql": "node pruebas/HU-014/probar_sql.mjs",
         "prestart": "npm run build",
         "start": "node backend/scripts/python.mjs start",
         "build": "npm run build:images && npm run build:css",
@@ -25,6 +29,7 @@
         "postinstall": "npm run build:vendor"
     },
     "devDependencies": {
+        "@electric-sql/pglite": "^0.5.13",
         "@tailwindcss/cli": "^4.3.3",
         "@tailwindcss/forms": "^0.5.11",
         "playwright": "1.63.0",

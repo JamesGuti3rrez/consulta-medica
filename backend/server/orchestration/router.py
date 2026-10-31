@@ -20,7 +20,7 @@ class DecisionRouter:
         "coagulacion", "coagulograma", "ttpa", "tiempo de protrombina", "ph vaginal", "tiroides", "tiroidea", "tsh",
         "electrocardiograma", "ecg", "electro", "dimero", "enzimas cardiacas",
         # Exámenes que agregó el equipo para decidir entre diagnósticos parecidos (decisión 0002).
-        "factor viii", "factor ix", "factores de coagulacion", "prolactina", "eeg",
+        "factor viii", "factor ix", "factores de coagulacion", "prolactina", "eeg", "electroencefalograma",
         # Estudios de la ampliación de casos sintéticos (octubre de 2026).
         "flujo espiratorio", "flujometria", "peak flow", "gasometria", "liquido cefalorraquideo", "lcr",
         "funcion renal", "creatinina", "uroanalisis", "electrolitos", "ionograma", "ferritina",
@@ -29,7 +29,7 @@ class DecisionRouter:
         "prueba molecular vaginal", "prueba molecular de esputo", "baciloscopia",
     }
     RADIOLOGY = {"radiografia", "ecografia", "tomografia", "resonancia", "imagen", "rayos x", "tac", "edad osea",
-                 "ecocardiografia", "ecocardiograma", "angiografia cerebral"}
+                 "ecocardiografia", "ecocardiograma", "angiografia cerebral", "angiotomografia", "angiotac"}
     SPECIALIST = {"especialista", "interconsulta", "neurologia", "cardiologia", "cirugia", "ginecologia"}
     ASSISTANT = {"resumen", "que sabemos", "presentacion", "historia clinica", "estado del caso",
                  "el diagnostico", "que tiene el paciente", "cual es la enfermedad"}
@@ -54,26 +54,28 @@ class DecisionRouter:
 
     def route(self, message: str) -> RouteDecision:
         text = _normalize(message)
-        if any(term in text for term in self.FINISH):
+        def mentions(terms):
+            return any(f" {term} " in f" {text.strip()} " for term in terms)
+        if mentions(self.FINISH):
             return RouteDecision(Intent.FINISH, AgentRole.MEDICO_ASISTENTE, 1.0, "solicitud explícita de cierre")
-        if any(term in text for term in self.DIAGNOSIS):
+        if mentions(self.DIAGNOSIS):
             return RouteDecision(Intent.PROPOSE_DIAGNOSIS, AgentRole.MEDICO_ASISTENTE, 0.98, "propuesta de diagnóstico")
         # Una pregunta («¿Qué le indicó su médico?») no es una propuesta de tratamiento.
-        if "?" not in message and any(term in text for term in self.TREATMENT):
+        if "?" not in message and mentions(self.TREATMENT):
             return RouteDecision(Intent.PROPOSE_TREATMENT, AgentRole.MEDICO_ASISTENTE, 0.98, "propuesta de tratamiento")
-        if any(term in text for term in self.HYPOTHESIS):
+        if mentions(self.HYPOTHESIS):
             return RouteDecision(Intent.PROPOSE_HYPOTHESIS, AgentRole.MEDICO_ASISTENTE, 0.95, "registro de hipótesis")
-        if any(term in text for term in self.LAB):
+        if mentions(self.LAB):
             return RouteDecision(Intent.REQUEST_LAB, AgentRole.LABORATORIO, 0.95, "términos de laboratorio")
-        if any(term in text for term in self.RADIOLOGY):
+        if mentions(self.RADIOLOGY):
             return RouteDecision(Intent.REQUEST_RADIOLOGY, AgentRole.RADIOLOGIA, 0.95, "términos de imagen")
-        if any(term in text for term in self.SPECIALIST):
+        if mentions(self.SPECIALIST):
             return RouteDecision(Intent.REQUEST_SPECIALIST, AgentRole.ESPECIALISTA, 0.92, "solicitud de especialista")
-        if any(term in text for term in self.EXAMINE):
+        if mentions(self.EXAMINE):
             return RouteDecision(Intent.EXAMINE, AgentRole.MEDICO_ASISTENTE, 0.9, "solicitud de examen físico")
         if self.generic_exam_request(message):
             return RouteDecision(Intent.ASK_ASSISTANT, AgentRole.MEDICO_ASISTENTE, 0.9,
                                  "solicitud de exámenes sin especificar el tipo")
-        if any(term in text for term in self.ASSISTANT):
+        if mentions(self.ASSISTANT):
             return RouteDecision(Intent.ASK_ASSISTANT, AgentRole.MEDICO_ASISTENTE, 0.9, "consulta al asistente")
         return RouteDecision(Intent.ASK_PATIENT, AgentRole.PACIENTE, 0.75, "pregunta clínica dirigida al paciente por defecto")

@@ -1,0 +1,29 @@
+{
+  "resultado": "PASA",
+  "owner_http": 200,
+  "sin_credencial_http": 401,
+  "denegaciones_usuario_b": [
+    {
+      "operacion": "GET /sesion",
+      "http": 404
+    },
+    {
+      "operacion": "POST /message",
+      "http": 404
+    },
+    {
+      "operacion": "GET /events",
+      "http": 404
+    },
+    {
+      "operacion": "POST /finish",
+      "http": 404
+    },
+    {
+      "operacion": "GET /report",
+      "http": 404
+    }
+  ],
+  "sin_mutacion": true,
+  "auth_real": true
+}

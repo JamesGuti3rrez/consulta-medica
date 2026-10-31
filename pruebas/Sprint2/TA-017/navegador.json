@@ -1,0 +1,21 @@
+{
+  "tipo": "HTTP real local, identidades controladas",
+  "casos": [
+    {
+      "escenario": "Propietario A",
+      "http": 200,
+      "resultado": "PASA"
+    },
+    {
+      "escenario": "Otro alumno B",
+      "http": 404,
+      "resultado": "PASA"
+    },
+    {
+      "escenario": "Sin credenciales",
+      "http": 401,
+      "resultado": "PASA"
+    }
+  ],
+  "resultado": "PASA"
+}

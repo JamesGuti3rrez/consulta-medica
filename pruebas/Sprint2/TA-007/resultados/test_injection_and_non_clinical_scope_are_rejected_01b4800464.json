@@ -1,0 +1,7 @@
+{
+  "id": "TA-007",
+  "prueba": "test_injection_and_non_clinical_scope_are_rejected[\\xbfCu\\xe1nto es 2+2?]",
+  "resultado": "PASA",
+  "duracion_s": 0.0245,
+  "entorno": "HTTP local y proveedores controlados"
+}

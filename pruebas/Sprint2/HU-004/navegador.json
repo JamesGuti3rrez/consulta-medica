@@ -1,0 +1,35 @@
+{
+  "resultado": "PASA",
+  "casos": [
+    {
+      "agente": "laboratorio",
+      "evidencias": [
+        "MED-900.laboratorio.hemograma"
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "agente": "radiologia",
+      "evidencias": [
+        "MED-900.imagen.tomografia_craneo"
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "agente": "especialista",
+      "evidencias": [
+        "MED-900.estudio.interconsulta_neurologia"
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "agente": "laboratorio",
+      "evidencias": [
+        "MED-900.laboratorio.hemograma"
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "tablilla_sin_duplicados": true,
+  "tipo": "Caso fixture, UI y API reales"
+}

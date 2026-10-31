@@ -48,6 +48,7 @@ class Settings:
     synthetic_case_data: bool = False
     history_enabled: bool = False
     tts_provider: str = ""
+    synthetic_exam_data: bool = False
 
     @property
     def auth_enabled(self) -> bool:
@@ -86,4 +87,5 @@ settings = Settings(
     history_enabled=_flag("HISTORIAL_ALUMNOS", "false"),
     # Voz neuronal del simulador: «edge» la activa (local y Vercel, provisional hasta Azure Speech); vacío, el navegador usa su propia voz.
     tts_provider=os.getenv("TTS_PROVIDER", "").strip().lower(),
+    synthetic_exam_data=_flag("SYNTHETIC_EXAM_DATA", os.getenv("SYNTHETIC_CASE_DATA", "false")),
 )

@@ -18,5 +18,6 @@ class OutputGuard:
         leaks = [term for term in forbidden_terms if f" {term} " in source]
         if leaks:
             leaks = sorted(set(leaks))
-            return False, f"posible exposición protegida: {', '.join(leaks[:3])}"
+            # La causa se devuelve también en eventos: nunca revelar el término que se bloqueó.
+            return False, "contenido_protegido"
         return True, None

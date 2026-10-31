@@ -1,10 +1,16 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
+from copy import deepcopy
 from uuid import uuid4
 
 from server.domain import AgentRole, Intent, SessionPhase
 from server.orchestration.store import InMemorySessionStore
+from server.tracing.sanitize import audit_metadata
+
+
+class SessionNotFinished(Exception):
+    """El reporte solo existe cuando la consulta terminó (HU-006)."""
 
 
 class SessionNotFinished(Exception):
@@ -40,6 +46,14 @@ class MultiAgentSessionService:
         self.evaluation_engine = evaluation_engine
 
     def start(self, case_id: str, owner_id: str | None = None, access_token_hash: str | None = None) -> dict:
+        state = self.prepare_start(case_id, owner_id=owner_id, access_token_hash=access_token_hash)
+        self.store.create(state)
+        self.store.event(state['session_id'], {'type': 'session_started', 'case_id': state['case_id'],
+                                             'phase': state['phase'], 'evidence_ids': state['revealed_evidence_ids']})
+        return self._public(state)
+
+    def prepare_start(self, case_id: str, owner_id: str | None = None, access_token_hash: str | None = None) -> dict:
+        """Construye el estado sin escribir; el inicio de grupo se confirma atómicamente por RPC."""
         case = self.repository.get_conversation_case(case_id)
         state = {
             "session_id": str(uuid4()),
@@ -59,17 +73,16 @@ class MultiAgentSessionService:
             "updated_at": _now(),
             "finished_at": None,
         }
-        self.store.create(state)
-        self.store.event(
-            state["session_id"],
-            {
-                "type": "session_started",
-                "case_id": state["case_id"],
-                "phase": state["phase"],
-                "evidence_ids": state["revealed_evidence_ids"],
-            },
-        )
-        return self._public(state)
+        return state
+
+    def revealed(self, session_id):
+        state = self.store.get(session_id)
+        synthetic = [v['evidence'] for v in state.get('synthetic_exam_results', {}).values()]
+        return self._turn_evidence(state['case_id'], state['revealed_evidence_ids'], synthetic)
+
+    def access_details(self, session_id):
+        state = self.store.get(session_id)
+        return {key: state.get(key) for key in ('owner_id', 'access_token_hash', 'group_assignment_id')}
 
     def get(self, session_id: str) -> dict:
         return self._public(self.store.get(session_id))
@@ -86,12 +99,16 @@ class MultiAgentSessionService:
             "phase": session["phase"],
             "student_message": student_message,
             "revealed_evidence_ids": session["revealed_evidence_ids"],
-            "conversation_tail": session["history"],
+            # Las preguntas intermediadas de sesiones antiguas no forman parte del diálogo actual.
+            "conversation_tail": [turn for turn in session["history"] if turn.get("role") != "medico_tratante"],
+            "synthetic_exam_results": deepcopy(session.get("synthetic_exam_results", {})),
         }
         result = self.graph.invoke(graph_state)
         session["phase"] = result["phase"]
         session["active_agent"] = result["active_agent"]
         session["updated_at"] = _now()
+        if result.get("synthetic_exam_results"):
+            session["synthetic_exam_results"] = deepcopy(result["synthetic_exam_results"])
         intent = Intent(result["route_intent"])
         safety_alerts = self.safety_engine.evaluate_treatment(
             case_id=session["case_id"],
@@ -116,8 +133,6 @@ class MultiAgentSessionService:
             safety_alerts,
         )
         session["history"].append({"role": "student", "text": student_message})
-        if result.get("doctor_question"):
-            session["history"].append({"role": "medico_tratante", "text": result["doctor_question"]})
         session["history"].append({"role": result["active_agent"], "text": result["response_text"]})
         self.store.save(session)
 
@@ -131,7 +146,7 @@ class MultiAgentSessionService:
             "agent": result["active_agent"],
             "route_reason": result.get("route_reason"),
             "route_confidence": result.get("route_confidence"),
-            "doctor_question": result.get("doctor_question"),
+            "doctor_question": None,
             "provider": result.get("provider"),
             "model": result.get("model"),
             "input_tokens": result.get("input_tokens", 0),
@@ -147,13 +162,15 @@ class MultiAgentSessionService:
             "data_source": result.get("data_source", "curado"),
             "synthetic_rejection_reason": result.get("synthetic_rejection_reason"),
             "safety_alerts": [alert["code"] for alert in safety_alerts],
+            "exam_validation": result.get("exam_validation"),
         }
         self.store.event(session_id, event)
-        self.local_tracer.record({"session_id": session_id, **event})
+        safe_event = audit_metadata({"session_id": session_id, **event})
+        self.local_tracer.record(safe_event)
         self.langsmith_observer.record_turn(
-            inputs={"message": student_message, "case_id": session["case_id"]},
-            outputs={"response": result["response_text"], "agent": result["active_agent"]},
-            metadata=event,
+            inputs={"case_id": session["case_id"]},
+            outputs={"agent": result["active_agent"], "blocked": result.get("blocked", False)},
+            metadata=safe_event,
         )
         return {
             "session": self._public(session),
@@ -163,13 +180,26 @@ class MultiAgentSessionService:
             "synthetic_generated_ids": result.get("synthetic_generated_ids", []),
             "synthetic_reused_ids": result.get("synthetic_reused_ids", []),
             "data_source": result.get("data_source", "curado"),
-            "doctor_question": result.get("doctor_question"),
+            "doctor_question": None,
             "provider": result.get("provider"),
             "model": result.get("model"),
             "evidence_ids": result.get("retrieved_evidence_ids", []),
             "blocked": result.get("blocked", False),
             "safety_alerts": safety_alerts,
+            "clinical_evidence": self._turn_evidence(session["case_id"], result.get("retrieved_evidence_ids", []),
+                                                     result.get("exam_evidence", [])),
+            "exam_validation": result.get("exam_validation"),
         }
+
+    def _turn_evidence(self, case_id, evidence_ids, synthetic):
+        from server.cases.rules import evidence_text
+        case = self.repository.get_conversation_case(case_id)
+        items = {i["evidence_id"]: i for i in [*case["on_request"], *synthetic]}
+        return [{"evidence_id": eid, "label": items[eid]["label"], "text": evidence_text(items[eid]),
+                 "synthetic": bool(items[eid].get("synthetic")),
+                 **({"indicators": deepcopy(items[eid]["indicators"]), "provenance": deepcopy(items[eid]["provenance"])}
+                    if items[eid].get("synthetic") else {})}
+                for eid in dict.fromkeys(evidence_ids) if eid in items and eid.startswith(case_id + ".")]
 
     def finish(self, session_id: str, diagnosis: str | None = None, hypotheses: list[dict] | None = None) -> dict:
         session = self.store.get(session_id)
@@ -194,7 +224,11 @@ class MultiAgentSessionService:
         )
         session["updated_at"] = _now()
         session["finished_at"] = _now()
-        self.store.save(session)
+        if session.get('group_assignment_id') and hasattr(self.store, 'finalize_group'):
+            if not self.store.finalize_group(session):
+                return self._public(self.store.get(session_id))
+        else:
+            self.store.save(session)
         self.store.event(session_id, {"type": "session_finished", "case_id": session["case_id"]})
         return self._public(session)
 
@@ -212,6 +246,13 @@ class MultiAgentSessionService:
         """Dueño, caso y si ya está cerrada, en una sola lectura (en Supabase cada lectura es una petición)."""
         state = self.store.get(session_id)
         return state.get("owner_id"), state["case_id"], state["phase"] == SessionPhase.FINALIZADA.value
+    def final_submission(self, session_id: str) -> dict:
+        """El historial usa la entrega cerrada original, también al reintentar /finish."""
+        session = self.store.get(session_id)
+        if session["phase"] != SessionPhase.FINALIZADA.value:
+            raise SessionNotFinished(session_id)
+        return {"diagnosis": session.get("student_diagnosis") or "",
+                "hypotheses": deepcopy(session.get("student_hypotheses") or [])}
 
     def access_of(self, session_id: str) -> tuple[str | None, str | None]:
         """Dueño registrado y hash de la credencial de invitado, para autorizar cada operación."""

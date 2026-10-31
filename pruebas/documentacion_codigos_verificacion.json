@@ -1,0 +1,74 @@
+{
+  "fuente": "Backlog_Sprint2_Fases_y_Dependencias_Completado.docx",
+  "sha256_fuente": "220326f78883444dfd68e236fe0a60d168aa3827db3b2bb4affa3aeb5d4a7da4",
+  "resultado": "PASA",
+  "documentos": [
+    {
+      "codigo": "TA-011",
+      "archivo": "Entregables\\Sprint2\\TA-011_Autorizacion_sesiones_eventos.docx",
+      "titulo": "Autorización de sesiones y eventos",
+      "imagenes_originales": 3,
+      "capturas_identicas": true,
+      "zip_xml_validos": true,
+      "portada_encabezado_pie_validos": true
+    },
+    {
+      "codigo": "TA-012",
+      "archivo": "Entregables\\Sprint2\\TA-012_Validacion_adversarial_guardrails.docx",
+      "titulo": "Validación adversarial y guardrails",
+      "imagenes_originales": 3,
+      "capturas_identicas": true,
+      "zip_xml_validos": true,
+      "portada_encabezado_pie_validos": true
+    },
+    {
+      "codigo": "TA-014",
+      "archivo": "Entregables\\Sprint2\\TA-014_Validador_consistencia_casos.docx",
+      "titulo": "Agente validador de consistencia general del caso",
+      "imagenes_originales": 3,
+      "capturas_identicas": true,
+      "zip_xml_validos": true,
+      "portada_encabezado_pie_validos": true
+    },
+    {
+      "codigo": "HU-005",
+      "archivo": "Entregables\\Sprint2\\HU-005_Examenes_especialistas.docx",
+      "titulo": "Verificar exámenes y especialistas",
+      "imagenes_originales": 4,
+      "capturas_identicas": true,
+      "zip_xml_validos": true,
+      "portada_encabezado_pie_validos": true
+    },
+    {
+      "codigo": "EN-005",
+      "archivo": "Entregables\\Sprint2\\EN-005_Generacion_examenes_sinteticos.docx",
+      "titulo": "Agente generador de resultados de exámenes faltantes",
+      "imagenes_originales": 4,
+      "capturas_identicas": true,
+      "zip_xml_validos": true,
+      "portada_encabezado_pie_validos": true
+    },
+    {
+      "codigo": "TA-021",
+      "archivo": "Entregables\\Sprint2\\TA-021_Calificacion_diagnostico_final.docx",
+      "titulo": "Calificación diagnóstica final",
+      "imagenes_originales": 8,
+      "capturas_identicas": true,
+      "zip_xml_validos": true,
+      "portada_encabezado_pie_validos": true
+    },
+    {
+      "codigo": "HU-011",
+      "archivo": "Entregables\\Sprint2\\HU-011_Panel_Doctor_Grupos_y_Desempeno.docx",
+      "titulo": "Panel Doctor, grupos y desempeño",
+      "imagenes_originales": 12,
+      "capturas_identicas": true,
+      "zip_xml_validos": true,
+      "portada_encabezado_pie_validos": true,
+      "codigo_evidencia": "HU-014"
+    }
+  ],
+  "total_capturas": 37,
+  "pruebas_re_ejecutadas": false,
+  "publicado_en_git": false
+}

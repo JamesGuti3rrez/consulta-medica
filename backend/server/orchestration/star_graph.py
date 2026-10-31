@@ -1,10 +1,19 @@
 from __future__ import annotations
 
 from typing import Any
+from contextlib import nullcontext
 
 from server.domain import AgentReply, AgentRole, Intent, SessionPhase, TurnGraphState
 from server.orchestration.graph_compat import END, START, StateGraph
 from server.engine.disclosure.synthetic_scope import outside_clinical_scope, OUT_OF_SCOPE_REPLY, rapport_reply
+from server.cases.rules import evidence_text
+from server.rag.port import RetrievedEvidence
+from server.ai.agents.invencion import invented_figures
+
+try:
+    from langsmith import tracing_context
+except ImportError:
+    tracing_context = None
 
 
 class StarGraphOrchestrator:
@@ -22,9 +31,9 @@ class StarGraphOrchestrator:
         state_machine,
         output_guard,
         protected_lexicon,
-        reformulator=None,
         temperature: float = 0.0,
         patient_completion=None,
+        exam_completion=None,
     ):
         self.router = router
         self.agents = agents
@@ -35,9 +44,9 @@ class StarGraphOrchestrator:
         self.state_machine = state_machine
         self.output_guard = output_guard
         self.protected_lexicon = protected_lexicon
-        self.reformulator = reformulator
         self.temperature = temperature
         self.patient_completion = patient_completion
+        self.exam_completion = exam_completion
         self.graph = self._build()
 
     def _build(self):
@@ -87,14 +96,9 @@ class StarGraphOrchestrator:
                 }
             case = self.repository.get_conversation_case(state["case_id"])
             intent = Intent(state["route_intent"])
-            # Al paciente le habla el médico tratante: reformula lo que pidió el estudiante. La
-            # autorización usa la frase original, así la reformulación no puede revelar datos.
-            reformulation = None
-            message_for_agent = state["student_message"]
+            forbidden_terms = self.protected_lexicon.for_case(state["case_id"])
+            # El estudiante pregunta directamente al agente. No se crea un turno intermedio del doctor.
             social = rapport_reply(state["student_message"]) if role == AgentRole.PACIENTE else None
-            if role == AgentRole.PACIENTE and self.reformulator is not None and not social:
-                reformulation = self.reformulator.reformulate(state["student_message"], temperature=self.temperature)
-                message_for_agent = reformulation.text
             disclosure = self.disclosure_policy.authorize(
                 case=case,
                 role=role,
@@ -102,12 +106,23 @@ class StarGraphOrchestrator:
                 student_message=state["student_message"],
             )
             retrieved = self.retriever.retrieve(
-                query=message_for_agent,
+                query=state["student_message"],
                 case_id=state["case_id"],
                 agent_role=role,
                 allowed_evidence_ids=disclosure.allowed_evidence_ids,
                 session_id=state.get("session_id"),
             )
+            # La autorización sigue siendo local aunque un adaptador devuelva un ID ajeno o texto alterado.
+            allowed = set(disclosure.allowed_evidence_ids)
+            canonical = {item["evidence_id"]: item for item in case.get("on_request", [])}
+            retrieved = [RetrievedEvidence(item.evidence_id, evidence_text(canonical[item.evidence_id]), item.score)
+                         for item in retrieved if item.evidence_id in allowed and item.evidence_id in canonical
+                         and item.evidence_id.startswith(case["case_id"] + ".")]
+            # Un fallo de ranking/índice no convierte un resultado canónico existente en uno ausente.
+            if allowed and not retrieved:
+                retrieved = [RetrievedEvidence(eid, evidence_text(canonical[eid]))
+                             for eid in disclosure.allowed_evidence_ids if eid in canonical]
+            retrieved = list({item.evidence_id: item for item in retrieved}.values())
             context = self.context_assembler.build(
                 case=case,
                 role=role,
@@ -123,44 +138,68 @@ class StarGraphOrchestrator:
             if (role == AgentRole.MEDICO_ASISTENTE and intent == Intent.ASK_ASSISTANT
                     and self.router.generic_exam_request(state["student_message"])):
                 context["pedido_generico"] = True
-            forbidden_terms = self.protected_lexicon.for_case(state["case_id"])
             completion = None
+            exam_result = None
+            if role == AgentRole.LABORATORIO and not disclosure.allowed_evidence_ids and self.exam_completion is not None:
+                exam_result = self.exam_completion.complete(
+                    case=case, role=role, intent=intent, message=state["student_message"], context=context,
+                    previous=state.get("synthetic_exam_results", {}), forbidden_terms=forbidden_terms,
+                    guard=self.output_guard,
+                )
+                if exam_result:
+                    context["retrieved_evidence"] = [{"evidence_id": i["evidence_id"], "text": i["text"], "score": 1.0}
+                                                     for i in exam_result["evidence"]]
             if role == AgentRole.PACIENTE and self.patient_completion is not None:
                 completion = self.patient_completion.complete(
                     question=state["student_message"], case=case, context=context,
                     forbidden_terms=forbidden_terms, session_id=state.get("session_id"),
                 )
-            reply = completion.reply if completion is not None else None
+            reply = exam_result["reply"] if exam_result else completion.reply if completion is not None else None
             if reply is None and social:
                 reply = AgentReply(role=role, text=social, provider="reglas", model="reglas")
             if reply is None:
                 reply = self.agents[role].respond(
-                    student_message=message_for_agent, context=context, temperature=self.temperature,
+                    student_message=state["student_message"], context=context, temperature=self.temperature,
                 )
                 if completion is not None:
                     reply.input_tokens += completion.selector_usage[0]
                     reply.output_tokens += completion.selector_usage[1]
             ok, reason = self.output_guard.validate(reply.text, forbidden_terms)
+            if not completion and invented_figures(reply.text, context):
+                ok, reason = False, "cifras_sin_respaldo"
+            # Un agente tampoco puede adjuntar referencias fuera del conjunto que realmente recibió.
+            visible_ids = {item["evidence_id"] for key in ("retrieved_evidence", "revealed_evidence")
+                           for item in context.get(key, [])}
+            if any(eid not in visible_ids for eid in reply.evidence_ids) and not completion:
+                ok, reason = False, "evidencia_no_autorizada"
             scope_rejected = bool(completion and completion.scope_rejected)
             validation_rejected = bool(completion and completion.validation_rejected)
             return {
                 "response_text": reply.text if ok else "Eso no lo puedo responder. Sigamos con la consulta.",
-                "doctor_question": reformulation.text if reformulation else None,
+                "doctor_question": None,  # Compatibilidad del contrato; ya no hay preguntas intermediadas.
                 "provider": reply.provider,
                 "model": reply.model,
-                "input_tokens": reply.input_tokens + (reformulation.input_tokens if reformulation else 0),
-                "output_tokens": reply.output_tokens + (reformulation.output_tokens if reformulation else 0),
+                "input_tokens": reply.input_tokens,
+                "output_tokens": reply.output_tokens,
                 "fallback_used": reply.fallback_used,
                 "grounding_retry_used": reply.grounding_retry_used,
                 "grounding_fallback_used": reply.grounding_fallback_used,
-                "retrieved_evidence_ids": reply.evidence_ids,
-                "synthetic_generated_ids": completion.generated_ids if completion else [],
-                "synthetic_reused_ids": completion.reused_ids if completion else [],
-                "data_source": completion.source if completion else "conversacional" if social else "curado",
+                "retrieved_evidence_ids": reply.evidence_ids if ok else [],
+                "synthetic_generated_ids": ([i["evidence_id"] for i in exam_result["evidence"]] if not exam_result["reused"] else [])
+                                           if exam_result else completion.generated_ids if completion else [],
+                "synthetic_reused_ids": ([i["evidence_id"] for i in exam_result["evidence"]] if exam_result["reused"] else [])
+                                        if exam_result else completion.reused_ids if completion else [],
+                "synthetic_exam_results": {**state.get("synthetic_exam_results", {}),
+                                           **(exam_result["snapshot"] if exam_result and ok else {})},
+                "exam_evidence": exam_result["evidence"] if exam_result and ok else [],
+                "exam_validation": exam_result["validation"] if exam_result else None,
+                "data_source": ("sintetico_examen" if exam_result["evidence"] else "examen_no_validado") if exam_result
+                               else completion.source if completion else "conversacional" if social else "curado",
                 "synthetic_rejection_reason": completion.rejection_reason if completion else None,
-                "blocked": not ok or scope_rejected or validation_rejected,
+                "blocked": not ok or scope_rejected or validation_rejected or reply.blocked,
                 "block_reason": ("fuera_de_alcance" if scope_rejected else
-                                 "validacion_sintetica" if validation_rejected else reason),
+                                 "validacion_sintetica" if validation_rejected else reason or
+                                 ("examen_no_validado" if reply.blocked else None)),
             }
 
         return node
@@ -170,4 +209,7 @@ class StarGraphOrchestrator:
         return {"active_agent": state["active_agent"]}
 
     def invoke(self, state: TurnGraphState) -> TurnGraphState:
-        return self.graph.invoke(state)
+        # LangGraph hereda variables globales de LangSmith. Nunca enviar su estado clínico completo:
+        # la única auditoría externa permitida es la proyección saneada del servicio.
+        with tracing_context(enabled=False) if tracing_context else nullcontext():
+            return self.graph.invoke(state)

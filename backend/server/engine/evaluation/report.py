@@ -34,6 +34,8 @@ SCORE_KEYS = ("score", "earned_weight", "total_weight", "completed_questions", "
 
 
 def build_report(session: dict[str, Any], case: dict[str, Any], events: list[dict[str, Any]]) -> dict[str, Any]:
+    if session.get("phase") != "finalizada" or not session.get("finished_at"):
+        raise ValueError("El reporte solo está disponible al finalizar la consulta.")
     case_id = case["case_id"]
     own = f"{case_id}."
     public, protected = case["public"], case["protected"]
@@ -69,6 +71,10 @@ def build_report(session: dict[str, Any], case: dict[str, Any], events: list[dic
             "key_actions": list(protected["treatment_reference"].get("key_actions", [])),
         },
         "revealed_evidence": _revealed(case, session.get("revealed_evidence_ids", []), own),
+        **({"synthetic_exams": [entry["evidence"] for entry in session.get("synthetic_exam_results", {}).values()
+                            if entry.get("evidence", {}).get("evidence_id") in session.get("revealed_evidence_ids", [])
+                            and entry["evidence"]["evidence_id"].startswith(own)]}
+           if session.get("synthetic_exam_results") else {}),
         "recommendations": _recommendations(key_questions["missing"], alerts),
     }
 

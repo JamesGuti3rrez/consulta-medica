@@ -11,8 +11,6 @@ from functools import lru_cache
 from fastapi import APIRouter, Depends, Header, HTTPException, Request
 from pydantic import BaseModel, Field
 
-from server.ai.agents.base import PROMPTS_DIR
-from server.ai.agents.reformulador import QuestionReformulator
 from server.ai.agents.history_composer import HistoryComposer
 from server.ai.agents.registry import build_agents
 from server.ai.llm.factory import build_gateway
@@ -20,6 +18,7 @@ from server.ai.llm.gateway import LLMUnavailable
 from server.auth import SupabaseAuth
 from server.cases import CaseNotAvailable, CaseNotFound
 from server.cases.catalog import CURATED_CASES_DIR
+from server.cases.repository import CaseValidationError
 from server.cases.source import build_case_repository
 from server.config import settings
 from server.domain.final_diagnosis import InvalidDiagnosis, normalize_final_diagnosis
@@ -45,6 +44,8 @@ from server.persistence import (
 )
 from server.persistence.synthetic_facts import SupabaseSyntheticFacts
 from server.orchestration.patient_completion import PatientHistoryCompletion
+from server.ai.agents.exam_composer import ExamComposer
+from server.orchestration.exam_completion import SyntheticExamCompletion
 from server.rag.embedded import EmbeddedRAGRetriever
 from server.rag.retriever import CaseEvidenceRetriever, HttpRetriever
 from server.rag.supabase import SupabasePgvectorRetriever, SupabaseRAGError
@@ -177,9 +178,9 @@ def get_service() -> MultiAgentSessionService:
         state_machine=state_machine,
         output_guard=OutputGuard(),
         protected_lexicon=ProtectedLexiconService(repository),
-        reformulator=QuestionReformulator(gateway, PROMPTS_DIR),
         temperature=settings.llm_temperature,
         patient_completion=completion,
+        exam_completion=SyntheticExamCompletion(ExamComposer(gateway)) if settings.synthetic_exam_data else None,
     )
     return MultiAgentSessionService(
         graph=graph,
@@ -209,6 +210,7 @@ def status():
         "llm_mode": settings.llm_mode,
         "case_store": settings.case_store,
         "synthetic_case_data": service.graph.patient_completion is not None,
+        "synthetic_exam_data": service.graph.exam_completion is not None,
         "rag_connected": isinstance(
             service.graph.retriever,
             (HttpRetriever, EmbeddedRAGRetriever, SupabasePgvectorRetriever),
@@ -238,6 +240,8 @@ def start(payload: StartRequest, request: Request, authorization: str | None = H
                                      access_token_hash=_token_hash(session_token) if session_token else None)
     except (CaseNotFound, CaseNotAvailable) as exc:
         raise HTTPException(status_code=404, detail="Caso no encontrado o no disponible.") from exc
+    except CaseValidationError as exc:
+        raise HTTPException(status_code=409, detail="El caso requiere revisión docente antes de iniciar la consulta.") from exc
     except SessionStoreError as exc:
         raise _store_unavailable(exc) from exc
     if session_token:
@@ -266,7 +270,8 @@ def authorize_session(
     user_id = _verified_user(request, token) if token else None
     who = f"usuario={user_id}" if user_id else f"capacidad={_mask(x_session_token)}"
     try:
-        owner_id, token_hash = get_service().access_of(session_id)
+        access = get_service().access_details(session_id)
+        owner_id, token_hash = access['owner_id'], access['access_token_hash']
     except SessionNotFound as exc:
         raise _deny(request, 404, "inexistente", who) from exc
     except SessionStoreError as exc:
@@ -278,6 +283,11 @@ def authorize_session(
                        and hmac.compare_digest(token_hash, _token_hash(x_session_token)))
     if not allowed:
         raise _deny(request, 404, "ajena", who)
+    if access.get('group_assignment_id'):
+        from server.api.groups import get_groups_store
+        if not get_groups_store().rpc('alumno_acceso_sesion_grupo', p_actor=user_id,
+                                      p_asignacion=access['group_assignment_id'], p_sesion=session_id):
+            raise _deny(request, 404, 'fuera_del_grupo', who)
     return user_id
 
 
@@ -301,7 +311,7 @@ def message(session_id: str, payload: MessageRequest):
         raise _store_unavailable(exc) from exc
     except LLMUnavailable as exc:
         # Claves rechazadas o servicio caído: se registra el motivo y el estudiante recibe un aviso claro.
-        print(f"[llm] {exc}")
+        print("[llm] proveedor_no_disponible")
         raise HTTPException(status_code=503, detail=LLM_UNAVAILABLE_DETAIL) from exc
     except SupabaseRAGError as exc:
         print(f"[rag] {exc}")
@@ -419,12 +429,13 @@ def _save_attempt(service: MultiAgentSessionService, session: dict, payload: Fin
         if user_id != owner_id:
             return {"saved": False, "reason": "otro_usuario"}
         specialty = service.repository.get_conversation_case(session["case_id"])["specialty"]
+        submission = service.final_submission(session["session_id"])
         attempt_id = attempts.save(build_attempt(
             user_id=user_id,
             session=session,
             specialty=specialty,
-            diagnosis=payload.diagnosis,
-            hypotheses=[item.model_dump() for item in payload.hypotheses],
+            diagnosis=submission["diagnosis"],
+            hypotheses=submission["hypotheses"],
         ))
     except AttemptStoreError as exc:
         print(f"[intentos] {exc}")

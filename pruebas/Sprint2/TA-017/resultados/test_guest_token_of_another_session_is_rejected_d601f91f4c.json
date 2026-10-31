@@ -1,0 +1,7 @@
+{
+  "id": "TA-017",
+  "prueba": "test_guest_token_of_another_session_is_rejected[get-/events-None]",
+  "resultado": "PASA",
+  "duracion_s": 0.0251,
+  "entorno": "HTTP local y proveedores controlados"
+}
