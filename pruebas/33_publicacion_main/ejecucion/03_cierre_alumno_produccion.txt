@@ -1,0 +1,14 @@
+﻿Servidor https://consulta-medica-three.vercel.app, caso CIR-005; tabla diagnosticos_finales en Supabase: HTTP 404
+
+PASA   alumno temporal creado  (200)
+PASA   alumno: inicia sesión  (ok)
+PASA   alumno: pregunta al paciente
+PASA   cierre: el servidor responde 200 (antes 503)  (200)
+PASA   cierre: registro pendiente de la migración  ({"guardado":false,"motivo":"registro_pendiente"})
+PASA   hoja de evaluación con el diagnóstico del alumno  (Hemofilia A con sangrado posoperatorio.)
+PASA   la hoja avisa que el diagnóstico quedó guardado en la consulta  (Tu diagnóstico quedó guardado en esta consulta.)
+PASA   la consulta quedó cerrada  (finalizada)
+PASA   alumno temporal borrado  (200)
+PASA   sin errores de JavaScript en la página
+
+10 de 10 comprobaciones pasan

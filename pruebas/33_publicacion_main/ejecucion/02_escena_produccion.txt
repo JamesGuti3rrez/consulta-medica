@@ -1,0 +1,22 @@
+﻿Caso CIR-006 (femenino) en https://consulta-medica-three.vercel.app, ventana 1440x1000
+
+PASA   antes de iniciar se ve al doctor  (doctor)
+PASA   la imagen del doctor carga  (https://consulta-medica-three.vercel.app/assets/avatars/doctor-1376.webp)
+PASA   presentación: doctor con su globo
+PASA   al empezar el interrogatorio se ve al paciente (paciente-mujer)  (paciente-mujer)
+PASA   la imagen del paciente carga  (https://consulta-medica-three.vercel.app/assets/avatars/paciente-mujer-1376.webp)
+PASA   pregunta al paciente: responde el paciente con su globo
+PASA   escritorio: el globo queda dentro de la escena, al lado del personaje  (globo 65-378 / imagen 37-959)
+PASA   «Realizo exploración física»: mientras entrega el hallazgo se ve al doctor con su globo
+PASA   «Realizo exploración física»: al terminar el turno vuelve el paciente  (paciente-mujer)
+PASA   «Realizo exploración física»: el doctor no repite la pregunta del estudiante (TA-017)
+PASA   «Solicito hemograma»: mientras entrega el hallazgo se ve al doctor con su globo
+PASA   «Solicito hemograma»: al terminar el turno vuelve el paciente  (paciente-mujer)
+PASA   «Solicito hemograma»: el doctor no repite la pregunta del estudiante (TA-017)
+PASA   ningún globo aparece sobre la imagen de otro personaje
+PASA   imagen doctor publicada  (200 image/webp)
+PASA   imagen paciente-hombre publicada  (200 image/webp)
+PASA   imagen paciente-mujer publicada  (200 image/webp)
+PASA   sin errores de JavaScript en la página
+
+18 de 18 comprobaciones pasan

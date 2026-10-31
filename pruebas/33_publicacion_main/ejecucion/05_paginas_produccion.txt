@@ -1,0 +1,11 @@
+﻿200  /
+200  /simulacion.html
+200  /grupos.html
+200  /docente.html
+200  /api/status
+200  /api/ai/status
+200  /api/voz/estado
+200  /assets/avatars/doctor-800.webp
+200  /assets/avatars/paciente-hombre-800.webp
+200  /assets/avatars/paciente-mujer-800.webp
+TODO PASA

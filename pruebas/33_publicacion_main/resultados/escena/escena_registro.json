@@ -1,0 +1,166 @@
+{
+  "caso": "CIR-006",
+  "sexo": "femenino",
+  "ventana": "1440x1000",
+  "servidor": "https://consulta-medica-three.vercel.app",
+  "fecha": "2026-10-31T15:28:26.857Z",
+  "comprobaciones": [
+    {
+      "descripcion": "antes de iniciar se ve al doctor",
+      "resultado": "PASA",
+      "detalle": "doctor"
+    },
+    {
+      "descripcion": "la imagen del doctor carga",
+      "resultado": "PASA",
+      "detalle": "https://consulta-medica-three.vercel.app/assets/avatars/doctor-1376.webp"
+    },
+    {
+      "descripcion": "presentación: doctor con su globo",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "al empezar el interrogatorio se ve al paciente (paciente-mujer)",
+      "resultado": "PASA",
+      "detalle": "paciente-mujer"
+    },
+    {
+      "descripcion": "la imagen del paciente carga",
+      "resultado": "PASA",
+      "detalle": "https://consulta-medica-three.vercel.app/assets/avatars/paciente-mujer-1376.webp"
+    },
+    {
+      "descripcion": "pregunta al paciente: responde el paciente con su globo",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "escritorio: el globo queda dentro de la escena, al lado del personaje",
+      "resultado": "PASA",
+      "detalle": "globo 65-378 / imagen 37-959"
+    },
+    {
+      "descripcion": "«Realizo exploración física»: mientras entrega el hallazgo se ve al doctor con su globo",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "«Realizo exploración física»: al terminar el turno vuelve el paciente",
+      "resultado": "PASA",
+      "detalle": "paciente-mujer"
+    },
+    {
+      "descripcion": "«Realizo exploración física»: el doctor no repite la pregunta del estudiante (TA-017)",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "«Solicito hemograma»: mientras entrega el hallazgo se ve al doctor con su globo",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "«Solicito hemograma»: al terminar el turno vuelve el paciente",
+      "resultado": "PASA",
+      "detalle": "paciente-mujer"
+    },
+    {
+      "descripcion": "«Solicito hemograma»: el doctor no repite la pregunta del estudiante (TA-017)",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "ningún globo aparece sobre la imagen de otro personaje",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "imagen doctor publicada",
+      "resultado": "PASA",
+      "detalle": "200 image/webp"
+    },
+    {
+      "descripcion": "imagen paciente-hombre publicada",
+      "resultado": "PASA",
+      "detalle": "200 image/webp"
+    },
+    {
+      "descripcion": "imagen paciente-mujer publicada",
+      "resultado": "PASA",
+      "detalle": "200 image/webp"
+    },
+    {
+      "descripcion": "sin errores de JavaScript en la página",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "linea_de_tiempo": [
+    {
+      "escena": "doctor",
+      "globo": null,
+      "texto": ""
+    },
+    {
+      "escena": "doctor",
+      "globo": "doctor",
+      "texto": "Rosa Villanueva, de 68 años, sexo femenino. Motivo de consulta: Confusión en el quinto día después de una hemicolectomía derecha electiva."
+    },
+    {
+      "escena": "doctor",
+      "globo": "doctor",
+      "texto": "Evolución quirúrgica: La operación transcurrió sin complicaciones."
+    },
+    {
+      "escena": "doctor",
+      "globo": "doctor",
+      "texto": "Signos vitales: Temperatura 38,5 °C, frecuencia respiratoria 28/min, saturación de oxígeno 92 % con oxígeno a 2 L, pulso 118/min (taquicardia) y presión arterial 110/65 mmHg."
+    },
+    {
+      "escena": "doctor",
+      "globo": "doctor",
+      "texto": "No hay alergias documentadas en la ficha."
+    },
+    {
+      "escena": "doctor",
+      "globo": "doctor",
+      "texto": "Doctor, puede comenzar con el interrogatorio."
+    },
+    {
+      "escena": "paciente-mujer",
+      "globo": null,
+      "texto": ""
+    },
+    {
+      "escena": "paciente-mujer",
+      "globo": "paciente",
+      "texto": "No recuerdo con precisión dónde duele."
+    },
+    {
+      "escena": "paciente-mujer",
+      "globo": null,
+      "texto": ""
+    },
+    {
+      "escena": "doctor",
+      "globo": "doctor",
+      "texto": "Auscultación torácica: crepitantes gruesos en la base pulmonar derecha. La herida quirúrgica cicatriza bien; el abdomen está blando y no doloroso."
+    },
+    {
+      "escena": "paciente-mujer",
+      "globo": null,
+      "texto": ""
+    },
+    {
+      "escena": "doctor",
+      "globo": "doctor",
+      "texto": "Leucocitosis con neutrofilia."
+    },
+    {
+      "escena": "paciente-mujer",
+      "globo": null,
+      "texto": ""
+    }
+  ]
+}
