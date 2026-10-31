@@ -893,47 +893,150 @@ document.addEventListener('DOMContentLoaded', async () => {
   closeDiagnosis?.addEventListener('click', () => show(diagnosisPanel, false));
   diagnosisMic?.addEventListener('click', () => dictate(diagnosisInput, diagnosisFeedback));
 
-  saveDiagnosis?.addEventListener('click', async () => {
-    const diagnosis = diagnosisInput?.value.trim();
-    if (!diagnosis) {
-      if (diagnosisFeedback) diagnosisFeedback.textContent = 'Escribe o dicta un diagnóstico antes de guardar.';
+  // HU-006: el diagnóstico final es obligatorio y se valida con las mismas reglas que el servidor
+  // (server/domain/final_diagnosis.py), para avisar antes de enviar. El servidor las vuelve a aplicar.
+  const DIAGNOSIS_MAX = 2000;
+  const DIAGNOSIS_MESSAGES = {
+    missing: 'Escribe tu diagnóstico final antes de cerrar la consulta.',
+    control: 'El diagnóstico tiene caracteres no permitidos.',
+    markup: 'El diagnóstico no puede contener los signos < ni >.',
+    letters: 'El diagnóstico debe tener al menos 3 letras.',
+    tooLong: `El diagnóstico no puede superar los ${DIAGNOSIS_MAX} caracteres.`,
+    notRegistered: 'No se pudo registrar tu diagnóstico. La consulta sigue abierta: inténtalo de nuevo.',
+    noAccess: 'No tienes acceso a esta consulta. Vuelve a iniciar sesión o empieza una nueva consulta.',
+  };
+  const normalizeDiagnosis = text => (text || '').normalize('NFC').replace(/\r\n?/g, '\n').split('\n')
+    .map(line => line.replace(/[ \t ]+/g, ' ').trim()).join('\n').replace(/\n{3,}/g, '\n\n').trim();
+  const diagnosisProblem = raw => {
+    // Saltos de línea y tabuladores son parte de una justificación; otros caracteres de control no.
+    if (/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f-\u009f]/.test(raw || '')) return DIAGNOSIS_MESSAGES.control;
+    const text = normalizeDiagnosis(raw);
+    if (!text) return DIAGNOSIS_MESSAGES.missing;
+    if (/[<>]/.test(text)) return DIAGNOSIS_MESSAGES.markup;
+    if ((text.match(/\p{L}/gu) || []).length < 3) return DIAGNOSIS_MESSAGES.letters;
+    if ([...text].length > DIAGNOSIS_MAX) return DIAGNOSIS_MESSAGES.tooLong;
+    return null;
+  };
+  const diagnosisConfirm = $('diagnosis-confirm');
+  const diagnosisConfirmText = $('diagnosis-confirm-text');
+  const confirmDiagnosis = $('confirm-diagnosis');
+  const cancelConfirm = $('cancel-confirm');
+  // Evita el doble envío: mientras el cierre está en curso, ningún clic manda otra petición.
+  let submittingDiagnosis = false;
+  const setDiagnosisFeedback = (text, error = false) => {
+    if (!diagnosisFeedback) return;
+    diagnosisFeedback.textContent = text;
+    diagnosisFeedback.classList.toggle('text-red-700', error);
+    diagnosisFeedback.classList.toggle('text-slate-500', !error);
+  };
+  const setSubmitting = busy => {
+    submittingDiagnosis = busy;
+    [saveDiagnosis, confirmDiagnosis, cancelConfirm, diagnosisMic, micButton].forEach(element => {
+      if (element) element.disabled = busy;
+    });
+    if (confirmDiagnosis) confirmDiagnosis.textContent = busy ? 'Registrando...' : 'Confirmar y cerrar';
+  };
+  const registryMessage = registro => {
+    if (registro?.guardado) return `Diagnóstico registrado: intento ${registro.numero_intento} de este caso.`;
+    if (registro?.motivo === 'invitado') {
+      return 'Como invitado, tu diagnóstico no se registra: inicia sesión para registrar tus intentos.';
+    }
+    return '';
+  };
+  // Motivo legible de un cierre que no se completó; la consulta sigue abierta en todos los casos.
+  const finishFailure = async response => {
+    if (!response) return DIAGNOSIS_MESSAGES.notRegistered;
+    const detail = await response.json().then(body => body?.detail).catch(() => null);
+    if (response.status === 401 || response.status === 404) return DIAGNOSIS_MESSAGES.noAccess;
+    if (response.status === 422 && typeof detail === 'string') return detail;
+    if (response.status === 422) return DIAGNOSIS_MESSAGES.missing;
+    return typeof detail === 'string' && response.status === 503 ? detail : DIAGNOSIS_MESSAGES.notRegistered;
+  };
+
+  diagnosisInput?.addEventListener('input', () => {
+    // Si cambia el texto, la confirmación mostrada ya no corresponde: hay que volver a revisarlo.
+    if (!submittingDiagnosis) show(diagnosisConfirm, false);
+  });
+  cancelConfirm?.addEventListener('click', () => {
+    if (submittingDiagnosis) return;
+    show(diagnosisConfirm, false);
+    setDiagnosisFeedback('Puedes seguir con la consulta. Tu diagnóstico sigue escrito.');
+    diagnosisInput?.focus();
+  });
+
+  saveDiagnosis?.addEventListener('click', () => {
+    if (consultationClosed || submittingDiagnosis) return;
+    const problem = diagnosisProblem(diagnosisInput?.value);
+    if (problem) {
+      show(diagnosisConfirm, false);
+      setDiagnosisFeedback(problem, true);
+      diagnosisInput?.focus();
       return;
     }
-    consultationClosed = true;
-    discardingIndex = null;
-    session += 1;
-    window.speechSynthesis?.cancel();
+    if (diagnosisConfirmText) diagnosisConfirmText.textContent = normalizeDiagnosis(diagnosisInput.value);
+    setDiagnosisFeedback('');
+    show(diagnosisConfirm);
+    confirmDiagnosis?.focus();
+  });
+
+  confirmDiagnosis?.addEventListener('click', async () => {
+    if (consultationClosed || submittingDiagnosis) return;
+    const problem = diagnosisProblem(diagnosisInput?.value);
+    if (problem) {
+      show(diagnosisConfirm, false);
+      setDiagnosisFeedback(problem, true);
+      return;
+    }
+    const diagnosis = normalizeDiagnosis(diagnosisInput.value);
+    setSubmitting(true);
     if (recognition && isListening) recognition.abort();
-    [saveDiagnosis, diagnosisMic, micButton, diagnosisButton, hypothesisInput, hypothesisMic, addHypothesisButton].forEach(element => {
-      if (element) element.disabled = true;
-    });
-    renderHypotheses();
-    let report = null;
-    let attempt = null;
+    let finished = null;
     if (aiSessionId) {
-      // Con la sesión iniciada se envía su token: el servidor lo comprueba y guarda la consulta en
-      // «Mis simulaciones». Sin sesión la consulta termina igual, pero no se guarda.
+      // Con la sesión iniciada se envía su token: el servidor registra el diagnóstico a su nombre. El invitado
+      // envía su credencial: la consulta se cierra igual, pero su diagnóstico no se registra.
       const response = await fetch(`/api/ai/sessions/${encodeURIComponent(aiSessionId)}/finish`, {
         method: 'POST',
         headers: await conversationHeaders(),
         body: JSON.stringify({
           diagnosis,
           hypotheses: hypotheses.map(({ name, discarded, reason }) => ({ name, discarded, reason: reason || '' })),
+          confirmado: true,
         }),
       }).catch(() => null);
-      const finished = response?.ok ? await response.json().catch(() => null) : null;
-      report = finished?.report || null;
-      attempt = finished?.attempt || null;
+      finished = response?.ok ? await response.json().catch(() => null) : null;
+      if (!finished) {
+        // El cierre no se completó: la consulta sigue abierta y el alumno puede reintentar o seguir preguntando.
+        const failure = await finishFailure(response?.ok ? null : response);
+        setSubmitting(false);
+        show(diagnosisConfirm, false);
+        setDiagnosisFeedback(failure, true);
+        setStatus(failure, true);
+        return;
+      }
     }
+    setSubmitting(false);
+    show(diagnosisConfirm, false);
+    consultationClosed = true;
+    discardingIndex = null;
+    session += 1;
+    window.speechSynthesis?.cancel();
+    [saveDiagnosis, confirmDiagnosis, cancelConfirm, diagnosisMic, micButton, diagnosisButton, hypothesisInput, hypothesisMic,
+      addHypothesisButton].forEach(element => {
+      if (element) element.disabled = true;
+    });
+    renderHypotheses();
+    const report = finished?.report || null;
+    const attempt = finished?.attempt || null;
     show(diagnosisPanel, false);
     showEvaluation(report, diagnosis);
-    setField('evaluation-saved', SAVED_MESSAGES[attempt?.saved ? 'guardado' : attempt?.reason] || '');
+    setField('evaluation-saved', [registryMessage(finished?.registro),
+      SAVED_MESSAGES[attempt?.saved ? 'guardado' : attempt?.reason] || ''].filter(Boolean).join(' '));
     // El botón de diagnóstico pasa a reabrir la hoja si el estudiante la cierra.
     if (diagnosisButton) {
       diagnosisButton.disabled = false;
       diagnosisButton.lastChild.textContent = ' Ver hoja de evaluación';
     }
-    if (diagnosisFeedback) diagnosisFeedback.textContent = 'Diagnóstico guardado. Consulta finalizada.';
+    setDiagnosisFeedback('Diagnóstico guardado. Consulta finalizada.');
     simulatorStatus.textContent = 'Consulta finalizada';
     recordStatus.lastChild.textContent = 'Finalizada';
     setStatus('Consulta finalizada. En la hoja de evaluación puedes probar otro caso o cerrar el simulador.');
@@ -955,11 +1058,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     aiSessionId = null;
     aiSessionToken = null;
     isRunning = false;
-    [saveDiagnosis, diagnosisMic, hypothesisInput, hypothesisMic, addHypothesisButton].forEach(element => {
+    [saveDiagnosis, confirmDiagnosis, cancelConfirm, diagnosisMic, hypothesisInput, hypothesisMic, addHypothesisButton].forEach(element => {
       if (element) element.disabled = false;
     });
+    submittingDiagnosis = false;
+    show(diagnosisConfirm, false);
     if (diagnosisInput) diagnosisInput.value = '';
-    if (diagnosisFeedback) diagnosisFeedback.textContent = '';
+    setDiagnosisFeedback('');
     if (hypothesesFeedback) hypothesesFeedback.textContent = '';
     if (diagnosisButton) diagnosisButton.lastChild.textContent = ' Realizar Diagnóstico';
     setField('evaluation-saved', '');

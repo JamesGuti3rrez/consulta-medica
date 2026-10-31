@@ -267,8 +267,26 @@
                   class="h-11 flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg bg-slate-100 px-3 text-sm font-semibold text-slate-700 hover:bg-slate-200 transition-colors"><span
                     class="material-symbols-outlined text-lg">mic</span> Dictar</button>
                 <button data-role="save-diagnosis" type="button"
-                  class="h-11 flex-[2] rounded-lg bg-accent-600 px-3 text-sm font-semibold text-white hover:bg-accent-700 transition-colors">Guardar
+                  class="h-11 flex-[2] rounded-lg bg-accent-600 px-3 text-sm font-semibold text-white hover:bg-accent-700 transition-colors disabled:cursor-not-allowed disabled:opacity-50">Guardar
                   y finalizar consulta</button>
+              </div>
+              <!-- HU-006: confirmación de cierre. El diagnóstico se registra solo al confirmar. -->
+              <div data-role="diagnosis-confirm" hidden role="alertdialog" aria-labelledby="diagnosis-confirm-title"
+                aria-describedby="diagnosis-confirm-warning"
+                class="hidden rounded-lg border border-amber-200 bg-amber-50 p-3 flex flex-col gap-2">
+                <p id="diagnosis-confirm-title" class="text-sm font-semibold text-amber-900">¿Cerrar la consulta con este diagnóstico?</p>
+                <p data-role="diagnosis-confirm-text"
+                  class="whitespace-pre-line break-words rounded-md border border-amber-100 bg-white p-2 text-sm text-slate-800"></p>
+                <p id="diagnosis-confirm-warning" class="text-[13px] leading-snug text-amber-900">Al confirmar se registra tu
+                  diagnóstico y la consulta termina: ya no podrás hacer preguntas ni cambiarlo.</p>
+                <div class="flex items-center gap-2">
+                  <button data-role="cancel-confirm" type="button"
+                    class="h-10 flex-1 rounded-lg border border-slate-300 bg-white px-3 text-sm font-semibold text-slate-700 hover:bg-slate-100 transition-colors disabled:cursor-not-allowed disabled:opacity-50">Seguir
+                    en la consulta</button>
+                  <button data-role="confirm-diagnosis" type="button"
+                    class="h-10 flex-[2] rounded-lg bg-accent-600 px-3 text-sm font-semibold text-white hover:bg-accent-700 transition-colors disabled:cursor-not-allowed disabled:opacity-50">Confirmar
+                    y cerrar</button>
+                </div>
               </div>
               <p data-role="diagnosis-feedback" class="text-[13px] text-slate-500" aria-live="polite"></p>
             </div>
