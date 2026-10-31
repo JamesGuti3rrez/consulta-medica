@@ -62,7 +62,7 @@ class Caso:
     def __init__(self, id: str, criterio: str, titulo: str, nombre: str, esperado: str,  # noqa: A002
                  carpeta_env: str = "TA011_EVIDENCIA"):
         case_id = id
-        # Variable con la carpeta de evidencia: TA011_EVIDENCIA para TA-011, HU006_EVIDENCIA para HU-006.
+        # Variable con la carpeta de evidencia: TA011_EVIDENCIA para TA-011, HU007_EVIDENCIA para HU-007 (reporte) y HU006_EVIDENCIA para HU-006 (diagnóstico final).
         self.carpeta_env = carpeta_env
         self.case_id, self.criterio, self.titulo, self.nombre, self.esperado = case_id, criterio, titulo, nombre, esperado
         self.pasos: list[dict] = []

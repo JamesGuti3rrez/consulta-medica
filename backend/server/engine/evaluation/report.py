@@ -1,4 +1,4 @@
-"""Reporte final de una consulta cerrada (HU-006).
+"""Reporte final de una consulta cerrada (HU-007).
 
 Se arma solo con el caso de la consulta y con la propia sesión: no consulta el RAG ni el modelo de lenguaje, y
 descarta cualquier evidencia cuyo id no pertenezca al caso.

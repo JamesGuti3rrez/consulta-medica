@@ -1,5 +1,7 @@
 # HU-006 Reporte final: plan de implementación
 
+> **Renumeración (2026-10-31):** esta historia ahora es **HU-007: Completar reporte final**. Se entregó como HU-006; los ids de los casos de su evidencia (HU006-01 a HU006-17) equivalen a HU007-01 a HU007-17 de `backend/tests/security/test_hu007_report.py`. La HU-006 nueva es «Proponer y registrar diagnóstico final» (`pruebas/28_diagnostico_final/`).
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Al cerrar una consulta, el dueño recibe un reporte completo (diagnóstico de referencia y propuesto, preguntas clave obtenidas y faltantes con su porqué, exámenes, tratamiento, puntajes y evidencia revelada) armado solo con datos de ese caso, y la hoja de evaluación lo muestra.

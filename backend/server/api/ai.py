@@ -319,7 +319,7 @@ def finish(session_id: str, payload: FinishRequest | None = None, authorization:
 
 @router.get("/sessions/{session_id}/report", dependencies=[Depends(authorize_session)])
 def report(session_id: str):
-    """Reporte final (HU-006): solo para el dueño, que ya validó authorize_session, y solo con la consulta cerrada."""
+    """Reporte final (HU-007): solo para el dueño, que ya validó authorize_session, y solo con la consulta cerrada."""
     try:
         return get_service().report(session_id)
     except SessionNotFinished as exc:

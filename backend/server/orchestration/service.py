@@ -8,7 +8,7 @@ from server.orchestration.store import InMemorySessionStore
 
 
 class SessionNotFinished(Exception):
-    """El reporte solo existe cuando la consulta terminó (HU-006)."""
+    """El reporte solo existe cuando la consulta terminó (HU-007)."""
 
 
 def _now() -> str:
@@ -176,7 +176,7 @@ class MultiAgentSessionService:
         # Cerrar otra vez devuelve el mismo resultado: no se recalcula ni se duplica el intento guardado.
         if session["phase"] == SessionPhase.FINALIZADA.value and session.get("evaluation"):
             return self._public(session)
-        # Lo que registró el estudiante queda en la consulta para el reporte final (HU-006). No es público.
+        # Lo que registró el estudiante queda en la consulta para el reporte final (HU-007). No es público.
         session["student_diagnosis"] = diagnosis or ""
         session["student_hypotheses"] = list(hypotheses or [])
         self._ensure_clinical_state(session)
@@ -199,7 +199,7 @@ class MultiAgentSessionService:
         return self._public(session)
 
     def report(self, session_id: str) -> dict:
-        """Reporte final de una consulta cerrada, armado solo con su caso y su propia sesión (HU-006)."""
+        """Reporte final de una consulta cerrada, armado solo con su caso y su propia sesión (HU-007)."""
         session = self.store.get(session_id)
         if session["phase"] != SessionPhase.FINALIZADA.value:
             raise SessionNotFinished(session_id)

@@ -115,6 +115,8 @@ const mask = value => (value && value.length > 12 ? `${value.slice(0, 6)}…${va
   await page.fill('[data-role="diagnosis-input"]', 'Infarto agudo de miocardio');
   const finish = page.waitForResponse(r => r.url().includes('/finish'), { timeout: 120000 });
   await page.click('[data-role="save-diagnosis"]');
+  // HU-006: el cierre pide confirmación antes de registrar el diagnóstico.
+  await page.click('[data-role="confirm-diagnosis"]');
   const finished = await finish;
   const finishedBody = await finished.json();
   comprobar('el cierre trae el reporte', Boolean(finishedBody.report), `claves: ${Object.keys(finishedBody.report || {}).join(', ')}`);

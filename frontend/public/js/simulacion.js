@@ -735,7 +735,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   hypothesisInput?.addEventListener('keydown', event => { if (event.key === 'Enter') addHypothesis(); });
   hypothesisMic?.addEventListener('click', () => dictate(hypothesisInput, hypothesesFeedback));
 
-  // Hoja de evaluación: el reporte final (HU-006) lo arma el servidor solo con datos del caso y de esta
+  // Hoja de evaluación: el reporte final (HU-007) lo arma el servidor solo con datos del caso y de esta
   // consulta, y solo lo entrega al dueño tras el cierre. Todo se escribe como texto, nunca como HTML.
   const TEST_NOTES = { recommended_missing: 'Recomendado, no lo pediste', unnecessary_requested: 'Innecesario en este caso' };
   const fillList = (role, lines) => {

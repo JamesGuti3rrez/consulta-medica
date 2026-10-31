@@ -53,7 +53,7 @@ class ClinicalEvaluationEngine:
         }
 
     def report(self, session: dict[str, Any], events: list[dict[str, Any]]) -> dict[str, Any]:
-        """Reporte final de una consulta cerrada (HU-006): el motor es quien lee la parte protegida del caso."""
+        """Reporte final de una consulta cerrada (HU-007): el motor es quien lee la parte protegida del caso."""
         case = self.repository.get_conversation_case(session["case_id"])
         case["protected"] = self.repository.get_protected(session["case_id"])
         return build_report(session, case, events)

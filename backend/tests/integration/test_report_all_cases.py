@@ -1,4 +1,4 @@
-"""HU-006: el reporte de cada uno de los 43 casos curados usa solo datos de su propio caso (CA3, CA4)."""
+"""HU-007: el reporte de cada uno de los 43 casos curados usa solo datos de su propio caso (CA3, CA4)."""
 import json
 import re
 from pathlib import Path

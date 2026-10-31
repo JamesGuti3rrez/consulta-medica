@@ -1,8 +1,8 @@
-"""HU-006: reporte final solo poscierre, con propietario validado y sin fuentes ajenas al case_id.
+"""HU-007: reporte final solo poscierre, con propietario validado y sin fuentes ajenas al case_id.
 
 Usa la misma preparación que la suite de TA-011 (dos alumnos y dos invitados, en local con TestClient y
 Supabase simulado, o en vivo con servidor y Supabase reales: TA011_MODO, TA011_BASE_URL, TA011_SERVER_LOG).
-Con HU006_EVIDENCIA=<carpeta> cada caso guarda su JSON en <carpeta>/logs.
+Con HU007_EVIDENCIA=<carpeta> cada caso guarda su JSON en <carpeta>/logs.
 """
 import glob
 import json
@@ -84,7 +84,7 @@ def _report(rep, session_id=None, quien=None, capacidad=None):
 # ================================================== A. Solo el dueño y solo poscierre (CA1, CA2)
 
 
-@pytest.mark.hu006(id="HU006-01", criterio="CA2, CA3", titulo="A obtiene el reporte de su consulta cerrada",
+@pytest.mark.hu007(id="HU007-01", criterio="CA2, CA3", titulo="A obtiene el reporte de su consulta cerrada",
                    nombre="A_obtiene_reporte", esperado="200 con todas las secciones del reporte")
 def test_01_a_obtiene_reporte(rep, caso):
     response = _report(rep)
@@ -95,7 +95,7 @@ def test_01_a_obtiene_reporte(rep, caso):
     caso.exigir()
 
 
-@pytest.mark.hu006(id="HU006-02", criterio="CA2", titulo="El invitado obtiene su reporte con su credencial",
+@pytest.mark.hu007(id="HU007-02", criterio="CA2", titulo="El invitado obtiene su reporte con su credencial",
                    nombre="invitado_obtiene_reporte", esperado="200 con el reporte de SN1")
 def test_02_invitado_obtiene_reporte(rep, caso):
     response = _report(rep, rep.SN1, rep.anon1, rep.token_SN1)
@@ -106,7 +106,7 @@ def test_02_invitado_obtiene_reporte(rep, caso):
     caso.exigir()
 
 
-@pytest.mark.hu006(id="HU006-03", criterio="CA1", titulo="Consulta abierta: el reporte no existe",
+@pytest.mark.hu007(id="HU007-03", criterio="CA1", titulo="Consulta abierta: el reporte no existe",
                    nombre="consulta_abierta_409", esperado="409 sin diagnóstico de referencia ni preguntas clave")
 def test_03_consulta_abierta(rep, caso):
     response = _report(rep, rep.extra["SO"])
@@ -118,7 +118,7 @@ def test_03_consulta_abierta(rep, caso):
     caso.exigir()
 
 
-@pytest.mark.hu006(id="HU006-04", criterio="CA2", titulo="B no obtiene el reporte de A",
+@pytest.mark.hu007(id="HU007-04", criterio="CA2", titulo="B no obtiene el reporte de A",
                    nombre="B_sobre_reporte_A", esperado="404 sin datos del reporte de A")
 def test_04_b_sobre_reporte(rep, caso):
     response = _report(rep, quien=rep.B)
@@ -127,7 +127,7 @@ def test_04_b_sobre_reporte(rep, caso):
     caso.exigir()
 
 
-@pytest.mark.hu006(id="HU006-05", criterio="CA2", titulo="Invitado 2 no obtiene el reporte del invitado 1",
+@pytest.mark.hu007(id="HU007-05", criterio="CA2", titulo="Invitado 2 no obtiene el reporte del invitado 1",
                    nombre="invitado2_sobre_SN1", esperado="404 con su propia credencial")
 def test_05_invitado2_sobre_sn1(rep, caso):
     response = _report(rep, rep.SN1, rep.anon2, rep.token_SN2)
@@ -136,7 +136,7 @@ def test_05_invitado2_sobre_sn1(rep, caso):
     caso.exigir()
 
 
-@pytest.mark.hu006(id="HU006-06", criterio="CA2", titulo="Sin credencial no hay reporte",
+@pytest.mark.hu007(id="HU007-06", criterio="CA2", titulo="Sin credencial no hay reporte",
                    nombre="sin_credencial_401", esperado="401 en SA y SN1")
 def test_06_sin_credencial(rep, caso):
     for session_id, etiqueta in ((rep.SA, "SA"), (rep.SN1, "SN1")):
@@ -146,7 +146,7 @@ def test_06_sin_credencial(rep, caso):
     caso.exigir()
 
 
-@pytest.mark.hu006(id="HU006-07", criterio="CA2", titulo="Reporte ajeno igual a inexistente",
+@pytest.mark.hu007(id="HU007-07", criterio="CA2", titulo="Reporte ajeno igual a inexistente",
                    nombre="ajeno_igual_a_inexistente", esperado="Mismo código y mismo cuerpo")
 def test_07_ajeno_igual_inexistente(rep, caso):
     ajeno = _report(rep, quien=rep.B)
@@ -158,7 +158,7 @@ def test_07_ajeno_igual_inexistente(rep, caso):
     caso.exigir()
 
 
-@pytest.mark.hu006(id="HU006-08", criterio="CA1, CA3", titulo="El reporte del cierre es el mismo y no cambia",
+@pytest.mark.hu007(id="HU007-08", criterio="CA1, CA3", titulo="El reporte del cierre es el mismo y no cambia",
                    nombre="reporte_estable", esperado="finish.report igual a GET /report en tres lecturas")
 def test_08_reporte_estable(rep, caso):
     finish = rep.extra["finish_SA"]
@@ -174,7 +174,7 @@ def test_08_reporte_estable(rep, caso):
 # ================================================== B. Contenido del reporte (CA3)
 
 
-@pytest.mark.hu006(id="HU006-09", criterio="CA3", titulo="Propuesta del alumno y diagnóstico de referencia",
+@pytest.mark.hu007(id="HU007-09", criterio="CA3", titulo="Propuesta del alumno y diagnóstico de referencia",
                    nombre="propuesta_y_referencia", esperado="Diagnóstico e hipótesis del primer cierre; referencia del caso")
 def test_09_propuesta(rep, caso):
     otra = rep.call("POST", f"/api/ai/sessions/{rep.SA}/finish", rep.A.headers(),
@@ -200,7 +200,7 @@ def _scored(case: dict) -> list[dict]:
     return [q for q in questions if not set(q["evidence_ids"]).issubset(initial)] or questions
 
 
-@pytest.mark.hu006(id="HU006-10", criterio="CA3", titulo="Puntaje y preguntas clave cuadran",
+@pytest.mark.hu007(id="HU007-10", criterio="CA3", titulo="Puntaje y preguntas clave cuadran",
                    nombre="puntaje", esperado="Pesos obtenidos = earned_weight; preguntas = las puntuables del caso")
 def test_10_puntaje(rep, caso):
     response = _report(rep)
@@ -219,7 +219,7 @@ def test_10_puntaje(rep, caso):
     caso.exigir()
 
 
-@pytest.mark.hu006(id="HU006-11", criterio="CA3", titulo="Por qué de cada pregunta que faltó",
+@pytest.mark.hu007(id="HU007-11", criterio="CA3", titulo="Por qué de cada pregunta que faltó",
                    nombre="por_que", esperado="Tipo, crítico y diferenciales que ayudaba a descartar, del caso")
 def test_11_por_que(rep, caso):
     response = _report(rep)
@@ -238,7 +238,7 @@ def test_11_por_que(rep, caso):
     caso.exigir()
 
 
-@pytest.mark.hu006(id="HU006-12", criterio="CA3", titulo="Exámenes clasificados según el caso",
+@pytest.mark.hu007(id="HU007-12", criterio="CA3", titulo="Exámenes clasificados según el caso",
                    nombre="examenes", esperado="Pedidos y no pedidos según tests del caso y la evidencia pedida")
 def test_12_examenes(rep, caso):
     state = rep.call("GET", f"/api/ai/sessions/{rep.SA}", rep.A.headers())
@@ -259,7 +259,7 @@ def test_12_examenes(rep, caso):
     caso.exigir()
 
 
-@pytest.mark.hu006(id="HU006-13", criterio="CA3", titulo="Tratamiento propuesto y de referencia",
+@pytest.mark.hu007(id="HU007-13", criterio="CA3", titulo="Tratamiento propuesto y de referencia",
                    nombre="tratamiento", esperado="La propuesta de A con sus alertas y el tratamiento de referencia del caso")
 def test_13_tratamiento(rep, caso):
     events = rep.call("GET", f"/api/ai/sessions/{rep.SA}/events", rep.A.headers())
@@ -277,7 +277,7 @@ def test_13_tratamiento(rep, caso):
     caso.exigir()
 
 
-@pytest.mark.hu006(id="HU006-14", criterio="CA3", titulo="Evidencia revelada",
+@pytest.mark.hu007(id="HU007-14", criterio="CA3", titulo="Evidencia revelada",
                    nombre="evidencia_revelada", esperado="Los mismos datos que la consulta reveló, con su texto del caso")
 def test_14_evidencia(rep, caso):
     state = rep.call("GET", f"/api/ai/sessions/{rep.SA}", rep.A.headers())
@@ -297,7 +297,7 @@ def test_14_evidencia(rep, caso):
     caso.exigir()
 
 
-@pytest.mark.hu006(id="HU006-15", criterio="CA4", titulo="Ninguna fuente ajena al case_id",
+@pytest.mark.hu007(id="HU007-15", criterio="CA4", titulo="Ninguna fuente ajena al case_id",
                    nombre="sin_fuentes_ajenas", esperado="Ids solo del caso; ningún diagnóstico ni diferencial de otro caso")
 def test_15_sin_fuentes_ajenas(rep, caso):
     response = _report(rep)
@@ -321,7 +321,7 @@ def test_15_sin_fuentes_ajenas(rep, caso):
 # ================================================== C. Errores y trazabilidad
 
 
-@pytest.mark.hu006(id="HU006-16", criterio="CA2", titulo="Errores sin detalles internos",
+@pytest.mark.hu007(id="HU007-16", criterio="CA2", titulo="Errores sin detalles internos",
                    nombre="errores_sin_detalles", esperado="401, 404 y 409 sin rutas, trazas, SQL ni claves")
 def test_16_errores(rep, caso):
     respuestas = [("sin credencial", rep.call("GET", f"/api/ai/sessions/{rep.SA}/report"), {401}),
@@ -336,7 +336,7 @@ def test_16_errores(rep, caso):
 
 
 @pytest.mark.logs_servidor
-@pytest.mark.hu006(id="HU006-17", criterio="CA2", titulo="Intento ajeno sobre /report en el log",
+@pytest.mark.hu007(id="HU007-17", criterio="CA2", titulo="Intento ajeno sobre /report en el log",
                    nombre="log_reporte_ajeno", esperado="Línea [autorizacion] 404 GET .../report con quién y motivo")
 def test_17_log(rep, caso, capsys):
     capsys.readouterr()

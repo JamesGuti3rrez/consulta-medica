@@ -1,4 +1,4 @@
-"""HU-006: GET /api/ai/sessions/{id}/report, solo para el dueño y solo después del cierre."""
+"""HU-007: GET /api/ai/sessions/{id}/report, solo para el dueño y solo después del cierre."""
 from dataclasses import replace
 from pathlib import Path
 
