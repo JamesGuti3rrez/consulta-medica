@@ -1,0 +1,58 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.13.0, pytest-8.3.4, pluggy-1.7.0 -- C:\Users\Usuario\AppData\Local\Temp\claude\c--Users-Usuario-Documents-consulta-medica\43241bd6-5e01-40eb-a636-a16932a590a2\scratchpad\venv_ragas313\Scripts\python.exe
+rootdir: C:\Users\Usuario\Documents\consulta-medica\backend
+configfile: pyproject.toml
+plugins: anyio-4.15.1, langsmith-0.14.7
+collecting ... collected 33 items
+
+tests/rag/test_evals.py::test_metrics[expected0-found0-3-1-1-1] PASSED   [  3%]
+tests/rag/test_evals.py::test_metrics[expected1-found1-3-0.3333333333333333-0.5-1] PASSED [  6%]
+tests/rag/test_evals.py::test_metrics[expected2-found2-3-0-0-0] PASSED   [  9%]
+tests/rag/test_evals.py::test_metrics[expected3-found3-3-0-0-0] PASSED   [ 12%]
+tests/rag/test_evals.py::test_metrics[expected4-found4-3-0.3333333333333333-1-1] PASSED [ 15%]
+tests/rag/test_evals.py::test_metrics[expected5-found5-3-0.3333333333333333-0.5-1] PASSED [ 18%]
+tests/rag/test_evals.py::test_metrics[expected6-found6-5-0.2-1-1] PASSED [ 21%]
+tests/rag/test_evals.py::test_negative_references_and_k PASSED           [ 24%]
+tests/rag/test_evals.py::test_real_dataset_balanced_verifiable_and_unchanged PASSED [ 27%]
+tests/rag/test_evals.py::test_dataset_rejects_drift_and_foreign_references PASSED [ 30%]
+tests/rag/test_evals.py::test_security_and_redacted_exports[MED-901.antecedente.historia-Texto-cross_case_leak] PASSED [ 33%]
+tests/rag/test_evals.py::test_security_and_redacted_exports[MED-900.lab.no_autorizado-Texto-unauthorized_evidence] PASSED [ 36%]
+tests/rag/test_evals.py::test_security_and_redacted_exports[MED-900.antecedente.historia-Secreto cl\xednico reservado-protected_content] PASSED [ 39%]
+tests/rag/test_evals.py::test_security_and_redacted_exports[MED-900.synthetic.resultado-Inventado-noncanonical_evidence] PASSED [ 42%]
+tests/rag/test_evals.py::test_provider_failure_is_not_a_successful_abstention PASSED [ 45%]
+tests/rag/test_evals.py::test_empty_result_and_missing_ragas_continue PASSED [ 48%]
+tests/rag/test_evals.py::test_real_ragas_ids_and_failure_without_credentials PASSED [ 51%]
+tests/rag/test_evals.py::test_ragas_judge_failure_does_not_erase_id_scores PASSED [ 54%]
+tests/rag/test_evals.py::test_factory_uses_json_when_no_index_and_respects_remote_priority PASSED [ 57%]
+tests/rag/test_evals.py::test_auxiliary_log_contains_hash_instead_of_query PASSED [ 60%]
+tests/rag/test_evals.py::test_actual_ragas_judge_api_with_controlled_http PASSED [ 63%]
+tests/rag/test_evals.py::test_unsupported_response_is_classified_without_exporting_content PASSED [ 66%]
+tests/rag/test_evals.py::test_limit_validates_only_selected_references PASSED [ 69%]
+tests/rag/test_evals.py::test_progress_runs_once_per_complete_query PASSED [ 72%]
+tests/rag/test_evals.py::test_local_tracing_overrides_inherited_context_and_threads PASSED [ 75%]
+tests/rag/test_evals.py::test_evaluation_tracing_can_enable_requested_project_without_sending_runs PASSED [ 78%]
+tests/rag/test_evals.py::test_cli_keeps_completed_results_on_ctrl_c PASSED [ 81%]
+tests/rag/test_ragas_groq.py::test_groq_defaults_inherit_pool_and_model PASSED [ 84%]
+tests/rag/test_ragas_groq.py::test_groq_ignores_legacy_openai_credentials_and_endpoint PASSED [ 87%]
+tests/rag/test_ragas_groq.py::test_groq_model_override_and_explicit_openai_do_not_mix_credentials PASSED [ 90%]
+tests/rag/test_ragas_groq.py::test_groq_judge_reuses_pool_json_contract_and_reports_usage PASSED [ 93%]
+tests/rag/test_ragas_groq.py::test_groq_missing_credentials_does_not_use_openai_key PASSED [ 96%]
+tests/rag/test_ragas_groq.py::test_local_embeddings_use_existing_semantic_provider PASSED [100%]
+
+============================== warnings summary ===============================
+tests/rag/test_evals.py::test_actual_ragas_judge_api_with_controlled_http
+  C:\Users\Usuario\AppData\Local\Temp\claude\c--Users-Usuario-Documents-consulta-medica\43241bd6-5e01-40eb-a636-a16932a590a2\scratchpad\venv_ragas313\Lib\site-packages\instructor\client.py:406: DeprecationWarning: FUNCTIONS is deprecated and will be removed in future versions
+    instructor.Mode.FUNCTIONS,
+
+tests/rag/test_evals.py::test_actual_ragas_judge_api_with_controlled_http
+tests/rag/test_evals.py::test_actual_ragas_judge_api_with_controlled_http
+  C:\Users\Usuario\AppData\Local\Temp\claude\c--Users-Usuario-Documents-consulta-medica\43241bd6-5e01-40eb-a636-a16932a590a2\scratchpad\venv_ragas313\Lib\site-packages\instructor\process_response.py:222: DeprecationWarning: FUNCTIONS is deprecated and will be removed in future versions
+    if mode == Mode.FUNCTIONS:
+
+tests/rag/test_evals.py::test_actual_ragas_judge_api_with_controlled_http
+tests/rag/test_evals.py::test_actual_ragas_judge_api_with_controlled_http
+  C:\Users\Usuario\AppData\Local\Temp\claude\c--Users-Usuario-Documents-consulta-medica\43241bd6-5e01-40eb-a636-a16932a590a2\scratchpad\venv_ragas313\Lib\site-packages\instructor\function_calls.py:114: DeprecationWarning: FUNCTIONS is deprecated and will be removed in future versions
+    if mode == Mode.FUNCTIONS:
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 33 passed, 5 warnings in 15.44s =======================

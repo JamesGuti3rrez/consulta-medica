@@ -6,6 +6,8 @@
 backend/.venv/
 backend/logs/
 backend/tests/
+backend/run_tests.py
+backend/evals/
 node_modules/
 DOCUMENTOS DEL PROYECTO/
 docs/

@@ -1,0 +1,18 @@
+﻿........................................................................ [ 11%]
+........................................................................ [ 22%]
+..........................................FF......ss..s.F.............ss [ 34%]
+s....................................................................... [ 45%]
+........................................................................ [ 57%]
+........................................................................ [ 68%]
+........................................................................ [ 79%]
+........................................................................ [ 91%]
+.......................................................                  [100%]
+================================== FAILURES ===================================
+C:\Python314\Lib\pathlib\__init__.py:771: FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Usuario\\AppData\\Local\\Temp\\claude\\c--Users-Usuario-Documents-consulta-medica\\43241bd6-5e01-40eb-a636-a16932a590a2\\scratchpad\\pr3\\backend\\evals\\datasets\\clinical_v1.json'
+C:\Python314\Lib\pathlib\__init__.py:771: FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Usuario\\AppData\\Local\\Temp\\claude\\c--Users-Usuario-Documents-consulta-medica\\43241bd6-5e01-40eb-a636-a16932a590a2\\scratchpad\\pr3\\backend\\evals\\datasets\\clinical_v1.json'
+C:\Python314\Lib\pathlib\__init__.py:771: FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Usuario\\AppData\\Local\\Temp\\claude\\c--Users-Usuario-Documents-consulta-medica\\43241bd6-5e01-40eb-a636-a16932a590a2\\scratchpad\\pr3\\backend\\evals\\datasets\\clinical_v1.json'
+=========================== short test summary info ===========================
+FAILED tests/rag/test_evals.py::test_real_dataset_balanced_verifiable_and_unchanged
+FAILED tests/rag/test_evals.py::test_dataset_rejects_drift_and_foreign_references
+FAILED tests/rag/test_evals.py::test_limit_validates_only_selected_references
+3 failed, 622 passed, 6 skipped, 3 deselected in 22.64s

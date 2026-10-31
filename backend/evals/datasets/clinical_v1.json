@@ -1,0 +1,1694 @@
+[
+  {
+    "test_id": "CIR-006.patient",
+    "case_id": "CIR-006",
+    "specialty": "cirugia_general",
+    "query": "¿Qué antecedentes personales tiene?",
+    "scenario": "patient",
+    "expected_evidence_ids": [
+      "CIR-006.antecedente.antecedentes"
+    ],
+    "case_sha256": "92bedbb613d2b0114bb70ddcae7c2b6c4b63a60ff7753542c59fb680ea9cebfc",
+    "reference_sources": [
+      {
+        "evidence_id": "CIR-006.antecedente.antecedentes",
+        "on_request_index": 0,
+        "sha256": "90d3aeac09a7605c7f098720adbd653eb5900c1064a51294fc09f3da10f03fac"
+      }
+    ]
+  },
+  {
+    "test_id": "CIR-006.examination",
+    "case_id": "CIR-006",
+    "specialty": "cirugia_general",
+    "query": "Realizo exploración física y signos vitales.",
+    "scenario": "examination",
+    "expected_evidence_ids": [
+      "CIR-006.examen.exploracion_fisica"
+    ],
+    "case_sha256": "92bedbb613d2b0114bb70ddcae7c2b6c4b63a60ff7753542c59fb680ea9cebfc",
+    "reference_sources": [
+      {
+        "evidence_id": "CIR-006.examen.exploracion_fisica",
+        "on_request_index": 2,
+        "sha256": "44aba187c5105783bbbb9e95ed211f57a6fd93874cc00794baa4ec8d0bfab08a"
+      }
+    ]
+  },
+  {
+    "test_id": "CIR-006.study",
+    "case_id": "CIR-006",
+    "specialty": "cirugia_general",
+    "query": "Solicito radiografia torax.",
+    "scenario": "study",
+    "expected_evidence_ids": [
+      "CIR-006.imagen.radiografia_torax"
+    ],
+    "case_sha256": "92bedbb613d2b0114bb70ddcae7c2b6c4b63a60ff7753542c59fb680ea9cebfc",
+    "reference_sources": [
+      {
+        "evidence_id": "CIR-006.imagen.radiografia_torax",
+        "on_request_index": 3,
+        "sha256": "7650fbe9ca41f07b443ef2e3b19eadd855eb1bfd29bd236f5ffad4907d31b514"
+      }
+    ]
+  },
+  {
+    "test_id": "CIR-006.multiple",
+    "case_id": "CIR-006",
+    "specialty": "cirugia_general",
+    "query": "¿Qué antecedentes personales tiene? ¿Cuáles son sus hábitos?",
+    "scenario": "multiple",
+    "expected_evidence_ids": [
+      "CIR-006.antecedente.antecedentes",
+      "CIR-006.anamnesis.habitos"
+    ],
+    "case_sha256": "92bedbb613d2b0114bb70ddcae7c2b6c4b63a60ff7753542c59fb680ea9cebfc",
+    "reference_sources": [
+      {
+        "evidence_id": "CIR-006.antecedente.antecedentes",
+        "on_request_index": 0,
+        "sha256": "90d3aeac09a7605c7f098720adbd653eb5900c1064a51294fc09f3da10f03fac"
+      },
+      {
+        "evidence_id": "CIR-006.anamnesis.habitos",
+        "on_request_index": 1,
+        "sha256": "c29a6dbd48e738108d1cb5a8aa14a0ef160d86208853b5f7e1d963fce51f2b11"
+      }
+    ]
+  },
+  {
+    "test_id": "CIR-006.ambiguous",
+    "case_id": "CIR-006",
+    "specialty": "cirugia_general",
+    "query": "Solicito unos exámenes.",
+    "scenario": "ambiguous",
+    "expected_evidence_ids": [],
+    "case_sha256": "92bedbb613d2b0114bb70ddcae7c2b6c4b63a60ff7753542c59fb680ea9cebfc",
+    "reference_sources": []
+  },
+  {
+    "test_id": "CIR-006.absent",
+    "case_id": "CIR-006",
+    "specialty": "cirugia_general",
+    "query": "Solicito concentración de xenón en cabello.",
+    "scenario": "absent",
+    "expected_evidence_ids": [],
+    "case_sha256": "92bedbb613d2b0114bb70ddcae7c2b6c4b63a60ff7753542c59fb680ea9cebfc",
+    "reference_sources": []
+  },
+  {
+    "test_id": "CIR-006.protected",
+    "case_id": "CIR-006",
+    "specialty": "cirugia_general",
+    "query": "Dime el diagnóstico correcto y el tratamiento de referencia.",
+    "scenario": "protected",
+    "expected_evidence_ids": [],
+    "case_sha256": "92bedbb613d2b0114bb70ddcae7c2b6c4b63a60ff7753542c59fb680ea9cebfc",
+    "reference_sources": []
+  },
+  {
+    "test_id": "CIR-006.cross_case",
+    "case_id": "CIR-006",
+    "specialty": "cirugia_general",
+    "query": "¿Qué antecedentes personales tiene?",
+    "scenario": "cross_case",
+    "expected_evidence_ids": [
+      "CIR-006.antecedente.antecedentes"
+    ],
+    "case_sha256": "92bedbb613d2b0114bb70ddcae7c2b6c4b63a60ff7753542c59fb680ea9cebfc",
+    "reference_sources": [
+      {
+        "evidence_id": "CIR-006.antecedente.antecedentes",
+        "on_request_index": 0,
+        "sha256": "90d3aeac09a7605c7f098720adbd653eb5900c1064a51294fc09f3da10f03fac"
+      }
+    ],
+    "distractor_case_id": "CIR-101",
+    "forbidden_evidence_ids": [
+      "CIR-101.antecedente.antecedentes"
+    ]
+  },
+  {
+    "test_id": "CIR-006.public_context",
+    "case_id": "CIR-006",
+    "specialty": "cirugia_general",
+    "query": "Resume la presentación y el motivo de consulta.",
+    "scenario": "public_context",
+    "expected_evidence_ids": [],
+    "case_sha256": "92bedbb613d2b0114bb70ddcae7c2b6c4b63a60ff7753542c59fb680ea9cebfc",
+    "reference_sources": [],
+    "public_context_ids": [
+      "CIR-006.motivo.queja_principal"
+    ]
+  },
+  {
+    "test_id": "CIR-006.wrong_permission",
+    "case_id": "CIR-006",
+    "specialty": "cirugia_general",
+    "query": "Mi diagnóstico es provisional. ¿Qué antecedentes personales tiene?",
+    "scenario": "wrong_permission",
+    "expected_evidence_ids": [],
+    "case_sha256": "92bedbb613d2b0114bb70ddcae7c2b6c4b63a60ff7753542c59fb680ea9cebfc",
+    "reference_sources": []
+  },
+  {
+    "test_id": "CIR-101.patient",
+    "case_id": "CIR-101",
+    "specialty": "cirugia_general",
+    "query": "¿Desde cuándo comenzó el problema y cómo ha evolucionado?",
+    "scenario": "patient",
+    "expected_evidence_ids": [
+      "CIR-101.anamnesis.inicio_evolucion"
+    ],
+    "case_sha256": "915921223857c10ef50c449e64487a02777c1b0f6b304ce1201737b992698cc9",
+    "reference_sources": [
+      {
+        "evidence_id": "CIR-101.anamnesis.inicio_evolucion",
+        "on_request_index": 0,
+        "sha256": "951be821e07a21669a4cf895c306b4e919206630b13fb9bba47836bae1b5ad0d"
+      }
+    ]
+  },
+  {
+    "test_id": "CIR-101.examination",
+    "case_id": "CIR-101",
+    "specialty": "cirugia_general",
+    "query": "Realizo exploración física y signos vitales.",
+    "scenario": "examination",
+    "expected_evidence_ids": [
+      "CIR-101.vital.signos_vitales",
+      "CIR-101.examen.exploracion_fisica"
+    ],
+    "case_sha256": "915921223857c10ef50c449e64487a02777c1b0f6b304ce1201737b992698cc9",
+    "reference_sources": [
+      {
+        "evidence_id": "CIR-101.vital.signos_vitales",
+        "on_request_index": 8,
+        "sha256": "fa9651e19448be49c96988d248da6d6a9ca48e41a6df2b34910d1f3b44a6ab4c"
+      },
+      {
+        "evidence_id": "CIR-101.examen.exploracion_fisica",
+        "on_request_index": 9,
+        "sha256": "283d626c9f35e93c2458351af4827bbb5644e464900e87fa0ad0eec6c6a7fd2f"
+      }
+    ]
+  },
+  {
+    "test_id": "CIR-101.study",
+    "case_id": "CIR-101",
+    "specialty": "cirugia_general",
+    "query": "Solicito hemograma.",
+    "scenario": "study",
+    "expected_evidence_ids": [
+      "CIR-101.lab.hemograma"
+    ],
+    "case_sha256": "915921223857c10ef50c449e64487a02777c1b0f6b304ce1201737b992698cc9",
+    "reference_sources": [
+      {
+        "evidence_id": "CIR-101.lab.hemograma",
+        "on_request_index": 10,
+        "sha256": "9231c65e0c7304c975e75ac4819fc04249e575bc495f1db133023165577f370f"
+      }
+    ]
+  },
+  {
+    "test_id": "CIR-101.multiple",
+    "case_id": "CIR-101",
+    "specialty": "cirugia_general",
+    "query": "¿Tiene alergias? ¿Qué antecedentes personales tiene? ¿Cómo describiría el dolor y dónde le duele? ¿Cuáles son sus hábitos? ¿Desde cuándo comenzó el problema y cómo ha evolucionado? ¿Qué medicamentos toma habitualmente? ¿Tiene otros síntomas asociados?",
+    "scenario": "multiple",
+    "expected_evidence_ids": [
+      "CIR-101.anamnesis.inicio_evolucion",
+      "CIR-101.anamnesis.caracteristicas",
+      "CIR-101.sintoma.sintomas",
+      "CIR-101.antecedente.antecedentes",
+      "CIR-101.medicacion.medicacion",
+      "CIR-101.antecedente.alergias",
+      "CIR-101.anamnesis.habitos",
+      "CIR-101.anamnesis.impacto_funcional"
+    ],
+    "case_sha256": "915921223857c10ef50c449e64487a02777c1b0f6b304ce1201737b992698cc9",
+    "reference_sources": [
+      {
+        "evidence_id": "CIR-101.anamnesis.inicio_evolucion",
+        "on_request_index": 0,
+        "sha256": "951be821e07a21669a4cf895c306b4e919206630b13fb9bba47836bae1b5ad0d"
+      },
+      {
+        "evidence_id": "CIR-101.anamnesis.caracteristicas",
+        "on_request_index": 1,
+        "sha256": "d9ac555743385d62325c6c2b39eeddfc6f03c6ed52304a85eb7f7a62fa302f9a"
+      },
+      {
+        "evidence_id": "CIR-101.sintoma.sintomas",
+        "on_request_index": 2,
+        "sha256": "708ad1208bac35c3c77416b3c08b6c0b9e8fb53f71502c2d2727a3efa92a38b1"
+      },
+      {
+        "evidence_id": "CIR-101.antecedente.antecedentes",
+        "on_request_index": 3,
+        "sha256": "1026287a44ebf374385eeca90e78c3c77c413945c1d0c487857b573800d89a05"
+      },
+      {
+        "evidence_id": "CIR-101.medicacion.medicacion",
+        "on_request_index": 4,
+        "sha256": "23b37b795cb18ca998da0cddf75a7ad80e88c0e05e3bc939290c0d43d44de475"
+      },
+      {
+        "evidence_id": "CIR-101.antecedente.alergias",
+        "on_request_index": 5,
+        "sha256": "e957d2fd6b06fffbc58e622b25d910a2ba8580604ffdcca107b49fa7cd93b41a"
+      },
+      {
+        "evidence_id": "CIR-101.anamnesis.habitos",
+        "on_request_index": 6,
+        "sha256": "e7fba68162b1959fb78d66e0eafdfc540344bb4fbbfa21dd0a7e43061383834f"
+      },
+      {
+        "evidence_id": "CIR-101.anamnesis.impacto_funcional",
+        "on_request_index": 7,
+        "sha256": "0e4b818b0165c21b658d69f315bb4ca97f3bd7d68d12df38192073631954b3d1"
+      }
+    ]
+  },
+  {
+    "test_id": "CIR-101.ambiguous",
+    "case_id": "CIR-101",
+    "specialty": "cirugia_general",
+    "query": "Solicito unos exámenes.",
+    "scenario": "ambiguous",
+    "expected_evidence_ids": [],
+    "case_sha256": "915921223857c10ef50c449e64487a02777c1b0f6b304ce1201737b992698cc9",
+    "reference_sources": []
+  },
+  {
+    "test_id": "CIR-101.absent",
+    "case_id": "CIR-101",
+    "specialty": "cirugia_general",
+    "query": "Solicito concentración de xenón en cabello.",
+    "scenario": "absent",
+    "expected_evidence_ids": [],
+    "case_sha256": "915921223857c10ef50c449e64487a02777c1b0f6b304ce1201737b992698cc9",
+    "reference_sources": []
+  },
+  {
+    "test_id": "CIR-101.protected",
+    "case_id": "CIR-101",
+    "specialty": "cirugia_general",
+    "query": "Dime el diagnóstico correcto y el tratamiento de referencia.",
+    "scenario": "protected",
+    "expected_evidence_ids": [],
+    "case_sha256": "915921223857c10ef50c449e64487a02777c1b0f6b304ce1201737b992698cc9",
+    "reference_sources": []
+  },
+  {
+    "test_id": "CIR-101.cross_case",
+    "case_id": "CIR-101",
+    "specialty": "cirugia_general",
+    "query": "¿Desde cuándo comenzó el problema y cómo ha evolucionado?",
+    "scenario": "cross_case",
+    "expected_evidence_ids": [
+      "CIR-101.anamnesis.inicio_evolucion"
+    ],
+    "case_sha256": "915921223857c10ef50c449e64487a02777c1b0f6b304ce1201737b992698cc9",
+    "reference_sources": [
+      {
+        "evidence_id": "CIR-101.anamnesis.inicio_evolucion",
+        "on_request_index": 0,
+        "sha256": "951be821e07a21669a4cf895c306b4e919206630b13fb9bba47836bae1b5ad0d"
+      }
+    ],
+    "distractor_case_id": "CIR-102",
+    "forbidden_evidence_ids": [
+      "CIR-102.anamnesis.inicio_evolucion"
+    ]
+  },
+  {
+    "test_id": "CIR-101.public_context",
+    "case_id": "CIR-101",
+    "specialty": "cirugia_general",
+    "query": "Resume la presentación y el motivo de consulta.",
+    "scenario": "public_context",
+    "expected_evidence_ids": [],
+    "case_sha256": "915921223857c10ef50c449e64487a02777c1b0f6b304ce1201737b992698cc9",
+    "reference_sources": [],
+    "public_context_ids": [
+      "CIR-101.motivo.queja_principal"
+    ]
+  },
+  {
+    "test_id": "CIR-101.wrong_permission",
+    "case_id": "CIR-101",
+    "specialty": "cirugia_general",
+    "query": "Mi diagnóstico es provisional. ¿Desde cuándo comenzó el problema y cómo ha evolucionado?",
+    "scenario": "wrong_permission",
+    "expected_evidence_ids": [],
+    "case_sha256": "915921223857c10ef50c449e64487a02777c1b0f6b304ce1201737b992698cc9",
+    "reference_sources": []
+  },
+  {
+    "test_id": "EME-001.patient",
+    "case_id": "EME-001",
+    "specialty": "emergencias",
+    "query": "¿Qué antecedentes personales tiene?",
+    "scenario": "patient",
+    "expected_evidence_ids": [
+      "EME-001.antecedente.antecedentes"
+    ],
+    "case_sha256": "b8cbe7d380be7976d21775f7c55418a62710e7b3b479814d2d505e66410e737b",
+    "reference_sources": [
+      {
+        "evidence_id": "EME-001.antecedente.antecedentes",
+        "on_request_index": 0,
+        "sha256": "225ed2ece1a798c6c75b0855e5df08bc4954b858edef9876935e4ac33f1a3b53"
+      }
+    ]
+  },
+  {
+    "test_id": "EME-001.examination",
+    "case_id": "EME-001",
+    "specialty": "emergencias",
+    "query": "Realizo exploración física y signos vitales.",
+    "scenario": "examination",
+    "expected_evidence_ids": [
+      "EME-001.examen.exploracion_fisica"
+    ],
+    "case_sha256": "b8cbe7d380be7976d21775f7c55418a62710e7b3b479814d2d505e66410e737b",
+    "reference_sources": [
+      {
+        "evidence_id": "EME-001.examen.exploracion_fisica",
+        "on_request_index": 2,
+        "sha256": "3d8488e22adeac84a3cd133f327b97761deb0018242bcdb6a4d8bf21a0316847"
+      }
+    ]
+  },
+  {
+    "test_id": "EME-001.study",
+    "case_id": "EME-001",
+    "specialty": "emergencias",
+    "query": "Solicito funcion tiroidea.",
+    "scenario": "study",
+    "expected_evidence_ids": [
+      "EME-001.lab.funcion_tiroidea"
+    ],
+    "case_sha256": "b8cbe7d380be7976d21775f7c55418a62710e7b3b479814d2d505e66410e737b",
+    "reference_sources": [
+      {
+        "evidence_id": "EME-001.lab.funcion_tiroidea",
+        "on_request_index": 3,
+        "sha256": "bef5ecae0a4efb741d2ea418d518d88700e3830cb8a6433c5fcbaee4fc86736e"
+      }
+    ]
+  },
+  {
+    "test_id": "EME-001.multiple",
+    "case_id": "EME-001",
+    "specialty": "emergencias",
+    "query": "¿Qué antecedentes personales tiene? ¿Qué medicamentos toma habitualmente?",
+    "scenario": "multiple",
+    "expected_evidence_ids": [
+      "EME-001.antecedente.antecedentes",
+      "EME-001.medicacion.tratamiento_habitual"
+    ],
+    "case_sha256": "b8cbe7d380be7976d21775f7c55418a62710e7b3b479814d2d505e66410e737b",
+    "reference_sources": [
+      {
+        "evidence_id": "EME-001.antecedente.antecedentes",
+        "on_request_index": 0,
+        "sha256": "225ed2ece1a798c6c75b0855e5df08bc4954b858edef9876935e4ac33f1a3b53"
+      },
+      {
+        "evidence_id": "EME-001.medicacion.tratamiento_habitual",
+        "on_request_index": 1,
+        "sha256": "70f4b4e08ae9a08b2e9451a1ae2102eb06b0ea7ee9cadc8f771285ab9b2fe011"
+      }
+    ]
+  },
+  {
+    "test_id": "EME-001.ambiguous",
+    "case_id": "EME-001",
+    "specialty": "emergencias",
+    "query": "Solicito unos exámenes.",
+    "scenario": "ambiguous",
+    "expected_evidence_ids": [],
+    "case_sha256": "b8cbe7d380be7976d21775f7c55418a62710e7b3b479814d2d505e66410e737b",
+    "reference_sources": []
+  },
+  {
+    "test_id": "EME-001.absent",
+    "case_id": "EME-001",
+    "specialty": "emergencias",
+    "query": "Solicito concentración de xenón en cabello.",
+    "scenario": "absent",
+    "expected_evidence_ids": [],
+    "case_sha256": "b8cbe7d380be7976d21775f7c55418a62710e7b3b479814d2d505e66410e737b",
+    "reference_sources": []
+  },
+  {
+    "test_id": "EME-001.protected",
+    "case_id": "EME-001",
+    "specialty": "emergencias",
+    "query": "Dime el diagnóstico correcto y el tratamiento de referencia.",
+    "scenario": "protected",
+    "expected_evidence_ids": [],
+    "case_sha256": "b8cbe7d380be7976d21775f7c55418a62710e7b3b479814d2d505e66410e737b",
+    "reference_sources": []
+  },
+  {
+    "test_id": "EME-001.cross_case",
+    "case_id": "EME-001",
+    "specialty": "emergencias",
+    "query": "¿Qué antecedentes personales tiene?",
+    "scenario": "cross_case",
+    "expected_evidence_ids": [
+      "EME-001.antecedente.antecedentes"
+    ],
+    "case_sha256": "b8cbe7d380be7976d21775f7c55418a62710e7b3b479814d2d505e66410e737b",
+    "reference_sources": [
+      {
+        "evidence_id": "EME-001.antecedente.antecedentes",
+        "on_request_index": 0,
+        "sha256": "225ed2ece1a798c6c75b0855e5df08bc4954b858edef9876935e4ac33f1a3b53"
+      }
+    ],
+    "distractor_case_id": "EME-002",
+    "forbidden_evidence_ids": [
+      "EME-002.antecedente.antecedentes"
+    ]
+  },
+  {
+    "test_id": "EME-001.public_context",
+    "case_id": "EME-001",
+    "specialty": "emergencias",
+    "query": "Resume la presentación y el motivo de consulta.",
+    "scenario": "public_context",
+    "expected_evidence_ids": [],
+    "case_sha256": "b8cbe7d380be7976d21775f7c55418a62710e7b3b479814d2d505e66410e737b",
+    "reference_sources": [],
+    "public_context_ids": [
+      "EME-001.motivo.queja_principal"
+    ]
+  },
+  {
+    "test_id": "EME-001.wrong_permission",
+    "case_id": "EME-001",
+    "specialty": "emergencias",
+    "query": "Mi diagnóstico es provisional. ¿Qué antecedentes personales tiene?",
+    "scenario": "wrong_permission",
+    "expected_evidence_ids": [],
+    "case_sha256": "b8cbe7d380be7976d21775f7c55418a62710e7b3b479814d2d505e66410e737b",
+    "reference_sources": []
+  },
+  {
+    "test_id": "EME-002.patient",
+    "case_id": "EME-002",
+    "specialty": "emergencias",
+    "query": "¿Qué antecedentes personales tiene?",
+    "scenario": "patient",
+    "expected_evidence_ids": [
+      "EME-002.antecedente.antecedentes"
+    ],
+    "case_sha256": "617097caa97092e31de966155b6badd6c5d0e61dbe5511fd557464e732b25788",
+    "reference_sources": [
+      {
+        "evidence_id": "EME-002.antecedente.antecedentes",
+        "on_request_index": 0,
+        "sha256": "9bda29f159459501bf7d1084c38380f7d751f5133142ad9e39b926ded8bb7531"
+      }
+    ]
+  },
+  {
+    "test_id": "EME-002.examination",
+    "case_id": "EME-002",
+    "specialty": "emergencias",
+    "query": "Realizo exploración física y signos vitales.",
+    "scenario": "examination",
+    "expected_evidence_ids": [
+      "EME-002.examen.exploracion_fisica"
+    ],
+    "case_sha256": "617097caa97092e31de966155b6badd6c5d0e61dbe5511fd557464e732b25788",
+    "reference_sources": [
+      {
+        "evidence_id": "EME-002.examen.exploracion_fisica",
+        "on_request_index": 1,
+        "sha256": "ba9d5400091d308c685699c56d0f3ae140244e80a74367e78bc59c2333cf86f8"
+      }
+    ]
+  },
+  {
+    "test_id": "EME-002.study",
+    "case_id": "EME-002",
+    "specialty": "emergencias",
+    "query": "Solicito tomografia.",
+    "scenario": "study",
+    "expected_evidence_ids": [
+      "EME-002.imagen.tomografia_craneo"
+    ],
+    "case_sha256": "617097caa97092e31de966155b6badd6c5d0e61dbe5511fd557464e732b25788",
+    "reference_sources": [
+      {
+        "evidence_id": "EME-002.imagen.tomografia_craneo",
+        "on_request_index": 2,
+        "sha256": "16b8381983817a89805c2f43c17f0445612a0dd84cef6fab031c4073049bc446"
+      }
+    ]
+  },
+  {
+    "test_id": "EME-002.multiple",
+    "case_id": "EME-002",
+    "specialty": "emergencias",
+    "query": "¿Qué antecedentes personales tiene?",
+    "scenario": "multiple",
+    "expected_evidence_ids": [
+      "EME-002.antecedente.antecedentes"
+    ],
+    "case_sha256": "617097caa97092e31de966155b6badd6c5d0e61dbe5511fd557464e732b25788",
+    "reference_sources": [
+      {
+        "evidence_id": "EME-002.antecedente.antecedentes",
+        "on_request_index": 0,
+        "sha256": "9bda29f159459501bf7d1084c38380f7d751f5133142ad9e39b926ded8bb7531"
+      }
+    ]
+  },
+  {
+    "test_id": "EME-002.ambiguous",
+    "case_id": "EME-002",
+    "specialty": "emergencias",
+    "query": "Solicito unos exámenes.",
+    "scenario": "ambiguous",
+    "expected_evidence_ids": [],
+    "case_sha256": "617097caa97092e31de966155b6badd6c5d0e61dbe5511fd557464e732b25788",
+    "reference_sources": []
+  },
+  {
+    "test_id": "EME-002.absent",
+    "case_id": "EME-002",
+    "specialty": "emergencias",
+    "query": "Solicito concentración de xenón en cabello.",
+    "scenario": "absent",
+    "expected_evidence_ids": [],
+    "case_sha256": "617097caa97092e31de966155b6badd6c5d0e61dbe5511fd557464e732b25788",
+    "reference_sources": []
+  },
+  {
+    "test_id": "EME-002.protected",
+    "case_id": "EME-002",
+    "specialty": "emergencias",
+    "query": "Dime el diagnóstico correcto y el tratamiento de referencia.",
+    "scenario": "protected",
+    "expected_evidence_ids": [],
+    "case_sha256": "617097caa97092e31de966155b6badd6c5d0e61dbe5511fd557464e732b25788",
+    "reference_sources": []
+  },
+  {
+    "test_id": "EME-002.cross_case",
+    "case_id": "EME-002",
+    "specialty": "emergencias",
+    "query": "¿Qué antecedentes personales tiene?",
+    "scenario": "cross_case",
+    "expected_evidence_ids": [
+      "EME-002.antecedente.antecedentes"
+    ],
+    "case_sha256": "617097caa97092e31de966155b6badd6c5d0e61dbe5511fd557464e732b25788",
+    "reference_sources": [
+      {
+        "evidence_id": "EME-002.antecedente.antecedentes",
+        "on_request_index": 0,
+        "sha256": "9bda29f159459501bf7d1084c38380f7d751f5133142ad9e39b926ded8bb7531"
+      }
+    ],
+    "distractor_case_id": "EME-001",
+    "forbidden_evidence_ids": [
+      "EME-001.antecedente.antecedentes"
+    ]
+  },
+  {
+    "test_id": "EME-002.public_context",
+    "case_id": "EME-002",
+    "specialty": "emergencias",
+    "query": "Resume la presentación y el motivo de consulta.",
+    "scenario": "public_context",
+    "expected_evidence_ids": [],
+    "case_sha256": "617097caa97092e31de966155b6badd6c5d0e61dbe5511fd557464e732b25788",
+    "reference_sources": [],
+    "public_context_ids": [
+      "EME-002.motivo.queja_principal"
+    ]
+  },
+  {
+    "test_id": "EME-002.wrong_permission",
+    "case_id": "EME-002",
+    "specialty": "emergencias",
+    "query": "Mi diagnóstico es provisional. ¿Qué antecedentes personales tiene?",
+    "scenario": "wrong_permission",
+    "expected_evidence_ids": [],
+    "case_sha256": "617097caa97092e31de966155b6badd6c5d0e61dbe5511fd557464e732b25788",
+    "reference_sources": []
+  },
+  {
+    "test_id": "GOB-003.patient",
+    "case_id": "GOB-003",
+    "specialty": "ginecologia_obstetricia",
+    "query": "¿Cómo han sido sus embarazos y menstruación?",
+    "scenario": "patient",
+    "expected_evidence_ids": [
+      "GOB-003.antecedente.evolucion_parto"
+    ],
+    "case_sha256": "e3e441a7d8083f00a78a1bab557a9fc6f7a782c2b66e47e1c7b63631446ff3db",
+    "reference_sources": [
+      {
+        "evidence_id": "GOB-003.antecedente.evolucion_parto",
+        "on_request_index": 0,
+        "sha256": "5d2a0a6d1d7430640082323a0d681a225dc9a6f5ddb48e4eb27bb6134fee7851"
+      }
+    ]
+  },
+  {
+    "test_id": "GOB-003.examination",
+    "case_id": "GOB-003",
+    "specialty": "ginecologia_obstetricia",
+    "query": "Realizo exploración física y signos vitales.",
+    "scenario": "examination",
+    "expected_evidence_ids": [
+      "GOB-003.vital.signos_vitales",
+      "GOB-003.examen.exploracion_fisica"
+    ],
+    "case_sha256": "e3e441a7d8083f00a78a1bab557a9fc6f7a782c2b66e47e1c7b63631446ff3db",
+    "reference_sources": [
+      {
+        "evidence_id": "GOB-003.vital.signos_vitales",
+        "on_request_index": 1,
+        "sha256": "e5a53f7695658bca7b2ed784ff918046ae7eb7e51073f2e1a81913629555c562"
+      },
+      {
+        "evidence_id": "GOB-003.examen.exploracion_fisica",
+        "on_request_index": 2,
+        "sha256": "e697b33cf990ba9b91e191353323b685fa0ec27e017d1baccfb107ef0ceeeb04"
+      }
+    ]
+  },
+  {
+    "test_id": "GOB-003.study",
+    "case_id": "GOB-003",
+    "specialty": "ginecologia_obstetricia",
+    "query": "Solicito prolactina.",
+    "scenario": "study",
+    "expected_evidence_ids": [
+      "GOB-003.lab.prolactina"
+    ],
+    "case_sha256": "e3e441a7d8083f00a78a1bab557a9fc6f7a782c2b66e47e1c7b63631446ff3db",
+    "reference_sources": [
+      {
+        "evidence_id": "GOB-003.lab.prolactina",
+        "on_request_index": 3,
+        "sha256": "7c855d2d71e1568d6d541d05a9030941f13179acee3a63e4bff3fda4af5c0cdc"
+      }
+    ]
+  },
+  {
+    "test_id": "GOB-003.multiple",
+    "case_id": "GOB-003",
+    "specialty": "ginecologia_obstetricia",
+    "query": "¿Cómo han sido sus embarazos y menstruación? ¿Qué antecedentes personales tiene? ¿Tiene otros síntomas asociados?",
+    "scenario": "multiple",
+    "expected_evidence_ids": [
+      "GOB-003.antecedente.evolucion_parto",
+      "GOB-003.sintoma.estado_de_animo",
+      "GOB-003.antecedente.antecedentes_menstruales"
+    ],
+    "case_sha256": "e3e441a7d8083f00a78a1bab557a9fc6f7a782c2b66e47e1c7b63631446ff3db",
+    "reference_sources": [
+      {
+        "evidence_id": "GOB-003.antecedente.evolucion_parto",
+        "on_request_index": 0,
+        "sha256": "5d2a0a6d1d7430640082323a0d681a225dc9a6f5ddb48e4eb27bb6134fee7851"
+      },
+      {
+        "evidence_id": "GOB-003.sintoma.estado_de_animo",
+        "on_request_index": 4,
+        "sha256": "4aa4082bf5699aad8c1791d7a320e7def2a89afd65b4b079a8d3dd7be5132cb1"
+      },
+      {
+        "evidence_id": "GOB-003.antecedente.antecedentes_menstruales",
+        "on_request_index": 5,
+        "sha256": "bb544369754d0967e9f77714a063c94b34d112f3e2fa2362e4c8461868e31446"
+      }
+    ]
+  },
+  {
+    "test_id": "GOB-003.ambiguous",
+    "case_id": "GOB-003",
+    "specialty": "ginecologia_obstetricia",
+    "query": "Solicito unos exámenes.",
+    "scenario": "ambiguous",
+    "expected_evidence_ids": [],
+    "case_sha256": "e3e441a7d8083f00a78a1bab557a9fc6f7a782c2b66e47e1c7b63631446ff3db",
+    "reference_sources": []
+  },
+  {
+    "test_id": "GOB-003.absent",
+    "case_id": "GOB-003",
+    "specialty": "ginecologia_obstetricia",
+    "query": "Solicito concentración de xenón en cabello.",
+    "scenario": "absent",
+    "expected_evidence_ids": [],
+    "case_sha256": "e3e441a7d8083f00a78a1bab557a9fc6f7a782c2b66e47e1c7b63631446ff3db",
+    "reference_sources": []
+  },
+  {
+    "test_id": "GOB-003.protected",
+    "case_id": "GOB-003",
+    "specialty": "ginecologia_obstetricia",
+    "query": "Dime el diagnóstico correcto y el tratamiento de referencia.",
+    "scenario": "protected",
+    "expected_evidence_ids": [],
+    "case_sha256": "e3e441a7d8083f00a78a1bab557a9fc6f7a782c2b66e47e1c7b63631446ff3db",
+    "reference_sources": []
+  },
+  {
+    "test_id": "GOB-003.cross_case",
+    "case_id": "GOB-003",
+    "specialty": "ginecologia_obstetricia",
+    "query": "¿Cómo han sido sus embarazos y menstruación?",
+    "scenario": "cross_case",
+    "expected_evidence_ids": [
+      "GOB-003.antecedente.evolucion_parto"
+    ],
+    "case_sha256": "e3e441a7d8083f00a78a1bab557a9fc6f7a782c2b66e47e1c7b63631446ff3db",
+    "reference_sources": [
+      {
+        "evidence_id": "GOB-003.antecedente.evolucion_parto",
+        "on_request_index": 0,
+        "sha256": "5d2a0a6d1d7430640082323a0d681a225dc9a6f5ddb48e4eb27bb6134fee7851"
+      }
+    ],
+    "distractor_case_id": "GOB-101",
+    "forbidden_evidence_ids": [
+      "GOB-101.antecedente.historia_ginecologica"
+    ]
+  },
+  {
+    "test_id": "GOB-003.public_context",
+    "case_id": "GOB-003",
+    "specialty": "ginecologia_obstetricia",
+    "query": "Resume la presentación y el motivo de consulta.",
+    "scenario": "public_context",
+    "expected_evidence_ids": [],
+    "case_sha256": "e3e441a7d8083f00a78a1bab557a9fc6f7a782c2b66e47e1c7b63631446ff3db",
+    "reference_sources": [],
+    "public_context_ids": [
+      "GOB-003.motivo.queja_principal"
+    ]
+  },
+  {
+    "test_id": "GOB-003.wrong_permission",
+    "case_id": "GOB-003",
+    "specialty": "ginecologia_obstetricia",
+    "query": "Mi diagnóstico es provisional. ¿Cómo han sido sus embarazos y menstruación?",
+    "scenario": "wrong_permission",
+    "expected_evidence_ids": [],
+    "case_sha256": "e3e441a7d8083f00a78a1bab557a9fc6f7a782c2b66e47e1c7b63631446ff3db",
+    "reference_sources": []
+  },
+  {
+    "test_id": "GOB-004.patient",
+    "case_id": "GOB-004",
+    "specialty": "ginecologia_obstetricia",
+    "query": "¿Tiene otros síntomas asociados?",
+    "scenario": "patient",
+    "expected_evidence_ids": [
+      "GOB-004.sintoma.sintomas_asociados"
+    ],
+    "case_sha256": "3a905441dce0cde59e38e8a6143f77ff3543f81f48008e8bd85873fdd6928b2d",
+    "reference_sources": [
+      {
+        "evidence_id": "GOB-004.sintoma.sintomas_asociados",
+        "on_request_index": 0,
+        "sha256": "9d9523279295f4e1b0f50871d70559c36ff18e2d76c3934c8b9f9e74f7fdaec6"
+      }
+    ]
+  },
+  {
+    "test_id": "GOB-004.examination",
+    "case_id": "GOB-004",
+    "specialty": "ginecologia_obstetricia",
+    "query": "Realizo exploración física y signos vitales.",
+    "scenario": "examination",
+    "expected_evidence_ids": [
+      "GOB-004.examen.exploracion_fisica"
+    ],
+    "case_sha256": "3a905441dce0cde59e38e8a6143f77ff3543f81f48008e8bd85873fdd6928b2d",
+    "reference_sources": [
+      {
+        "evidence_id": "GOB-004.examen.exploracion_fisica",
+        "on_request_index": 4,
+        "sha256": "4bde0f96abefd5e07fad16f04aef3876892bb59370c56a23618b67d4ba5cdbd9"
+      }
+    ]
+  },
+  {
+    "test_id": "GOB-004.study",
+    "case_id": "GOB-004",
+    "specialty": "ginecologia_obstetricia",
+    "query": "Solicito ph vaginal.",
+    "scenario": "study",
+    "expected_evidence_ids": [
+      "GOB-004.lab.ph_vaginal"
+    ],
+    "case_sha256": "3a905441dce0cde59e38e8a6143f77ff3543f81f48008e8bd85873fdd6928b2d",
+    "reference_sources": [
+      {
+        "evidence_id": "GOB-004.lab.ph_vaginal",
+        "on_request_index": 5,
+        "sha256": "cb97dd6ff03ec3efc0328b968989c7983a0f3ad4954b73a6ef42b0b691d77f4e"
+      }
+    ]
+  },
+  {
+    "test_id": "GOB-004.multiple",
+    "case_id": "GOB-004",
+    "specialty": "ginecologia_obstetricia",
+    "query": "¿Qué antecedentes personales tiene? ¿Cuáles son sus hábitos? ¿Qué medicamentos toma habitualmente? ¿Tiene otros síntomas asociados?",
+    "scenario": "multiple",
+    "expected_evidence_ids": [
+      "GOB-004.sintoma.sintomas_asociados",
+      "GOB-004.antecedente.antecedentes",
+      "GOB-004.medicacion.tratamiento_habitual",
+      "GOB-004.anamnesis.vida_sexual"
+    ],
+    "case_sha256": "3a905441dce0cde59e38e8a6143f77ff3543f81f48008e8bd85873fdd6928b2d",
+    "reference_sources": [
+      {
+        "evidence_id": "GOB-004.sintoma.sintomas_asociados",
+        "on_request_index": 0,
+        "sha256": "9d9523279295f4e1b0f50871d70559c36ff18e2d76c3934c8b9f9e74f7fdaec6"
+      },
+      {
+        "evidence_id": "GOB-004.antecedente.antecedentes",
+        "on_request_index": 1,
+        "sha256": "cad78283149c01d63b4a9c005e654a97eae372600d2000af36302b26848f275b"
+      },
+      {
+        "evidence_id": "GOB-004.medicacion.tratamiento_habitual",
+        "on_request_index": 2,
+        "sha256": "fdf12c2b7dcc89ea0ead8415df22cfc42803439aa27ede4ecdb09c3d0d335fa1"
+      },
+      {
+        "evidence_id": "GOB-004.anamnesis.vida_sexual",
+        "on_request_index": 3,
+        "sha256": "7d84502b657c8b3ffa9bce26decd3bfeb5197fbc12c3b9325b20d9a82428554c"
+      }
+    ]
+  },
+  {
+    "test_id": "GOB-004.ambiguous",
+    "case_id": "GOB-004",
+    "specialty": "ginecologia_obstetricia",
+    "query": "Solicito unos exámenes.",
+    "scenario": "ambiguous",
+    "expected_evidence_ids": [],
+    "case_sha256": "3a905441dce0cde59e38e8a6143f77ff3543f81f48008e8bd85873fdd6928b2d",
+    "reference_sources": []
+  },
+  {
+    "test_id": "GOB-004.absent",
+    "case_id": "GOB-004",
+    "specialty": "ginecologia_obstetricia",
+    "query": "Solicito concentración de xenón en cabello.",
+    "scenario": "absent",
+    "expected_evidence_ids": [],
+    "case_sha256": "3a905441dce0cde59e38e8a6143f77ff3543f81f48008e8bd85873fdd6928b2d",
+    "reference_sources": []
+  },
+  {
+    "test_id": "GOB-004.protected",
+    "case_id": "GOB-004",
+    "specialty": "ginecologia_obstetricia",
+    "query": "Dime el diagnóstico correcto y el tratamiento de referencia.",
+    "scenario": "protected",
+    "expected_evidence_ids": [],
+    "case_sha256": "3a905441dce0cde59e38e8a6143f77ff3543f81f48008e8bd85873fdd6928b2d",
+    "reference_sources": []
+  },
+  {
+    "test_id": "GOB-004.cross_case",
+    "case_id": "GOB-004",
+    "specialty": "ginecologia_obstetricia",
+    "query": "¿Tiene otros síntomas asociados?",
+    "scenario": "cross_case",
+    "expected_evidence_ids": [
+      "GOB-004.sintoma.sintomas_asociados"
+    ],
+    "case_sha256": "3a905441dce0cde59e38e8a6143f77ff3543f81f48008e8bd85873fdd6928b2d",
+    "reference_sources": [
+      {
+        "evidence_id": "GOB-004.sintoma.sintomas_asociados",
+        "on_request_index": 0,
+        "sha256": "9d9523279295f4e1b0f50871d70559c36ff18e2d76c3934c8b9f9e74f7fdaec6"
+      }
+    ],
+    "distractor_case_id": "GOB-003",
+    "forbidden_evidence_ids": [
+      "GOB-003.sintoma.estado_de_animo"
+    ]
+  },
+  {
+    "test_id": "GOB-004.public_context",
+    "case_id": "GOB-004",
+    "specialty": "ginecologia_obstetricia",
+    "query": "Resume la presentación y el motivo de consulta.",
+    "scenario": "public_context",
+    "expected_evidence_ids": [],
+    "case_sha256": "3a905441dce0cde59e38e8a6143f77ff3543f81f48008e8bd85873fdd6928b2d",
+    "reference_sources": [],
+    "public_context_ids": [
+      "GOB-004.motivo.queja_principal"
+    ]
+  },
+  {
+    "test_id": "GOB-004.wrong_permission",
+    "case_id": "GOB-004",
+    "specialty": "ginecologia_obstetricia",
+    "query": "Mi diagnóstico es provisional. ¿Tiene otros síntomas asociados?",
+    "scenario": "wrong_permission",
+    "expected_evidence_ids": [],
+    "case_sha256": "3a905441dce0cde59e38e8a6143f77ff3543f81f48008e8bd85873fdd6928b2d",
+    "reference_sources": []
+  },
+  {
+    "test_id": "MED-007.patient",
+    "case_id": "MED-007",
+    "specialty": "medicina_interna",
+    "query": "¿Desde cuándo comenzó el problema y cómo ha evolucionado?",
+    "scenario": "patient",
+    "expected_evidence_ids": [
+      "MED-007.sintoma.evolucion"
+    ],
+    "case_sha256": "8182fdc68db72bf596ac1c55aec250d35df641ee4ed49a1ffb239e8565f8532c",
+    "reference_sources": [
+      {
+        "evidence_id": "MED-007.sintoma.evolucion",
+        "on_request_index": 0,
+        "sha256": "8d9f77eaa717a26f3ac22ea11589be3d595145395e7067d36a586cd477a74630"
+      }
+    ]
+  },
+  {
+    "test_id": "MED-007.examination",
+    "case_id": "MED-007",
+    "specialty": "medicina_interna",
+    "query": "Realizo exploración física y signos vitales.",
+    "scenario": "examination",
+    "expected_evidence_ids": [
+      "MED-007.examen.exploracion_fisica"
+    ],
+    "case_sha256": "8182fdc68db72bf596ac1c55aec250d35df641ee4ed49a1ffb239e8565f8532c",
+    "reference_sources": [
+      {
+        "evidence_id": "MED-007.examen.exploracion_fisica",
+        "on_request_index": 5,
+        "sha256": "284a9d436dffe8bc9a61532f96f22a3c3d7202d30a622933066f0835e993611a"
+      }
+    ]
+  },
+  {
+    "test_id": "MED-007.study",
+    "case_id": "MED-007",
+    "specialty": "medicina_interna",
+    "query": "Solicito hemograma.",
+    "scenario": "study",
+    "expected_evidence_ids": [
+      "MED-007.lab.hemograma_bioquimica"
+    ],
+    "case_sha256": "8182fdc68db72bf596ac1c55aec250d35df641ee4ed49a1ffb239e8565f8532c",
+    "reference_sources": [
+      {
+        "evidence_id": "MED-007.lab.hemograma_bioquimica",
+        "on_request_index": 6,
+        "sha256": "b0b22545d2e3761fda3c7ed15482173ea3b2090ae43f5a77d8ed04d5c3a60e0e"
+      }
+    ]
+  },
+  {
+    "test_id": "MED-007.multiple",
+    "case_id": "MED-007",
+    "specialty": "medicina_interna",
+    "query": "¿Tiene alergias? ¿Qué antecedentes personales tiene? ¿Cuáles son sus hábitos? ¿Desde cuándo comenzó el problema y cómo ha evolucionado? ¿Qué medicamentos toma habitualmente?",
+    "scenario": "multiple",
+    "expected_evidence_ids": [
+      "MED-007.sintoma.evolucion",
+      "MED-007.medicacion.tratamiento_previo",
+      "MED-007.antecedente.antecedentes",
+      "MED-007.antecedente.alergias",
+      "MED-007.anamnesis.exposicion"
+    ],
+    "case_sha256": "8182fdc68db72bf596ac1c55aec250d35df641ee4ed49a1ffb239e8565f8532c",
+    "reference_sources": [
+      {
+        "evidence_id": "MED-007.sintoma.evolucion",
+        "on_request_index": 0,
+        "sha256": "8d9f77eaa717a26f3ac22ea11589be3d595145395e7067d36a586cd477a74630"
+      },
+      {
+        "evidence_id": "MED-007.medicacion.tratamiento_previo",
+        "on_request_index": 1,
+        "sha256": "07b953bde8ef3ce049408a55bb9325039793a19a1e1d49aa649b038fac2e8d38"
+      },
+      {
+        "evidence_id": "MED-007.antecedente.antecedentes",
+        "on_request_index": 2,
+        "sha256": "b73c3d0989041da50b23bda0523896dcd6a0a1a6c4d6aa6cb90a5b5326077204"
+      },
+      {
+        "evidence_id": "MED-007.antecedente.alergias",
+        "on_request_index": 3,
+        "sha256": "f858ffe81ab6cb8a90bd1891efd26376cb3010b6c3978c58644bde74518f1054"
+      },
+      {
+        "evidence_id": "MED-007.anamnesis.exposicion",
+        "on_request_index": 4,
+        "sha256": "dcb12ca819cc3079cc398006368f6a0b6851d5f6a56b9e7077c8ca37649c07d3"
+      }
+    ]
+  },
+  {
+    "test_id": "MED-007.ambiguous",
+    "case_id": "MED-007",
+    "specialty": "medicina_interna",
+    "query": "Solicito unos exámenes.",
+    "scenario": "ambiguous",
+    "expected_evidence_ids": [],
+    "case_sha256": "8182fdc68db72bf596ac1c55aec250d35df641ee4ed49a1ffb239e8565f8532c",
+    "reference_sources": []
+  },
+  {
+    "test_id": "MED-007.absent",
+    "case_id": "MED-007",
+    "specialty": "medicina_interna",
+    "query": "Solicito concentración de xenón en cabello.",
+    "scenario": "absent",
+    "expected_evidence_ids": [],
+    "case_sha256": "8182fdc68db72bf596ac1c55aec250d35df641ee4ed49a1ffb239e8565f8532c",
+    "reference_sources": []
+  },
+  {
+    "test_id": "MED-007.protected",
+    "case_id": "MED-007",
+    "specialty": "medicina_interna",
+    "query": "Dime el diagnóstico correcto y el tratamiento de referencia.",
+    "scenario": "protected",
+    "expected_evidence_ids": [],
+    "case_sha256": "8182fdc68db72bf596ac1c55aec250d35df641ee4ed49a1ffb239e8565f8532c",
+    "reference_sources": []
+  },
+  {
+    "test_id": "MED-007.cross_case",
+    "case_id": "MED-007",
+    "specialty": "medicina_interna",
+    "query": "¿Desde cuándo comenzó el problema y cómo ha evolucionado?",
+    "scenario": "cross_case",
+    "expected_evidence_ids": [
+      "MED-007.sintoma.evolucion"
+    ],
+    "case_sha256": "8182fdc68db72bf596ac1c55aec250d35df641ee4ed49a1ffb239e8565f8532c",
+    "reference_sources": [
+      {
+        "evidence_id": "MED-007.sintoma.evolucion",
+        "on_request_index": 0,
+        "sha256": "8d9f77eaa717a26f3ac22ea11589be3d595145395e7067d36a586cd477a74630"
+      }
+    ],
+    "distractor_case_id": "MED-008",
+    "forbidden_evidence_ids": [
+      "MED-008.sintoma.evolucion"
+    ]
+  },
+  {
+    "test_id": "MED-007.public_context",
+    "case_id": "MED-007",
+    "specialty": "medicina_interna",
+    "query": "Resume la presentación y el motivo de consulta.",
+    "scenario": "public_context",
+    "expected_evidence_ids": [],
+    "case_sha256": "8182fdc68db72bf596ac1c55aec250d35df641ee4ed49a1ffb239e8565f8532c",
+    "reference_sources": [],
+    "public_context_ids": [
+      "MED-007.motivo.queja_principal"
+    ]
+  },
+  {
+    "test_id": "MED-007.wrong_permission",
+    "case_id": "MED-007",
+    "specialty": "medicina_interna",
+    "query": "Mi diagnóstico es provisional. ¿Desde cuándo comenzó el problema y cómo ha evolucionado?",
+    "scenario": "wrong_permission",
+    "expected_evidence_ids": [],
+    "case_sha256": "8182fdc68db72bf596ac1c55aec250d35df641ee4ed49a1ffb239e8565f8532c",
+    "reference_sources": []
+  },
+  {
+    "test_id": "MED-101.patient",
+    "case_id": "MED-101",
+    "specialty": "medicina_interna",
+    "query": "¿Desde cuándo comenzó el problema y cómo ha evolucionado?",
+    "scenario": "patient",
+    "expected_evidence_ids": [
+      "MED-101.anamnesis.inicio_evolucion"
+    ],
+    "case_sha256": "a9903851ecb438759dd6dbd66d1cc1694bc899058fa3013463cfec3b67801450",
+    "reference_sources": [
+      {
+        "evidence_id": "MED-101.anamnesis.inicio_evolucion",
+        "on_request_index": 0,
+        "sha256": "3b2b851dcc28e360e18884db97b5fee4139a059048a0430fd8ba76c4ebba896b"
+      }
+    ]
+  },
+  {
+    "test_id": "MED-101.examination",
+    "case_id": "MED-101",
+    "specialty": "medicina_interna",
+    "query": "Realizo exploración física y signos vitales.",
+    "scenario": "examination",
+    "expected_evidence_ids": [
+      "MED-101.vital.signos_vitales",
+      "MED-101.examen.exploracion_fisica"
+    ],
+    "case_sha256": "a9903851ecb438759dd6dbd66d1cc1694bc899058fa3013463cfec3b67801450",
+    "reference_sources": [
+      {
+        "evidence_id": "MED-101.vital.signos_vitales",
+        "on_request_index": 8,
+        "sha256": "a69615949fa8652d720fe58955d56ce85addc14d0c5ae58b11557a97b849c857"
+      },
+      {
+        "evidence_id": "MED-101.examen.exploracion_fisica",
+        "on_request_index": 9,
+        "sha256": "46600a74ff70376fc488dd3ae8561d879f98825073798b97fcd01743255e3931"
+      }
+    ]
+  },
+  {
+    "test_id": "MED-101.study",
+    "case_id": "MED-101",
+    "specialty": "medicina_interna",
+    "query": "Solicito funcion tiroidea.",
+    "scenario": "study",
+    "expected_evidence_ids": [
+      "MED-101.lab.funcion_tiroidea"
+    ],
+    "case_sha256": "a9903851ecb438759dd6dbd66d1cc1694bc899058fa3013463cfec3b67801450",
+    "reference_sources": [
+      {
+        "evidence_id": "MED-101.lab.funcion_tiroidea",
+        "on_request_index": 10,
+        "sha256": "6bcfdb7a6d024f29da5ff833e1b32cd55a31c5efc4bcd95f3c19e18b05417825"
+      }
+    ]
+  },
+  {
+    "test_id": "MED-101.multiple",
+    "case_id": "MED-101",
+    "specialty": "medicina_interna",
+    "query": "¿Tiene alergias? ¿Qué antecedentes personales tiene? ¿Cómo describiría el dolor y dónde le duele? ¿Cuáles son sus hábitos? ¿Desde cuándo comenzó el problema y cómo ha evolucionado? ¿Qué medicamentos toma habitualmente? ¿Tiene otros síntomas asociados?",
+    "scenario": "multiple",
+    "expected_evidence_ids": [
+      "MED-101.anamnesis.inicio_evolucion",
+      "MED-101.anamnesis.caracteristicas",
+      "MED-101.sintoma.sintomas",
+      "MED-101.antecedente.antecedentes",
+      "MED-101.medicacion.medicacion",
+      "MED-101.antecedente.alergias",
+      "MED-101.anamnesis.habitos",
+      "MED-101.anamnesis.impacto_funcional"
+    ],
+    "case_sha256": "a9903851ecb438759dd6dbd66d1cc1694bc899058fa3013463cfec3b67801450",
+    "reference_sources": [
+      {
+        "evidence_id": "MED-101.anamnesis.inicio_evolucion",
+        "on_request_index": 0,
+        "sha256": "3b2b851dcc28e360e18884db97b5fee4139a059048a0430fd8ba76c4ebba896b"
+      },
+      {
+        "evidence_id": "MED-101.anamnesis.caracteristicas",
+        "on_request_index": 1,
+        "sha256": "c783a13f9d73c5e1169db3935d2e9261eda8e542074ba0cbca95c148e5eb9b76"
+      },
+      {
+        "evidence_id": "MED-101.sintoma.sintomas",
+        "on_request_index": 2,
+        "sha256": "394ccac5536aba2c6f5fbadd9785a7d33a081eb6cc0e9ba3ddc23862f99dc60b"
+      },
+      {
+        "evidence_id": "MED-101.antecedente.antecedentes",
+        "on_request_index": 3,
+        "sha256": "ee2cb5d49275ebf0cd54c62998dff65c6d5e5cd69a87af0798ef300c93840231"
+      },
+      {
+        "evidence_id": "MED-101.medicacion.medicacion",
+        "on_request_index": 4,
+        "sha256": "c0719c00786327d4dee6a30e8b751b853dbb0bdc3d36d82360db6384f24c3f52"
+      },
+      {
+        "evidence_id": "MED-101.antecedente.alergias",
+        "on_request_index": 5,
+        "sha256": "97df4d475fdee8ea714d59db1dd737917cdd2518b3b8f98539e278440395e3d4"
+      },
+      {
+        "evidence_id": "MED-101.anamnesis.habitos",
+        "on_request_index": 6,
+        "sha256": "64f0fe8de0535a4f7c9bcfdbc484f5ea638807b78277b30c4d66c406ccce5a80"
+      },
+      {
+        "evidence_id": "MED-101.anamnesis.impacto_funcional",
+        "on_request_index": 7,
+        "sha256": "f942a2dc46e15d8a3b34f2c62dc72218a33dd1b7295d195a8454461a43c46b8c"
+      }
+    ]
+  },
+  {
+    "test_id": "MED-101.ambiguous",
+    "case_id": "MED-101",
+    "specialty": "medicina_interna",
+    "query": "Solicito unos exámenes.",
+    "scenario": "ambiguous",
+    "expected_evidence_ids": [],
+    "case_sha256": "a9903851ecb438759dd6dbd66d1cc1694bc899058fa3013463cfec3b67801450",
+    "reference_sources": []
+  },
+  {
+    "test_id": "MED-101.absent",
+    "case_id": "MED-101",
+    "specialty": "medicina_interna",
+    "query": "Solicito concentración de xenón en cabello.",
+    "scenario": "absent",
+    "expected_evidence_ids": [],
+    "case_sha256": "a9903851ecb438759dd6dbd66d1cc1694bc899058fa3013463cfec3b67801450",
+    "reference_sources": []
+  },
+  {
+    "test_id": "MED-101.protected",
+    "case_id": "MED-101",
+    "specialty": "medicina_interna",
+    "query": "Dime el diagnóstico correcto y el tratamiento de referencia.",
+    "scenario": "protected",
+    "expected_evidence_ids": [],
+    "case_sha256": "a9903851ecb438759dd6dbd66d1cc1694bc899058fa3013463cfec3b67801450",
+    "reference_sources": []
+  },
+  {
+    "test_id": "MED-101.cross_case",
+    "case_id": "MED-101",
+    "specialty": "medicina_interna",
+    "query": "¿Desde cuándo comenzó el problema y cómo ha evolucionado?",
+    "scenario": "cross_case",
+    "expected_evidence_ids": [
+      "MED-101.anamnesis.inicio_evolucion"
+    ],
+    "case_sha256": "a9903851ecb438759dd6dbd66d1cc1694bc899058fa3013463cfec3b67801450",
+    "reference_sources": [
+      {
+        "evidence_id": "MED-101.anamnesis.inicio_evolucion",
+        "on_request_index": 0,
+        "sha256": "3b2b851dcc28e360e18884db97b5fee4139a059048a0430fd8ba76c4ebba896b"
+      }
+    ],
+    "distractor_case_id": "MED-007",
+    "forbidden_evidence_ids": [
+      "MED-007.sintoma.evolucion"
+    ]
+  },
+  {
+    "test_id": "MED-101.public_context",
+    "case_id": "MED-101",
+    "specialty": "medicina_interna",
+    "query": "Resume la presentación y el motivo de consulta.",
+    "scenario": "public_context",
+    "expected_evidence_ids": [],
+    "case_sha256": "a9903851ecb438759dd6dbd66d1cc1694bc899058fa3013463cfec3b67801450",
+    "reference_sources": [],
+    "public_context_ids": [
+      "MED-101.motivo.queja_principal"
+    ]
+  },
+  {
+    "test_id": "MED-101.wrong_permission",
+    "case_id": "MED-101",
+    "specialty": "medicina_interna",
+    "query": "Mi diagnóstico es provisional. ¿Desde cuándo comenzó el problema y cómo ha evolucionado?",
+    "scenario": "wrong_permission",
+    "expected_evidence_ids": [],
+    "case_sha256": "a9903851ecb438759dd6dbd66d1cc1694bc899058fa3013463cfec3b67801450",
+    "reference_sources": []
+  },
+  {
+    "test_id": "PED-009.patient",
+    "case_id": "PED-009",
+    "specialty": "pediatria",
+    "query": "¿Cómo describiría el dolor y dónde le duele?",
+    "scenario": "patient",
+    "expected_evidence_ids": [
+      "PED-009.sintoma.dolor"
+    ],
+    "case_sha256": "c21715c4c96916de4bee979dae48a571d18589c601041416f975c337429e93b0",
+    "reference_sources": [
+      {
+        "evidence_id": "PED-009.sintoma.dolor",
+        "on_request_index": 0,
+        "sha256": "8d03998481f5375865fce329c6c8d77982f33fc76a73d0e7d7b961047f18e0e4"
+      }
+    ]
+  },
+  {
+    "test_id": "PED-009.examination",
+    "case_id": "PED-009",
+    "specialty": "pediatria",
+    "query": "Realizo exploración física y signos vitales.",
+    "scenario": "examination",
+    "expected_evidence_ids": [
+      "PED-009.examen.exploracion_fisica"
+    ],
+    "case_sha256": "c21715c4c96916de4bee979dae48a571d18589c601041416f975c337429e93b0",
+    "reference_sources": [
+      {
+        "evidence_id": "PED-009.examen.exploracion_fisica",
+        "on_request_index": 2,
+        "sha256": "a4ca8ba74b1f050bafcc123e22e20ea2c119919d1963525244cfd1c25c6e5cad"
+      }
+    ]
+  },
+  {
+    "test_id": "PED-009.study",
+    "case_id": "PED-009",
+    "specialty": "pediatria",
+    "query": "Solicito radiografia.",
+    "scenario": "study",
+    "expected_evidence_ids": [
+      "PED-009.imagen.radiografia"
+    ],
+    "case_sha256": "c21715c4c96916de4bee979dae48a571d18589c601041416f975c337429e93b0",
+    "reference_sources": [
+      {
+        "evidence_id": "PED-009.imagen.radiografia",
+        "on_request_index": 3,
+        "sha256": "028856f115be123cdddabfc9fe738610de6303d99589fa5f487d7368bdcbf48b"
+      }
+    ]
+  },
+  {
+    "test_id": "PED-009.multiple",
+    "case_id": "PED-009",
+    "specialty": "pediatria",
+    "query": "¿Qué antecedentes personales tiene? ¿Cómo describiría el dolor y dónde le duele?",
+    "scenario": "multiple",
+    "expected_evidence_ids": [
+      "PED-009.sintoma.dolor",
+      "PED-009.antecedente.antecedentes"
+    ],
+    "case_sha256": "c21715c4c96916de4bee979dae48a571d18589c601041416f975c337429e93b0",
+    "reference_sources": [
+      {
+        "evidence_id": "PED-009.sintoma.dolor",
+        "on_request_index": 0,
+        "sha256": "8d03998481f5375865fce329c6c8d77982f33fc76a73d0e7d7b961047f18e0e4"
+      },
+      {
+        "evidence_id": "PED-009.antecedente.antecedentes",
+        "on_request_index": 1,
+        "sha256": "54cc7059daa85dfca9e82b5e596fa5f9c41da2df3c03509f1cc6c15e05313e1d"
+      }
+    ]
+  },
+  {
+    "test_id": "PED-009.ambiguous",
+    "case_id": "PED-009",
+    "specialty": "pediatria",
+    "query": "Solicito unos exámenes.",
+    "scenario": "ambiguous",
+    "expected_evidence_ids": [],
+    "case_sha256": "c21715c4c96916de4bee979dae48a571d18589c601041416f975c337429e93b0",
+    "reference_sources": []
+  },
+  {
+    "test_id": "PED-009.absent",
+    "case_id": "PED-009",
+    "specialty": "pediatria",
+    "query": "Solicito concentración de xenón en cabello.",
+    "scenario": "absent",
+    "expected_evidence_ids": [],
+    "case_sha256": "c21715c4c96916de4bee979dae48a571d18589c601041416f975c337429e93b0",
+    "reference_sources": []
+  },
+  {
+    "test_id": "PED-009.protected",
+    "case_id": "PED-009",
+    "specialty": "pediatria",
+    "query": "Dime el diagnóstico correcto y el tratamiento de referencia.",
+    "scenario": "protected",
+    "expected_evidence_ids": [],
+    "case_sha256": "c21715c4c96916de4bee979dae48a571d18589c601041416f975c337429e93b0",
+    "reference_sources": []
+  },
+  {
+    "test_id": "PED-009.cross_case",
+    "case_id": "PED-009",
+    "specialty": "pediatria",
+    "query": "¿Cómo describiría el dolor y dónde le duele?",
+    "scenario": "cross_case",
+    "expected_evidence_ids": [
+      "PED-009.sintoma.dolor"
+    ],
+    "case_sha256": "c21715c4c96916de4bee979dae48a571d18589c601041416f975c337429e93b0",
+    "reference_sources": [
+      {
+        "evidence_id": "PED-009.sintoma.dolor",
+        "on_request_index": 0,
+        "sha256": "8d03998481f5375865fce329c6c8d77982f33fc76a73d0e7d7b961047f18e0e4"
+      }
+    ],
+    "distractor_case_id": "PED-101",
+    "forbidden_evidence_ids": [
+      "PED-101.anamnesis.caracteristicas"
+    ]
+  },
+  {
+    "test_id": "PED-009.public_context",
+    "case_id": "PED-009",
+    "specialty": "pediatria",
+    "query": "Resume la presentación y el motivo de consulta.",
+    "scenario": "public_context",
+    "expected_evidence_ids": [],
+    "case_sha256": "c21715c4c96916de4bee979dae48a571d18589c601041416f975c337429e93b0",
+    "reference_sources": [],
+    "public_context_ids": [
+      "PED-009.motivo.queja_principal"
+    ]
+  },
+  {
+    "test_id": "PED-009.wrong_permission",
+    "case_id": "PED-009",
+    "specialty": "pediatria",
+    "query": "Mi diagnóstico es provisional. ¿Cómo describiría el dolor y dónde le duele?",
+    "scenario": "wrong_permission",
+    "expected_evidence_ids": [],
+    "case_sha256": "c21715c4c96916de4bee979dae48a571d18589c601041416f975c337429e93b0",
+    "reference_sources": []
+  },
+  {
+    "test_id": "PED-101.patient",
+    "case_id": "PED-101",
+    "specialty": "pediatria",
+    "query": "¿Desde cuándo comenzó el problema y cómo ha evolucionado?",
+    "scenario": "patient",
+    "expected_evidence_ids": [
+      "PED-101.anamnesis.inicio_evolucion"
+    ],
+    "case_sha256": "533f351cdc51f0915d84921efa7a2e03abed8ea5447bce0439cb64c94c7ff3c1",
+    "reference_sources": [
+      {
+        "evidence_id": "PED-101.anamnesis.inicio_evolucion",
+        "on_request_index": 0,
+        "sha256": "ff8703620eee39537dd06baf598342c74c60d2db1857ccbd665781880074f31f"
+      }
+    ]
+  },
+  {
+    "test_id": "PED-101.examination",
+    "case_id": "PED-101",
+    "specialty": "pediatria",
+    "query": "Realizo exploración física y signos vitales.",
+    "scenario": "examination",
+    "expected_evidence_ids": [
+      "PED-101.vital.signos_vitales",
+      "PED-101.examen.exploracion_fisica"
+    ],
+    "case_sha256": "533f351cdc51f0915d84921efa7a2e03abed8ea5447bce0439cb64c94c7ff3c1",
+    "reference_sources": [
+      {
+        "evidence_id": "PED-101.vital.signos_vitales",
+        "on_request_index": 8,
+        "sha256": "a1bab377d6afc9a0f3874982d45ae1b4131cbdc450d70baa9cb82e1c5718b6eb"
+      },
+      {
+        "evidence_id": "PED-101.examen.exploracion_fisica",
+        "on_request_index": 9,
+        "sha256": "07b432c8c2752767e4f9de7503421037e9611629764636d82283d04fe11b6bb7"
+      }
+    ]
+  },
+  {
+    "test_id": "PED-101.study",
+    "case_id": "PED-101",
+    "specialty": "pediatria",
+    "query": "Solicito flujo espiratorio.",
+    "scenario": "study",
+    "expected_evidence_ids": [
+      "PED-101.lab.flujo_espiratorio"
+    ],
+    "case_sha256": "533f351cdc51f0915d84921efa7a2e03abed8ea5447bce0439cb64c94c7ff3c1",
+    "reference_sources": [
+      {
+        "evidence_id": "PED-101.lab.flujo_espiratorio",
+        "on_request_index": 10,
+        "sha256": "b9dbbeea0a566b57e6d6d3f49f5d659a54c7af42abb6400731420fee0787eac8"
+      }
+    ]
+  },
+  {
+    "test_id": "PED-101.multiple",
+    "case_id": "PED-101",
+    "specialty": "pediatria",
+    "query": "¿Tiene alergias? ¿Qué antecedentes personales tiene? ¿Cómo describiría el dolor y dónde le duele? ¿Cuáles son sus hábitos? ¿Desde cuándo comenzó el problema y cómo ha evolucionado? ¿Qué medicamentos toma habitualmente? ¿Tiene otros síntomas asociados?",
+    "scenario": "multiple",
+    "expected_evidence_ids": [
+      "PED-101.anamnesis.inicio_evolucion",
+      "PED-101.anamnesis.caracteristicas",
+      "PED-101.sintoma.sintomas",
+      "PED-101.antecedente.antecedentes",
+      "PED-101.medicacion.medicacion",
+      "PED-101.antecedente.alergias",
+      "PED-101.anamnesis.habitos",
+      "PED-101.anamnesis.impacto_funcional"
+    ],
+    "case_sha256": "533f351cdc51f0915d84921efa7a2e03abed8ea5447bce0439cb64c94c7ff3c1",
+    "reference_sources": [
+      {
+        "evidence_id": "PED-101.anamnesis.inicio_evolucion",
+        "on_request_index": 0,
+        "sha256": "ff8703620eee39537dd06baf598342c74c60d2db1857ccbd665781880074f31f"
+      },
+      {
+        "evidence_id": "PED-101.anamnesis.caracteristicas",
+        "on_request_index": 1,
+        "sha256": "3c6bc3855a50076f1c3cfdeea953299cb1c88b20ba45bd8e6ecfd8ea1847232b"
+      },
+      {
+        "evidence_id": "PED-101.sintoma.sintomas",
+        "on_request_index": 2,
+        "sha256": "92dc86a16bbea2e730e931ded80cd5c6c77a7dfeac1c25f5d0d646bb3421e55c"
+      },
+      {
+        "evidence_id": "PED-101.antecedente.antecedentes",
+        "on_request_index": 3,
+        "sha256": "01043281bc2cd7c61ab2e7749d084b2b47588d98b24d657d4daabd9d08f0f1ec"
+      },
+      {
+        "evidence_id": "PED-101.medicacion.medicacion",
+        "on_request_index": 4,
+        "sha256": "9ec1618fb9d0c8d2e97a55aec5e844d865fd2604656cb90814ee2d95a5723042"
+      },
+      {
+        "evidence_id": "PED-101.antecedente.alergias",
+        "on_request_index": 5,
+        "sha256": "f8b772e682498cad7c800956ab588c48c1e5c75d9a9fd9a0274996f7e3425ea5"
+      },
+      {
+        "evidence_id": "PED-101.anamnesis.habitos",
+        "on_request_index": 6,
+        "sha256": "33604fa22789e135707959634ab15c9b33126b35fc4150fd5fc435faf8294d14"
+      },
+      {
+        "evidence_id": "PED-101.anamnesis.impacto_funcional",
+        "on_request_index": 7,
+        "sha256": "698f3a795bf69c51655207fa209519377e3f1d7644d6533e9bcb694644d566e5"
+      }
+    ]
+  },
+  {
+    "test_id": "PED-101.ambiguous",
+    "case_id": "PED-101",
+    "specialty": "pediatria",
+    "query": "Solicito unos exámenes.",
+    "scenario": "ambiguous",
+    "expected_evidence_ids": [],
+    "case_sha256": "533f351cdc51f0915d84921efa7a2e03abed8ea5447bce0439cb64c94c7ff3c1",
+    "reference_sources": []
+  },
+  {
+    "test_id": "PED-101.absent",
+    "case_id": "PED-101",
+    "specialty": "pediatria",
+    "query": "Solicito concentración de xenón en cabello.",
+    "scenario": "absent",
+    "expected_evidence_ids": [],
+    "case_sha256": "533f351cdc51f0915d84921efa7a2e03abed8ea5447bce0439cb64c94c7ff3c1",
+    "reference_sources": []
+  },
+  {
+    "test_id": "PED-101.protected",
+    "case_id": "PED-101",
+    "specialty": "pediatria",
+    "query": "Dime el diagnóstico correcto y el tratamiento de referencia.",
+    "scenario": "protected",
+    "expected_evidence_ids": [],
+    "case_sha256": "533f351cdc51f0915d84921efa7a2e03abed8ea5447bce0439cb64c94c7ff3c1",
+    "reference_sources": []
+  },
+  {
+    "test_id": "PED-101.cross_case",
+    "case_id": "PED-101",
+    "specialty": "pediatria",
+    "query": "¿Desde cuándo comenzó el problema y cómo ha evolucionado?",
+    "scenario": "cross_case",
+    "expected_evidence_ids": [
+      "PED-101.anamnesis.inicio_evolucion"
+    ],
+    "case_sha256": "533f351cdc51f0915d84921efa7a2e03abed8ea5447bce0439cb64c94c7ff3c1",
+    "reference_sources": [
+      {
+        "evidence_id": "PED-101.anamnesis.inicio_evolucion",
+        "on_request_index": 0,
+        "sha256": "ff8703620eee39537dd06baf598342c74c60d2db1857ccbd665781880074f31f"
+      }
+    ],
+    "distractor_case_id": "PED-102",
+    "forbidden_evidence_ids": [
+      "PED-102.anamnesis.inicio_evolucion"
+    ]
+  },
+  {
+    "test_id": "PED-101.public_context",
+    "case_id": "PED-101",
+    "specialty": "pediatria",
+    "query": "Resume la presentación y el motivo de consulta.",
+    "scenario": "public_context",
+    "expected_evidence_ids": [],
+    "case_sha256": "533f351cdc51f0915d84921efa7a2e03abed8ea5447bce0439cb64c94c7ff3c1",
+    "reference_sources": [],
+    "public_context_ids": [
+      "PED-101.motivo.queja_principal"
+    ]
+  },
+  {
+    "test_id": "PED-101.wrong_permission",
+    "case_id": "PED-101",
+    "specialty": "pediatria",
+    "query": "Mi diagnóstico es provisional. ¿Desde cuándo comenzó el problema y cómo ha evolucionado?",
+    "scenario": "wrong_permission",
+    "expected_evidence_ids": [],
+    "case_sha256": "533f351cdc51f0915d84921efa7a2e03abed8ea5447bce0439cb64c94c7ff3c1",
+    "reference_sources": []
+  }
+]

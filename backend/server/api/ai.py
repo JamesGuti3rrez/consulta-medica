@@ -47,6 +47,7 @@ from server.orchestration.patient_completion import PatientHistoryCompletion
 from server.ai.agents.exam_composer import ExamComposer
 from server.orchestration.exam_completion import SyntheticExamCompletion
 from server.rag.embedded import EmbeddedRAGRetriever
+from server.rag.factory import build_retriever
 from server.rag.retriever import CaseEvidenceRetriever, HttpRetriever
 from server.rag.supabase import SupabasePgvectorRetriever, SupabaseRAGError
 from server.tracing import LangSmithObserver, LocalTraceLogger
@@ -141,23 +142,7 @@ def get_session_auth() -> SupabaseAuth | None:
 @lru_cache
 def get_service() -> MultiAgentSessionService:
     repository = build_case_repository(CASES_DIR, config=settings)
-    if settings.rag_backend == "supabase_pgvector":
-        retriever = SupabasePgvectorRetriever(settings.supabase_url, settings.supabase_secret_key)
-    elif settings.case_store == "supabase":
-        # La evidencia procede del caso remoto actual, nunca de un indice local antiguo.
-        retriever = CaseEvidenceRetriever(repository)
-    elif settings.rag_service_url:
-        retriever = HttpRetriever(settings.rag_service_url, token=settings.rag_http_token)
-    elif settings.rag_backend != "local":
-        raise ValueError(
-            f"RAG_BACKEND no reconocido: {settings.rag_backend!r} "
-            "(use local o supabase_pgvector)."
-        )
-    elif settings.rag_embedded_enabled and settings.case_store == "local":
-        embedded = EmbeddedRAGRetriever(settings.rag_index_dir, settings.rag_log_path, repository=repository)
-        retriever = embedded if embedded.ready else CaseEvidenceRetriever(repository)
-    else:
-        retriever = CaseEvidenceRetriever(repository)
+    retriever = build_retriever(repository, config=settings)
     gateway = build_gateway()
     disclosure = DisclosurePolicy()
     state_machine = ClinicalStateMachine()
