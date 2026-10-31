@@ -1,0 +1,35 @@
+﻿COMANDO: python -m pytest tests/unit/test_diagnoses_store.py -v
+COMMIT: bdde3d7
+FECHA: 2026-10-31 05:47:53 UTC
+CODIGO_SALIDA: 0
+
+============================= test session starts =============================
+platform win32 -- Python 3.14.4, pytest-8.3.4, pluggy-1.6.0 -- C:\Users\Usuario\Documents\consulta-medica\backend\.venv\Scripts\python.exe
+rootdir: C:\Users\Usuario\Documents\consulta-medica\backend
+configfile: pyproject.toml
+plugins: anyio-4.15.1, langsmith-0.14.7
+collecting ... collected 21 items
+
+tests/unit/test_diagnoses_store.py::test_first_diagnosis_is_attempt_one_with_every_key[memoria] PASSED [  4%]
+tests/unit/test_diagnoses_store.py::test_first_diagnosis_is_attempt_one_with_every_key[supabase] PASSED [  9%]
+tests/unit/test_diagnoses_store.py::test_attempts_are_counted_per_student_and_case[memoria] PASSED [ 14%]
+tests/unit/test_diagnoses_store.py::test_attempts_are_counted_per_student_and_case[supabase] PASSED [ 19%]
+tests/unit/test_diagnoses_store.py::test_the_same_session_is_registered_only_once[memoria] PASSED [ 23%]
+tests/unit/test_diagnoses_store.py::test_the_same_session_is_registered_only_once[supabase] PASSED [ 28%]
+tests/unit/test_diagnoses_store.py::test_unknown_session_has_no_record[memoria] PASSED [ 33%]
+tests/unit/test_diagnoses_store.py::test_unknown_session_has_no_record[supabase] PASSED [ 38%]
+tests/unit/test_diagnoses_store.py::test_in_memory_concurrent_submissions_of_one_session_create_one_record PASSED [ 42%]
+tests/unit/test_diagnoses_store.py::test_in_memory_concurrent_sessions_get_distinct_attempt_numbers PASSED [ 47%]
+tests/unit/test_diagnoses_store.py::test_supabase_inserts_only_the_registry_columns_with_the_secret_key PASSED [ 52%]
+tests/unit/test_diagnoses_store.py::test_supabase_lost_race_on_the_session_returns_the_winner PASSED [ 57%]
+tests/unit/test_diagnoses_store.py::test_supabase_lost_race_on_the_attempt_number_retries_with_the_next PASSED [ 61%]
+tests/unit/test_diagnoses_store.py::test_supabase_errors_raise_store_error[400] PASSED [ 66%]
+tests/unit/test_diagnoses_store.py::test_supabase_errors_raise_store_error[401] PASSED [ 71%]
+tests/unit/test_diagnoses_store.py::test_supabase_errors_raise_store_error[404] PASSED [ 76%]
+tests/unit/test_diagnoses_store.py::test_supabase_errors_raise_store_error[500] PASSED [ 80%]
+tests/unit/test_diagnoses_store.py::test_supabase_errors_raise_store_error[503] PASSED [ 85%]
+tests/unit/test_diagnoses_store.py::test_supabase_network_failure_raises_store_error PASSED [ 90%]
+tests/unit/test_diagnoses_store.py::test_supabase_requires_url_and_secret PASSED [ 95%]
+tests/unit/test_diagnoses_store.py::test_supabase_rejects_a_session_id_that_is_not_a_uuid_without_calling_supabase PASSED [100%]
+
+============================= 21 passed in 0.49s ==============================

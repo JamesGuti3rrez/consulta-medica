@@ -208,6 +208,11 @@ class MultiAgentSessionService:
     def owner_of(self, session_id: str) -> str | None:
         return self.store.get(session_id).get("owner_id")
 
+    def closing_state(self, session_id: str) -> tuple[str | None, str, bool]:
+        """Dueño, caso y si ya está cerrada, en una sola lectura (en Supabase cada lectura es una petición)."""
+        state = self.store.get(session_id)
+        return state.get("owner_id"), state["case_id"], state["phase"] == SessionPhase.FINALIZADA.value
+
     def access_of(self, session_id: str) -> tuple[str | None, str | None]:
         """Dueño registrado y hash de la credencial de invitado, para autorizar cada operación."""
         state = self.store.get(session_id)

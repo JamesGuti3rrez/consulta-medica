@@ -1,0 +1,17 @@
+{
+  "id": "HU006-13",
+  "nombre": "envios_simultaneos",
+  "titulo": "Envíos simultáneos registran una sola vez",
+  "criterio": "CA6",
+  "resultado_esperado": "8 envíos a la vez: todos 200 con el mismo registro; una fila",
+  "resultado": "FALLA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_antes",
+  "commit": "4d714a8",
+  "fecha": "2026-10-31 05:54:06 UTC",
+  "pasos": [],
+  "comprobaciones": [],
+  "notas": [],
+  "error": "Falló la preparación: E   AttributeError: <module 'server.api.ai' from 'C:\\\\Users\\\\Usuario\\\\Documents\\\\consulta-medica\\\\backend\\\\server\\\\api\\\\ai.py'> has no attribute 'get_diagnoses'"
+}

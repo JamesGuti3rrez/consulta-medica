@@ -1,0 +1,64 @@
+{
+  "id": "HU006-21",
+  "nombre": "alumno_e_invitado_cruzados",
+  "titulo": "Un alumno no cierra la consulta de un invitado ni al revés",
+  "criterio": "CA7",
+  "resultado_esperado": "404 en ambos sentidos",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_antes",
+  "commit": "4d714a8",
+  "fecha": "2026-10-31 05:55:16 UTC",
+  "pasos": [
+    {
+      "descripcion": "A sobre la consulta del invitado",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/bb75d92e-770b-4f09-b27e-25fc92de183a/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…CGSM",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "invitado sobre la consulta de A",
+      "identidad": "Anónimo 1 + su credencial",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/59cdfdd7-7e02-494a-92ec-92a119a68106/finish",
+      "cabeceras": {
+        "x-session-token": "0O-RqW…WlF4",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "sin registro en la de A",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

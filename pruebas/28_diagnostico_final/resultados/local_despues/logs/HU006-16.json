@@ -1,0 +1,79 @@
+{
+  "id": "HU006-16",
+  "nombre": "cierre_falla_tras_registro",
+  "titulo": "Si falla el cierre después de registrar, el reintento no duplica",
+  "criterio": "CA6, CA7",
+  "resultado_esperado": "503; reintento 200 con el mismo registro; una fila",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_despues",
+  "commit": "182b83a",
+  "fecha": "2026-10-31 06:03:06 UTC",
+  "pasos": [
+    {
+      "descripcion": "el registro se guarda, el cierre de la sesión falla",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/7ec10471-a233-410e-b94d-029acff1e2a9/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…xvDI",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 503,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"No se pudo acceder a las sesiones. Inténtalo de nuevo.\"}",
+      "codigo_esperado": [
+        503
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "reintento",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/7ec10471-a233-410e-b94d-029acff1e2a9/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…xvDI",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"finished_at\":\"2026-10-31T06:03:05.599076+00:00\",\"started_at\":\"2026-10-31T06:03:05.357703+00:00\",\"case_id\":\"MED-900\",\"session_id\":\"7ec10471-a233-410e-b94d-029acff1e2a9\",\"phase\":\"finalizada\",\"active_agent\":\"orchestrator\",\"updated_at\":\"2026-10-31T06:03:05.599039+00:00\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"],\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":{\"score\":0.0,\"earned_weight\":0,\"total_weight\":14,\"completed_questions\":0,\"total_questions\":3,\"errors\":{\"negligencia\":2,\"anamnesis_incompleta\":1,\"razonamiento_clinico\":0}},\"registro\":{\"guardado\":true,\"id\":\"diag-12\",\"numero_intento\":11},\"attempt\":{\"saved\":true,\"id\":\"intento-19\"},\"report\":{\"case_id\":\"MED-900\",\"finished_at\":\"2026-10-31T06:03:05.599076+00:00\",\"patient\":{\"alias\":\"Carlos Ramos\",\"age_years\":28,\"sex\":\"masculino\"},\"chief_complaint\":\"Dolor de cabeza de 3 días de evolución\",\"diagnosis\":{\"student\":\"Apendicitis aguda.\\nJustificación: dolor migratorio a fosa ilíaca derecha.\",\"reference\":\"Migraña sin signos de alarma\",\"synonyms\":[\"migraña\",\"cefalea migrañosa\"]},\"hypotheses\":[{\"name\":\"Colecistitis\",\"discarded\":true,\"reason\":\"Murphy negativo\"},{\"name\":\"Apendicitis\",\"discarded\":false,\"reason\":\"\"}],\"differentials\":[\"Meningitis\",\"Hemorragia subaracnoidea\",\"Cefalea tensional\"],\"score\":{\"score\":0.0,\"earned_weight\":0,\"total_weight\":14,\"completed_questions\":0,\"total_questions\":3},\"key_questions\":{\"obtained\":[],\"missing\":[{\"id\":\"kq1\",\"topic\":\"inicio y características del dolor\",\"weight\":5,\"critical\":true,\"error_type\":\"anamnesis_incompleta\",\"error_name\":\"Anamnesis incompleta\",\"why\":\"Forma parte de una historia clínica completa.\",\"helps_discard\":[\"Hemorragia subaracnoidea\",\"Cefalea tensional\"]},{\"id\":\"kq2\",\"topic\":\"signos de alarma neurológica\",\"weight\":5,\"critical\":true,\"error_type\":\"negligencia\",\"error_name\":\"Negligencia\",\"why\":\"Dato de seguridad: se pregunta antes de indicar un tratamiento.\",\"helps_discard\":[\"Meningitis\",\"Hemorragia subaracnoidea\"]},{\"id\":\"kq3\",\"topic\":\"alergias\",\"weight\":4,\"critical\":true,\"error_type\":\"negligencia\",\"error_name\":\"Negligencia\",\"why\":\"Dato de seguridad: se pregunta antes de indicar un tratamiento.\",\"helps_discard\":[]}]},\"tests\":{\"recommended_requested\":[],\"recommended_missing\":[],\"optional_requested\":[],\"unnecessary_requested\":[],\"other_indications\":[\"Evaluacion clinica\"]},\"treatment\":{\"proposed\":[],\"reference_summary\":\"Manejo sintomático y seguimiento clínico según la evaluación profesional.\",\"key_actions\":[\"Control sintomático\",\"Reevaluar signos de alarma\",\"Seguimiento clínico\"]},\"revealed_evidence\":[{\"evidence_id\":\"MED-900.motivo.cefalea\",\"label\":\"Motivo de consulta\",\"text\":\"Dolor de cabeza de 3 días de evolución\"},{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"text\":\"74 /min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"text\":\"36.8 Cel\"}],\"recommendations\":[\"Antes de indicar un tratamiento, verifica alergias, antecedentes y los estudios críticos del caso.\",\"Completa la anamnesis: inicio y evolución, antecedentes, medicación, alergias y hábitos.\"]}}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "sigue abierta",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "una fila",
+      "resultado": "PASA",
+      "detalle": "1"
+    },
+    {
+      "descripcion": "vale el texto registrado primero",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "el reporte usa el registrado",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

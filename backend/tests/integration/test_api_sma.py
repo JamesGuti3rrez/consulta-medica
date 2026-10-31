@@ -12,6 +12,8 @@ from server.auth import SupabaseAuth
 from server.main import app
 
 client = TestClient(app)
+# Contrato de cierre de HU-006: diagnóstico obligatorio y confirmación del alumno.
+FINISH_BODY = {"diagnosis": "Migraña sin signos de alarma", "confirmado": True}
 
 
 FIXTURES = Path(__file__).resolve().parents[1] / "fixtures" / "cases"
@@ -100,7 +102,7 @@ def test_five_agents_in_one_star_session_with_traceable_evidence():
     assert "MED-900.laboratorio.hemograma" in state["revealed_evidence_ids"]
     assert "MED-900.imagen.tomografia_craneo" in state["revealed_evidence_ids"]
 
-    finish = client.post(f"/api/ai/sessions/{sid}/finish", headers=creds)
+    finish = client.post(f"/api/ai/sessions/{sid}/finish", json=FINISH_BODY, headers=creds)
     assert finish.status_code == 200
     assert finish.json()["phase"] == "finalizada"
     assert finish.json()["evaluation"]["total_questions"] > 0
@@ -128,7 +130,7 @@ def test_session_survives_across_instances_with_supabase_store(monkeypatch):
     assert reply["evidence_ids"] == ["MED-900.anamnesis.inicio_dolor"]
 
     new_instance()
-    assert client.post(f"/api/ai/sessions/{sid}/finish", headers=creds).status_code == 200
+    assert client.post(f"/api/ai/sessions/{sid}/finish", json=FINISH_BODY, headers=creds).status_code == 200
     types = [event["type"] for event in client.get(f"/api/ai/sessions/{sid}/events", headers=creds).json()]
     assert types == ["session_started", "turn", "session_finished"]
     assert fake.sessions[sid]["phase"] == "finalizada"
@@ -179,6 +181,7 @@ def _finished_session(monkeypatch, fake, start_token=None, **kwargs):
     sid = start.json()["session_id"]
     _send(sid, "¿Tiene alergias a algún medicamento?", _creds(start, **headers))
     finish_headers = {**_creds(start), **kwargs.pop("headers", {})}
+    kwargs.setdefault("json", FINISH_BODY)
     return sid, client.post(f"/api/ai/sessions/{sid}/finish", headers=finish_headers, **kwargs)
 
 
@@ -187,7 +190,8 @@ def test_finish_saves_the_attempt_only_for_a_signed_in_student(monkeypatch):
 
     fake = FakeSupabase()
     fake.users["token-alumno"] = "0b8f3c1e-5d4a-4f6b-9a1e-2c3d4e5f6a7b"
-    body = {"diagnosis": "Diagnóstico del alumno", "hypotheses": [{"name": "Hipótesis A", "discarded": False}]}
+    body = {"diagnosis": "Diagnóstico del alumno", "hypotheses": [{"name": "Hipótesis A", "discarded": False}],
+            "confirmado": True}
     sid, finish = _finished_session(monkeypatch, fake, start_token="token-alumno", json=body,
                                     headers={"Authorization": "Bearer token-alumno"})
 
@@ -243,7 +247,7 @@ def test_finish_still_returns_the_evaluation_if_supabase_fails(monkeypatch):
     sid = client.post("/api/ai/sessions", json={"case_id": "MED-900"},
                       headers={"Authorization": "Bearer token-alumno"}).json()["session_id"]
     fake.fail_with = 500
-    finish = client.post(f"/api/ai/sessions/{sid}/finish", headers={"Authorization": "Bearer token-alumno"})
+    finish = client.post(f"/api/ai/sessions/{sid}/finish", json=FINISH_BODY, headers={"Authorization": "Bearer token-alumno"})
     assert finish.status_code == 200
     assert finish.json()["evaluation"]["total_questions"] > 0
     assert finish.json()["attempt"] == {"saved": False, "reason": "error"}
@@ -284,7 +288,7 @@ def test_without_history_a_signed_in_student_finishes_without_saving_or_warnings
     headers = {"Authorization": "Bearer token-alumno"}
     sid = client.post("/api/ai/sessions", json={"case_id": "MED-900"}, headers=headers).json()["session_id"]
     _send(sid, "¿Tiene alergias a algún medicamento?", headers)
-    finish = client.post(f"/api/ai/sessions/{sid}/finish", headers=headers)
+    finish = client.post(f"/api/ai/sessions/{sid}/finish", json=FINISH_BODY, headers=headers)
     ai_module.get_attempts.cache_clear()
 
     assert finish.status_code == 200

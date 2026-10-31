@@ -1,0 +1,539 @@
+{
+  "id": "HU006-03",
+  "nombre": "textos_invalidos_422",
+  "titulo": "Textos inválidos se rechazan con su motivo",
+  "criterio": "CA2",
+  "resultado_esperado": "422 con el motivo de cada uno; la consulta sigue abierta",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_despues",
+  "commit": "182b83a",
+  "fecha": "2026-10-31 06:02:57 UTC",
+  "pasos": [
+    {
+      "descripcion": "diagnosis='ab'",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/a4565152-1930-4684-8a55-d6dc080e2a47/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…xvDI",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 422,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"El diagnóstico debe tener al menos 3 letras.\"}",
+      "codigo_esperado": [
+        422
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "diagnosis='12345 678'",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/a4565152-1930-4684-8a55-d6dc080e2a47/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…xvDI",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 422,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"El diagnóstico debe tener al menos 3 letras.\"}",
+      "codigo_esperado": [
+        422
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "diagnosis='?!...'",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/a4565152-1930-4684-8a55-d6dc080e2a47/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…xvDI",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 422,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"El diagnóstico debe tener al menos 3 letras.\"}",
+      "codigo_esperado": [
+        422
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "diagnosis='aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/a4565152-1930-4684-8a55-d6dc080e2a47/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…xvDI",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 422,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"El diagnóstico no puede superar los 2000 caracteres.\"}",
+      "codigo_esperado": [
+        422
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "diagnosis='Apendicitis\\x00aguda'",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/a4565152-1930-4684-8a55-d6dc080e2a47/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…xvDI",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 422,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"El diagnóstico tiene caracteres no permitidos.\"}",
+      "codigo_esperado": [
+        422
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "diagnosis='Apendicitis\\x1b[31m'",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/a4565152-1930-4684-8a55-d6dc080e2a47/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…xvDI",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 422,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"El diagnóstico tiene caracteres no permitidos.\"}",
+      "codigo_esperado": [
+        422
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "diagnosis='<script>alert(1)</script> apendicitis'",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/a4565152-1930-4684-8a55-d6dc080e2a47/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…xvDI",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 422,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"El diagnóstico no puede contener los signos < ni >.\"}",
+      "codigo_esperado": [
+        422
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "diagnosis='Apendicitis <b>aguda</b>'",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/a4565152-1930-4684-8a55-d6dc080e2a47/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…xvDI",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 422,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"El diagnóstico no puede contener los signos < ni >.\"}",
+      "codigo_esperado": [
+        422
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "mensaje exacto",
+      "resultado": "PASA",
+      "detalle": "{\"detail\":\"El diagnóstico debe tener al menos 3 letras.\"}"
+    },
+    {
+      "descripcion": "la consulta sigue abierta",
+      "resultado": "PASA",
+      "detalle": "presentacion"
+    },
+    {
+      "descripcion": "no se registró nada",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «Migraña sin signos de alarma»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «Manejo sintomático y seguimiento clínico»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «protected»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «evaluation»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «report»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «reference»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "mensaje exacto",
+      "resultado": "PASA",
+      "detalle": "{\"detail\":\"El diagnóstico debe tener al menos 3 letras.\"}"
+    },
+    {
+      "descripcion": "la consulta sigue abierta",
+      "resultado": "PASA",
+      "detalle": "presentacion"
+    },
+    {
+      "descripcion": "no se registró nada",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «Migraña sin signos de alarma»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «Manejo sintomático y seguimiento clínico»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «protected»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «evaluation»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «report»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «reference»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "mensaje exacto",
+      "resultado": "PASA",
+      "detalle": "{\"detail\":\"El diagnóstico debe tener al menos 3 letras.\"}"
+    },
+    {
+      "descripcion": "la consulta sigue abierta",
+      "resultado": "PASA",
+      "detalle": "presentacion"
+    },
+    {
+      "descripcion": "no se registró nada",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «Migraña sin signos de alarma»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «Manejo sintomático y seguimiento clínico»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «protected»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «evaluation»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «report»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «reference»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "mensaje exacto",
+      "resultado": "PASA",
+      "detalle": "{\"detail\":\"El diagnóstico no puede superar los 2000 caracteres.\"}"
+    },
+    {
+      "descripcion": "la consulta sigue abierta",
+      "resultado": "PASA",
+      "detalle": "presentacion"
+    },
+    {
+      "descripcion": "no se registró nada",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «Migraña sin signos de alarma»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «Manejo sintomático y seguimiento clínico»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «protected»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «evaluation»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «report»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «reference»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "mensaje exacto",
+      "resultado": "PASA",
+      "detalle": "{\"detail\":\"El diagnóstico tiene caracteres no permitidos.\"}"
+    },
+    {
+      "descripcion": "la consulta sigue abierta",
+      "resultado": "PASA",
+      "detalle": "presentacion"
+    },
+    {
+      "descripcion": "no se registró nada",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «Migraña sin signos de alarma»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «Manejo sintomático y seguimiento clínico»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «protected»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «evaluation»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «report»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «reference»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "mensaje exacto",
+      "resultado": "PASA",
+      "detalle": "{\"detail\":\"El diagnóstico tiene caracteres no permitidos.\"}"
+    },
+    {
+      "descripcion": "la consulta sigue abierta",
+      "resultado": "PASA",
+      "detalle": "presentacion"
+    },
+    {
+      "descripcion": "no se registró nada",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «Migraña sin signos de alarma»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «Manejo sintomático y seguimiento clínico»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «protected»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «evaluation»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «report»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «reference»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "mensaje exacto",
+      "resultado": "PASA",
+      "detalle": "{\"detail\":\"El diagnóstico no puede contener los signos < ni >.\"}"
+    },
+    {
+      "descripcion": "la consulta sigue abierta",
+      "resultado": "PASA",
+      "detalle": "presentacion"
+    },
+    {
+      "descripcion": "no se registró nada",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «Migraña sin signos de alarma»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «Manejo sintomático y seguimiento clínico»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «protected»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «evaluation»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «report»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «reference»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "mensaje exacto",
+      "resultado": "PASA",
+      "detalle": "{\"detail\":\"El diagnóstico no puede contener los signos < ni >.\"}"
+    },
+    {
+      "descripcion": "la consulta sigue abierta",
+      "resultado": "PASA",
+      "detalle": "presentacion"
+    },
+    {
+      "descripcion": "no se registró nada",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «Migraña sin signos de alarma»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «Manejo sintomático y seguimiento clínico»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «protected»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «evaluation»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «report»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «reference»",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

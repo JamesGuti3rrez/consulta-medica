@@ -1,0 +1,194 @@
+{
+  "id": "HU006-13",
+  "nombre": "envios_simultaneos",
+  "titulo": "Envíos simultáneos registran una sola vez",
+  "criterio": "CA6",
+  "resultado_esperado": "8 envíos a la vez: todos 200 con el mismo registro; una fila",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_despues",
+  "commit": "182b83a",
+  "fecha": "2026-10-31 06:03:04 UTC",
+  "pasos": [
+    {
+      "descripcion": "envío simultáneo 0",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/6b0e6172-6331-4f7e-943c-b16e951a6a3c/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…xvDI",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"finished_at\":\"2026-10-31T06:03:03.055528+00:00\",\"started_at\":\"2026-10-31T06:03:02.701000+00:00\",\"case_id\":\"MED-900\",\"session_id\":\"6b0e6172-6331-4f7e-943c-b16e951a6a3c\",\"phase\":\"finalizada\",\"active_agent\":\"orchestrator\",\"updated_at\":\"2026-10-31T06:03:03.055385+00:00\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"],\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":{\"score\":0.0,\"earned_weight\":0,\"total_weight\":14,\"completed_questions\":0,\"total_questions\":3,\"errors\":{\"negligencia\":2,\"anamnesis_incompleta\":1,\"razonamiento_clinico\":0}},\"registro\":{\"guardado\":true,\"id\":\"diag-9\",\"numero_intento\":8},\"attempt\":{\"saved\":true,\"id\":\"intento-13\"},\"report\":{\"case_id\":\"MED-900\",\"finished_at\":\"2026-10-31T06:03:03.159011+00:00\",\"patient\":{\"alias\":\"Carlos Ramos\",\"age_years\":28,\"sex\":\"masculino\"},\"chief_complaint\":\"Dolor de cabeza de 3 días de evolución\",\"diagnosis\":{\"student\":\"Apendicitis aguda, envío 0\",\"reference\":\"Migraña sin signos de alarma\",\"synonyms\":[\"migraña\",\"cefalea migrañosa\"]},\"hypotheses\":[{\"name\":\"Colecistitis\",\"discarded\":true,\"reason\":\"Murphy negativo\"},{\"name\":\"Apendicitis\",\"discarded\":false,\"reason\":\"\"}],\"differentials\":[\"Meningitis\",\"Hemorragia subaracnoidea\",\"Cefalea tensional\"],\"score\":{\"score\":0.0,\"earned_weight\":0,\"total_weight\":14,\"completed_questions\":0,\"total_questions\":3},\"key_questions\":{\"obtained\":[],\"missing\":[{\"id\":\"kq1\",\"topic\":\"inicio y características del dolor\",\"weight\":5,\"critical\":true,\"error_type\":\"anamnesis_incompleta\",\"error_name\":\"Anamnesis incompleta\",\"why\":\"Forma parte de una historia clínica completa.\",\"helps_discard\":[\"Hemorragia subaracnoidea\",\"Cefalea tensional\"]},{\"id\":\"kq2\",\"topic\":\"signos de alarma neurológica\",\"weight\":5,\"critical\":true,\"error_type\":\"negligencia\",\"error_name\":\"Negligencia\",\"why\":\"Dato de seguridad: se pregunta antes de indicar un tratamiento.\",\"helps_discard\":[\"Meningitis\",\"Hemorragia subaracnoidea\"]},{\"id\":\"kq3\",\"topic\":\"alergias\",\"weight\":4,\"critical\":true,\"error_type\":\"negligencia\",\"error_name\":\"Negligencia\",\"why\":\"Dato de seguridad: se pregunta antes de indicar un tratamiento.\",\"helps_discard\":[]}]},\"tests\":{\"recommended_requested\":[],\"recommended_missing\":[],\"optional_requested\":[],\"unnecessary_requested\":[],\"other_indications\":[\"Evaluacion clinica\"]},\"treatment\":{\"proposed\":[],\"reference_summary\":\"Manejo sintomático y seguimiento clínico según la evaluación profesional.\",\"key_actions\":[\"Control sintomático\",\"Reevaluar signos de alarma\",\"Seguimiento clínico\"]},\"revealed_evidence\":[{\"evidence_id\":\"MED-900.motivo.cefalea\",\"label\":\"Motivo de consulta\",\"text\":\"Dolor de cabeza de 3 días de evolución\"},{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"text\":\"74 /min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"text\":\"36.8 Cel\"}],\"recommendations\":[\"Antes de indicar un tratamiento, verifica alergias, antecedentes y los estudios críticos del caso.\",\"Completa la anamnesis: inicio y evolución, antecedentes, medicación, alergias y hábitos.\"]}}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "envío simultáneo 1",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/6b0e6172-6331-4f7e-943c-b16e951a6a3c/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…xvDI",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"finished_at\":\"2026-10-31T06:03:03.134958+00:00\",\"started_at\":\"2026-10-31T06:03:02.701000+00:00\",\"case_id\":\"MED-900\",\"session_id\":\"6b0e6172-6331-4f7e-943c-b16e951a6a3c\",\"phase\":\"finalizada\",\"active_agent\":\"orchestrator\",\"updated_at\":\"2026-10-31T06:03:03.134938+00:00\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"],\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":{\"score\":0.0,\"earned_weight\":0,\"total_weight\":14,\"completed_questions\":0,\"total_questions\":3,\"errors\":{\"negligencia\":2,\"anamnesis_incompleta\":1,\"razonamiento_clinico\":0}},\"registro\":{\"guardado\":true,\"id\":\"diag-9\",\"numero_intento\":8},\"attempt\":{\"saved\":true,\"id\":\"intento-12\"},\"report\":{\"case_id\":\"MED-900\",\"finished_at\":\"2026-10-31T06:03:03.159011+00:00\",\"patient\":{\"alias\":\"Carlos Ramos\",\"age_years\":28,\"sex\":\"masculino\"},\"chief_complaint\":\"Dolor de cabeza de 3 días de evolución\",\"diagnosis\":{\"student\":\"Apendicitis aguda, envío 0\",\"reference\":\"Migraña sin signos de alarma\",\"synonyms\":[\"migraña\",\"cefalea migrañosa\"]},\"hypotheses\":[{\"name\":\"Colecistitis\",\"discarded\":true,\"reason\":\"Murphy negativo\"},{\"name\":\"Apendicitis\",\"discarded\":false,\"reason\":\"\"}],\"differentials\":[\"Meningitis\",\"Hemorragia subaracnoidea\",\"Cefalea tensional\"],\"score\":{\"score\":0.0,\"earned_weight\":0,\"total_weight\":14,\"completed_questions\":0,\"total_questions\":3},\"key_questions\":{\"obtained\":[],\"missing\":[{\"id\":\"kq1\",\"topic\":\"inicio y características del dolor\",\"weight\":5,\"critical\":true,\"error_type\":\"anamnesis_incompleta\",\"error_name\":\"Anamnesis incompleta\",\"why\":\"Forma parte de una historia clínica completa.\",\"helps_discard\":[\"Hemorragia subaracnoidea\",\"Cefalea tensional\"]},{\"id\":\"kq2\",\"topic\":\"signos de alarma neurológica\",\"weight\":5,\"critical\":true,\"error_type\":\"negligencia\",\"error_name\":\"Negligencia\",\"why\":\"Dato de seguridad: se pregunta antes de indicar un tratamiento.\",\"helps_discard\":[\"Meningitis\",\"Hemorragia subaracnoidea\"]},{\"id\":\"kq3\",\"topic\":\"alergias\",\"weight\":4,\"critical\":true,\"error_type\":\"negligencia\",\"error_name\":\"Negligencia\",\"why\":\"Dato de seguridad: se pregunta antes de indicar un tratamiento.\",\"helps_discard\":[]}]},\"tests\":{\"recommended_requested\":[],\"recommended_missing\":[],\"optional_requested\":[],\"unnecessary_requested\":[],\"other_indications\":[\"Evaluacion clinica\"]},\"treatment\":{\"proposed\":[],\"reference_summary\":\"Manejo sintomático y seguimiento clínico según la evaluación profesional.\",\"key_actions\":[\"Control sintomático\",\"Reevaluar signos de alarma\",\"Seguimiento clínico\"]},\"revealed_evidence\":[{\"evidence_id\":\"MED-900.motivo.cefalea\",\"label\":\"Motivo de consulta\",\"text\":\"Dolor de cabeza de 3 días de evolución\"},{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"text\":\"74 /min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"text\":\"36.8 Cel\"}],\"recommendations\":[\"Antes de indicar un tratamiento, verifica alergias, antecedentes y los estudios críticos del caso.\",\"Completa la anamnesis: inicio y evolución, antecedentes, medicación, alergias y hábitos.\"]}}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "envío simultáneo 2",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/6b0e6172-6331-4f7e-943c-b16e951a6a3c/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…xvDI",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"finished_at\":\"2026-10-31T06:03:03.045470+00:00\",\"started_at\":\"2026-10-31T06:03:02.701000+00:00\",\"case_id\":\"MED-900\",\"session_id\":\"6b0e6172-6331-4f7e-943c-b16e951a6a3c\",\"phase\":\"finalizada\",\"active_agent\":\"orchestrator\",\"updated_at\":\"2026-10-31T06:03:03.045451+00:00\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"],\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":{\"score\":0.0,\"earned_weight\":0,\"total_weight\":14,\"completed_questions\":0,\"total_questions\":3,\"errors\":{\"negligencia\":2,\"anamnesis_incompleta\":1,\"razonamiento_clinico\":0}},\"registro\":{\"guardado\":true,\"id\":\"diag-9\",\"numero_intento\":8},\"attempt\":{\"saved\":true,\"id\":\"intento-10\"},\"report\":{\"case_id\":\"MED-900\",\"finished_at\":\"2026-10-31T06:03:03.159011+00:00\",\"patient\":{\"alias\":\"Carlos Ramos\",\"age_years\":28,\"sex\":\"masculino\"},\"chief_complaint\":\"Dolor de cabeza de 3 días de evolución\",\"diagnosis\":{\"student\":\"Apendicitis aguda, envío 0\",\"reference\":\"Migraña sin signos de alarma\",\"synonyms\":[\"migraña\",\"cefalea migrañosa\"]},\"hypotheses\":[{\"name\":\"Colecistitis\",\"discarded\":true,\"reason\":\"Murphy negativo\"},{\"name\":\"Apendicitis\",\"discarded\":false,\"reason\":\"\"}],\"differentials\":[\"Meningitis\",\"Hemorragia subaracnoidea\",\"Cefalea tensional\"],\"score\":{\"score\":0.0,\"earned_weight\":0,\"total_weight\":14,\"completed_questions\":0,\"total_questions\":3},\"key_questions\":{\"obtained\":[],\"missing\":[{\"id\":\"kq1\",\"topic\":\"inicio y características del dolor\",\"weight\":5,\"critical\":true,\"error_type\":\"anamnesis_incompleta\",\"error_name\":\"Anamnesis incompleta\",\"why\":\"Forma parte de una historia clínica completa.\",\"helps_discard\":[\"Hemorragia subaracnoidea\",\"Cefalea tensional\"]},{\"id\":\"kq2\",\"topic\":\"signos de alarma neurológica\",\"weight\":5,\"critical\":true,\"error_type\":\"negligencia\",\"error_name\":\"Negligencia\",\"why\":\"Dato de seguridad: se pregunta antes de indicar un tratamiento.\",\"helps_discard\":[\"Meningitis\",\"Hemorragia subaracnoidea\"]},{\"id\":\"kq3\",\"topic\":\"alergias\",\"weight\":4,\"critical\":true,\"error_type\":\"negligencia\",\"error_name\":\"Negligencia\",\"why\":\"Dato de seguridad: se pregunta antes de indicar un tratamiento.\",\"helps_discard\":[]}]},\"tests\":{\"recommended_requested\":[],\"recommended_missing\":[],\"optional_requested\":[],\"unnecessary_requested\":[],\"other_indications\":[\"Evaluacion clinica\"]},\"treatment\":{\"proposed\":[],\"reference_summary\":\"Manejo sintomático y seguimiento clínico según la evaluación profesional.\",\"key_actions\":[\"Control sintomático\",\"Reevaluar signos de alarma\",\"Seguimiento clínico\"]},\"revealed_evidence\":[{\"evidence_id\":\"MED-900.motivo.cefalea\",\"label\":\"Motivo de consulta\",\"text\":\"Dolor de cabeza de 3 días de evolución\"},{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"text\":\"74 /min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"text\":\"36.8 Cel\"}],\"recommendations\":[\"Antes de indicar un tratamiento, verifica alergias, antecedentes y los estudios críticos del caso.\",\"Completa la anamnesis: inicio y evolución, antecedentes, medicación, alergias y hábitos.\"]}}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "envío simultáneo 3",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/6b0e6172-6331-4f7e-943c-b16e951a6a3c/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…xvDI",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"finished_at\":\"2026-10-31T06:03:03.139089+00:00\",\"started_at\":\"2026-10-31T06:03:02.701000+00:00\",\"case_id\":\"MED-900\",\"session_id\":\"6b0e6172-6331-4f7e-943c-b16e951a6a3c\",\"phase\":\"finalizada\",\"active_agent\":\"orchestrator\",\"updated_at\":\"2026-10-31T06:03:03.139074+00:00\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"],\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":{\"score\":0.0,\"earned_weight\":0,\"total_weight\":14,\"completed_questions\":0,\"total_questions\":3,\"errors\":{\"negligencia\":2,\"anamnesis_incompleta\":1,\"razonamiento_clinico\":0}},\"registro\":{\"guardado\":true,\"id\":\"diag-9\",\"numero_intento\":8},\"attempt\":{\"saved\":true,\"id\":\"intento-14\"},\"report\":{\"case_id\":\"MED-900\",\"finished_at\":\"2026-10-31T06:03:03.159011+00:00\",\"patient\":{\"alias\":\"Carlos Ramos\",\"age_years\":28,\"sex\":\"masculino\"},\"chief_complaint\":\"Dolor de cabeza de 3 días de evolución\",\"diagnosis\":{\"student\":\"Apendicitis aguda, envío 0\",\"reference\":\"Migraña sin signos de alarma\",\"synonyms\":[\"migraña\",\"cefalea migrañosa\"]},\"hypotheses\":[{\"name\":\"Colecistitis\",\"discarded\":true,\"reason\":\"Murphy negativo\"},{\"name\":\"Apendicitis\",\"discarded\":false,\"reason\":\"\"}],\"differentials\":[\"Meningitis\",\"Hemorragia subaracnoidea\",\"Cefalea tensional\"],\"score\":{\"score\":0.0,\"earned_weight\":0,\"total_weight\":14,\"completed_questions\":0,\"total_questions\":3},\"key_questions\":{\"obtained\":[],\"missing\":[{\"id\":\"kq1\",\"topic\":\"inicio y características del dolor\",\"weight\":5,\"critical\":true,\"error_type\":\"anamnesis_incompleta\",\"error_name\":\"Anamnesis incompleta\",\"why\":\"Forma parte de una historia clínica completa.\",\"helps_discard\":[\"Hemorragia subaracnoidea\",\"Cefalea tensional\"]},{\"id\":\"kq2\",\"topic\":\"signos de alarma neurológica\",\"weight\":5,\"critical\":true,\"error_type\":\"negligencia\",\"error_name\":\"Negligencia\",\"why\":\"Dato de seguridad: se pregunta antes de indicar un tratamiento.\",\"helps_discard\":[\"Meningitis\",\"Hemorragia subaracnoidea\"]},{\"id\":\"kq3\",\"topic\":\"alergias\",\"weight\":4,\"critical\":true,\"error_type\":\"negligencia\",\"error_name\":\"Negligencia\",\"why\":\"Dato de seguridad: se pregunta antes de indicar un tratamiento.\",\"helps_discard\":[]}]},\"tests\":{\"recommended_requested\":[],\"recommended_missing\":[],\"optional_requested\":[],\"unnecessary_requested\":[],\"other_indications\":[\"Evaluacion clinica\"]},\"treatment\":{\"proposed\":[],\"reference_summary\":\"Manejo sintomático y seguimiento clínico según la evaluación profesional.\",\"key_actions\":[\"Control sintomático\",\"Reevaluar signos de alarma\",\"Seguimiento clínico\"]},\"revealed_evidence\":[{\"evidence_id\":\"MED-900.motivo.cefalea\",\"label\":\"Motivo de consulta\",\"text\":\"Dolor de cabeza de 3 días de evolución\"},{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"text\":\"74 /min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"text\":\"36.8 Cel\"}],\"recommendations\":[\"Antes de indicar un tratamiento, verifica alergias, antecedentes y los estudios críticos del caso.\",\"Completa la anamnesis: inicio y evolución, antecedentes, medicación, alergias y hábitos.\"]}}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "envío simultáneo 4",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/6b0e6172-6331-4f7e-943c-b16e951a6a3c/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…xvDI",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"finished_at\":\"2026-10-31T06:03:03.125376+00:00\",\"started_at\":\"2026-10-31T06:03:02.701000+00:00\",\"case_id\":\"MED-900\",\"session_id\":\"6b0e6172-6331-4f7e-943c-b16e951a6a3c\",\"phase\":\"finalizada\",\"active_agent\":\"orchestrator\",\"updated_at\":\"2026-10-31T06:03:03.125346+00:00\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"],\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":{\"score\":0.0,\"earned_weight\":0,\"total_weight\":14,\"completed_questions\":0,\"total_questions\":3,\"errors\":{\"negligencia\":2,\"anamnesis_incompleta\":1,\"razonamiento_clinico\":0}},\"registro\":{\"guardado\":true,\"id\":\"diag-9\",\"numero_intento\":8},\"attempt\":{\"saved\":true,\"id\":\"intento-15\"},\"report\":{\"case_id\":\"MED-900\",\"finished_at\":\"2026-10-31T06:03:03.159011+00:00\",\"patient\":{\"alias\":\"Carlos Ramos\",\"age_years\":28,\"sex\":\"masculino\"},\"chief_complaint\":\"Dolor de cabeza de 3 días de evolución\",\"diagnosis\":{\"student\":\"Apendicitis aguda, envío 0\",\"reference\":\"Migraña sin signos de alarma\",\"synonyms\":[\"migraña\",\"cefalea migrañosa\"]},\"hypotheses\":[{\"name\":\"Colecistitis\",\"discarded\":true,\"reason\":\"Murphy negativo\"},{\"name\":\"Apendicitis\",\"discarded\":false,\"reason\":\"\"}],\"differentials\":[\"Meningitis\",\"Hemorragia subaracnoidea\",\"Cefalea tensional\"],\"score\":{\"score\":0.0,\"earned_weight\":0,\"total_weight\":14,\"completed_questions\":0,\"total_questions\":3},\"key_questions\":{\"obtained\":[],\"missing\":[{\"id\":\"kq1\",\"topic\":\"inicio y características del dolor\",\"weight\":5,\"critical\":true,\"error_type\":\"anamnesis_incompleta\",\"error_name\":\"Anamnesis incompleta\",\"why\":\"Forma parte de una historia clínica completa.\",\"helps_discard\":[\"Hemorragia subaracnoidea\",\"Cefalea tensional\"]},{\"id\":\"kq2\",\"topic\":\"signos de alarma neurológica\",\"weight\":5,\"critical\":true,\"error_type\":\"negligencia\",\"error_name\":\"Negligencia\",\"why\":\"Dato de seguridad: se pregunta antes de indicar un tratamiento.\",\"helps_discard\":[\"Meningitis\",\"Hemorragia subaracnoidea\"]},{\"id\":\"kq3\",\"topic\":\"alergias\",\"weight\":4,\"critical\":true,\"error_type\":\"negligencia\",\"error_name\":\"Negligencia\",\"why\":\"Dato de seguridad: se pregunta antes de indicar un tratamiento.\",\"helps_discard\":[]}]},\"tests\":{\"recommended_requested\":[],\"recommended_missing\":[],\"optional_requested\":[],\"unnecessary_requested\":[],\"other_indications\":[\"Evaluacion clinica\"]},\"treatment\":{\"proposed\":[],\"reference_summary\":\"Manejo sintomático y seguimiento clínico según la evaluación profesional.\",\"key_actions\":[\"Control sintomático\",\"Reevaluar signos de alarma\",\"Seguimiento clínico\"]},\"revealed_evidence\":[{\"evidence_id\":\"MED-900.motivo.cefalea\",\"label\":\"Motivo de consulta\",\"text\":\"Dolor de cabeza de 3 días de evolución\"},{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"text\":\"74 /min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"text\":\"36.8 Cel\"}],\"recommendations\":[\"Antes de indicar un tratamiento, verifica alergias, antecedentes y los estudios críticos del caso.\",\"Completa la anamnesis: inicio y evolución, antecedentes, medicación, alergias y hábitos.\"]}}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "envío simultáneo 5",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/6b0e6172-6331-4f7e-943c-b16e951a6a3c/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…xvDI",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"finished_at\":\"2026-10-31T06:03:03.159011+00:00\",\"started_at\":\"2026-10-31T06:03:02.701000+00:00\",\"case_id\":\"MED-900\",\"session_id\":\"6b0e6172-6331-4f7e-943c-b16e951a6a3c\",\"phase\":\"finalizada\",\"active_agent\":\"orchestrator\",\"updated_at\":\"2026-10-31T06:03:03.158988+00:00\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"],\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":{\"score\":0.0,\"earned_weight\":0,\"total_weight\":14,\"completed_questions\":0,\"total_questions\":3,\"errors\":{\"negligencia\":2,\"anamnesis_incompleta\":1,\"razonamiento_clinico\":0}},\"registro\":{\"guardado\":true,\"id\":\"diag-9\",\"numero_intento\":8},\"attempt\":{\"saved\":true,\"id\":\"intento-16\"},\"report\":{\"case_id\":\"MED-900\",\"finished_at\":\"2026-10-31T06:03:03.159011+00:00\",\"patient\":{\"alias\":\"Carlos Ramos\",\"age_years\":28,\"sex\":\"masculino\"},\"chief_complaint\":\"Dolor de cabeza de 3 días de evolución\",\"diagnosis\":{\"student\":\"Apendicitis aguda, envío 0\",\"reference\":\"Migraña sin signos de alarma\",\"synonyms\":[\"migraña\",\"cefalea migrañosa\"]},\"hypotheses\":[{\"name\":\"Colecistitis\",\"discarded\":true,\"reason\":\"Murphy negativo\"},{\"name\":\"Apendicitis\",\"discarded\":false,\"reason\":\"\"}],\"differentials\":[\"Meningitis\",\"Hemorragia subaracnoidea\",\"Cefalea tensional\"],\"score\":{\"score\":0.0,\"earned_weight\":0,\"total_weight\":14,\"completed_questions\":0,\"total_questions\":3},\"key_questions\":{\"obtained\":[],\"missing\":[{\"id\":\"kq1\",\"topic\":\"inicio y características del dolor\",\"weight\":5,\"critical\":true,\"error_type\":\"anamnesis_incompleta\",\"error_name\":\"Anamnesis incompleta\",\"why\":\"Forma parte de una historia clínica completa.\",\"helps_discard\":[\"Hemorragia subaracnoidea\",\"Cefalea tensional\"]},{\"id\":\"kq2\",\"topic\":\"signos de alarma neurológica\",\"weight\":5,\"critical\":true,\"error_type\":\"negligencia\",\"error_name\":\"Negligencia\",\"why\":\"Dato de seguridad: se pregunta antes de indicar un tratamiento.\",\"helps_discard\":[\"Meningitis\",\"Hemorragia subaracnoidea\"]},{\"id\":\"kq3\",\"topic\":\"alergias\",\"weight\":4,\"critical\":true,\"error_type\":\"negligencia\",\"error_name\":\"Negligencia\",\"why\":\"Dato de seguridad: se pregunta antes de indicar un tratamiento.\",\"helps_discard\":[]}]},\"tests\":{\"recommended_requested\":[],\"recommended_missing\":[],\"optional_requested\":[],\"unnecessary_requested\":[],\"other_indications\":[\"Evaluacion clinica\"]},\"treatment\":{\"proposed\":[],\"reference_summary\":\"Manejo sintomático y seguimiento clínico según la evaluación profesional.\",\"key_actions\":[\"Control sintomático\",\"Reevaluar signos de alarma\",\"Seguimiento clínico\"]},\"revealed_evidence\":[{\"evidence_id\":\"MED-900.motivo.cefalea\",\"label\":\"Motivo de consulta\",\"text\":\"Dolor de cabeza de 3 días de evolución\"},{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"text\":\"74 /min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"text\":\"36.8 Cel\"}],\"recommendations\":[\"Antes de indicar un tratamiento, verifica alergias, antecedentes y los estudios críticos del caso.\",\"Completa la anamnesis: inicio y evolución, antecedentes, medicación, alergias y hábitos.\"]}}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "envío simultáneo 6",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/6b0e6172-6331-4f7e-943c-b16e951a6a3c/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…xvDI",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"finished_at\":\"2026-10-31T06:03:03.069951+00:00\",\"started_at\":\"2026-10-31T06:03:02.701000+00:00\",\"case_id\":\"MED-900\",\"session_id\":\"6b0e6172-6331-4f7e-943c-b16e951a6a3c\",\"phase\":\"finalizada\",\"active_agent\":\"orchestrator\",\"updated_at\":\"2026-10-31T06:03:03.069933+00:00\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"],\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":{\"score\":0.0,\"earned_weight\":0,\"total_weight\":14,\"completed_questions\":0,\"total_questions\":3,\"errors\":{\"negligencia\":2,\"anamnesis_incompleta\":1,\"razonamiento_clinico\":0}},\"registro\":{\"guardado\":true,\"id\":\"diag-9\",\"numero_intento\":8},\"attempt\":{\"saved\":true,\"id\":\"intento-11\"},\"report\":{\"case_id\":\"MED-900\",\"finished_at\":\"2026-10-31T06:03:03.159011+00:00\",\"patient\":{\"alias\":\"Carlos Ramos\",\"age_years\":28,\"sex\":\"masculino\"},\"chief_complaint\":\"Dolor de cabeza de 3 días de evolución\",\"diagnosis\":{\"student\":\"Apendicitis aguda, envío 0\",\"reference\":\"Migraña sin signos de alarma\",\"synonyms\":[\"migraña\",\"cefalea migrañosa\"]},\"hypotheses\":[{\"name\":\"Colecistitis\",\"discarded\":true,\"reason\":\"Murphy negativo\"},{\"name\":\"Apendicitis\",\"discarded\":false,\"reason\":\"\"}],\"differentials\":[\"Meningitis\",\"Hemorragia subaracnoidea\",\"Cefalea tensional\"],\"score\":{\"score\":0.0,\"earned_weight\":0,\"total_weight\":14,\"completed_questions\":0,\"total_questions\":3},\"key_questions\":{\"obtained\":[],\"missing\":[{\"id\":\"kq1\",\"topic\":\"inicio y características del dolor\",\"weight\":5,\"critical\":true,\"error_type\":\"anamnesis_incompleta\",\"error_name\":\"Anamnesis incompleta\",\"why\":\"Forma parte de una historia clínica completa.\",\"helps_discard\":[\"Hemorragia subaracnoidea\",\"Cefalea tensional\"]},{\"id\":\"kq2\",\"topic\":\"signos de alarma neurológica\",\"weight\":5,\"critical\":true,\"error_type\":\"negligencia\",\"error_name\":\"Negligencia\",\"why\":\"Dato de seguridad: se pregunta antes de indicar un tratamiento.\",\"helps_discard\":[\"Meningitis\",\"Hemorragia subaracnoidea\"]},{\"id\":\"kq3\",\"topic\":\"alergias\",\"weight\":4,\"critical\":true,\"error_type\":\"negligencia\",\"error_name\":\"Negligencia\",\"why\":\"Dato de seguridad: se pregunta antes de indicar un tratamiento.\",\"helps_discard\":[]}]},\"tests\":{\"recommended_requested\":[],\"recommended_missing\":[],\"optional_requested\":[],\"unnecessary_requested\":[],\"other_indications\":[\"Evaluacion clinica\"]},\"treatment\":{\"proposed\":[],\"reference_summary\":\"Manejo sintomático y seguimiento clínico según la evaluación profesional.\",\"key_actions\":[\"Control sintomático\",\"Reevaluar signos de alarma\",\"Seguimiento clínico\"]},\"revealed_evidence\":[{\"evidence_id\":\"MED-900.motivo.cefalea\",\"label\":\"Motivo de consulta\",\"text\":\"Dolor de cabeza de 3 días de evolución\"},{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"text\":\"74 /min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"text\":\"36.8 Cel\"}],\"recommendations\":[\"Antes de indicar un tratamiento, verifica alergias, antecedentes y los estudios críticos del caso.\",\"Completa la anamnesis: inicio y evolución, antecedentes, medicación, alergias y hábitos.\"]}}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "envío simultáneo 7",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/6b0e6172-6331-4f7e-943c-b16e951a6a3c/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…xvDI",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"finished_at\":\"2026-10-31T06:03:03.020417+00:00\",\"started_at\":\"2026-10-31T06:03:02.701000+00:00\",\"case_id\":\"MED-900\",\"session_id\":\"6b0e6172-6331-4f7e-943c-b16e951a6a3c\",\"phase\":\"finalizada\",\"active_agent\":\"orchestrator\",\"updated_at\":\"2026-10-31T06:03:03.020396+00:00\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"],\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":{\"score\":0.0,\"earned_weight\":0,\"total_weight\":14,\"completed_questions\":0,\"total_questions\":3,\"errors\":{\"negligencia\":2,\"anamnesis_incompleta\":1,\"razonamiento_clinico\":0}},\"registro\":{\"guardado\":true,\"id\":\"diag-9\",\"numero_intento\":8},\"attempt\":{\"saved\":true,\"id\":\"intento-9\"},\"report\":{\"case_id\":\"MED-900\",\"finished_at\":\"2026-10-31T06:03:03.159011+00:00\",\"patient\":{\"alias\":\"Carlos Ramos\",\"age_years\":28,\"sex\":\"masculino\"},\"chief_complaint\":\"Dolor de cabeza de 3 días de evolución\",\"diagnosis\":{\"student\":\"Apendicitis aguda, envío 0\",\"reference\":\"Migraña sin signos de alarma\",\"synonyms\":[\"migraña\",\"cefalea migrañosa\"]},\"hypotheses\":[{\"name\":\"Colecistitis\",\"discarded\":true,\"reason\":\"Murphy negativo\"},{\"name\":\"Apendicitis\",\"discarded\":false,\"reason\":\"\"}],\"differentials\":[\"Meningitis\",\"Hemorragia subaracnoidea\",\"Cefalea tensional\"],\"score\":{\"score\":0.0,\"earned_weight\":0,\"total_weight\":14,\"completed_questions\":0,\"total_questions\":3},\"key_questions\":{\"obtained\":[],\"missing\":[{\"id\":\"kq1\",\"topic\":\"inicio y características del dolor\",\"weight\":5,\"critical\":true,\"error_type\":\"anamnesis_incompleta\",\"error_name\":\"Anamnesis incompleta\",\"why\":\"Forma parte de una historia clínica completa.\",\"helps_discard\":[\"Hemorragia subaracnoidea\",\"Cefalea tensional\"]},{\"id\":\"kq2\",\"topic\":\"signos de alarma neurológica\",\"weight\":5,\"critical\":true,\"error_type\":\"negligencia\",\"error_name\":\"Negligencia\",\"why\":\"Dato de seguridad: se pregunta antes de indicar un tratamiento.\",\"helps_discard\":[\"Meningitis\",\"Hemorragia subaracnoidea\"]},{\"id\":\"kq3\",\"topic\":\"alergias\",\"weight\":4,\"critical\":true,\"error_type\":\"negligencia\",\"error_name\":\"Negligencia\",\"why\":\"Dato de seguridad: se pregunta antes de indicar un tratamiento.\",\"helps_discard\":[]}]},\"tests\":{\"recommended_requested\":[],\"recommended_missing\":[],\"optional_requested\":[],\"unnecessary_requested\":[],\"other_indications\":[\"Evaluacion clinica\"]},\"treatment\":{\"proposed\":[],\"reference_summary\":\"Manejo sintomático y seguimiento clínico según la evaluación profesional.\",\"key_actions\":[\"Control sintomático\",\"Reevaluar signos de alarma\",\"Seguimiento clínico\"]},\"revealed_evidence\":[{\"evidence_id\":\"MED-900.motivo.cefalea\",\"label\":\"Motivo de consulta\",\"text\":\"Dolor de cabeza de 3 días de evolución\"},{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"text\":\"74 /min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"text\":\"36.8 Cel\"}],\"recommendations\":[\"Antes de indicar un tratamiento, verifica alergias, antecedentes y los estudios críticos del caso.\",\"Completa la anamnesis: inicio y evolución, antecedentes, medicación, alergias y hábitos.\"]}}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "un solo id de registro",
+      "resultado": "PASA",
+      "detalle": "{'diag-9'}"
+    },
+    {
+      "descripcion": "una fila",
+      "resultado": "PASA",
+      "detalle": "1"
+    },
+    {
+      "descripcion": "el reporte muestra el texto registrado",
+      "resultado": "PASA",
+      "detalle": "Apendicitis aguda, envío 0 / Apendicitis aguda, envío 0"
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

@@ -1,0 +1,104 @@
+{
+  "id": "HU006-18",
+  "nombre": "B_sobre_A_404",
+  "titulo": "B no puede cerrar ni registrar en la consulta de A",
+  "criterio": "CA7",
+  "resultado_esperado": "404; la consulta de A sigue abierta y sin registro",
+  "resultado": "FALLA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_antes",
+  "commit": "4d714a8",
+  "fecha": "2026-10-31 05:56:38 UTC",
+  "pasos": [
+    {
+      "descripcion": "cierre de la consulta de A",
+      "identidad": "Usuario B (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/d266cf60-ac58-46b9-ad27-ad9e0b0cf2aa/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…HMiw",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "A la cierra después",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/d266cf60-ac58-46b9-ad27-ad9e0b0cf2aa/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…_FRs",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"phase\":\"finalizada\",\"session_id\":\"d266cf60-ac58-46b9-ad27-ad9e0b0cf2aa\",\"finished_at\":\"2026-10-31T05:56:37.761649+00:00\",\"case_id\":\"MED-900\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"],\"started_at\":\"2026-10-31T05:56:37.634500+00:00\",\"updated_at\":\"2026-10-31T05:56:37.761630+00:00\",\"active_agent\":\"orchestrator\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":{\"score\":0.0,\"earned_weight\":0,\"total_weight\":14,\"completed_questions\":0,\"total_questions\":3,\"errors\":{\"negligencia\":2,\"anamnesis_incompleta\":1,\"razonamiento_clinico\":0}},\"attempt\":{\"saved\":true,\"id\":\"intento-25\"},\"report\":{\"case_id\":\"MED-900\",\"finished_at\":\"2026-10-31T05:56:37.761649+00:00\",\"patient\":{\"alias\":\"Carlos Ramos\",\"age_years\":28,\"sex\":\"masculino\"},\"chief_complaint\":\"Dolor de cabeza de 3 días de evolución\",\"diagnosis\":{\"student\":\"Apendicitis aguda.\\nJustificación: dolor migratorio a fosa ilíaca derecha.\",\"reference\":\"Migraña sin signos de alarma\",\"synonyms\":[\"migraña\",\"cefalea migrañosa\"]},\"hypotheses\":[{\"name\":\"Colecistitis\",\"discarded\":true,\"reason\":\"Murphy negativo\"},{\"name\":\"Apendicitis\",\"discarded\":false,\"reason\":\"\"}],\"differentials\":[\"Meningitis\",\"Hemorragia subaracnoidea\",\"Cefalea tensional\"],\"score\":{\"score\":0.0,\"earned_weight\":0,\"total_weight\":14,\"completed_questions\":0,\"total_questions\":3},\"key_questions\":{\"obtained\":[],\"missing\":[{\"id\":\"kq1\",\"topic\":\"inicio y características del dolor\",\"weight\":5,\"critical\":true,\"error_type\":\"anamnesis_incompleta\",\"error_name\":\"Anamnesis incompleta\",\"why\":\"Forma parte de una historia clínica completa.\",\"helps_discard\":[\"Hemorragia subaracnoidea\",\"Cefalea tensional\"]},{\"id\":\"kq2\",\"topic\":\"signos de alarma neurológica\",\"weight\":5,\"critical\":true,\"error_type\":\"negligencia\",\"error_name\":\"Negligencia\",\"why\":\"Dato de seguridad: se pregunta antes de indicar un tratamiento.\",\"helps_discard\":[\"Meningitis\",\"Hemorragia subaracnoidea\"]},{\"id\":\"kq3\",\"topic\":\"alergias\",\"weight\":4,\"critical\":true,\"error_type\":\"negligencia\",\"error_name\":\"Negligencia\",\"why\":\"Dato de seguridad: se pregunta antes de indicar un tratamiento.\",\"helps_discard\":[]}]},\"tests\":{\"recommended_requested\":[],\"recommended_missing\":[],\"optional_requested\":[],\"unnecessary_requested\":[],\"other_indications\":[\"Evaluacion clinica\"]},\"treatment\":{\"proposed\":[],\"reference_summary\":\"Manejo sintomático y seguimiento clínico según la evaluación profesional.\",\"key_actions\":[\"Control sintomático\",\"Reevaluar signos de alarma\",\"Seguimiento clínico\"]},\"revealed_evidence\":[{\"evidence_id\":\"MED-900.motivo.cefalea\",\"label\":\"Motivo de consulta\",\"text\":\"Dolor de cabeza de 3 días de evolución\"},{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"text\":\"74 /min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"text\":\"36.8 Cel\"}],\"recommendations\":[\"Antes de indicar un tratamiento, verifica alergias, antecedentes y los estudios críticos del caso.\",\"Completa la anamnesis: inicio y evolución, antecedentes, medicación, alergias y hábitos.\"]}}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "A la ve abierta",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin registro",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «Migraña sin signos de alarma»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «Manejo sintomático y seguimiento clínico»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «protected»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «evaluation»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «report»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «reference»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "el registro es de A",
+      "resultado": "FALLA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": "E   AssertionError: HU006-18: comprobación: el registro es de A"
+}

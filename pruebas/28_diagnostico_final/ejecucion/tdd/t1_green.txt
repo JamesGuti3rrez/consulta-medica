@@ -1,0 +1,48 @@
+﻿COMANDO: python -m pytest tests/unit/test_final_diagnosis.py -v
+COMMIT: 87a0d3c
+FECHA: 2026-10-31 05:45:34 UTC
+CODIGO_SALIDA: 0
+
+============================= test session starts =============================
+platform win32 -- Python 3.14.4, pytest-8.3.4, pluggy-1.6.0 -- C:\Users\Usuario\Documents\consulta-medica\backend\.venv\Scripts\python.exe
+rootdir: C:\Users\Usuario\Documents\consulta-medica\backend
+configfile: pyproject.toml
+plugins: anyio-4.15.1, langsmith-0.14.7
+collecting ... collected 34 items
+
+tests/unit/test_final_diagnosis.py::test_valid_text_is_normalized[Apendicitis aguda-Apendicitis aguda] PASSED [  2%]
+tests/unit/test_final_diagnosis.py::test_valid_text_is_normalized[  Apendicitis   aguda  -Apendicitis aguda] PASSED [  5%]
+tests/unit/test_final_diagnosis.py::test_valid_text_is_normalized[Neumon\xeda adquirida en la comunidad-Neumon\xeda adquirida en la comunidad] PASSED [  8%]
+tests/unit/test_final_diagnosis.py::test_valid_text_is_normalized[IAM-IAM] PASSED [ 11%]
+tests/unit/test_final_diagnosis.py::test_valid_text_is_normalized[Diabetes mellitus tipo 2-Diabetes mellitus tipo 2] PASSED [ 14%]
+tests/unit/test_final_diagnosis.py::test_valid_text_is_normalized[Apendicitis\taguda-Apendicitis aguda] PASSED [ 17%]
+tests/unit/test_final_diagnosis.py::test_valid_text_is_normalized[Apendicitis aguda.\r\nJustificaci\xf3n: dolor en fosa il\xedaca derecha.-Apendicitis aguda.\nJustificaci\xf3n: dolor en fosa il\xedaca derecha.] PASSED [ 20%]
+tests/unit/test_final_diagnosis.py::test_valid_text_is_normalized[Apendicitis aguda\n\n\n\nPor el dolor migratorio-Apendicitis aguda\n\nPor el dolor migratorio] PASSED [ 23%]
+tests/unit/test_final_diagnosis.py::test_valid_text_is_normalized[  l\xednea con espacios  \n  otra  -l\xednea con espacios\notra] PASSED [ 26%]
+tests/unit/test_final_diagnosis.py::test_valid_text_is_normalized[Neumoni\u0301a-Neumon\xeda] PASSED [ 29%]
+tests/unit/test_final_diagnosis.py::test_valid_text_is_normalized[Hb 9.8 g/dL, anemia ferrop\xe9nica (probable)-Hb 9.8 g/dL, anemia ferrop\xe9nica (probable)] PASSED [ 32%]
+tests/unit/test_final_diagnosis.py::test_text_at_the_maximum_length_is_accepted PASSED [ 35%]
+tests/unit/test_final_diagnosis.py::test_missing_diagnosis_is_rejected[None] PASSED [ 38%]
+tests/unit/test_final_diagnosis.py::test_missing_diagnosis_is_rejected[] PASSED [ 41%]
+tests/unit/test_final_diagnosis.py::test_missing_diagnosis_is_rejected[   ] PASSED [ 44%]
+tests/unit/test_final_diagnosis.py::test_missing_diagnosis_is_rejected[\n\t \n] PASSED [ 47%]
+tests/unit/test_final_diagnosis.py::test_fewer_than_three_letters_is_rejected[ab] PASSED [ 50%]
+tests/unit/test_final_diagnosis.py::test_fewer_than_three_letters_is_rejected[a b] PASSED [ 52%]
+tests/unit/test_final_diagnosis.py::test_fewer_than_three_letters_is_rejected[12345] PASSED [ 55%]
+tests/unit/test_final_diagnosis.py::test_fewer_than_three_letters_is_rejected[...] PASSED [ 58%]
+tests/unit/test_final_diagnosis.py::test_fewer_than_three_letters_is_rejected[1 2 3 4] PASSED [ 61%]
+tests/unit/test_final_diagnosis.py::test_fewer_than_three_letters_is_rejected[?!] PASSED [ 64%]
+tests/unit/test_final_diagnosis.py::test_fewer_than_three_letters_is_rejected[x1] PASSED [ 67%]
+tests/unit/test_final_diagnosis.py::test_text_over_the_maximum_is_rejected PASSED [ 70%]
+tests/unit/test_final_diagnosis.py::test_the_maximum_counts_after_normalizing PASSED [ 73%]
+tests/unit/test_final_diagnosis.py::test_control_characters_are_rejected[Apendicitis\x00aguda] PASSED [ 76%]
+tests/unit/test_final_diagnosis.py::test_control_characters_are_rejected[Apendicitis\x07] PASSED [ 79%]
+tests/unit/test_final_diagnosis.py::test_control_characters_are_rejected[Apendi\x1bcitis] PASSED [ 82%]
+tests/unit/test_final_diagnosis.py::test_control_characters_are_rejected[Apendicitis\x7f] PASSED [ 85%]
+tests/unit/test_final_diagnosis.py::test_control_characters_are_rejected[Apendicitis\u200b\x0c] PASSED [ 88%]
+tests/unit/test_final_diagnosis.py::test_markup_signs_are_rejected[<script>alert(1)</script> apendicitis] PASSED [ 91%]
+tests/unit/test_final_diagnosis.py::test_markup_signs_are_rejected[Apendicitis <b>aguda</b>] PASSED [ 94%]
+tests/unit/test_final_diagnosis.py::test_markup_signs_are_rejected[Dolor > 3 d\xedas] PASSED [ 97%]
+tests/unit/test_final_diagnosis.py::test_non_text_is_rejected_as_missing PASSED [100%]
+
+============================= 34 passed in 0.52s ==============================

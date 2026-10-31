@@ -55,7 +55,7 @@ def rep():
         assert so.status_code == 200, so.text
         mundo.extra["SO"] = so.json()["session_id"]
         finish = mundo.call("POST", f"/api/ai/sessions/{mundo.SA}/finish", mundo.A.headers(),
-                            {"diagnosis": DIAG_A, "hypotheses": HYP_A})
+                            {"diagnosis": DIAG_A, "hypotheses": HYP_A, "confirmado": True})
         assert finish.status_code == 200, finish.text
         mundo.extra["finish_SA"] = finish
         for anon, attr in ((mundo.anon1, "SN1"), (mundo.anon2, "SN2")):
@@ -64,7 +64,7 @@ def rep():
             setattr(mundo, attr, start.json()["session_id"])
             setattr(mundo, f"token_{attr}", start.json()["session_token"])
             closed = mundo.call("POST", f"/api/ai/sessions/{start.json()['session_id']}/finish",
-                                anon.headers(start.json()["session_token"]), {"diagnosis": f"Diagnóstico de {anon.nombre}"})
+                                anon.headers(start.json()["session_token"]), {"diagnosis": f"Diagnóstico de {anon.nombre}", "confirmado": True})
             assert closed.status_code == 200, closed.text
         case = _caso_json(CASO_SA)
         mundo.extra["case"] = case
@@ -178,9 +178,9 @@ def test_08_reporte_estable(rep, caso):
                    nombre="propuesta_y_referencia", esperado="Diagnóstico e hipótesis del primer cierre; referencia del caso")
 def test_09_propuesta(rep, caso):
     otra = rep.call("POST", f"/api/ai/sessions/{rep.SA}/finish", rep.A.headers(),
-                    {"diagnosis": "Cambio después del cierre", "hypotheses": []})
+                    {"diagnosis": "Cambio después del cierre", "hypotheses": [], "confirmado": True})
     caso.paso(rep.A.nombre, otra, {200}, "cerrar SA otra vez con otro diagnóstico",
-              {"diagnosis": "Cambio después del cierre", "hypotheses": []})
+              {"diagnosis": "Cambio después del cierre", "hypotheses": [], "confirmado": True})
     response = _report(rep)
     caso.paso(rep.A.nombre, response, {200}, "reporte de SA")
     data = response.json()

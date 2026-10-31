@@ -1,0 +1,20 @@
+﻿COMANDO: python -m pytest tests/unit/test_diagnoses_store.py -q
+COMMIT: f67ecec
+FECHA: 2026-10-31 05:46:55 UTC
+CODIGO_SALIDA: 2
+
+
+=================================== ERRORS ====================================
+_____________ ERROR collecting tests/unit/test_diagnoses_store.py _____________
+ImportError while importing test module 'C:\Users\Usuario\Documents\consulta-medica\backend\tests\unit\test_diagnoses_store.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Python314\Lib\importlib\__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\unit\test_diagnoses_store.py:9: in <module>
+    from server.persistence.diagnoses import (
+E   ModuleNotFoundError: No module named 'server.persistence.diagnoses'
+=========================== short test summary info ===========================
+ERROR tests/unit/test_diagnoses_store.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 2.14s

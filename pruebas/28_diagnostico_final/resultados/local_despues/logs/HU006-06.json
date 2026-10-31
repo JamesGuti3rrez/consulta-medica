@@ -1,0 +1,149 @@
+{
+  "id": "HU006-06",
+  "nombre": "sin_confirmacion_422",
+  "titulo": "Sin confirmación no se cierra",
+  "criterio": "CA3",
+  "resultado_esperado": "422 «Confirma el cierre...» sin confirmado o con false",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_despues",
+  "commit": "182b83a",
+  "fecha": "2026-10-31 06:02:58 UTC",
+  "pasos": [
+    {
+      "descripcion": "sin el campo confirmado",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/a7f10c9c-95e7-4c81-b6a3-444de39756f6/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…xvDI",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 422,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Confirma el cierre de la consulta para registrar tu diagnóstico.\"}",
+      "codigo_esperado": [
+        422
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "confirmado=false",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/a7f10c9c-95e7-4c81-b6a3-444de39756f6/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…xvDI",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 422,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Confirma el cierre de la consulta para registrar tu diagnóstico.\"}",
+      "codigo_esperado": [
+        422
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "mensaje exacto",
+      "resultado": "PASA",
+      "detalle": "{\"detail\":\"Confirma el cierre de la consulta para registrar tu diagnóstico.\"}"
+    },
+    {
+      "descripcion": "la consulta sigue abierta",
+      "resultado": "PASA",
+      "detalle": "presentacion"
+    },
+    {
+      "descripcion": "no se registró nada",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «Migraña sin signos de alarma»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «Manejo sintomático y seguimiento clínico»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «protected»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «evaluation»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «report»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «reference»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "mensaje exacto",
+      "resultado": "PASA",
+      "detalle": "{\"detail\":\"Confirma el cierre de la consulta para registrar tu diagnóstico.\"}"
+    },
+    {
+      "descripcion": "la consulta sigue abierta",
+      "resultado": "PASA",
+      "detalle": "presentacion"
+    },
+    {
+      "descripcion": "no se registró nada",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «Migraña sin signos de alarma»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «Manejo sintomático y seguimiento clínico»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «protected»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «evaluation»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «report»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «reference»",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}
