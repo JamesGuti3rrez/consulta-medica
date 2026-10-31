@@ -1,0 +1,44 @@
+{
+  "id": "HU006-17",
+  "nombre": "consulta_inexistente_404",
+  "titulo": "Consulta inexistente",
+  "criterio": "CA7",
+  "resultado_esperado": "404 y nada registrado",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_antes",
+  "commit": "4d714a8",
+  "fecha": "2026-10-31 05:56:37 UTC",
+  "pasos": [
+    {
+      "descripcion": "consulta que no existe",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/ecd661ae-74f1-4be2-bc9e-f70e08b4362f/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…_FRs",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "nada registrado",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

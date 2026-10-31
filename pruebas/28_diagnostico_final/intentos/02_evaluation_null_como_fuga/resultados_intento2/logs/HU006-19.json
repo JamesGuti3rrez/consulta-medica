@@ -1,0 +1,178 @@
+{
+  "id": "HU006-19",
+  "nombre": "sin_credencial_401",
+  "titulo": "Sin credencial o con credencial inválida",
+  "criterio": "CA7",
+  "resultado_esperado": "401 sin credencial, con token malformado y con capacidad malformada",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_antes",
+  "commit": "4d714a8",
+  "fecha": "2026-10-31 05:55:15 UTC",
+  "pasos": [
+    {
+      "descripcion": "sin credencial",
+      "identidad": "Anónimo",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/522ece53-e6a9-47e6-a8e7-2d35110f7d91/finish",
+      "cabeceras": {
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "token malformado",
+      "identidad": "Anónimo",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/522ece53-e6a9-47e6-a8e7-2d35110f7d91/finish",
+      "cabeceras": {
+        "authorization": "Bearer no-es-un-jwt",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "capacidad malformada",
+      "identidad": "Anónimo",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/522ece53-e6a9-47e6-a8e7-2d35110f7d91/finish",
+      "cabeceras": {
+        "x-session-token": "corta",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 401,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}",
+      "codigo_esperado": [
+        401
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "sin «Migraña sin signos de alarma»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «Manejo sintomático y seguimiento clínico»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin la clave «protected»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin la clave «evaluation»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin la clave «report»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin la clave «reference»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «Migraña sin signos de alarma»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «Manejo sintomático y seguimiento clínico»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin la clave «protected»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin la clave «evaluation»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin la clave «report»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin la clave «reference»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «Migraña sin signos de alarma»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «Manejo sintomático y seguimiento clínico»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin la clave «protected»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin la clave «evaluation»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin la clave «report»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin la clave «reference»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sigue abierta",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin registro",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

@@ -1,0 +1,42 @@
+{
+  "base_url": "http://localhost:3100",
+  "caso": "EME-101",
+  "fecha": "2026-10-31T06:07:16.013Z",
+  "comprobaciones": [
+    {
+      "descripcion": "vacío: mensaje de campo obligatorio",
+      "resultado": "FALLA",
+      "detalle": "Escribe o dicta un diagnóstico antes de guardar."
+    },
+    {
+      "descripcion": "vacío: no pide confirmación",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "vacío: no envía nada al servidor",
+      "resultado": "PASA",
+      "detalle": "0 peticiones"
+    },
+    {
+      "descripcion": "pocas letras: mensaje",
+      "resultado": "FALLA",
+      "detalle": "Escribe o dicta un diagnóstico antes de guardar."
+    },
+    {
+      "descripcion": "la prueba llegó hasta el final",
+      "resultado": "FALLA",
+      "detalle": "page.click: Timeout 10000ms exceeded."
+    }
+  ],
+  "finish": [
+    {
+      "momento": "2026-10-31T06:07:49.071Z",
+      "cuerpo": {
+        "diagnosis": "ab",
+        "hypotheses": []
+      }
+    }
+  ],
+  "errores_de_la_pagina": []
+}

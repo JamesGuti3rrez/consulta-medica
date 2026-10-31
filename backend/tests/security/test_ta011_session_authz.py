@@ -112,7 +112,7 @@ def ops(session_id: str) -> list[tuple[str, str, dict | None, str]]:
         ("GET", base, None, "leer sesión"),
         ("POST", f"{base}/message", {"message": MENSAJE}, "enviar mensaje"),
         ("GET", f"{base}/events", None, "listar eventos"),
-        ("POST", f"{base}/finish", {"diagnosis": "intento ajeno", "hypotheses": []}, "cerrar sesión"),
+        ("POST", f"{base}/finish", {"diagnosis": "intento ajeno", "hypotheses": [], "confirmado": True}, "cerrar sesión"),
     ]
 
 
@@ -163,7 +163,7 @@ def _mundo_local():
         A=usuario("Usuario A (registrado)"), B=usuario("Usuario B (registrado)"),
         anon1=Identidad("Anónimo 1"), anon2=Identidad("Anónimo 2"),
     )
-    mundo.extra.update(publishable=pub, supabase_url=url)
+    mundo.extra.update(publishable=pub, supabase_url=url, fake=fake, secret=sec)
 
     def limpiar():
         ai_module.STORE.clear()
@@ -236,6 +236,11 @@ def _mundo_vivo():
         intentos = admin.get(f"{url}/rest/v1/intentos", params={
             "usuario_id": f"in.({','.join(u['id'] for u in creados)})", "select": "id"})
         informe["intentos_que_quedan"] = len(intentos.json()) if intentos.is_success else f"HTTP {intentos.status_code}"
+        # HU-006: los diagnósticos registrados se borran en cascada con su sesión y con su alumno.
+        diagnosticos = admin.get(f"{url}/rest/v1/diagnosticos_finales", params={
+            "usuario_id": f"in.({','.join(u['id'] for u in creados)})", "select": "id"})
+        informe["diagnosticos_que_quedan"] = (len(diagnosticos.json()) if diagnosticos.is_success
+                                              else f"HTTP {diagnosticos.status_code}")
         informe["clave_secreta_usada_en"] = "solo preparación y limpieza (crear/borrar usuarios, borrar sesiones)"
         folder = os.getenv("TA011_EVIDENCIA")
         if folder:
@@ -399,7 +404,7 @@ def test_07_anonimo_recibe_credencial(mundo, caso):
 def test_08_anonimo_opera_su_sesion(mundo, caso):
     for method, path, body, descripcion in ops(mundo.SN1):
         if path.endswith("/finish"):
-            body = {"diagnosis": "Diagnóstico del invitado", "hypotheses": []}
+            body = {"diagnosis": "Diagnóstico del invitado", "hypotheses": [], "confirmado": True}
         response = mundo.call(method, path, mundo.anon1.headers(mundo.token_SN1), body)
         caso.paso(mundo.anon1.nombre + " + credencial de capacidad", response, {200}, f"{descripcion} de SN1", body)
     state = mundo.call("GET", f"/api/ai/sessions/{mundo.SN1}", mundo.anon1.headers(mundo.token_SN1))
@@ -420,7 +425,7 @@ def test_09_no_hay_rutas_adicionales(mundo, caso):
     expected = sorted([
         "GET /api/ai/sessions/{session_id}", "POST /api/ai/sessions/{session_id}/message",
         "GET /api/ai/sessions/{session_id}/events", "POST /api/ai/sessions/{session_id}/finish",
-        # HU-006: el reporte final, con la misma autorización.
+        # HU-007: el reporte final, con la misma autorización.
         "GET /api/ai/sessions/{session_id}/report",
     ])
     caso.comprobar("rutas con {session_id} = inventario", with_id == expected, f"encontradas: {with_id}")
@@ -748,7 +753,8 @@ def test_29_ids_raros(mundo, caso):
 @pytest.mark.ta011(id="TA011-06", criterio="CA1, CA4", titulo="A cierra SA", nombre="A_cierra_SA",
                    esperado="200, fase finalizada y evaluación")
 def test_06_a_cierra_sa(mundo, caso):
-    body = {"diagnosis": "Diagnóstico de A", "hypotheses": [{"name": "Hipótesis de A", "discarded": False}]}
+    body = {"diagnosis": "Diagnóstico de A", "hypotheses": [{"name": "Hipótesis de A", "discarded": False}],
+            "confirmado": True}
     response = mundo.call("POST", f"/api/ai/sessions/{mundo.SA}/finish", mundo.A.headers(), body)
     caso.paso(mundo.A.nombre, response, {200}, "cerrar SA", body)
     if response.status_code == 200:
@@ -787,8 +793,10 @@ def test_31_evento_cerrada(mundo, caso):
 @pytest.mark.ta011(id="TA011-32", criterio="CA1", titulo="Cerrar dos veces", nombre="cerrar_dos_veces",
                    esperado="200 idempotente: misma evaluación, nunca 500")
 def test_32_cerrar_dos_veces(mundo, caso):
-    response = mundo.call("POST", f"/api/ai/sessions/{mundo.SA}/finish", mundo.A.headers(), {})
-    caso.paso(mundo.A.nombre, response, {200}, "cerrar SA otra vez", {})
+    # Con el contrato de HU-006 el segundo cierre también lleva diagnóstico y confirmación.
+    body = {"diagnosis": "Diagnóstico de A", "confirmado": True}
+    response = mundo.call("POST", f"/api/ai/sessions/{mundo.SA}/finish", mundo.A.headers(), body)
+    caso.paso(mundo.A.nombre, response, {200}, "cerrar SA otra vez", body)
     if response.status_code == 200:
         caso.comprobar("misma evaluación", response.json().get("evaluation") == mundo.extra.get("evaluacion_SA"))
     caso.exigir()

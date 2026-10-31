@@ -1,0 +1,44 @@
+{
+  "id": "HU006-20",
+  "nombre": "invitado2_sobre_invitado1",
+  "titulo": "Un invitado no cierra la consulta de otro invitado",
+  "criterio": "CA7",
+  "resultado_esperado": "404 con su propia credencial; la otra sigue abierta",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_antes",
+  "commit": "4d714a8",
+  "fecha": "2026-10-31 05:56:39 UTC",
+  "pasos": [
+    {
+      "descripcion": "cierre de la consulta del invitado 1",
+      "identidad": "Anónimo 2 + su credencial",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/f0bb2204-3a20-4b73-85ef-64e1df8a56c4/finish",
+      "cabeceras": {
+        "x-session-token": "3zXXGX…BmaE",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 404,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Sesión no encontrada.\"}",
+      "codigo_esperado": [
+        404
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "sigue abierta",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

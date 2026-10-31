@@ -1,0 +1,139 @@
+{
+  "id": "HU006-04",
+  "nombre": "tipos_incorrectos_422",
+  "titulo": "Tipos incorrectos se rechazan",
+  "criterio": "CA2",
+  "resultado_esperado": "422 si diagnosis o confirmado no tienen el tipo esperado",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_despues",
+  "commit": "182b83a",
+  "fecha": "2026-10-31 06:02:57 UTC",
+  "pasos": [
+    {
+      "descripcion": "diagnosis numérico",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/13331fac-61ec-419e-a915-cae786417621/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…xvDI",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 422,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":[{\"type\":\"string_type\",\"loc\":[\"body\",\"diagnosis\"],\"msg\":\"Input should be a valid string\",\"input\":12345}]}",
+      "codigo_esperado": [
+        422
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "diagnosis lista",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/13331fac-61ec-419e-a915-cae786417621/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…xvDI",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 422,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":[{\"type\":\"string_type\",\"loc\":[\"body\",\"diagnosis\"],\"msg\":\"Input should be a valid string\",\"input\":[\"Apendicitis\"]}]}",
+      "codigo_esperado": [
+        422
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "confirmado texto",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/13331fac-61ec-419e-a915-cae786417621/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…xvDI",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 422,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":[{\"type\":\"bool_parsing\",\"loc\":[\"body\",\"confirmado\"],\"msg\":\"Input should be a valid boolean, unable to interpret input\",\"input\":\"quizás\"}]}",
+      "codigo_esperado": [
+        422
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "hipótesis texto",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/13331fac-61ec-419e-a915-cae786417621/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…xvDI",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 422,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":[{\"type\":\"list_type\",\"loc\":[\"body\",\"hypotheses\"],\"msg\":\"Input should be a valid list\",\"input\":\"no es lista\"}]}",
+      "codigo_esperado": [
+        422
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "la consulta sigue abierta",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "no se registró nada",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "la consulta sigue abierta",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "no se registró nada",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "la consulta sigue abierta",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "no se registró nada",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "la consulta sigue abierta",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "no se registró nada",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

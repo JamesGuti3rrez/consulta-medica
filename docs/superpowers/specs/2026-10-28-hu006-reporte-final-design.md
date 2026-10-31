@@ -1,5 +1,7 @@
 # HU-006: Completar reporte final (diseño)
 
+> **Renumeración (2026-10-31):** esta historia ahora es **HU-007: Completar reporte final**. Se entregó como HU-006; los ids de los casos de su evidencia (HU006-01 a HU006-17) equivalen a HU007-01 a HU007-17 de `backend/tests/security/test_hu007_report.py`. La HU-006 nueva es «Proponer y registrar diagnóstico final» (`pruebas/28_diagnostico_final/`).
+
 Fecha: 2026-10-28. Responsable: James Bryam Gutiérrez Rubio. Ficha del PBI: prioridad baja, 1 SP. Diseño aprobado
 por el usuario el 2026-10-28, con la indicación de que quede completo.
 

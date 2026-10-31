@@ -1,0 +1,23 @@
+﻿PASA  antes de cerrar: 409  (409 {"detail":"El reporte estará disponible al terminar la consulta."})
+PASA  el cierre trae el reporte  (claves: case_id, finished_at, patient, chief_complaint, diagnosis, hypotheses, differentials, score,)
+PASA  sección «Diagnóstico de referencia» con contenido  (Infarto agudo de miocardio con elevación del ST)
+PASA  sección «Preguntas clave obtenidas» con contenido  (Características del dolor: opresivo, irradiado al brazo izquierdo y la mandíbulaElectrocardiograma: )
+PASA  sección «Preguntas clave que faltaron» con contenido  (Inicio con el esfuerzo y molestias previas al caminarAnamnesis incompletaCríticoForma parte de una h)
+PASA  sección «Exámenes pedidos» con contenido  (Electrocardiograma de 12 derivacionesRecomendadoTroponina I ultrasensibleRecomendado)
+PASA  sección «Diagnósticos diferenciales» con contenido  (Tromboembolia pulmonar agudaDisección aórtica aguda tipo APericarditis aguda)
+PASA  sección «Tratamiento propuesto» con contenido  (Propusiste: Le indico aspirina 300 miligramos)
+PASA  sección «Tratamiento de referencia» con contenido  (Reperfusión urgente: angioplastia primaria, idealmente en menos de 90 minutos desde el diagnóstico, )
+PASA  sección «Acciones clave» con contenido  (Electrocardiograma en los primeros 10 minutos de la llegada.Activar la sala de hemodinamia para angi)
+PASA  sección «Datos obtenidos» con contenido  (Motivo de consulta: Dolor en el pecho que empezó hace unas 2 horas y no se le pasa.Signos vitales: P)
+PASA  diagnóstico de referencia igual al del reporte  (Infarto agudo de miocardio con elevación del ST)
+PASA  una fila por pregunta que faltó  (3 filas, 3 en el reporte)
+PASA  una fila por pregunta obtenida  (3 filas, 3 en el reporte)
+PASA  la hipótesis con HTML se ve como texto
+PASA  no se creó ningún elemento <b> desde los datos  (elementos <b>: 0)
+PASA  sin errores de JavaScript en la página
+PASA  ningún dato revelado repite su etiqueta
+PASA  otro navegador sin credencial: 401  ({"detail":"Inicia sesión o vuelve a empezar la consulta para continuar."})
+PASA  otro navegador con credencial ajena: 404  ({"detail":"Sesión no encontrada."})
+PASA  ninguna respuesta del otro navegador trae el reporte
+
+21 de 21 comprobaciones pasan · sesión b2635736-c61c-476b-8d48-d66660346c02

@@ -1,4 +1,4 @@
-"""HU-006: GET /api/ai/sessions/{id}/report, solo para el dueño y solo después del cierre."""
+"""HU-007: GET /api/ai/sessions/{id}/report, solo para el dueño y solo después del cierre."""
 from dataclasses import replace
 from pathlib import Path
 
@@ -35,7 +35,8 @@ def _guest():
 
 
 def _finish(sid, headers, diagnosis="Migraña", hypotheses=None):
-    body = {"diagnosis": diagnosis, "hypotheses": hypotheses or [{"name": "Migraña", "discarded": False, "reason": ""}]}
+    body = {"diagnosis": diagnosis, "hypotheses": hypotheses or [{"name": "Migraña", "discarded": False, "reason": ""}],
+            "confirmado": True}
     response = client.post(f"/api/ai/sessions/{sid}/finish", json=body, headers=headers)
     assert response.status_code == 200, response.text
     return response.json()

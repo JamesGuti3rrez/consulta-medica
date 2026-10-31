@@ -1,4 +1,4 @@
-"""Hooks de las pruebas de seguridad: guardan la evidencia de cada caso de TA-011 y HU-006 con su resultado real."""
+"""Hooks de las pruebas de seguridad: guardan la evidencia de cada caso de TA-011, HU-006 y HU-007 con su resultado real."""
 
 import os
 
@@ -7,7 +7,7 @@ import pytest
 from tests.security.ta011_evidencia import SECRETS, Caso
 
 # Marcador de cada suite y la variable con su carpeta de evidencia.
-SUITES = {"ta011": "TA011_EVIDENCIA", "hu006": "HU006_EVIDENCIA"}
+SUITES = {"ta011": "TA011_EVIDENCIA", "hu006": "HU006_EVIDENCIA", "hu007": "HU007_EVIDENCIA"}
 
 
 def _marcador(node):
@@ -20,7 +20,8 @@ def _marcador(node):
 
 def pytest_configure(config):
     config.addinivalue_line("markers", "ta011(id, criterio, titulo, nombre, esperado): caso de TA-011")
-    config.addinivalue_line("markers", "hu006(id, criterio, titulo, nombre, esperado): caso de HU-006")
+    config.addinivalue_line("markers", "hu006(id, criterio, titulo, nombre, esperado): caso de HU-006 (diagnóstico final)")
+    config.addinivalue_line("markers", "hu007(id, criterio, titulo, nombre, esperado): caso de HU-007 (reporte final)")
     config.addinivalue_line("markers", "vivo: necesita servidor y Supabase reales (TA011_MODO=vivo)")
     config.addinivalue_line("markers", "logs_servidor: lee el log del servidor (en vivo, TA011_SERVER_LOG)")
 

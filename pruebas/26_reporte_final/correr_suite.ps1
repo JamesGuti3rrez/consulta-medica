@@ -1,4 +1,4 @@
-# Ejecuta la suite de HU-006 (reporte final) y guarda la salida completa con fecha, comando y código de salida.
+# Ejecuta la suite de HU-007 (reporte final; se entregó como HU-006) y guarda la salida completa con fecha, comando y código de salida.
 #
 # Uso, desde la raíz del repositorio (o dentro de captura_terminal.ps1 para la foto real):
 #   .\pruebas\26_reporte_final\correr_suite.ps1 -Fase local_antes
@@ -20,8 +20,8 @@ $salida = Join-Path $carpeta "ejecucion\$($Fase)_pytest.txt"
 if (Test-Path "$evidencia\logs") { Remove-Item -Recurse -Force "$evidencia\logs" }
 New-Item -ItemType Directory -Force $evidencia, (Split-Path $salida) | Out-Null
 
-# La preparación es la de TA-011 (TA011_MODO, TA011_BASE_URL...); la evidencia va a HU006_EVIDENCIA.
-$env:HU006_EVIDENCIA = $evidencia
+# La preparación es la de TA-011 (TA011_MODO, TA011_BASE_URL...); la evidencia va a HU007_EVIDENCIA.
+$env:HU007_EVIDENCIA = $evidencia
 # La limpieza del modo vivo (de la preparación de TA-011) deja limpieza.json en la misma carpeta.
 $env:TA011_EVIDENCIA = $evidencia
 $env:TA011_MODO = $Modo
@@ -40,11 +40,11 @@ if ($Modo -eq "local") {
 }
 
 $marcas = if ($Filtro) { $Filtro } elseif ($Modo -eq "local") { "not vivo" } else { "" }
-$argumentos = @("-m", "pytest", "tests/security/test_hu006_report.py", "-v", "--tb=no", "-rN", "-p", "no:cacheprovider")
+$argumentos = @("-m", "pytest", "tests/security/test_hu007_report.py", "-v", "--tb=no", "-rN", "-p", "no:cacheprovider")
 if ($marcas) { $argumentos += @("-m", $marcas) }
 $comando = ".venv\Scripts\python.exe " + ($argumentos -join " ")
 
-Write-Host "HU-006 | fase: $Fase | modo: $Modo | servidor: $(if ($BaseUrl) { $BaseUrl } else { 'TestClient en proceso' })"
+Write-Host "HU-007 | fase: $Fase | modo: $Modo | servidor: $(if ($BaseUrl) { $BaseUrl } else { 'TestClient en proceso' })"
 Write-Host "commit: $(git -C $raiz rev-parse --short HEAD) | evidencia: $evidencia"
 Write-Host $comando
 Push-Location (Join-Path $raiz "backend")

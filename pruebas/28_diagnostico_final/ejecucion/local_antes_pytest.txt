@@ -1,0 +1,43 @@
+﻿FASE: local_antes
+MODO: local
+SERVIDOR: TestClient en proceso
+DIRECTORIO: C:\Users\Usuario\Documents\consulta-medica\backend
+COMANDO: .venv\Scripts\python.exe -m pytest tests/security/test_hu006_final_diagnosis.py -v --tb=no -rN -p no:cacheprovider -m not vivo
+COMMIT: 4d714a8
+FECHA: 2026-10-31 05:56:12 UTC
+CODIGO_SALIDA: 1
+
+============================= test session starts =============================
+platform win32 -- Python 3.14.4, pytest-8.3.4, pluggy-1.6.0 -- C:\Users\Usuario\Documents\consulta-medica\backend\.venv\Scripts\python.exe
+rootdir: C:\Users\Usuario\Documents\consulta-medica\backend
+configfile: pyproject.toml
+plugins: anyio-4.15.1, langsmith-0.14.7
+collecting ... collected 25 items
+
+tests/security/test_hu006_final_diagnosis.py::test_01_sin_diagnostico FAILED [  4%]
+tests/security/test_hu006_final_diagnosis.py::test_02_diagnostico_vacio FAILED [  8%]
+tests/security/test_hu006_final_diagnosis.py::test_03_textos_invalidos FAILED [ 12%]
+tests/security/test_hu006_final_diagnosis.py::test_04_tipos_incorrectos FAILED [ 16%]
+tests/security/test_hu006_final_diagnosis.py::test_05_texto_normalizado FAILED [ 20%]
+tests/security/test_hu006_final_diagnosis.py::test_06_sin_confirmacion FAILED [ 24%]
+tests/security/test_hu006_final_diagnosis.py::test_07_rechazo_y_sigue FAILED [ 28%]
+tests/security/test_hu006_final_diagnosis.py::test_08_registro FAILED    [ 32%]
+tests/security/test_hu006_final_diagnosis.py::test_09_numeracion FAILED  [ 36%]
+tests/security/test_hu006_final_diagnosis.py::test_10_invitado FAILED    [ 40%]
+tests/security/test_hu006_final_diagnosis.py::test_11_invitado_validado FAILED [ 44%]
+tests/security/test_hu006_final_diagnosis.py::test_12_segundo_envio FAILED [ 48%]
+tests/security/test_hu006_final_diagnosis.py::test_13_simultaneos FAILED [ 52%]
+tests/security/test_hu006_final_diagnosis.py::test_14_invalido_tras_cierre FAILED [ 56%]
+tests/security/test_hu006_final_diagnosis.py::test_15_registro_falla FAILED [ 60%]
+tests/security/test_hu006_final_diagnosis.py::test_16_cierre_falla_tras_registro FAILED [ 64%]
+tests/security/test_hu006_final_diagnosis.py::test_17_inexistente PASSED [ 68%]
+tests/security/test_hu006_final_diagnosis.py::test_18_b_sobre_a FAILED   [ 72%]
+tests/security/test_hu006_final_diagnosis.py::test_19_sin_credencial PASSED [ 76%]
+tests/security/test_hu006_final_diagnosis.py::test_20_invitado_sobre_invitado PASSED [ 80%]
+tests/security/test_hu006_final_diagnosis.py::test_21_cruzados PASSED    [ 84%]
+tests/security/test_hu006_final_diagnosis.py::test_22_usuario_en_cuerpo FAILED [ 88%]
+tests/security/test_hu006_final_diagnosis.py::test_23_fila_sin_protected FAILED [ 92%]
+tests/security/test_hu006_final_diagnosis.py::test_24_antes_del_cierre PASSED [ 96%]
+tests/security/test_hu006_final_diagnosis.py::test_25_respuesta FAILED   [100%]
+
+======================== 20 failed, 5 passed in 25.20s ========================

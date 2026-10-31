@@ -1,0 +1,149 @@
+{
+  "id": "HU006-11",
+  "nombre": "invitado_validado",
+  "titulo": "El invitado también debe escribir y confirmar",
+  "criterio": "CA1, CA2, CA3",
+  "resultado_esperado": "422 sin diagnóstico y sin confirmación",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_despues",
+  "commit": "182b83a",
+  "fecha": "2026-10-31 06:03:02 UTC",
+  "pasos": [
+    {
+      "descripcion": "Escribe tu diagnóstico final antes de cerrar la consulta.",
+      "identidad": "Anónimo 2 + credencial",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/0faef03f-1902-4720-a06b-20f7afef7497/finish",
+      "cabeceras": {
+        "x-session-token": "6I7i1E…QH0U",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 422,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Escribe tu diagnóstico final antes de cerrar la consulta.\"}",
+      "codigo_esperado": [
+        422
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "Confirma el cierre de la consulta para registrar tu diagnóstico.",
+      "identidad": "Anónimo 2 + credencial",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/0faef03f-1902-4720-a06b-20f7afef7497/finish",
+      "cabeceras": {
+        "x-session-token": "6I7i1E…QH0U",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 422,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Confirma el cierre de la consulta para registrar tu diagnóstico.\"}",
+      "codigo_esperado": [
+        422
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "mensaje exacto",
+      "resultado": "PASA",
+      "detalle": "{\"detail\":\"Escribe tu diagnóstico final antes de cerrar la consulta.\"}"
+    },
+    {
+      "descripcion": "la consulta sigue abierta",
+      "resultado": "PASA",
+      "detalle": "presentacion"
+    },
+    {
+      "descripcion": "no se registró nada",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «Migraña sin signos de alarma»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «Manejo sintomático y seguimiento clínico»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «protected»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «evaluation»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «report»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «reference»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "mensaje exacto",
+      "resultado": "PASA",
+      "detalle": "{\"detail\":\"Confirma el cierre de la consulta para registrar tu diagnóstico.\"}"
+    },
+    {
+      "descripcion": "la consulta sigue abierta",
+      "resultado": "PASA",
+      "detalle": "presentacion"
+    },
+    {
+      "descripcion": "no se registró nada",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «Migraña sin signos de alarma»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «Manejo sintomático y seguimiento clínico»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «protected»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «evaluation»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «report»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «reference»",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

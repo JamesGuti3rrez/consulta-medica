@@ -1,0 +1,37 @@
+﻿PASA  vacío: mensaje de campo obligatorio  (Escribe tu diagnóstico final antes de cerrar la consulta.)
+PASA  vacío: no pide confirmación
+PASA  vacío: no envía nada al servidor  (0 peticiones)
+PASA  pocas letras: mensaje  (El diagnóstico debe tener al menos 3 letras.)
+PASA  con < >: mensaje  (El diagnóstico no puede contener los signos < ni >.)
+PASA  textos inválidos: ninguna petición  (0 peticiones)
+PASA  válido: aparece la confirmación
+PASA  la confirmación muestra el diagnóstico  (Síndrome coronario agudo.
+Justificación: dolor opresivo irradiado al brazo izquierdo.)
+PASA  mostrar la confirmación no envía nada  (0 peticiones)
+PASA  «Seguir en la consulta» oculta la confirmación
+PASA  tras cancelar, el diagnóstico escrito se conserva
+PASA  tras cancelar, se puede seguir preguntando  (HTTP 200)
+PASA  503: muestra que no se registró  (No se pudo registrar tu diagnóstico. La consulta sigue abierta: inténtalo de nuevo.)
+PASA  503: no muestra la hoja de evaluación
+PASA  503: el micrófono sigue habilitado
+PASA  503: «Guardar» vuelve a estar habilitado
+PASA  422: muestra el motivo del servidor  (El diagnóstico debe tener al menos 3 letras.)
+PASA  422: no muestra la hoja de evaluación
+PASA  doble clic: una sola petición de cierre  (1 peticiones)
+PASA  cierre real: 200  (200)
+PASA  se envía confirmado=true  ({"diagnosis":"Síndrome coronario agudo.\nJustificación: dolor opresivo irradiado al brazo )
+PASA  invitado: registro no guardado  ({"guardado":false,"motivo":"invitado"})
+PASA  invitado: la hoja explica que no se registró  (Como invitado, tu diagnóstico no se registra: inicia sesión para registrar tus intentos.)
+PASA  la hoja muestra el diagnóstico propuesto  (Síndrome coronario agudo.
+Justificación: dolor opresivo irradiado al brazo izquierdo.)
+PASA  alumno temporal creado  (200)
+PASA  alumno: inicia sesión  (ok)
+PASA  alumno, consulta 1: registro guardado  ({"guardado":true,"id":"14961fd0-3e29-4bb3-93f1-8f26cbccd017","numero_intento":1})
+PASA  alumno, consulta 1: la hoja dice «intento 1»  (Diagnóstico registrado: intento 1 de este caso.)
+PASA  alumno, consulta 2: registro guardado  ({"guardado":true,"id":"19212165-0fef-431a-9e6d-bff878033a39","numero_intento":2})
+PASA  alumno, consulta 2: la hoja dice «intento 2»  (Diagnóstico registrado: intento 2 de este caso.)
+PASA  alumno: intentos 1 y 2 del mismo caso  ([1,2])
+PASA  alumno temporal borrado  (200)
+PASA  sin errores de JavaScript en la página
+
+33 de 33 comprobaciones pasan

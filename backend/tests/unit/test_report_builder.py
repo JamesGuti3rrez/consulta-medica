@@ -1,4 +1,4 @@
-"""HU-006: el reporte final se arma solo con datos del caso y de la propia sesión."""
+"""HU-007: el reporte final se arma solo con datos del caso y de la propia sesión."""
 import copy
 import json
 from pathlib import Path

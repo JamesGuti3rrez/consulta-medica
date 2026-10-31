@@ -1,0 +1,17 @@
+{
+  "id": "HU006-25",
+  "nombre": "respuesta_del_registro",
+  "titulo": "El cierre responde solo lo necesario del registro",
+  "criterio": "CA4, CA5",
+  "resultado_esperado": "registro con guardado, id y numero_intento; nada del usuario",
+  "resultado": "FALLA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_antes",
+  "commit": "4d714a8",
+  "fecha": "2026-10-31 05:54:10 UTC",
+  "pasos": [],
+  "comprobaciones": [],
+  "notas": [],
+  "error": "Falló la preparación: E   AttributeError: <module 'server.api.ai' from 'C:\\\\Users\\\\Usuario\\\\Documents\\\\consulta-medica\\\\backend\\\\server\\\\api\\\\ai.py'> has no attribute 'get_diagnoses'"
+}

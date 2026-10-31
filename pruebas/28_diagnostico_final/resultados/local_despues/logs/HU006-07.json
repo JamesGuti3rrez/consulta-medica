@@ -1,0 +1,84 @@
+{
+  "id": "HU006-07",
+  "nombre": "rechazo_y_sigue",
+  "titulo": "Tras un rechazo, la consulta sigue usable",
+  "criterio": "CA3",
+  "resultado_esperado": "422 y después la consulta responde mensajes y se cierra con 200",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_despues",
+  "commit": "182b83a",
+  "fecha": "2026-10-31 06:02:59 UTC",
+  "pasos": [
+    {
+      "descripcion": "cierre sin confirmar",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/192d6ca6-d178-4e51-96f2-a39606ab25bd/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…xvDI",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 422,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"detail\":\"Confirma el cierre de la consulta para registrar tu diagnóstico.\"}",
+      "codigo_esperado": [
+        422
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "sigue preguntando",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/192d6ca6-d178-4e51-96f2-a39606ab25bd/message",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…xvDI",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"session\":{\"finished_at\":null,\"started_at\":\"2026-10-31T06:02:58.484672+00:00\",\"case_id\":\"MED-900\",\"session_id\":\"192d6ca6-d178-4e51-96f2-a39606ab25bd\",\"phase\":\"anamnesis\",\"active_agent\":\"paciente\",\"updated_at\":\"2026-10-31T06:02:58.696706+00:00\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\",\"MED-900.sintoma.fotofobia\",\"MED-900.sintoma.nauseas\",\"MED-900.anamnesis.signos_alarma\"],\"avatar_state\":{\"gesture\":\"attentive\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null},\"intent\":\"ask_patient\",\"agent\":\"paciente\",\"response\":\"La luz le molesta bastante. Presenta náuseas leves y niega vómitos. Niega debilidad, dificultad para hablar, desmayo y rigidez de nuca.\",\"synthetic_generated_ids\":[],\"synthetic_reused_ids\":[],\"data_source\":\"curado\",\"doctor_question\":\"¿Tiene fiebre?\",\"provider\":\"local-development\",\"model\":\"rules-only\",\"evidence_ids\":[\"MED-900.sintoma.fotofobia\",\"MED-900.sintoma.nauseas\",\"MED-900.anamnesis.signos_alarma\"],\"blocked\":false,\"safety_alerts\":[]}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    },
+    {
+      "descripcion": "cierre confirmado",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "POST",
+      "url": "http://testserver/api/ai/sessions/192d6ca6-d178-4e51-96f2-a39606ab25bd/finish",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…xvDI",
+        "content-type": "application/json"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"finished_at\":\"2026-10-31T06:02:58.765635+00:00\",\"started_at\":\"2026-10-31T06:02:58.484672+00:00\",\"case_id\":\"MED-900\",\"session_id\":\"192d6ca6-d178-4e51-96f2-a39606ab25bd\",\"phase\":\"finalizada\",\"active_agent\":\"orchestrator\",\"updated_at\":\"2026-10-31T06:02:58.765617+00:00\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\",\"MED-900.sintoma.fotofobia\",\"MED-900.sintoma.nauseas\",\"MED-900.anamnesis.signos_alarma\"],\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":{\"score\":35.71,\"earned_weight\":5,\"total_weight\":14,\"completed_questions\":1,\"total_questions\":3,\"errors\":{\"negligencia\":1,\"anamnesis_incompleta\":1,\"razonamiento_clinico\":0}},\"registro\":{\"guardado\":true,\"id\":\"diag-2\",\"numero_intento\":2},\"attempt\":{\"saved\":true,\"id\":\"intento-2\"},\"report\":{\"case_id\":\"MED-900\",\"finished_at\":\"2026-10-31T06:02:58.765635+00:00\",\"patient\":{\"alias\":\"Carlos Ramos\",\"age_years\":28,\"sex\":\"masculino\"},\"chief_complaint\":\"Dolor de cabeza de 3 días de evolución\",\"diagnosis\":{\"student\":\"Apendicitis aguda.\\nJustificación: dolor migratorio a fosa ilíaca derecha.\",\"reference\":\"Migraña sin signos de alarma\",\"synonyms\":[\"migraña\",\"cefalea migrañosa\"]},\"hypotheses\":[{\"name\":\"Colecistitis\",\"discarded\":true,\"reason\":\"Murphy negativo\"},{\"name\":\"Apendicitis\",\"discarded\":false,\"reason\":\"\"}],\"differentials\":[\"Meningitis\",\"Hemorragia subaracnoidea\",\"Cefalea tensional\"],\"score\":{\"score\":35.71,\"earned_weight\":5,\"total_weight\":14,\"completed_questions\":1,\"total_questions\":3},\"key_questions\":{\"obtained\":[{\"id\":\"kq2\",\"topic\":\"signos de alarma neurológica\",\"weight\":5,\"critical\":true,\"error_type\":\"negligencia\",\"error_name\":\"Negligencia\",\"why\":\"Dato de seguridad: se pregunta antes de indicar un tratamiento.\",\"helps_discard\":[\"Meningitis\",\"Hemorragia subaracnoidea\"]}],\"missing\":[{\"id\":\"kq1\",\"topic\":\"inicio y características del dolor\",\"weight\":5,\"critical\":true,\"error_type\":\"anamnesis_incompleta\",\"error_name\":\"Anamnesis incompleta\",\"why\":\"Forma parte de una historia clínica completa.\",\"helps_discard\":[\"Hemorragia subaracnoidea\",\"Cefalea tensional\"]},{\"id\":\"kq3\",\"topic\":\"alergias\",\"weight\":4,\"critical\":true,\"error_type\":\"negligencia\",\"error_name\":\"Negligencia\",\"why\":\"Dato de seguridad: se pregunta antes de indicar un tratamiento.\",\"helps_discard\":[]}]},\"tests\":{\"recommended_requested\":[],\"recommended_missing\":[],\"optional_requested\":[],\"unnecessary_requested\":[],\"other_indications\":[\"Evaluacion clinica\"]},\"treatment\":{\"proposed\":[],\"reference_summary\":\"Manejo sintomático y seguimiento clínico según la evaluación profesional.\",\"key_actions\":[\"Control sintomático\",\"Reevaluar signos de alarma\",\"Seguimiento clínico\"]},\"revealed_evidence\":[{\"evidence_id\":\"MED-900.motivo.cefalea\",\"label\":\"Motivo de consulta\",\"text\":\"Dolor de cabeza de 3 días de evolución\"},{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"text\":\"74 /min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"text\":\"36.8 Cel\"},{\"evidence_id\":\"MED-900.sintoma.fotofobia\",\"label\":\"Fotofobia\",\"text\":\"La luz le molesta bastante.\"},{\"evidence_id\":\"MED-900.sintoma.nauseas\",\"label\":\"Náuseas\",\"text\":\"Presenta náuseas leves y niega vómitos.\"},{\"evidence_id\":\"MED-900.anamnesis.signos_alarma\",\"label\":\"Signos de alarma neurológica\",\"text\":\"Niega debilidad, dificultad para hablar, desmayo y rigidez de nuca.\"}],\"recommendations\":[\"Antes de indicar un tratamiento, verifica alergias, antecedentes y los estudios críticos del caso.\",\"Completa la anamnesis: inicio y evolución, anteced… (42 caracteres más)",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "finalizada",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}

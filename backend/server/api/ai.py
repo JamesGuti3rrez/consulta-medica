@@ -22,6 +22,7 @@ from server.cases import CaseNotAvailable, CaseNotFound
 from server.cases.catalog import CURATED_CASES_DIR
 from server.cases.source import build_case_repository
 from server.config import settings
+from server.domain.final_diagnosis import InvalidDiagnosis, normalize_final_diagnosis
 from server.engine.disclosure.context import ContextAssembler
 from server.engine.disclosure.policy import DisclosurePolicy
 from server.engine.evaluation import ClinicalEvaluationEngine
@@ -39,7 +40,9 @@ from server.orchestration import (
     StarGraphOrchestrator,
     SupabaseSessionStore,
 )
-from server.persistence import AttemptStoreError, SupabaseAttempts, build_attempt
+from server.persistence import (
+    AttemptStoreError, DiagnosisStoreError, InMemoryDiagnoses, SupabaseAttempts, SupabaseDiagnoses, build_attempt,
+)
 from server.persistence.synthetic_facts import SupabaseSyntheticFacts
 from server.orchestration.patient_completion import PatientHistoryCompletion
 from server.rag.embedded import EmbeddedRAGRetriever
@@ -71,6 +74,8 @@ def _store_unavailable(exc: SessionStoreError) -> HTTPException:
 LLM_UNAVAILABLE_DETAIL = "El simulador no puede responder en este momento. Inténtalo de nuevo en unos minutos."
 SESSION_NOT_FOUND = "Sesión no encontrada."
 REPORT_NOT_READY = "El reporte estará disponible al terminar la consulta."
+CLOSE_NOT_CONFIRMED = "Confirma el cierre de la consulta para registrar tu diagnóstico."
+DIAGNOSIS_NOT_REGISTERED = "No se pudo registrar tu diagnóstico. La consulta sigue abierta: inténtalo de nuevo."
 UNAUTHORIZED_DETAIL = "Inicia sesión o vuelve a empezar la consulta para continuar."
 # Credencial de capacidad de las consultas de invitado: secrets.token_urlsafe(32), 256 bits en base64url.
 SESSION_TOKEN_FORMAT = re.compile(r"[A-Za-z0-9_-]{43}")
@@ -91,10 +96,27 @@ class HypothesisItem(BaseModel):
 
 
 class FinishRequest(BaseModel):
-    """Lo que registró el estudiante. No se califica: se guarda junto al puntaje del motor clínico."""
+    """Diagnóstico final del estudiante (HU-006). No se califica: se registra junto al puntaje del motor clínico.
 
-    diagnosis: str | None = Field(default=None, max_length=2000)
+    El texto se valida en la ruta (normalize_final_diagnosis) para responder con un motivo claro; el límite de
+    Field solo frena cuerpos desmedidos. confirmado debe ser true: es la confirmación de cierre del alumno.
+    """
+
+    diagnosis: str | None = Field(default=None, max_length=10000)
     hypotheses: list[HypothesisItem] = Field(default_factory=list, max_length=50)
+    confirmado: bool = False
+
+
+# Registro de diagnósticos con SESSION_STORE=memoria (vive lo mismo que STORE).
+DIAGNOSES = InMemoryDiagnoses()
+
+
+@lru_cache
+def get_diagnoses() -> InMemoryDiagnoses | SupabaseDiagnoses:
+    """Registro del diagnóstico final: en Supabase si las sesiones están en Supabase, si no en memoria."""
+    if settings.session_store == "supabase":
+        return SupabaseDiagnoses(settings.supabase_url, settings.supabase_secret_key)
+    return DIAGNOSES
 
 
 @lru_cache
@@ -303,23 +325,62 @@ def events(session_id: str):
 
 @router.post("/sessions/{session_id}/finish", dependencies=[Depends(authorize_session)])
 def finish(session_id: str, payload: FinishRequest | None = None, authorization: str | None = Header(default=None)):
+    """Propone y registra el diagnóstico final y cierra la consulta (HU-006).
+
+    Orden pensado para que un fallo no deje un cierre a medias: validar el texto y la confirmación; si la consulta
+    ya estaba cerrada, devolver lo mismo que la primera vez; registrar el diagnóstico (alumno con sesión); cerrar.
+    Si el registro falla, 503 y la consulta sigue abierta. Si otro envío de la misma consulta registró antes, vale
+    el suyo: un segundo envío nunca cambia el diagnóstico registrado.
+    """
+    payload = payload or FinishRequest()
+    try:
+        diagnosis = normalize_final_diagnosis(payload.diagnosis)
+    except InvalidDiagnosis as exc:
+        raise HTTPException(status_code=422, detail=exc.message) from exc
+    if not payload.confirmado:
+        raise HTTPException(status_code=422, detail=CLOSE_NOT_CONFIRMED)
+    hypotheses = [item.model_dump() for item in payload.hypotheses]
     try:
         service = get_service()
-        payload = payload or FinishRequest()
-        result = service.finish(session_id, diagnosis=payload.diagnosis,
-                                hypotheses=[item.model_dump() for item in payload.hypotheses])
-        result["attempt"] = _save_attempt(service, result, payload, authorization)
+        owner_id, case_id, finished = service.closing_state(session_id)
+        if finished:
+            record = get_diagnoses().by_session(session_id) if owner_id else None
+        elif owner_id:
+            # El dueño y el caso los fija la sesión (TA-011), nunca el cuerpo de la petición.
+            record, _ = get_diagnoses().register(session_id=session_id, user_id=owner_id, case_id=case_id,
+                                                 diagnosis=diagnosis, hypotheses=hypotheses)
+            diagnosis, hypotheses = record.diagnostico, record.hipotesis
+        else:
+            record = None
+        result = service.finish(session_id, diagnosis=diagnosis, hypotheses=hypotheses)
+        result["registro"] = _registry_summary(owner_id, record)
+        stored = payload.model_copy(update={"diagnosis": diagnosis,
+                                            "hypotheses": [HypothesisItem(**item) for item in hypotheses]})
+        result["attempt"] = _save_attempt(service, result, stored, authorization)
         result["report"] = service.report(session_id)
         return result
+    except DiagnosisStoreError as exc:
+        print(f"[diagnosticos] {exc}")
+        raise HTTPException(status_code=503, detail=DIAGNOSIS_NOT_REGISTERED) from exc
     except SessionNotFound as exc:
         raise HTTPException(status_code=404, detail=SESSION_NOT_FOUND) from exc
     except SessionStoreError as exc:
         raise _store_unavailable(exc) from exc
 
 
+def _registry_summary(owner_id: str | None, record) -> dict:
+    """Lo que el alumno necesita saber de su registro: si quedó guardado y con qué número de intento."""
+    if not owner_id:
+        return {"guardado": False, "motivo": "invitado"}
+    if record is None:
+        # Consulta cerrada antes de existir el registro de HU-006: no se crea uno con un texto nuevo.
+        return {"guardado": False, "motivo": "cerrada_sin_registro"}
+    return {"guardado": True, "id": record.id, "numero_intento": record.numero_intento}
+
+
 @router.get("/sessions/{session_id}/report", dependencies=[Depends(authorize_session)])
 def report(session_id: str):
-    """Reporte final (HU-006): solo para el dueño, que ya validó authorize_session, y solo con la consulta cerrada."""
+    """Reporte final (HU-007): solo para el dueño, que ya validó authorize_session, y solo con la consulta cerrada."""
     try:
         return get_service().report(session_id)
     except SessionNotFinished as exc:

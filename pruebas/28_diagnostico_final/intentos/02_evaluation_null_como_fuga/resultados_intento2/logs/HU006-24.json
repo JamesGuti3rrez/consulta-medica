@@ -1,0 +1,73 @@
+{
+  "id": "HU006-24",
+  "nombre": "antes_del_cierre",
+  "titulo": "Antes del cierre no hay protected ni registro",
+  "criterio": "CA5",
+  "resultado_esperado": "la consulta abierta no expone evaluación, reporte ni registro",
+  "resultado": "FALLA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_antes",
+  "commit": "4d714a8",
+  "fecha": "2026-10-31 05:55:18 UTC",
+  "pasos": [
+    {
+      "descripcion": "leer la consulta abierta",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/d9cdb060-8eb9-461d-8652-8f6b528a1518",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…CGSM"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"case_id\":\"MED-900\",\"updated_at\":\"2026-10-31T05:55:17.923668+00:00\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"],\"started_at\":\"2026-10-31T05:55:17.923631+00:00\",\"phase\":\"presentacion\",\"session_id\":\"d9cdb060-8eb9-461d-8652-8f6b528a1518\",\"finished_at\":null,\"active_agent\":\"medico_asistente\",\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "sin «Migraña sin signos de alarma»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «Manejo sintomático y seguimiento clínico»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin la clave «protected»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin la clave «evaluation»",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin la clave «report»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin la clave «reference»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin registro",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": "E   AssertionError: HU006-24: comprobación: sin la clave «evaluation»"
+}

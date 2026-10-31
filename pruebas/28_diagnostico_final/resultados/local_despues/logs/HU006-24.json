@@ -1,0 +1,73 @@
+{
+  "id": "HU006-24",
+  "nombre": "antes_del_cierre",
+  "titulo": "Antes del cierre no hay protected ni registro",
+  "criterio": "CA5",
+  "resultado_esperado": "la consulta abierta no expone evaluación, reporte ni registro",
+  "resultado": "PASA",
+  "modo": "local",
+  "servidor": "TestClient (en proceso)",
+  "fase": "local_despues",
+  "commit": "182b83a",
+  "fecha": "2026-10-31 06:03:09 UTC",
+  "pasos": [
+    {
+      "descripcion": "leer la consulta abierta",
+      "identidad": "Usuario A (registrado)",
+      "metodo": "GET",
+      "url": "http://testserver/api/ai/sessions/9a9e1a25-23ad-445a-8151-edee4e5d9b88",
+      "cabeceras": {
+        "authorization": "Bearer eyJhbG…xvDI"
+      },
+      "cuerpo_enviado": null,
+      "codigo_recibido": 200,
+      "cabeceras_respuesta": {
+        "content-type": "application/json"
+      },
+      "cuerpo_recibido": "{\"finished_at\":null,\"started_at\":\"2026-10-31T06:03:09.443659+00:00\",\"case_id\":\"MED-900\",\"session_id\":\"9a9e1a25-23ad-445a-8151-edee4e5d9b88\",\"phase\":\"presentacion\",\"active_agent\":\"medico_asistente\",\"updated_at\":\"2026-10-31T06:03:09.443697+00:00\",\"revealed_evidence_ids\":[\"MED-900.motivo.cefalea\",\"MED-900.vital.presion_arterial\",\"MED-900.vital.frecuencia_cardiaca\",\"MED-900.vital.temperatura\"],\"avatar_state\":{\"gesture\":\"idle\",\"vitals\":[{\"evidence_id\":\"MED-900.vital.presion_arterial\",\"label\":\"Presión arterial\",\"text\":\"120/80 mmHg\"},{\"evidence_id\":\"MED-900.vital.frecuencia_cardiaca\",\"label\":\"Frecuencia cardiaca\",\"value\":74,\"unit\":\"/min\"},{\"evidence_id\":\"MED-900.vital.temperatura\",\"label\":\"Temperatura\",\"value\":36.8,\"unit\":\"Cel\"}],\"alerts\":[],\"complications\":[]},\"evaluation\":null}",
+      "codigo_esperado": [
+        200
+      ],
+      "resultado": "PASA"
+    }
+  ],
+  "comprobaciones": [
+    {
+      "descripcion": "sin «Migraña sin signos de alarma»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin «Manejo sintomático y seguimiento clínico»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «protected»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «evaluation»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «report»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin valor en «reference»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin registro",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "notas": [],
+  "error": ""
+}
