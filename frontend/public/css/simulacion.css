@@ -150,7 +150,7 @@ button[hidden] {
   }
 
   .scene-frame {
-    width: min(100cqw, 100cqh * 1577 / 997);
+    width: min(100cqw, 100cqh * 1376 / 768);
   }
 }
 
@@ -288,6 +288,36 @@ button[hidden] {
 /* Burbujas sobre la escena: aparecen con un leve ascenso al hablar */
 .speech-bubble {
   animation: bubble-in 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Globo de diálogo junto al personaje: el pico apunta hacia él (doctor a la derecha, paciente a la izquierda). */
+@media (min-width: 640px) {
+  .speech-bubble::after {
+    content: '';
+    position: absolute;
+    top: 28px;
+    width: 18px;
+    height: 18px;
+    background: inherit;
+    transform: rotate(45deg);
+  }
+
+  .speech-bubble--points-left::after {
+    left: -8px;
+  }
+
+  .speech-bubble--points-right::after {
+    right: -8px;
+  }
+}
+
+/* Cambio de personaje: la imagen se desvanece y aparece la de quien habla. */
+.scene-avatar {
+  transition: opacity 0.25s ease;
+}
+
+.scene-avatar.is-switching {
+  opacity: 0;
 }
 
 @keyframes bubble-in {
@@ -938,6 +968,10 @@ button[hidden] {
   .report-card,
   .tab-panel {
     animation: none;
+  }
+
+  .scene-avatar {
+    transition: none;
   }
 
   .stamp {

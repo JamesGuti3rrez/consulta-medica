@@ -354,9 +354,43 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (consultaTab && !consultaTab.classList.contains('is-active')) consultaTab.classList.add('has-news');
   };
 
+  // Escena: el doctor presenta el caso; en el interrogatorio se ve al paciente (hombre o mujer, según el caso).
+  // Si el doctor o un servicio entrega un hallazgo, aparece el doctor y, al terminar el turno, vuelve el paciente.
+  const sceneAvatar = $('scene-avatar');
+  const SCENES = {
+    doctor: 'Doctor del consultorio virtual',
+    'paciente-hombre': 'Paciente del caso',
+    'paciente-mujer': 'Paciente del caso',
+  };
+  const sceneSources = name => ({
+    src: `assets/avatars/${name}-1376.webp`,
+    srcset: `assets/avatars/${name}-800.webp 800w, assets/avatars/${name}-1376.webp 1376w`,
+  });
+  const patientScene = () => (currentCase?.patient?.sex === 'masculino' ? 'paciente-hombre' : 'paciente-mujer');
+  // El interrogatorio empieza cuando el doctor termina de presentar el caso.
+  let interviewing = false;
+  let sceneRequest = 0;
+  const preloadScene = name => {
+    const image = new Image();
+    image.sizes = sceneAvatar?.sizes || '100vw';
+    Object.assign(image, sceneSources(name));
+  };
+  const setScene = name => {
+    if (!sceneAvatar || !SCENES[name] || sceneAvatar.dataset.scene === name) return;
+    const request = ++sceneRequest;
+    sceneAvatar.dataset.scene = name;
+    sceneAvatar.classList.add('is-switching');
+    window.setTimeout(() => {
+      if (request !== sceneRequest) return;
+      Object.assign(sceneAvatar, sceneSources(name), { alt: SCENES[name] });
+      sceneAvatar.classList.remove('is-switching');
+    }, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 180);
+  };
+
   // Una sola burbuja sobre la escena a la vez: la del equipo (doctor) o la del paciente.
   const setSpeaker = (speaker, text) => {
     const doctorSpeaks = speaker !== 'patient';
+    setScene(doctorSpeaks ? 'doctor' : patientScene());
     show(doctorBubble, doctorSpeaks);
     show(patientBubble, !doctorSpeaks);
     setPill(doctorStatus, doctorSpeaks ? 'Hablando' : 'En espera');
@@ -373,6 +407,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   };
 
   const setReady = () => {
+    // En el interrogatorio, al terminar el turno vuelve el paciente: el globo del doctor se retira con él
+    // (lo que dijo queda en el chat), para que nunca quede sobre la imagen del paciente.
+    if (interviewing && !consultationClosed) {
+      setScene(patientScene());
+      show(doctorBubble, false);
+    }
     setPill(doctorStatus, 'Listo');
     setPill(patientStatus, 'Listo');
     if (conversationStatus) conversationStatus.textContent = 'Tu turno';
@@ -503,6 +543,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     hypotheses = [];
     discardingIndex = null;
     consultationClosed = false;
+    interviewing = false;
+    setScene('doctor');
     renderHypotheses();
     startButton.disabled = true;
     startButton.lastChild.textContent = ' Presentando caso...';
@@ -531,6 +573,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     currentCase = patientCase;
+    preloadScene(patientScene());
     rememberCase(patientCase.case_id);
     aiSessionId = groupTurn ? groupTurn.session.session_id : await openConversation(patientCase.case_id);
     if (groupTurn) aiSessionToken = null;
@@ -566,6 +609,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         appendChat(event.response_text, ({ paciente: 'patient', medico_asistente: 'doctor' })[event.agent] || event.agent);
       }
     }
+    interviewing = true;
     show(startButton, false);
     show(micButton);
     if (micButton) micButton.disabled = false;

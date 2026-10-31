@@ -11,6 +11,8 @@ for key,value in {
  'RAG_BACKEND':'local','RAG_EMBEDDED':'false','RAG_SERVICE_URL':'','GROQ_API_KEYS':'',
  'SYNTHETIC_CASE_DATA':'false','SYNTHETIC_EXAM_DATA':'false','HISTORIAL_ALUMNOS':'false',
  'LANGSMITH_TRACING':'false','LANGCHAIN_TRACING_V2':'false',
+ # Voz del navegador simulada en las pruebas: la voz neuronal (TA-019) queda apagada aunque el .env la active.
+ 'TTS_PROVIDER':'',
  'AI_TRACE_PATH':'pruebas/HU-014/auditoria_fixture.jsonl',
 }.items():os.environ[key]=value
 

@@ -1,0 +1,5 @@
+﻿Caso CIR-005 (masculino) en https://consulta-medica-three.vercel.app, ventana 1440x1000
+
+FALLA  la prueba llega al final sin errores  (locator.getAttribute: Timeout 30000ms exceeded.)
+
+0 de 1 comprobaciones pasan

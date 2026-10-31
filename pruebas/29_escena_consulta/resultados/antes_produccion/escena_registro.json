@@ -1,0 +1,96 @@
+{
+  "caso": "CIR-005",
+  "sexo": "masculino",
+  "ventana": "1440x1000",
+  "servidor": "https://consulta-medica-three.vercel.app",
+  "fecha": "2026-10-31T13:32:28.548Z",
+  "comprobaciones": [
+    {
+      "descripcion": "antes de iniciar se ve al doctor",
+      "resultado": "FALLA",
+      "detalle": "sin escena"
+    },
+    {
+      "descripcion": "la imagen del doctor carga",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "presentación: doctor con su globo",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "al empezar el interrogatorio se ve al paciente (paciente-hombre)",
+      "resultado": "FALLA",
+      "detalle": "sin escena"
+    },
+    {
+      "descripcion": "la imagen del paciente carga",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "pregunta al paciente: responde el paciente con su globo",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "la prueba llega al final sin errores",
+      "resultado": "FALLA",
+      "detalle": "page.evaluate: TypeError: Cannot read properties of null (reading 'getBoundingClientRect')"
+    }
+  ],
+  "linea_de_tiempo": [
+    {
+      "escena": null,
+      "globo": null,
+      "texto": ""
+    },
+    {
+      "escena": null,
+      "globo": "doctor",
+      "texto": "Martín Rojas, de 28 años, sexo masculino. Motivo de consulta: Ingresó por dolor abdominal intenso; se diagnosticó apendicitis y se le realizó una apendicectomía de urgencia."
+    },
+    {
+      "escena": null,
+      "globo": "doctor",
+      "texto": "Evolución quirúrgica: Durante la intervención presentó un sangrado masivo y persistente que requirió transfusión de sangre."
+    },
+    {
+      "escena": null,
+      "globo": "doctor",
+      "texto": "No hay alergias documentadas en la ficha."
+    },
+    {
+      "escena": null,
+      "globo": "doctor",
+      "texto": "Doctor, puede comenzar con el interrogatorio."
+    },
+    {
+      "escena": null,
+      "globo": null,
+      "texto": ""
+    },
+    {
+      "escena": null,
+      "globo": "doctor",
+      "texto": ""
+    },
+    {
+      "escena": null,
+      "globo": "doctor",
+      "texto": "¿Dónde le duele exactamente?"
+    },
+    {
+      "escena": null,
+      "globo": "paciente",
+      "texto": ""
+    },
+    {
+      "escena": null,
+      "globo": "paciente",
+      "texto": "Me duele en el abdomen, intenso."
+    }
+  ]
+}

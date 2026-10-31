@@ -1,0 +1,219 @@
+{
+  "base_url": "http://localhost:3100",
+  "caso": "EME-101",
+  "fecha": "2026-10-31T13:52:31.942Z",
+  "comprobaciones": [
+    {
+      "descripcion": "vacío: mensaje de campo obligatorio",
+      "resultado": "PASA",
+      "detalle": "Escribe tu diagnóstico final antes de cerrar la consulta."
+    },
+    {
+      "descripcion": "vacío: no pide confirmación",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "vacío: no envía nada al servidor",
+      "resultado": "PASA",
+      "detalle": "0 peticiones"
+    },
+    {
+      "descripcion": "pocas letras: mensaje",
+      "resultado": "PASA",
+      "detalle": "El diagnóstico debe tener al menos 3 letras."
+    },
+    {
+      "descripcion": "con < >: mensaje",
+      "resultado": "PASA",
+      "detalle": "El diagnóstico no puede contener los signos < ni >."
+    },
+    {
+      "descripcion": "textos inválidos: ninguna petición",
+      "resultado": "PASA",
+      "detalle": "0 peticiones"
+    },
+    {
+      "descripcion": "válido: aparece la confirmación",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "la confirmación muestra el diagnóstico",
+      "resultado": "PASA",
+      "detalle": "Síndrome coronario agudo.\nJustificación: dolor opresivo irradiado al brazo izquierdo."
+    },
+    {
+      "descripcion": "mostrar la confirmación no envía nada",
+      "resultado": "PASA",
+      "detalle": "0 peticiones"
+    },
+    {
+      "descripcion": "«Seguir en la consulta» oculta la confirmación",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "tras cancelar, el diagnóstico escrito se conserva",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "tras cancelar, se puede seguir preguntando",
+      "resultado": "PASA",
+      "detalle": "HTTP 200"
+    },
+    {
+      "descripcion": "503: muestra que no se registró",
+      "resultado": "PASA",
+      "detalle": "No se pudo registrar tu diagnóstico. La consulta sigue abierta: inténtalo de nuevo."
+    },
+    {
+      "descripcion": "503: no muestra la hoja de evaluación",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "503: el micrófono sigue habilitado",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "503: «Guardar» vuelve a estar habilitado",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "422: muestra el motivo del servidor",
+      "resultado": "PASA",
+      "detalle": "El diagnóstico debe tener al menos 3 letras."
+    },
+    {
+      "descripcion": "422: no muestra la hoja de evaluación",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "doble clic: una sola petición de cierre",
+      "resultado": "PASA",
+      "detalle": "1 peticiones"
+    },
+    {
+      "descripcion": "cierre real: 200",
+      "resultado": "PASA",
+      "detalle": "200"
+    },
+    {
+      "descripcion": "se envía confirmado=true",
+      "resultado": "PASA",
+      "detalle": "{\"diagnosis\":\"Síndrome coronario agudo.\\nJustificación: dolor opresivo irradiado al brazo izquierdo.\",\"hypotheses\":[],\"confirmado\":true}"
+    },
+    {
+      "descripcion": "invitado: registro no guardado",
+      "resultado": "PASA",
+      "detalle": "{\"guardado\":false,\"motivo\":\"invitado\"}"
+    },
+    {
+      "descripcion": "invitado: la hoja explica que no se registró",
+      "resultado": "PASA",
+      "detalle": "Como invitado, tu diagnóstico no se registra: inicia sesión para registrar tus intentos."
+    },
+    {
+      "descripcion": "la hoja muestra el diagnóstico propuesto",
+      "resultado": "PASA",
+      "detalle": "Síndrome coronario agudo.\nJustificación: dolor opresivo irradiado al brazo izquierdo."
+    },
+    {
+      "descripcion": "alumno temporal creado",
+      "resultado": "PASA",
+      "detalle": "200"
+    },
+    {
+      "descripcion": "alumno: inicia sesión",
+      "resultado": "PASA",
+      "detalle": "ok"
+    },
+    {
+      "descripcion": "alumno, consulta 1: registro guardado",
+      "resultado": "PASA",
+      "detalle": "{\"guardado\":true,\"id\":\"13fa28c3-4a70-4c4d-8c6b-11d768f0bf84\",\"numero_intento\":1}"
+    },
+    {
+      "descripcion": "alumno, consulta 1: la hoja dice «intento 1»",
+      "resultado": "PASA",
+      "detalle": "Diagnóstico registrado: intento 1 de este caso."
+    },
+    {
+      "descripcion": "alumno, consulta 2: registro guardado",
+      "resultado": "PASA",
+      "detalle": "{\"guardado\":true,\"id\":\"f8d7a3f4-6710-4bbe-8d6b-625f95f14277\",\"numero_intento\":2}"
+    },
+    {
+      "descripcion": "alumno, consulta 2: la hoja dice «intento 2»",
+      "resultado": "PASA",
+      "detalle": "Diagnóstico registrado: intento 2 de este caso."
+    },
+    {
+      "descripcion": "alumno: intentos 1 y 2 del mismo caso",
+      "resultado": "PASA",
+      "detalle": "[1,2]"
+    },
+    {
+      "descripcion": "alumno temporal borrado",
+      "resultado": "PASA",
+      "detalle": "200"
+    },
+    {
+      "descripcion": "sin errores de JavaScript en la página",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "finish": [
+    {
+      "momento": "2026-10-31T13:53:39.585Z",
+      "cuerpo": {
+        "diagnosis": "Síndrome coronario agudo.\nJustificación: dolor opresivo irradiado al brazo izquierdo.",
+        "hypotheses": [],
+        "confirmado": true
+      }
+    },
+    {
+      "momento": "2026-10-31T13:53:39.974Z",
+      "cuerpo": {
+        "diagnosis": "Síndrome coronario agudo.\nJustificación: dolor opresivo irradiado al brazo izquierdo.",
+        "hypotheses": [],
+        "confirmado": true
+      }
+    },
+    {
+      "momento": "2026-10-31T13:53:40.230Z",
+      "cuerpo": {
+        "diagnosis": "Síndrome coronario agudo.\nJustificación: dolor opresivo irradiado al brazo izquierdo.",
+        "hypotheses": [],
+        "confirmado": true
+      }
+    },
+    {
+      "momento": "2026-10-31T13:54:40.323Z",
+      "cuerpo": {
+        "diagnosis": "Síndrome coronario agudo.\nJustificación: dolor opresivo irradiado al brazo izquierdo. (consulta 1)",
+        "hypotheses": [],
+        "confirmado": true
+      }
+    },
+    {
+      "momento": "2026-10-31T13:55:38.172Z",
+      "cuerpo": {
+        "diagnosis": "Síndrome coronario agudo.\nJustificación: dolor opresivo irradiado al brazo izquierdo. (consulta 2)",
+        "hypotheses": [],
+        "confirmado": true
+      }
+    }
+  ],
+  "limpieza": {
+    "usuario_temporal_borrado": true,
+    "http": 200
+  },
+  "errores_de_la_pagina": []
+}

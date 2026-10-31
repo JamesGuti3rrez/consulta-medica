@@ -1,0 +1,161 @@
+{
+  "caso": "CIR-005",
+  "sexo": "masculino",
+  "ventana": "390x844",
+  "servidor": "http://localhost:3100",
+  "fecha": "2026-10-31T13:38:14.110Z",
+  "comprobaciones": [
+    {
+      "descripcion": "antes de iniciar se ve al doctor",
+      "resultado": "PASA",
+      "detalle": "doctor"
+    },
+    {
+      "descripcion": "la imagen del doctor carga",
+      "resultado": "PASA",
+      "detalle": "http://localhost:3100/assets/avatars/doctor-800.webp"
+    },
+    {
+      "descripcion": "presentación: doctor con su globo",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "al empezar el interrogatorio se ve al paciente (paciente-hombre)",
+      "resultado": "PASA",
+      "detalle": "paciente-hombre"
+    },
+    {
+      "descripcion": "la imagen del paciente carga",
+      "resultado": "PASA",
+      "detalle": "http://localhost:3100/assets/avatars/paciente-hombre-800.webp"
+    },
+    {
+      "descripcion": "pregunta al paciente: responde el paciente con su globo",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "celular: el globo queda debajo de la imagen",
+      "resultado": "PASA",
+      "detalle": "globo 270 / imagen 258"
+    },
+    {
+      "descripcion": "«Realizo exploración física»: mientras entrega el hallazgo se ve al doctor con su globo",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "«Realizo exploración física»: al terminar el turno vuelve el paciente",
+      "resultado": "PASA",
+      "detalle": "paciente-hombre"
+    },
+    {
+      "descripcion": "«Realizo exploración física»: el doctor no repite la pregunta del estudiante (TA-017)",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "«Solicito hemograma»: mientras entrega el hallazgo se ve al doctor con su globo",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "«Solicito hemograma»: al terminar el turno vuelve el paciente",
+      "resultado": "PASA",
+      "detalle": "paciente-hombre"
+    },
+    {
+      "descripcion": "«Solicito hemograma»: el doctor no repite la pregunta del estudiante (TA-017)",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "ningún globo aparece sobre la imagen de otro personaje",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "imagen doctor publicada",
+      "resultado": "PASA",
+      "detalle": "200 image/webp"
+    },
+    {
+      "descripcion": "imagen paciente-hombre publicada",
+      "resultado": "PASA",
+      "detalle": "200 image/webp"
+    },
+    {
+      "descripcion": "imagen paciente-mujer publicada",
+      "resultado": "PASA",
+      "detalle": "200 image/webp"
+    },
+    {
+      "descripcion": "sin errores de JavaScript en la página",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "linea_de_tiempo": [
+    {
+      "escena": "doctor",
+      "globo": null,
+      "texto": ""
+    },
+    {
+      "escena": "doctor",
+      "globo": "doctor",
+      "texto": "Martín Rojas, de 28 años, sexo masculino. Motivo de consulta: Ingresó por dolor abdominal intenso; se diagnosticó apendicitis y se le realizó una apendicectomía de urgencia."
+    },
+    {
+      "escena": "doctor",
+      "globo": "doctor",
+      "texto": "Evolución quirúrgica: Durante la intervención presentó un sangrado masivo y persistente que requirió transfusión de sangre."
+    },
+    {
+      "escena": "doctor",
+      "globo": "doctor",
+      "texto": "No hay alergias documentadas en la ficha."
+    },
+    {
+      "escena": "doctor",
+      "globo": "doctor",
+      "texto": "Doctor, puede comenzar con el interrogatorio."
+    },
+    {
+      "escena": "paciente-hombre",
+      "globo": null,
+      "texto": ""
+    },
+    {
+      "escena": "paciente-hombre",
+      "globo": "paciente",
+      "texto": "Me duele en el abdomen, en la zona donde se hizo la cirugía."
+    },
+    {
+      "escena": "paciente-hombre",
+      "globo": null,
+      "texto": ""
+    },
+    {
+      "escena": "doctor",
+      "globo": "doctor",
+      "texto": "Entiendo que vas a realizar la exploración física. Por favor, indícame los hallazgos que observes en el abdomen y en otras áreas relevantes."
+    },
+    {
+      "escena": "paciente-hombre",
+      "globo": null,
+      "texto": ""
+    },
+    {
+      "escena": "doctor",
+      "globo": "doctor",
+      "texto": "Resultado sintético educativo, no observado en una persona real. Leucocitos: 8000 /uL (referencia educativa 4500–11000 /uL); Hemoglobina: 15 g/dL (referencia educativa 13–18 g/dL); Hematocrito: 45 % (referencia educativa 40–55 %)."
+    },
+    {
+      "escena": "paciente-hombre",
+      "globo": null,
+      "texto": ""
+    }
+  ]
+}

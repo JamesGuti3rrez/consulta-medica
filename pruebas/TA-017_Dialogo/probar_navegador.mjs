@@ -3,7 +3,8 @@ import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import { mkdirSync,writeFileSync } from 'node:fs';
 import { IDS } from '../HU-014/sql_fixture.mjs';
-const base='http://127.0.0.1:3037',out='pruebas/TA-017_Dialogo',results=[],errors=[];
+// OUT permite repetir la prueba como regresión sin sobrescribir la evidencia original de TA-017.
+const base='http://127.0.0.1:3037',out=process.env.OUT||'pruebas/TA-017_Dialogo',results=[],errors=[];
 mkdirSync(out+'/capturas',{recursive:true});
 const record=prueba=>{results.push({prueba,resultado:'PASA'});console.log('[PASA] '+prueba);};
 const request=async(path,body)=>{

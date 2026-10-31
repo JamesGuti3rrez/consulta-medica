@@ -1,0 +1,13 @@
+﻿Caso CIR-005 en http://localhost:3100: 6 frases habladas
+
+ 1. [neuronal] espera 2013 ms, silencio - ms  doctor: Martín Rojas, de 28 años, sexo masculino, Motivo de consulta: Ingresó por dolor abdominal intenso; se diagnosticó apendicitis y se le realizó una apendicectomía de urgencia.
+ 2. [neuronal] espera 1 ms, silencio 1 ms  doctor: Evolución quirúrgica: Durante la intervención presentó un sangrado masivo y persistente que requirió transfusión de sangre.
+ 3. [neuronal] espera 0 ms, silencio 0 ms  doctor: No hay alergias documentadas en la ficha.
+ 4. [neuronal] espera 0 ms, silencio 0 ms  doctor: Doctor, puede comenzar con el interrogatorio.
+ 5. [neuronal] espera 1998 ms, silencio 9894 ms (tras el estudiante)  patient: No entendí bien, doctor, ¿Me puede hacer la pregunta de otra manera?
+ 6. [neuronal] espera 1521 ms, silencio 11320 ms (tras el estudiante)  patient: No recuerdo haber tenido fiebre ni vómitos.
+
+Espera promedio del audio: 922 ms; máxima: 2013 ms
+Errores de JavaScript: ninguno
+Silencio entre frases del mismo turno: máximo 1 ms (límite 700 ms)
+Resultado: 0 frase(s) sin voz neuronal, 0 silencio(s) largo(s) entre frases del mismo turno, 0 texto(s) sin signos o con un punto en medio

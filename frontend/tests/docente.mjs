@@ -152,7 +152,7 @@ try {
   await dark.ctx.close();
   const student = await context('alumno');
   await student.page.goto(base + '/docente.html');
-  await student.page.getByRole('heading', { name: 'Acceso para docentes' }).waitFor();
+  await student.page.getByRole('heading', { name: 'Acceso al Panel Doctor' }).waitFor();
   assert.equal(await student.page.locator('#workspace').isHidden(), true);
   await student.ctx.close();
   const guest = await context('alumno', false);
@@ -170,7 +170,7 @@ try {
   await login.page.locator('#workspace:not([hidden])').waitFor();
   await login.page.goto(base + '/index.html');
   await login.page.locator('[data-role="profile-toggle"]').click();
-  await login.page.getByRole('link', { name: 'Panel docente' }).click();
+  await login.page.getByRole('link', { name: 'Panel Doctor' }).click();
   await login.page.waitForURL('**/docente.html');
   await login.ctx.close();
   const recovery = await context('profesor', true, undefined, 503);

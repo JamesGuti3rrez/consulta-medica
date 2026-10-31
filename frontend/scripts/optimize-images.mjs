@@ -15,9 +15,17 @@ const outputs = [
   // Vista previa al compartir el enlace (1200x630).
   { file: join(assetsDir, 'og-image.jpg'), run: img => img.resize({ width: 1200, height: 630, fit: 'cover', position: 'centre' }).jpeg({ quality: 82, mozjpeg: true }) },
 ];
+// Escena del simulador: el doctor presenta el caso y el paciente (hombre o mujer) responde en el interrogatorio.
+for (const name of ['doctor', 'paciente-hombre', 'paciente-mujer']) {
+  const avatar = join(frontendDir, `src/assets/avatars/${name}.png`);
+  for (const width of [1376, 800]) {
+    outputs.push({ source: avatar, file: join(assetsDir, `avatars/${name}-${width}.webp`),
+      run: img => img.resize({ width }).webp({ quality: 80 }) });
+  }
+}
 
-for (const { file, run } of outputs) {
-  await run(sharp(source)).toFile(file);
+for (const { source: from = source, file, run } of outputs) {
+  await run(sharp(from)).toFile(file);
   const { size } = await stat(file);
   console.log(`${file}  ${(size / 1024).toFixed(0)} KB`);
 }

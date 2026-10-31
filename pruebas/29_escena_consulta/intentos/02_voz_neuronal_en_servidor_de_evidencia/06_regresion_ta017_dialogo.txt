@@ -1,0 +1,26 @@
+﻿[PASA] El doctor presenta el caso al inicio
+[PASA] Turno 1: estudiante → Paciente; dos mensajes y una respuesta por voz
+node : node:internal/modules/run_main:107
+En línea: 9 Carácter: 97
++ ...  --oneline; node pruebas\TA-017_Dialogo\probar_navegador.mjs 2>&1 | F ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (node:internal/modules/run_main:107:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+1 !== 2
+
+    at file:///C:/Users/Usuario/Documents/consulta-medica/pruebas/TA-017_Dialogo/probar_navegador.mjs:62:10 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 1,
+  expected: 2,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.15.0

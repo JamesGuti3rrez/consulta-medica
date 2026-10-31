@@ -1,0 +1,9 @@
+﻿[PASA] Panel Doctor: creación y selección de grupo
+[PASA] Tres cuentas registradas incorporadas al grupo
+[PASA] Caso asignado; comparación inicial sin notas ni diagnósticos
+[PASA] Alumno confirma y entrega el caso; diagnóstico registrado y proceso calculado por el backend
+[PASA] Recarga recupera la entrega finalizada sin abrir otra sesión
+[PASA] Comparativa de la misma actividad: tres entregas finalizadas con el diagnóstico de cada alumno
+[PASA] Otro doctor recibe 404 sin resultados del grupo
+[PASA] Grupo y resultados persisten al recargar el panel
+[PASA] Sin errores JavaScript en los recorridos

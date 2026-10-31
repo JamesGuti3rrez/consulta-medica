@@ -1,0 +1,11 @@
+﻿Caso CIR-005 (masculino) en https://consulta-medica-three.vercel.app, ventana 1440x1000
+
+FALLA  antes de iniciar se ve al doctor  (sin escena)
+FALLA  la imagen del doctor carga
+FALLA  presentación: doctor con su globo
+FALLA  al empezar el interrogatorio se ve al paciente (paciente-hombre)  (sin escena)
+FALLA  la imagen del paciente carga
+FALLA  pregunta al paciente: responde el paciente con su globo
+FALLA  la prueba llega al final sin errores  (page.evaluate: TypeError: Cannot read properties of null (reading 'getBoundingClientRect'))
+
+0 de 7 comprobaciones pasan

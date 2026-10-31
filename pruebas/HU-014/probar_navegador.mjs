@@ -2,7 +2,8 @@ import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import { mkdirSync,writeFileSync } from 'node:fs';
 import { IDS } from './sql_fixture.mjs';
-const base='http://127.0.0.1:3037',out='pruebas/HU-014';mkdirSync(out+'/capturas',{recursive:true});
+// OUT permite repetir la prueba como regresión sin sobrescribir la evidencia original de HU-014.
+const base='http://127.0.0.1:3037',out=process.env.OUT||'pruebas/HU-014';mkdirSync(out+'/capturas',{recursive:true});
 const browser=await chromium.launch({headless:true,channel:'msedge'});const results=[],errors=[];
 const record=(name)=>{results.push({prueba:name,resultado:'PASA'});console.log('[PASA] '+name);};
 async function context(token){
@@ -32,11 +33,14 @@ async function openStudent(token,aid){
  assert.equal(await page.locator('[data-role="evaluation-reference"]').textContent(),'');
  return {ctx,page};
 }
+// HU-006: el alumno escribe su diagnóstico, confirma el cierre y el servidor lo registra antes de cerrar.
 async function finish(page,diagnosis){
  await page.locator('[data-role="diagnosis-button"]').click();await page.locator('[data-role="diagnosis-input"]').fill(diagnosis);
+ await page.locator('[data-role="save-diagnosis"]').click();await page.locator('[data-role="confirm-diagnosis"]').waitFor({state:'visible'});
  const pending=page.waitForResponse(r=>r.url().endsWith('/finish')&&r.request().method()==='POST');
- await page.locator('[data-role="save-diagnosis"]').click();const response=await pending;assert.equal(response.status(),200);
- const body=await response.json();await page.locator('[data-role="evaluation-diagnosis-result"]').waitFor({state:'visible'});return body;
+ await page.locator('[data-role="confirm-diagnosis"]').click();const response=await pending;assert.equal(response.status(),200);
+ const body=await response.json();assert.equal(body.registro.guardado,true);
+ await page.locator('[data-role="evaluation-student-diagnosis"]').filter({hasText:diagnosis}).waitFor();return body;
 }
 try{
  const reset=await fetch('http://127.0.0.1:3039/__reset',{method:'POST'});assert.equal(reset.status,200);
@@ -61,23 +65,30 @@ try{
  const prev=await a.page.locator('.chat-row').count();await a.page.evaluate(()=>{window.__question='Realizo exploración física';});
  const turn=a.page.waitForResponse(r=>r.url().endsWith('/message'));await a.page.locator('[aria-label="Micrófono"]').click();assert.equal((await turn).status(),200);
  await a.page.waitForFunction(n=>document.querySelectorAll('.chat-row').length>=n+2&&document.querySelector('[data-role="conversation-status"]').textContent==='Tu turno',prev);
- const closed=await finish(a.page,'Basalioma');assert.equal(closed.diagnosis_evaluation.score,100);
- await a.page.locator('[data-role="evaluation-diagnosis-result"]').screenshot({path:out+'/capturas/alumno-resultado.png'});
- record('Alumno resuelve caso; diagnóstico y proceso calculados por el backend');
- await a.page.reload();await a.page.locator('[data-role="start-simulation"]').click();await a.page.locator('[data-role="evaluation-diagnosis-result"]').waitFor({state:'visible'});
- assert.match(await a.page.locator('[data-role="evaluation-diagnosis-score"]').textContent(),/100\/100/);await a.ctx.close();
+ const closed=await finish(a.page,'Basalioma');assert.equal(closed.registro.numero_intento,1);
+ assert.equal(typeof closed.evaluation.score,'number');
+ await a.page.screenshot({path:out+'/capturas/alumno-resultado.png'});
+ record('Alumno confirma y entrega el caso; diagnóstico registrado y proceso calculado por el backend');
+ await a.page.reload();await a.page.locator('[data-role="start-simulation"]').click();
+ await a.page.locator('[data-role="evaluation-student-diagnosis"]').filter({hasText:'Basalioma'}).waitFor();
+ assert.equal(await a.page.locator('[data-role="start-simulation"]').isHidden(),true);await a.ctx.close();
  record('Recarga recupera la entrega finalizada sin abrir otra sesión');
 
- const b=await openStudent('alumno-b',aid);const wrong=await finish(b.page,'Amigdalitis');assert.equal(wrong.diagnosis_evaluation.status,'incorrect');await b.ctx.close();
+ const b=await openStudent('alumno-b',aid);const second=await finish(b.page,'Amigdalitis');assert.equal(second.registro.numero_intento,1);await b.ctx.close();
  const c=await openStudent('alumno-c',aid);
  await doctor.locator('#refresh-groups').click();await doctor.locator('#group-results').getByText('En curso',{exact:true}).waitFor();
  await doctor.locator('#group-results').screenshot({path:out+'/capturas/comparativa-en-curso.png'});
- const pending=await finish(c.page,'Basalioma o dermatitis');assert.equal(pending.diagnosis_evaluation.status,'ambiguous');await c.ctx.close();
- await doctor.locator('#refresh-groups').click();await doctor.locator('#group-results tbody .group-state.pendiente_revision').waitFor();
- assert.match(await doctor.locator('#group-results').textContent(),/50%/);
+ const third=await finish(c.page,'Basalioma o dermatitis');assert.equal(third.registro.numero_intento,1);await c.ctx.close();
+ await doctor.locator('#refresh-groups').click();
+ await doctor.locator('#group-results').getByText('Basalioma o dermatitis',{exact:true}).waitFor();
+ // Sin calificación automática (TA-021 pendiente): las tres entregas finalizadas, con su diagnóstico y sin acierto.
+ assert.equal(await doctor.locator('#group-results tbody .group-state.finalizada').count(),3);
+ assert.equal(await doctor.locator('#group-results tbody .group-state.pendiente_revision').count(),0);
+ const comparativa=await doctor.locator('#group-results').textContent();
+ for(const texto of ['Basalioma','Amigdalitis','Basalioma o dermatitis'])assert.ok(comparativa.includes(texto),texto);
  assert.equal(await doctor.locator('#group-results tbody tr').count(),3);
  await doctor.locator('#group-results').screenshot({path:out+'/capturas/comparativa-final.png'});
- record('Comparativa de la misma actividad: correcto, incorrecto y revisión; acierto 50% sobre dos evaluadas');
+ record('Comparativa de la misma actividad: tres entregas finalizadas con el diagnóstico de cada alumno');
 
  // El nombre sigue aislado por propietario y las rutas no revelan participantes al otro doctor.
  const groupId=(await doctor.locator('.group-card.is-selected').getAttribute('data-group-id'));
@@ -85,9 +96,9 @@ try{
  record('Otro doctor recibe 404 sin resultados del grupo');
  const edit=doctor.getByText('Editar nombre y descripción',{exact:true});await edit.click();await doctor.locator('#edit-group-name').fill('Grupo de semiología · A (revisado)');
  await doctor.getByRole('button',{name:'Guardar cambios',exact:true}).click();await doctor.locator('#group-detail h2').filter({hasText:'revisado'}).waitFor();
- await doctor.reload();await doctor.locator('#show-groups').click();await doctor.locator('.group-card').filter({hasText:'revisado'}).click();await doctor.locator('#group-results').getByText('50%',{exact:true}).waitFor();
+ await doctor.reload();await doctor.locator('#show-groups').click();await doctor.locator('.group-card').filter({hasText:'revisado'}).click();await doctor.locator('#group-results').getByText('Amigdalitis',{exact:true}).waitFor();
  record('Grupo y resultados persisten al recargar el panel');
  assert.deepEqual(errors,[]);record('Sin errores JavaScript en los recorridos');
- writeFileSync(out+'/navegador.json',JSON.stringify({resultado:'PASA',api_real:true,sql_real_local:'PostgreSQL PGlite con migraciones 0005 y 0006',auth:'Identidades de fixture',voz:'Dispositivos simulados',pruebas:results},null,2));
+ writeFileSync(out+'/navegador.json',JSON.stringify({resultado:'PASA',api_real:true,sql_real_local:'PostgreSQL PGlite con migraciones 0005, 0006 y 0007',auth:'Identidades de fixture',voz:'Dispositivos simulados',pruebas:results},null,2));
  await doctorCtx.close();
 }finally{await browser.close();}

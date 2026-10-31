@@ -1,0 +1,13 @@
+﻿[PASA] El doctor presenta el caso al inicio
+[PASA] Turno 1: estudiante → Paciente; dos mensajes y una respuesta por voz
+[PASA] Turno 2: estudiante → Paciente; dos mensajes y una respuesta por voz
+[PASA] Turno 3: estudiante → Paciente; dos mensajes y una respuesta por voz
+[PASA] Turno 4: estudiante → Doctor; dos mensajes y una respuesta por voz
+[PASA] Turno 5: estudiante → Paciente; dos mensajes y una respuesta por voz
+[PASA] Turno 6: estudiante → Doctor; dos mensajes y una respuesta por voz
+[PASA] Turno 7: estudiante → Laboratorio; dos mensajes y una respuesta por voz
+[PASA] Turno 8: estudiante → Radiología; dos mensajes y una respuesta por voz
+[PASA] Turno 9: estudiante → Especialista; dos mensajes y una respuesta por voz
+[PASA] Turno 10: estudiante → Paciente; dos mensajes y una respuesta por voz
+[PASA] Al recuperar una actividad, los eventos antiguos no muestran ni leen la pregunta duplicada del doctor
+[PASA] Sin errores JavaScript

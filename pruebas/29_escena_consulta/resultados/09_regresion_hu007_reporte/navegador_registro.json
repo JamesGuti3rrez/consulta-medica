@@ -1,0 +1,185 @@
+{
+  "base_url": "http://localhost:3100",
+  "caso": "EME-101",
+  "fecha": "2026-10-31T13:55:53.285Z",
+  "comprobaciones": [
+    {
+      "descripcion": "antes de cerrar: 409",
+      "resultado": "PASA",
+      "detalle": "409 {\"detail\":\"El reporte estará disponible al terminar la consulta.\"}"
+    },
+    {
+      "descripcion": "el cierre trae el reporte",
+      "resultado": "PASA",
+      "detalle": "claves: case_id, finished_at, patient, chief_complaint, diagnosis, hypotheses, differentials, score, key_questions, tests, treatment, revealed_evidence, recommendations"
+    },
+    {
+      "descripcion": "sección «Diagnóstico de referencia» con contenido",
+      "resultado": "PASA",
+      "detalle": "Infarto agudo de miocardio con elevación del ST"
+    },
+    {
+      "descripcion": "sección «Preguntas clave obtenidas» con contenido",
+      "resultado": "PASA",
+      "detalle": "Características del dolor: opresivo, irradiado al brazo izquierdo y la mandíbulaElectrocardiograma: elevación del ST en cara inferiorTroponina elevada"
+    },
+    {
+      "descripcion": "sección «Preguntas clave que faltaron» con contenido",
+      "resultado": "PASA",
+      "detalle": "Inicio con el esfuerzo y molestias previas al caminarAnamnesis incompletaCríticoForma parte de una historia clínica completa.Factores de riesgo: diabetes, hiper"
+    },
+    {
+      "descripcion": "sección «Exámenes pedidos» con contenido",
+      "resultado": "PASA",
+      "detalle": "Electrocardiograma de 12 derivacionesRecomendadoTroponina I ultrasensibleRecomendado"
+    },
+    {
+      "descripcion": "sección «Diagnósticos diferenciales» con contenido",
+      "resultado": "PASA",
+      "detalle": "Tromboembolia pulmonar agudaDisección aórtica aguda tipo APericarditis aguda"
+    },
+    {
+      "descripcion": "sección «Tratamiento propuesto» con contenido",
+      "resultado": "PASA",
+      "detalle": "Propusiste: Le indico aspirina 300 miligramos"
+    },
+    {
+      "descripcion": "sección «Tratamiento de referencia» con contenido",
+      "resultado": "PASA",
+      "detalle": "Reperfusión urgente: angioplastia primaria, idealmente en menos de 90 minutos desde el diagnóstico, o fibrinólisis si no se puede hacer en menos de 120 minutos."
+    },
+    {
+      "descripcion": "sección «Acciones clave» con contenido",
+      "resultado": "PASA",
+      "detalle": "Electrocardiograma en los primeros 10 minutos de la llegada.Activar la sala de hemodinamia para angioplastia primaria.Aspirina y un segundo antiagregante, más a"
+    },
+    {
+      "descripcion": "sección «Datos obtenidos» con contenido",
+      "resultado": "PASA",
+      "detalle": "Motivo de consulta: Dolor en el pecho que empezó hace unas 2 horas y no se le pasa.Signos vitales: Presión arterial 148/92 mmHg, pulso 98/min, frecuencia respir"
+    },
+    {
+      "descripcion": "diagnóstico de referencia igual al del reporte",
+      "resultado": "PASA",
+      "detalle": "Infarto agudo de miocardio con elevación del ST"
+    },
+    {
+      "descripcion": "una fila por pregunta que faltó",
+      "resultado": "PASA",
+      "detalle": "3 filas, 3 en el reporte"
+    },
+    {
+      "descripcion": "una fila por pregunta obtenida",
+      "resultado": "PASA",
+      "detalle": "3 filas, 3 en el reporte"
+    },
+    {
+      "descripcion": "la hipótesis con HTML se ve como texto",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "no se creó ningún elemento <b> desde los datos",
+      "resultado": "PASA",
+      "detalle": "elementos <b>: 0"
+    },
+    {
+      "descripcion": "sin errores de JavaScript en la página",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "ningún dato revelado repite su etiqueta",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "otro navegador sin credencial: 401",
+      "resultado": "PASA",
+      "detalle": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}"
+    },
+    {
+      "descripcion": "otro navegador con credencial ajena: 404",
+      "resultado": "PASA",
+      "detalle": "{\"detail\":\"Sesión no encontrada.\"}"
+    },
+    {
+      "descripcion": "ninguna respuesta del otro navegador trae el reporte",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "peticiones": [
+    {
+      "metodo": "POST",
+      "ruta": "/api/ai/sessions",
+      "codigo": 200,
+      "cabecera_x_session_token": "(ninguna)",
+      "trae_reporte": false
+    },
+    {
+      "metodo": "POST",
+      "ruta": "/api/ai/sessions/9bb8fd83-d057-4693-ad97-cf7f8083b60f/message",
+      "codigo": 200,
+      "cabecera_x_session_token": "4qMkTb…Ierc",
+      "trae_reporte": false,
+      "frase": "¿Cómo es el dolor y hacia dónde se va?"
+    },
+    {
+      "metodo": "POST",
+      "ruta": "/api/ai/sessions/9bb8fd83-d057-4693-ad97-cf7f8083b60f/message",
+      "codigo": 200,
+      "cabecera_x_session_token": "4qMkTb…Ierc",
+      "trae_reporte": false,
+      "frase": "Solicito un electrocardiograma"
+    },
+    {
+      "metodo": "POST",
+      "ruta": "/api/ai/sessions/9bb8fd83-d057-4693-ad97-cf7f8083b60f/message",
+      "codigo": 200,
+      "cabecera_x_session_token": "4qMkTb…Ierc",
+      "trae_reporte": false,
+      "frase": "Solicito una troponina"
+    },
+    {
+      "metodo": "POST",
+      "ruta": "/api/ai/sessions/9bb8fd83-d057-4693-ad97-cf7f8083b60f/message",
+      "codigo": 200,
+      "cabecera_x_session_token": "4qMkTb…Ierc",
+      "trae_reporte": false,
+      "frase": "Le indico aspirina 300 miligramos"
+    },
+    {
+      "metodo": "GET",
+      "ruta": "/api/ai/sessions/9bb8fd83-d057-4693-ad97-cf7f8083b60f/report",
+      "codigo": 409,
+      "cabecera_x_session_token": "4qMkTb…Ierc",
+      "trae_reporte": false
+    },
+    {
+      "metodo": "POST",
+      "ruta": "/api/ai/sessions/9bb8fd83-d057-4693-ad97-cf7f8083b60f/finish",
+      "codigo": 200,
+      "cabecera_x_session_token": "4qMkTb…Ierc",
+      "trae_reporte": true
+    }
+  ],
+  "otro_navegador": [
+    {
+      "prueba": "GET /report sin credencial",
+      "codigo": 401,
+      "cuerpo": "{\"detail\":\"Inicia sesión o vuelve a empezar la consulta para continuar.\"}"
+    },
+    {
+      "prueba": "GET /report con una credencial bien formada que no es la suya",
+      "codigo": 404,
+      "cuerpo": "{\"detail\":\"Sesión no encontrada.\"}"
+    }
+  ],
+  "reporte_antes_de_cerrar": {
+    "status": 409,
+    "body": "{\"detail\":\"El reporte estará disponible al terminar la consulta.\"}"
+  },
+  "session_id": "9bb8fd83-d057-4693-ad97-cf7f8083b60f",
+  "errores_de_la_pagina": []
+}

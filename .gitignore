@@ -28,6 +28,7 @@ frontend/public/assets/consulta-1600.webp
 frontend/public/assets/consulta-800.webp
 frontend/public/assets/og-image.jpg
 frontend/public/assets/apple-touch-icon.png
+frontend/public/assets/avatars/*.webp
 
 # Vínculo local con Vercel y variables que descarga su CLI
 .vercel
