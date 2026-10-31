@@ -54,6 +54,7 @@ Thumbs.db
 desktop.ini
 .DS_Store
 .pytest_cache/
+.pytest_run-*/
 *.tmp
 
 # Fotos de evidencia de pruebas/: se guardan en el equipo, no en GitHub
