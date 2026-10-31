@@ -21,6 +21,12 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+evals = [
+    "ragas==0.4.3",
+    # 0.4.2 retiró vertexai, importado todavía por ragas.llms.base en 0.4.3.
+    "langchain-community==0.4.1",
+    "matplotlib>=3.9,<4",
+]
 pipeline = [
     "jsonschema==4.23.0",
 ]
@@ -40,7 +46,10 @@ dev = [
 include-package-data = true
 
 [tool.setuptools.packages.find]
-include = ["case_preparation*", "server*"]
+include = ["case_preparation*", "server*", "evals*"]
+
+[tool.setuptools.package-data]
+evals = ["datasets/*.json"]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
