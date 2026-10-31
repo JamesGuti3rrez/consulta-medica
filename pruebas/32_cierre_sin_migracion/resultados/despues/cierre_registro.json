@@ -1,0 +1,58 @@
+{
+  "servidor": "http://localhost:3000",
+  "caso": "CIR-005",
+  "tabla_http": 404,
+  "fecha": "2026-10-31T15:14:49.957Z",
+  "comprobaciones": [
+    {
+      "descripcion": "alumno temporal creado",
+      "resultado": "PASA",
+      "detalle": "200"
+    },
+    {
+      "descripcion": "alumno: inicia sesión",
+      "resultado": "PASA",
+      "detalle": "ok"
+    },
+    {
+      "descripcion": "alumno: pregunta al paciente",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "cierre: el servidor responde 200 (antes 503)",
+      "resultado": "PASA",
+      "detalle": "200"
+    },
+    {
+      "descripcion": "cierre: registro pendiente de la migración",
+      "resultado": "PASA",
+      "detalle": "{\"guardado\":false,\"motivo\":\"registro_pendiente\"}"
+    },
+    {
+      "descripcion": "hoja de evaluación con el diagnóstico del alumno",
+      "resultado": "PASA",
+      "detalle": "Hemofilia A con sangrado posoperatorio."
+    },
+    {
+      "descripcion": "la hoja avisa que el diagnóstico quedó guardado en la consulta",
+      "resultado": "PASA",
+      "detalle": "Tu diagnóstico quedó guardado en esta consulta."
+    },
+    {
+      "descripcion": "la consulta quedó cerrada",
+      "resultado": "PASA",
+      "detalle": "finalizada"
+    },
+    {
+      "descripcion": "alumno temporal borrado",
+      "resultado": "PASA",
+      "detalle": "200"
+    },
+    {
+      "descripcion": "sin errores de JavaScript en la página",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ]
+}

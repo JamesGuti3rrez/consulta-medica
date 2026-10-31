@@ -22,6 +22,10 @@ class DiagnosisStoreError(RuntimeError):
     """No se pudo leer o escribir el registro (Supabase no respondió o rechazó la operación)."""
 
 
+class DiagnosisTableMissing(DiagnosisStoreError):
+    """La tabla diagnosticos_finales todavía no existe (falta aplicar la migración 0007)."""
+
+
 @dataclass(frozen=True)
 class FinalDiagnosisRecord:
     id: str
@@ -104,6 +108,9 @@ class SupabaseDiagnoses:
             raise DiagnosisStoreError(f"No se pudo conectar con Supabase: {exc.__class__.__name__}") from exc
         if response.status_code == 409 and conflict_ok:
             return response
+        if response.status_code == 404 and '"PGRST205"' in response.text:
+            # PostgREST no encuentra la tabla: la migración 0007 todavía no se aplicó.
+            raise DiagnosisTableMissing(f"Falta la tabla {DIAGNOSES_TABLE} (migración 0007).")
         if response.status_code >= 400:
             raise DiagnosisStoreError(
                 f"Supabase respondió HTTP {response.status_code} en {DIAGNOSES_TABLE}: {response.text[:200]}")

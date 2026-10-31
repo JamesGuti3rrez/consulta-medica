@@ -1,0 +1,12 @@
+﻿Servidor http://localhost:3000, caso CIR-005; tabla diagnosticos_finales en Supabase: HTTP 404
+
+PASA   alumno temporal creado  (200)
+PASA   alumno: inicia sesión  (ok)
+PASA   alumno: pregunta al paciente
+FALLA  cierre: el servidor responde 200 (antes 503)  (503)
+FALLA  cierre: registro pendiente de la migración
+FALLA  la prueba llega al final  (locator.waitFor: Timeout 30000ms exceeded.)
+PASA   alumno temporal borrado  (200)
+PASA   sin errores de JavaScript en la página
+
+5 de 8 comprobaciones pasan

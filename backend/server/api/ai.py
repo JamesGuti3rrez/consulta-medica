@@ -40,7 +40,7 @@ from server.orchestration import (
     SupabaseSessionStore,
 )
 from server.persistence import (
-    AttemptStoreError, DiagnosisStoreError, InMemoryDiagnoses, SupabaseAttempts, SupabaseDiagnoses, build_attempt,
+    AttemptStoreError, DiagnosisStoreError, DiagnosisTableMissing, InMemoryDiagnoses, SupabaseAttempts, SupabaseDiagnoses, build_attempt,
 )
 from server.persistence.synthetic_facts import SupabaseSyntheticFacts
 from server.orchestration.patient_completion import PatientHistoryCompletion
@@ -338,17 +338,24 @@ def finish(session_id: str, payload: FinishRequest | None = None, authorization:
     try:
         service = get_service()
         owner_id, case_id, finished = service.closing_state(session_id)
-        if finished:
-            record = get_diagnoses().by_session(session_id) if owner_id else None
-        elif owner_id:
-            # El dueño y el caso los fija la sesión (TA-011), nunca el cuerpo de la petición.
-            record, _ = get_diagnoses().register(session_id=session_id, user_id=owner_id, case_id=case_id,
-                                                 diagnosis=diagnosis, hypotheses=hypotheses)
-            diagnosis, hypotheses = record.diagnostico, record.hipotesis
-        else:
-            record = None
+        pending = False
+        try:
+            if finished:
+                record = get_diagnoses().by_session(session_id) if owner_id else None
+            elif owner_id:
+                # El dueño y el caso los fija la sesión (TA-011), nunca el cuerpo de la petición.
+                record, _ = get_diagnoses().register(session_id=session_id, user_id=owner_id, case_id=case_id,
+                                                     diagnosis=diagnosis, hypotheses=hypotheses)
+                diagnosis, hypotheses = record.diagnostico, record.hipotesis
+            else:
+                record = None
+        except DiagnosisTableMissing as exc:
+            # Mientras falte la migración 0007 la consulta se cierra igual: el diagnóstico queda en la consulta
+            # y en el reporte, sin número de intento. Cualquier otro fallo del registro sigue dando 503.
+            print(f"[diagnosticos] {exc} La consulta se cierra sin registro por intentos.")
+            record, pending = None, True
         result = service.finish(session_id, diagnosis=diagnosis, hypotheses=hypotheses)
-        result["registro"] = _registry_summary(owner_id, record)
+        result["registro"] = _registry_summary(owner_id, record, pending)
         stored = payload.model_copy(update={"diagnosis": diagnosis,
                                             "hypotheses": [HypothesisItem(**item) for item in hypotheses]})
         result["attempt"] = _save_attempt(service, result, stored, authorization)
@@ -363,10 +370,12 @@ def finish(session_id: str, payload: FinishRequest | None = None, authorization:
         raise _store_unavailable(exc) from exc
 
 
-def _registry_summary(owner_id: str | None, record) -> dict:
+def _registry_summary(owner_id: str | None, record, pending: bool = False) -> dict:
     """Lo que el alumno necesita saber de su registro: si quedó guardado y con qué número de intento."""
     if not owner_id:
         return {"guardado": False, "motivo": "invitado"}
+    if pending:
+        return {"guardado": False, "motivo": "registro_pendiente"}
     if record is None:
         # Consulta cerrada antes de existir el registro de HU-006: no se crea uno con un texto nuevo.
         return {"guardado": False, "motivo": "cerrada_sin_registro"}

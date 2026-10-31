@@ -1,0 +1,48 @@
+{
+  "servidor": "http://localhost:3000",
+  "caso": "CIR-005",
+  "tabla_http": 404,
+  "fecha": "2026-10-31T15:13:17.578Z",
+  "comprobaciones": [
+    {
+      "descripcion": "alumno temporal creado",
+      "resultado": "PASA",
+      "detalle": "200"
+    },
+    {
+      "descripcion": "alumno: inicia sesión",
+      "resultado": "PASA",
+      "detalle": "ok"
+    },
+    {
+      "descripcion": "alumno: pregunta al paciente",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "cierre: el servidor responde 200 (antes 503)",
+      "resultado": "FALLA",
+      "detalle": "503"
+    },
+    {
+      "descripcion": "cierre: registro pendiente de la migración",
+      "resultado": "FALLA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "la prueba llega al final",
+      "resultado": "FALLA",
+      "detalle": "locator.waitFor: Timeout 30000ms exceeded."
+    },
+    {
+      "descripcion": "alumno temporal borrado",
+      "resultado": "PASA",
+      "detalle": "200"
+    },
+    {
+      "descripcion": "sin errores de JavaScript en la página",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ]
+}

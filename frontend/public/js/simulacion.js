@@ -1129,6 +1129,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (registro?.motivo === 'invitado') {
       return 'Como invitado, tu diagnóstico no se registra: inicia sesión para registrar tus intentos.';
     }
+    // Mientras falte la migración 0007 el diagnóstico queda en la consulta, sin número de intento.
+    if (registro?.motivo === 'registro_pendiente') return 'Tu diagnóstico quedó guardado en esta consulta.';
     return '';
   };
   // Motivo legible de un cierre que no se completó; la consulta sigue abierta en todos los casos.

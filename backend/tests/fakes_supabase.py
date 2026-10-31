@@ -20,7 +20,8 @@ class FakeSupabase:
         self.diagnoses: list[dict] = []
         # Se llama justo antes de cada insert en diagnosticos_finales: permite simular una carrera.
         self.before_diagnosis_insert = None
-        # Fallos por tabla (HU-006): {"diagnosticos_finales": 500} o "sin_red" para simular una caída de conexión.
+        # Fallos por tabla (HU-006): {"diagnosticos_finales": 500}, "sin_red" para simular una caída de conexión
+        # o "sin_tabla" para la tabla que todavía no existe (migración pendiente: 404 con código PGRST205).
         self.fail_tables: dict[str, int | str] = {}
 
     def transport(self) -> httpx.MockTransport:
@@ -42,6 +43,9 @@ class FakeSupabase:
         if table in self.fail_tables:
             if self.fail_tables[table] == "sin_red":
                 raise httpx.ConnectError("conexión rechazada (simulada)", request=request)
+            if self.fail_tables[table] == "sin_tabla":
+                return httpx.Response(404, json={"code": "PGRST205", "details": None, "hint": None,
+                                                 "message": f"Could not find the table 'public.{table}' in the schema cache"})
             return httpx.Response(int(self.fail_tables[table]), json={"message": "fallo simulado"})
         params = request.url.params
         body = json.loads(request.content) if request.content else None

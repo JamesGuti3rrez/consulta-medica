@@ -1,0 +1,22 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.14.4, pytest-8.3.4, pluggy-1.6.0 -- C:\Users\Usuario\Documents\consulta-medica\backend\.venv\Scripts\python.exe
+rootdir: C:\Users\Usuario\Documents\consulta-medica\backend
+configfile: pyproject.toml
+plugins: anyio-4.15.1, langsmith-0.14.7
+collecting ... collected 7 items
+
+tests/integration/test_hu006_sin_migracion.py::test_tabla_inexistente_se_distingue_de_otros_fallos FAILED [ 14%]
+tests/integration/test_hu006_sin_migracion.py::test_sin_la_tabla_el_alumno_cierra_y_su_diagnostico_queda_en_el_reporte FAILED [ 28%]
+tests/integration/test_hu006_sin_migracion.py::test_otros_fallos_del_registro_siguen_dejando_la_consulta_abierta[500] PASSED [ 42%]
+tests/integration/test_hu006_sin_migracion.py::test_otros_fallos_del_registro_siguen_dejando_la_consulta_abierta[503] PASSED [ 57%]
+tests/integration/test_hu006_sin_migracion.py::test_otros_fallos_del_registro_siguen_dejando_la_consulta_abierta[sin_red] PASSED [ 71%]
+tests/integration/test_hu006_sin_migracion.py::test_con_la_tabla_el_registro_por_intentos_funciona PASSED [ 85%]
+tests/integration/test_hu006_sin_migracion.py::test_el_invitado_no_cambia PASSED [100%]
+
+================================== FAILURES ===================================
+C:\Users\Usuario\Documents\consulta-medica\backend\tests\integration\test_hu006_sin_migracion.py:39: AssertionError: falta DiagnosisTableMissing
+C:\Users\Usuario\Documents\consulta-medica\backend\tests\integration\test_hu006_sin_migracion.py:53: AssertionError: {"detail":"No se pudo registrar tu diagnóstico. La consulta sigue abierta: inténtalo de nuevo."}
+=========================== short test summary info ===========================
+FAILED tests/integration/test_hu006_sin_migracion.py::test_tabla_inexistente_se_distingue_de_otros_fallos
+FAILED tests/integration/test_hu006_sin_migracion.py::test_sin_la_tabla_el_alumno_cierra_y_su_diagnostico_queda_en_el_reporte
+========================= 2 failed, 5 passed in 1.09s =========================
