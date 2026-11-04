@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const diagnosisButton = $('diagnosis-button');
   const doctorBubble = $('doctor-bubble');
   const doctorText = $('doctor-text');
+  const doctorName = $('doctor-name');
+  const doctorIcon = $('doctor-icon');
   const doctorStatus = $('doctor-status');
   const patientBubble = $('patient-bubble');
   const patientText = $('patient-text');
@@ -186,9 +188,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     button.classList.toggle('inline-flex', visible);
   });
   // Voz neuronal del servidor (/api/voz, edge-tts): el audio llega en trozos y el <audio> suena con el
-  // primero. /api/voz/estado dice una sola vez si está activa; si no lo está, si falla o si no empieza a
-  // sonar en NEURAL_TIMEOUT, habla la voz del navegador.
-  const NEURAL_TIMEOUT = 4000;
+  // primero. /api/voz/estado dice una sola vez si está activa; si no lo está, habla la voz del navegador.
+  // Cada personaje conserva su voz toda la consulta: la primera frase decide cuál se usa (ver speak).
+  // Una frase que falla se vuelve a pedir enseguida, hasta NEURAL_ATTEMPTS veces. Una lenta no es un fallo: el
+  // primer trozo tarda de 1 a 3,5 s y cortarla a los 4 s mezclaba voces. NEURAL_TIMEOUT solo corta una petición colgada.
+  const NEURAL_TIMEOUT = 12000;
+  const NEURAL_ATTEMPTS = 3;
+  // 'neural' o 'browser' cuando la consulta ya eligió voz; null hasta la primera frase.
+  let consultationVoice = null;
   const neuralVoice = fetch('/api/voz/estado')
     .then(response => (response.ok ? response.json() : { activa: false }))
     .then(body => body.activa === true)
@@ -197,6 +204,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const neuralTime = text => 3000 + text.length * 120;
   let currentAudio = null;
   const stopSpeech = () => {
+    stopLips();
     window.speechSynthesis?.cancel();
     if (currentAudio) {
       currentAudio.pause();
@@ -241,14 +249,32 @@ document.addEventListener('DOMContentLoaded', async () => {
     clearPreloaded();
   };
 
-  const speakWithBrowser = (text, finish) => {
+  // Voz del navegador fija por personaje: la primera vez se le asigna una voz en español distinta de las ya
+  // asignadas y la conserva. Si el navegador aún no cargó sus voces, usa la predeterminada sin fijarla.
+  const browserVoices = {};
+  const browserVoice = speaker => {
+    if (!browserVoices[speaker]) {
+      const spanish = window.speechSynthesis.getVoices().filter(voice => voice.lang.toLowerCase().startsWith('es'));
+      const used = new Set(Object.values(browserVoices));
+      const voice = spanish.find(candidate => !used.has(candidate)) || spanish[0];
+      if (voice) browserVoices[speaker] = voice;
+    }
+    return browserVoices[speaker] || null;
+  };
+
+  // Sin audio que medir, la boca se mueve durante toda la frase.
+  const speakWithBrowser = (text, speaker, finish) => {
     if (!('speechSynthesis' in window)) {
+      setTalking(true);
       wait(readingTime(text)).then(finish);
       return;
     }
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'es-ES';
+    const voice = browserVoice(speaker);
+    if (voice) utterance.voice = voice;
     utterance.rate = SPEECH_RATE;
+    utterance.onstart = () => setTalking(true);
     utterance.onend = finish;
     utterance.onerror = finish;
     window.speechSynthesis.cancel();
@@ -261,6 +287,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const finish = () => {
       if (done) return;
       done = true;
+      stopLips();
       skipCurrent = null;
       setSkipVisible(false);
       resolve();
@@ -268,25 +295,32 @@ document.addEventListener('DOMContentLoaded', async () => {
     skipCurrent = finish;
     setSkipVisible(true);
     const spoken = spokenText(text);
-    neuralVoice.then(active => {
+    // Nunca se mezclan voces en una consulta. Si la voz neuronal ya sonó, se queda: una frase que falla se
+    // vuelve a pedir y, si se agotan los intentos, se muestra sin voz. Si falla desde la primera frase, toda la
+    // consulta pasa a la voz del navegador.
+    const speakBrowser = () => {
+      consultationVoice = 'browser';
+      speakWithBrowser(spoken, speaker, finish);
+    };
+    const attempt = number => {
       if (done) return;
-      if (!active) {
-        speakWithBrowser(spoken, finish);
-        return;
-      }
       stopSpeech();
       const url = neuralUrl(spoken, speaker);
-      const audio = preloaded.get(url) || new Audio(url);
+      // El reintento lleva otra URL para que el navegador no reutilice la respuesta fallida.
+      const audio = (number === 1 && preloaded.get(url)) || new Audio(number === 1 ? url : `${url}&intento=${number}`);
       preloaded.delete(url);
       currentAudio = audio;
       let started = false;
       let settled = false;
-      // Antes de sonar, cualquier fallo pasa a la voz del navegador; después, termina la frase.
-      const fallBack = () => {
+      // Antes de sonar, un fallo pide la frase otra vez; después, termina la frase.
+      const fail = () => {
         if (settled || started) return;
         settled = true;
         if (currentAudio === audio) stopSpeech();
-        if (!done) speakWithBrowser(spoken, finish);
+        if (done) return;
+        if (number < NEURAL_ATTEMPTS) attempt(number + 1);
+        else if (consultationVoice === 'neural') wait(readingTime(spoken)).then(finish);
+        else speakBrowser();
       };
       const end = () => {
         if (settled) return;
@@ -297,17 +331,24 @@ document.addEventListener('DOMContentLoaded', async () => {
       audio.onplaying = () => {
         if (started) return;
         started = true;
+        consultationVoice = 'neural';
+        followVoice(audio);
         wait(neuralTime(spoken)).then(end);
       };
       audio.onended = end;
-      audio.onerror = () => (started ? end() : fallBack());
+      audio.onerror = () => (started ? end() : fail());
       // Un audio adelantado pudo fallar antes de que se le pusieran los avisos.
       if (audio.error) {
-        fallBack();
+        fail();
         return;
       }
-      wait(NEURAL_TIMEOUT).then(fallBack);
-      audio.play().catch(fallBack);
+      wait(NEURAL_TIMEOUT).then(fail);
+      audio.play().catch(fail);
+    };
+    neuralVoice.then(active => {
+      if (done) return;
+      if (!active || consultationVoice === 'browser') speakBrowser();
+      else attempt(1);
     });
   });
 
@@ -363,10 +404,109 @@ document.addEventListener('DOMContentLoaded', async () => {
     'paciente-mujer': 'Paciente del caso',
   };
   const sceneSources = name => ({
-    src: `assets/avatars/${name}-1376.webp`,
-    srcset: `assets/avatars/${name}-800.webp 800w, assets/avatars/${name}-1376.webp 1376w`,
+    src: `assets/avatars/${name}-1280.webp`,
+    srcset: `assets/avatars/${name}-800.webp 800w, assets/avatars/${name}-1280.webp 1280w`,
   });
   const patientScene = () => (currentCase?.patient?.sex === 'masculino' ? 'paciente-hombre' : 'paciente-mujer');
+
+  // Boca en movimiento: cada personaje tiene un video en bucle (LivePortrait) cuyo primer fotograma es su imagen
+  // quieta. Mientras suena la voz se ve el video; en los silencios (comas, pausas entre frases) vuelve la imagen.
+  // El video no está ligado al texto: la sincronía es por volumen, no por fonema.
+  const sceneVideos = {};
+  let talking = false;
+  const sceneVideo = name => {
+    if (!sceneAvatar || !SCENES[name]) return null;
+    if (!sceneVideos[name]) {
+      const video = document.createElement('video');
+      video.className = 'scene-video absolute inset-0 w-full h-full object-cover rounded-xl';
+      video.setAttribute('aria-hidden', 'true');
+      Object.assign(video, { muted: true, loop: true, playsInline: true, preload: 'auto' });
+      video.src = `assets/avatars/${name}-hablando.mp4`;
+      // Se muestra cuando de verdad está reproduciéndose: antes dejaría ver un fotograma negro.
+      video.addEventListener('playing', () => {
+        if (talking && sceneAvatar.dataset.scene === name) video.classList.add('is-visible');
+        else video.pause();
+      });
+      sceneAvatar.after(video);
+      sceneVideos[name] = video;
+    }
+    return sceneVideos[name];
+  };
+  // El video sigue donde se quedó: así cada palabra no empieza con el mismo gesto. Con «reducir movimiento»
+  // activado en el sistema no se muestra: queda la imagen quieta y el estado «Hablando» del globo.
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const setTalking = on => {
+    talking = on && !reducedMotion.matches;
+    Object.entries(sceneVideos).forEach(([name, video]) => {
+      if (talking && name === sceneAvatar?.dataset.scene) {
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+        video.classList.remove('is-visible');
+      }
+    });
+  };
+
+  // El volumen se mide con Web Audio sobre el mismo <audio> que suena. Si el navegador no deja medirlo (contexto
+  // de audio suspendido o sin Web Audio), la boca se mueve durante toda la frase.
+  const VOICE_LEVEL = 0.02;
+  // Espera antes de cerrar la boca, para que no parpadee entre sílabas.
+  const SILENCE_HOLD = 140;
+  let audioContext = null;
+  const meters = new WeakMap();
+  const meterFor = audio => {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextClass) return null;
+    audioContext ||= new AudioContextClass();
+    if (audioContext.state !== 'running') {
+      audioContext.resume().catch(() => {});
+      return null;
+    }
+    if (!meters.has(audio)) {
+      const analyser = audioContext.createAnalyser();
+      analyser.fftSize = 512;
+      audioContext.createMediaElementSource(audio).connect(analyser);
+      analyser.connect(audioContext.destination);
+      meters.set(audio, analyser);
+    }
+    return meters.get(audio);
+  };
+  let lipFrame = 0;
+  const stopLips = () => {
+    cancelAnimationFrame(lipFrame);
+    lipFrame = 0;
+    setTalking(false);
+  };
+  const followVoice = audio => {
+    stopLips();
+    let analyser = null;
+    try {
+      analyser = meterFor(audio);
+    } catch {
+      analyser = null;
+    }
+    if (!analyser) {
+      setTalking(true);
+      return;
+    }
+    const samples = new Float32Array(analyser.fftSize);
+    let lastVoice = -Infinity;
+    let voiced = false;
+    const tick = now => {
+      analyser.getFloatTimeDomainData(samples);
+      let energy = 0;
+      for (const sample of samples) energy += sample * sample;
+      if (Math.sqrt(energy / samples.length) > VOICE_LEVEL) lastVoice = now;
+      const on = now - lastVoice < SILENCE_HOLD;
+      if (on !== voiced) {
+        voiced = on;
+        setTalking(on);
+      }
+      lipFrame = requestAnimationFrame(tick);
+    };
+    lipFrame = requestAnimationFrame(tick);
+  };
+
   // El interrogatorio empieza cuando el doctor termina de presentar el caso.
   let interviewing = false;
   let sceneRequest = 0;
@@ -374,30 +514,43 @@ document.addEventListener('DOMContentLoaded', async () => {
     const image = new Image();
     image.sizes = sceneAvatar?.sizes || '100vw';
     Object.assign(image, sceneSources(name));
+    sceneVideo(name);
   };
   const setScene = name => {
     if (!sceneAvatar || !SCENES[name] || sceneAvatar.dataset.scene === name) return;
     const request = ++sceneRequest;
     sceneAvatar.dataset.scene = name;
+    setTalking(false);
     sceneAvatar.classList.add('is-switching');
+    // La imagen vuelve a verse cuando la nueva ya está decodificada: Firefox mantiene la anterior mientras tanto y
+    // se veía un instante al personaje que se iba.
     window.setTimeout(() => {
       if (request !== sceneRequest) return;
       Object.assign(sceneAvatar, sceneSources(name), { alt: SCENES[name] });
-      sceneAvatar.classList.remove('is-switching');
+      const shown = sceneAvatar.decode ? sceneAvatar.decode().catch(() => {}) : Promise.resolve();
+      shown.then(() => {
+        if (request === sceneRequest) sceneAvatar.classList.remove('is-switching');
+      });
     }, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 180);
   };
 
   // Una sola burbuja sobre la escena a la vez: la del equipo (doctor) o la del paciente.
+  // Laboratorio, radiología y especialista hablan en la escena del doctor: el globo dice quién habla.
   const setSpeaker = (speaker, text) => {
     const doctorSpeaks = speaker !== 'patient';
+    const who = SPEAKERS[speaker] || SPEAKERS.doctor;
     setScene(doctorSpeaks ? 'doctor' : patientScene());
     show(doctorBubble, doctorSpeaks);
     show(patientBubble, !doctorSpeaks);
+    if (doctorSpeaks) {
+      if (doctorName) doctorName.textContent = `${who.name} (Voz sintetizada)`;
+      if (doctorIcon) doctorIcon.textContent = speaker === 'doctor' ? 'record_voice_over' : who.icon;
+    }
     setPill(doctorStatus, doctorSpeaks ? 'Hablando' : 'En espera');
     setPill(patientStatus, doctorSpeaks ? 'En espera' : 'Hablando');
     if (doctorSpeaks && doctorText) doctorText.textContent = text;
     if (!doctorSpeaks && patientText) patientText.textContent = text;
-    if (conversationStatus) conversationStatus.textContent = doctorSpeaks ? 'Doctor hablando' : 'Paciente respondiendo';
+    if (conversationStatus) conversationStatus.textContent = doctorSpeaks ? `${who.name} hablando` : 'Paciente respondiendo';
   };
 
   const say = async (speaker, text) => {
@@ -540,11 +693,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     isRunning = true;
     session += 1;
     const current = session;
+    // Cada consulta elige su voz con la primera frase.
+    consultationVoice = null;
     hypotheses = [];
     discardingIndex = null;
     consultationClosed = false;
     interviewing = false;
     setScene('doctor');
+    sceneVideo('doctor');
     renderHypotheses();
     startButton.disabled = true;
     startButton.lastChild.textContent = ' Presentando caso...';

@@ -116,20 +116,20 @@
       </div>
 
       <div class="scene-stage relative flex-1 w-full min-h-[440px] sm:min-h-[500px] lg:min-h-0 bg-slate-50/60 flex items-start sm:items-center justify-center overflow-visible p-2 sm:p-3 lg:pt-14">
-        <div class="scene-frame relative w-full max-w-full aspect-[1376/768]">
+        <div class="scene-frame relative w-full max-w-full aspect-video">
           <!-- La escena muestra a quien habla: el doctor presenta el caso y el paciente responde en el interrogatorio. -->
           <img alt="Doctor del consultorio virtual"
             class="scene-avatar absolute inset-0 w-full h-full object-cover rounded-xl" data-purpose="medical-scene-view"
             data-role="scene-avatar" data-scene="doctor"
-            src="assets/avatars/doctor-1376.webp"
-            srcset="assets/avatars/doctor-800.webp 800w, assets/avatars/doctor-1376.webp 1376w" sizes="(min-width: 1024px) 66vw, 100vw">
+            src="assets/avatars/doctor-1280.webp"
+            srcset="assets/avatars/doctor-800.webp 800w, assets/avatars/doctor-1280.webp 1280w" sizes="(min-width: 1024px) 66vw, 100vw">
 
           <div data-role="doctor-bubble"
             class="speech-bubble speech-bubble--points-left hidden absolute z-20 inset-x-0 top-full mt-3 sm:inset-x-auto sm:mt-0 sm:top-[7%] sm:right-[3%] sm:w-[34%] max-h-44 overflow-y-auto sm:max-h-none sm:overflow-visible bg-brand-600 text-white shadow-float rounded-card p-3 sm:p-4 flex flex-col gap-2">
             <div class="flex flex-wrap items-center justify-between gap-2">
               <div class="flex items-center gap-1.5">
-                <span class="material-symbols-outlined text-base text-white/85">record_voice_over</span>
-                <span class="text-[13px] sm:text-sm font-semibold text-white/85">Doctor (Voz sintetizada)</span>
+                <span data-role="doctor-icon" class="material-symbols-outlined text-base text-white/85" aria-hidden="true">record_voice_over</span>
+                <span data-role="doctor-name" class="text-[13px] sm:text-sm font-semibold text-white/85">Doctor (Voz sintetizada)</span>
               </div>
               <div class="flex items-center gap-1.5">
                 <span data-role="doctor-status"
@@ -222,10 +222,10 @@
         <div class="tab-panel lg:h-full" data-tab-panel="consulta" role="tabpanel" hidden>
           <div class="flex items-center justify-between"><span class="section-title"><span
                 class="section-icon material-symbols-outlined">forum</span>Consulta en vivo</span><span
-              data-role="conversation-status" class="text-[13px] font-medium text-slate-500">Esperando inicio</span></div>
+              data-role="conversation-status" role="status" aria-live="polite" class="text-[13px] font-medium text-slate-500">Esperando inicio</span></div>
           <p data-role="next-prompt"
             class="text-[13px] text-brand-700 leading-relaxed bg-brand-50 rounded-lg px-3 py-2">La siguiente pregunta aparecerá aquí.</p>
-          <div data-role="conversation-history"
+          <div data-role="conversation-history" role="log" aria-live="polite" aria-label="Conversación de la consulta"
             class="sim-scroll max-h-72 lg:max-h-none lg:flex-1 lg:min-h-0 overflow-y-auto pr-1 flex flex-col gap-2.5 text-sm leading-relaxed">
             <p class="text-slate-400 italic text-[13px]">La conversación aparecerá aquí, una intervención a la vez.</p>
           </div>

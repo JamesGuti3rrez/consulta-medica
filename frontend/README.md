@@ -20,7 +20,7 @@ Interfaz web del estudiante: portada, simulación, reporte y voz.
 | `state/` | Estado de la vista en el cliente. El estado clínico lo decide el backend. |
 | `ui/` | Componentes reutilizables y accesibles (ventanas, pestañas, botones). |
 
-`public/assets/avatars/` guardará los archivos del avatar (por ejemplo `.riv`).
+`public/assets/avatars/` guarda los videos de la escena (`*-hablando.mp4`) y las imágenes quietas que genera `npm run build:images`. Los videos se preparan con `node frontend/scripts/prepare-avatar-videos.mjs` (necesita ffmpeg) a partir de los originales de LivePortrait en `src/assets/avatars/videos/`.
 
 ## Decisión pendiente
 

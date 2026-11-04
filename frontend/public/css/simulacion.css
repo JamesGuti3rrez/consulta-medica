@@ -150,7 +150,7 @@ button[hidden] {
   }
 
   .scene-frame {
-    width: min(100cqw, 100cqh * 1376 / 768);
+    width: min(100cqw, 100cqh * 16 / 9);
   }
 }
 
@@ -317,6 +317,21 @@ button[hidden] {
 }
 
 .scene-avatar.is-switching {
+  opacity: 0;
+}
+
+/* Video de la boca en movimiento: encima de la imagen quieta y solo mientras suena la voz. El cambio es
+   inmediato (sin transición) para que la boca siga al audio; durante el cambio de personaje se oculta. */
+.scene-video {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.scene-video.is-visible {
+  opacity: 1;
+}
+
+.scene-avatar.is-switching ~ .scene-video {
   opacity: 0;
 }
 
