@@ -139,7 +139,8 @@ const ESCENA = '[data-purpose="consultation-canvas-container"]';
     for (const [numero, pregunta] of PREGUNTAS.slice(1).entries()) {
       const desde = await page.evaluate(() => window.__escena.length);
       await mic.click();
-      await page.waitForFunction(() => document.querySelector('[data-role="conversation-status"]')?.textContent === 'Doctor hablando',
+      // Desde TA-020 el estado nombra al rol que habla: «Doctor hablando», «Laboratorio hablando», etc.
+      await page.waitForFunction(() => /^(Doctor|Laboratorio|Radiología|Especialista) hablando$/.test(document.querySelector('[data-role="conversation-status"]')?.textContent || ''),
         null, { timeout: 120000 });
       await page.waitForTimeout(400);
       comprobar(`«${pregunta}»: mientras entrega el hallazgo se ve al doctor con su globo`, await escenaActual() === 'doctor'

@@ -1,0 +1,79 @@
+{
+  "respaldo": "solo_texto",
+  "caso": "CIR-005",
+  "servidor": "http://localhost:3100",
+  "fecha": "2026-11-04T09:38:34.210Z",
+  "bloqueadas": {
+    "video": 2,
+    "voz": 6
+  },
+  "presentacion_s": 16.3,
+  "comprobaciones": [
+    {
+      "descripcion": "el navegador queda sin voz propia",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "los videos se intentaron cargar y fallaron",
+      "resultado": "PASA",
+      "detalle": "2 peticiones"
+    },
+    {
+      "descripcion": "nunca se ve un video: queda la imagen quieta",
+      "resultado": "PASA",
+      "detalle": "paciente-hombre, paciente-hombre-1280.webp"
+    },
+    {
+      "descripcion": "la voz neuronal se intentó y no sonó nunca",
+      "resultado": "PASA",
+      "detalle": "6 peticiones"
+    },
+    {
+      "descripcion": "el doctor presenta el caso completo en el chat",
+      "resultado": "PASA",
+      "detalle": "4 mensajes del doctor"
+    },
+    {
+      "descripcion": "cada frase se ve en el globo de diálogo",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "el paciente responde por texto",
+      "resultado": "PASA",
+      "detalle": "El dolor empezó antes de la cirugía, pero no recuerdo la hor"
+    },
+    {
+      "descripcion": "sin errores de JavaScript en la página",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "chat": [
+    {
+      "quien": "chat-doctor",
+      "texto": "Martín Rojas, de 28 años, sexo masculino. Motivo de consulta: Ingresó por dolor abdominal intenso; se diagnosticó apendicitis y se le realizó una apendicectomía de urgencia."
+    },
+    {
+      "quien": "chat-doctor",
+      "texto": "Evolución quirúrgica: Durante la intervención presentó un sangrado masivo y persistente que requirió transfusión de sangre."
+    },
+    {
+      "quien": "chat-doctor",
+      "texto": "No hay alergias documentadas en la ficha."
+    },
+    {
+      "quien": "chat-doctor",
+      "texto": "Doctor, puede comenzar con el interrogatorio."
+    },
+    {
+      "quien": "chat-student",
+      "texto": "¿Desde cuándo tiene el dolor?"
+    },
+    {
+      "quien": "chat-patient",
+      "texto": "El dolor empezó antes de la cirugía, pero no recuerdo la hora exacta."
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "fecha": "2026-11-04 04:36:04",
+  "edge_tts_version": "7.3.1",
+  "presentacion_caracteres": {
+    "casos": 43,
+    "minimo": 242,
+    "mediana": 292,
+    "maximo": 501,
+    "total": 13384
+  },
+  "voces": {
+    "espanol": 45,
+    "peru": [
+      "es-PE-AlexNeural",
+      "es-PE-CamilaNeural"
+    ],
+    "mexico": [
+      "es-MX-DaliaNeural",
+      "es-MX-JorgeNeural"
+    ],
+    "del_simulador": {
+      "es-CL-CatalinaNeural": "Female",
+      "es-CO-GonzaloNeural": "Male",
+      "es-MX-DaliaNeural": "Female",
+      "es-MX-JorgeNeural": "Male",
+      "es-PE-AlexNeural": "Male",
+      "es-PE-CamilaNeural": "Female"
+    }
+  },
+  "latencia": [
+    {
+      "personaje": "doctor (paciente hombre)",
+      "voz": "es-MX-JorgeNeural",
+      "frase": "corta",
+      "caracteres": 41,
+      "primer_trozo_s": {
+        "min": 0.9113682999741286,
+        "mediana": 0.9753467999980785,
+        "max": 1.027761899982579
+      },
+      "total_s": {
+        "min": 1.2283554999739863,
+        "mediana": 1.2835370999528095,
+        "max": 1.3481824999907985
+      },
+      "bytes_mp3": 19296
+    },
+    {
+      "personaje": "doctor (paciente hombre)",
+      "voz": "es-MX-JorgeNeural",
+      "frase": "larga",
+      "caracteres": 123,
+      "primer_trozo_s": {
+        "min": 0.9045291999937035,
+        "mediana": 0.9933487999951467,
+        "max": 3.6900724999723025
+      },
+      "total_s": {
+        "min": 1.319063700037077,
+        "mediana": 1.4131699000135995,
+        "max": 4.533509699977003
+      },
+      "bytes_mp3": 47952
+    },
+    {
+      "personaje": "paciente hombre",
+      "voz": "es-PE-AlexNeural",
+      "frase": "corta",
+      "caracteres": 41,
+      "primer_trozo_s": {
+        "min": 0.9235458000330254,
+        "mediana": 0.9667343000182882,
+        "max": 1.0024489000206813
+      },
+      "total_s": {
+        "min": 1.2416308000101708,
+        "mediana": 1.2567330000456423,
+        "max": 1.3197242000023834
+      },
+      "bytes_mp3": 21024
+    },
+    {
+      "personaje": "paciente hombre",
+      "voz": "es-PE-AlexNeural",
+      "frase": "larga",
+      "caracteres": 123,
+      "primer_trozo_s": {
+        "min": 0.9346167000476271,
+        "mediana": 0.9544657000224106,
+        "max": 0.9808346999925561
+      },
+      "total_s": {
+        "min": 1.366435799980536,
+        "mediana": 1.390946300001815,
+        "max": 1.5499501000158489
+      },
+      "bytes_mp3": 52128
+    },
+    {
+      "personaje": "paciente mujer",
+      "voz": "es-PE-CamilaNeural",
+      "frase": "corta",
+      "caracteres": 41,
+      "primer_trozo_s": {
+        "min": 0.8951360000064597,
+        "mediana": 0.9598427000455558,
+        "max": 1.024363500007894
+      },
+      "total_s": {
+        "min": 1.1788090000045486,
+        "mediana": 1.2603720999904908,
+        "max": 5.979564900044352
+      },
+      "bytes_mp3": 17712
+    },
+    {
+      "personaje": "paciente mujer",
+      "voz": "es-PE-CamilaNeural",
+      "frase": "larga",
+      "caracteres": 123,
+      "primer_trozo_s": {
+        "min": 0.9256716000381857,
+        "mediana": 0.9685749999480322,
+        "max": 1.014316599990707
+      },
+      "total_s": {
+        "min": 1.338970299984794,
+        "mediana": 1.3941741000162438,
+        "max": 1.474792399967555
+      },
+      "bytes_mp3": 40896
+    }
+  ],
+  "azure": {
+    "clave_configurada": false
+  }
+}

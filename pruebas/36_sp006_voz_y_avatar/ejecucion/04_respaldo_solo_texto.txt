@@ -1,0 +1,21 @@
+Respaldo «solo_texto», caso CIR-005 en http://localhost:3100
+
+PASA   el navegador queda sin voz propia
+Peticiones bloqueadas: videos 2, voz neuronal 6
+Presentación completa en 16.3 s; mensajes en el chat: 6
+  chat-doctor  Martín Rojas, de 28 años, sexo masculino. Motivo de consulta: Ingresó por dolor 
+  chat-doctor  Evolución quirúrgica: Durante la intervención presentó un sangrado masivo y pers
+  chat-doctor  No hay alergias documentadas en la ficha.
+  chat-doctor  Doctor, puede comenzar con el interrogatorio.
+  chat-student ¿Desde cuándo tiene el dolor?
+  chat-patient El dolor empezó antes de la cirugía, pero no recuerdo la hora exacta.
+
+PASA   los videos se intentaron cargar y fallaron  (2 peticiones)
+PASA   nunca se ve un video: queda la imagen quieta  (paciente-hombre, paciente-hombre-1280.webp)
+PASA   la voz neuronal se intentó y no sonó nunca  (6 peticiones)
+PASA   el doctor presenta el caso completo en el chat  (4 mensajes del doctor)
+PASA   cada frase se ve en el globo de diálogo
+PASA   el paciente responde por texto  (El dolor empezó antes de la cirugía, pero no recuerdo la hor)
+PASA   sin errores de JavaScript en la página
+
+8 de 8 comprobaciones pasan

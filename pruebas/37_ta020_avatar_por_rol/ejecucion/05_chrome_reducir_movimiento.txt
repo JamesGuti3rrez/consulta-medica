@@ -1,0 +1,24 @@
+TA-020 en chrome 156.0.8078.80, movimiento reducido, caso CIR-005 (masculino), ventana 1440x1000
+
+PASA   el chat se anuncia a lectores de pantalla (role="log", aria-live)  (log,polite)
+PASA   el estado de la conversación se anuncia (role="status", aria-live)  (status,polite)
+Turno 1 «¿Desde cuándo tiene el dolor?»: responde Paciente; globo Paciente
+Turno 2 «Realizo exploración física»: responde Doctor; globo Doctor
+Turno 3 «Solicito hemograma completo»: responde Laboratorio; globo Laboratorio
+Turno 4 «Solicito radiografía de tórax»: responde Radiología; globo Radiología
+Turno 5 «Solicito interconsulta con cardiología»: responde Especialista; globo Especialista
+
+PASA   cada turno muestra en el globo el mismo rol que responde en el chat  (Paciente→Paciente; Doctor→Doctor; Laboratorio→Laboratorio; Radiología→Radiología; Especialista→Especialista)
+PASA   roles que hablaron en la consulta  (Doctor, Paciente, Laboratorio, Radiología, Especialista)
+PASA   escena por rol: el paciente es paciente-hombre; doctor y servicios en la escena del doctor
+PASA   la imagen que se ve es la del personaje en escena (archivo mostrado)  (doctor:doctor-1280.webp | paciente-hombre:paciente-hombre-1280.webp)
+PASA   la imagen describe al personaje en escena (texto alternativo)  (Doctor del consultorio virtual | Paciente del caso)
+PASA   mientras un rol habla su globo dice «Hablando»
+PASA   el estado de la conversación nombra al rol que habla  (Paciente respondiendo; Doctor hablando; Laboratorio hablando; Radiología hablando; Especialista hablando)
+PASA   al terminar el turno: «Listo», «Tu turno» y sin video  (null / Tu turno)
+Muestras: 2074; con voz 1352 (neuronal 1352, navegador 0); con video 0; H.264: «probably»
+PASA   el video no sigue con la voz callada (tramos de 200 ms o menos, el cierre de la boca)  (ningún tramo)
+PASA   reducir movimiento: nunca hay video, queda la imagen y el estado «Hablando»  (0 muestras con video)
+PASA   sin errores de JavaScript en la página
+
+13 de 13 comprobaciones pasan

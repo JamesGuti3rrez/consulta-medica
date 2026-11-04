@@ -1,0 +1,25 @@
+1. Caracteres de la presentación de cada caso
+   43 casos: mínimo 242, mediana 292, máximo 501
+
+2. Voces en español de edge-tts
+   45 voces en español; Perú: es-PE-AlexNeural, es-PE-CamilaNeural
+   México: es-MX-DaliaNeural, es-MX-JorgeNeural
+   simulador: es-CL-CatalinaNeural     Female
+   simulador: es-CO-GonzaloNeural      Male
+   simulador: es-MX-DaliaNeural        Female
+   simulador: es-MX-JorgeNeural        Male
+   simulador: es-PE-AlexNeural         Male
+   simulador: es-PE-CamilaNeural       Female
+
+3. Latencia de edge-tts (5 repeticiones por voz y frase)
+   doctor (paciente hombre)   corta  primer trozo 0.91-1.03 s (mediana 0.98), total mediana 1.28 s
+   doctor (paciente hombre)   larga  primer trozo 0.90-3.69 s (mediana 0.99), total mediana 1.41 s
+   paciente hombre            corta  primer trozo 0.92-1.00 s (mediana 0.97), total mediana 1.26 s
+   paciente hombre            larga  primer trozo 0.93-0.98 s (mediana 0.95), total mediana 1.39 s
+   paciente mujer             corta  primer trozo 0.90-1.02 s (mediana 0.96), total mediana 1.26 s
+   paciente mujer             larga  primer trozo 0.93-1.01 s (mediana 0.97), total mediana 1.39 s
+
+4. Azure AI Speech
+   sin clave: falta la autorización de GitHub Student (no se puede medir)
+
+Resultado en pruebas\36_sp006_voz_y_avatar\resultados\voz.json

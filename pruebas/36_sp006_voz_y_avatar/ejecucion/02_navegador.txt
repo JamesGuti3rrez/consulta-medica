@@ -1,0 +1,29 @@
+== Google Chrome 156.0.8078.80
+  Voz del navegador: 2 voces en español; empieza a hablar en 571 ms, 216 ms, 245 ms
+    Microsoft Raul - Spanish (Mexico) (es-MX, local)
+    Microsoft Sabina - Spanish (Mexico) (es-MX, local)
+  Reproduce H.264 (MP4): probably
+    doctor           se puede reproducir, 81 ms, 1280x720, 10.57 s
+    paciente-hombre  se puede reproducir, 66 ms, 1280x720, 10.57 s
+    paciente-mujer   se puede reproducir, 65 ms, 1280x720, 10.57 s
+== Chromium de Playwright 153.0.8010.12
+  Voz del navegador: 2 voces en español; empieza a hablar en 322 ms, 273 ms, 241 ms
+    Microsoft Raul - Spanish (Mexico) (es-MX, local)
+    Microsoft Sabina - Spanish (Mexico) (es-MX, local)
+  Reproduce H.264 (MP4): probably
+    doctor           se puede reproducir, 43 ms, 1280x720, 10.57 s
+    paciente-hombre  se puede reproducir, 40 ms, 1280x720, 10.57 s
+    paciente-mujer   se puede reproducir, 27 ms, 1280x720, 10.57 s
+
+== Peso de los avatares
+  doctor-hablando.mp4            200 video/mp4   334 KB
+  doctor-1280.webp               200 image/webp  41 KB
+  doctor-800.webp                200 image/webp  23 KB
+  paciente-hombre-hablando.mp4   200 video/mp4   408 KB
+  paciente-hombre-1280.webp      200 image/webp  50 KB
+  paciente-hombre-800.webp       200 image/webp  26 KB
+  paciente-mujer-hablando.mp4    200 video/mp4   334 KB
+  paciente-mujer-1280.webp       200 image/webp  34 KB
+  paciente-mujer-800.webp        200 image/webp  20 KB
+
+Resultado en pruebas\36_sp006_voz_y_avatar\resultados\navegador.json

@@ -1,0 +1,134 @@
+{
+  "fecha": "2026-11-04T09:36:58.426Z",
+  "servidor": "http://localhost:3000",
+  "navegadores": {
+    "Google Chrome": {
+      "version": "156.0.8078.80",
+      "voces_espanol": [
+        "Microsoft Raul - Spanish (Mexico) (es-MX, local)",
+        "Microsoft Sabina - Spanish (Mexico) (es-MX, local)"
+      ],
+      "inicio_voz_ms": [
+        571,
+        216,
+        245
+      ],
+      "h264": "probably",
+      "videos": [
+        {
+          "personaje": "doctor",
+          "estado": "se puede reproducir",
+          "ms": 81,
+          "resolucion": "1280x720",
+          "duracion_s": 10.57
+        },
+        {
+          "personaje": "paciente-hombre",
+          "estado": "se puede reproducir",
+          "ms": 66,
+          "resolucion": "1280x720",
+          "duracion_s": 10.57
+        },
+        {
+          "personaje": "paciente-mujer",
+          "estado": "se puede reproducir",
+          "ms": 65,
+          "resolucion": "1280x720",
+          "duracion_s": 10.57
+        }
+      ]
+    },
+    "Chromium de Playwright": {
+      "version": "153.0.8010.12",
+      "voces_espanol": [
+        "Microsoft Raul - Spanish (Mexico) (es-MX, local)",
+        "Microsoft Sabina - Spanish (Mexico) (es-MX, local)"
+      ],
+      "inicio_voz_ms": [
+        322,
+        273,
+        241
+      ],
+      "h264": "probably",
+      "videos": [
+        {
+          "personaje": "doctor",
+          "estado": "se puede reproducir",
+          "ms": 43,
+          "resolucion": "1280x720",
+          "duracion_s": 10.57
+        },
+        {
+          "personaje": "paciente-hombre",
+          "estado": "se puede reproducir",
+          "ms": 40,
+          "resolucion": "1280x720",
+          "duracion_s": 10.57
+        },
+        {
+          "personaje": "paciente-mujer",
+          "estado": "se puede reproducir",
+          "ms": 27,
+          "resolucion": "1280x720",
+          "duracion_s": 10.57
+        }
+      ]
+    }
+  },
+  "archivos": [
+    {
+      "archivo": "doctor-hablando.mp4",
+      "estado": 200,
+      "tipo": "video/mp4",
+      "kb": 334
+    },
+    {
+      "archivo": "doctor-1280.webp",
+      "estado": 200,
+      "tipo": "image/webp",
+      "kb": 41
+    },
+    {
+      "archivo": "doctor-800.webp",
+      "estado": 200,
+      "tipo": "image/webp",
+      "kb": 23
+    },
+    {
+      "archivo": "paciente-hombre-hablando.mp4",
+      "estado": 200,
+      "tipo": "video/mp4",
+      "kb": 408
+    },
+    {
+      "archivo": "paciente-hombre-1280.webp",
+      "estado": 200,
+      "tipo": "image/webp",
+      "kb": 50
+    },
+    {
+      "archivo": "paciente-hombre-800.webp",
+      "estado": 200,
+      "tipo": "image/webp",
+      "kb": 26
+    },
+    {
+      "archivo": "paciente-mujer-hablando.mp4",
+      "estado": 200,
+      "tipo": "video/mp4",
+      "kb": 334
+    },
+    {
+      "archivo": "paciente-mujer-1280.webp",
+      "estado": 200,
+      "tipo": "image/webp",
+      "kb": 34
+    },
+    {
+      "archivo": "paciente-mujer-800.webp",
+      "estado": 200,
+      "tipo": "image/webp",
+      "kb": 20
+    }
+  ]
+}

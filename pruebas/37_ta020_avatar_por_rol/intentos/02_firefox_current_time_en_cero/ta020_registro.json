@@ -1,0 +1,417 @@
+{
+  "navegador": "firefox",
+  "version": "155.0",
+  "movimiento": "normal",
+  "caso": "CIR-005",
+  "ventana": "1440x1000",
+  "h264": "probably",
+  "fecha": "2026-11-04T10:06:32.606Z",
+  "comprobaciones": [
+    {
+      "descripcion": "el chat se anuncia a lectores de pantalla (role=\"log\", aria-live)",
+      "resultado": "PASA",
+      "detalle": "log,polite"
+    },
+    {
+      "descripcion": "el estado de la conversación se anuncia (role=\"status\", aria-live)",
+      "resultado": "PASA",
+      "detalle": "status,polite"
+    },
+    {
+      "descripcion": "cada turno muestra en el globo el mismo rol que responde en el chat",
+      "resultado": "PASA",
+      "detalle": "Paciente→Paciente; Doctor→Doctor; Laboratorio→Laboratorio; Radiología→Radiología; Especialista→Especialista"
+    },
+    {
+      "descripcion": "roles que hablaron en la consulta",
+      "resultado": "PASA",
+      "detalle": "Doctor, Paciente, Laboratorio, Radiología, Especialista"
+    },
+    {
+      "descripcion": "escena por rol: el paciente es paciente-hombre; doctor y servicios en la escena del doctor",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "la imagen describe al personaje en escena (texto alternativo)",
+      "resultado": "PASA",
+      "detalle": "Doctor del consultorio virtual | Paciente del caso"
+    },
+    {
+      "descripcion": "mientras un rol habla su globo dice «Hablando»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "el estado de la conversación nombra al rol que habla",
+      "resultado": "PASA",
+      "detalle": "Paciente respondiendo; Doctor hablando; Laboratorio hablando; Radiología hablando; Especialista hablando"
+    },
+    {
+      "descripcion": "al terminar el turno: «Listo», «Tu turno» y sin video",
+      "resultado": "PASA",
+      "detalle": "null / Tu turno"
+    },
+    {
+      "descripcion": "el video no sigue con la voz callada (tramos de 200 ms o menos, el cierre de la boca)",
+      "resultado": "FALLA",
+      "detalle": "1 tramos, el mayor de 480 ms"
+    },
+    {
+      "descripcion": "la boca se mueve (video) mientras suena la voz",
+      "resultado": "PASA",
+      "detalle": "1107 muestras"
+    },
+    {
+      "descripcion": "sin errores de JavaScript en la página",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "turnos": [
+    {
+      "pregunta": "¿Desde cuándo tiene el dolor?",
+      "responden": [
+        "Paciente"
+      ],
+      "globos": [
+        "Paciente"
+      ],
+      "escenas": [
+        "Paciente:paciente-hombre"
+      ],
+      "estados": [
+        "Paciente respondiendo"
+      ]
+    },
+    {
+      "pregunta": "Realizo exploración física",
+      "responden": [
+        "Doctor"
+      ],
+      "globos": [
+        "Doctor"
+      ],
+      "escenas": [
+        "Doctor:doctor"
+      ],
+      "estados": [
+        "Doctor hablando"
+      ]
+    },
+    {
+      "pregunta": "Solicito hemograma completo",
+      "responden": [
+        "Laboratorio"
+      ],
+      "globos": [
+        "Laboratorio"
+      ],
+      "escenas": [
+        "Laboratorio:doctor"
+      ],
+      "estados": [
+        "Laboratorio hablando"
+      ]
+    },
+    {
+      "pregunta": "Solicito radiografía de tórax",
+      "responden": [
+        "Radiología"
+      ],
+      "globos": [
+        "Radiología"
+      ],
+      "escenas": [
+        "Radiología:doctor"
+      ],
+      "estados": [
+        "Radiología hablando"
+      ]
+    },
+    {
+      "pregunta": "Solicito interconsulta con cardiología",
+      "responden": [
+        "Especialista"
+      ],
+      "globos": [
+        "Especialista"
+      ],
+      "escenas": [
+        "Especialista:doctor"
+      ],
+      "estados": [
+        "Especialista hablando"
+      ]
+    }
+  ],
+  "tramos_largos": [
+    [
+      {
+        "escena": "doctor",
+        "cambiando": false,
+        "alt": "Doctor del consultorio virtual",
+        "globo": "Doctor",
+        "estado": "Hablando",
+        "video": false,
+        "audio": false,
+        "navegador": false,
+        "conversacion": "Doctor hablando",
+        "t": 12301,
+        "detalle": "paused=false ended=false t=0.00 rs=0"
+      },
+      {
+        "escena": "doctor",
+        "cambiando": false,
+        "alt": "Doctor del consultorio virtual",
+        "globo": "Doctor",
+        "estado": "Hablando",
+        "video": false,
+        "audio": false,
+        "navegador": false,
+        "conversacion": "Doctor hablando",
+        "t": 12341,
+        "detalle": "paused=false ended=false t=0.00 rs=0"
+      },
+      {
+        "escena": "doctor",
+        "cambiando": false,
+        "alt": "Doctor del consultorio virtual",
+        "globo": "Doctor",
+        "estado": "Hablando",
+        "video": false,
+        "audio": false,
+        "navegador": false,
+        "conversacion": "Doctor hablando",
+        "t": 12381,
+        "detalle": "paused=false ended=false t=0.00 rs=0"
+      },
+      {
+        "escena": "doctor",
+        "cambiando": false,
+        "alt": "Doctor del consultorio virtual",
+        "globo": "Doctor",
+        "estado": "Hablando",
+        "video": false,
+        "audio": false,
+        "navegador": false,
+        "conversacion": "Doctor hablando",
+        "t": 12432,
+        "detalle": "paused=false ended=false t=0.00 rs=3"
+      },
+      {
+        "escena": "doctor",
+        "cambiando": false,
+        "alt": "Doctor del consultorio virtual",
+        "globo": "Doctor",
+        "estado": "Hablando",
+        "video": true,
+        "audio": false,
+        "navegador": false,
+        "conversacion": "Doctor hablando",
+        "t": 12472,
+        "detalle": "paused=false ended=false t=0.00 rs=3"
+      },
+      {
+        "escena": "doctor",
+        "cambiando": false,
+        "alt": "Doctor del consultorio virtual",
+        "globo": "Doctor",
+        "estado": "Hablando",
+        "video": true,
+        "audio": false,
+        "navegador": false,
+        "conversacion": "Doctor hablando",
+        "t": 12513,
+        "detalle": "paused=false ended=false t=0.00 rs=3"
+      },
+      {
+        "escena": "doctor",
+        "cambiando": false,
+        "alt": "Doctor del consultorio virtual",
+        "globo": "Doctor",
+        "estado": "Hablando",
+        "video": true,
+        "audio": false,
+        "navegador": false,
+        "conversacion": "Doctor hablando",
+        "t": 12553,
+        "detalle": "paused=false ended=false t=0.00 rs=3"
+      },
+      {
+        "escena": "doctor",
+        "cambiando": false,
+        "alt": "Doctor del consultorio virtual",
+        "globo": "Doctor",
+        "estado": "Hablando",
+        "video": true,
+        "audio": false,
+        "navegador": false,
+        "conversacion": "Doctor hablando",
+        "t": 12595,
+        "detalle": "paused=false ended=false t=0.00 rs=3"
+      },
+      {
+        "escena": "doctor",
+        "cambiando": false,
+        "alt": "Doctor del consultorio virtual",
+        "globo": "Doctor",
+        "estado": "Hablando",
+        "video": true,
+        "audio": false,
+        "navegador": false,
+        "conversacion": "Doctor hablando",
+        "t": 12635,
+        "detalle": "paused=false ended=false t=0.00 rs=3"
+      },
+      {
+        "escena": "doctor",
+        "cambiando": false,
+        "alt": "Doctor del consultorio virtual",
+        "globo": "Doctor",
+        "estado": "Hablando",
+        "video": true,
+        "audio": false,
+        "navegador": false,
+        "conversacion": "Doctor hablando",
+        "t": 12676,
+        "detalle": "paused=false ended=false t=0.00 rs=3"
+      },
+      {
+        "escena": "doctor",
+        "cambiando": false,
+        "alt": "Doctor del consultorio virtual",
+        "globo": "Doctor",
+        "estado": "Hablando",
+        "video": true,
+        "audio": false,
+        "navegador": false,
+        "conversacion": "Doctor hablando",
+        "t": 12716,
+        "detalle": "paused=false ended=false t=0.00 rs=4"
+      },
+      {
+        "escena": "doctor",
+        "cambiando": false,
+        "alt": "Doctor del consultorio virtual",
+        "globo": "Doctor",
+        "estado": "Hablando",
+        "video": true,
+        "audio": false,
+        "navegador": false,
+        "conversacion": "Doctor hablando",
+        "t": 12756,
+        "detalle": "paused=false ended=false t=0.00 rs=4"
+      },
+      {
+        "escena": "doctor",
+        "cambiando": false,
+        "alt": "Doctor del consultorio virtual",
+        "globo": "Doctor",
+        "estado": "Hablando",
+        "video": true,
+        "audio": false,
+        "navegador": false,
+        "conversacion": "Doctor hablando",
+        "t": 12796,
+        "detalle": "paused=false ended=false t=0.00 rs=4"
+      },
+      {
+        "escena": "doctor",
+        "cambiando": false,
+        "alt": "Doctor del consultorio virtual",
+        "globo": "Doctor",
+        "estado": "Hablando",
+        "video": true,
+        "audio": false,
+        "navegador": false,
+        "conversacion": "Doctor hablando",
+        "t": 12841,
+        "detalle": "paused=false ended=false t=0.00 rs=4"
+      },
+      {
+        "escena": "doctor",
+        "cambiando": false,
+        "alt": "Doctor del consultorio virtual",
+        "globo": "Doctor",
+        "estado": "Hablando",
+        "video": true,
+        "audio": false,
+        "navegador": false,
+        "conversacion": "Doctor hablando",
+        "t": 12883,
+        "detalle": "paused=false ended=false t=0.00 rs=4"
+      },
+      {
+        "escena": "doctor",
+        "cambiando": false,
+        "alt": "Doctor del consultorio virtual",
+        "globo": "Doctor",
+        "estado": "Hablando",
+        "video": true,
+        "audio": false,
+        "navegador": false,
+        "conversacion": "Doctor hablando",
+        "t": 12938,
+        "detalle": "paused=false ended=false t=0.00 rs=4"
+      },
+      {
+        "escena": "doctor",
+        "cambiando": false,
+        "alt": "Doctor del consultorio virtual",
+        "globo": "Doctor",
+        "estado": "Hablando",
+        "video": true,
+        "audio": true,
+        "navegador": false,
+        "conversacion": "Doctor hablando",
+        "t": 12978,
+        "detalle": "paused=false ended=false t=0.03 rs=4"
+      },
+      {
+        "escena": "doctor",
+        "cambiando": false,
+        "alt": "Doctor del consultorio virtual",
+        "globo": "Doctor",
+        "estado": "Hablando",
+        "video": true,
+        "audio": true,
+        "navegador": false,
+        "conversacion": "Doctor hablando",
+        "t": 13018,
+        "detalle": "paused=false ended=false t=0.07 rs=4"
+      },
+      {
+        "escena": "doctor",
+        "cambiando": false,
+        "alt": "Doctor del consultorio virtual",
+        "globo": "Doctor",
+        "estado": "Hablando",
+        "video": true,
+        "audio": true,
+        "navegador": false,
+        "conversacion": "Doctor hablando",
+        "t": 13059,
+        "detalle": "paused=false ended=false t=0.11 rs=4"
+      },
+      {
+        "escena": "doctor",
+        "cambiando": false,
+        "alt": "Doctor del consultorio virtual",
+        "globo": "Doctor",
+        "estado": "Hablando",
+        "video": true,
+        "audio": true,
+        "navegador": false,
+        "conversacion": "Doctor hablando",
+        "t": 13099,
+        "detalle": "paused=false ended=false t=0.15 rs=4"
+      }
+    ]
+  ],
+  "muestras": {
+    "total": 2134,
+    "con_voz": 1315,
+    "con_video": 1107
+  }
+}

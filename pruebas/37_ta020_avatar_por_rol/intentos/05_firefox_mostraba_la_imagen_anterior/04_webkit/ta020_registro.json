@@ -1,0 +1,159 @@
+{
+  "navegador": "webkit",
+  "version": "26.6",
+  "movimiento": "normal",
+  "caso": "CIR-005",
+  "ventana": "1440x1000",
+  "h264": "probably",
+  "fecha": "2026-11-04T10:33:02.558Z",
+  "comprobaciones": [
+    {
+      "descripcion": "el chat se anuncia a lectores de pantalla (role=\"log\", aria-live)",
+      "resultado": "PASA",
+      "detalle": "log,polite"
+    },
+    {
+      "descripcion": "el estado de la conversación se anuncia (role=\"status\", aria-live)",
+      "resultado": "PASA",
+      "detalle": "status,polite"
+    },
+    {
+      "descripcion": "cada turno muestra en el globo el mismo rol que responde en el chat",
+      "resultado": "PASA",
+      "detalle": "Paciente→Paciente; Doctor→Doctor; Laboratorio→Laboratorio; Radiología→Radiología; Especialista→Especialista"
+    },
+    {
+      "descripcion": "roles que hablaron en la consulta",
+      "resultado": "PASA",
+      "detalle": "Doctor, Paciente, Laboratorio, Radiología, Especialista"
+    },
+    {
+      "descripcion": "escena por rol: el paciente es paciente-hombre; doctor y servicios en la escena del doctor",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "la imagen que se ve es la del personaje en escena (archivo mostrado)",
+      "resultado": "PASA",
+      "detalle": "doctor:doctor-1280.webp | paciente-hombre:paciente-hombre-1280.webp"
+    },
+    {
+      "descripcion": "la imagen describe al personaje en escena (texto alternativo)",
+      "resultado": "PASA",
+      "detalle": "Doctor del consultorio virtual | Paciente del caso"
+    },
+    {
+      "descripcion": "mientras un rol habla su globo dice «Hablando»",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "el estado de la conversación nombra al rol que habla",
+      "resultado": "PASA",
+      "detalle": "Paciente respondiendo; Doctor hablando; Laboratorio hablando; Radiología hablando; Especialista hablando"
+    },
+    {
+      "descripcion": "al terminar el turno: «Listo», «Tu turno» y sin video",
+      "resultado": "PASA",
+      "detalle": "null / Tu turno"
+    },
+    {
+      "descripcion": "el video no sigue con la voz callada (tramos de 200 ms o menos, el cierre de la boca)",
+      "resultado": "PASA",
+      "detalle": "ningún tramo"
+    },
+    {
+      "descripcion": "la boca se mueve (video) mientras suena la voz",
+      "resultado": "PASA",
+      "detalle": "1157 muestras"
+    },
+    {
+      "descripcion": "sin errores de JavaScript en la página",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "turnos": [
+    {
+      "pregunta": "¿Desde cuándo tiene el dolor?",
+      "responden": [
+        "Paciente"
+      ],
+      "globos": [
+        "Paciente"
+      ],
+      "escenas": [
+        "Paciente:paciente-hombre"
+      ],
+      "estados": [
+        "Paciente respondiendo"
+      ]
+    },
+    {
+      "pregunta": "Realizo exploración física",
+      "responden": [
+        "Doctor"
+      ],
+      "globos": [
+        "Doctor"
+      ],
+      "escenas": [
+        "Doctor:doctor"
+      ],
+      "estados": [
+        "Doctor hablando"
+      ]
+    },
+    {
+      "pregunta": "Solicito hemograma completo",
+      "responden": [
+        "Laboratorio"
+      ],
+      "globos": [
+        "Laboratorio"
+      ],
+      "escenas": [
+        "Laboratorio:doctor"
+      ],
+      "estados": [
+        "Laboratorio hablando"
+      ]
+    },
+    {
+      "pregunta": "Solicito radiografía de tórax",
+      "responden": [
+        "Radiología"
+      ],
+      "globos": [
+        "Radiología"
+      ],
+      "escenas": [
+        "Radiología:doctor"
+      ],
+      "estados": [
+        "Radiología hablando"
+      ]
+    },
+    {
+      "pregunta": "Solicito interconsulta con cardiología",
+      "responden": [
+        "Especialista"
+      ],
+      "globos": [
+        "Especialista"
+      ],
+      "escenas": [
+        "Especialista:doctor"
+      ],
+      "estados": [
+        "Especialista hablando"
+      ]
+    }
+  ],
+  "tramos_largos": [],
+  "muestras": {
+    "total": 2331,
+    "con_voz": 1345,
+    "con_video": 1157
+  }
+}
