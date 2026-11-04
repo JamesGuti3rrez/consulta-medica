@@ -1,0 +1,24 @@
+Escenario A, caso CIR-005 en http://localhost:3100
+
+Frases pedidas a /api/voz:
+  1. Martín Rojas, de 28 años, sexo masculino, Motivo de consulta: Ingresó 
+  2. Evolución quirúrgica: Durante la intervención presentó un sangrado mas
+  3. No hay alergias documentadas en la ficha.
+  4. Doctor, puede comenzar con el interrogatorio.
+  5. El dolor empezó antes de la cirugía, pero no recuerdo la hora exacta.
+Peticiones: f1/i1:ok f2/i1:fallo f3/i1:fallo f2/i2:ok f2/i3:ok f4/i1:ok f3/i2:fallo f3/i3:fallo f5/i1:ok
+Voces que sonaron:
+  neuronal  doctor   intento 1  «Martín Rojas, de 28 años, sexo masculino, Motivo d»
+  neuronal  doctor   intento 3  «Evolución quirúrgica: Durante la intervención pres»
+  neuronal  doctor   intento 1  «Doctor, puede comenzar con el interrogatorio.»
+  neuronal  patient  intento 1  «El dolor empezó antes de la cirugía, pero no recue»
+
+PASA   la consulta empieza con la voz neuronal  (neuronal)
+PASA   la voz del navegador no suena nunca  (0 frases con el navegador)
+FALLA  la 2.ª frase falla al primer intento y suena neuronal al reintentar  (i1,i2,i3)
+PASA   la 3.ª frase se pide 3 veces y se muestra sin voz
+PASA   la consulta sigue después de la frase sin voz (el paciente responde con la voz neuronal)
+PASA   el chat tiene la presentación completa y la respuesta del paciente  (6 mensajes)
+PASA   sin errores de JavaScript en la página
+
+6 de 7 comprobaciones pasan

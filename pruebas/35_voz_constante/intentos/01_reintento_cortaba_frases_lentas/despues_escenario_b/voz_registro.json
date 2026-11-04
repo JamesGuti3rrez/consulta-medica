@@ -1,0 +1,124 @@
+{
+  "escenario": "b",
+  "caso": "CIR-005",
+  "servidor": "http://localhost:3100",
+  "fecha": "2026-11-04T09:10:10.534Z",
+  "comprobaciones": [
+    {
+      "descripcion": "la voz neuronal se intenta 3 veces en la primera frase",
+      "resultado": "PASA",
+      "detalle": "1,2,3"
+    },
+    {
+      "descripcion": "la voz neuronal no suena nunca",
+      "resultado": "PASA",
+      "detalle": "0 frases neuronales"
+    },
+    {
+      "descripcion": "después no se vuelve a reintentar la voz neuronal",
+      "resultado": "PASA",
+      "detalle": "0"
+    },
+    {
+      "descripcion": "todas las frases del doctor y del paciente suenan con el navegador",
+      "resultado": "PASA",
+      "detalle": "5 frases"
+    },
+    {
+      "descripcion": "el doctor conserva una sola voz del navegador",
+      "resultado": "PASA",
+      "detalle": "Microsoft Raul - Spanish (Mexico)"
+    },
+    {
+      "descripcion": "el paciente conserva una sola voz del navegador",
+      "resultado": "PASA",
+      "detalle": "Microsoft Sabina - Spanish (Mexico)"
+    },
+    {
+      "descripcion": "el chat tiene la presentación completa y la respuesta del paciente",
+      "resultado": "PASA",
+      "detalle": "6 mensajes"
+    },
+    {
+      "descripcion": "sin errores de JavaScript en la página",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "frases": [
+    "Martín Rojas, de 28 años, sexo masculino, Motivo de consulta: Ingresó por dolor abdominal intenso; se diagnosticó apendicitis y se le realizó una apendicectomía de urgencia.",
+    "Evolución quirúrgica: Durante la intervención presentó un sangrado masivo y persistente que requirió transfusión de sangre.",
+    "No hay alergias documentadas en la ficha.",
+    "Doctor, puede comenzar con el interrogatorio."
+  ],
+  "peticiones": [
+    {
+      "frase": 1,
+      "intento": 1,
+      "personaje": "doctor",
+      "resultado": "fallo forzado"
+    },
+    {
+      "frase": 2,
+      "intento": 1,
+      "personaje": "doctor",
+      "resultado": "fallo forzado"
+    },
+    {
+      "frase": 1,
+      "intento": 2,
+      "personaje": "doctor",
+      "resultado": "fallo forzado"
+    },
+    {
+      "frase": 1,
+      "intento": 3,
+      "personaje": "doctor",
+      "resultado": "fallo forzado"
+    },
+    {
+      "frase": 3,
+      "intento": 1,
+      "personaje": "doctor",
+      "resultado": "fallo forzado"
+    },
+    {
+      "frase": 4,
+      "intento": 1,
+      "personaje": "doctor",
+      "resultado": "fallo forzado"
+    }
+  ],
+  "voces": [
+    {
+      "voz": "navegador",
+      "personaje": "doctor",
+      "nombre": "Microsoft Raul - Spanish (Mexico)",
+      "texto": "Martín Rojas, de 28 años, sexo masculino, Motivo de consulta: Ingresó por dolor abdominal intenso; se diagnosticó apendicitis y se le realizó una apendicectomía de urgencia."
+    },
+    {
+      "voz": "navegador",
+      "personaje": "doctor",
+      "nombre": "Microsoft Raul - Spanish (Mexico)",
+      "texto": "Evolución quirúrgica: Durante la intervención presentó un sangrado masivo y persistente que requirió transfusión de sangre."
+    },
+    {
+      "voz": "navegador",
+      "personaje": "doctor",
+      "nombre": "Microsoft Raul - Spanish (Mexico)",
+      "texto": "No hay alergias documentadas en la ficha."
+    },
+    {
+      "voz": "navegador",
+      "personaje": "doctor",
+      "nombre": "Microsoft Raul - Spanish (Mexico)",
+      "texto": "Doctor, puede comenzar con el interrogatorio."
+    },
+    {
+      "voz": "navegador",
+      "personaje": "patient",
+      "nombre": "Microsoft Sabina - Spanish (Mexico)",
+      "texto": "El dolor empezó antes de la cirugía, pero no recuerdo la hora exacta."
+    }
+  ]
+}

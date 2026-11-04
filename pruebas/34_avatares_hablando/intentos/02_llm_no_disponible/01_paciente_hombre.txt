@@ -1,0 +1,17 @@
+Caso CIR-005 (masculino) en http://localhost:3100, ventana 1440x1000
+
+PASA   video doctor-hablando.mp4 publicado  (200 video/mp4 342164 bytes)
+PASA   video paciente-hombre-hablando.mp4 publicado  (200 video/mp4 418026 bytes)
+PASA   video paciente-mujer-hablando.mp4 publicado  (200 video/mp4 342401 bytes)
+PASA   imagen quieta y video con la misma proporción 16:9  (doctor-1280.webp 1280x720, video 1280x720)
+PASA   el video ocupa exactamente el lugar de la imagen  (imagen 37,319,922,519 / video 37,319,922,519)
+Presentación del doctor: {"muestras":923,"con_audio":695,"con_video":561,"apariciones":12,"video_sin_audio":0,"video_ajeno":0,"video_en_cambio":0}
+PASA   presentación: suena la voz neuronal  (695 muestras con audio)
+PASA   presentación: se ve el video del doctor mientras habla  (561 muestras)
+PASA   presentación: el video alterna con la imagen en las pausas  (12 apariciones)
+PASA   presentación: el video nunca se ve sin audio sonando  (0 muestras)
+PASA   presentación: solo el video del doctor, nunca durante el cambio de personaje  (ajeno 0, en cambio 0)
+PASA   turno del estudiante: se ve al paciente quieto (paciente-hombre)
+FALLA  la prueba llega al final sin errores  (locator.waitFor: Timeout 120000ms exceeded.)
+
+11 de 12 comprobaciones pasan

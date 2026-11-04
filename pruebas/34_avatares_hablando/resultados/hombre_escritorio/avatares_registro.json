@@ -1,0 +1,134 @@
+{
+  "caso": "CIR-005",
+  "sexo": "masculino",
+  "ventana": "1440x1000",
+  "servidor": "http://localhost:3100",
+  "fecha": "2026-11-04T08:58:22.489Z",
+  "comprobaciones": [
+    {
+      "descripcion": "video doctor-hablando.mp4 publicado",
+      "resultado": "PASA",
+      "detalle": "200 video/mp4 342164 bytes"
+    },
+    {
+      "descripcion": "video paciente-hombre-hablando.mp4 publicado",
+      "resultado": "PASA",
+      "detalle": "200 video/mp4 418026 bytes"
+    },
+    {
+      "descripcion": "video paciente-mujer-hablando.mp4 publicado",
+      "resultado": "PASA",
+      "detalle": "200 video/mp4 342401 bytes"
+    },
+    {
+      "descripcion": "imagen quieta y video con la misma proporción 16:9",
+      "resultado": "PASA",
+      "detalle": "doctor-1280.webp 1280x720, video 1280x720"
+    },
+    {
+      "descripcion": "el video ocupa exactamente el lugar de la imagen",
+      "resultado": "PASA",
+      "detalle": "imagen 37,319,922,519 / video 37,319,922,519"
+    },
+    {
+      "descripcion": "presentación: suena la voz neuronal",
+      "resultado": "PASA",
+      "detalle": "693 muestras con audio"
+    },
+    {
+      "descripcion": "presentación: se ve el video del doctor mientras habla",
+      "resultado": "PASA",
+      "detalle": "561 muestras"
+    },
+    {
+      "descripcion": "presentación: el video alterna con la imagen en las pausas",
+      "resultado": "PASA",
+      "detalle": "11 apariciones"
+    },
+    {
+      "descripcion": "presentación: el video nunca se ve sin audio sonando",
+      "resultado": "PASA",
+      "detalle": "0 muestras"
+    },
+    {
+      "descripcion": "presentación: solo el video del doctor, nunca durante el cambio de personaje",
+      "resultado": "PASA",
+      "detalle": "ajeno 0, en cambio 0"
+    },
+    {
+      "descripcion": "turno del estudiante: se ve al paciente quieto (paciente-hombre)",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "respuesta: se ve el video del paciente mientras habla",
+      "resultado": "PASA",
+      "detalle": "103 muestras"
+    },
+    {
+      "descripcion": "respuesta: el video nunca se ve sin audio sonando",
+      "resultado": "PASA",
+      "detalle": "0 muestras"
+    },
+    {
+      "descripcion": "respuesta: solo el video de paciente-hombre",
+      "resultado": "PASA",
+      "detalle": "ajeno 0, en cambio 0"
+    },
+    {
+      "descripcion": "al terminar la respuesta el paciente queda quieto",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "sin errores de JavaScript en la página",
+      "resultado": "PASA",
+      "detalle": ""
+    }
+  ],
+  "medidas": {
+    "archivo": "doctor-1280.webp",
+    "imagen": [
+      1280,
+      720
+    ],
+    "video": [
+      1280,
+      720
+    ],
+    "caja_imagen": [
+      37,
+      319,
+      922,
+      519
+    ],
+    "caja_video": [
+      37,
+      319,
+      922,
+      519
+    ]
+  },
+  "resumen": {
+    "doctor": {
+      "muestras": 986,
+      "con_audio": 693,
+      "con_video": 561,
+      "apariciones": 11,
+      "con_voz_navegador": 0,
+      "video_sin_audio": 0,
+      "video_ajeno": 0,
+      "video_en_cambio": 0
+    },
+    "paciente": {
+      "muestras": 304,
+      "con_audio": 137,
+      "con_video": 103,
+      "apariciones": 2,
+      "con_voz_navegador": 0,
+      "video_sin_audio": 0,
+      "video_ajeno": 0,
+      "video_en_cambio": 0
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "caso": "CIR-005",
+  "sexo": "masculino",
+  "servidor": "http://localhost:3100",
+  "fecha": "2026-11-04T08:42:00.306Z",
+  "comprobaciones": [
+    {
+      "descripcion": "video doctor-hablando.mp4 publicado",
+      "resultado": "PASA",
+      "detalle": "200 video/mp4 342164 bytes"
+    },
+    {
+      "descripcion": "video paciente-hombre-hablando.mp4 publicado",
+      "resultado": "PASA",
+      "detalle": "200 video/mp4 418026 bytes"
+    },
+    {
+      "descripcion": "video paciente-mujer-hablando.mp4 publicado",
+      "resultado": "PASA",
+      "detalle": "200 video/mp4 342401 bytes"
+    },
+    {
+      "descripcion": "imagen quieta y video con la misma proporción 16:9",
+      "resultado": "FALLA",
+      "detalle": "imagen 950x534, video 1280x720"
+    },
+    {
+      "descripcion": "el video ocupa exactamente el lugar de la imagen",
+      "resultado": "PASA",
+      "detalle": "imagen 37,319,922,519 / video 37,319,922,519"
+    },
+    {
+      "descripcion": "presentación: suena la voz neuronal",
+      "resultado": "PASA",
+      "detalle": "693 muestras con audio"
+    },
+    {
+      "descripcion": "presentación: se ve el video del doctor mientras habla",
+      "resultado": "PASA",
+      "detalle": "556 muestras"
+    },
+    {
+      "descripcion": "presentación: el video alterna con la imagen en las pausas",
+      "resultado": "PASA",
+      "detalle": "11 apariciones"
+    },
+    {
+      "descripcion": "presentación: el video nunca se ve sin audio sonando",
+      "resultado": "PASA",
+      "detalle": "0 muestras"
+    },
+    {
+      "descripcion": "presentación: solo el video del doctor, nunca durante el cambio de personaje",
+      "resultado": "PASA",
+      "detalle": "ajeno 0, en cambio 0"
+    },
+    {
+      "descripcion": "turno del estudiante: se ve al paciente quieto (paciente-hombre)",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "la prueba llega al final sin errores",
+      "resultado": "FALLA",
+      "detalle": "locator.waitFor: Timeout 120000ms exceeded."
+    }
+  ]
+}

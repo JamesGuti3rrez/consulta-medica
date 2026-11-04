@@ -1,0 +1,25 @@
+Escenario B, caso CIR-005 en http://localhost:3100
+
+Frases pedidas a /api/voz:
+  1. Martín Rojas, de 28 años, sexo masculino, Motivo de consulta: Ingresó 
+  2. Evolución quirúrgica: Durante la intervención presentó un sangrado mas
+  3. No hay alergias documentadas en la ficha.
+  4. Doctor, puede comenzar con el interrogatorio.
+Peticiones: f1/i1:fallo f2/i1:fallo f1/i2:fallo f1/i3:fallo f3/i1:fallo f4/i1:fallo
+Voces que sonaron:
+  navegador doctor   Microsoft Raul - Spanish (Mexico)  «Martín Rojas, de 28 años, sexo masculino, Motivo d»
+  navegador doctor   Microsoft Raul - Spanish (Mexico)  «Evolución quirúrgica: Durante la intervención pres»
+  navegador doctor   Microsoft Raul - Spanish (Mexico)  «No hay alergias documentadas en la ficha.»
+  navegador doctor   Microsoft Raul - Spanish (Mexico)  «Doctor, puede comenzar con el interrogatorio.»
+  navegador patient  Microsoft Sabina - Spanish (Mexico)  «El dolor empezó antes de la cirugía, pero no recue»
+
+PASA   la voz neuronal se intenta 3 veces en la primera frase  (1,2,3)
+PASA   la voz neuronal no suena nunca  (0 frases neuronales)
+PASA   después no se vuelve a reintentar la voz neuronal  (0)
+PASA   todas las frases del doctor y del paciente suenan con el navegador  (5 frases)
+PASA   el doctor conserva una sola voz del navegador  (Microsoft Raul - Spanish (Mexico))
+PASA   el paciente conserva una sola voz del navegador  (Microsoft Sabina - Spanish (Mexico))
+PASA   el chat tiene la presentación completa y la respuesta del paciente  (6 mensajes)
+PASA   sin errores de JavaScript en la página
+
+8 de 8 comprobaciones pasan

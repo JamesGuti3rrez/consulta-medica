@@ -1,0 +1,22 @@
+Caso CIR-006 (femenino) en http://localhost:3100, ventana 1440x1000
+
+PASA   video doctor-hablando.mp4 publicado  (200 video/mp4 342164 bytes)
+PASA   video paciente-hombre-hablando.mp4 publicado  (200 video/mp4 418026 bytes)
+PASA   video paciente-mujer-hablando.mp4 publicado  (200 video/mp4 342401 bytes)
+PASA   imagen quieta y video con la misma proporción 16:9  (doctor-1280.webp 1280x720, video 1280x720)
+PASA   el video ocupa exactamente el lugar de la imagen  (imagen 37,319,922,519 / video 37,319,922,519)
+Presentación del doctor: {"muestras":1498,"con_audio":1120,"con_video":916,"apariciones":17,"con_voz_navegador":0,"video_sin_audio":0,"video_ajeno":0,"video_en_cambio":0}
+PASA   presentación: suena la voz neuronal  (1120 muestras con audio)
+PASA   presentación: se ve el video del doctor mientras habla  (916 muestras)
+PASA   presentación: el video alterna con la imagen en las pausas  (17 apariciones)
+PASA   presentación: el video nunca se ve sin audio sonando  (0 muestras)
+PASA   presentación: solo el video del doctor, nunca durante el cambio de personaje  (ajeno 0, en cambio 0)
+PASA   turno del estudiante: se ve al paciente quieto (paciente-mujer)
+Respuesta del paciente: {"muestras":307,"con_audio":101,"con_video":75,"apariciones":2,"con_voz_navegador":0,"video_sin_audio":0,"video_ajeno":0,"video_en_cambio":0}
+PASA   respuesta: se ve el video del paciente mientras habla  (75 muestras)
+PASA   respuesta: el video nunca se ve sin audio sonando  (0 muestras)
+PASA   respuesta: solo el video de paciente-mujer  (ajeno 0, en cambio 0)
+PASA   al terminar la respuesta el paciente queda quieto
+PASA   sin errores de JavaScript en la página
+
+16 de 16 comprobaciones pasan
