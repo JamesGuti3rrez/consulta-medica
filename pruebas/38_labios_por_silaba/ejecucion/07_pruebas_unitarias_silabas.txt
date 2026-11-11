@@ -1,0 +1,23 @@
+PS> node --test frontend/tests/labios.test.mjs
+[32m✔ cada sílaba toma la forma de su vocal [90m(2.4367ms)[39m[39m
+[32m✔ M, B y P cierran la boca un instante antes de su vocal; F la deja pequeña [90m(0.6169ms)[39m[39m
+[32m✔ la puntuación cierra la boca y separa frases [90m(0.3635ms)[39m[39m
+[32m✔ con pausas, la puntuación ocupa tiempo; sin ellas no [90m(0.1476ms)[39m[39m
+[32m✔ los números también mueven la boca [90m(0.1566ms)[39m[39m
+[32m✔ no repite formas seguidas [90m(0.1743ms)[39m[39m
+[32m✔ cada palabra guarda su posición en el texto para seguir a la voz del navegador [90m(0.1572ms)[39m[39m
+[32m✔ con voz medida, la boca avanza solo mientras suena y se cierra en el silencio [90m(0.4434ms)[39m[39m
+[32m✔ una pausa larga vuelve a alinear la boca con el inicio de la frase siguiente [90m(0.2735ms)[39m[39m
+[32m✔ una pausa corta (una consonante oclusiva) no realinea [90m(0.3787ms)[39m[39m
+[32m✔ sin medir la voz, el reloj avanza solo y sigue los avisos de palabra [90m(0.2092ms)[39m[39m
+[32m✔ al detenerse cierra la boca [90m(0.1162ms)[39m[39m
+[34mℹ tests 12[39m
+[34mℹ suites 0[39m
+[34mℹ pass 12[39m
+[34mℹ fail 0[39m
+[34mℹ cancelled 0[39m
+[34mℹ skipped 0[39m
+[34mℹ todo 0[39m
+[34mℹ duration_ms 113.863[39m
+
+Codigo de salida: 0   2026-11-11 10:08:26

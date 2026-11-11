@@ -1,0 +1,78 @@
+{
+  "caso": "CIR-005",
+  "base_url": "http://localhost:3101",
+  "preguntas": [
+    "¿Desde cuándo tiene el dolor y cómo empezó?"
+  ],
+  "errores": [],
+  "destello": 1794412456303,
+  "sonidos": [
+    {
+      "url": "/api/voz?texto=Mart%C3%ADn+Rojas%2C+de+28+a%C3%B1os%2C+sexo+masculino%2C+Motivo+de+consulta%3A+Ingres%C3%B3+por+dolor+abdominal+intenso%3B+se+diagnostic%C3%B3+apendicitis+y+se+le+realiz%C3%B3+una+apendicectom%C3%ADa+de+urgencia.&personaje=doctor&sexo=masculino",
+      "inicio": 1794412471901,
+      "evento": "playing",
+      "archivo": "audio_02.mp3"
+    },
+    {
+      "url": "/api/voz?texto=Mart%C3%ADn+Rojas%2C+de+28+a%C3%B1os%2C+sexo+masculino%2C+Motivo+de+consulta%3A+Ingres%C3%B3+por+dolor+abdominal+intenso%3B+se+diagnostic%C3%B3+apendicitis+y+se+le+realiz%C3%B3+una+apendicectom%C3%ADa+de+urgencia.&personaje=doctor&sexo=masculino",
+      "fin": 1794412484831,
+      "evento": "pause",
+      "archivo": "audio_02.mp3"
+    },
+    {
+      "url": "/api/voz?texto=Evoluci%C3%B3n+quir%C3%BArgica%3A+Durante+la+intervenci%C3%B3n+present%C3%B3+un+sangrado+masivo+y+persistente+que+requiri%C3%B3+transfusi%C3%B3n+de+sangre.&personaje=doctor&sexo=masculino",
+      "inicio": 1794412484850,
+      "evento": "playing",
+      "archivo": "audio_01.mp3"
+    },
+    {
+      "url": "/api/voz?texto=Evoluci%C3%B3n+quir%C3%BArgica%3A+Durante+la+intervenci%C3%B3n+present%C3%B3+un+sangrado+masivo+y+persistente+que+requiri%C3%B3+transfusi%C3%B3n+de+sangre.&personaje=doctor&sexo=masculino",
+      "fin": 1794412492830,
+      "evento": "pause",
+      "archivo": "audio_01.mp3"
+    },
+    {
+      "url": "/api/voz?texto=No+hay+alergias+documentadas+en+la+ficha.&personaje=doctor&sexo=masculino",
+      "inicio": 1794412492840,
+      "evento": "playing",
+      "archivo": "audio_03.mp3"
+    },
+    {
+      "url": "/api/voz?texto=No+hay+alergias+documentadas+en+la+ficha.&personaje=doctor&sexo=masculino",
+      "fin": 1794412496060,
+      "evento": "pause",
+      "archivo": "audio_03.mp3"
+    },
+    {
+      "url": "/api/voz?texto=Doctor%2C+puede+comenzar+con+el+interrogatorio.&personaje=doctor&sexo=masculino",
+      "inicio": 1794412496067,
+      "evento": "playing",
+      "archivo": "audio_04.mp3"
+    },
+    {
+      "url": "/api/voz?texto=Doctor%2C+puede+comenzar+con+el+interrogatorio.&personaje=doctor&sexo=masculino",
+      "fin": 1794412499711,
+      "evento": "pause",
+      "archivo": "audio_04.mp3"
+    },
+    {
+      "url": "/api/voz?texto=No+recuerdo+con+precisi%C3%B3n+cu%C3%A1ndo+empez%C3%B3+el+dolor+ni+c%C3%B3mo+se+manifest%C3%B3+exactamente.&personaje=patient&sexo=masculino",
+      "inicio": 1794412532494,
+      "evento": "playing",
+      "archivo": "audio_05.mp3"
+    },
+    {
+      "url": "/api/voz?texto=No+recuerdo+con+precisi%C3%B3n+cu%C3%A1ndo+empez%C3%B3+el+dolor+ni+c%C3%B3mo+se+manifest%C3%B3+exactamente.&personaje=patient&sexo=masculino",
+      "fin": 1794412538379,
+      "evento": "pause",
+      "archivo": "audio_05.mp3"
+    }
+  ],
+  "escena": [
+    37,
+    264,
+    762,
+    429
+  ],
+  "fin": 1794412539924
+}

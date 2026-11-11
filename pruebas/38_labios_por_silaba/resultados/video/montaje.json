@@ -1,0 +1,41 @@
+{
+  "antes": {
+    "destello_ms": 10280,
+    "audios": 5,
+    "duracion_s": 70.0,
+    "primer_sonido_s": 2.0,
+    "escena": [
+      37,
+      264,
+      762,
+      429
+    ]
+  },
+  "despues": {
+    "destello_ms": 5640,
+    "audios": 5,
+    "duracion_s": 73.0,
+    "primer_sonido_s": 2.0,
+    "escena": [
+      37,
+      264,
+      762,
+      429
+    ],
+    "primer_sonido_audible_s": 2.2
+  },
+  "acercamiento": {
+    "destello_ms": 5640,
+    "audios": 5,
+    "duracion_s": 35,
+    "primer_sonido_s": 2.0,
+    "escena": [
+      37,
+      264,
+      762,
+      429
+    ]
+  },
+  "duracion_total_s": 188.0,
+  "archivo": "Video - Antes y despues de la correccion.mp4"
+}

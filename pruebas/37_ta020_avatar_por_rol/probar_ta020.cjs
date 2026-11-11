@@ -66,7 +66,9 @@ const lanzar = () => {
         alt: avatar.alt,
         globo: doctor ? document.querySelector('[data-role="doctor-name"]').textContent.replace(' (Voz sintetizada)', '') : paciente ? 'Paciente' : null,
         estado: (doctor ? document.querySelector('[data-role="doctor-status"]') : paciente ? document.querySelector('[data-role="patient-status"]') : null)?.textContent.trim() || null,
-        video: [...document.querySelectorAll('.scene-video')].some(v => getComputedStyle(v).opacity !== '0'),
+        // Boca en movimiento: el video de la TA-020 o, desde la fase 38, una capa de boca por sílaba.
+        video: [...document.querySelectorAll('.scene-video')].some(v => getComputedStyle(v).opacity !== '0')
+          || Boolean(document.querySelector('.scene-mouth.is-on')),
         // Sonando: en reproducción y con datos. Firefox deja currentTime en 0 unos 500 ms al empezar la primera frase
         // aunque el audio ya suena (intento 02), así que no basta con mirar currentTime.
         audio: [...window.__audios].some(a => !a.paused && !a.ended && (a.currentTime > 0 || a.readyState >= 3)),

@@ -1,0 +1,22 @@
+PS> $env:NAVEGADOR='chrome'; $env:ANCHO='390'; $env:ALTO='844'; node pruebas/38_labios_por_silaba/probar_labios.cjs pruebas/38_labios_por_silaba/resultados/05_chrome_celular
+Fase 38 en chrome 157.0.8103.40, movimiento normal, caso CIR-005, ventana 390x844
+
+Turno 1 «¿Desde cuándo tiene el dolor y cómo empezó?» terminado
+Turno 2 «Solicito hemograma completo» terminado
+
+Muestras: 2647; con voz 1523; con la boca abierta 1169
+PASA   sin errores de JavaScript en la página
+PASA   las capas de boca y cabeza cargan a 1280x720
+PASA   las capas ocupan exactamente el rectángulo de la imagen, con el mismo object-fit  (imagen 21,64,348,195.8)
+PASA   las capas son siempre del personaje en escena
+PASA   en silencio la boca está cerrada (tramos sin voz de 200 ms o menos)  (ningún tramo)
+PASA   al terminar el turno: boca cerrada y cabeza en su sitio  (Tu turno; boca null; balanceo «»)
+PASA   la boca se mueve mientras suena la voz  (1169 de 1523 muestras con voz)
+PASA   usa varias formas de boca  (A, E, O, pequena)
+PASA   cambia de forma a ritmo de sílaba, sin tiritar (de 2 a 9 cambios por segundo de voz)  (5.2 por segundo)
+PASA   la cabeza se balancea mientras habla  (1523 de 1523 muestras con voz)
+PASA   el balanceo es leve (giro máximo de 1,5° o menos)  (0.50°)
+
+11 de 11 comprobaciones pasan
+
+Codigo de salida: 0   2026-11-11 10:06:33

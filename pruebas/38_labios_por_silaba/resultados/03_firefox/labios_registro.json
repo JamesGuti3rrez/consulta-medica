@@ -2,66 +2,6 @@
   "navegador": "firefox",
   "version": "155.0",
   "movimiento": "normal",
-  "caso": "CIR-005",
-  "ventana": "1440x1000",
-  "fecha": "2026-11-11T13:46:00.544Z",
-  "comprobaciones": [
-    {
-      "descripcion": "sin errores de JavaScript en la página",
-      "resultado": "PASA",
-      "detalle": ""
-    },
-    {
-      "descripcion": "las capas de boca y cabeza cargan a 1280x720",
-      "resultado": "PASA",
-      "detalle": ""
-    },
-    {
-      "descripcion": "las capas ocupan exactamente el rectángulo de la imagen, con el mismo object-fit",
-      "resultado": "PASA",
-      "detalle": "imagen 37,319.2,922,518.6"
-    },
-    {
-      "descripcion": "las capas son siempre del personaje en escena",
-      "resultado": "PASA",
-      "detalle": ""
-    },
-    {
-      "descripcion": "en silencio la boca está cerrada (tramos sin voz de 200 ms o menos)",
-      "resultado": "PASA",
-      "detalle": "ningún tramo"
-    },
-    {
-      "descripcion": "al terminar el turno: boca cerrada y cabeza en su sitio",
-      "resultado": "PASA",
-      "detalle": "Tu turno; boca null; balanceo «»"
-    },
-    {
-      "descripcion": "la boca se mueve mientras suena la voz",
-      "resultado": "PASA",
-      "detalle": "1046 de 1461 muestras con voz"
-    },
-    {
-      "descripcion": "usa varias formas de boca",
-      "resultado": "PASA",
-      "detalle": "A, E, O, pequena"
-    },
-    {
-      "descripcion": "cambia de forma a ritmo de sílaba, sin tiritar (de 2 a 9 cambios por segundo de voz)",
-      "resultado": "PASA",
-      "detalle": "4.2 por segundo"
-    },
-    {
-      "descripcion": "la cabeza se balancea mientras habla",
-      "resultado": "PASA",
-      "detalle": "1461 de 1461 muestras con voz"
-    },
-    {
-      "descripcion": "el balanceo es leve (giro máximo de 1,5° o menos)",
-      "resultado": "PASA",
-      "detalle": "0.50°"
-    }
-  ],
   "capas": {
     "imagen": [
       37,
@@ -109,12 +49,73 @@
       "cover"
     ],
     "cargadas": true,
+    "ninguna": false,
     "transform": ""
   },
+  "caso": "CIR-005",
+  "ventana": "1440x1000",
+  "fecha": "2026-11-11T15:02:39.334Z",
+  "comprobaciones": [
+    {
+      "descripcion": "sin errores de JavaScript en la página",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "las capas de boca y cabeza cargan a 1280x720",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "las capas ocupan exactamente el rectángulo de la imagen, con el mismo object-fit",
+      "resultado": "PASA",
+      "detalle": "imagen 37,319.2,922,518.6"
+    },
+    {
+      "descripcion": "las capas son siempre del personaje en escena",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "en silencio la boca está cerrada (tramos sin voz de 200 ms o menos)",
+      "resultado": "PASA",
+      "detalle": "ningún tramo"
+    },
+    {
+      "descripcion": "al terminar el turno: boca cerrada y cabeza en su sitio",
+      "resultado": "PASA",
+      "detalle": "Tu turno; boca null; balanceo «»"
+    },
+    {
+      "descripcion": "la boca se mueve mientras suena la voz",
+      "resultado": "PASA",
+      "detalle": "1072 de 1455 muestras con voz"
+    },
+    {
+      "descripcion": "usa varias formas de boca",
+      "resultado": "PASA",
+      "detalle": "A, E, O, pequena"
+    },
+    {
+      "descripcion": "cambia de forma a ritmo de sílaba, sin tiritar (de 2 a 9 cambios por segundo de voz)",
+      "resultado": "PASA",
+      "detalle": "5.0 por segundo"
+    },
+    {
+      "descripcion": "la cabeza se balancea mientras habla",
+      "resultado": "PASA",
+      "detalle": "1455 de 1455 muestras con voz"
+    },
+    {
+      "descripcion": "el balanceo es leve (giro máximo de 1,5° o menos)",
+      "resultado": "PASA",
+      "detalle": "0.50°"
+    }
+  ],
   "tramos": [],
   "muestras": {
-    "total": 2421,
-    "con_voz": 1461,
-    "con_boca": 1046
+    "total": 2254,
+    "con_voz": 1455,
+    "con_boca": 1072
   }
 }

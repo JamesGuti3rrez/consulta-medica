@@ -1,0 +1,4 @@
+PS> cd backend; .venv\Scripts\python.exe run_tests.py -q; cd ..
+
+
+Codigo de salida: 0   2026-11-11 10:22:21

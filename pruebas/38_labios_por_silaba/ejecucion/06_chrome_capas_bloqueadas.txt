@@ -1,0 +1,16 @@
+PS> $env:NAVEGADOR='chrome'; $env:CAPAS='bloqueadas'; node pruebas/38_labios_por_silaba/probar_labios.cjs pruebas/38_labios_por_silaba/resultados/06_chrome_capas_bloqueadas
+Fase 38 en chrome 157.0.8103.40, movimiento normal, capas de boca y cabeza bloqueadas, caso CIR-005, ventana 1440x1000
+
+Turno 1 «¿Desde cuándo tiene el dolor y cómo empezó?» terminado
+Turno 2 «Solicito hemograma completo» terminado
+
+Muestras: 2444; con voz 1463; con la boca abierta 1121
+PASA   sin errores de JavaScript en la página
+Muestras al inicio del fundido de un cambio de personaje (opacidad 0): 0
+PASA   las capas no cargan (bloqueadas a propósito)
+PASA   la imagen quieta del personaje se ve durante toda la consulta  (2444 de 2444 muestras)
+PASA   la voz suena y la consulta completa sus turnos  (1463 muestras con voz; Tu turno)
+
+4 de 4 comprobaciones pasan
+
+Codigo de salida: 0   2026-11-11 10:33:48

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prototipo de boca y balanceo v3</title>
+<style>
+  :root { --bg:#f6f8fa; --card:#fff; --ink:#0f172a; --muted:#64748b; --brand:#0e7490; --line:#e2e8f0; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: system-ui, "Segoe UI", sans-serif; background:var(--bg); color:var(--ink); }
+  main { max-width: 1180px; margin: 0 auto; padding: 20px 16px 40px; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  .sub { color: var(--muted); margin: 0 0 16px; font-size: 14px; }
+  .layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 16px; }
+  @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
+  .stage { position: relative; aspect-ratio: 16/9; border-radius: 14px; overflow: hidden; background: #ddd;
+           box-shadow: 0 6px 24px rgba(15,23,42,.12); }
+  .stage img { position: absolute; display: block; user-select: none; pointer-events: none; }
+  .full { inset: 0; width: 100%; height: 100%; }
+  .camera { position: absolute; inset: 0; transform-origin: 50% 70%; will-change: transform; }
+  .head { position: absolute; inset: 0; will-change: transform; }
+  .mouth { opacity: 0; transition: opacity 90ms ease-out; }
+  .mouth.on { opacity: 1; }
+  .panel { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+  .panel h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 6px; }
+  .seg { display: flex; flex-wrap: wrap; gap: 6px; }
+  .seg button { border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 7px 12px; font-size: 13px; cursor: pointer; color: var(--ink); }
+  .seg button.sel { background: var(--brand); border-color: var(--brand); color: #fff; }
+  textarea { width: 100%; min-height: 84px; border: 1px solid var(--line); border-radius: 10px; padding: 10px; font: inherit; font-size: 14px; resize: vertical; }
+  .speak { background: var(--brand); color: #fff; border: 0; border-radius: 10px; padding: 11px; font-size: 15px; font-weight: 600; cursor: pointer; }
+  .speak:disabled { opacity: .6; cursor: default; }
+  .note { font-size: 12px; color: var(--muted); line-height: 1.45; margin: 0; }
+  .readout { font-family: ui-monospace, Consolas, monospace; font-size: 13px; min-height: 20px; color: var(--brand); }
+  label.range { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+  label.range input { flex: 1; }
+  .legend { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .legend button { border: 1px solid var(--line); background: #fff; border-radius: 8px; padding: 6px 4px; font-size: 12px; cursor: pointer; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Prototipo v3: bocas generadas desde la imagen quieta</h1>
+  <p class="sub">Bocas generadas deformando los labios de la propia imagen quieta: siempre derechas y alineadas, sin grabar nada. Solo cambia la zona de la boca; en silencio se ve exactamente la imagen original.</p>
+  <div class="layout">
+    <div>
+      <div class="stage" id="stage">
+        <div class="camera" id="camera">
+          <img class="full" id="base" alt="">
+          <div class="head" id="head"></div>
+        </div>
+      </div>
+      <p class="readout" id="readout"></p>
+    </div>
+    <div class="panel">
+      <div>
+        <h2>Personaje</h2>
+        <div class="seg" id="chars">
+          <button data-c="paciente-hombre" class="sel">Paciente hombre</button>
+          <button data-c="paciente-mujer">Paciente mujer</button>
+          <button data-c="doctor">Doctor</button>
+        </div>
+      </div>
+      <div>
+        <h2>Balanceo</h2>
+        <div class="seg" id="sway">
+          <button data-s="ninguno">Ninguno</button>
+          <button data-s="cabeza" class="sel">Cabeza</button>
+          <button data-s="camara">Cámara</button>
+        </div>
+        <label class="range" style="margin-top:8px">Intensidad <input type="range" id="amp" min="0" max="2" step="0.1" value="1"> <span id="ampv">1.0</span></label>
+        <p class="note"><b>Cabeza:</b> solo la cabeza se inclina un poco al hablar. <b>Cámara:</b> se mueve toda la escena, como una cámara en mano.</p>
+      </div>
+      <div>
+        <h2>Animación de la boca</h2>
+        <div class="seg" id="anim">
+          <button data-a="silaba" class="sel">Por sílaba (nueva)</button>
+          <button data-a="letra">Por letra (v1)</button>
+        </div>
+      </div>
+      <div>
+        <h2>Frase</h2>
+        <textarea id="text">Buenos días, doctor. El dolor empezó hace dos días, primero alrededor del ombligo y luego se fue a la parte baja derecha de la barriga.</textarea>
+      </div>
+      <button class="speak" id="speak">▶ Hablar</button>
+      <p class="note" id="voiceNote"></p>
+      <div>
+        <h2>Probar cada boca</h2>
+        <div class="legend" id="legend"></div>
+      </div>
+    </div>
+  </div>
+</main>
+<script>
+const MOUTHS = ['pequena', 'A', 'E', 'O'];
+// Qué fotograma de cada video hace de cada boca (elegido a ojo en este prototipo).
+let anim = 'silaba';
+const $ = id => document.getElementById(id);
+let char = 'paciente-hombre', sway = 'cabeza', amp = 1, meta = null;
+let talking = 0, target = 0;          // envolvente 0..1 del balanceo
+let timeline = [], t0 = 0, speaking = false;
+
+// Letras del español a forma de boca. Cerrada = imagen quieta.
+const visemeOf = ch => {
+  if ('aá'.includes(ch)) return 'A';
+  if ('eéiíy'.includes(ch)) return 'E';
+  if ('oóuúü'.includes(ch)) return 'O';
+  if ('mbpv'.includes(ch)) return null;
+  if (/[a-zñ]/.test(ch)) return 'pequena';
+  return null;
+};
+
+async function loadChar(name) {
+  char = name;
+  meta = await (await fetch(`/files/${name}-boca.json`)).json();
+  const v3 = await (await fetch(`/files/${name}-v3.json`)).json();
+  $('base').src = `/files/${name}-quieta.jpg`;
+  const head = $('head');
+  head.innerHTML = '';
+  // Capa de cabeza: la misma imagen, recortada con bordes suaves alrededor de cabeza y cuello.
+  const copy = document.createElement('img');
+  copy.className = 'full'; copy.src = `/files/${name}-quieta.jpg`;
+  head.append(copy);
+  const c = meta.cabeza, W = meta.W, H = meta.H;
+  const cx = c.cx / W * 100, cy = (c.cy + c.h * 0.15) / H * 100;
+  const rx = c.w * 0.95 / W * 100, ry = c.h * 1.15 / H * 100;
+  const mask = `radial-gradient(ellipse ${rx}% ${ry}% at ${cx}% ${cy}%, #000 62%, transparent 100%)`;
+  head.style.webkitMaskImage = head.style.maskImage = mask;
+  head.style.transformOrigin = `${cx}% ${(c.cy + c.h * 1.05) / H * 100}%`;   // pivote en el cuello
+  for (const m of MOUTHS) {
+    const img = document.createElement('img');
+    img.className = 'mouth'; img.dataset.m = m;
+    img.src = `/files/${name}-v3-${m}.png`;
+    const box = v3.bocas[m];
+    Object.assign(img.style, { left: box.x / W * 100 + '%', top: box.y / H * 100 + '%', width: box.w / W * 100 + '%' });
+    head.append(img);
+  }
+  setMouth(null);
+}
+
+function setMouth(m) {
+  document.querySelectorAll('.mouth').forEach(img => img.classList.toggle('on', img.dataset.m === m));
+  $('readout').textContent = speaking ? `boca: ${m ?? 'cerrada'}` : '';
+}
+
+// Línea de tiempo de bocas para una palabra que empieza en `start` (ms) y dura `dur` (ms).
+function wordTimeline(word, start, dur) {
+  const letters = [...word.toLowerCase()].filter(ch => /[a-zñáéíóúü]/.test(ch));
+  if (!letters.length) return [];
+  const weights = letters.map(ch => ('aeiouáéíóúü'.includes(ch) ? 1.7 : 1));
+  const total = weights.reduce((a, b) => a + b, 0);
+  let t = start; const out = [];
+  letters.forEach((ch, i) => { out.push({ t, m: visemeOf(ch) }); t += dur * weights[i] / total; });
+  out.push({ t, m: null });
+  return out;
+}
+
+// Por sílaba: una forma por sílaba (la de su vocal). Las consonantes no cambian la boca, salvo
+// M, B y P (cierre breve) y F (boca pequeña breve). Cada forma dura al menos MIN_HOLD ms.
+const MS_PER_SYLLABLE = 175, MIN_HOLD = 95;
+const VOWELS = 'aeiouáéíóúü';
+const nucleusShape = group => {
+  for (const pref of ['aá', 'oóuúü', 'eé', 'iíy']) {
+    const ch = [...group].find(c => pref.includes(c));
+    if (ch) return visemeOf(ch);
+  }
+  return 'pequena';
+};
+function syllables(word) {
+  const w = word.toLowerCase(), out = []; let onset = '';
+  for (let i = 0; i < w.length;) {
+    if (VOWELS.includes(w[i])) {
+      let j = i; while (j < w.length && VOWELS.includes(w[j])) j++;
+      out.push({ onset, shape: nucleusShape(w.slice(i, j)) }); onset = ''; i = j;
+    } else { onset += w[i]; i++; }
+  }
+  if (!out.length) out.push({ onset, shape: 'pequena' });
+  return out;
+}
+function syllableTimeline(word, start, dur) {
+  const syl = syllables(word.replace(/[^a-zñáéíóúü]/gi, ''));
+  if (!word.replace(/[^a-zñáéíóúü]/gi, '')) return [];
+  const each = dur / syl.length, out = []; let t = start;
+  for (const s of syl) {
+    const last = s.onset.slice(-1);
+    if ('mbp'.includes(last) && last) { out.push({ t, m: null }); out.push({ t: t + Math.max(MIN_HOLD * 0.7, each * 0.3), m: s.shape }); }
+    else if (last === 'f' || (last === 'v' && false)) { out.push({ t, m: 'pequena' }); out.push({ t: t + Math.max(MIN_HOLD * 0.7, each * 0.3), m: s.shape }); }
+    else out.push({ t, m: s.shape });
+    t += each;
+  }
+  return out;
+}
+const wordDuration = word => (anim === 'silaba'
+  ? Math.max(1, syllables(word.replace(/[^a-zñáéíóúü]/gi, '')).length) * MS_PER_SYLLABLE
+  : word.length * 62);
+const wordSteps = (word, start, dur) => (anim === 'silaba' ? syllableTimeline(word, start, dur) : wordTimeline(word, start, dur));
+// Quita formas que durarían menos de MIN_HOLD y repeticiones seguidas.
+function smooth(steps) {
+  if (anim !== 'silaba') return steps;
+  const out = [];
+  for (let i = 0; i < steps.length; i++) {
+    const s = steps[i], next = steps[i + 1];
+    if (out.length && out[out.length - 1].m === s.m) continue;
+    if (next && next.t - s.t < MIN_HOLD * 0.6 && s.m !== null) continue;
+    out.push(s);
+  }
+  return out;
+}
+
+// Sin eventos de palabra: reparte el texto según una velocidad media de habla.
+function estimatedTimeline(text, msPerLetter = 62) {
+  const out = []; let t = 0;
+  for (const token of text.split(/(\s+|[,.;:¿?¡!])/)) {
+    if (!token) continue;
+    if (/^[,.;:]$/.test(token)) { out.push({ t, m: null }); t += 280; continue; }
+    if (/^\s+$/.test(token) || /^[¿?¡!]$/.test(token)) { t += 60; continue; }
+    const dur = wordDuration(token);
+    out.push(...wordSteps(token, t, dur)); t += dur;
+  }
+  out.push({ t, m: null });
+  return smooth(out);
+}
+
+function frame(now) {
+  // Envolvente suave: el balanceo entra y sale en ~0,4 s, sin saltos.
+  talking += (target - talking) * 0.08;
+  const s = now / 1000, a = talking * amp;
+  const head = $('head'), cam = $('camera');
+  if (sway === 'cabeza') {
+    const rot = a * (0.9 * Math.sin(s * 1.7) + 0.35 * Math.sin(s * 3.9 + 1.3));
+    const dy = a * 1.6 * Math.sin(s * 2.6 + 0.5), dx = a * 1.2 * Math.sin(s * 1.3 + 2);
+    head.style.transform = `translate(${dx}px, ${dy}px) rotate(${rot}deg)`;
+    cam.style.transform = 'none';
+  } else if (sway === 'camara') {
+    const sc = 1 + a * 0.012 * (0.5 + 0.5 * Math.sin(s * 0.9));
+    const rot = a * 0.35 * Math.sin(s * 1.1), dx = a * 3 * Math.sin(s * 0.8 + 1), dy = a * 2 * Math.sin(s * 1.3);
+    cam.style.transform = `translate(${dx}px, ${dy}px) rotate(${rot}deg) scale(${sc})`;
+    head.style.transform = 'none';
+  } else { head.style.transform = cam.style.transform = 'none'; }
+  if (speaking && timeline.length) {
+    const t = now - t0; let m = null;
+    for (const step of timeline) { if (step.t <= t) m = step.m; else break; }
+    const active = document.querySelector('.mouth.on')?.dataset.m ?? null;
+    if (m !== active) setMouth(m);
+  }
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+
+function spanishVoice() {
+  const voices = speechSynthesis.getVoices().filter(v => v.lang.toLowerCase().startsWith('es'));
+  const wantMale = char !== 'paciente-mujer';
+  const local = voices.filter(v => v.localService);
+  const pool = local.length ? local : voices;
+  const pick = pool.find(v => (wantMale ? /pablo|raul|jorge|alvaro|male|hombre/i : /helena|sabina|laura|elvira|female|mujer/i).test(v.name));
+  return pick || pool[0] || null;
+}
+
+function speak() {
+  const text = $('text').value.trim(); if (!text) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  const voice = spanishVoice(); if (voice) { u.voice = voice; u.lang = voice.lang; } else u.lang = 'es-ES';
+  u.rate = 1;
+  let gotBoundary = false;
+  timeline = []; speaking = true; $('speak').disabled = true;
+  u.onstart = () => {
+    t0 = performance.now(); target = 1;
+    // Si la voz no avisa palabra por palabra en 350 ms, se usa la estimación por velocidad media.
+    setTimeout(() => { if (!gotBoundary && speaking) { t0 = performance.now() - 350; timeline = estimatedTimeline(text); } }, 350);
+  };
+  u.onboundary = e => {
+    if (e.name && e.name !== 'word') return;
+    gotBoundary = true;
+    const rest = text.slice(e.charIndex);
+    const word = (rest.match(/^[\wñáéíóúüÑÁÉÍÓÚÜ]+/) || [''])[0];
+    const len = e.charLength || word.length;
+    const now = performance.now() - t0;
+    const w = text.substr(e.charIndex, len);
+    timeline = smooth(timeline.filter(step => step.t < now).concat(wordSteps(w, now, wordDuration(w)), [{ t: now + wordDuration(w) + 140, m: null }]));
+  };
+  const end = () => { speaking = false; target = 0; timeline = []; setMouth(null); $('speak').disabled = false; };
+  u.onend = end; u.onerror = end;
+  speechSynthesis.speak(u);
+  $('voiceNote').textContent = voice ? `Voz del navegador: ${voice.name}. En la app se usaría la voz neuronal que ya tienen.` : 'Sin voz en español en este navegador: se anima con tiempos estimados.';
+}
+
+$('speak').onclick = speak;
+$('chars').onclick = e => { const b = e.target.closest('button'); if (!b) return;
+  [...$('chars').children].forEach(x => x.classList.toggle('sel', x === b)); speechSynthesis.cancel(); loadChar(b.dataset.c); };
+$('sway').onclick = e => { const b = e.target.closest('button'); if (!b) return;
+  [...$('sway').children].forEach(x => x.classList.toggle('sel', x === b)); sway = b.dataset.s; };
+$('anim').onclick = e => { const b = e.target.closest('button'); if (!b) return;
+  [...$('anim').children].forEach(x => x.classList.toggle('sel', x === b)); anim = b.dataset.a; };
+$('amp').oninput = e => { amp = +e.target.value; $('ampv').textContent = amp.toFixed(1); };
+const legend = $('legend');
+[['cerrada', null], ['pequeña', 'pequena'], ['A', 'A'], ['E / I', 'E'], ['O / U', 'O']].forEach(([label, m]) => {
+  const b = document.createElement('button'); b.textContent = label;
+  b.onmouseenter = b.onfocus = () => setMouth(m); b.onmouseleave = b.onblur = () => setMouth(null);
+  legend.append(b);
+});
+speechSynthesis.onvoiceschanged = () => {};
+loadChar(char);
+</script>
+</body>
+</html>

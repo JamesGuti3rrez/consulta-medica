@@ -1,0 +1,86 @@
+{
+  "navegador": "chrome",
+  "version": "157.0.8103.40",
+  "movimiento": "normal",
+  "capas": {
+    "imagen": [
+      37,
+      319.2,
+      922,
+      518.6
+    ],
+    "capas": [
+      [
+        37,
+        319.2,
+        922,
+        518.6
+      ],
+      [
+        37,
+        319.2,
+        922,
+        518.6
+      ],
+      [
+        37,
+        319.2,
+        922,
+        518.6
+      ],
+      [
+        37,
+        319.2,
+        922,
+        518.6
+      ],
+      [
+        37,
+        319.2,
+        922,
+        518.6
+      ]
+    ],
+    "objectFit": [
+      "cover",
+      "cover",
+      "cover",
+      "cover",
+      "cover"
+    ],
+    "cargadas": false,
+    "ninguna": true,
+    "transform": ""
+  },
+  "caso": "CIR-005",
+  "ventana": "1440x1000",
+  "fecha": "2026-11-11T15:33:47.895Z",
+  "comprobaciones": [
+    {
+      "descripcion": "sin errores de JavaScript en la página",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "las capas no cargan (bloqueadas a propósito)",
+      "resultado": "PASA",
+      "detalle": ""
+    },
+    {
+      "descripcion": "la imagen quieta del personaje se ve durante toda la consulta",
+      "resultado": "PASA",
+      "detalle": "2444 de 2444 muestras"
+    },
+    {
+      "descripcion": "la voz suena y la consulta completa sus turnos",
+      "resultado": "PASA",
+      "detalle": "1463 muestras con voz; Tu turno"
+    }
+  ],
+  "tramos": [],
+  "muestras": {
+    "total": 2444,
+    "con_voz": 1463,
+    "con_boca": 1121
+  }
+}

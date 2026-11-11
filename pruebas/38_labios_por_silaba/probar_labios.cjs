@@ -4,8 +4,10 @@
 //   3. Las capas de boca y cabeza son del personaje en escena y coinciden al píxel con la imagen.
 //   4. La cabeza se balancea solo al hablar y vuelve a su sitio al terminar.
 //   5. Con «reducir movimiento» no se anima nada y la consulta sigue.
+//   6. Con CAPAS=bloqueadas (las imágenes de boca y cabeza no cargan) queda la imagen quieta y la consulta sigue.
 // Uso (servidor en BASE_URL, por ejemplo uvicorn en el puerto 3100 con SESSION_STORE=memoria):
-//   NAVEGADOR=chrome|msedge|firefox MOVIMIENTO=normal|reducido node pruebas/38_labios_por_silaba/probar_labios.cjs <carpeta>
+//   NAVEGADOR=chrome|msedge|firefox MOVIMIENTO=normal|reducido [CAPAS=bloqueadas] [ANCHO=390 ALTO=844]
+//     node pruebas/38_labios_por_silaba/probar_labios.cjs <carpeta>
 const fs = require('node:fs');
 const path = require('node:path');
 const { chromium, firefox } = require('playwright');
@@ -16,6 +18,7 @@ const NAVEGADOR = process.env.NAVEGADOR || 'chrome';
 const MOVIMIENTO = process.env.MOVIMIENTO || 'normal';
 const ANCHO = Number(process.env.ANCHO || 1440);
 const ALTO = Number(process.env.ALTO || 1000);
+const BLOQUEADAS = process.env.CAPAS === 'bloqueadas';
 const PREGUNTAS = ['¿Desde cuándo tiene el dolor y cómo empezó?', 'Solicito hemograma completo'];
 const MUESTRA_MS = 40;
 
@@ -34,6 +37,7 @@ const lanzar = () => (NAVEGADOR === 'firefox'
   const browser = await lanzar();
   const context = await browser.newContext({ viewport: { width: ANCHO, height: ALTO },
     reducedMotion: MOVIMIENTO === 'reducido' ? 'reduce' : 'no-preference' });
+  if (BLOQUEADAS) await context.route(/-(boca-[a-zA-Z]+|cabeza)\.webp/, route => route.abort());
   const page = await context.newPage();
   const errores = [];
   page.on('pageerror', error => errores.push(error.message));
@@ -60,6 +64,7 @@ const lanzar = () => (NAVEGADOR === 'firefox'
         capaBoca: (boca || face.querySelector('.scene-mouth'))?.src.split('/').pop() || '',
         capaCabeza: cabeza?.src.split('/').pop() || '',
         balanceo: face.style.transform || '',
+        imagen: avatar.complete && avatar.naturalWidth > 0 && getComputedStyle(avatar).opacity !== '0',
         audio: [...window.__audios].some(a => !a.paused && !a.ended && (a.currentTime > 0 || a.readyState >= 3)),
         navegador: Boolean(window.speechSynthesis?.speaking),
         conversacion: document.querySelector('[data-role="conversation-status"]')?.textContent || '',
@@ -81,7 +86,7 @@ const lanzar = () => (NAVEGADOR === 'firefox'
     window.webkitSpeechRecognition = FakeRecognition;
   }, { preguntas: PREGUNTAS, cada: MUESTRA_MS });
 
-  console.log(`Fase 38 en ${NAVEGADOR} ${browser.version()}, movimiento ${MOVIMIENTO}, caso ${CASO}, ventana ${ANCHO}x${ALTO}\n`);
+  console.log(`Fase 38 en ${NAVEGADOR} ${browser.version()}, movimiento ${MOVIMIENTO}${BLOQUEADAS ? ', capas de boca y cabeza bloqueadas' : ''}, caso ${CASO}, ventana ${ANCHO}x${ALTO}\n`);
   const esperarTurno = () => page.waitForFunction(
     () => document.querySelector('[data-role="conversation-status"]')?.textContent === 'Tu turno', null, { timeout: 300000 });
 
@@ -91,7 +96,7 @@ const lanzar = () => (NAVEGADOR === 'firefox'
     await page.getByRole('button', { name: /Iniciar simulaci/ }).click();
     await page.locator('[data-role="doctor-bubble"]').waitFor({ state: 'visible', timeout: 60000 });
     // Captura con la boca abierta, si se abre.
-    if (MOVIMIENTO !== 'reducido') {
+    if (MOVIMIENTO !== 'reducido' && !BLOQUEADAS) {
       await page.waitForFunction(() => document.querySelector('.scene-mouth.is-on'), null, { timeout: 20000 }).catch(() => {});
     } else {
       await page.waitForTimeout(1500);
@@ -118,6 +123,7 @@ const lanzar = () => (NAVEGADOR === 'firefox'
       return { imagen: rect(avatar), capas: [...document.querySelectorAll('.scene-face img')].map(rect),
         objectFit: [...document.querySelectorAll('.scene-face img')].map(img => getComputedStyle(img).objectFit),
         cargadas: [...document.querySelectorAll('.scene-face img')].every(img => img.complete && img.naturalWidth === 1280 && img.naturalHeight === 720),
+        ninguna: [...document.querySelectorAll('.scene-face img')].every(img => img.naturalWidth === 0),
         transform: document.querySelector('.scene-face').style.transform };
     });
     console.log('');
@@ -126,14 +132,6 @@ const lanzar = () => (NAVEGADOR === 'firefox'
     const conBoca = todas.filter(m => m.boca);
     console.log(`Muestras: ${todas.length}; con voz ${conVoz.length}; con la boca abierta ${conBoca.length}`);
     comprobar('sin errores de JavaScript en la página', errores.length === 0, errores.join(' | '));
-    comprobar('las capas de boca y cabeza cargan a 1280x720', capas.cargadas);
-    comprobar('las capas ocupan exactamente el rectángulo de la imagen, con el mismo object-fit',
-      capas.capas.every(r => r.every((v, i) => Math.abs(v - capas.imagen[i]) <= 0.5)) && capas.objectFit.every(f => f === 'cover'),
-      `imagen ${capas.imagen.join(',')}`);
-    const fuera = todas.filter(m => !m.cambiando && m.capaCabeza && !(m.capaCabeza.startsWith(`${m.escena}-cabeza`) && m.capaBoca.startsWith(`${m.escena}-boca-`)));
-    comprobar('las capas son siempre del personaje en escena', fuera.length === 0,
-      fuera.length ? `${fuera.length} muestras, p. ej. ${fuera[0].escena}: ${fuera[0].capaCabeza} ${fuera[0].capaBoca}` : '');
-
     // Tramos seguidos de boca abierta sin voz: al final de una frase cabe el cierre (80 ms de espera más un
     // fotograma) y el retraso con que algunos motores marcan el audio como terminado.
     const tramos = [];
@@ -143,13 +141,39 @@ const lanzar = () => (NAVEGADOR === 'firefox'
       else if (largo) { tramos.push(largo * MUESTRA_MS); largo = 0; }
     });
     if (largo) tramos.push(largo * MUESTRA_MS);
-    comprobar('en silencio la boca está cerrada (tramos sin voz de 200 ms o menos)', tramos.every(ms => ms <= 200),
-      tramos.length ? `${tramos.length} tramos, el mayor de ${Math.max(...tramos)} ms` : 'ningún tramo');
     const final = todas.at(-1);
-    comprobar('al terminar el turno: boca cerrada y cabeza en su sitio', !final.boca && !final.balanceo && !capas.transform,
-      `${final.conversacion}; boca ${final.boca}; balanceo «${final.balanceo}»`);
 
-    if (MOVIMIENTO === 'reducido') {
+    if (BLOQUEADAS) {
+      // Sin capas no hay boca ni balanceo que medir: lo que importa es que la escena y la voz sigan.
+      // Al terminar un cambio de personaje la imagen vuelve con un fundido de 250 ms (transition: opacity 0.25s):
+      // en su primer instante la opacidad todavía es 0. Esas muestras son parte del cambio, no una imagen perdida.
+      const enFundido = (m, i) => todas.slice(0, i).some(prev => prev.cambiando && m.t - prev.t <= 300);
+      const fundido = todas.filter((m, i) => !m.cambiando && !m.imagen && enFundido(m, i));
+      const sinImagen = todas.filter((m, i) => !m.cambiando && !m.imagen && !enFundido(m, i));
+      console.log(`Muestras al inicio del fundido de un cambio de personaje (opacidad 0): ${fundido.length}`);
+      comprobar('las capas no cargan (bloqueadas a propósito)', capas.ninguna);
+      comprobar('la imagen quieta del personaje se ve durante toda la consulta', sinImagen.length === 0,
+        `${todas.length - sinImagen.length} de ${todas.length} muestras` + (sinImagen.length
+          ? `; sin imagen en t=${sinImagen.map(m => `${m.t - todas[0].t} ms (${m.escena})`).slice(0, 5).join(', ')}` : ''));
+      comprobar('la voz suena y la consulta completa sus turnos', conVoz.length > 0 && final.conversacion === 'Tu turno',
+        `${conVoz.length} muestras con voz; ${final.conversacion}`);
+    } else {
+      comprobar('las capas de boca y cabeza cargan a 1280x720', capas.cargadas);
+      comprobar('las capas ocupan exactamente el rectángulo de la imagen, con el mismo object-fit',
+        capas.capas.every(r => r.every((v, i) => Math.abs(v - capas.imagen[i]) <= 0.5)) && capas.objectFit.every(f => f === 'cover'),
+        `imagen ${capas.imagen.join(',')}`);
+      const fuera = todas.filter(m => !m.cambiando && m.capaCabeza && !(m.capaCabeza.startsWith(`${m.escena}-cabeza`) && m.capaBoca.startsWith(`${m.escena}-boca-`)));
+      comprobar('las capas son siempre del personaje en escena', fuera.length === 0,
+        fuera.length ? `${fuera.length} muestras, p. ej. ${fuera[0].escena}: ${fuera[0].capaCabeza} ${fuera[0].capaBoca}` : '');
+      comprobar('en silencio la boca está cerrada (tramos sin voz de 200 ms o menos)', tramos.every(ms => ms <= 200),
+        tramos.length ? `${tramos.length} tramos, el mayor de ${Math.max(...tramos)} ms` : 'ningún tramo');
+      comprobar('al terminar el turno: boca cerrada y cabeza en su sitio', !final.boca && !final.balanceo && !capas.transform,
+        `${final.conversacion}; boca ${final.boca}; balanceo «${final.balanceo}»`);
+    }
+
+    if (BLOQUEADAS) {
+      // Nada más que comprobar.
+    } else if (MOVIMIENTO === 'reducido') {
       comprobar('reducir movimiento: nunca se abre la boca ni se balancea la cabeza',
         conBoca.length === 0 && todas.every(m => !m.balanceo), `${conBoca.length} muestras con boca`);
     } else {
@@ -171,7 +195,7 @@ const lanzar = () => (NAVEGADOR === 'firefox'
         giros.length ? `${Math.max(...giros).toFixed(2)}°` : '');
     }
     fs.writeFileSync(path.join(outDir, 'labios_registro.json'), JSON.stringify({
-      navegador: NAVEGADOR, version: browser.version(), movimiento: MOVIMIENTO, caso: CASO, ventana: `${ANCHO}x${ALTO}`,
+      navegador: NAVEGADOR, version: browser.version(), movimiento: MOVIMIENTO, capas: BLOQUEADAS ? 'bloqueadas' : 'normales', caso: CASO, ventana: `${ANCHO}x${ALTO}`,
       fecha: new Date().toISOString(), comprobaciones, capas, tramos,
       muestras: { total: todas.length, con_voz: conVoz.length, con_boca: conBoca.length },
     }, null, 2));

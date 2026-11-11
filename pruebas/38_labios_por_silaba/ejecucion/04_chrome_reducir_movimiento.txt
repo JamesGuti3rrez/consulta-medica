@@ -1,0 +1,18 @@
+PS> $env:NAVEGADOR='chrome'; $env:MOVIMIENTO='reducido'; node pruebas/38_labios_por_silaba/probar_labios.cjs pruebas/38_labios_por_silaba/resultados/04_chrome_reducir_movimiento
+Fase 38 en chrome 157.0.8103.40, movimiento reducido, caso CIR-005, ventana 1440x1000
+
+Turno 1 «¿Desde cuándo tiene el dolor y cómo empezó?» terminado
+Turno 2 «Solicito hemograma completo» terminado
+
+Muestras: 2362; con voz 1516; con la boca abierta 0
+PASA   sin errores de JavaScript en la página
+PASA   las capas de boca y cabeza cargan a 1280x720
+PASA   las capas ocupan exactamente el rectángulo de la imagen, con el mismo object-fit  (imagen 37,319.2,922,518.6)
+PASA   las capas son siempre del personaje en escena
+PASA   en silencio la boca está cerrada (tramos sin voz de 200 ms o menos)  (ningún tramo)
+PASA   al terminar el turno: boca cerrada y cabeza en su sitio  (Tu turno; boca null; balanceo «»)
+PASA   reducir movimiento: nunca se abre la boca ni se balancea la cabeza  (0 muestras con boca)
+
+7 de 7 comprobaciones pasan
+
+Codigo de salida: 0   2026-11-11 10:04:32

@@ -63,6 +63,8 @@ desktop.ini
 
 # Fotos de evidencia de pruebas/: se guardan en el equipo, no en GitHub
 pruebas/**/*.png
+# Grabaciones crudas del video de demostración (fase 38): pesan varios MB y se regeneran con grabar_video.cjs.
+pruebas/**/*.webm
 pruebas/**/*.jpg
 pruebas/**/*.jpeg
 

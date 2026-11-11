@@ -1,0 +1,148 @@
+{
+  "antes_commit": "f9fc8eb",
+  "antes": [
+    {
+      "personaje": "doctor",
+      "fotogramas": 148,
+      "fps": 14.0,
+      "escala_media_pct": 1.31,
+      "escala_max_pct": 3.69,
+      "giro_max_grados": 1.54,
+      "tamano_cabeza_px": 396,
+      "salto_max_px": 14.6,
+      "diferencia_primer_fotograma": 1.71
+    },
+    {
+      "personaje": "paciente-hombre",
+      "fotogramas": 148,
+      "fps": 14.0,
+      "escala_media_pct": 1.62,
+      "escala_max_pct": 3.67,
+      "giro_max_grados": 1.35,
+      "tamano_cabeza_px": 404,
+      "salto_max_px": 14.8,
+      "diferencia_primer_fotograma": 1.89
+    },
+    {
+      "personaje": "paciente-mujer",
+      "fotogramas": 148,
+      "fps": 14.0,
+      "escala_media_pct": 1.12,
+      "escala_max_pct": 3.79,
+      "giro_max_grados": 1.83,
+      "tamano_cabeza_px": 419,
+      "salto_max_px": 15.9,
+      "diferencia_primer_fotograma": 1.63
+    }
+  ],
+  "despues": [
+    {
+      "personaje": "doctor",
+      "cabeza_escala_pct": 0.0,
+      "cabeza_giro_grados": 0.0,
+      "cabeza_diferencia_media": 1.1,
+      "cabeza_diferencia_p99": 5,
+      "cabeza_diferencia_max": 12,
+      "boca_pequena": {
+        "zona_px": [
+          117,
+          137
+        ],
+        "cambio_fuera_de_la_zona": 0
+      },
+      "boca_A": {
+        "zona_px": [
+          117,
+          137
+        ],
+        "cambio_fuera_de_la_zona": 0
+      },
+      "boca_E": {
+        "zona_px": [
+          117,
+          137
+        ],
+        "cambio_fuera_de_la_zona": 0
+      },
+      "boca_O": {
+        "zona_px": [
+          117,
+          137
+        ],
+        "cambio_fuera_de_la_zona": 0
+      }
+    },
+    {
+      "personaje": "paciente-hombre",
+      "cabeza_escala_pct": 0.0,
+      "cabeza_giro_grados": 0.0,
+      "cabeza_diferencia_media": 1.09,
+      "cabeza_diferencia_p99": 5,
+      "cabeza_diferencia_max": 12,
+      "boca_pequena": {
+        "zona_px": [
+          145,
+          166
+        ],
+        "cambio_fuera_de_la_zona": 0
+      },
+      "boca_A": {
+        "zona_px": [
+          145,
+          166
+        ],
+        "cambio_fuera_de_la_zona": 0
+      },
+      "boca_E": {
+        "zona_px": [
+          145,
+          166
+        ],
+        "cambio_fuera_de_la_zona": 0
+      },
+      "boca_O": {
+        "zona_px": [
+          145,
+          166
+        ],
+        "cambio_fuera_de_la_zona": 0
+      }
+    },
+    {
+      "personaje": "paciente-mujer",
+      "cabeza_escala_pct": 0.0,
+      "cabeza_giro_grados": 0.0,
+      "cabeza_diferencia_media": 1.04,
+      "cabeza_diferencia_p99": 5,
+      "cabeza_diferencia_max": 12,
+      "boca_pequena": {
+        "zona_px": [
+          143,
+          164
+        ],
+        "cambio_fuera_de_la_zona": 0
+      },
+      "boca_A": {
+        "zona_px": [
+          143,
+          164
+        ],
+        "cambio_fuera_de_la_zona": 0
+      },
+      "boca_E": {
+        "zona_px": [
+          143,
+          164
+        ],
+        "cambio_fuera_de_la_zona": 0
+      },
+      "boca_O": {
+        "zona_px": [
+          143,
+          164
+        ],
+        "cambio_fuera_de_la_zona": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+PS> $env:NAVEGADOR='firefox'; node pruebas/38_labios_por_silaba/probar_labios.cjs pruebas/38_labios_por_silaba/resultados/03_firefox
+Fase 38 en firefox 155.0, movimiento normal, caso CIR-005, ventana 1440x1000
+
+Turno 1 «¿Desde cuándo tiene el dolor y cómo empezó?» terminado
+Turno 2 «Solicito hemograma completo» terminado
+
+Muestras: 2254; con voz 1455; con la boca abierta 1072
+PASA   sin errores de JavaScript en la página
+PASA   las capas de boca y cabeza cargan a 1280x720
+PASA   las capas ocupan exactamente el rectángulo de la imagen, con el mismo object-fit  (imagen 37,319.2,922,518.6)
+PASA   las capas son siempre del personaje en escena
+PASA   en silencio la boca está cerrada (tramos sin voz de 200 ms o menos)  (ningún tramo)
+PASA   al terminar el turno: boca cerrada y cabeza en su sitio  (Tu turno; boca null; balanceo «»)
+PASA   la boca se mueve mientras suena la voz  (1072 de 1455 muestras con voz)
+PASA   usa varias formas de boca  (A, E, O, pequena)
+PASA   cambia de forma a ritmo de sílaba, sin tiritar (de 2 a 9 cambios por segundo de voz)  (5.0 por segundo)
+PASA   la cabeza se balancea mientras habla  (1455 de 1455 muestras con voz)
+PASA   el balanceo es leve (giro máximo de 1,5° o menos)  (0.50°)
+
+11 de 11 comprobaciones pasan
+
+Codigo de salida: 0   2026-11-11 10:02:40

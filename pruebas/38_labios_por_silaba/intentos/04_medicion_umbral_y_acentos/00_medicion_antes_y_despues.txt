@@ -1,0 +1,15 @@
+PS> python pruebas/38_labios_por_silaba/medir_antes_y_despues.py
+ANTES (videos de LivePortrait, commit f9fc8eb): tama�o de la cabeza en el video frente a la imagen quieta
+  Doctor           148 fotogramas: media +1.31 %, m�ximo +3.69 % (unos 14.6 px en una cabeza de 396 px), giro hasta 1.54�
+  Paciente hombre  148 fotogramas: media +1.62 %, m�ximo +3.67 % (unos 14.8 px en una cabeza de 404 px), giro hasta 1.35�
+  Paciente mujer   148 fotogramas: media +1.12 %, m�ximo +3.79 % (unos 15.9 px en una cabeza de 419 px), giro hasta 1.83�
+
+DESPU�S (capas de la fase 38): diferencia con la imagen quieta, en niveles de color de 0 a 255
+  Doctor           capa de cabeza: 12; fuera de la zona de la boca: pequena 0, A 0, E 0, O 0
+  Paciente hombre  capa de cabeza: 12; fuera de la zona de la boca: pequena 0, A 0, E 0, O 0
+  Paciente mujer   capa de cabeza: 12; fuera de la zona de la boca: pequena 0, A 0, E 0, O 0
+
+FALLA  la cabeza coincide con la imagen quieta y cada boca solo cambia su zona
+Figuras: figura_salto_de_la_cabeza.png, figura_bocas_finales.png, figura_versiones_de_la_boca_paciente-hombre.png, figura_versiones_de_la_boca_doctor.png
+
+Codigo de salida: 1   2026-11-11 10:42:38
