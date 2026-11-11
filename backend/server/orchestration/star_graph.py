@@ -136,6 +136,9 @@ class StarGraphOrchestrator:
                     and not self.disclosure_policy.names_specific_exam(state["student_message"])):
                 context["pedido_generico"] = True
             if (role == AgentRole.MEDICO_ASISTENTE and intent == Intent.ASK_ASSISTANT
+                    and self.router.requests_multiple_specific_agents(state["student_message"])):
+                context["multiple_exam_request"] = True
+            elif (role == AgentRole.MEDICO_ASISTENTE and intent == Intent.ASK_ASSISTANT
                     and self.router.generic_exam_request(state["student_message"])):
                 context["pedido_generico"] = True
             # Exploración física sin hallazgos registrados: el doctor lo dice, sin pedir al estudiante que los describa.
@@ -158,7 +161,7 @@ class StarGraphOrchestrator:
                     forbidden_terms=forbidden_terms, session_id=state.get("session_id"),
                 )
             reply = exam_result["reply"] if exam_result else completion.reply if completion is not None else None
-            if reply is None and social:
+            if reply is None and social and not context.get("multiple_exam_request"):
                 reply = AgentReply(role=role, text=social, provider="reglas", model="reglas")
             if reply is None:
                 reply = self.agents[role].respond(

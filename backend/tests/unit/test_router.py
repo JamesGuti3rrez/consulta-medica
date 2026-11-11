@@ -7,6 +7,14 @@ def test_requests_for_multiple_agents_are_routed_for_clarification():
 
     assert decision.target == AgentRole.MEDICO_ASISTENTE
     assert decision.intent == Intent.ASK_ASSISTANT
+    assert DecisionRouter.requests_multiple_specific_agents("Solicito un hemograma y una radiografía")
+
+
+def test_specific_exam_route_wins_over_general_assistant_or_exam_terms():
+    router = DecisionRouter()
+
+    assert router.route("Dame un resumen de los resultados de laboratorio").target == AgentRole.LABORATORIO
+    assert router.route("Tomo la presión y pido un electrocardiograma").target == AgentRole.LABORATORIO
 
 
 def test_unknown_clinical_request_uses_the_deterministic_patient_fallback():

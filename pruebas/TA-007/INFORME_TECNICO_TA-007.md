@@ -34,10 +34,12 @@ La lógica de seguridad clínica existente en `backend/server/engine/safety/serv
 ## Cambios realizados para TA-007
 
 - `backend/server/orchestration/router.py`: identifica solicitudes simultáneas dirigidas a distintos agentes y las envía al médico asistente para aclaración. Las solicitudes específicas conservan la prioridad correcta.
+- `backend/server/orchestration/star_graph.py` y `backend/server/ai/agents/medico_asistente.py`: la solicitud de varios tipos de examen activa una aclaración fija y determinista —sin LLM—; no se pierde evidencia por una contestación vaga.
+- El router da prioridad a un único agente de examen específico sobre palabras generales como «resumen» y sobre menciones de exploración física acompañadas de ese examen.
 - `backend/server/engine/state_machine/service.py`: valida fase e intención; la fase de cierre no retrocede ante nuevos turnos y la fase finalizada sigue siendo terminal.
 - `backend/tests/unit/test_router.py`: pruebas de ambigüedad, fallback determinista, prioridad de diagnóstico/cierre y prioridad de exámenes específicos.
 - `backend/tests/unit/test_state_machine.py`: pruebas de continuidad en cierre y rechazo explícito de entradas inválidas.
-- `backend/tests/integration/test_direct_dialogue.py`: pruebas de aclaración de solicitudes ambiguas y continuidad del diálogo hasta la finalización explícita.
+- `backend/tests/integration/test_direct_dialogue.py`: pruebas de aclaración exacta para solicitudes ambiguas, conservación de ruta/resultados de laboratorio ante «resumen» y «tomo la presión», y continuidad del diálogo hasta la finalización explícita.
 - `backend/tests/integration/test_ta007_security_evaluation.py`: nuevas pruebas de bloqueo de salida protegida, traza saneada, aislamiento de IDs de otros casos, solicitudes con IDs inexistentes y coherencia de evidencia, puntaje y diagnóstico final.
 
 No se modificaron las reglas de tratamiento/prescripción, el frontend, Supabase ni la política de RAG.

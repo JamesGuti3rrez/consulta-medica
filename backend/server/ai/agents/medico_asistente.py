@@ -5,6 +5,7 @@ from server.domain import AgentReply, AgentRole
 class MedicoAsistenteAgent(BaseAgent):
     role = AgentRole.MEDICO_ASISTENTE
     prompt_filename = "medico_asistente.md"
+    multiple_exam_request_reply = "Solicitó varios exámenes a la vez; indíqueme uno por mensaje."
     generic_request_reply = (
         "¿Desea realizar la exploración física o solicitar un examen de laboratorio o de imagen? Indique cuál."
     )
@@ -22,6 +23,16 @@ class MedicoAsistenteAgent(BaseAgent):
     no_exam_findings_reply = "No hay hallazgos de exploración física registrados para este paciente."
 
     def respond(self, *, student_message, context, temperature=0.0):
+        if context.get("multiple_exam_request"):
+            return AgentReply(
+                role=self.role,
+                text=self.multiple_exam_request_reply,
+                provider="reglas",
+                model="reglas",
+                evidence_ids=[],
+                input_tokens=0,
+                output_tokens=0,
+            )
         # Sin hallazgos registrados no se llama al modelo: no puede pedir al estudiante que los describa.
         if context.get("exploracion_sin_hallazgos"):
             return AgentReply(role=self.role, text=self.no_exam_findings_reply, provider="reglas", model="reglas",

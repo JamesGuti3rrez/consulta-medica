@@ -87,7 +87,29 @@ def test_ambiguous_agent_requests_are_clarified_by_the_assistant(api):
 
     assert reply['agent'] == AgentRole.MEDICO_ASISTENTE.value
     assert reply['doctor_question'] is None
-    assert reply['response']
+    assert reply['response'] == 'Solicitó varios exámenes a la vez; indíqueme uno por mensaje.'
+    assert reply['provider'] == 'reglas'
+
+
+def test_summary_of_laboratory_results_stays_with_laboratory_agent(api):
+    client, _, _ = api
+    sid, headers = start(client, case_id='MED-900')
+
+    reply = ask(client, sid, headers, 'Dame un resumen de los resultados de laboratorio del hemograma')
+
+    assert reply['agent'] == AgentRole.LABORATORIO.value
+    assert reply['evidence_ids'] == ['MED-900.laboratorio.hemograma']
+    assert 'Hemograma sin alteraciones relevantes.' in reply['response']
+
+
+def test_physical_exam_phrase_does_not_steal_a_specific_electrocardiogram_request(api):
+    client, _, _ = api
+    sid, headers = start(client, case_id='EME-101')
+
+    reply = ask(client, sid, headers, 'Tomo la presión y pido un electrocardiograma')
+
+    assert reply['agent'] == AgentRole.LABORATORIO.value
+    assert any('electrocardiograma' in evidence_id for evidence_id in reply['evidence_ids'])
 
 
 def test_closing_phase_can_continue_consultation_until_explicit_finalization(api):

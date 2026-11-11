@@ -52,6 +52,26 @@ class DecisionRouter:
         """Un pedido de pruebas sin tipo se aclara con el médico, no con el paciente."""
         return bool(re.search(r"\b(?:examen(?:es)?|pruebas|estudios medicos)\b", _normalize(message)))
 
+    @classmethod
+    def requested_specific_agents(cls, message: str) -> set[AgentRole]:
+        text = f" {_normalize(message).strip()} "
+
+        def mentions(terms):
+            return any(f" {term} " in text for term in terms)
+
+        requested = set()
+        if mentions(cls.LAB):
+            requested.add(AgentRole.LABORATORIO)
+        if mentions(cls.RADIOLOGY):
+            requested.add(AgentRole.RADIOLOGIA)
+        if mentions(cls.SPECIALIST):
+            requested.add(AgentRole.ESPECIALISTA)
+        return requested
+
+    @classmethod
+    def requests_multiple_specific_agents(cls, message: str) -> bool:
+        return len(cls.requested_specific_agents(message)) > 1
+
     def route(self, message: str) -> RouteDecision:
         text = _normalize(message)
         def mentions(terms):
@@ -65,27 +85,17 @@ class DecisionRouter:
             return RouteDecision(Intent.PROPOSE_TREATMENT, AgentRole.MEDICO_ASISTENTE, 0.98, "propuesta de tratamiento")
         if mentions(self.HYPOTHESIS):
             return RouteDecision(Intent.PROPOSE_HYPOTHESIS, AgentRole.MEDICO_ASISTENTE, 0.95, "registro de hipótesis")
-        requested_agents = set()
-        if mentions(self.LAB):
-            requested_agents.add(AgentRole.LABORATORIO)
-        if mentions(self.RADIOLOGY):
-            requested_agents.add(AgentRole.RADIOLOGIA)
-        if mentions(self.SPECIALIST):
-            requested_agents.add(AgentRole.ESPECIALISTA)
-        explicit_assistant_request = mentions(self.EXAMINE) or mentions(self.ASSISTANT)
-        if explicit_assistant_request or (
-            not requested_agents and self.generic_exam_request(message)
-        ):
-            requested_agents.add(AgentRole.MEDICO_ASISTENTE)
+        requested_agents = self.requested_specific_agents(message)
         if len(requested_agents) > 1:
             return RouteDecision(Intent.ASK_ASSISTANT, AgentRole.MEDICO_ASISTENTE, 0.9,
                                  "solicitud simultánea para varios agentes; se requiere aclaración")
-        if mentions(self.LAB):
-            return RouteDecision(Intent.REQUEST_LAB, AgentRole.LABORATORIO, 0.95, "términos de laboratorio")
-        if mentions(self.RADIOLOGY):
-            return RouteDecision(Intent.REQUEST_RADIOLOGY, AgentRole.RADIOLOGIA, 0.95, "términos de imagen")
-        if mentions(self.SPECIALIST):
-            return RouteDecision(Intent.REQUEST_SPECIALIST, AgentRole.ESPECIALISTA, 0.92, "solicitud de especialista")
+        if requested_agents:
+            target = next(iter(requested_agents))
+            if target == AgentRole.LABORATORIO:
+                return RouteDecision(Intent.REQUEST_LAB, target, 0.95, "términos de laboratorio")
+            if target == AgentRole.RADIOLOGIA:
+                return RouteDecision(Intent.REQUEST_RADIOLOGY, target, 0.95, "términos de imagen")
+            return RouteDecision(Intent.REQUEST_SPECIALIST, target, 0.92, "solicitud de especialista")
         if mentions(self.EXAMINE):
             return RouteDecision(Intent.EXAMINE, AgentRole.MEDICO_ASISTENTE, 0.9, "solicitud de examen físico")
         if self.generic_exam_request(message):
