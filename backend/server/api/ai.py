@@ -109,6 +109,10 @@ class FinishRequest(BaseModel):
     confirmado: bool = False
 
 
+class ProgressRequest(BaseModel):
+    hypotheses: list[HypothesisItem] = Field(default_factory=list, max_length=50)
+
+
 # Registro de diagnósticos con SESSION_STORE=memoria (vive lo mismo que STORE).
 DIAGNOSES = InMemoryDiagnoses()
 
@@ -234,6 +238,24 @@ def start(payload: StartRequest, request: Request, authorization: str | None = H
     return result
 
 
+def authorize_authenticated_student(
+    request: Request,
+    authorization: str | None = Header(default=None),
+) -> str:
+    token = _bearer_token(request, authorization)
+    if token is None:
+        raise _deny(request, 401, "sin_credencial", "anonimo")
+    return _verified_user(request, token)
+
+
+@router.get("/sessions")
+def list_open_sessions(user_id: str = Depends(authorize_authenticated_student)):
+    try:
+        return {"sessions": get_service().list_open_by_owner(user_id)}
+    except SessionStoreError as exc:
+        raise _store_unavailable(exc) from exc
+
+
 def authorize_session(
     session_id: str,
     request: Request,
@@ -284,6 +306,32 @@ def get_session(session_id: str):
         raise HTTPException(status_code=404, detail=SESSION_NOT_FOUND) from exc
     except SessionStoreError as exc:
         raise _store_unavailable(exc) from exc
+
+
+@router.get("/sessions/{session_id}/restore", dependencies=[Depends(authorize_session)])
+def restore_session(session_id: str):
+    try:
+        return get_service().restore_open(session_id)
+    except SessionNotFound as exc:
+        raise HTTPException(status_code=404, detail=SESSION_NOT_FOUND) from exc
+    except SessionStoreError as exc:
+        raise _store_unavailable(exc) from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
+
+
+@router.patch("/sessions/{session_id}/progress", dependencies=[Depends(authorize_session)])
+def save_progress(session_id: str, payload: ProgressRequest):
+    try:
+        hypotheses = [item.model_dump() for item in payload.hypotheses]
+        get_service().save_hypotheses(session_id, hypotheses)
+        return {"saved": True}
+    except SessionNotFound as exc:
+        raise HTTPException(status_code=404, detail=SESSION_NOT_FOUND) from exc
+    except SessionStoreError as exc:
+        raise _store_unavailable(exc) from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
 
 
 @router.post("/sessions/{session_id}/message", dependencies=[Depends(authorize_session)])

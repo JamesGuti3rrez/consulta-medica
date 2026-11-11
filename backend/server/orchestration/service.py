@@ -5,6 +5,7 @@ from copy import deepcopy
 from uuid import uuid4
 
 from server.domain import AgentRole, Intent, SessionPhase
+from server.cases.catalog import to_student_case
 from server.orchestration.store import InMemorySessionStore
 from server.tracing.sanitize import audit_metadata
 
@@ -86,6 +87,47 @@ class MultiAgentSessionService:
 
     def get(self, session_id: str) -> dict:
         return self._public(self.store.get(session_id))
+
+    def list_open_by_owner(self, owner_id: str) -> list[dict]:
+        sessions = []
+        for state in self.store.list_open_by_owner(owner_id):
+            if state.get("owner_id") != owner_id or state.get("phase") == SessionPhase.FINALIZADA.value:
+                continue
+            case = self.repository.get_conversation_case(state["case_id"])
+            sessions.append({
+                "session_id": state["session_id"],
+                "title": case["title"],
+                "specialty": case["specialty"],
+                "phase": state["phase"],
+                "started_at": state.get("started_at"),
+                "updated_at": state.get("updated_at"),
+            })
+        return sessions
+
+    def restore_open(self, session_id: str) -> dict:
+        state = self.store.get(session_id)
+        if state["phase"] == SessionPhase.FINALIZADA.value:
+            raise ValueError("La sesión ya finalizó.")
+        if state.get("group_assignment_id"):
+            raise ValueError("Continúa esta actividad desde la página de grupos.")
+        case = self.repository.get_case(state["case_id"])
+        return {
+            "session": self._public(state),
+            "case": to_student_case(case),
+            "events": self.store.events(session_id),
+            "evidences": self.revealed(session_id),
+            "hypotheses": deepcopy(state.get("student_hypotheses", [])),
+        }
+
+    def save_hypotheses(self, session_id: str, hypotheses: list[dict]) -> None:
+        state = self.store.get(session_id)
+        if state["phase"] == SessionPhase.FINALIZADA.value:
+            raise ValueError("La sesión ya finalizó.")
+        if state.get("group_assignment_id"):
+            raise ValueError("Las hipótesis de actividades grupales no se actualizan desde esta operación.")
+        state["student_hypotheses"] = deepcopy(hypotheses)
+        state["updated_at"] = _now()
+        self.store.save(state)
 
     def message(self, session_id: str, student_message: str) -> dict:
         session = self.store.get(session_id)

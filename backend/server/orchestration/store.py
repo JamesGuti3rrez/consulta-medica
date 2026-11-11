@@ -28,6 +28,20 @@ class InMemorySessionStore:
                 raise SessionNotFound(session_id)
             return copy.deepcopy(self._sessions[session_id])
 
+    def list_open_by_owner(self, owner_id: str) -> list[dict]:
+        with self._lock:
+            sessions = [
+                state for state in self._sessions.values()
+                if state.get("owner_id") == owner_id
+                and state.get("phase") != "finalizada"
+                and not state.get("group_assignment_id")
+            ]
+            return copy.deepcopy(sorted(
+                sessions,
+                key=lambda state: state.get("updated_at", ""),
+                reverse=True,
+            ))
+
     def save(self, state: dict) -> None:
         with self._lock:
             if state["session_id"] not in self._sessions:

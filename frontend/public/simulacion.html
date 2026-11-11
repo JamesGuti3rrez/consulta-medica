@@ -313,6 +313,19 @@
     </aside>
   </main>
 
+  <div data-role="inactivity-overlay" hidden class="inactivity-overlay" role="alertdialog"
+    aria-modal="true" aria-labelledby="inactivity-title" aria-describedby="inactivity-message">
+    <section class="inactivity-dialog">
+      <span class="inactivity-icon material-symbols-outlined" aria-hidden="true">pause_circle</span>
+      <h2 id="inactivity-title">Consulta pausada por inactividad</h2>
+      <p id="inactivity-message">La consulta se pausó porque no hubo actividad durante un tiempo. ¿Estás ahí?</p>
+      <div class="inactivity-actions">
+        <a class="inactivity-home" href="index.html">Volver al inicio</a>
+        <button data-role="resume-after-inactivity" type="button" class="inactivity-resume">Retomar consulta</button>
+      </div>
+    </section>
+  </div>
+
   <div data-role="evaluation-panel" hidden
     class="hidden fixed inset-0 z-50 items-center justify-center bg-slate-950/55 backdrop-blur-sm p-3 sm:p-6" role="dialog"
     aria-modal="true" aria-labelledby="evaluation-title">
