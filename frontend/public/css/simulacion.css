@@ -419,19 +419,28 @@ button[hidden] {
   opacity: 0;
 }
 
-/* Video de la boca en movimiento: encima de la imagen quieta y solo mientras suena la voz. El cambio es
-   inmediato (sin transición) para que la boca siga al audio; durante el cambio de personaje se oculta. */
-.scene-video {
-  opacity: 0;
+/* Cabeza y bocas del personaje (labios.js): capas transparentes del mismo tamaño que la imagen quieta, encima de
+   ella. La cabeza coincide al píxel con la imagen y solo se nota cuando se balancea; cada boca aparece con un
+   fundido corto. Durante el cambio de personaje se ocultan con la imagen. */
+.scene-face {
   pointer-events: none;
+  user-select: none;
+  will-change: transform;
+  transition: opacity 0.25s ease;
 }
 
-.scene-video.is-visible {
-  opacity: 1;
-}
-
-.scene-avatar.is-switching ~ .scene-video {
+.scene-avatar.is-switching ~ .scene-face {
   opacity: 0;
+  transition: none;
+}
+
+.scene-mouth {
+  opacity: 0;
+  transition: opacity 90ms ease-out;
+}
+
+.scene-mouth.is-on {
+  opacity: 1;
 }
 
 @keyframes bubble-in {
@@ -1084,7 +1093,8 @@ button[hidden] {
     animation: none;
   }
 
-  .scene-avatar {
+  .scene-avatar,
+  .scene-face {
     transition: none;
   }
 

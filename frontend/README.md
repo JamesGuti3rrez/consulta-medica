@@ -20,7 +20,7 @@ Interfaz web del estudiante: portada, simulación, reporte y voz.
 | `state/` | Estado de la vista en el cliente. El estado clínico lo decide el backend. |
 | `ui/` | Componentes reutilizables y accesibles (ventanas, pestañas, botones). |
 
-`public/assets/avatars/` guarda los videos de la escena (`*-hablando.mp4`) y las imágenes quietas que genera `npm run build:images`. Los videos se preparan con `node frontend/scripts/prepare-avatar-videos.mjs` (necesita ffmpeg) a partir de los originales de LivePortrait en `src/assets/avatars/videos/`.
+`public/assets/avatars/` guarda las imágenes quietas de la escena que genera `npm run build:images` y, encima de ellas, las capas de la boca por sílaba (`*-boca-<forma>.webp`) y de la cabeza para el leve balanceo (`*-cabeza.webp`). Las capas se generan deformando los labios de la propia imagen quieta con `python frontend/scripts/generar-bocas.py` (necesita opencv-python, numpy y Pillow) y `js/labios.js` decide qué boca se ve según el texto y el volumen de la voz (pruebas: `node --test frontend/tests/labios.test.mjs`). Las imágenes quietas salen del primer fotograma de los videos de LivePortrait en `src/assets/avatars/videos/` (`node frontend/scripts/prepare-avatar-videos.mjs`, necesita ffmpeg).
 
 ## Decisión pendiente
 

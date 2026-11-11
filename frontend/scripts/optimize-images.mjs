@@ -16,7 +16,8 @@ const outputs = [
   { file: join(assetsDir, 'og-image.jpg'), run: img => img.resize({ width: 1200, height: 630, fit: 'cover', position: 'centre' }).jpeg({ quality: 82, mozjpeg: true }) },
 ];
 // Escena del simulador: el doctor presenta el caso y el paciente (hombre o mujer) responde en el interrogatorio.
-// Cada imagen es el primer fotograma de su video (prepare-avatar-videos.mjs), en 16:9 como el video.
+// Cada imagen es el primer fotograma de su video (prepare-avatar-videos.mjs), en 16:9. Sus capas de boca y cabeza
+// (generar-bocas.py) se generan a partir de la imagen de 1280: si cambia, hay que volver a generarlas.
 for (const name of ['doctor', 'paciente-hombre', 'paciente-mujer']) {
   const avatar = join(frontendDir, `src/assets/avatars/${name}.png`);
   for (const width of [1280, 800]) {

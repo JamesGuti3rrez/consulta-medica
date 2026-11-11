@@ -29,6 +29,9 @@ frontend/public/assets/consulta-800.webp
 frontend/public/assets/og-image.jpg
 frontend/public/assets/apple-touch-icon.png
 frontend/public/assets/avatars/*.webp
+# Capas de boca y cabeza (frontend/scripts/generar-bocas.py): se guardan, el build no las genera.
+!frontend/public/assets/avatars/*-boca-*.webp
+!frontend/public/assets/avatars/*-cabeza.webp
 
 # Vínculo local con Vercel y variables que descarga su CLI
 .vercel

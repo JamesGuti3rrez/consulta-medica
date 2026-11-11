@@ -345,10 +345,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     return browserVoices[speaker] || null;
   };
 
-  // Sin audio que medir, la boca se mueve durante toda la frase.
+  // Sin audio que medir, la boca sigue el texto a la velocidad de la voz; cada aviso de palabra la realinea.
   const speakWithBrowser = (text, speaker, finish) => {
+    const followText = () => runLips(text, () => null, { pauses: true, msPerSyllable: BROWSER_SYLLABLE_MS });
     if (!('speechSynthesis' in window)) {
-      setTalking(true);
+      followText();
       wait(readingTime(text)).then(finish);
       return;
     }
@@ -357,7 +358,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     const voice = browserVoice(speaker);
     if (voice) utterance.voice = voice;
     utterance.rate = SPEECH_RATE;
-    utterance.onstart = () => setTalking(true);
+    utterance.onstart = followText;
+    utterance.onboundary = event => {
+      if (!event.name || event.name === 'word') lips?.seekChar(event.charIndex);
+    };
     utterance.onend = finish;
     utterance.onerror = finish;
     window.speechSynthesis.cancel();
@@ -415,7 +419,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (started) return;
         started = true;
         consultationVoice = 'neural';
-        followVoice(audio);
+        followVoice(audio, spoken);
         wait(neuralTime(spoken)).then(end);
       };
       audio.onended = end;
@@ -492,49 +496,109 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
   const patientScene = () => (currentCase?.patient?.sex === 'masculino' ? 'paciente-hombre' : 'paciente-mujer');
 
-  // Boca en movimiento: cada personaje tiene un video en bucle (LivePortrait) cuyo primer fotograma es su imagen
-  // quieta. Mientras suena la voz se ve el video; en los silencios (comas, pausas entre frases) vuelve la imagen.
-  // El video no está ligado al texto: la sincronía es por volumen, no por fonema.
-  const sceneVideos = {};
-  let talking = false;
-  const sceneVideo = name => {
-    if (!sceneAvatar || !SCENES[name]) return null;
-    if (!sceneVideos[name]) {
-      const video = document.createElement('video');
-      video.className = 'scene-video absolute inset-0 w-full h-full object-cover rounded-xl';
-      video.setAttribute('aria-hidden', 'true');
-      Object.assign(video, { muted: true, loop: true, playsInline: true, preload: 'auto' });
-      video.src = `assets/avatars/${name}-hablando.mp4`;
-      // Se muestra cuando de verdad está reproduciéndose: antes dejaría ver un fotograma negro.
-      video.addEventListener('playing', () => {
-        if (talking && sceneAvatar.dataset.scene === name) video.classList.add('is-visible');
-        else video.pause();
-      });
-      sceneAvatar.after(video);
-      sceneVideos[name] = video;
-    }
-    return sceneVideos[name];
+  // Boca por sílaba y leve balanceo de la cabeza. Sobre la imagen quieta se apilan capas transparentes del mismo
+  // tamaño (las genera frontend/scripts/generar-bocas.py): la cabeza, que se inclina un poco mientras el personaje
+  // habla, y una boca por forma. labios.js decide qué boca se ve en cada momento; en silencio no se ve ninguna y
+  // queda exactamente la imagen quieta. Con «reducir movimiento» activado en el sistema no se anima nada: queda la
+  // imagen quieta y el estado «Hablando» del globo.
+  const MOUTHS = ['pequena', 'A', 'E', 'O'];
+  // Pivote del balanceo (el cuello), en % de la imagen: lo imprime generar-bocas.py.
+  const AVATAR_PIVOTS = {
+    doctor: '50.2% 71.3%',
+    'paciente-hombre': '50.2% 73.1%',
+    'paciente-mujer': '50.1% 73.9%',
   };
-  // El video sigue donde se quedó: así cada palabra no empieza con el mismo gesto. Con «reducir movimiento»
-  // activado en el sistema no se muestra: queda la imagen quieta y el estado «Hablando» del globo.
+  const faceLayers = name => [
+    `assets/avatars/${name}-cabeza.webp`,
+    ...MOUTHS.map(mouth => `assets/avatars/${name}-boca-${mouth}.webp`),
+  ];
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const setTalking = on => {
-    talking = on && !reducedMotion.matches;
-    Object.entries(sceneVideos).forEach(([name, video]) => {
-      if (talking && name === sceneAvatar?.dataset.scene) {
-        video.play().catch(() => {});
-      } else {
-        video.pause();
-        video.classList.remove('is-visible');
-      }
+  let face = null;
+  const faceImages = [];
+  const loadFace = name => {
+    if (!sceneAvatar || !SCENES[name]) return;
+    if (!face) {
+      face = document.createElement('div');
+      face.className = 'scene-face absolute inset-0';
+      face.setAttribute('aria-hidden', 'true');
+      ['scene-head', ...MOUTHS.map(() => 'scene-mouth')].forEach((className, index) => {
+        const image = document.createElement('img');
+        image.className = `${className} absolute inset-0 w-full h-full object-cover rounded-xl`;
+        image.alt = '';
+        if (index) image.dataset.mouth = MOUTHS[index - 1];
+        faceImages.push(image);
+        face.append(image);
+      });
+      sceneAvatar.after(face);
+    }
+    faceLayers(name).forEach((src, index) => {
+      faceImages[index].src = src;
     });
+    face.style.transformOrigin = AVATAR_PIVOTS[name];
+  };
+  const setMouth = mouth => faceImages.forEach(image => {
+    if (image.dataset.mouth) image.classList.toggle('is-on', image.dataset.mouth === mouth);
+  });
+
+  // Balanceo: entra y sale suave (~0,4 s) y combina senos lentos para que no se note un ciclo. SWAY_INTENSITY
+  // escala el movimiento (con 1, giro de hasta ~1,25° y unos 2 px); 0,4 es el valor elegido en el prototipo.
+  // La transición depende del tiempo y no de los fotogramas, para que dure lo mismo en cualquier navegador.
+  const SWAY_INTENSITY = 0.4;
+  const SWAY_EASE_MS = 150;
+  let swayLevel = 0;
+  let swayTarget = 0;
+  let swayFrame = 0;
+  let swayLast = 0;
+  const swayTick = now => {
+    const elapsed = swayLast ? Math.min(now - swayLast, 100) : 16;
+    swayLast = now;
+    swayLevel += (swayTarget - swayLevel) * (1 - Math.exp(-elapsed / SWAY_EASE_MS));
+    if (!swayTarget && swayLevel < 0.003) {
+      swayLevel = 0;
+      swayFrame = 0;
+      swayLast = 0;
+      face.style.transform = '';
+      return;
+    }
+    const s = now / 1000;
+    const rotation = swayLevel * (0.9 * Math.sin(s * 1.7) + 0.35 * Math.sin(s * 3.9 + 1.3));
+    const dx = swayLevel * 1.2 * Math.sin(s * 1.3 + 2);
+    const dy = swayLevel * 1.6 * Math.sin(s * 2.6 + 0.5);
+    face.style.transform = `translate(${dx.toFixed(2)}px, ${dy.toFixed(2)}px) rotate(${rotation.toFixed(3)}deg)`;
+    swayFrame = requestAnimationFrame(swayTick);
+  };
+  const setTalking = on => {
+    swayTarget = on && !reducedMotion.matches ? SWAY_INTENSITY : 0;
+    if (swayTarget && face && !swayFrame) swayFrame = requestAnimationFrame(swayTick);
+  };
+
+  // Sílabas por segundo de partida: la voz neuronal habla a ritmo normal y el reloj se ajusta solo en cada pausa;
+  // la del navegador va a SPEECH_RATE.
+  const NEURAL_SYLLABLE_MS = 165;
+  const BROWSER_SYLLABLE_MS = Math.round(175 / SPEECH_RATE);
+  const lips = window.Labios ? window.Labios.createLipSync({ setMouth }) : null;
+  let lipFrame = 0;
+  // readVoice() dice en cada fotograma si suena la voz (true/false) o null si no se puede medir.
+  const runLips = (text, readVoice, options) => {
+    stopLips();
+    if (!lips || reducedMotion.matches) return;
+    lips.start(text, options);
+    setTalking(true);
+    let last = performance.now();
+    const tick = now => {
+      // Con la pestaña en segundo plano no hay fotogramas: el salto se limita y la pausa siguiente realinea.
+      lips.step(Math.min(100, Math.max(0, now - last)), readVoice());
+      last = now;
+      lipFrame = requestAnimationFrame(tick);
+    };
+    lipFrame = requestAnimationFrame(tick);
   };
 
   // El volumen se mide con Web Audio sobre el mismo <audio> que suena. Si el navegador no deja medirlo (contexto
-  // de audio suspendido o sin Web Audio), la boca se mueve durante toda la frase.
+  // de audio suspendido o sin Web Audio), la boca sigue el texto a la velocidad estimada.
   const VOICE_LEVEL = 0.02;
-  // Espera antes de cerrar la boca, para que no parpadee entre sílabas.
-  const SILENCE_HOLD = 140;
+  // Espera antes de dar por terminado un sonido, para que la boca no parpadee en las consonantes.
+  const SILENCE_HOLD = 80;
   let audioContext = null;
   const meters = new WeakMap();
   const meterFor = audio => {
@@ -554,14 +618,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     return meters.get(audio);
   };
-  let lipFrame = 0;
-  const stopLips = () => {
+  function stopLips() {
     cancelAnimationFrame(lipFrame);
     lipFrame = 0;
+    lips?.stop();
     setTalking(false);
-  };
-  const followVoice = audio => {
-    stopLips();
+  }
+  const followVoice = (audio, text) => {
     let analyser = null;
     try {
       analyser = meterFor(audio);
@@ -569,25 +632,19 @@ document.addEventListener('DOMContentLoaded', async () => {
       analyser = null;
     }
     if (!analyser) {
-      setTalking(true);
+      runLips(text, () => null, { pauses: true, msPerSyllable: NEURAL_SYLLABLE_MS });
       return;
     }
     const samples = new Float32Array(analyser.fftSize);
     let lastVoice = -Infinity;
-    let voiced = false;
-    const tick = now => {
+    runLips(text, () => {
       analyser.getFloatTimeDomainData(samples);
       let energy = 0;
       for (const sample of samples) energy += sample * sample;
+      const now = performance.now();
       if (Math.sqrt(energy / samples.length) > VOICE_LEVEL) lastVoice = now;
-      const on = now - lastVoice < SILENCE_HOLD;
-      if (on !== voiced) {
-        voiced = on;
-        setTalking(on);
-      }
-      lipFrame = requestAnimationFrame(tick);
-    };
-    lipFrame = requestAnimationFrame(tick);
+      return now - lastVoice < SILENCE_HOLD;
+    }, { msPerSyllable: NEURAL_SYLLABLE_MS });
   };
 
   // El interrogatorio empieza cuando el doctor termina de presentar el caso.
@@ -597,7 +654,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     const image = new Image();
     image.sizes = sceneAvatar?.sizes || '100vw';
     Object.assign(image, sceneSources(name));
-    sceneVideo(name);
+    faceLayers(name).forEach(src => {
+      new Image().src = src;
+    });
   };
   const setScene = name => {
     if (!sceneAvatar || !SCENES[name] || sceneAvatar.dataset.scene === name) return;
@@ -606,11 +665,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     setTalking(false);
     sceneAvatar.classList.add('is-switching');
     // La imagen vuelve a verse cuando la nueva ya está decodificada: Firefox mantiene la anterior mientras tanto y
-    // se veía un instante al personaje que se iba.
+    // se veía un instante al personaje que se iba. Lo mismo con la capa de la cabeza, que va encima.
     window.setTimeout(() => {
       if (request !== sceneRequest) return;
       Object.assign(sceneAvatar, sceneSources(name), { alt: SCENES[name] });
-      const shown = sceneAvatar.decode ? sceneAvatar.decode().catch(() => {}) : Promise.resolve();
+      loadFace(name);
+      const shown = Promise.all([sceneAvatar, faceImages[0]].filter(Boolean)
+        .map(image => (image.decode ? image.decode().catch(() => {}) : Promise.resolve())));
       shown.then(() => {
         if (request === sceneRequest) sceneAvatar.classList.remove('is-switching');
       });
@@ -819,7 +880,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     consultationClosed = false;
     interviewing = false;
     setScene('doctor');
-    sceneVideo('doctor');
+    loadFace('doctor');
     renderHypotheses();
     startButton.disabled = true;
     startButton.lastChild.textContent = ' Presentando caso...';
