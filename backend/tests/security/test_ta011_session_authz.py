@@ -427,6 +427,8 @@ def test_09_no_hay_rutas_adicionales(mundo, caso):
         "GET /api/ai/sessions/{session_id}/events", "POST /api/ai/sessions/{session_id}/finish",
         # HU-007: el reporte final, con la misma autorización.
         "GET /api/ai/sessions/{session_id}/report",
+        # HU-009: reanudar la consulta y guardar las hipótesis, con la misma autorización (authorize_session).
+        "GET /api/ai/sessions/{session_id}/restore", "PATCH /api/ai/sessions/{session_id}/progress",
     ])
     caso.comprobar("rutas con {session_id} = inventario", with_id == expected, f"encontradas: {with_id}")
     caso.nota("Rutas con session_id: " + ", ".join(with_id))

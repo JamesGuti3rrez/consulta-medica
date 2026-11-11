@@ -73,14 +73,14 @@ class SupabaseSessionStore:
 
     def list_open_by_owner(self, owner_id: str) -> list[dict]:
         states: list[dict] = []
-        offset = 0
+        offset, page_size = 0, 100
         while True:
             rows = self._request("GET", SESSIONS_TABLE, params={
                 "select": "state",
                 "state->>owner_id": f"eq.{owner_id}",
                 "phase": "neq.finalizada",
                 "order": "updated_at.desc",
-                "limit": 100,
+                "limit": page_size,
                 "offset": offset,
             }).json()
             if not isinstance(rows, list) or any(
@@ -88,14 +88,15 @@ class SupabaseSessionStore:
                 for row in rows
             ):
                 raise SessionStoreError("Supabase devolvió una lista de sesiones inválida.")
-            if not rows:
-                return states
             states.extend(
                 state for row in rows
                 if (state := row["state"]).get("owner_id") == owner_id
                 and state.get("phase") != "finalizada"
                 and not state.get("group_assignment_id")
             )
+            # Una página incompleta es la última: no hace falta pedir otra vacía.
+            if len(rows) < page_size:
+                return states
             offset += len(rows)
 
     def save(self, state: dict) -> None:

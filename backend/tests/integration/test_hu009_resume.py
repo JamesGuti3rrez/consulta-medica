@@ -81,6 +81,22 @@ def test_list_and_restore_are_limited_to_the_owner_and_open_individual_sessions(
     assert denied.status_code == 404
 
 
+def test_another_student_cannot_overwrite_the_saved_hypotheses(resume_environment):
+    session_id = _start("alice")
+    mine = [{"name": "Migraña", "discarded": False, "reason": ""}]
+    assert client.patch(f"/api/ai/sessions/{session_id}/progress",
+                        json={"hypotheses": mine}, headers=_headers("alice")).status_code == 200
+
+    denied = client.patch(
+        f"/api/ai/sessions/{session_id}/progress",
+        json={"hypotheses": [{"name": "Hipótesis ajena", "discarded": False, "reason": ""}]},
+        headers=_headers("bob"),
+    )
+
+    assert denied.status_code == 404
+    assert resume_environment.get(session_id)["student_hypotheses"] == mine
+
+
 def test_restore_includes_turns_revealed_evidence_and_saved_hypotheses():
     session_id = _start()
     message = client.post(

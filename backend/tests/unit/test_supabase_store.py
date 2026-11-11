@@ -66,6 +66,25 @@ def test_list_open_by_owner_filters_again_in_the_server():
     assert queried[0].url.params["phase"] == "neq.finalizada"
 
 
+def test_list_open_by_owner_reads_every_page_and_stops_on_the_last():
+    owner_id = "alumno-1"
+    rows = [{"state": {"session_id": f"sesion-{index}", "owner_id": owner_id, "phase": "anamnesis"}}
+            for index in range(150)]
+    offsets = []
+
+    def handle(request):
+        offset, limit = int(request.url.params["offset"]), int(request.url.params["limit"])
+        offsets.append(offset)
+        return httpx.Response(200, json=rows[offset:offset + limit])
+
+    client = httpx.Client(transport=httpx.MockTransport(handle))
+    states = SupabaseSessionStore("https://proyecto.supabase.co", "sb_secret_prueba",
+                                  client=client).list_open_by_owner(owner_id)
+
+    assert len(states) == 150
+    assert offsets == [0, 100]
+
+
 def test_events_keep_their_order(fake):
     store = _store(fake)
     store.create(_state())
