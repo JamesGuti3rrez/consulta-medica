@@ -26,6 +26,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const addHypothesisButton = $('add-hypothesis');
   const hypothesesList = $('hypotheses-list');
   const hypothesesFeedback = $('hypotheses-feedback');
+  const inactivityOverlay = $('inactivity-overlay');
+  const resumeAfterInactivity = $('resume-after-inactivity');
   const diagnosisPanel = $('diagnosis-panel');
   const diagnosisInput = $('diagnosis-input');
   const diagnosisMic = $('diagnosis-mic');
@@ -61,6 +63,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Solo para pruebas: simulacion.html?caso=EME-103 abre ese caso (guía de pruebas en docs/).
   let testCase = new URLSearchParams(window.location.search).get('caso');
   const groupActivityId = new URLSearchParams(window.location.search).get('actividad');
+  const resumeSessionId = new URLSearchParams(window.location.search).get('sesion');
 
   // Casos ya vistos en esta pestaña (el actual primero): «Probar otro caso» no repite paciente.
   // Se guardan en sessionStorage y no en la URL, para que el estudiante no vea códigos de caso.
@@ -101,14 +104,62 @@ document.addEventListener('DOMContentLoaded', async () => {
   let finalTranscript = '';
   let studentPreview = null;
   let aiSessionId = null;
+  let progressSaveChain = Promise.resolve();
   // Credencial de capacidad de una consulta de invitado: solo vive en memoria y se envía en cada petición.
   let aiSessionToken = null;
   let hypotheses = [];
   let discardingIndex = null;
   let consultationClosed = false;
   let currentCase = null;
+  let activeTabName = 'ficha';
+  let inactivityTimer = null;
+  let inactivityPaused = false;
+  let lastActivityAt = 0;
+  const INACTIVITY_LIMITS = { consulta: 5 * 60 * 1000, hipotesis: 10 * 60 * 1000 };
+
+  const inactivityLimit = () => INACTIVITY_LIMITS[activeTabName] || INACTIVITY_LIMITS.consulta;
+  const inactivityEligible = () => interviewing && !consultationClosed && Boolean(currentCase);
+  const stopInactivityTimer = () => {
+    window.clearTimeout(inactivityTimer);
+    inactivityTimer = null;
+  };
+  const pauseForInactivity = () => {
+    if (!inactivityEligible() || inactivityPaused) return;
+    inactivityPaused = true;
+    stopInactivityTimer();
+    if (recognition && isListening) {
+      cancelListening = true;
+      recognition.abort();
+    }
+    stopSpeech();
+    if (inactivityOverlay) {
+      inactivityOverlay.hidden = false;
+      resumeAfterInactivity?.focus();
+    }
+  };
+  const scheduleInactivityTimer = (resetActivity = false) => {
+    stopInactivityTimer();
+    if (!inactivityEligible() || inactivityPaused) return;
+    if (resetActivity || !lastActivityAt) lastActivityAt = Date.now();
+    const remaining = inactivityLimit() - (Date.now() - lastActivityAt);
+    if (remaining <= 0) {
+      pauseForInactivity();
+      return;
+    }
+    inactivityTimer = window.setTimeout(() => {
+      if (isRunning && !isListening) {
+        scheduleInactivityTimer(true);
+        return;
+      }
+      pauseForInactivity();
+    }, remaining);
+  };
+  const recordInactivityActivity = () => {
+    scheduleInactivityTimer(true);
+  };
 
   const showTab = name => {
+    activeTabName = name;
     tabButtons.forEach(button => {
       const active = button.dataset.tab === name;
       button.classList.toggle('is-active', active);
@@ -120,6 +171,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       panel.hidden = panel.dataset.tabPanel !== name;
     });
     if (name === 'consulta' && conversation) conversation.scrollTop = conversation.scrollHeight;
+    scheduleInactivityTimer(true);
   };
 
   tabButtons.forEach((button, index) => {
@@ -131,6 +183,37 @@ document.addEventListener('DOMContentLoaded', async () => {
       showTab(next.dataset.tab);
       next.focus();
     });
+  });
+
+  ['pointerdown', 'keydown', 'input', 'touchstart'].forEach(eventName => {
+    document.addEventListener(eventName, () => {
+      if (!inactivityPaused) recordInactivityActivity();
+    }, { passive: eventName === 'touchstart' });
+  });
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible' && !inactivityPaused) scheduleInactivityTimer();
+  });
+  resumeAfterInactivity?.addEventListener('click', () => {
+    inactivityPaused = false;
+    lastActivityAt = Date.now();
+    if (inactivityOverlay) inactivityOverlay.hidden = true;
+    setStatus('Consulta retomada. Puedes continuar donde la dejaste.');
+    scheduleInactivityTimer();
+    (activeTabName === 'hipotesis' ? hypothesisInput : micButton)?.focus();
+  });
+  inactivityOverlay?.addEventListener('keydown', event => {
+    if (event.key !== 'Tab') return;
+    const focusable = [...inactivityOverlay.querySelectorAll('a[href], button:not([disabled])')];
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
   });
 
   // Los avisos de estado no se muestran al estudiante; el recuadro solo aparece ante un error.
@@ -417,6 +500,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     setPill(patientStatus, 'Listo');
     if (conversationStatus) conversationStatus.textContent = 'Tu turno';
     isRunning = false;
+    scheduleInactivityTimer(true);
   };
 
   const recordSection = (label, text) => {
@@ -466,6 +550,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     emptyRecord.hidden = true;
     show(record);
     conversation.dataset.started = 'false';
+  };
+
+  const restoreRecord = () => {
+    const [header, chief, history, allergies] = record.children;
+    [header, chief, history, allergies].forEach(section => { section.hidden = false; });
   };
 
   const presentCase = async (patientCase, current) => {
@@ -535,12 +624,42 @@ document.addEventListener('DOMContentLoaded', async () => {
     return headers;
   };
 
-  const startSimulation = async ({ another = false } = {}) => {
+  const persistHypotheses = () => {
+    if (!aiSessionId || consultationClosed || groupActivityId) return;
+    const sessionId = aiSessionId;
+    const savedHypotheses = hypotheses.map(({ name, discarded, reason }) => ({
+      name, discarded, reason: reason || '',
+    }));
+    progressSaveChain = progressSaveChain.then(async () => {
+      if (sessionId !== aiSessionId) return;
+      try {
+        const response = await fetch(`/api/ai/sessions/${encodeURIComponent(sessionId)}/progress`, {
+          method: 'PATCH',
+          headers: await conversationHeaders(),
+          body: JSON.stringify({ hypotheses: savedHypotheses }),
+        });
+        if (!response.ok) {
+          const body = await response.json().catch(() => ({}));
+          throw new Error(body.detail || `No se pudo guardar el progreso (HTTP ${response.status}).`);
+        }
+      } catch (error) {
+        if (sessionId === aiSessionId) {
+          setStatus(error.message || 'No se pudieron guardar tus hipótesis.', true);
+          if (hypothesesFeedback) hypothesesFeedback.textContent = 'No se pudieron guardar tus hipótesis. Revisa la conexión e inténtalo de nuevo.';
+        }
+      }
+    });
+  };
+
+  const startSimulation = async ({ another = false, resume = false } = {}) => {
     if (isRunning) return;
+    stopInactivityTimer();
+    inactivityPaused = false;
+    if (inactivityOverlay) inactivityOverlay.hidden = true;
     isRunning = true;
     session += 1;
     const current = session;
-    hypotheses = [];
+    if (!resume) hypotheses = [];
     discardingIndex = null;
     consultationClosed = false;
     interviewing = false;
@@ -551,8 +670,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     let patientCase;
     let groupTurn = null;
+    let restored = null;
     try {
-      if (groupActivityId) {
+      if (resume) {
+        restored = await (await window.auth.api(
+          `/api/ai/sessions/${encodeURIComponent(resumeSessionId)}/restore`
+        )).json();
+        patientCase = restored.case;
+      } else if (groupActivityId) {
         groupTurn = await (await window.auth.api(`/api/grupos/actividades/${encodeURIComponent(groupActivityId)}/iniciar`, { method: 'POST' })).json();
         patientCase = groupTurn.caso;
       } else {
@@ -565,19 +690,49 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     } catch (error) {
       console.error('No se pudo cargar un caso:', error);
-      setStatus(groupActivityId ? error.message : 'No se pudo cargar el caso. Verifica la conexión e inténtalo de nuevo.', true);
+      setStatus((groupActivityId || resume) ? error.message : 'No se pudo cargar el caso. Verifica la conexión e inténtalo de nuevo.', true);
       startButton.disabled = !caseAvailable;
-      startButton.lastChild.textContent = caseAvailable ? ' Reintentar' : ' Sin casos disponibles';
+      startButton.lastChild.textContent = resume ? ' Reintentar recuperación'
+        : caseAvailable ? ' Reintentar' : ' Sin casos disponibles';
       isRunning = false;
       return;
     }
 
     currentCase = patientCase;
     preloadScene(patientScene());
-    rememberCase(patientCase.case_id);
-    aiSessionId = groupTurn ? groupTurn.session.session_id : await openConversation(patientCase.case_id);
+    if (!resume) rememberCase(patientCase.case_id);
+    aiSessionId = restored ? restored.session.session_id
+      : groupTurn ? groupTurn.session.session_id : await openConversation(patientCase.case_id);
     if (groupTurn) aiSessionToken = null;
+    if (restored) aiSessionToken = null;
     resetRecord(patientCase);
+    if (restored) {
+      restoreRecord();
+      setScene(patientScene());
+      hypotheses = Array.isArray(restored.hypotheses) ? restored.hypotheses : [];
+      renderHypotheses();
+      addClinicalEvidence(restored.evidences);
+      for (const event of restored.events.filter(item => item.type === 'turn')) {
+        if (event.student_message) appendChat(event.student_message, 'student');
+        if (event.response_text) {
+          appendChat(event.response_text, ({ paciente: 'patient', medico_asistente: 'doctor' })[event.agent] || event.agent);
+        }
+      }
+      interviewing = true;
+      show(startButton, false);
+      show(micButton);
+      if (micButton) micButton.disabled = false;
+      show(diagnosisButton);
+      if (diagnosisButton) diagnosisButton.disabled = false;
+      show(hypothesesPanel);
+      simulatorStatus.textContent = `Consulta en curso · ${restored.session.phase}`;
+      recordStatus.lastChild.textContent = 'En consulta';
+      if (nextPrompt) nextPrompt.textContent = 'Continúa la consulta donde la dejaste.';
+      setStatus('Consulta recuperada. Puedes continuar con el historial y las evidencias ya obtenidas.');
+      showTab('consulta');
+      setReady();
+      return;
+    }
     showTab('ficha');
     simulatorStatus.textContent = 'Presentación del caso';
     recordStatus.lastChild.textContent = 'En consulta';
@@ -715,19 +870,20 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (event.results[index].isFinal) finalTranscript += text;
       }
       if (visible.trim() && studentPreview) {
+        recordInactivityActivity();
         studentPreview.textContent = visible.trim();
         conversation.scrollTop = conversation.scrollHeight;
       }
     };
 
     recognition.onerror = event => {
-      cancelListening = false;
+      if (!inactivityPaused) cancelListening = false;
       isRunning = false;
       isListening = false;
       setMicListening(false);
       setPill(patientStatus, 'Listo');
       removeStudentPreview();
-      if (event.error !== 'aborted') {
+      if (event.error !== 'aborted' && !inactivityPaused) {
         window.alert('No se pudo usar el micrófono. Revisa el permiso del navegador.');
       }
     };
@@ -736,6 +892,11 @@ document.addEventListener('DOMContentLoaded', async () => {
       isListening = false;
       setMicListening(false);
       removeStudentPreview();
+      if (inactivityPaused) {
+        cancelListening = false;
+        isRunning = false;
+        return;
+      }
       if (cancelListening) {
         cancelListening = false;
         setReady();
@@ -874,6 +1035,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           discardingIndex = null;
           if (hypothesesFeedback) hypothesesFeedback.textContent = `Descartaste ${hypothesis.name}.`;
           renderHypotheses();
+          persistHypotheses();
         };
         confirmButton.addEventListener('click', confirmDiscard);
         reasonInput.addEventListener('keydown', event => { if (event.key === 'Enter') confirmDiscard(); });
@@ -912,6 +1074,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     hypothesisInput.value = '';
     if (hypothesesHint) hypothesesHint.textContent = 'Actualiza tus hipótesis a medida que obtengas nuevos datos.';
     renderHypotheses();
+    persistHypotheses();
   };
 
   addHypothesisButton?.addEventListener('click', addHypothesis);
@@ -1208,6 +1371,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     setSubmitting(false);
     show(diagnosisConfirm, false);
     consultationClosed = true;
+    stopInactivityTimer();
     discardingIndex = null;
     session += 1;
     stopAllSpeech();
@@ -1250,6 +1414,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     hideEvaluation();
     aiSessionId = null;
     aiSessionToken = null;
+    stopInactivityTimer();
+    inactivityPaused = false;
+    if (inactivityOverlay) inactivityOverlay.hidden = true;
     isRunning = false;
     [saveDiagnosis, confirmDiagnosis, cancelConfirm, diagnosisMic, hypothesisInput, hypothesisMic, addHypothesisButton].forEach(element => {
       if (element) element.disabled = false;
@@ -1275,6 +1442,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   startButton.addEventListener('click', startSimulation);
 
   try {
+    if (resumeSessionId) {
+      caseAvailable = true;
+      startButton.disabled = false;
+      startButton.lastChild.textContent = ' Recuperando consulta...';
+      simulatorStatus.textContent = 'Recuperando consulta';
+      setStatus('Recuperando tu consulta pendiente.');
+      startSimulation({ resume: true });
+      return;
+    }
     if (groupActivityId) {
       const data = await (await window.auth.api(`/api/grupos/actividades/${encodeURIComponent(groupActivityId)}`)).json();
       caseAvailable = true; startButton.disabled = false;

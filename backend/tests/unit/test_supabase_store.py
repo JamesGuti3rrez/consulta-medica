@@ -1,3 +1,4 @@
+import httpx
 import pytest
 
 from server.orchestration import SessionNotFound, SessionStoreError, SupabaseSessionStore
@@ -38,6 +39,31 @@ def test_a_second_instance_sees_the_session(fake):
     """Lo que falló en Vercel: la sesión creada por una instancia debe existir para otra."""
     _store(fake).create(_state())
     assert _store(fake).get(SID)["case_id"] == "MED-900"
+
+
+def test_list_open_by_owner_filters_again_in_the_server():
+    owner_id = "alumno-1"
+    queried = []
+
+    def handle(request):
+        queried.append(request)
+        return httpx.Response(200, json=[
+            {"state": {"session_id": SID, "owner_id": owner_id, "phase": "anamnesis"}},
+            {"state": {"session_id": "5af956e6-7820-461c-9d96-31bda9373aa7",
+                       "owner_id": owner_id, "phase": "anamnesis", "group_assignment_id": "actividad"}},
+            {"state": {"session_id": "5af956e6-7820-461c-9d96-31bda9373aa8",
+                       "owner_id": "alumno-2", "phase": "anamnesis"}},
+            {"state": {"session_id": "5af956e6-7820-461c-9d96-31bda9373aa9",
+                       "owner_id": owner_id, "phase": "finalizada"}},
+        ])
+
+    client = httpx.Client(transport=httpx.MockTransport(handle))
+    states = SupabaseSessionStore("https://proyecto.supabase.co", "sb_secret_prueba",
+                                  client=client).list_open_by_owner(owner_id)
+
+    assert [state["session_id"] for state in states] == [SID]
+    assert queried[0].url.params["state->>owner_id"] == f"eq.{owner_id}"
+    assert queried[0].url.params["phase"] == "neq.finalizada"
 
 
 def test_events_keep_their_order(fake):

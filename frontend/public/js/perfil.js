@@ -7,6 +7,9 @@
   const toggle = document.querySelector('[data-role="profile-toggle"]');
   const menu = document.querySelector('[data-role="profile-menu"]');
   const themeButtons = [...document.querySelectorAll('[data-theme-option]')];
+  let pendingSessionsDialog = null;
+  let sessionUserId = null;
+  let pendingSessionsRequest = 0;
 
   const fill = (role, text) => {
     document.querySelectorAll(`[data-role="${role}"]`).forEach((element) => {
@@ -16,6 +19,16 @@
 
   function renderSession(user) {
     const signedIn = Boolean(user);
+    const nextUserId = user?.id || null;
+    if (sessionUserId !== nextUserId) {
+      pendingSessionsRequest += 1;
+      if (pendingSessionsDialog) {
+        pendingSessionsDialog.overlay.hidden = true;
+        pendingSessionsDialog.list.replaceChildren();
+        pendingSessionsDialog.status.textContent = '';
+      }
+      sessionUserId = nextUserId;
+    }
     if (guest) guest.hidden = signedIn;
     if (account) account.hidden = !signedIn;
     let groupsLink = document.querySelector('[data-role="my-groups"]');
@@ -28,6 +41,24 @@
       menu.querySelector('[data-role="logout"]')?.parentElement.before(groupsLink);
     }
     if (groupsLink) groupsLink.hidden = !signedIn;
+    let pendingLink = menu?.querySelector('[data-role="open-pending-sessions"]');
+    if (!pendingLink && menu) {
+      const section = document.createElement('div');
+      section.className = 'border-b border-slate-200 py-2';
+      pendingLink = document.createElement('button');
+      pendingLink.type = 'button';
+      pendingLink.dataset.role = 'open-pending-sessions';
+      pendingLink.className = 'menu-item';
+      const icon = document.createElement('span');
+      icon.className = 'material-symbols-outlined';
+      icon.setAttribute('aria-hidden', 'true');
+      icon.textContent = 'resume';
+      pendingLink.append(icon, document.createTextNode('Consultas pendientes'));
+      pendingLink.addEventListener('click', openPendingSessions);
+      section.append(pendingLink);
+      menu.querySelector('[data-role="open-history"]')?.parentElement.before(section);
+    }
+    if (pendingLink) pendingLink.hidden = !signedIn;
     const existingLink = document.querySelector('[data-role="teacher-panel"]');
     if (existingLink) existingLink.hidden = true;
     if (signedIn) window.setTimeout(async () => {
@@ -189,6 +220,91 @@
     if (report.safety_alerts?.length) facts.push('con alerta de seguridad');
     if (facts.length) item.append(element('p', 'history-facts', facts.join(' · ')));
     return item;
+  }
+
+  function buildPendingSessionsDialog() {
+    const overlay = element('div', 'history-overlay');
+    overlay.hidden = true;
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-labelledby', 'pending-sessions-title');
+    const panel = element('div', 'history-panel');
+    const header = element('div', 'history-header');
+    const titles = element('div');
+    const title = element('h2', 'history-title', 'Consultas pendientes');
+    title.id = 'pending-sessions-title';
+    const subtitle = element('p', 'history-subtitle', 'Retoma una consulta que todavía está abierta.');
+    titles.append(title, subtitle);
+    const close = element('button', 'history-close');
+    close.type = 'button';
+    close.setAttribute('aria-label', 'Cerrar');
+    close.append(element('span', 'material-symbols-outlined', 'close'));
+    header.append(titles, close);
+    const status = element('p', 'history-status');
+    status.setAttribute('aria-live', 'polite');
+    const list = element('ul', 'history-list');
+    panel.append(header, status, list);
+    overlay.append(panel);
+    document.body.append(overlay);
+
+    const hide = () => {
+      overlay.hidden = true;
+      menu?.querySelector('[data-role="open-pending-sessions"]')?.focus();
+    };
+    close.addEventListener('click', hide);
+    overlay.addEventListener('click', event => { if (event.target === overlay) hide(); });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && !overlay.hidden) hide();
+    });
+    return { overlay, close, status, list };
+  }
+
+  async function openPendingSessions() {
+    closeMenu();
+    pendingSessionsDialog ??= buildPendingSessionsDialog();
+    const dialog = pendingSessionsDialog;
+    const request = ++pendingSessionsRequest;
+    const requestedUserId = sessionUserId;
+    dialog.list.replaceChildren();
+    dialog.status.textContent = 'Cargando tus consultas...';
+    dialog.overlay.hidden = false;
+    dialog.close.focus();
+    try {
+      const { sessions } = await (await window.auth.api('/api/ai/sessions')).json();
+      if (request !== pendingSessionsRequest || requestedUserId !== sessionUserId) return;
+      dialog.status.textContent = sessions.length
+        ? `${sessions.length} ${sessions.length === 1 ? 'consulta pendiente' : 'consultas pendientes'}.`
+        : 'No tienes consultas pendientes.';
+      dialog.list.replaceChildren(...sessions.map(session => {
+        const item = element('li', 'history-item');
+        const updatedAt = session.updated_at || session.started_at;
+        const date = updatedAt && !Number.isNaN(new Date(updatedAt).getTime())
+          ? new Date(updatedAt).toLocaleString('es-PE', {
+            day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit',
+          })
+          : '';
+        const phase = {
+          presentacion: 'Presentación',
+          anamnesis: 'Anamnesis',
+          examenes: 'Exámenes',
+          hipotesis: 'Hipótesis',
+          diagnostico: 'Diagnóstico',
+          cierre: 'Cierre',
+        }[session.phase] || 'En curso';
+        item.append(
+          element('p', 'history-specialty', SPECIALTIES[session.specialty] || 'Consulta'),
+          element('p', 'history-detail', session.title),
+          element('p', 'history-facts', [phase, date].filter(Boolean).join(' · ')),
+        );
+        const resume = element('a', 'menu-item', 'Continuar consulta');
+        resume.href = `simulacion.html?sesion=${encodeURIComponent(session.session_id)}`;
+        item.append(resume);
+        return item;
+      }));
+    } catch (error) {
+      if (request !== pendingSessionsRequest || requestedUserId !== sessionUserId) return;
+      dialog.status.textContent = error.message || 'No se pudieron cargar tus consultas pendientes.';
+    }
   }
 
   async function openHistory() {

@@ -30,7 +30,7 @@ def _uuid(session_id: str) -> str:
 
 
 class SupabaseSessionStore:
-    """Misma interfaz que InMemorySessionStore: create, get, save, event y events."""
+    """Sesiones Supabase: create, get, list_open_by_owner, save, event y events."""
 
     def __init__(self, url: str, secret_key: str, client: httpx.Client | None = None, timeout: float = 10.0):
         if not url or not secret_key:
@@ -70,6 +70,33 @@ class SupabaseSessionStore:
         if not rows:
             raise SessionNotFound(session_id)
         return rows[0]["state"]
+
+    def list_open_by_owner(self, owner_id: str) -> list[dict]:
+        states: list[dict] = []
+        offset = 0
+        while True:
+            rows = self._request("GET", SESSIONS_TABLE, params={
+                "select": "state",
+                "state->>owner_id": f"eq.{owner_id}",
+                "phase": "neq.finalizada",
+                "order": "updated_at.desc",
+                "limit": 100,
+                "offset": offset,
+            }).json()
+            if not isinstance(rows, list) or any(
+                not isinstance(row, dict) or not isinstance(row.get("state"), dict)
+                for row in rows
+            ):
+                raise SessionStoreError("Supabase devolvió una lista de sesiones inválida.")
+            if not rows:
+                return states
+            states.extend(
+                state for row in rows
+                if (state := row["state"]).get("owner_id") == owner_id
+                and state.get("phase") != "finalizada"
+                and not state.get("group_assignment_id")
+            )
+            offset += len(rows)
 
     def save(self, state: dict) -> None:
         params = {"session_id": f"eq.{_uuid(state['session_id'])}", "select": "session_id"}
