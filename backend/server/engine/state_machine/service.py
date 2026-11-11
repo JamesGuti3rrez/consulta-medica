@@ -44,9 +44,15 @@ class ClinicalStateMachine:
     """Fases clínicas y estado visual determinísticos; no infiere deterioro del paciente."""
 
     def advance(self, current: SessionPhase, intent: Intent) -> SessionPhase:
+        if not isinstance(current, SessionPhase):
+            raise ValueError(f"Fase clínica no válida: {current!r}")
+        if not isinstance(intent, Intent):
+            raise ValueError(f"Intención clínica no válida: {intent!r}")
         if current == SessionPhase.FINALIZADA:
             return current
         target = _TARGET_BY_INTENT[intent]
+        if current == SessionPhase.CIERRE:
+            return current
         if target == SessionPhase.CIERRE:
             return target
         # La fase representa progreso alcanzado, no restringe volver a preguntar a otro agente.

@@ -77,3 +77,66 @@ def test_direct_dialogue_ignores_legacy_doctor_echo_in_context_preserving_record
     assert reply['doctor_question'] is None
     assert len(received) == 2 and old_echo not in received
     assert old_echo in service.store.get(sid)['history']  # No se borra la evidencia histórica.
+
+
+def test_ambiguous_agent_requests_are_clarified_by_the_assistant(api):
+    client, _, _ = api
+    sid, headers = start(client)
+
+    reply = ask(client, sid, headers, 'Solicito un hemograma y una radiografía')
+
+    assert reply['agent'] == AgentRole.MEDICO_ASISTENTE.value
+    assert reply['doctor_question'] is None
+    assert reply['response'] == 'Solicitó varios exámenes a la vez; indíqueme uno por mensaje.'
+    assert reply['provider'] == 'reglas'
+
+
+def test_summary_of_laboratory_results_stays_with_laboratory_agent(api):
+    client, _, _ = api
+    sid, headers = start(client, case_id='MED-101')
+
+    reply = ask(client, sid, headers, 'Dame un resumen de los resultados de laboratorio del hemograma')
+
+    assert reply['agent'] == AgentRole.LABORATORIO.value
+    assert reply['evidence_ids'] == ['MED-101.lab.hemograma']
+    assert 'Hemoglobina 12,8 g/dL' in reply['response']
+
+
+def test_single_exam_with_an_incidental_word_of_another_category_is_not_clarified(api):
+    client, _, _ = api
+    sid, headers = start(client, case_id='MED-101')
+
+    reply = ask(client, sid, headers, 'Solicito un hemograma antes de la cirugía')
+
+    assert reply['agent'] == AgentRole.LABORATORIO.value
+    assert reply['evidence_ids'] == ['MED-101.lab.hemograma']
+
+
+def test_physical_exam_phrase_does_not_steal_a_specific_electrocardiogram_request(api):
+    client, _, _ = api
+    sid, headers = start(client, case_id='EME-101')
+
+    reply = ask(client, sid, headers, 'Tomo la presión y pido un electrocardiograma')
+
+    assert reply['agent'] == AgentRole.LABORATORIO.value
+    assert any('electrocardiograma' in evidence_id for evidence_id in reply['evidence_ids'])
+
+
+def test_closing_phase_can_continue_consultation_until_explicit_finalization(api):
+    client, service, _ = api
+    sid, headers = start(client)
+    session = service.store.get(sid)
+    session['phase'] = 'cierre'
+    service.store.save(session)
+
+    reply = ask(client, sid, headers, '¿Cómo se siente ahora?')
+
+    assert reply['agent'] == AgentRole.PACIENTE.value
+    assert reply['session']['phase'] == 'cierre'
+    finished = client.post(
+        f'/api/ai/sessions/{sid}/finish',
+        headers=headers,
+        json={'diagnosis': 'Migraña', 'confirmado': True},
+    )
+    assert finished.status_code == 200, finished.text
+    assert finished.json()['phase'] == 'finalizada'
