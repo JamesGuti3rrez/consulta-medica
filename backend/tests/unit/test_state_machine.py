@@ -1,3 +1,5 @@
+import pytest
+
 from server.domain import Intent, SessionPhase
 from server.engine.state_machine.service import ClinicalStateMachine
 
@@ -11,6 +13,24 @@ def test_state_machine_tracks_progress_without_forcing_agent_pipeline():
     # Volver al paciente no hace retroceder la fase ni impide el routing.
     assert machine.advance(phase, Intent.ASK_PATIENT) == SessionPhase.EXAMENES
     assert machine.advance(phase, Intent.PROPOSE_HYPOTHESIS) == SessionPhase.HIPOTESIS
+
+
+def test_closing_phase_allows_consultation_intents_without_reopening_or_regressing():
+    machine = ClinicalStateMachine()
+
+    assert machine.advance(SessionPhase.CIERRE, Intent.ASK_PATIENT) == SessionPhase.CIERRE
+    assert machine.advance(SessionPhase.CIERRE, Intent.REQUEST_LAB) == SessionPhase.CIERRE
+    assert machine.advance(SessionPhase.CIERRE, Intent.FINISH) == SessionPhase.CIERRE
+    assert machine.advance(SessionPhase.FINALIZADA, Intent.ASK_PATIENT) == SessionPhase.FINALIZADA
+
+
+def test_unknown_phase_or_intent_is_rejected_with_a_clear_error():
+    machine = ClinicalStateMachine()
+
+    with pytest.raises(ValueError, match="Fase clínica no válida"):
+        machine.advance("fase_desconocida", Intent.ASK_PATIENT)
+    with pytest.raises(ValueError, match="Intención clínica no válida"):
+        machine.advance(SessionPhase.ANAMNESIS, "intencion_desconocida")
 
 
 def test_avatar_keeps_case_vitals_and_records_alerts_without_simulating_complications():

@@ -65,6 +65,21 @@ class DecisionRouter:
             return RouteDecision(Intent.PROPOSE_TREATMENT, AgentRole.MEDICO_ASISTENTE, 0.98, "propuesta de tratamiento")
         if mentions(self.HYPOTHESIS):
             return RouteDecision(Intent.PROPOSE_HYPOTHESIS, AgentRole.MEDICO_ASISTENTE, 0.95, "registro de hipótesis")
+        requested_agents = set()
+        if mentions(self.LAB):
+            requested_agents.add(AgentRole.LABORATORIO)
+        if mentions(self.RADIOLOGY):
+            requested_agents.add(AgentRole.RADIOLOGIA)
+        if mentions(self.SPECIALIST):
+            requested_agents.add(AgentRole.ESPECIALISTA)
+        explicit_assistant_request = mentions(self.EXAMINE) or mentions(self.ASSISTANT)
+        if explicit_assistant_request or (
+            not requested_agents and self.generic_exam_request(message)
+        ):
+            requested_agents.add(AgentRole.MEDICO_ASISTENTE)
+        if len(requested_agents) > 1:
+            return RouteDecision(Intent.ASK_ASSISTANT, AgentRole.MEDICO_ASISTENTE, 0.9,
+                                 "solicitud simultánea para varios agentes; se requiere aclaración")
         if mentions(self.LAB):
             return RouteDecision(Intent.REQUEST_LAB, AgentRole.LABORATORIO, 0.95, "términos de laboratorio")
         if mentions(self.RADIOLOGY):

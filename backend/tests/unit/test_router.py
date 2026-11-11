@@ -2,6 +2,30 @@ from server.domain import AgentRole, Intent
 from server.orchestration.router import DecisionRouter
 
 
+def test_requests_for_multiple_agents_are_routed_for_clarification():
+    decision = DecisionRouter().route("Solicito un hemograma y una radiografía")
+
+    assert decision.target == AgentRole.MEDICO_ASISTENTE
+    assert decision.intent == Intent.ASK_ASSISTANT
+
+
+def test_unknown_clinical_request_uses_the_deterministic_patient_fallback():
+    decision = DecisionRouter().route("¿Cómo se siente ahora?")
+
+    assert decision.target == AgentRole.PACIENTE
+    assert decision.intent == Intent.ASK_PATIENT
+
+
+def test_explicit_diagnosis_and_finish_keep_priority_over_ambiguous_keywords():
+    router = DecisionRouter()
+
+    diagnosis = router.route("Mi diagnóstico final es migraña y solicito un hemograma")
+    finish = router.route("Finalizar consulta y solicitar una radiografía")
+
+    assert diagnosis.intent == Intent.PROPOSE_DIAGNOSIS
+    assert finish.intent == Intent.FINISH
+
+
 def test_router_star_routes_five_agents_and_clinical_intents():
     router = DecisionRouter()
     assert router.route("¿Desde cuándo comenzó el dolor?").target == AgentRole.PACIENTE
@@ -65,6 +89,10 @@ def test_unspecified_medical_exams_are_clarified_by_the_assistant():
 
 def test_specific_exam_agents_take_precedence_over_generic_exam_words():
     router = DecisionRouter()
-    assert router.route("Hagamos exámenes de laboratorio").target == AgentRole.LABORATORIO
-    assert router.route("Solicito un examen de imagen").target == AgentRole.RADIOLOGIA
-    assert router.route("Pido pruebas de coagulación").target == AgentRole.LABORATORIO
+    for message, target in (
+        ("Hagamos exámenes de laboratorio", AgentRole.LABORATORIO),
+        ("Solicito un examen de imagen", AgentRole.RADIOLOGIA),
+        ("Pido pruebas de coagulación", AgentRole.LABORATORIO),
+    ):
+        decision = router.route(message)
+        assert decision.target == target

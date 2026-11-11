@@ -77,3 +77,34 @@ def test_direct_dialogue_ignores_legacy_doctor_echo_in_context_preserving_record
     assert reply['doctor_question'] is None
     assert len(received) == 2 and old_echo not in received
     assert old_echo in service.store.get(sid)['history']  # No se borra la evidencia histórica.
+
+
+def test_ambiguous_agent_requests_are_clarified_by_the_assistant(api):
+    client, _, _ = api
+    sid, headers = start(client)
+
+    reply = ask(client, sid, headers, 'Solicito un hemograma y una radiografía')
+
+    assert reply['agent'] == AgentRole.MEDICO_ASISTENTE.value
+    assert reply['doctor_question'] is None
+    assert reply['response']
+
+
+def test_closing_phase_can_continue_consultation_until_explicit_finalization(api):
+    client, service, _ = api
+    sid, headers = start(client)
+    session = service.store.get(sid)
+    session['phase'] = 'cierre'
+    service.store.save(session)
+
+    reply = ask(client, sid, headers, '¿Cómo se siente ahora?')
+
+    assert reply['agent'] == AgentRole.PACIENTE.value
+    assert reply['session']['phase'] == 'cierre'
+    finished = client.post(
+        f'/api/ai/sessions/{sid}/finish',
+        headers=headers,
+        json={'diagnosis': 'Migraña', 'confirmado': True},
+    )
+    assert finished.status_code == 200, finished.text
+    assert finished.json()['phase'] == 'finalizada'
