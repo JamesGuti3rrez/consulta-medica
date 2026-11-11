@@ -1,0 +1,135 @@
+{
+  "fecha": "2026-11-10T14:37:33-05:00",
+  "base_url": "http://localhost:3000",
+  "etiqueta": "local",
+  "servidor": {
+    "topology": "star",
+    "orchestration": "langgraph-stategraph",
+    "decision_router": "deterministic",
+    "disclosure_policy": "reveal-policy-minimum-privilege",
+    "llm_mode": "local-development",
+    "case_store": "local",
+    "synthetic_case_data": false,
+    "synthetic_exam_data": false,
+    "rag_connected": false,
+    "retrieval_mode": "deterministic-case-fallback",
+    "session_store": "memoria",
+    "langsmith_enabled": false,
+    "agents": [
+      "medico_asistente",
+      "paciente",
+      "laboratorio",
+      "radiologia",
+      "especialista"
+    ],
+    "gateway": [
+      {
+        "name": "local-development",
+        "model": "rules-only",
+        "available": true
+      }
+    ]
+  },
+  "entorno_cliente": {
+    "fecha": "2026-11-10T14:37:33-05:00",
+    "python": "3.13.7",
+    "sistema": "Windows-10-10.0.19045-SP0",
+    "procesador": "Intel64 Family 6 Model 165 Stepping 3, GenuineIntel",
+    "nucleos_logicos": 12
+  },
+  "repeticiones": 2,
+  "casos": [
+    "CIR-006",
+    "CIR-101",
+    "EME-001",
+    "EME-002",
+    "GOB-003",
+    "GOB-004",
+    "MED-007",
+    "MED-101",
+    "PED-009",
+    "PED-101"
+  ],
+  "turnos_enviados": 200,
+  "turnos_ok": 200,
+  "errores_por_status": {},
+  "inicio_sesion_ms": {
+    "n": 20,
+    "media": 13.405000000000001,
+    "de": 2.676304404053824,
+    "min": 9.5,
+    "p50": 12.7,
+    "p90": 16.14,
+    "p95": 16.635,
+    "p99": 18.686999999999998,
+    "max": 19.2
+  },
+  "turno_ms": {
+    "n": 200,
+    "media": 44.606,
+    "de": 9.752348718521,
+    "min": 28.0,
+    "p50": 44.349999999999994,
+    "p90": 58.64,
+    "p95": 61.62500000000001,
+    "p99": 65.705,
+    "max": 68.6
+  },
+  "turno_sin_primero_ms": {
+    "n": 199,
+    "media": 44.539195979899496,
+    "de": 9.730960241881306,
+    "min": 28.0,
+    "p50": 44.3,
+    "p90": 58.68,
+    "p95": 61.65,
+    "p99": 65.71000000000001,
+    "max": 68.6
+  },
+  "turno_por_agente_ms": {
+    "laboratorio": {
+      "n": 14,
+      "media": 52.44285714285714,
+      "de": 6.368155666549508,
+      "min": 41.9,
+      "p50": 54.0,
+      "p90": 59.81,
+      "p95": 60.57,
+      "p99": 60.674,
+      "max": 60.7
+    },
+    "medico_asistente": {
+      "n": 100,
+      "media": 41.213,
+      "de": 8.956614338244133,
+      "min": 28.0,
+      "p50": 38.95,
+      "p90": 52.98,
+      "p95": 58.48999999999999,
+      "p99": 64.81400000000001,
+      "max": 66.2
+    },
+    "paciente": {
+      "n": 80,
+      "media": 47.8675,
+      "de": 9.624806754594667,
+      "min": 29.5,
+      "p50": 46.3,
+      "p90": 61.04,
+      "p95": 62.1,
+      "p99": 66.30899999999998,
+      "max": 68.6
+    },
+    "radiologia": {
+      "n": 6,
+      "media": 39.38333333333333,
+      "de": 4.763367156399627,
+      "min": 35.9,
+      "p50": 36.8,
+      "p90": 45.45,
+      "p95": 45.975,
+      "p99": 46.395,
+      "max": 46.5
+    }
+  }
+}

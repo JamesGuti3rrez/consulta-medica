@@ -1,0 +1,46 @@
+{
+  "fecha": "2026-11-10T14:38:41-05:00",
+  "base_url": "http://localhost:3000",
+  "servidor": {
+    "topology": "star",
+    "orchestration": "langgraph-stategraph",
+    "decision_router": "deterministic",
+    "disclosure_policy": "reveal-policy-minimum-privilege",
+    "llm_mode": "local-development",
+    "case_store": "local",
+    "synthetic_case_data": false,
+    "synthetic_exam_data": false,
+    "rag_connected": false,
+    "retrieval_mode": "deterministic-case-fallback",
+    "session_store": "memoria",
+    "langsmith_enabled": false,
+    "agents": [
+      "medico_asistente",
+      "paciente",
+      "laboratorio",
+      "radiologia",
+      "especialista"
+    ],
+    "gateway": [
+      {
+        "name": "local-development",
+        "model": "rules-only",
+        "available": true
+      }
+    ]
+  },
+  "entorno_cliente": {
+    "fecha": "2026-11-10T14:38:41-05:00",
+    "python": "3.13.7",
+    "sistema": "Windows-10-10.0.19045-SP0",
+    "procesador": "Intel64 Family 6 Model 165 Stepping 3, GenuineIntel",
+    "nucleos_logicos": 12
+  },
+  "turnos": 5,
+  "concurrencias": [
+    1,
+    2,
+    4,
+    8
+  ]
+}

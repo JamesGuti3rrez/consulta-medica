@@ -71,3 +71,11 @@ pruebas/25_autorizacion_sesiones/intentos/03_credencial_alterada_sin_enmascarar/
 
 # Audios generados en las pruebas de voz: se guardan en el equipo, no en GitHub.
 pruebas/**/*.mp3
+
+# Informe actualizado y evidencia de la linea base de metricas TA-024.
+!docs/reference/Informe_Tecnico_corregido.pdf
+!pruebas/38_ta024_metricas/reporte_local/TA-024_Reporte1_linea_base_local.docx
+!pruebas/38_ta024_metricas/reporte_local/TA-024_Reporte1_linea_base_local.pdf
+!pruebas/38_ta024_metricas/graficos/*.png
+!pruebas/38_ta024_metricas/reporte_local/graficos/*.png
+!pruebas/38_ta024_metricas/reporte_local/capturas/*.png

@@ -1,0 +1,13 @@
+﻿specialty,k,queries,retrieval_errors,answerable_queries,negative_queries,security_failures,precision,precision_n,recall,recall_n,hit,hit_n,abstention,abstention_n,ragas_context_precision,ragas_context_precision_n,ragas_context_recall,ragas_context_recall_n,ragas_faithfulness,ragas_faithfulness_n,ragas_response_relevancy,ragas_response_relevancy_n,precision_answerable
+ALL,3,100,0,50,50,0,0.22999999999999998,100,0.9495,50,1.0,50,1.0,50,1.0,50,0.9495,50,,0,,0,0.45999999999999996
+ALL,5,100,0,50,50,0,0.156,100,0.9775,50,1.0,50,1.0,50,1.0,50,0.9775,50,,0,,0,0.312
+cirugia_general,3,20,0,10,10,0,0.23333333333333334,20,0.9375,10,1.0,10,1.0,10,1.0,10,0.9375,10,,0,,0,0.4666666666666667
+cirugia_general,5,20,0,10,10,0,0.16,20,0.9625,10,1.0,10,1.0,10,1.0,10,0.9625,10,,0,,0,0.32
+emergencias,3,20,0,10,10,0,0.18333333333333332,20,1.0,10,1.0,10,1.0,10,1.0,10,1.0,10,,0,,0,0.36666666666666664
+emergencias,5,20,0,10,10,0,0.11,20,1.0,10,1.0,10,1.0,10,1.0,10,1.0,10,,0,,0,0.22
+ginecologia_obstetricia,3,20,0,10,10,0,0.25,20,0.975,10,1.0,10,1.0,10,1.0,10,0.975,10,,0,,0,0.5
+ginecologia_obstetricia,5,20,0,10,10,0,0.16,20,1.0,10,1.0,10,1.0,10,1.0,10,1.0,10,,0,,0,0.32
+medicina_interna,3,20,0,10,10,0,0.25,20,0.8975,10,1.0,10,1.0,10,1.0,10,0.8975,10,,0,,0,0.5
+medicina_interna,5,20,0,10,10,0,0.19,20,0.9625,10,1.0,10,1.0,10,1.0,10,0.9625,10,,0,,0,0.38
+pediatria,3,20,0,10,10,0,0.23333333333333334,20,0.9375,10,1.0,10,1.0,10,1.0,10,0.9375,10,,0,,0,0.4666666666666667
+pediatria,5,20,0,10,10,0,0.16,20,0.9625,10,1.0,10,1.0,10,1.0,10,0.9625,10,,0,,0,0.32

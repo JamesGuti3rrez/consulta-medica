@@ -1,0 +1,54 @@
+{
+  "portada_movil": [
+    {
+      "regla": "color-contrast",
+      "impacto": "serious",
+      "descripcion": "Elements must meet minimum color contrast ratio thresholds",
+      "ayuda": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=axeAPI",
+      "wcag": [
+        "wcag2aa",
+        "wcag143"
+      ],
+      "nodos": [
+        ".text-white\\/85"
+      ]
+    }
+  ],
+  "portada_escritorio": [
+    {
+      "regla": "color-contrast",
+      "impacto": "serious",
+      "descripcion": "Elements must meet minimum color contrast ratio thresholds",
+      "ayuda": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=axeAPI",
+      "wcag": [
+        "wcag2aa",
+        "wcag143"
+      ],
+      "nodos": [
+        ".text-white\\/85"
+      ]
+    }
+  ],
+  "simulacion_movil": [],
+  "simulacion_escritorio": [],
+  "docente_movil": [],
+  "docente_escritorio": [
+    {
+      "regla": "label-content-name-mismatch",
+      "impacto": "serious",
+      "descripcion": "Elements must have their visible text as part of their accessible name",
+      "ayuda": "https://dequeuniversity.com/rules/axe/4.14/label-content-name-mismatch?application=axeAPI",
+      "wcag": [
+        "wcag21a",
+        "wcag253"
+      ],
+      "nodos": [
+        "#toggle-panel-theme"
+      ]
+    }
+  ],
+  "grupos_movil": [],
+  "grupos_escritorio": [],
+  "privacidad_movil": [],
+  "privacidad_escritorio": []
+}
