@@ -31,6 +31,14 @@ class DecisionRouter:
     RADIOLOGY = {"radiografia", "ecografia", "tomografia", "resonancia", "imagen", "rayos x", "tac", "edad osea",
                  "ecocardiografia", "ecocardiograma", "angiografia cerebral", "angiotomografia", "angiotac"}
     SPECIALIST = {"especialista", "interconsulta", "neurologia", "cardiologia", "cirugia", "ginecologia"}
+    # Palabras que dirigen un mensaje a un agente pero que no nombran por sí solas un examen: «antes de la cirugía»,
+    # «sangre libre» o «una imagen del tórax» acompañan muchas veces al pedido de otro examen. No cuentan como un
+    # segundo pedido; sí cuentan sus formas concretas («análisis de sangre», «examen de orina»).
+    LOOSE_TERMS = {"analisis", "sangre", "orina", "imagen", "cirugia"}
+    CONCRETE_LAB = {"analisis de sangre", "analisis de orina", "examen de sangre", "examen de orina",
+                    "examenes de sangre", "prueba de sangre", "pruebas de sangre"}
+    # «no necesito radiografía», «hemograma, no una radiografía», «sin tomografía»: el examen negado no se pide.
+    _NEGATED = re.compile(r"(?:^| )(?:no|sin|ni)(?: [a-z0-9]+){0,2} $")
     ASSISTANT = {"resumen", "que sabemos", "presentacion", "historia clinica", "estado del caso",
                  "el diagnostico", "que tiene el paciente", "cual es la enfermedad"}
     EXAMINE = {"examen fisico", "examinar", "examino", "exploracion", "exploro", "explorar", "neurologico",
@@ -53,20 +61,33 @@ class DecisionRouter:
         return bool(re.search(r"\b(?:examen(?:es)?|pruebas|estudios medicos)\b", _normalize(message)))
 
     @classmethod
+    def _specific_agent_terms(cls) -> tuple[tuple[AgentRole, set[str]], ...]:
+        # El orden es la prioridad de main cuando el mensaje solo trae palabras sueltas.
+        return ((AgentRole.LABORATORIO, cls.LAB), (AgentRole.RADIOLOGIA, cls.RADIOLOGY),
+                (AgentRole.ESPECIALISTA, cls.SPECIALIST))
+
+    @classmethod
     def requested_specific_agents(cls, message: str) -> set[AgentRole]:
+        """Agentes cuyo examen o interconsulta se pide de forma concreta y no negada."""
         text = f" {_normalize(message).strip()} "
 
-        def mentions(terms):
-            return any(f" {term} " in text for term in terms)
+        def requested(terms):
+            for term in terms:
+                for match in re.finditer(f" {re.escape(term)} ", text):
+                    if not cls._NEGATED.search(text[:match.start() + 1]):
+                        return True
+            return False
 
-        requested = set()
-        if mentions(cls.LAB):
-            requested.add(AgentRole.LABORATORIO)
-        if mentions(cls.RADIOLOGY):
-            requested.add(AgentRole.RADIOLOGIA)
-        if mentions(cls.SPECIALIST):
-            requested.add(AgentRole.ESPECIALISTA)
-        return requested
+        concrete = {AgentRole.LABORATORIO: (cls.LAB - cls.LOOSE_TERMS) | cls.CONCRETE_LAB}
+        return {role for role, terms in cls._specific_agent_terms()
+                if requested(concrete.get(role, terms - cls.LOOSE_TERMS))}
+
+    @classmethod
+    def loosely_mentioned_agent(cls, message: str) -> AgentRole | None:
+        """Primer agente nombrado con cualquiera de sus palabras, en el orden de main."""
+        text = f" {_normalize(message).strip()} "
+        return next((role for role, terms in cls._specific_agent_terms()
+                     if any(f" {term} " in text for term in terms)), None)
 
     @classmethod
     def requests_multiple_specific_agents(cls, message: str) -> bool:
@@ -89,8 +110,8 @@ class DecisionRouter:
         if len(requested_agents) > 1:
             return RouteDecision(Intent.ASK_ASSISTANT, AgentRole.MEDICO_ASISTENTE, 0.9,
                                  "solicitud simultánea para varios agentes; se requiere aclaración")
-        if requested_agents:
-            target = next(iter(requested_agents))
+        target = next(iter(requested_agents)) if requested_agents else self.loosely_mentioned_agent(message)
+        if target:
             if target == AgentRole.LABORATORIO:
                 return RouteDecision(Intent.REQUEST_LAB, target, 0.95, "términos de laboratorio")
             if target == AgentRole.RADIOLOGIA:

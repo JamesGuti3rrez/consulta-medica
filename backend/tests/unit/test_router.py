@@ -17,6 +17,45 @@ def test_specific_exam_route_wins_over_general_assistant_or_exam_terms():
     assert router.route("Tomo la presión y pido un electrocardiograma").target == AgentRole.LABORATORIO
 
 
+def test_only_concrete_exam_names_count_as_a_multiple_request():
+    router = DecisionRouter()
+    clarified = [
+        "Solicito un hemograma y una radiografía",
+        "Solicito análisis de sangre y una radiografía de tórax",
+        "Solicito tomografía de cráneo y punción para líquido cefalorraquídeo",
+        "Pido un examen de orina y una ecografía renal",
+    ]
+    for message in clarified:
+        assert router.route(message).target == AgentRole.MEDICO_ASISTENTE, message
+        assert DecisionRouter.requests_multiple_specific_agents(message), message
+
+    # «sangre», «orina», «imagen» o «cirugía» sueltas no son un segundo pedido.
+    single = {
+        "Solicito hemograma antes de la cirugía": AgentRole.LABORATORIO,
+        "Pido una ecografía para ver si hay sangre libre en abdomen": AgentRole.RADIOLOGIA,
+        "Solicito una radiografía para tener una imagen del tórax": AgentRole.RADIOLOGIA,
+        "Quiero interconsulta con cirugía por sangre en las heces": AgentRole.ESPECIALISTA,
+    }
+    for message, target in single.items():
+        assert not DecisionRouter.requests_multiple_specific_agents(message), message
+        assert router.route(message).target == target, message
+
+
+def test_a_negated_exam_is_not_part_of_the_request():
+    router = DecisionRouter()
+
+    for message in ("No necesito radiografía, solo un hemograma", "Solicito hemograma, no una radiografía",
+                    "Sin tomografía por ahora; pido un hemograma"):
+        assert not DecisionRouter.requests_multiple_specific_agents(message), message
+        assert router.route(message).target == AgentRole.LABORATORIO, message
+
+
+def test_loose_words_alone_keep_the_priority_of_main():
+    # Sin pedido concreto se mantiene el orden de main: laboratorio, imagen y especialista.
+    assert DecisionRouter().route("¿Ha tenido sangre en la orina?").target == AgentRole.LABORATORIO
+    assert DecisionRouter().route("¿Le operaron (cirugía) y vio sangre?").target == AgentRole.LABORATORIO
+
+
 def test_unknown_clinical_request_uses_the_deterministic_patient_fallback():
     decision = DecisionRouter().route("¿Cómo se siente ahora?")
 

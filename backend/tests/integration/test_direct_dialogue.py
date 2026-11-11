@@ -93,13 +93,23 @@ def test_ambiguous_agent_requests_are_clarified_by_the_assistant(api):
 
 def test_summary_of_laboratory_results_stays_with_laboratory_agent(api):
     client, _, _ = api
-    sid, headers = start(client, case_id='MED-900')
+    sid, headers = start(client, case_id='MED-101')
 
     reply = ask(client, sid, headers, 'Dame un resumen de los resultados de laboratorio del hemograma')
 
     assert reply['agent'] == AgentRole.LABORATORIO.value
-    assert reply['evidence_ids'] == ['MED-900.laboratorio.hemograma']
-    assert 'Hemograma sin alteraciones relevantes.' in reply['response']
+    assert reply['evidence_ids'] == ['MED-101.lab.hemograma']
+    assert 'Hemoglobina 12,8 g/dL' in reply['response']
+
+
+def test_single_exam_with_an_incidental_word_of_another_category_is_not_clarified(api):
+    client, _, _ = api
+    sid, headers = start(client, case_id='MED-101')
+
+    reply = ask(client, sid, headers, 'Solicito un hemograma antes de la cirugía')
+
+    assert reply['agent'] == AgentRole.LABORATORIO.value
+    assert reply['evidence_ids'] == ['MED-101.lab.hemograma']
 
 
 def test_physical_exam_phrase_does_not_steal_a_specific_electrocardiogram_request(api):

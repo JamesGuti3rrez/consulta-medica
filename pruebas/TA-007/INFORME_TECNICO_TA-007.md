@@ -36,10 +36,11 @@ La lógica de seguridad clínica existente en `backend/server/engine/safety/serv
 - `backend/server/orchestration/router.py`: identifica solicitudes simultáneas dirigidas a distintos agentes y las envía al médico asistente para aclaración. Las solicitudes específicas conservan la prioridad correcta.
 - `backend/server/orchestration/star_graph.py` y `backend/server/ai/agents/medico_asistente.py`: la solicitud de varios tipos de examen activa una aclaración fija y determinista —sin LLM—; no se pierde evidencia por una contestación vaga.
 - El router da prioridad a un único agente de examen específico sobre palabras generales como «resumen» y sobre menciones de exploración física acompañadas de ese examen.
+- Para detectar una solicitud de varios tipos solo cuentan nombres concretos de examen o interconsulta. Las palabras sueltas «sangre», «orina», «análisis», «imagen» y «cirugía» no cuentan como un segundo pedido («hemograma antes de la cirugía» sigue en laboratorio; «ecografía para ver si hay sangre libre», en radiología), y un examen negado tampoco («no necesito radiografía, solo un hemograma»). Si el mensaje solo trae palabras sueltas, se conserva el orden previo: laboratorio, imagen y especialista.
 - `backend/server/engine/state_machine/service.py`: valida fase e intención; la fase de cierre no retrocede ante nuevos turnos y la fase finalizada sigue siendo terminal.
-- `backend/tests/unit/test_router.py`: pruebas de ambigüedad, fallback determinista, prioridad de diagnóstico/cierre y prioridad de exámenes específicos.
+- `backend/tests/unit/test_router.py`: pruebas de ambigüedad, fallback determinista, prioridad de diagnóstico/cierre, prioridad de exámenes específicos, palabras sueltas que no cuentan como segundo pedido y exámenes negados.
 - `backend/tests/unit/test_state_machine.py`: pruebas de continuidad en cierre y rechazo explícito de entradas inválidas.
-- `backend/tests/integration/test_direct_dialogue.py`: pruebas de aclaración exacta para solicitudes ambiguas, conservación de ruta/resultados de laboratorio ante «resumen» y «tomo la presión», y continuidad del diálogo hasta la finalización explícita.
+- `backend/tests/integration/test_direct_dialogue.py`: pruebas de aclaración exacta para solicitudes ambiguas, conservación de ruta/resultados de laboratorio ante «resumen», «tomo la presión» y «antes de la cirugía» (caso curado MED-101), y continuidad del diálogo hasta la finalización explícita.
 - `backend/tests/integration/test_ta007_security_evaluation.py`: nuevas pruebas de bloqueo de salida protegida, traza saneada, aislamiento de IDs de otros casos, solicitudes con IDs inexistentes y coherencia de evidencia, puntaje y diagnóstico final.
 
 No se modificaron las reglas de tratamiento/prescripción, el frontend, Supabase ni la política de RAG.
@@ -89,7 +90,7 @@ En Windows, puede agregarse `--basetemp=..\pruebas\TA-007\<directorio-temporal-n
 
 Adjuntar capturas originales de la terminal con las ejecuciones y, si dispone de ellas, del flujo relevante de la aplicación. Mantenerlas sin editar y conservar sus archivos originales junto con el informe.
 
-- **Figura 1 — Suite integración/seguridad:** ejecución que termina con `26 passed` y sin fallos.
+- **Figura 1 — Suite integración/seguridad:** ejecución que termina con `34 passed` y sin fallos.
 - **Figura 2 — Suite adversarial:** ejecución que termina con `19 passed` y sin fallos.
 - **Figura 3 — Bloqueo de divulgación:** respuesta segura ante intento de revelar el diagnóstico protegido, si se tomó captura de la app o prueba.
 - **Figura 4 — Aislamiento/evidencia:** evidencia autorizada asociada al caso activo y rechazo de referencias ajenas, si existe captura.
