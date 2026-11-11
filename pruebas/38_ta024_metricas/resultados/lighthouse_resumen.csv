@@ -1,0 +1,11 @@
+﻿etiqueta,pagina,modo,rendimiento,accesibilidad,buenas_practicas,seo,fcp_ms,lcp_ms,tbt_ms,cls,speed_index_ms,peso_total_kb
+local,portada,movil,74,96,100,100,1637,8966,0,0,3118,1474
+local,portada,escritorio,92,96,100,100,547,1712,0,0.002,1217,1498
+local,simulacion,movil,74,100,100,100,1640,9188,0,0,3338,1536
+local,simulacion,escritorio,92,100,100,100,539,1761,0,0.003,1076,1553
+local,docente,movil,97,100,100,54,1640,1640,0,0,3943,346
+local,docente,escritorio,100,100,100,54,543,543,0,0,884,346
+local,grupos,movil,100,100,100,54,1212,1212,0,0,1747,270
+local,grupos,escritorio,99,100,100,54,293,293,0,0.001,1278,270
+local,privacidad,movil,100,100,100,100,1487,1487,0,0,2041,29
+local,privacidad,escritorio,100,100,100,100,516,516,0,0,855,29

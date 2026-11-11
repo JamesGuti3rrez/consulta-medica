@@ -1,0 +1,11 @@
+﻿etiqueta,pagina,modo,reglas_violadas,reglas_superadas,nodos_critical,nodos_serious,nodos_moderate,nodos_minor,reglas
+local,portada,movil,1,22,0,1,0,0,color-contrast
+local,portada,escritorio,1,22,0,1,0,0,color-contrast
+local,simulacion,movil,0,23,0,0,0,0,
+local,simulacion,escritorio,0,23,0,0,0,0,
+local,docente,movil,0,18,0,0,0,0,
+local,docente,escritorio,1,18,0,1,0,0,label-content-name-mismatch
+local,grupos,movil,0,12,0,0,0,0,
+local,grupos,escritorio,0,12,0,0,0,0,
+local,privacidad,movil,0,12,0,0,0,0,
+local,privacidad,escritorio,0,12,0,0,0,0,
